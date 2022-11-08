@@ -60,25 +60,25 @@
         </div>
       </div>
 
-      <div class="dropdown d-inline-block language-switch" ngbDropdown>
+      <!-- <div class="dropdown d-inline-block language-switch" ngbDropdown>
         <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" ngbDropdownToggle>
           <img *ngIf="flagvalue !== undefined" src="{{flagvalue}}" alt="Header Language" height="16"><span
           class="ms-1">{{countryName}}</span>
           <img *ngIf="flagvalue === undefined" src="{{valueset}}" alt="Header Language" height="16">
           <span *ngIf="flagvalue === undefined" class="ms-1">English</span>
         </button>
-        <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+        <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu> -->
           <!-- item-->
-          <a href="javascript:void(0);" class="dropdown-item notify-item" *ngFor="let item of listLang"
+          <!-- <a href="javascript:void(0);" class="dropdown-item notify-item" *ngFor="let item of listLang"
             (click)="setLanguage(item.text, item.lang, item.flag)" [ngClass]="{'active': cookieValue === item.lang}">
             <img src="{{item.flag}}" alt="user-image" class="me-1" height="12">
             <span class="align-middle">{{item.text}}</span>
-          </a>
+          </a> -->
           <!-- item-->
-        </div>
-      </div>
+        <!-- </div>
+      </div> -->
 
-      <div class="dropdown d-none d-lg-inline-block ms-1" ngbDropdown>
+      <!-- <div class="dropdown d-none d-lg-inline-block ms-1" ngbDropdown>
         <button type="button" class="btn header-item noti-icon waves-effect" ngbDropdownToggle>
           <i class="uil-apps"></i>
         </button>
@@ -127,16 +127,16 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div class="dropdown d-none d-lg-inline-block ms-1">
+      <!-- <div class="dropdown d-none d-lg-inline-block ms-1">
         <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen"
           (click)="fullscreen()">
           <i class="uil-minus-path"></i>
         </button>
-      </div>
+      </div> -->
 
-      <div class="dropdown d-inline-block" ngbDropdown>
+      <!-- <div class="dropdown d-inline-block" ngbDropdown>
         <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
           ngbDropdownToggle>
           <i class="uil-bell"></i>
@@ -218,7 +218,7 @@
             </a>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="dropdown d-inline-block" ngbDropdown>
         <button type="button" class="btn header-item waves-effect" ngbDropdownToggle id="page-header-user-dropdown">
@@ -252,11 +252,11 @@
         </div>
       </div>
 
-      <div class="dropdown d-inline-block">
+      <!-- <div class="dropdown d-inline-block">
         <button type="button" class="btn header-item noti-icon right-bar-toggle" (click)="toggleRightSidebar()">
           <i class="uil-cog"></i>
         </button>
-      </div>
+      </div> -->
 
     </div>
   </div>

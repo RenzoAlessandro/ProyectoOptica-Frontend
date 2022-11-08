@@ -16,7 +16,7 @@ export const MENU: MenuItem[] = [
         },
         link: '/dashboard',
     },
-    {
+    /* {
         id: 3,
         isLayout: true
     },
@@ -24,14 +24,14 @@ export const MENU: MenuItem[] = [
         id: 4,
         label: 'MENUITEMS.APPS.TEXT',
         isTitle: true
-    },
-    {
+    },  */
+    /* {
         id: 5,
         label: 'MENUITEMS.CALENDAR.TEXT',
         icon: 'uil-calender',
         link: '/calendar',
-    },
-    {
+    }, */
+    /* {
         id: 6,
         label: 'MENUITEMS.CHAT.TEXT',
         icon: 'uil-comments-alt',
@@ -40,30 +40,30 @@ export const MENU: MenuItem[] = [
             variant: 'warning',
             text: 'MENUITEMS.CHAT.BADGE',
         },
-    },
+    }, */
     {
         id: 7,
         label: 'MENUITEMS.ECOMMERCE.TEXT',
         icon: 'uil-store',
         subItems: [
-            {
+            /* {
                 id: 8,
                 label: 'MENUITEMS.ECOMMERCE.LIST.PRODUCTS',
                 link: '/ecommerce/products',
                 parentId: 7
-            },
-            {
+            }, */
+            /* {
                 id: 9,
                 label: 'MENUITEMS.ECOMMERCE.LIST.PRODUCTDETAIL',
                 link: '/ecommerce/product-detail/1',
                 parentId: 7
-            },
+            },*/
             {
                 id: 10,
                 label: 'MENUITEMS.ECOMMERCE.LIST.ORDERS',
                 link: '/ecommerce/orders',
                 parentId: 7
-            },
+            }, 
             {
                 id: 11,
                 label: 'MENUITEMS.ECOMMERCE.LIST.CUSTOMERS',
@@ -96,7 +96,7 @@ export const MENU: MenuItem[] = [
             },
         ]
     },
-    {
+    /* {
         id: 16,
         label: 'MENUITEMS.EMAIL.TEXT',
         icon: 'uil-envelope',
@@ -114,7 +114,7 @@ export const MENU: MenuItem[] = [
                 parentId: 16
             }
         ]
-    },
+    }, */
     {
         id: 19,
         label: 'MENUITEMS.INVOICES.TEXT',
@@ -134,7 +134,7 @@ export const MENU: MenuItem[] = [
             },
         ]
     },
-    {
+    /* {
         id: 22,
         label: 'MENUITEMS.CONTACTS.TEXT',
         icon: 'uil-book-alt',
@@ -249,8 +249,8 @@ export const MENU: MenuItem[] = [
                 parentId: 32
             },
         ]
-    },
-    {
+    }, */
+    /* {
         id: 42,
         label: 'MENUITEMS.COMPONENTS.TEXT',
         isTitle: true
@@ -557,6 +557,6 @@ export const MENU: MenuItem[] = [
                 ]
             },
         ]
-    }
+    } */
 ];
 
