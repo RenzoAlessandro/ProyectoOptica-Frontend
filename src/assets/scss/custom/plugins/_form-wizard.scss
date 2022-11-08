@@ -1,0 +1,126 @@
+//
+// Form Wizard
+//
+@import "~angular-archwizard/styles/archwizard.css";
+@import '~ng-wizard/themes/ng_wizard.min.css';
+
+@import '~ng-wizard/themes/ng_wizard_theme_arrows.min.css';
+@import '~ng-wizard/themes/ng_wizard_theme_circles.min.css';
+@import '~ng-wizard/themes/ng_wizard_theme_dots.min.css';
+
+.form-wizard-wrapper {
+  label {
+    font-size: 14px;
+    text-align: right;
+  }
+}
+
+// ng-wizard style
+
+.ng-wizard-theme-circles {
+  >ul.step-anchor {
+    background-color: $card-bg !important;
+
+    &:before {
+      background-color: $gray-300 !important;
+    }
+  }
+
+  .step-content {
+    background-color: $card-bg !important;
+  }
+
+  .ng-wizard-toolbar {
+    background-color: $card-bg !important;
+  }
+}
+
+.ng-wizard-theme-default {
+
+  .step-content,
+  .ng-wizard-toolbar,
+  ul.step-anchor {
+    background-color: $sidebar-bg !important;
+  }
+}
+
+.ng-wizard-theme-default {
+  ul.step-anchor {
+    color: $sidebar-menu-item-color !important;
+    background: $sidebar-bg !important;
+
+    li {
+      background: $sidebar-bg !important;
+
+      &.done>a {
+        border: none !important;
+        color: $sidebar-menu-item-color !important;
+        background: 0 0 !important;
+        cursor: pointer;
+      }
+
+      &.active>a {
+        color: $primary !important;
+      }
+    }
+
+    .ng-wizard-theme-arrows {
+      .step-content {
+        background-color: $sidebar-bg !important;
+      }
+    }
+  }
+}
+
+.ng-wizard-theme-arrows {
+  >ul.step-anchor {
+    background: $sidebar-bg !important;
+
+    >li {
+      >a {
+        background: $sidebar-bg !important;
+      }
+    }
+  }
+}
+
+.ng-wizard-theme-circles {
+  >ul.step-anchor {
+    >li {
+
+      &.active {
+        >a {
+          border-color: $primary !important;
+          color: $white;
+          background: $primary !important;
+
+          small {
+            color: $primary !important;
+          }
+        }
+      }
+
+      >a,
+      a:hover,
+      a:focus {
+        border-color: $primary;
+        color: $primary;
+        background: $card-bg;
+        box-shadow: inset 0 0 0 3px $card-bg !important;
+
+        small {
+          color: $dark;
+        }
+      }
+    }
+  }
+}
+
+.btn-toolbar {
+  .ng-wizard-btn-group-extra {
+    margin-left: 5px;
+    button {
+      background: $primary;
+    }
+  }
+}

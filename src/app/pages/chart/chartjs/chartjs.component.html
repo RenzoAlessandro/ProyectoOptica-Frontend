@@ -1,0 +1,91 @@
+<div class="container-fluid">
+
+  <!-- start page title -->
+  <app-page-title title="Chartjs" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <!-- end page title -->
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Line Chart</h4>
+          <div class="chartjs-chart">
+            <!-- Line Chart -->
+            <canvas baseChart height="300" [datasets]="lineAreaChart.datasets" [labels]="lineAreaChart.labels"
+              [options]="lineAreaChart.options" chartType="line">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Bar Chart</h4>
+          <div class="chartjs-chart">
+            <!-- Bar Chart -->
+            <canvas baseChart [datasets]="lineBarChart.datasets" chartType="bar" [options]="lineBarChart.options"
+              height="300" [labels]="lineBarChart.labels">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Pie Chart</h4>
+          <div class="chartjs-chart">
+            <!-- Line Chart -->
+            <canvas baseChart [datasets]="pieChart.datasets" chartType="pie" [options]="pieChart.options" [labels]="pieChart.labels" height="260">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Donut Chart</h4>
+          <div class="">
+            <!-- Bar Chart -->
+            <canvas baseChart [datasets]="donutChart.datasets" chartType="doughnut" [options]="donutChart.options" [labels]="donutChart.labels"
+              height="260">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Polar Chart</h4>
+          <div class="chartjs-chart">
+            <!-- Polar Chart Chart -->
+            <canvas baseChart [datasets]="polarChart.datasets" [labels]="polarChart.labels"
+              [options]="polarChart.options" chartType="polarArea" height="125"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Radar Chart</h4>
+          <div class="chartjs-chart">
+            <!-- Radar Chart -->
+            <canvas baseChart [datasets]="radarChart.datasets" chartType="radar" [options]="radarChart.options"
+              height="300" [labels]="radarChart.labels">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

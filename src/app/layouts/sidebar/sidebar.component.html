@@ -1,0 +1,128 @@
+<!-- ========== Left Sidebar Start ========== -->
+
+<div class="vertical-menu">
+
+  <!-- LOGO -->
+  <div class="navbar-brand-box">
+    <a [routerLink]="['/']" class="logo logo-dark">
+      <span class="logo-sm">
+        <img src="assets/images/logo-sm.png" alt="" height="22">
+      </span>
+      <span class="logo-lg">
+        <img src="assets/images/logo-dark.png" alt="" height="20">
+      </span>
+    </a>
+
+    <a [routerLink]="['/']" class="logo logo-light">
+      <span class="logo-sm">
+        <img src="assets/images/logo-sm.png" alt="" height="22">
+      </span>
+      <span class="logo-lg">
+        <img src="assets/images/logo-light.png" alt="" height="20">
+      </span>
+    </a>
+  </div>
+  <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect vertical-menu-btn"
+    (click)="toggleMobileMenu($event)">
+    <i class="fa fa-fw fa-bars"></i>
+  </button>
+  <ngx-simplebar class="h-100 sidebar-menu-scroll" #componentRef *ngIf="!isCondensed">
+    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+  </ngx-simplebar>
+
+  <ngx-simplebar class="sidebar-menu-scroll" #componentRef *ngIf="isCondensed">
+    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+  </ngx-simplebar>
+
+
+  <!-- <ngx-simplebar class="h-100" #componentRef>
+    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+  </ngx-simplebar> -->
+
+  <!-- <div id="sidebar-menu">
+    <ngx-simplebar class="h-100" *ngIf="!isCondensed">
+      <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </ngx-simplebar>
+    <ngx-simplebar *ngIf="isCondensed">
+      <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </ngx-simplebar>
+    <div class="clearfix"></div>
+  </div> -->
+
+</div>
+
+<ng-template #contentTemplate>
+
+  <!--- Sidemenu -->
+  <div id="sidebar-menu">
+    <!-- Left Menu Start -->
+    <ul class="metismenu list-unstyled" id="side-menu" #sideMenu>
+      <ng-container *ngFor="let item of menuItems">
+        <li class="menu-title" *ngIf="item.isTitle">{{ item.label | translate}}</li>
+        <!-- Layouts menu -->
+        <li *ngIf="item.isLayout">
+          <a href="javascript: void(0);" class="has-arrow">
+            <i class="uil-window-section"></i>
+            <span> {{'MENUITEMS.LAYOUTS.TEXT' | translate}}</span>
+          </a>
+          <ul class="sub-menu" aria-expanded="false">
+            <li><a (click)="changeLayout('horizontal')" href="javascript: void(0);"> {{
+                'MENUITEMS.LAYOUTS.LIST.HORIZONTAL' | translate}} </a></li>
+            <li><a (click)="darkSidebar()" href="javascript: void(0);">{{ 'MENUITEMS.LAYOUTS.LIST.DARKSIDEBAR' |
+                translate }} </a></li>
+            <li><a (click)="compactSidebar()" href="javascript: void(0);">{{ 'MENUITEMS.LAYOUTS.LIST.COMPACTSIDEBAR' |
+                translate}} </a></li>
+            <li><a (click)="iconSidebar()" href="javascript: void(0);">{{ 'MENUITEMS.LAYOUTS.LIST.ICONSIDEBAR' |
+                translate }} </a></li>
+            <li><a (click)="boxedLayout()" href="javascript: void(0);">{{ 'MENUITEMS.LAYOUTS.LIST.BOXEDWITH' | translate
+                }} </a></li>
+            <li><a (click)="coloredSidebar()" href="javascript: void(0);">{{ 'MENUITEMS.LAYOUTS.LIST.COLOREDSIDEBAR' |
+                translate}} </a></li>
+          </ul>
+        </li>
+        <!-- end Layout menu -->
+
+        <li *ngIf="!item.isTitle && !item.isLayout">
+          <a *ngIf="hasItems(item)" href="javascript:void(0);" class="is-parent"
+            [ngClass]="{'has-arrow': !item.badge, 'has-dropdown': item.badge}">
+            <i class="bx {{item.icon}}" *ngIf="item.icon"></i>
+            <span> {{ item.label | translate}}</span>
+            <span class="badge rounded-pill bg-{{item.badge.variant}} float-end" *ngIf="item.badge">{{item.badge.text |
+              translate}}</span>
+          </a>
+
+          <a [routerLink]="item.link" *ngIf="!hasItems(item)" class="side-nav-link-ref" routerLinkActive="active">
+            <i class="bx {{ item.icon }}" *ngIf="item.icon"></i>
+            <span> {{ item.label | translate}}</span>
+            <span class="badge rounded-pill bg-{{item.badge.variant}} float-end" *ngIf="item.badge">{{item.badge.text |
+              translate}}</span>
+          </a>
+
+          <ul *ngIf="hasItems(item)" class="sub-menu" aria-expanded="false">
+            <li *ngFor="let subitem of item.subItems">
+              <a [routerLink]="subitem.link" *ngIf="!hasItems(subitem)" class="side-nav-link-ref"
+                [attr.data-parent]="subitem.parentId" routerLinkActive="active">
+                {{ subitem.label | translate}}
+              </a>
+              <a *ngIf="hasItems(subitem)" class="side-nav-link-a-ref has-arrow" href="javascript:void(0);"
+                [attr.data-parent]="subitem.parentId">
+                {{ subitem.label | translate}}
+              </a>
+              <ul *ngIf="hasItems(subitem)" class="sub-menu mm-collapse" aria-expanded="false">
+                <li *ngFor="let subSubitem of subitem.subItems">
+                  <a [attr.data-parent]="subSubitem.parentId" [routerLink]="subSubitem.link" routerLinkActive="active"
+                    class="side-nav-link-ref">
+                    {{ subSubitem.label | translate }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</ng-template>
+<!-- Sidebar -->
+
+<!-- Left Sidebar End -->

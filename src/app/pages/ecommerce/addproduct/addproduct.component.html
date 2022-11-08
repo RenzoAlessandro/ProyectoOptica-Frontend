@@ -1,0 +1,183 @@
+<div class="container-fluid">
+
+  <!-- start page title -->
+  <app-page-title title="Add Product" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <!-- end page title -->
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div id="addproduct-accordion">
+          <div class="">
+            <div class="checkout-acco">
+            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" activeIds="toggle-1">
+              <ngb-panel id="toggle-1">
+                <ng-template ngbPanelTitle>
+                  <a class="text-dark" style="text-align: left;">
+                    <div class="d-flex align-items-center">
+                      <div class="me-3">
+                          <div class="avatar-xs">
+                              <div class="avatar-title rounded-circle bg-soft-primary text-primary">
+                                  01
+                              </div>
+                          </div>
+                      </div>
+                      <div class="flex-1 overflow-hidden">
+                          <h5 class="font-size-16 mb-1">Billing Info</h5>
+                          <p class="text-muted text-truncate mb-0">Fill all information below</p>
+                      </div>
+                  </div>
+                  </a>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                  <div id="addproduct-billinginfo-collapse" class="show">
+                    <div class="p-4 border-top">
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label" for="productname">Product Name</label>
+                                <input id="productname" name="productname" type="text" class="form-control">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="manufacturername">Manufacturer Name</label>
+                                        <input id="manufacturername" name="manufacturername" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="manufacturerbrand">Manufacturer Brand</label>
+                                        <input id="manufacturerbrand" name="manufacturerbrand" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="price">Price</label>
+                                        <input id="price" name="price" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="control-label">Category</label>
+                                        <select class="form-control select2">
+                                            <option>Select</option>
+                                            <option value="EL">Electronic</option>
+                                            <option value="FA">Fashion</option>
+                                            <option value="FI">Fitness</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                      <label class="control-label">Specifications</label>
+                                        <ng-select class="select2" [items]="items" name="specification"
+                                                  bindLabel="Specifications"
+                                                  placeholder=""
+                                                  multiple="true"
+                                                  [(ngModel)]="selected">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 mb-0">
+                                <label for="productdesc">Product Description</label>
+                                <textarea class="form-control" id="productdesc" rows="4"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-panel>
+
+              <ngb-panel id="toggle-2">
+                <ng-template ngbPanelTitle>
+                  <a class="text-dark" style="text-align: left;">
+                    <div class="d-flex align-items-center">
+                      <div class="me-3">
+                          <div class="avatar-xs">
+                              <div class="avatar-title rounded-circle bg-soft-primary text-primary">
+                                  02
+                              </div>
+                          </div>
+                      </div>
+                      <div class="flex-1 overflow-hidden">
+                          <h5 class="font-size-16 mb-1">Product Image</h5>
+                          <p class="text-muted text-truncate mb-0">Fill all information below</p>
+                      </div>
+                  </div>
+                  </a>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                  <div id="addproduct-img-collapse">
+                    <div class="p-4 border-top">
+                      <dropzone class="dropzone"></dropzone>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-panel>
+              
+              <ngb-panel id="toggle-3">
+                <ng-template ngbPanelTitle>
+                  <a class="text-dark" style="text-align: left;">
+                    <div class="d-flex align-items-center">
+                      <div class="me-3">
+                          <div class="avatar-xs">
+                              <div class="avatar-title rounded-circle bg-soft-primary text-primary">
+                                  03
+                              </div>
+                          </div>
+                      </div>
+                      <div class="flex-1 overflow-hidden">
+                          <h5 class="font-size-16 mb-1">Meta Data</h5>
+                          <p class="text-muted text-truncate mb-0">Fill all information below</p>
+                      </div>
+                  </div>
+                  </a>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                  <div id="addproduct-metadata-collapse">
+                    <div class="p-4 border-top">
+                      <form>
+                        <div class="row">
+                          <div class="col-sm-6">
+                              <div class="mb-3">
+                                  <label for="metatitle">Meta title</label>
+                                  <input id="metatitle" name="metatitle" type="text" class="form-control">
+                              </div>
+                          </div>
+                          <div class="col-sm-6">
+                              <div class="mb-3">
+                                  <label for="metakeywords">Meta Keywords</label>
+                                  <input id="metakeywords" name="metakeywords" type="text" class="form-control">
+                              </div>
+                          </div>
+                        </div>
+                        <div class="mb-3 mb-0">
+                            <label for="metadescription">Meta Description</label>
+                            <textarea class="form-control" id="metadescription" rows="4"></textarea>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-panel>
+
+            </ngb-accordion>
+            </div>
+          </div>
+
+         </div>     
+      </div>
+    </div>
+    <!-- end row -->
+
+    <div class="row mb-4">
+        <div class="col text-end">
+            <a href="javascript:void(0);" class="btn btn-danger"> <i class="uil uil-times me-1"></i> Cancel </a>
+            <a href="javascript:void(0);" class="btn btn-success ms-1"> <i class="uil uil-file-alt me-1"></i> Save </a>
+        </div> <!-- end col -->
+    </div> <!-- end row-->
+
+</div> <!-- container-fluid -->

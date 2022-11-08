@@ -1,0 +1,107 @@
+<div class="container-fluid">
+
+  <app-page-title title="User List" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <a href="javascript:void(0);" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-2"></i> Add New</a>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-inline float-md-end mb-3">
+                    <div class="search-box ms-2">
+                        <div class="position-relative">
+                            <input class="form-control rounded bg-light border-0" type="text" name="searchTerm" placeholder="Search..." [(ngModel)]="service.searchTerm"/>
+                            <i class="mdi mdi-magnify search-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="table-responsive mb-4">
+            <table class="table table-centered table-nowrap mb-0 align-middle">
+              <thead>
+                <tr>
+                  <th scope="col" style="width: 50px;">
+                    <div class="form-check font-size-16">
+                        <input type="checkbox" class="form-check-input" id="contacusercheck">
+                        <label class="form-check-label" for="contacusercheck"></label>
+                    </div>
+                  </th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Position</th>
+                  <th scope="col">Email</th>
+                  <th scope="col" style="width: 200px;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of users$ | async">
+                  <td>
+                    <div class="form-check font-size-16">
+                      <input id="contacusercheck{{data.index}}" type="checkbox" class="form-check-input" />
+                      <label class="form-check-label" for="contacusercheck{{data.index}}">&nbsp;</label>
+                    </div>
+                  </td>
+                  <td *ngIf="data.image">
+                    <img src="{{data.image}}" alt="" class="avatar-xs rounded-circle me-3">
+                    <a href="javascript:void(0);" class="text-body">{{data.name}}</a>
+                  </td>
+                  <td *ngIf="!data.image">
+                    <div class="avatar-xs d-inline-block me-3">
+                      <div class="avatar-title bg-soft-primary rounded-circle text-primary">
+                          <i class="mdi mdi-account-circle m-0"></i>
+                      </div>
+                    </div>
+                    <a href="javascript:void(0);" class="text-body">
+                      <ngb-highlight [result]="data.name" [term]="service.searchTerm"></ngb-highlight>
+                    </a>
+                  </td>
+                  <td><ngb-highlight [result]="data.position" [term]="service.searchTerm"></ngb-highlight></td>
+                  <td><ngb-highlight [result]="data.email" [term]="service.searchTerm"></ngb-highlight></td>
+                  <td>
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                            <a href="javascript:void(0);" class="px-2 text-primary" ngbTooltip="Edit"><i class="uil uil-pen font-size-18"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void(0);" class="px-2 text-danger" ngbTooltip="Delete"><i class="uil uil-trash-alt font-size-18"></i></a>
+                        </li>
+                        <li class="list-inline-item dropdown" ngbDropdown>
+                            <a class="text-muted dropdown-toggle font-size-18 px-2" href="javascript:void(0);" role="button" ngbDropdownToggle>
+                                <i class="uil uil-ellipsis-v"></i>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+                                <a class="dropdown-item" href="javascript:void(0);">Action</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Another action</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Something else here</a>
+                            </div>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-sm-12">
+                <div class="float-sm-end">
+                    <ngb-pagination
+                      [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
+                    </ngb-pagination>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  <!-- end row -->
+</div> <!-- container-fluid -->

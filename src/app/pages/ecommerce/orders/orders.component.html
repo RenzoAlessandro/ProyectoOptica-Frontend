@@ -1,0 +1,113 @@
+<div class="container-fluid">
+  <app-page-title title="Orders" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-12">
+      <div>
+        <div class="float-end">
+          <form class="d-inline-flex mb-3">
+            <label class="form-check-label my-2 me-2" for="order-selectinput">Orders</label>
+            <select class="form-select" id="order-selectinput">
+              <option selected>All</option>
+              <option value="1">Active</option>
+              <option value="2">Unpaid</option>
+            </select>
+          </form>
+        </div>
+        <button type="button" class="btn btn-success mb-3"><i class="mdi mdi-plus me-1"></i>
+          Add New Order</button>
+      </div>
+      <div class="row mb-md-2">
+        <div class="col-sm-12 col-md-6">
+          <div class="dataTables_length"><label class="d-inline-flex align-items-center">Show<select name="pageSize"
+                [(ngModel)]="service.pageSize"
+                class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+                <option [ngValue]="10">10</option>
+                <option [ngValue]="25">25</option>
+                <option [ngValue]="50">50</option>
+                <option [ngValue]="100">100</option>
+              </select> entries</label></div>
+        </div>
+        <!-- Search -->
+        <div class="col-sm-12 col-md-6">
+          <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+              class="d-inline-flex align-items-center">Search:
+              <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                aria-controls="tickets-table" [(ngModel)]="service.searchTerm"></label></div>
+        </div>
+        <!-- End search -->
+      </div>
+      <div class="table-responsive mb-4">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+          <form>
+
+            <table class="table table-centered datatables dt-responsive nowrap table-card-list"
+              style="border-spacing: 0 12px; width: 100%;">
+              <thead>
+                <tr class="bg-transparent">
+                  <th style="width: 24px;">
+                    <div class="form-check text-center font-size-16">
+                      <input type="checkbox" class="form-check-input" id="ordercheck">
+                      <label class="form-check-label" for="ordercheck"></label>
+                    </div>
+                  </th>
+                  <th scope="col" sortable="id" (sort)="onSort($event)">Order ID</th>
+                  <th scope="col" sortable="date" (sort)="onSort($event)">Date</th>
+                  <th scope="col" sortable="name" (sort)="onSort($event)">Billing Name</th>
+                  <th scope="col" sortable="amount" (sort)="onSort($event)">Total</th>
+                  <th scope="col" sortable="status" (sort)="onSort($event)">Payment Status</th>
+                  <th style="width: 170px;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let data of transactions$ | async" class="odd">
+
+                  <td>
+                    <div class="form-check text-center">
+                      <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input" />
+                      <label class="form-check-label" for="ordercheck{{data.index}}">&nbsp;</label>
+                    </div>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.id" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.date" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.name" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.amount" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    
+                    <span class="badge rounded-pill bg-soft-success font-size-12" [ngClass]=" { 'bg-soft-danger': data.status === 'Chargeback',
+                              'bg-soft-warning':data.status === 'Unpaid' }">{{data.status}}</span>
+                  </td>
+                  <td>
+                    <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i
+                        class="uil uil-pen font-size-18"></i></a>
+                    <a href="javascript:void(0);" class="px-3 text-danger" placement="top" ngbTooltip="Delete"><i
+                        class="uil uil-trash-alt font-size-18"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="float-end">
+              <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                [pageSize]="service.pageSize">
+                <ng-template ngbPaginationPrevious>Previous</ng-template>
+                <ng-template ngbPaginationNext>Next</ng-template>
+              </ngb-pagination>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

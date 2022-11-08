@@ -1,0 +1,224 @@
+{
+  "HEADER": {
+    "SEARCH": "Cerca...",
+    "MEGA_MENU": "Mega Menu",
+    "NOTIFICATIONS": {
+      "TITLE": "Notifiche",
+      "VIEW_ALL": "Visualizza tutto",
+      "LOAD_MORE": "Carica altro..",
+      "FIRST": {
+        "TITLE": "Il tuo ordine è stato effettuato",
+        "TEXT": "Se più lingue si fondono la grammatica",
+        "TIME": "3 minuti fa"
+      },
+      "SECOND": {
+        "TITLE": "James Lemire",
+        "TEXT": "Sembrerà un inglese semplificato.",
+        "TIME": "1 ora fa"
+      },
+      "THIRD": {
+        "TITLE": "Il tuo articolo è spedito",
+        "TEXT": "Se più lingue si fondono la grammatica",
+        "TIME": "3 minuti fa"
+      },
+      "FOUR": {
+        "TITLE": "Salena Layfield",
+        "TEXT": "Come mio scettico amico di Cambridge occidentale.",
+        "TIME": "1 ora fa"
+      }
+    },
+    "LOGIN": {
+      "PROFILE": "Profile",
+      "MY_WALLET": "Il mio portafoglio",
+      "SETTINGS": "Impostazioni",
+      "LOCK_SCREEN": "Blocca schermo",
+      "LOGOUT": "Logout"
+    }
+  },
+  "MENUITEMS": {
+    "MENU": {
+      "TEXT": "Menù"
+    },
+    "DASHBOARDS": {
+      "TEXT": "cruscotti"
+    },
+    "LAYOUTS": {
+      "TEXT": "layout",
+      "LIST": {
+        "HORIZONTAL": "Orizzontale",
+        "LIGHTSIDEBAR": "Barra laterale leggera",
+        "COMPACTSIDEBAR": "Barra laterale compatta",
+        "ICONSIDEBAR": "Barra laterale delle icone",
+        "BOXED": "Layout in scatola",
+        "COLOREDSIDEBAR": "Barra laterale colorata",
+        "VERTICAL": "Verticale",
+        "LIGHTTOPBAR": "Barra superiore leggera",
+        "COLOREDHEADER": "Intestazione colorata",
+        "DARKSIDEBAR": "Dark Sidebar",
+        "BOXEDWITH": "In scatola con",
+        "PRELOADER": "Preloader"
+      }
+    },
+    "APPS": {
+      "TEXT": "applicazioni"
+    },
+    "CALENDAR": {
+      "TEXT": "Calendario"
+    },
+    "CHAT": {
+      "TEXT": "Chiacchierare",
+      "BADGE": "Nuova"
+    },
+    "ECOMMERCE": {
+      "TEXT": "ecommerce",
+      "LIST": {
+        "PRODUCTS": "Prodotti",
+        "PRODUCTDETAIL": "Dettagli del prodotto",
+        "ORDERS": "Ordini",
+        "CUSTOMERS": "I clienti",
+        "CART": "Carrello",
+        "CHECKOUT": "Check-out",
+        "SHOPS": "negozi",
+        "ADDPRODUCT": "Aggiungi prodotto"
+      }
+    },
+    "EMAIL": {
+      "TEXT": "E-mail",
+      "LIST": {
+        "INBOX": "Posta in arrivo",
+        "READEMAIL": "Leggi l'email"
+      }
+    },
+    "INVOICES": {
+      "TEXT": "Fatture",
+      "LIST": {
+        "INVOICELIST": "Elenco fatture",
+        "INVOICEDETAIL": "Dettaglio fattura"
+      }
+    },
+    "CONTACTS": {
+      "TEXT": "Contatti",
+      "LIST": {
+        "USERGRID": "Griglia utente",
+        "USERLIST": "lista degli utenti",
+        "PROFILE": "Profilo"
+      }
+    },
+    "PAGES": {
+      "TEXT": "pagine"
+    },
+    "AUTHENTICATION": {
+      "TEXT": "Autenticazione",
+      "LIST": {
+        "LOGIN": "Accesso",
+        "REGISTER": "Registrati",
+        "RECOVERPWD": "Recupera la password",
+        "LOCKSCREEN": "Blocca schermo"
+      }
+    },
+    "EXTRAS": {
+      "TEXT": "Extra"
+    },
+    "UTILITY": {
+      "TEXT": "Utilità",
+      "LIST": {
+        "STARTER": "Pagina iniziale",
+        "MAINTENANCE": "Manutenzione",
+        "COMINGSOON": "Prossimamente",
+        "TIMELINE": "Sequenza temporale",
+        "FAQS": "FAQs",
+        "PRICING": "Prezzi",
+        "ERROR404": "Errore 404",
+        "ERROR500": "Errore 500"
+      }
+    },
+    "COMPONENTS": {
+      "TEXT": "componenti"
+    },
+    "UIELEMENTS": {
+      "TEXT": "Elementi dell'interfaccia utente",
+      "LIST": {
+        "ALERTS": "avvisi",
+        "BUTTONS": "pulsanti",
+        "CARDS": "Carte",
+        "CAROUSEL": "Giostra",
+        "DROPDOWNS": "menu a discesa",
+        "GRID": "Griglia",
+        "IMAGES": "immagini",
+        "LIGHTBOX": "Lightbox",
+        "MODALS": "Modals",
+        "RANGESLIDER": "Cursore gamma",
+        "SESSIONTIMEOUT": "Timeout della sessione",
+        "PROGRESSBAR": "Indicatori di stato",
+        "PLACEHOLDER": "Segnaposto",
+        "SWEETALERT": "Avviso dolce",
+        "TABS": "Schede e fisarmoniche",
+        "TYPOGRAPHY": "Tipografia",
+        "VIDEO": "Video",
+        "GENERAL": "Generale",
+        "COLORS": "Colori",
+        "CROPPER": "Image Cropper",
+        "RATING": "Valutazione"
+      }
+    },
+    "FORMS": {
+      "TEXT": "Forme",
+      "BADGE": "8",
+      "LIST": {
+        "ELEMENTS": "Form Elements",
+        "VALIDATION": "Convalida del modulo",
+        "ADVANCED": "Modulo avanzato",
+        "EDITOR": "Editor di moduli",
+        "FILEUPLOAD": "Caricamento file modulo",
+        "REPEATER": "Ripetitore di moduli",
+        "WIZARD": "Procedura guidata modulo",
+        "MASK": "Maschera Maschera"
+      }
+    },
+    "TABLES": {
+      "TEXT": "tabelle",
+      "LIST": {
+        "BASIC": "Tabelle di base",
+        "ADVANCED": "Tabella avanzata"
+      }
+    },
+    "CHARTS": {
+      "TEXT": "Grafici",
+      "LIST": {
+        "APEX": "Grafico dell'apice",
+        "CHARTJS": "Grafico di Chartjs",
+        "CHARTIST": "Chart Chartist",
+        "ECHART": "E Chart"
+      }
+    },
+    "ICONS": {
+      "TEXT": "Icons",
+      "LIST": {
+        "UNICONS": "Unicons",
+        "BOXICONS": "Boxicons",
+        "MATERIALDESIGN": "Design materiale",
+        "DRIPICONS": "Dripicons",
+        "FONTAWESOME": "Carattere fantastico"
+      }
+    },
+    "MAPS": {
+      "TEXT": "Mappe",
+      "LIST": {
+        "GOOGLEMAP": "Google Maps"
+      }
+    },
+    "MULTILEVEL": {
+      "TEXT": "Multi livello",
+      "LIST": {
+        "LEVEL1": {
+          "1": "Livello 1.1",
+          "2": "Livello 1.2",
+          "LEVEL2": {
+            "1": "Livello 2.1",
+            "2": "Livello 2.2"
+          }
+        }
+      }
+    }
+  }
+}

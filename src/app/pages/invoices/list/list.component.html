@@ -1,0 +1,125 @@
+<div class="container-fluid">
+
+  <!-- start page title -->
+  <app-page-title title="Invoice List" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <!-- end page title -->
+
+  <div class="row">
+    <div class="col-md-4">
+      <div>
+        <button type="button" class="btn btn-success mb-3"><i class="mdi mdi-plus me-1"></i>
+          Add Invoice</button>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="float-end">
+        <div class="mb-3">
+          <div class="input-daterange input-group" id="datepicker6" data-date-format="dd M, yyyy"
+            data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker6'>
+            <ng2-flatpickr mode="range" class="text-start" [config]="exampleOptions" placeholder="From"></ng2-flatpickr>
+            <ng2-flatpickr class="text-start" placeholder="To"></ng2-flatpickr>
+            <button type="button" class="btn btn-primary"><i class="mdi mdi-filter-variant"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="row mb-md-2">
+        <div class="col-sm-12 col-md-6">
+          <div class="dataTables_length"><label class="d-inline-flex align-items-center">Show<select name="pageSize"
+                [(ngModel)]="service.pageSize"
+                class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+                <option [ngValue]="10">10</option>
+                <option [ngValue]="25">25</option>
+                <option [ngValue]="50">50</option>
+                <option [ngValue]="100">100</option>
+              </select> entries</label></div>
+        </div>
+        <!-- Search -->
+        <div class="col-sm-12 col-md-6">
+          <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+              class="d-inline-flex align-items-center">Search:
+              <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                aria-controls="tickets-table" [(ngModel)]="service.searchTerm"></label></div>
+        </div>
+        <!-- End search -->
+      </div>
+      <div class="table-responsive mb-4">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+          <form>
+            <table class="table table-centered datatables dt-responsive nowrap table-card-list"
+              style="border-spacing: 0 12px; width: 100%;">
+              <thead>
+                <tr class="bg-transparent">
+                  <th style="width: 20px;">
+                    <div class="form-check text-center">
+                      <input type="checkbox" class="form-check-input" id="invoicecheck">
+                      <label class="form-check-label" for="invoicecheck"></label>
+                    </div>
+                  </th>
+                  <th scope="col" sortable="id" (sort)="onSort($event)">Invoice ID</th>
+                  <th scope="col" sortable="date" (sort)="onSort($event)">Date</th>
+                  <th scope="col" sortable="name" (sort)="onSort($event)">Billing Name</th>
+                  <th scope="col" sortable="amount" (sort)="onSort($event)">Amount</th>
+                  <th scope="col" sortable="status" (sort)="onSort($event)">Status</th>
+                  <th scope="col" sortable="pdf" (sort)="onSort($event)">Download Pdf</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of invoices$ | async">
+                  <td>
+                    <div class="form-check text-center">
+                      <input id="invoicecheck{{data.index}}" type="checkbox" class="form-check-input" />
+                      <label class="form-check-label" for="invoicecheck{{data.index}}">&nbsp;</label>
+                    </div>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.id" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.date" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.name" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.amount" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <span class="badge rounded-pill bg-soft-success font-size-12"
+                      [ngClass]=" { 'bg-soft-warning': data.status === 'Pending' }">{{data.status}}</span>
+                  </td>
+                  <td>
+                    <div>
+                      <button class="btn btn-light btn-sm w-xs">Pdf <i class="uil uil-download-alt ms-2"></i></button>
+                    </div>
+                  </td>
+                  <td>
+                    <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i
+                        class="uil uil-pen font-size-18"></i></a>
+                    <a href="javascript:void(0);" class="px-3 text-danger" placement="top" ngbTooltip="Delete"><i
+                        class="uil uil-trash-alt font-size-18"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="float-end">
+              <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                [pageSize]="service.pageSize">
+                <ng-template ngbPaginationPrevious>Previous</ng-template>
+                <ng-template ngbPaginationNext>Next</ng-template>
+              </ngb-pagination>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- end row -->
+
+  </div> <!-- container-fluid -->
