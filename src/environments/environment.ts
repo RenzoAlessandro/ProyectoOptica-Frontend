@@ -14,7 +14,8 @@ export const environment = {
     messagingSenderId: '',
     appId: '',
     measurementId: ''
-  }
+  },
+  urlBackend:'http://localhost:5000/'
 };
 
 /*

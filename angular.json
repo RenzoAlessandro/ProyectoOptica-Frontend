@@ -80,7 +80,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "minible-ng:build"
+            "browserTarget": "minible-ng:build",
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
