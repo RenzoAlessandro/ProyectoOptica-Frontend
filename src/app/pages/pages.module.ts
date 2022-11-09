@@ -27,6 +27,7 @@ import { LoaderService } from '../core/services/loader.service';
 import { CalendarComponent } from './calendar/calendar.component';
 import { ChatComponent } from './chat/chat.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 
 FullCalendarModule.registerPlugins([
@@ -38,7 +39,7 @@ FullCalendarModule.registerPlugins([
 ]);
 
 @NgModule({
-  declarations: [CalendarComponent, ChatComponent, LoginComponent],
+  declarations: [CalendarComponent, ChatComponent, LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     NgSelectModule,

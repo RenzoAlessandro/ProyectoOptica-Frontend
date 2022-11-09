@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
+  year: number = new Date().getFullYear();
+
   constructor() { }
 
   ngOnInit(): void {
+    document.body.classList.add('authentication-bg')
+    document.body.removeAttribute('data-topbar');
   }
-
 }
