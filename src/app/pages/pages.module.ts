@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SimplebarAngularModule } from 'simplebar-angular';
 
-import { NgbNavModule, NgbDropdownModule, NgbModalModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNavModule, NgbDropdownModule, NgbModalModule, NgbTooltipModule, NgbPaginationModule, NgbAccordionModule, NgbTypeaheadModule, NgbCollapseModule  } from '@ng-bootstrap/ng-bootstrap';
 import { NgApexchartsModule } from 'ng-apexcharts';
 
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -28,6 +28,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { ChatComponent } from './chat/chat.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { UsersComponent } from './users/users.component';
 
 
 FullCalendarModule.registerPlugins([
@@ -39,7 +40,7 @@ FullCalendarModule.registerPlugins([
 ]);
 
 @NgModule({
-  declarations: [CalendarComponent, ChatComponent, LoginComponent, RegisterComponent],
+  declarations: [CalendarComponent, ChatComponent, LoginComponent, RegisterComponent, UsersComponent],
   imports: [
     CommonModule,
     NgSelectModule,
@@ -55,6 +56,10 @@ FullCalendarModule.registerPlugins([
     FullCalendarModule,
     NgbNavModule,
     NgbTooltipModule,
+    NgbPaginationModule,
+    NgbAccordionModule,
+    NgbTypeaheadModule,
+    NgbCollapseModule,
     SimplebarAngularModule
   ]
 })
