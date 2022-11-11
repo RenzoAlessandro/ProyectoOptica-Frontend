@@ -47,7 +47,7 @@
                                             [items]="listRoles"
                                             bindValue="cNombre"
                                             bindLabel="tNombre"
-                                        >
+                                            placeholder="Seleccione">
                                         </ng-select>
                                     </div>
 
@@ -58,15 +58,14 @@
                                             [items]="listSedes"
                                             bindValue="cNombre"
                                             bindLabel="tNombre"
-                                        >
+                                            placeholder="Seleccione">
                                         </ng-select>
 
                                     </div>
                                 </div> 
         
 
-
-                                <div class="mb-3">
+                                <div class="mb-3" >
                                     <label for="userpassword">Contraseña</label>
                                     <input type="password" class="form-control" id="userpassword" placeholder="Ingrese su contraseña" formControlName="{{this.password}}">        
                                 </div>
