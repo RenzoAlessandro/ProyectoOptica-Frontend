@@ -23,23 +23,23 @@
                         <div class="p-2 mt-4">
                             <form action="/" [formGroup]="formRegister">
 
-                                <div class="mb-3">
+                                <div class="mb-3 ">
                                     <label for="username">Nombres</label>
                                     <input type="text" class="form-control" id="username" placeholder="Ingrese sus nombres" formControlName="{{this.nombres}}">
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="mb-3 ">
                                     <label for="username">Apellidos</label>
                                     <input type="text" class="form-control" id="username" placeholder="Ingrese sus apellidos" formControlName="{{this.apellidos}}">
                                 </div>
   
-                                <div class="mb-3">
+                                <div class="mb-3 ">
                                     <label for="userdni">DNI</label>
                                     <input type="email" class="form-control" id="useremail" placeholder="Ingrese su DNI" formControlName="{{this.dni}}">        
                                 </div>
 
                                 
-                                <div class="row">
+                                <div class="row mb-3">
                                     <div class="col-sm-6">
                                         <label for="username">Rol</label>
                                         <ng-select

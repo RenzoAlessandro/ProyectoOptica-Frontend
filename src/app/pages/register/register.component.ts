@@ -77,12 +77,12 @@ export class RegisterComponent implements OnInit {
         nombres: this.f(this.nombres).value,
         apellidos: this.f(this.apellidos).value,
         dni: this.f(this.dni).value,
-        rol: this.f(this.rol).value,
-        sede: this.f(this.sede).value
+        //rol: this.f(this.rol).value,
+        //sede: this.f(this.sede).value
       }
     };
 
-    this.usuarioService.getUsuarios().subscribe(
+    this.usuarioService.getUsers().subscribe(
       res=> {
         console.log(res);
       }
