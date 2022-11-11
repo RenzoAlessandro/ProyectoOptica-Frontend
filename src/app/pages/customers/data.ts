@@ -1,6 +1,6 @@
-import {Users} from './users.model';
+import {Customer} from './customer.model';
 
-export const USERS: Users[] = [
+export const CUSTOMERS: Customer[] = [
     {
         index: 1,
         id: '#MN0123',
@@ -8,11 +8,10 @@ export const USERS: Users[] = [
         firstnames: 'William Shipp',
         lastnames: 'Sandoval Griffith',
         dni: '35488591',
-        rol: 'Admin',
-        sede: 'Lima',
-        email: 'WilliamShipp@jourrapide.com',
+        telefono: '123456789',
+        date: '14 Apr, 2020',
+        encargadoMedicion: 'DR. Rider',
         status: 'Active',
-        date: '14 Apr, 2020'
     },
     {
         index: 2,
@@ -21,11 +20,10 @@ export const USERS: Users[] = [
         firstnames: 'Joe Hardy',
         lastnames: 'Norman Le',
         dni: '66545616',
-        rol: 'Vendedor',
-        sede: 'Arequipa',
-        email: 'JoeHardy@dayrep.com',
-        status: 'Active',
-        date: '14 Apr, 2020'
+        telefono: '123456789',
+        date: '14 Apr, 2020',
+        encargadoMedicion: 'DR. Rider',
+        status: 'Active'
     },
     {
         index: 3,
@@ -34,11 +32,10 @@ export const USERS: Users[] = [
         firstnames: 'Thomas Hankins',
         lastnames: 'Kelly Vargas',
         dni: '45701653',
-        rol: 'Vendedor',
-        sede: 'Moquegua',
-        email: 'ThomasHankins@dayrep.com',
-        status: 'Active',
-        date: '13 Apr, 2020'
+        telefono: '123456789',
+        date: '13 Apr, 2020',
+        encargadoMedicion: 'DR. Rider',
+        status: 'Active'
     },
     {
         index: 4,
@@ -47,11 +44,10 @@ export const USERS: Users[] = [
         firstnames: 'Mary Frazier',
         lastnames: 'Martinez Byrne',
         dni: '63932451',
-        rol: 'Contador',
-        sede: 'Juliaca',
-        email: 'MaryFrazier@armyspy.com',
-        status: 'Deactive',
-        date: '13 Apr, 2020'
+        telefono: '123456789',
+        date: '13 Apr, 2020',
+        encargadoMedicion: 'DR. Rider',
+        status: 'Deactive'
     },
     {
         index: 5,
@@ -60,11 +56,10 @@ export const USERS: Users[] = [
         firstnames: 'Sam Perry',
         lastnames: 'Hicks Graham',
         dni: '52203648',
-        rol: 'Vendedor',
-        sede: 'Puno',
-        email: 'SamPerry@rhyta.com',
-        status: 'Active',
-        date: '12 Apr, 2020'
+        telefono: '123456789',
+        date: '12 Apr, 2020',
+        encargadoMedicion: 'DR. Rider',
+        status: 'Active'
     },
     {
         index: 6,
@@ -73,11 +68,10 @@ export const USERS: Users[] = [
         firstnames: 'Muriel Myers',
         lastnames: 'Gibbs Malone',
         dni: '95488197',
-        rol: 'Vendedor',
-        sede: 'Arequipa',
-        email: 'MurielMyers@rhyta.com',
-        status: 'Deactive',
-        date: '09 Apr, 2020'
+        telefono: '123456789',
+        date: '09 Apr, 2020',
+        encargadoMedicion: 'DR. Rider',
+        status: 'Deactive'
     },
     {
         index: 7,
@@ -86,11 +80,10 @@ export const USERS: Users[] = [
         firstnames: 'Jessie Jacobs',
         lastnames: 'Steele Rowland',
         dni: '37433880',
-        rol: 'Contador',
-        sede: 'Lima',
-        email: 'JessieJacobs@teleworm.us',
-        status: 'Deactive',
-        date: '09 Apr, 2020'
+        telefono: '123456789',
+        date: '09 Apr, 2020',
+        encargadoMedicion: 'DR. Rider',
+        status: 'Deactive'
     },
     {
         index: 8,
@@ -99,11 +92,10 @@ export const USERS: Users[] = [
         firstnames: 'Edward King',
         lastnames: 'Hart Estrada',
         dni: '62091763',
-        rol: 'Contador',
-        sede: 'Moquegua',
-        email: 'EdwardKing@teleworm.us',
-        status: 'Active',
-        date: '08 Apr, 2020'
+        telefono: '123456789',
+        date: '08 Apr, 2020',
+        encargadoMedicion: 'DR. Rider',
+        status: 'Active'
     },
     {
         index: 9,
@@ -112,11 +104,10 @@ export const USERS: Users[] = [
         firstnames: 'Stacy Webster',
         lastnames: 'Jennings Johnston',
         dni: '83724956',
-        rol: 'Vendedor',
-        sede: 'Juliaca',
-        email: 'StacyWebster@armyspy.com',
-        status: 'Deactive',
-        date: '07 Apr, 2020'
+        telefono: '123456789',
+        date: '07 Apr, 2020',
+        encargadoMedicion: 'DR. Rider',
+        status: 'Deactive'
     },
     {
         index: 10,
@@ -125,11 +116,10 @@ export const USERS: Users[] = [
         firstnames: 'Amy McDonald',
         lastnames: 'Garza Long',
         dni: '17804434',
-        rol: 'Vendedor',
-        sede: 'Puno',
-        email: 'AmyMcDonald@jourrapide.com',
-        status: 'Active',
-        date: '05 Apr, 2020'
+        telefono: '123456789',
+        date: '05 Apr, 2020',
+        encargadoMedicion: 'DR. Rider',
+        status: 'Active'
     },
     {
         index: 11,
@@ -138,11 +128,10 @@ export const USERS: Users[] = [
         firstnames: 'Terry Brown',
         lastnames: 'Valdez Mitchell',
         dni: '60861934',
-        rol: 'Vendedor',
-        sede: 'Arequipa',
-        email: 'TerryBrown@dayrep.com',
-        status: 'Active',
-        date: '02 Apr, 2020'
+        telefono: '123456789',
+        date: '02 Apr, 2020',
+        encargadoMedicion: 'DR. Rider',
+        status: 'Active'
     },
     {
         index: 12,
@@ -151,11 +140,10 @@ export const USERS: Users[] = [
         firstnames: 'Crissy Holland',
         lastnames: 'Haynes Moreno',
         dni: '58222273',
-        rol: 'Contador',
-        sede: 'Trujillo',
-        email: 'CrissyHolland@armyspy.com',
-        status: 'Deactive',
-        date: '23 Mar, 2020'
+        telefono: '123456789',
+        date: '23 Mar, 2020',
+        encargadoMedicion: 'DR. Rider',
+        status: 'Deactive'
     }
 ];
 

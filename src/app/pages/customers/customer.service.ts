@@ -2,14 +2,14 @@ import { Injectable, PipeTransform } from '@angular/core';
 
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 
-import { Users } from './users.model';
-import { USERS } from './data';
+import { Customer } from './customer.model';
+import { CUSTOMERS } from './data';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
 
 interface SearchResult {
-  customers: Users[];
+  customers: Customer[];
   total: number;
 }
 
@@ -23,7 +23,7 @@ interface State {
 
 const compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-function sort(customers: Users[], column: SortColumn, direction: string): Users[] {
+function sort(customers: Customer[], column: SortColumn, direction: string): Customer[] {
   if (direction === '' || column === '') {
     return customers;
   } else {
@@ -34,14 +34,12 @@ function sort(customers: Users[], column: SortColumn, direction: string): Users[
   }
 }
 
-function matches(customer: Users, term: string, pipe: PipeTransform) {
+function matches(customer: Customer, term: string, pipe: PipeTransform) {
   return customer.id.toLowerCase().includes(term)
   || customer.firstnames.toLowerCase().includes(term.toLowerCase())
   || customer.lastnames.toLowerCase().includes(term.toLowerCase())
   || customer.dni.toLowerCase().includes(term.toLowerCase())
-  || customer.rol.toLowerCase().includes(term.toLowerCase())
-  || customer.sede.toLowerCase().includes(term.toLowerCase())
-  || customer.email.toLowerCase().includes(term)
+  || customer.telefono.toLowerCase().includes(term.toLowerCase())
   || customer.date.toLowerCase().includes(term);
 }
 
@@ -49,7 +47,7 @@ function matches(customer: Users, term: string, pipe: PipeTransform) {
 export class CustomerService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _customers$ = new BehaviorSubject<Users[]>([]);
+  private _customers$ = new BehaviorSubject<Customer[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
 
   private _state: State = {
@@ -97,7 +95,7 @@ export class CustomerService {
     const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
     // 1. sort
-    let customers = sort(USERS, sortColumn, sortDirection);
+    let customers = sort(CUSTOMERS, sortColumn, sortDirection);
 
     // 2. filter
     customers = customers.filter(customer => matches(customer, searchTerm, this.pipe));
