@@ -5,12 +5,14 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { LayoutComponent } from './layouts/layout.component';
 import { CustomersComponent } from './pages/customers/customers.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RegisterUsersComponent } from './pages/register-users/register-users.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { UsersComponent } from './pages/users/users.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
+  { path: 'registerusers', component: RegisterUsersComponent},
   { path: 'users', component: UsersComponent},
   { path: 'customers', component: CustomersComponent},
   { path: '**', redirectTo: 'login', pathMatch: 'full'},

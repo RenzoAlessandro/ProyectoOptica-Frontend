@@ -7,6 +7,9 @@ import {Users} from './users.model';
 import {CustomerService} from './users.service';
 import {NgbdSortableHeader, SortEvent} from './sortable.directive';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -14,6 +17,10 @@ import {NgbdSortableHeader, SortEvent} from './sortable.directive';
   providers: [CustomerService, DecimalPipe]
 })
 export class UsersComponent implements OnInit {
+    // modal
+    editEvent: any;
+    formData: FormGroup;
+    submitted = false;
 
     // bread crumb items
     breadCrumbItems: Array<{}>;
@@ -25,7 +32,9 @@ export class UsersComponent implements OnInit {
     @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
   
 
-  constructor(public service: CustomerService) {
+  constructor(public service: CustomerService,
+    private modalService: NgbModal, 
+    private formBuilder: FormBuilder) {
     this.customers$ = service.customers$;
     this.total$ = service.total$;
   }
@@ -45,4 +54,43 @@ export class UsersComponent implements OnInit {
     this.service.sortColumn = column;
     this.service.sortDirection = direction;
   }
+
+
+  /**
+   * Open center modal
+   * @param centerDataModal center modal data
+   */
+   centerModal(centerDataModal: any) {
+    this.modalService.open(centerDataModal, { centered: true,windowClass:'modal-holder' });
+  }
+  
+    /**
+ * Delete event
+ */
+deleteEventData() {
+  this.editEvent.remove();
+  this.modalService.dismissAll();
+}
+
+/**
+ * Close event modal
+ */
+closeEventModal() {
+  this.formData = this.formBuilder.group({
+    title: '',
+    category: '',
+  });
+  this.modalService.dismissAll();
+}
+
+/**
+ * Save the event
+ */
+saveEvent() {
+  if (this.formData.valid) {
+
+  }
+  this.submitted = true;
+}
+
 }
