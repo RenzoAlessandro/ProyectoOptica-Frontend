@@ -5,6 +5,7 @@
         <div class="col-xl-8">
           <div class="">
             <div class="checkout-acco">
+              <form [formGroup]="formRegister">
               <ngb-accordion [closeOthers]="true" activeIds="static-1">
                 <ngb-panel id="static-1">
                   <ng-template ngbPanelTitle>
@@ -25,68 +26,92 @@
                   <ng-template ngbPanelContent>
                     <div id="checkout-billinginfo-collapse">
                       <div class="border-top py-4">
-                        <form>
                           <div>
                             <div class="row">
                               <div class="col-lg-4">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-name">DNI</label>
-                                  <input type="text" class="form-control" id="billing-dni" placeholder="Ingrese el DNI" />
+                                  <input type="text" class="form-control" id="billing-dni" placeholder="Ingrese el DNI" formControlName="{{this.dni}}"/>
                                 </div>
                               </div>
                               <div class="col-lg-4">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-name">Nombres</label>
-                                  <input type="text" class="form-control" id="billing-firstnames" placeholder="Ingrese los nombres" />
+                                  <input type="text" class="form-control" id="billing-firstnames" placeholder="Ingrese los nombres" formControlName="{{this.nombres}}" />
                                 </div>
                               </div>
                               <div class="col-lg-4">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-name">Apellidos</label>
-                                  <input type="text" class="form-control" id="billing-lastnames" placeholder="Ingrese los apellidos" />
+                                  <input type="text" class="form-control" id="billing-lastnames" placeholder="Ingrese los apellidos" formControlName="{{this.apellidos}}"/>
                                 </div>
                               </div>
                               <div class="col-lg-4">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-phone">Telefono</label>
                                   <input type="text" class="form-control" id="billing-phone"
-                                    placeholder="Ingrese el número de telefono" />
+                                    placeholder="Ingrese el número de telefono" formControlName="{{this.telefono}}"/>
                                 </div>
                               </div>
                               <div class="col-lg-4">
                                 <div class="mb-4">
-                                  <label class="form-label" for="billing-email-address">Email</label>
+                                  <label class="form-label" for="billing-email-address">Fecha de Nacimiento</label>
                                   <input type="email" class="form-control" id="billing-email-address"
-                                    placeholder="Ingrese correo electrónico" />
+                                    placeholder="Ingrese correo electrónico" formControlName="{{this.fechaNacimiento}}"/>
                                 </div>
                               </div>
                               <div class="col-lg-4">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-email-address">Contraseña</label>
                                   <input type="password" class="form-control" id="billing-password"
-                                    placeholder="Ingrese la contraseña" />
+                                    placeholder="Ingrese la contraseña" formControlName="{{this.password}}"/>
+                                    <div class="text-danger" *ngIf="formRegister.controls['campoPassword'].invalid && (formRegister.controls['campoPassword'].dirty || formRegister.controls['campoPassword'].touched)">                 
+                                      <div class="text-danger" *ngIf="formRegister.controls['campoPassword'].errors.required">
+                                        Campo requerido
+                                      </div>
+                                      <div class="text-danger" *ngIf="formRegister.controls['campoPassword'].errors.minlength">
+                                        Su contraseña debe ser mayor a 6 caracteres
+                                      </div>
+                                      <div class="text-danger" *ngIf="formRegister.controls['campoPassword'].errors.maxlength">
+                                        Su contraseña debe ser menor a 20 caracteres
+                                      </div>
+                                      <div class="text-danger" *ngIf="formRegister.controls['campoPassword'].errors.pattern">
+                                        Ingrese solo números
+                                      </div> 
+                                    </div>
                                 </div>
                               </div>
                               <div class="col-lg-4">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-email-address">Repita la contraseña</label>
                                   <input type="password" class="form-control" id="billing-repet-password"
-                                    placeholder="Repita la contraseña" />
+                                    placeholder="Repita la contraseña" formControlName="{{this.repeatPassword}}"/>
+                                    <div class="text-danger" *ngIf="formRegister.controls['campoRepeatPassword'].invalid && (formRegister.controls['campoRepeatPassword'].dirty || formRegister.controls['campoRepeatPassword'].touched)">                 
+                                      <div class="text-danger" *ngIf="formRegister.controls['campoRepeatPassword'].errors.required">
+                                        Campo requerido
+                                      </div>
+                                      <div class="text-danger" *ngIf="formRegister.controls['campoRepeatPassword'].errors.minlength">
+                                        Su contraseña debe ser mayor a 6 caracteres
+                                      </div>
+                                      <div class="text-danger" *ngIf="formRegister.controls['campoRepeatPassword'].errors.maxlength">
+                                        Su contraseña debe ser menor a 20 caracteres
+                                      </div>
+                                      <div class="text-danger" *ngIf="formRegister.controls['campoRepeatPassword'].errors.pattern">
+                                        Ingrese solo números
+                                      </div>
+                                      <div *ngIf="formRegister.controls['campoRepeatPassword'].errors.confirmedValidator">
+                                        Passwords did not match
+                                      </div> 
+                                    </div>
                                 </div>
                               </div>
-                            </div>
-  
-                            <div class="mb-4">
-                              <label class="form-label" for="billing-address">Address</label>
-                              <textarea class="form-control" id="billing-address" rows="3"
-                                placeholder="Enter full address"></textarea>
                             </div>
   
                             <div class="row">
                               <div class="col-lg-4">
                                 <div class="mb-4 mb-lg-0">
                                   <label class="form-label">Country</label>
-                                  <ng-select name="selectCountry" [items]="selectValue" [(ngModel)]="selectedValue">
+                                  <ng-select name="selectCountry" [items]="selectValue" >
                                   </ng-select>
                                 </div>
                               </div>
@@ -106,15 +131,15 @@
                               </div>
                             </div>
                           </div>
-                        </form>
                       </div>
                     </div>
                   </ng-template>
                 </ngb-panel>
 
-  
+                
                 <ngb-panel id="static-2">
                   <ng-template ngbPanelTitle>
+                  
                     <a class="text-dark" style="text-align: left;">
                       <div class="d-flex align-items-start align-items-center">
                         <div class="me-3">
@@ -134,37 +159,15 @@
                       <div class="border-top py-4">
                         <div>
                           <h5 class="font-size-14 mb-3">Roles :</h5>
+                          
                           <div class="row">
-                            <div class="col-lg-3 col-sm-6">
-                              <div data-toggle="collapse">
+                            <div class="col-lg-3 col-sm-6" *ngFor='let rol of listRoles;let i = index'>
+                              <div data-toggle="collapse" >
                                 <label class="card-radio-label">
-                                  <input type="radio" name="pay-method" id="pay-methodoption1" class="card-radio-input" />
+                                  <input type="radio" id="{{rol.cNombre}}" name="rol" class="card-radio-input" formControlName="rol" value="{{rol.tNombre}}"/>
                                   <span class="card-radio text-center text-truncate">
                                     <i class="uil uil-user d-block h2 mb-3"></i>
-                                    Administrador
-                                  </span>
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                              <div>
-                                <label class="card-radio-label">
-                                  <input type="radio" name="pay-method" id="pay-methodoption2" class="card-radio-input" />
-                                  <span class="card-radio text-center text-truncate">
-                                    <i class="uil uil-shop d-block h2 mb-3"></i>
-                                    Vendedor
-                                  </span>
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                              <div>
-                                <label class="card-radio-label">
-                                  <input type="radio" name="pay-method" id="pay-methodoption3" class="card-radio-input"
-                                    checked />
-                                  <span class="card-radio text-center text-truncate">
-                                    <i class="uil uil-money-stack d-block h2 mb-3"></i>
-                                    <span>Contador</span>
+                                    {{rol.tNombre}}
                                   </span>
                                 </label>
                               </div>
@@ -237,73 +240,22 @@
                     </ng-template>
                   </ngb-panel>
               </ngb-accordion>
+              </form>
             </div>
           </div>
   
           <div class="row my-4">
             <div class="col">
               <div class="text-sm-end mt-2 mt-sm-0">
-                <a href="javascript:void(0)" class="btn btn-success">
+                <button  class="btn btn-success" (click)="guardarUsuario()" [disabled]="!formRegister.valid">
                   <i class="uil uil-user-plus me-1"></i> Registrar
-                </a>
+                </button>
               </div>
             </div>
             <!-- end col -->
           </div>
           <!-- end row-->
         </div>
-  
-        <div class="col-xl-4">
-            <div class="card h-100">
-              <div class="card-body">
-                <div class="text-center">
-                  <div class="clearfix"></div>
-                  <div>
-                    <img src="assets/images/users/avatar-4.jpg" alt="" class="avatar-lg rounded-circle img-thumbnail" />
-                  </div>
-                  <h5 class="mt-3 mb-1">Marcus</h5>
-                  <p class="text-muted">UI/UX Designer</p>
-                </div>
-      
-                <hr class="my-4" />
-      
-                <div class="text-muted">
-                  <h5 class="font-size-16">About</h5>
-                  <p>
-                    Hi I'm Marcus,has been the industry's standard dummy text To an
-                    English person, it will seem like simplified English, as a
-                    skeptical Cambridge.
-                  </p>
-                  <div class="table-responsive mt-4">
-                    <div>
-                      <p class="mb-1">Nombres :</p>
-                      <h5 class="font-size-16">William Shipp</h5>
-                    </div>
-                    <div class="mt-4">
-                      <p class="mb-1">Apellidos :</p>
-                      <h5 class="font-size-16">Sandoval Griffith</h5>
-                    </div>
-                    <div class="mt-4">
-                        <p class="mb-1">DNI :</p>
-                        <h5 class="font-size-16">35488591</h5>
-                    </div>
-                    <div class="mt-4">
-                        <p class="mb-1">Rol :</p>
-                        <h5 class="font-size-16">Administrador</h5>
-                    </div>
-                    <div class="mt-4">
-                        <p class="mb-1">Sede :</p>
-                        <h5 class="font-size-16">Arequipa, Arequipa</h5>
-                    </div>
-                    <div class="mt-4">
-                      <p class="mb-1">E-mail :</p>
-                      <h5 class="font-size-16">WilliamShipp@jourrapide.com</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
       </div>
     </div>
   </div>

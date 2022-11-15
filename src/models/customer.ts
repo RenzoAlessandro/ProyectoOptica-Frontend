@@ -1,4 +1,6 @@
-export class UsersModel {
+import { MedidasModel } from "./medidas";
+
+export class CustomersModel {
     nombres: string;
     apellidos: string;
     dni: number;
@@ -6,6 +8,5 @@ export class UsersModel {
     fecha_nacimiento: Date;
     fecha_creacion: Date;
     fecha_modificacion: Date;
-    rol: string;
-    habilitado: boolean;
+    medidas: Array<MedidasModel>;
 }

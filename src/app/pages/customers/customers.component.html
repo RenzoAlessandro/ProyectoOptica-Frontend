@@ -129,26 +129,26 @@
     </button>
   </div>
   <div class="modal-body p-4">
-    <form (ngSubmit)="saveEvent()" [formGroup]="formData">
+    <form [formGroup]="formCustomer">
       <div class="row">
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">DNI</label>
-            <input class="form-control" placeholder="DNI del cliente" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+            <input class="form-control" placeholder="DNI del cliente" type="text"
+              formControlName="{{this.dni}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <!-- <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Fecha</label>
-            <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+            <input class="form-control" placeholder="Seleccione la fecha" type="text" 
+              formControlName="{{this.fecha_creacion}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <!-- <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -157,18 +157,18 @@
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Nombres</label>
-            <input class="form-control" placeholder="Nombres del cliente" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+            <input class="form-control" placeholder="Nombres del cliente" type="text" 
+              formControlName="{{this.nombres}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <!-- <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Apellidos</label>
-            <input class="form-control" placeholder="Apellidos del cliente" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="Apellidos del cliente" type="text" 
+              formControlName="{{this.apellidos}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
             </div>
@@ -180,8 +180,8 @@
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Fecha de Nacimiento</label>
-            <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="Seleccione la fecha" type="text" 
+              formControlName="{{this.fecha_nacimiento}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
             </div>
@@ -190,8 +190,8 @@
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Telefono</label>
-            <input class="form-control" placeholder="Telefono del cliente" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="Telefono del cliente" type="text" 
+              formControlName="{{this.telefono}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
             </div>
@@ -211,8 +211,8 @@
         <div class="col-4">
           <div class="mb-3">
             <label class="control-label">ESF</label>
-            <input class="form-control" placeholder="Esfera" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="Esfera" type="text" 
+              formControlName="{{this.od_esferico}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
             </div>
@@ -221,8 +221,8 @@
         <div class="col-4">
           <div class="mb-3">
             <label class="control-label">CYL</label>
-            <input class="form-control" placeholder="Cilindro" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="Cilindro" type="text"
+              formControlName="{{this.od_cilindrico}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
             </div>
@@ -231,8 +231,8 @@
         <div class="col-4">
           <div class="mb-3">
             <label class="control-label">EJE</label>
-            <input class="form-control" placeholder="Eje" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="Eje" type="text" 
+              formControlName="{{this.od_eje}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
             </div>
@@ -248,8 +248,8 @@
         <div class="col-4">
           <div class="mb-3">
             <label class="control-label">ESF</label>
-            <input class="form-control" placeholder="Esfera" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="Esfera" type="text" 
+              formControlName="{{this.oi_esferico}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
             </div>
@@ -258,8 +258,8 @@
         <div class="col-4">
           <div class="mb-3">
             <label class="control-label">CYL</label>
-            <input class="form-control" placeholder="Cilindro" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="Cilindro" type="text" 
+              formControlName="{{this.oi_cilindrico}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
             </div>
@@ -268,8 +268,8 @@
         <div class="col-4">
           <div class="mb-3">
             <label class="control-label">EJE</label>
-            <input class="form-control" placeholder="Eje" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="Eje" type="text" 
+              formControlName="{{this.oi_eje}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
             </div>
@@ -281,8 +281,8 @@
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">DIP</label>
-            <input class="form-control" placeholder="Distancia Interpupilar" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="Distancia Interpupilar" type="text"
+              formControlName="{{this.dip}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
             </div>
@@ -291,8 +291,8 @@
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">ADD</label>
-            <input class="form-control" placeholder="Adición" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="Adición" type="text"
+              formControlName="{{this.add}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
             </div>
@@ -304,8 +304,8 @@
         <div class="col-12">
           <div class="mb-3">
             <label class="control-label">Encargado de la Medición</label>
-            <input class="form-control" placeholder="Nombres y apellidos del Oftometra" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="Nombres y apellidos del Oftometra" type="text" 
+              formControlName="{{this.encargado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
             </div>
@@ -315,10 +315,10 @@
 
 
       <div class="text-end mt-2">
-        <button type="button" class="btn btn-light" (click)="closeEventModal()">
+        <button type="button" class="btn btn-light" >
           Close
         </button>
-        <button type="submit" class="btn btn-success ms-1" id="btn-save-event">
+        <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="guardarCliente()">
           Save
         </button>
       </div>
