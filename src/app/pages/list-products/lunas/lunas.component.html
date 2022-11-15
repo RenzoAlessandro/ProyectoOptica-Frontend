@@ -1,0 +1,323 @@
+<div class="container-fluid">
+
+    <app-page-title title="Lista de Lunas" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  
+    <div class="row">
+      <div class="col-12">
+        <div>
+          <button type="button" class="btn btn-success waves-effect waves-light mb-3" (click)="centerModal(centerDataModal)"><i class="mdi mdi-plus me-1"></i>
+            Agregar una Luna</button>
+        </div>
+        <div class="row mb-md-2">
+          <div class="col-sm-12 col-md-6">
+            <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
+                  [(ngModel)]="service.pageSize"
+                  class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+                  <option [ngValue]="10">10</option>
+                  <option [ngValue]="25">25</option>
+                  <option [ngValue]="50">50</option>
+                  <option [ngValue]="100">100</option>
+                </select> entradas</label></div>
+          </div>
+          <!-- Search -->
+          <div class="col-sm-12 col-md-6">
+            <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                class="d-inline-flex align-items-center">Buscar:
+                <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                  aria-controls="tickets-table" [(ngModel)]="service.searchTerm"></label></div>
+          </div>
+          <!-- End search -->
+        </div>
+        <div class="table-responsive mb-4">
+          <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+            <form>
+              <table class="table table-centered datatables dt-responsive nowrap table-card-list"
+                style="border-spacing: 0 12px; width: 100%;">
+                <thead>
+                  <tr class="bg-transparent">
+                    <th style="width: 20px;">
+  
+                      <div class="form-check text-center">
+                        <input type="checkbox" class="form-check-input" id="customercheck">
+                        <label class="form-check-label" for="customercheck"></label>
+                      </div>
+                    </th>
+                    <th scope="col" sortable="id" (sort)="onSort($event)">ID</th>
+                    <th scope="col" sortable="material" (sort)="onSort($event)">Material</th>
+                    <th scope="col" sortable="precio_compra" (sort)="onSort($event)">Precio Compra</th>
+                    <th scope="col" sortable="precio_venta" (sort)="onSort($event)">Precio Venta</th>
+                    <th scope="col" sortable="cantidad" (sort)="onSort($event)">Cantidad</th>
+                    <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th>
+                    <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de Ingreso</th>
+                    <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of customers$ | async">
+                    <td>
+                      <div class="form-check text-center">
+                        <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input" />
+                        <label class="form-check-label" for="ordercheck{{data.index}}">&nbsp;</label>
+                      </div>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.id" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.material" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.precio_compra" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.precio_venta" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.cantidad" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.sede" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.date" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <span class="badge bg-pill bg-soft-success font-size-12"
+                        [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
+                    </td>
+                    <td>
+                      <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i
+                          class="uil uil-pen font-size-18"></i></a>
+                      <a href="javascript:void(0);" class="px-3 text-danger" placement="top" ngbTooltip="Delete"><i
+                          class="uil uil-trash-alt font-size-18"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+  
+              <div class="float-end">
+                <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                  [pageSize]="service.pageSize">
+                  <ng-template ngbPaginationPrevious>Previous</ng-template>
+                  <ng-template ngbPaginationNext>Next</ng-template>
+                </ngb-pagination>
+              </div>
+  
+            </form>
+          </div>
+        </div>
+  
+  
+      </div>
+    </div>
+    <!-- end row -->
+  </div>
+  
+  
+    <!-- Add New User - Center Modal -->
+    <ng-template #centerDataModal let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">Registrar Nuevo Cliente</h5>
+        <button type="button" class="btn-close" (click)="closeEventModal()">
+        </button>
+      </div>
+      <div class="modal-body p-4">
+        <form (ngSubmit)="saveEvent()" [formGroup]="formData">
+          <div class="row">
+            <div class="col-6">
+              <div class="mb-3">
+                <label class="control-label">DNI</label>
+                <input class="form-control" placeholder="DNI del cliente" type="text" name="title"
+                  formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mb-3">
+                <label class="control-label">Fecha</label>
+                <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
+                  formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="col-6">
+              <div class="mb-3">
+                <label class="control-label">Nombres</label>
+                <input class="form-control" placeholder="Nombres del cliente" type="text" name="title"
+                  formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mb-3">
+                <label class="control-label">Apellidos</label>
+                <input class="form-control" placeholder="Apellidos del cliente" type="text" name="title"
+                  formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="col-6">
+              <div class="mb-3">
+                <label class="control-label">Fecha de Nacimiento</label>
+                <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
+                  formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mb-3">
+                <label class="control-label">Telefono</label>
+                <input class="form-control" placeholder="Telefono del cliente" type="text" name="title"
+                  formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="d-flex justify-content-center">
+            <h6>Especificaciones de la Medida</h6>
+          </div>
+    
+          <div class="d-flex justify-content-start">
+            <h6>Ojo Derecho</h6>
+          </div>
+    
+          <div class="row">
+            <div class="col-4">
+              <div class="mb-3">
+                <label class="control-label">ESF</label>
+                <input class="form-control" placeholder="Esfera" type="text" name="title"
+                  formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="mb-3">
+                <label class="control-label">CYL</label>
+                <input class="form-control" placeholder="Cilindro" type="text" name="title"
+                  formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="mb-3">
+                <label class="control-label">EJE</label>
+                <input class="form-control" placeholder="Eje" type="text" name="title"
+                  formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="d-flex justify-content-start">
+            <h6>Ojo Izquierdo</h6>
+          </div>
+    
+          <div class="row">
+            <div class="col-4">
+              <div class="mb-3">
+                <label class="control-label">ESF</label>
+                <input class="form-control" placeholder="Esfera" type="text" name="title"
+                  formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="mb-3">
+                <label class="control-label">CYL</label>
+                <input class="form-control" placeholder="Cilindro" type="text" name="title"
+                  formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="mb-3">
+                <label class="control-label">EJE</label>
+                <input class="form-control" placeholder="Eje" type="text" name="title"
+                  formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="col-6">
+              <div class="mb-3">
+                <label class="control-label">DIP</label>
+                <input class="form-control" placeholder="Distancia Interpupilar" type="text" name="title"
+                  formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mb-3">
+                <label class="control-label">ADD</label>
+                <input class="form-control" placeholder="Adición" type="text" name="title"
+                  formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="col-12">
+              <div class="mb-3">
+                <label class="control-label">Encargado de la Medición</label>
+                <input class="form-control" placeholder="Nombres y apellidos del Oftometra" type="text" name="title"
+                  formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+    
+          <div class="text-end mt-2">
+            <button type="button" class="btn btn-light" (click)="closeEventModal()">
+              Close
+            </button>
+            <button type="submit" class="btn btn-success ms-1" id="btn-save-event">
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+      <!-- end modal dialog-->
+    </ng-template>
+    <!-- end modal-->
