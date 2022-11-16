@@ -35,7 +35,7 @@ export const MENU: MenuItem[] = [
             }, 
             {
                 id: 6,
-                label: 'MENUITEMS.USER.LIST.ADDUSER',
+                label: 'MENUITEMS.USER.LIST.LISTUSERS',
                 link: '/user/listusers',
                 parentId: 4
             }, 

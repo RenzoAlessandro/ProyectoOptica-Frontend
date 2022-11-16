@@ -8,13 +8,11 @@ import { AccesoriosComponent } from './pages/list-products/accesorios/accesorios
 import { LunasComponent } from './pages/list-products/lunas/lunas.component';
 import { MonturasComponent } from './pages/list-products/monturas/monturas.component';
 import { LoginComponent } from './pages/login/login.component';
-import { RegisterUsersComponent } from './pages/register-users/register-users.component';
 import { RegisterComponent } from './pages/register/register.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
-  { path: 'registerusers', component: RegisterUsersComponent},
   { path: 'monturas', component: MonturasComponent},
   { path: 'lunas', component: LunasComponent},
   { path: 'accesorios', component: AccesoriosComponent},
