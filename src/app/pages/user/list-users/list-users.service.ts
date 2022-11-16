@@ -2,14 +2,14 @@ import { Injectable, PipeTransform } from '@angular/core';
 
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 
-import { Users } from './list-users.model';
+import { User } from './list-users.model';
 import { USERS } from './data';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
 
 interface SearchResult {
-  customers: Users[];
+  customers: User[];
   total: number;
 }
 
@@ -23,7 +23,7 @@ interface State {
 
 const compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-function sort(customers: Users[], column: SortColumn, direction: string): Users[] {
+function sort(customers: User[], column: SortColumn, direction: string): User[] {
   if (direction === '' || column === '') {
     return customers;
   } else {
@@ -34,7 +34,7 @@ function sort(customers: Users[], column: SortColumn, direction: string): Users[
   }
 }
 
-function matches(customer: Users, term: string, pipe: PipeTransform) {
+function matches(customer: User, term: string, pipe: PipeTransform) {
   return customer.id.toLowerCase().includes(term)
   || customer.firstnames.toLowerCase().includes(term.toLowerCase())
   || customer.lastnames.toLowerCase().includes(term.toLowerCase())
@@ -49,7 +49,7 @@ function matches(customer: Users, term: string, pipe: PipeTransform) {
 export class CustomerService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _customers$ = new BehaviorSubject<Users[]>([]);
+  private _customers$ = new BehaviorSubject<User[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
 
   private _state: State = {

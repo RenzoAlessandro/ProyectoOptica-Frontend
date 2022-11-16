@@ -3,7 +3,7 @@ import { Component, OnInit, QueryList, ViewChildren  } from '@angular/core';
 import {DecimalPipe} from '@angular/common';
 import {Observable} from 'rxjs';
 
-import {Users} from './list-users.model';
+import {User} from './list-users.model';
 import {CustomerService} from './list-users.service';
 import {NgbdSortableHeader, SortEvent} from './sortable.directive';
 
@@ -26,7 +26,7 @@ export class ListUsersComponent implements OnInit {
     breadCrumbItems: Array<{}>;
     term: any;
   
-    customers$: Observable<Users[]>;
+    customers$: Observable<User[]>;
     total$: Observable<number>;
   
     @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;

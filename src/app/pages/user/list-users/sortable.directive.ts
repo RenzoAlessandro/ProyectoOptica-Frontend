@@ -1,7 +1,7 @@
 import { Directive, EventEmitter, Input, Output } from '@angular/core';
-import { Users } from './list-users.model';
+import { User } from './list-users.model';
 
-export type SortColumn = keyof Users | '';
+export type SortColumn = keyof User | '';
 export type SortDirection = 'asc' | 'desc' | '';
 const rotate: { [key: string]: SortDirection } = { 'asc': 'desc', 'desc': '', '': 'asc' };
 

@@ -16,6 +16,32 @@ export const MENU: MenuItem[] = [
         },
         link: '/dashboard',
     },
+    {
+        id: 3,
+        label: 'MENUITEMS.CLIENT.TEXT',
+        icon: 'uil-book-alt',
+        link: '/customers',
+    },
+    {
+        id: 4,
+        label: 'MENUITEMS.USER.TEXT',
+        icon: 'uil-user-circle',
+        subItems: [
+            {
+                id: 5,
+                label: 'MENUITEMS.USER.LIST.ADDUSER',
+                link: '/user/adduser',
+                parentId: 4
+            }, 
+            {
+                id: 6,
+                label: 'MENUITEMS.USER.LIST.ADDUSER',
+                link: '/user/listusers',
+                parentId: 4
+            }, 
+        ],
+        link: '/users',
+    },
     /* {
         id: 3,
         isLayout: true

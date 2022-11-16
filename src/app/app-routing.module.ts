@@ -15,11 +15,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'registerusers', component: RegisterUsersComponent},
-  { path: 'customers', component: CustomersComponent},
   { path: 'monturas', component: MonturasComponent},
   { path: 'lunas', component: LunasComponent},
   { path: 'accesorios', component: AccesoriosComponent},
-  { path: '**', redirectTo: 'login', pathMatch: 'full'},
+  //{ path: '**', redirectTo: 'login', pathMatch: 'full'},
   { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
   // tslint:disable-next-line: max-line-length
   { path: '', component: LayoutComponent, loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule), canActivate: [AuthGuard] },

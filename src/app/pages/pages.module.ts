@@ -45,7 +45,7 @@ FullCalendarModule.registerPlugins([
 ]);
 
 @NgModule({
-  declarations: [CalendarComponent, ChatComponent, LoginComponent, RegisterComponent, CustomersComponent, RegisterUsersComponent, MonturasComponent, LunasComponent, AccesoriosComponent, ListUsersComponent],
+  declarations: [CalendarComponent, ChatComponent, LoginComponent, RegisterComponent, CustomersComponent, RegisterUsersComponent, MonturasComponent, LunasComponent, AccesoriosComponent],
   imports: [
     CommonModule,
     NgSelectModule,

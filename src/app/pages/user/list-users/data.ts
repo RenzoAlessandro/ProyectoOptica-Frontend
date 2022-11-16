@@ -1,6 +1,6 @@
-import {Users} from './list-users.model';
+import {User} from './list-users.model';
 
-export const USERS: Users[] = [
+export const USERS: User[] = [
     {
         index: 1,
         id: '#MN0123',
