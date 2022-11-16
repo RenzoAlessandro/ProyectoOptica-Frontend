@@ -70,7 +70,11 @@
       "BADGE": "Nueva"
     },
     "CLIENT": {
-      "TEXT": "Clientes"
+      "TEXT": "Clientes",
+      "LIST": {
+        "ADDCLIENT": "Añadir Clientes",
+        "LISTCLIENTS": "Lista de Clientes"
+      }
     },
     "ECOMMERCE": {
       "TEXT": "Comercio electrónico",
@@ -109,6 +113,15 @@
     },
     "PAGES": {
       "TEXT": "Páginas"
+    },
+    "PRODUCTS": {
+      "TEXT": "Productos",
+      "LIST": {
+        "ACCESORIOS": "Accesorios",
+        "LENTES": "Lunas",
+        "MONTURAS": "Monturas",
+        "ADDPRODUCTS": "Añadir Productos"
+      }
     },
     "AUTHENTICATION": {
       "TEXT": "Autenticación",

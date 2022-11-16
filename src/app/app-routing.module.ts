@@ -3,10 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from './core/guards/auth.guard';
 import { LayoutComponent } from './layouts/layout.component';
-import { CustomersComponent } from './pages/customers/customers.component';
-import { AccesoriosComponent } from './pages/list-products/accesorios/accesorios.component';
-import { LunasComponent } from './pages/list-products/lunas/lunas.component';
-import { MonturasComponent } from './pages/list-products/monturas/monturas.component';
+import { AccesoriosComponent } from './pages/products/accesorios/accesorios.component';
+import { LunasComponent } from './pages/products/lunas/lunas.component';
+import { MonturasComponent } from './pages/products/monturas/monturas.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 

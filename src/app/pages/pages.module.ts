@@ -28,11 +28,6 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { ChatComponent } from './chat/chat.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { CustomersComponent } from './customers/customers.component';
-import { MonturasComponent } from './list-products/monturas/monturas.component';
-import { LunasComponent } from './list-products/lunas/lunas.component';
-import { AccesoriosComponent } from './list-products/accesorios/accesorios.component';
-import { ListUsersComponent } from './user/list-users/list-users.component';
 
 
 FullCalendarModule.registerPlugins([
@@ -44,7 +39,7 @@ FullCalendarModule.registerPlugins([
 ]);
 
 @NgModule({
-  declarations: [CalendarComponent, ChatComponent, LoginComponent, RegisterComponent, CustomersComponent, MonturasComponent, LunasComponent, AccesoriosComponent],
+  declarations: [CalendarComponent, ChatComponent, LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     NgSelectModule,

@@ -20,27 +20,72 @@ export const MENU: MenuItem[] = [
         id: 3,
         label: 'MENUITEMS.CLIENT.TEXT',
         icon: 'uil-book-alt',
-        link: '/customers',
+        subItems: [
+            {
+                id: 4,
+                label: 'MENUITEMS.CLIENT.LIST.ADDCLIENT',
+                link: '/customer/addcustomer',
+                parentId: 3
+            }, 
+            {
+                id: 5,
+                label: 'MENUITEMS.CLIENT.LIST.LISTCLIENTS',
+                link: '/customer/listcustomers',
+                parentId: 3
+            }, 
+        ],
     },
     {
-        id: 4,
+        id: 6,
         label: 'MENUITEMS.USER.TEXT',
         icon: 'uil-user-circle',
         subItems: [
             {
-                id: 5,
+                id: 7,
                 label: 'MENUITEMS.USER.LIST.ADDUSER',
                 link: '/user/adduser',
                 parentId: 4
             }, 
             {
-                id: 6,
+                id: 8,
                 label: 'MENUITEMS.USER.LIST.LISTUSERS',
                 link: '/user/listusers',
                 parentId: 4
             }, 
         ],
         link: '/users',
+    },
+    {
+        id: 9,
+        label: 'MENUITEMS.PRODUCTS.TEXT',
+        icon: 'uil-user-circle',
+        subItems: [
+            {
+                id: 10,
+                label: 'MENUITEMS.PRODUCTS.LIST.ACCESORIOS',
+                link: '/products/accesorios',
+                parentId: 9
+            }, 
+            {
+                id: 11,
+                label: 'MENUITEMS.PRODUCTS.LIST.LENTES',
+                link: '/products/lunas',
+                parentId: 9
+            }, 
+            {
+                id: 12,
+                label: 'MENUITEMS.PRODUCTS.LIST.MONTURAS',
+                link: '/products/monturas',
+                parentId: 9
+            },
+            {
+                id: 13,
+                label: 'MENUITEMS.PRODUCTS.LIST.ADDPRODUCTS',
+                link: '/products/addproducts',
+                parentId: 9
+            },
+        ],
+        link: '/products',
     },
     /* {
         id: 3,
@@ -67,61 +112,61 @@ export const MENU: MenuItem[] = [
             text: 'MENUITEMS.CHAT.BADGE',
         },
     }, */
-    {
-        id: 7,
+    /* {
+        id: 10,
         label: 'MENUITEMS.ECOMMERCE.TEXT',
         icon: 'uil-store',
         subItems: [
-            /* {
+            {
                 id: 8,
                 label: 'MENUITEMS.ECOMMERCE.LIST.PRODUCTS',
                 link: '/ecommerce/products',
                 parentId: 7
-            }, */
-            /* {
+            }, 
+            {
                 id: 9,
                 label: 'MENUITEMS.ECOMMERCE.LIST.PRODUCTDETAIL',
                 link: '/ecommerce/product-detail/1',
                 parentId: 7
-            },*/
-            {
-                id: 10,
-                label: 'MENUITEMS.ECOMMERCE.LIST.ORDERS',
-                link: '/ecommerce/orders',
-                parentId: 7
-            }, 
-            {
-                id: 11,
-                label: 'MENUITEMS.ECOMMERCE.LIST.CUSTOMERS',
-                link: '/ecommerce/customers',
-                parentId: 7
             },
             {
+                id: 11,
+                label: 'MENUITEMS.ECOMMERCE.LIST.ORDERS',
+                link: '/ecommerce/orders',
+                parentId: 10
+            }, 
+            {
                 id: 12,
-                label: 'MENUITEMS.ECOMMERCE.LIST.CART',
-                link: '/ecommerce/cart',
-                parentId: 7
+                label: 'MENUITEMS.ECOMMERCE.LIST.CUSTOMERS',
+                link: '/ecommerce/customers',
+                parentId: 10
             },
             {
                 id: 13,
-                label: 'MENUITEMS.ECOMMERCE.LIST.CHECKOUT',
-                link: '/ecommerce/checkout',
-                parentId: 7
+                label: 'MENUITEMS.ECOMMERCE.LIST.CART',
+                link: '/ecommerce/cart',
+                parentId: 10
             },
             {
                 id: 14,
-                label: 'MENUITEMS.ECOMMERCE.LIST.SHOPS',
-                link: '/ecommerce/shops',
-                parentId: 7
+                label: 'MENUITEMS.ECOMMERCE.LIST.CHECKOUT',
+                link: '/ecommerce/checkout',
+                parentId: 10
             },
             {
                 id: 15,
+                label: 'MENUITEMS.ECOMMERCE.LIST.SHOPS',
+                link: '/ecommerce/shops',
+                parentId: 10
+            },
+            {
+                id: 16,
                 label: 'MENUITEMS.ECOMMERCE.LIST.ADDPRODUCT',
                 link: '/ecommerce/add-product',
-                parentId: 7
+                parentId: 10
             },
         ]
-    },
+    }, */
     /* {
         id: 16,
         label: 'MENUITEMS.EMAIL.TEXT',
@@ -141,7 +186,7 @@ export const MENU: MenuItem[] = [
             }
         ]
     }, */
-    {
+    /* {
         id: 19,
         label: 'MENUITEMS.INVOICES.TEXT',
         icon: 'uil-invoice',
@@ -159,7 +204,7 @@ export const MENU: MenuItem[] = [
                 parentId: 19
             },
         ]
-    },
+    }, */
     /* {
         id: 22,
         label: 'MENUITEMS.CONTACTS.TEXT',

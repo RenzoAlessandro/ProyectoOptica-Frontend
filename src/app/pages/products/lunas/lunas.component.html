@@ -1,35 +1,34 @@
 <div class="container-fluid">
 
-    <app-page-title title="Usuarios" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <app-page-title title="Lista de Lunas" [breadcrumbItems]="breadCrumbItems"></app-page-title>
   
     <div class="row">
       <div class="col-12">
-        <!-- <div>
+        <div>
           <button type="button" class="btn btn-success waves-effect waves-light mb-3" (click)="centerModal(centerDataModal)"><i class="mdi mdi-plus me-1"></i>
-            Agregar Usuario</button>
-        </div> -->
+            Agregar una Luna</button>
+        </div>
         <div class="row mb-md-2">
           <!-- Search -->
-          <div class="col-sm-12 col-md-4 search-box chat-search-box">
-            <div class="position-relative">
-              <input type="text" class="form-control border-light rounded" placeholder="Search..." 
-                  name="searchTerm" aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
-              <i class="uil uil-search search-icon"></i>
-            </div>
-          </div>
-          <!-- End search -->
-          <div class="col-sm-12 col-md-8 text-md-end">
-            <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
-                  [(ngModel)]="service.pageSize"
-                  class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
-                  <option [ngValue]="10">10</option>
-                  <option [ngValue]="25">25</option>
-                  <option [ngValue]="50">50</option>
-                  <option [ngValue]="100">100</option>
-                </select> entradas</label></div>
-          </div>
-          
+        <div class="col-sm-12 col-md-4 search-box chat-search-box">
+              <div class="position-relative">
+                  <input type="text" class="form-control border-light rounded" placeholder="Search..." 
+                      name="searchTerm" aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
+                  <i class="uil uil-search search-icon"></i>
+              </div>
         </div>
+        <!-- End search -->
+        <div class="col-sm-12 col-md-8 text-md-end">
+          <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
+                [(ngModel)]="service.pageSize"
+                class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+                <option [ngValue]="10">10</option>
+                <option [ngValue]="25">25</option>
+                <option [ngValue]="50">50</option>
+                <option [ngValue]="100">100</option>
+              </select> entradas</label></div>
+        </div>
+      </div>
         <div class="table-responsive mb-4">
           <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <form>
@@ -44,13 +43,12 @@
                         <label class="form-check-label" for="customercheck"></label>
                       </div>
                     </th>
-                    <th scope="col" sortable="id" (sort)="onSort($event)">Usuario ID</th>
-                    <th scope="col" sortable="firstnames" (sort)="onSort($event)">Nombres</th>
-                    <th scope="col" sortable="lastnames" (sort)="onSort($event)">Apellidos</th>
-                    <th scope="col" sortable="dni" (sort)="onSort($event)">DNI</th>
-                    <th scope="col" sortable="rol" (sort)="onSort($event)">Rol</th>
+                    <th scope="col" sortable="id" (sort)="onSort($event)">ID</th>
+                    <th scope="col" sortable="material" (sort)="onSort($event)">Material</th>
+                    <th scope="col" sortable="precio_compra" (sort)="onSort($event)">Precio Compra</th>
+                    <th scope="col" sortable="precio_venta" (sort)="onSort($event)">Precio Venta</th>
+                    <th scope="col" sortable="cantidad" (sort)="onSort($event)">Cantidad</th>
                     <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th>
-                    <th scope="col" sortable="email" (sort)="onSort($event)">Email</th>
                     <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de Ingreso</th>
                     <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th>
                     <th>Action</th>
@@ -68,28 +66,19 @@
                       <ngb-highlight [result]="data.id" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <img src="{{data.photo}}" alt="" class="avatar-xs rounded-circle me-2" *ngIf="data.photo">
-                      <div class="avatar-xs d-inline-block me-2" *ngIf="!data.photo">
-                        <span class="avatar-title rounded-circle bg-light text-body">
-                          {{data.firstnames.charAt(0)}}
-                        </span>
-                      </div>
-                      <ngb-highlight [result]="data.firstnames" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.material" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.lastnames" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.precio_compra" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.dni" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.precio_venta" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.rol" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.cantidad" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
                       <ngb-highlight [result]="data.sede" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="data.email" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
                       <ngb-highlight [result]="data.date" [term]="service.searchTerm"></ngb-highlight>
