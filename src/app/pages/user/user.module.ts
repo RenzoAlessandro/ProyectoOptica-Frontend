@@ -9,13 +9,11 @@ import { DropzoneModule, DROPZONE_CONFIG } from "ngx-dropzone-wrapper";
 import { config } from "rxjs";
 import { UIModule } from "src/app/shared/ui/ui.module";
 import { AdduserComponent } from "./adduser/adduser.component";
-import { ListusersComponent } from "./listusers/listusers.component";
-import { NgbdSortableHeader } from "./listusers/sortable.directive";
 import { UserRoutingModule } from "./user-routing.module";
 
 @NgModule({
     // tslint:disable-next-line: max-line-length
-    declarations: [AdduserComponent,ListusersComponent, NgbdSortableHeader2],
+    declarations: [AdduserComponent],
     imports: [
       UserRoutingModule,
       CommonModule,
