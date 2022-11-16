@@ -33,6 +33,7 @@ import { RegisterUsersComponent } from './register-users/register-users.componen
 import { MonturasComponent } from './list-products/monturas/monturas.component';
 import { LunasComponent } from './list-products/lunas/lunas.component';
 import { AccesoriosComponent } from './list-products/accesorios/accesorios.component';
+import { ListUsersComponent } from './user/list-users/list-users.component';
 
 
 FullCalendarModule.registerPlugins([

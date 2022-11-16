@@ -8,12 +8,13 @@ import { Ng5SliderModule } from "ng5-slider";
 import { DropzoneModule, DROPZONE_CONFIG } from "ngx-dropzone-wrapper";
 import { config } from "rxjs";
 import { UIModule } from "src/app/shared/ui/ui.module";
-import { AdduserComponent } from "./adduser/adduser.component";
+import { ListUsersComponent } from "./list-users/list-users.component";
+import { NgbdSortableHeader } from "./list-users/sortable.directive";
 import { UserRoutingModule } from "./user-routing.module";
 
 @NgModule({
     // tslint:disable-next-line: max-line-length
-    declarations: [AdduserComponent],
+    declarations: [ListUsersComponent, NgbdSortableHeader],
     imports: [
       UserRoutingModule,
       CommonModule,
