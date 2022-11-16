@@ -69,6 +69,9 @@
       "TEXT": "Charla",
       "BADGE": "Nueva"
     },
+    "CLIENT": {
+      "TEXT": "Clientes"
+    },
     "ECOMMERCE": {
       "TEXT": "Comercio electrónico",
       "LIST": {
@@ -130,6 +133,12 @@
         "PRICING": "Precios",
         "ERROR404": "error 404",
         "ERROR500": "Error 500"
+      }
+    },
+    "USER": {
+      "TEXT": "Usuarios",
+      "LIST": {
+        "ADDUSER": "Añadir Usuario"
       }
     },
     "COMPONENTS": {

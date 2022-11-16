@@ -10,18 +10,15 @@ import { MonturasComponent } from './pages/list-products/monturas/monturas.compo
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterUsersComponent } from './pages/register-users/register-users.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { UsersComponent } from './pages/users/users.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'registerusers', component: RegisterUsersComponent},
-  { path: 'users', component: UsersComponent},
-  { path: 'customers', component: CustomersComponent},
   { path: 'monturas', component: MonturasComponent},
   { path: 'lunas', component: LunasComponent},
   { path: 'accesorios', component: AccesoriosComponent},
-  { path: '**', redirectTo: 'login', pathMatch: 'full'},
+  //{ path: '**', redirectTo: 'login', pathMatch: 'full'},
   { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
   // tslint:disable-next-line: max-line-length
   { path: '', component: LayoutComponent, loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule), canActivate: [AuthGuard] },
