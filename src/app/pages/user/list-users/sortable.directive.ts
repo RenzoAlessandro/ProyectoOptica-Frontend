@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, Input, Output } from '@angular/core';
-import { Users } from './users.model';
+import { Users } from './list-users.model';
 
 export type SortColumn = keyof Users | '';
 export type SortDirection = 'asc' | 'desc' | '';

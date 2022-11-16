@@ -10,13 +10,11 @@ import { MonturasComponent } from './pages/list-products/monturas/monturas.compo
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterUsersComponent } from './pages/register-users/register-users.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { UsersComponent } from './pages/users/users.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'registerusers', component: RegisterUsersComponent},
-  { path: 'users', component: UsersComponent},
   { path: 'customers', component: CustomersComponent},
   { path: 'monturas', component: MonturasComponent},
   { path: 'lunas', component: LunasComponent},

@@ -3,20 +3,20 @@ import { Component, OnInit, QueryList, ViewChildren  } from '@angular/core';
 import {DecimalPipe} from '@angular/common';
 import {Observable} from 'rxjs';
 
-import {Users} from './users.model';
-import {CustomerService} from './users.service';
+import {Users} from './list-users.model';
+import {CustomerService} from './list-users.service';
 import {NgbdSortableHeader, SortEvent} from './sortable.directive';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],
+  selector: 'app-list-users',
+  templateUrl: './list-users.component.html',
+  styleUrls: ['./list-users.component.scss'],
   providers: [CustomerService, DecimalPipe]
 })
-export class UsersComponent implements OnInit {
+export class ListUsersComponent implements OnInit {
     // modal
     editEvent: any;
     formData: FormGroup;
