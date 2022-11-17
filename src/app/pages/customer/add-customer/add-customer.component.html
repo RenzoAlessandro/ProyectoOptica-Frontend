@@ -1,1 +1,293 @@
-<p>add-customer works!</p>
+<div class="container-fluid">
+    <app-page-title title="Checkout" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <div class="checkout-tabs">
+      <div class="row">
+        <div class="col-xl-8">
+          <div class="">
+            <div class="checkout-acco">
+              <ngb-accordion [closeOthers]="true" activeIds="static-1">
+                <ngb-panel id="static-1">
+                  <ng-template ngbPanelTitle>
+                    <a class="text-dark p-0" style="text-align: left;">
+                      <div class="d-flex align-items-start align-items-center">
+                        <div class="me-3">
+                          <i class="uil uil-file-bookmark-alt text-primary h2"></i>
+                        </div>
+                        <div class="flex-1 overflow-hidden">
+                          <h5 class="font-size-16 mb-1">Información del Cliente</h5>
+                          <p class="text-muted text-truncate mb-0">
+                            Datos básicos del nuevo cliente.
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </ng-template>
+                  <ng-template ngbPanelContent>
+                    <div id="checkout-customerinfo-collapse">
+                      <div class="border-top py-4">
+                        <form>
+                          <div>
+                            <div class="row">
+                              <div class="col-lg-4">
+                                <div class="mb-4">
+                                  <label class="form-label" for="billing-name">DNI</label>
+                                  <input type="text" class="form-control" id="billing-name" placeholder="DNI del CLiente" />
+                                </div>
+                              </div>
+                              <div class="col-lg-4">
+                                <div class="mb-4">
+                                  <label class="form-label" for="billing-name">Nombres</label>
+                                  <input type="text" class="form-control" id="billing-name" placeholder="Nombres del Cliente" />
+                                </div>
+                              </div>
+                              <div class="col-lg-4">
+                                <div class="mb-4">
+                                  <label class="form-label" for="billing-name">Apellidos</label>
+                                  <input type="text" class="form-control" id="billing-name" placeholder="Apellidos del Cliente" />
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-lg-4">
+                                <div class="mb-4">
+                                  <label class="form-label" for="billing-phone">Fecha de Registro</label>
+                                  <input type="text" class="form-control" id="billing-phone"
+                                    placeholder="Seleccione la fecha" />
+                                </div>
+                              </div>
+                              <div class="col-lg-4">
+                                <div class="mb-4">
+                                  <label class="form-label" for="billing-phone">Fecha de Nacimiento</label>
+                                  <input type="text" class="form-control" id="billing-phone"
+                                    placeholder="Seleccione la fecha" />
+                                </div>
+                              </div>
+                              <div class="col-lg-4">
+                                <div class="mb-4">
+                                  <label class="form-label" for="billing-phone">Telefono</label>
+                                  <input type="text" class="form-control" id="billing-phone"
+                                    placeholder="Telefono del Cliente" />
+                                </div>
+                              </div>
+                            </div>
+  
+                            <div class="mb-4">
+                              <label class="form-label" for="billing-address">Address</label>
+                              <textarea class="form-control" id="billing-address" rows="3"
+                                placeholder="Enter full address"></textarea>
+                            </div>
+  
+                            <div class="row">
+                              <div class="col-lg-4">
+                                <div class="mb-4 mb-lg-0">
+                                  <label class="form-label">Country</label>
+                                  <ng-select name="selectCountry" [items]="selectValue" [(ngModel)]="selectedValue">
+                                  </ng-select>
+                                </div>
+                              </div>
+  
+                              <div class="col-lg-4">
+                                <div class="mb-4 mb-lg-0">
+                                  <label class="form-label" for="billing-city">City</label>
+                                  <input type="text" class="form-control" id="billing-city" placeholder="Enter City" />
+                                </div>
+                              </div>
+  
+                              <div class="col-lg-4">
+                                <div class="mb-0">
+                                  <label class="form-label" for="zip-code">Zip / Postal code</label>
+                                  <input type="text" class="form-control" id="zip-code" placeholder="Enter Postal code" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ngb-panel>
+
+                
+  
+                <ngb-panel id="static-2">
+                  <ng-template ngbPanelTitle>
+                    <a class="text-dark" style="text-align: left;">
+                      <div class="d-flex align-items-start align-items-center">
+                        <div class="me-3">
+                          <i class="uil uil-receipt text-primary h2"></i>
+                        </div>
+                        <div class="flex-1 overflow-hidden">
+                          <h5 class="font-size-16 mb-1">Especificaciones de las Medidas</h5>
+                          <p class="text-muted text-truncate mb-0">
+                            Neque porro quisquam est
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </ng-template>
+                  <ng-template ngbPanelContent>
+                    <div id="checkout-medidasinfo-collapse">
+                      <div class="border-top py-4">
+                        <h5 class="font-size-14 mb-3 d-flex justify-content-center">Ojo Derecho</h5>
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <div class="mb-4">
+                              <label class="form-label" for="billing-phone">ESF</label>
+                              <input type="text" class="form-control" id="billing-phone"
+                                placeholder="Esfera" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="mb-4">
+                              <label class="form-label" for="billing-phone">CYL</label>
+                              <input type="text" class="form-control" id="billing-phone"
+                                placeholder="Cilindro" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="mb-4">
+                              <label class="form-label" for="billing-phone">EJE</label>
+                              <input type="text" class="form-control" id="billing-phone"
+                                placeholder="Eje" />
+                            </div>
+                          </div>
+                        </div>
+
+                        <h5 class="font-size-14 mb-3 d-flex justify-content-center">Ojo Izquierdo</h5>
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <div class="mb-4">
+                              <label class="form-label" for="billing-phone">ESF</label>
+                              <input type="text" class="form-control" id="billing-phone"
+                                placeholder="Esfera" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="mb-4">
+                              <label class="form-label" for="billing-phone">CYL</label>
+                              <input type="text" class="form-control" id="billing-phone"
+                                placeholder="Cilindro" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="mb-4">
+                              <label class="form-label" for="billing-phone">EJE</label>
+                              <input type="text" class="form-control" id="billing-phone"
+                                placeholder="Eje" />
+                            </div>
+                          </div>
+                        </div>
+
+                        <h5 class="font-size-14 mb-3 d-flex justify-content-center">Otros</h5>
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <div class="mb-4">
+                              <label class="form-label" for="billing-phone">DIP</label>
+                              <input type="text" class="form-control" id="billing-phone"
+                                placeholder="Distancia Interpupilar" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="mb-4">
+                              <label class="form-label" for="billing-phone">ADD</label>
+                              <input type="text" class="form-control" id="billing-phone"
+                                placeholder="Adición" />
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </ng-template>
+                </ngb-panel>
+
+
+
+                <ngb-panel id="static-3">
+                  <ng-template ngbPanelTitle>
+                    <a class="text-dark" style="text-align: left;">
+                      <div class="d-flex align-items-start align-items-center">
+                        <div class="me-3">
+                          <i class="uil uil-location-pin-alt text-primary h2"></i>
+                        </div>
+                        <div class="flex-1 overflow-hidden">
+                          <h5 class="font-size-16 mb-1">Sede del Cliente</h5>
+                          <p class="text-muted text-truncate mb-0">
+                            Sede donde se registro del nuevo cliente
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </ng-template>
+                  <ng-template ngbPanelContent>
+                    <div id="checkout-info-collapse">
+                      <div class="border-top py-4">
+                        <h5 class="font-size-14 mb-3">Sedes:</h5>
+                        <div class="row">
+
+                          <div class="col-lg-4 col-sm-6">
+                            <div class="card border rounded active shipping-address">
+                              <div class="card-body">
+                                <a href="javascript:void(0);" class="float-right ml-1" data-toggle="tooltip" data-placement="top"
+                                  title="Edit">
+                                  <i class="uil uil-shop font-size-16"></i>
+                                </a>
+                                <h5 class="font-size-14 mb-4">Arequipa</h5>
+  
+                                <h5 class="font-size-14">James Morgan</h5>
+                                <p class="mb-1">
+                                  1557 Sundown Lane Smithville, TX 78957
+                                </p>
+                                <p class="mb-0">Mo. 012-345-6789</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-sm-6">
+                            <div class="card border rounded shipping-address">
+                              <div class="card-body">
+                                <a href="javascript:void(0);" class="float-right ml-1" data-toggle="tooltip" data-placement="top"
+                                  title="Edit">
+                                  <i class="uil uil-shop font-size-16"></i>
+                                </a>
+                                <h5 class="font-size-14 mb-4">Moquegua</h5>
+                                <h5 class="font-size-14">James Morgan</h5>
+                                <p class="mb-1">
+                                  1557 Sundown Lane Smithville, TX 78957
+                                </p>
+                                <p class="mb-0">Mo. 012-345-6789</p>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ngb-panel>
+
+              </ngb-accordion>
+            </div>
+          </div>
+  
+          <div class="row my-4">
+            <div class="col">
+              <a routerLink="/ecommerce/products" class="btn btn-link text-muted">
+                <i class="uil uil-arrow-left me-1"></i> Continue Shopping
+              </a>
+            </div>
+            <!-- end col -->
+            <div class="col">
+              <div class="text-sm-end mt-2 mt-sm-0">
+                <a href="javascript:void(0)" class="btn btn-success">
+                  <i class="uil uil-shopping-cart-alt me-1"></i> Procced
+                </a>
+              </div>
+            </div>
+            <!-- end col -->
+          </div>
+          <!-- end row-->
+        </div>
+      </div>
+    </div>
+  </div>

@@ -83,14 +83,13 @@ closeEventModal() {
   this.modalService.dismissAll();
 }
 
-/**
- * Save the event
- */
-saveEvent() {
-  if (this.formData.valid) {
+  /**
+   * Save the event
+   */
+  saveEvent() {
+    if (this.formData.valid) {
 
+    }
+    this.submitted = true;
   }
-  this.submitted = true;
-}
-
 }
