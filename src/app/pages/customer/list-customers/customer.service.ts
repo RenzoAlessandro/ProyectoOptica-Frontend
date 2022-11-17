@@ -7,9 +7,11 @@ import { CUSTOMERS } from './data';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
+import { ClienteService } from 'src/app/services/cliente.service';
+import { CustomersModel } from 'src/models/customer';
 
 interface SearchResult {
-  customers: Customer[];
+  customers: CustomersModel[];
   total: number;
 }
 
@@ -23,7 +25,7 @@ interface State {
 
 const compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-function sort(customers: Customer[], column: SortColumn, direction: string): Customer[] {
+function sort(customers: CustomersModel[], column: SortColumn, direction: string): CustomersModel[] {
   if (direction === '' || column === '') {
     return customers;
   } else {
@@ -34,22 +36,22 @@ function sort(customers: Customer[], column: SortColumn, direction: string): Cus
   }
 }
 
-function matches(customer: Customer, term: string, pipe: PipeTransform) {
-  return customer.id.toLowerCase().includes(term)
-  || customer.firstnames.toLowerCase().includes(term.toLowerCase())
-  || customer.lastnames.toLowerCase().includes(term.toLowerCase())
-  || customer.dni.toLowerCase().includes(term.toLowerCase())
+function matches(customer: CustomersModel, term: string, pipe: PipeTransform) {
+  return customer.id_cliente.toLowerCase().includes(term)
+  || customer.nombres.toLowerCase().includes(term.toLowerCase())
+  || customer.apellidos.toLowerCase().includes(term.toLowerCase())
+  || String(customer.dni).toLowerCase().includes(term.toLowerCase())
   || customer.telefono.toLowerCase().includes(term.toLowerCase())
-  || customer.date.toLowerCase().includes(term);
+  || (customer.fecha_creacion).toLocaleString().includes(term);
 }
 
 @Injectable({ providedIn: 'root' })
 export class CustomerService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _customers$ = new BehaviorSubject<Customer[]>([]);
+  private _customers$ = new BehaviorSubject<CustomersModel[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
-
+  customerList: CustomersModel[] = [];
   private _state: State = {
     page: 1,
     pageSize: 10,
@@ -58,19 +60,12 @@ export class CustomerService {
     sortDirection: ''
   };
 
-  constructor(private pipe: DecimalPipe) {
-    this._search$.pipe(
-      tap(() => this._loading$.next(true)),
-      debounceTime(200),
-      switchMap(() => this._search()),
-      delay(200),
-      tap(() => this._loading$.next(false))
-    ).subscribe(result => {
-      this._customers$.next(result.customers);
-      this._total$.next(result.total);
-    });
-
-    this._search$.next();
+  constructor(
+    private pipe: DecimalPipe,
+    private customerService: ClienteService
+    ) {
+    this.getListClients();
+    
   }
 
   get customers$() { return this._customers$.asObservable(); }
@@ -93,9 +88,9 @@ export class CustomerService {
 
   private _search(): Observable<SearchResult> {
     const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
-
+    console.log(this.customerList);
     // 1. sort
-    let customers = sort(CUSTOMERS, sortColumn, sortDirection);
+    let customers = sort(this.customerList, sortColumn, sortDirection);
 
     // 2. filter
     customers = customers.filter(customer => matches(customer, searchTerm, this.pipe));
@@ -104,5 +99,23 @@ export class CustomerService {
     // 3. paginate
     customers = customers.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
     return of({ customers, total });
+  }
+  getListClients() {
+    this.customerService.getAllClients().subscribe( res=>{
+      console.log("entre..")
+      this.customerList = res;
+      this._search$.pipe(
+        tap(() => this._loading$.next(true)),
+        debounceTime(200),
+        switchMap(() => this._search()),
+        delay(200),
+        tap(() => this._loading$.next(false))
+      ).subscribe(result => {
+        this._customers$.next(result.customers);
+        this._total$.next(result.total);
+      });
+  
+      this._search$.next();
+    })  
   }
 }

@@ -2,7 +2,7 @@
     <app-page-title title="Checkout" [breadcrumbItems]="breadCrumbItems"></app-page-title>
     <div class="checkout-tabs">
       <div class="row">
-        <div class="col-xl-8">
+        <div class="col-xl-12">
           <div class="">
             <div class="checkout-acco">
               <ngb-accordion [closeOthers]="true" activeIds="static-1">
@@ -196,7 +196,15 @@
                             </div>
                           </div>
                         </div>
-
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="mb-4">
+                              <label class="form-label" for="billing-phone">Encargado</label>
+                              <input type="text" class="form-control" id="billing-phone"
+                                placeholder="Encargado" />
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </ng-template>

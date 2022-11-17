@@ -55,23 +55,26 @@ export class ListCustomersComponent implements OnInit {
   breadCrumbItems: Array<{}>;
   term: any;
   
-  customers$: Observable<Customer[]>;
+  customers$: Observable<CustomersModel[]>;
   total$: Observable<number>;
   
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
   
 
-  constructor(public service: CustomerService, 
+  constructor(
+    public service: CustomerService, 
     private modalService: NgbModal, 
     private fb: FormBuilder,
     private customerService: ClienteService) {
     this.customers$ = service.customers$;
+    console.log(this.customers$);
     this.total$ = service.total$;
   }
 
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'Customers', active: true }];
     this.crearFormulario();
+    this.getListClients();
   }
 
   f(campo:any){
@@ -174,4 +177,10 @@ export class ListCustomersComponent implements OnInit {
     })
   }
 
+  getListClients() {
+    this.customerService.getAllClients().subscribe( res=>{
+      console.log(res);
+      
+    })  
+  }
 }

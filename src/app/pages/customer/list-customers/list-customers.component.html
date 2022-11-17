@@ -50,12 +50,12 @@
                     <th scope="col" sortable="Telefono" (sort)="onSort($event)">Telefono</th>
                     <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de Nacimiento</th>
                     <th scope="col" sortable="Encarg. Medición" (sort)="onSort($event)">Encargado Medicion</th>
-                    <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th>
+                    <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of customers$ | async">
+                  <tr *ngFor="let data of customers$ | async; let i = index">
 <!--                     <td>
                       <div class="form-check text-center">
                         <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input" />
@@ -63,19 +63,19 @@
                       </div>
                     </td> -->
                     <td>
-                      <ngb-highlight [result]="data.index" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="i" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <img src="{{data.photo}}" alt="" class="avatar-xs rounded-circle me-2" *ngIf="data.photo">
+                      <!-- <img src="{{data.photo}}" alt="" class="avatar-xs rounded-circle me-2" *ngIf="data.photo">
                       <div class="avatar-xs d-inline-block me-2" *ngIf="!data.photo">
                         <span class="avatar-title rounded-circle bg-light text-body">
                           {{data.firstnames.charAt(0)}}
                         </span>
-                      </div>
-                      <ngb-highlight [result]="data.firstnames" [term]="service.searchTerm"></ngb-highlight>
+                      </div> -->
+                      <ngb-highlight [result]="data.nombres" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.lastnames" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.apellidos" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
                       <ngb-highlight [result]="data.dni" [term]="service.searchTerm"></ngb-highlight>
@@ -84,15 +84,15 @@
                       <ngb-highlight [result]="data.telefono" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.date" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.fecha_creacion| date: 'dd/MM/yyyy'" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.encargadoMedicion" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.medidas[i].encargado" [term]="service.searchTerm"></ngb-highlight>
                     </td>
-                    <td>
+                    <!-- <td>
                       <span class="badge bg-pill bg-soft-success font-size-12"
                         [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
-                    </td>
+                    </td> -->
                     <td>
                       <a href="javascript:void(0);" class="px-2 text-info" placement="top" ngbTooltip="Eliminar"><i
                         class="uil uil-info-circle font-size-18"></i></a>
