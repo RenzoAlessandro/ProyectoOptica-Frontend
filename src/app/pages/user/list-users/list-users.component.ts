@@ -76,10 +76,6 @@ deleteEventData() {
  * Close event modal
  */
 closeEventModal() {
-  this.formData = this.formBuilder.group({
-    title: '',
-    category: '',
-  });
   this.modalService.dismissAll();
 }
 

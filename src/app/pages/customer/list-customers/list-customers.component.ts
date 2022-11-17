@@ -107,6 +107,9 @@ export class ListCustomersComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
+  closeEventModal() {
+    this.modalService.dismissAll();
+  }
   /**
    * Close event modal
    */
