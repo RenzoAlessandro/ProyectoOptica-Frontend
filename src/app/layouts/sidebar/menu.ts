@@ -19,7 +19,7 @@ export const MENU: MenuItem[] = [
     {
         id: 3,
         label: 'MENUITEMS.CLIENT.TEXT',
-        icon: 'uil-book-alt',
+        icon: 'uil-users-alt',
         subItems: [
             {
                 id: 4,
@@ -58,7 +58,7 @@ export const MENU: MenuItem[] = [
     {
         id: 9,
         label: 'MENUITEMS.PRODUCTS.TEXT',
-        icon: 'uil-user-circle',
+        icon: 'uil-box',
         subItems: [
             {
                 id: 10,

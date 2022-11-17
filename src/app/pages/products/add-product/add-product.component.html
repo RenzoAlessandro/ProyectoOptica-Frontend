@@ -1,1 +1,88 @@
-<p>add-product works!</p>
+<div class="container-fluid">
+    <app-page-title title="Añadir un Producto" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  
+    <div class="row mb-4">  
+      <div class="col-xl-8">
+        <div class="card mb-0">
+          <!-- Nav tabs -->
+          <ul ngbNav #justifiednav="ngbNav" [activeId]="1" class="nav nav-tabs nav-justified nav-tabs-custom">
+            <li [ngbNavItem]="1" class="nav-item">
+              <a ngbNavLink class="nav-link">
+                <i class="uil uil-nerd font-size-20"></i>
+                <span class="d-none d-sm-block">Montura</span>
+              </a>
+              <ng-template ngbNavContent>
+                <ng-template [ngTemplateOutlet]="TabContentAbout"></ng-template>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="2" class="nav-item">
+              <a ngbNavLink class="nav-link">
+                <i class="uil uil-panorama-h-alt font-size-20"></i>
+                <span class="d-none d-sm-block">Luna</span>
+              </a>
+              <ng-template ngbNavContent>
+                <ng-template [ngTemplateOutlet]="TabContentTasks"></ng-template>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="3" class="nav-item">
+              <a ngbNavLink class="nav-link">
+                <i class="uil uil-box font-size-20"></i>
+                <span class="d-none d-sm-block">Accesorio</span>
+              </a>
+              <ng-template ngbNavContent>
+                <ng-template [ngTemplateOutlet]="TabContentMessages"></ng-template>
+              </ng-template>
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="justifiednav"></div>
+        </div>
+  
+        <!-- Tab content -->
+        <ng-template #TabContentAbout>
+          <div class="tab-content p-4">
+            <div class="tab-pane active">
+              <div>
+                <div>
+                  <h5 class="font-size-16 mb-4">Experience</h5>
+  
+                </div>
+  
+                <div>
+                  <h5 class="font-size-16 mb-4">Projects</h5>
+  
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+  
+        <ng-template #TabContentTasks>
+          <div class="tab-content p-4">
+            <div class="tab-pane active">
+              <div>
+                <h5 class="font-size-16 mb-3">Active</h5>
+  
+                <h5 class="font-size-16 my-3">Upcoming</h5>
+  
+                <h5 class="font-size-16 my-3">Complete</h5>
+  
+
+              </div>
+            </div>
+          </div>
+        </ng-template>
+  
+        <ng-template #TabContentMessages>
+          <div class="tab-content p-4">
+            <div class="tab-pane active">
+              <div>
+                <h5 class="font-size-16 mb-3">Active</h5>
+
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <!-- end row -->
+  </div>

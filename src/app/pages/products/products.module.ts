@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { NgbAccordionModule, NgbCollapseModule, NgbDropdownModule, NgbPaginationModule, NgbTooltipModule, NgbTypeaheadModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbAccordionModule, NgbCollapseModule, NgbDropdownModule, NgbPaginationModule, NgbTooltipModule, NgbTypeaheadModule, NgbModule, NgbNavModule, } from "@ng-bootstrap/ng-bootstrap";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { Ng2SearchPipeModule } from "ng2-search-filter";
 import { Ng5SliderModule } from "ng5-slider";
@@ -33,7 +33,9 @@ import { ProductsRoutingModule } from "./products-routing.module";
       NgbTooltipModule,
       NgbAccordionModule,
       NgbTypeaheadModule,
-      NgbCollapseModule
+      NgbCollapseModule,
+      NgbNavModule,
+      NgbModule
     ],
     providers: [
       {
