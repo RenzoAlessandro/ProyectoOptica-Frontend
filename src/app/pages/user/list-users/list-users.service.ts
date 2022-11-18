@@ -7,9 +7,11 @@ import { USERS } from './data';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
+import { UsersModel } from 'src/models/user';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 interface SearchResult {
-  customers: User[];
+  customers: UsersModel[];
   total: number;
 }
 
@@ -23,10 +25,11 @@ interface State {
 
 const compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-function sort(customers: User[], column: SortColumn, direction: string): User[] {
+function sort(customers: UsersModel[], column: SortColumn, direction: string): UsersModel[] {
   if (direction === '' || column === '') {
     return customers;
   } else {
+    console.log( typeof customers)
     return [...customers].sort((a, b) => {
       const res = compare(a[column], b[column]);
       return direction === 'asc' ? res : -res;
@@ -34,24 +37,23 @@ function sort(customers: User[], column: SortColumn, direction: string): User[] 
   }
 }
 
-function matches(customer: User, term: string, pipe: PipeTransform) {
-  return customer.id.toLowerCase().includes(term)
-  || customer.firstnames.toLowerCase().includes(term.toLowerCase())
-  || customer.lastnames.toLowerCase().includes(term.toLowerCase())
-  || customer.dni.toLowerCase().includes(term.toLowerCase())
+function matches(customer: UsersModel, term: string, pipe: PipeTransform) {
+  return customer.nombres.toLowerCase().includes(term.toLowerCase())
+  || customer.apellidos.toLowerCase().includes(term.toLowerCase())
+  || String(customer.dni).toLowerCase().includes(term.toLowerCase())
   || customer.rol.toLowerCase().includes(term.toLowerCase())
-  || customer.sede.toLowerCase().includes(term.toLowerCase())
-  || customer.email.toLowerCase().includes(term)
-  || customer.date.toLowerCase().includes(term);
+  // || customer.sede.toLowerCase().includes(term.toLowerCase())
+  || customer.telefono.toLowerCase().includes(term)
+  || (customer.fecha_creacion).toLocaleString().includes(term);
 }
 
 @Injectable({ providedIn: 'root' })
 export class CustomerService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _customers$ = new BehaviorSubject<User[]>([]);
+  private _customers$ = new BehaviorSubject<UsersModel[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
-
+  usersList: UsersModel[] = [];
   private _state: State = {
     page: 1,
     pageSize: 10,
@@ -60,19 +62,11 @@ export class CustomerService {
     sortDirection: ''
   };
 
-  constructor(private pipe: DecimalPipe) {
-    this._search$.pipe(
-      tap(() => this._loading$.next(true)),
-      debounceTime(200),
-      switchMap(() => this._search()),
-      delay(200),
-      tap(() => this._loading$.next(false))
-    ).subscribe(result => {
-      this._customers$.next(result.customers);
-      this._total$.next(result.total);
-    });
-
-    this._search$.next();
+  constructor(
+    private pipe: DecimalPipe,
+    private userService: UsuarioService
+    ) {
+    this.getListUsers();
   }
 
   get customers$() { return this._customers$.asObservable(); }
@@ -97,7 +91,7 @@ export class CustomerService {
     const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
     // 1. sort
-    let customers = sort(USERS, sortColumn, sortDirection);
+    let customers = sort(this.usersList, sortColumn, sortDirection);
 
     // 2. filter
     customers = customers.filter(customer => matches(customer, searchTerm, this.pipe));
@@ -106,5 +100,24 @@ export class CustomerService {
     // 3. paginate
     customers = customers.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
     return of({ customers, total });
+  }
+
+  getListUsers() {
+    this.userService.getUsers().subscribe(res =>{
+      console.log(res);
+      this.usersList = res;
+      this._search$.pipe(
+        tap(() => this._loading$.next(true)),
+        debounceTime(200),
+        switchMap(() => this._search()),
+        delay(200),
+        tap(() => this._loading$.next(false))
+      ).subscribe(result => {
+        this._customers$.next(result.customers);
+        this._total$.next(result.total);
+      });
+  
+      this._search$.next();
+    })
   }
 }

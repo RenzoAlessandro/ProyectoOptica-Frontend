@@ -44,8 +44,8 @@
                       </div>
                     </th> -->
                     <th scope="col" sortable="id" (sort)="onSort($event)">#</th>
-                    <th scope="col" sortable="firstnames" (sort)="onSort($event)">Nombres</th>
-                    <th scope="col" sortable="lastnames" (sort)="onSort($event)">Apellidos</th>
+                    <th scope="col" sortable="nombres" (sort)="onSort($event)">Nombres</th>
+                    <th scope="col" sortable="apellidos" (sort)="onSort($event)">Apellidos</th>
                     <th scope="col" sortable="dni" (sort)="onSort($event)">DNI</th>
                     <th scope="col" sortable="rol" (sort)="onSort($event)">Rol</th>
                     <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th>
@@ -67,16 +67,16 @@
                       <ngb-highlight [result]="data.index" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <img src="{{data.photo}}" alt="" class="avatar-xs rounded-circle me-2" *ngIf="data.photo">
+                      <!-- <img src="{{data.photo}}" alt="" class="avatar-xs rounded-circle me-2" *ngIf="data.photo">
                       <div class="avatar-xs d-inline-block me-2" *ngIf="!data.photo">
                         <span class="avatar-title rounded-circle bg-light text-body">
                           {{data.firstnames.charAt(0)}}
                         </span>
-                      </div>
-                      <ngb-highlight [result]="data.firstnames" [term]="service.searchTerm"></ngb-highlight>
+                      </div> -->
+                      <ngb-highlight [result]="data.nombres" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.lastnames" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.apellidos" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
                       <ngb-highlight [result]="data.dni" [term]="service.searchTerm"></ngb-highlight>
@@ -91,7 +91,7 @@
                       <ngb-highlight [result]="data.email" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.date" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.fecha_creacion| date: 'dd/MM/yyyy'" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
                       <span class="badge bg-pill bg-soft-success font-size-12"

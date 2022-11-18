@@ -44,8 +44,8 @@
                       </div>
                     </th> -->
                     <th scope="col" sortable="id" (sort)="onSort($event)">#</th>
-                    <th scope="col" sortable="firstnames" (sort)="onSort($event)">Nombres</th>
-                    <th scope="col" sortable="lastnames" (sort)="onSort($event)">Apellidos</th>
+                    <th scope="col" sortable="nombres" (sort)="onSort($event)">Nombres</th>
+                    <th scope="col" sortable="apellidos" (sort)="onSort($event)">Apellidos</th>
                     <th scope="col" sortable="dni" (sort)="onSort($event)">DNI</th>
                     <th scope="col" sortable="Telefono" (sort)="onSort($event)">Telefono</th>
                     <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de Nacimiento</th>
@@ -87,7 +87,7 @@
                       <ngb-highlight [result]="data.fecha_creacion| date: 'dd/MM/yyyy'" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.medidas[i].encargado" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.medidas[0].encargado" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <!-- <td>
                       <span class="badge bg-pill bg-soft-success font-size-12"

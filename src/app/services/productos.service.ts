@@ -2,23 +2,26 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { UsersModel } from 'src/models/user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsuarioService {
+export class ProductosService {
 
   constructor(
     private http: HttpClient
   ) { }
-
-  getUsers(): Observable<any> {
+  getMonturas(): Observable<any> {
     return this.http.get<any>(environment.urlBackend+'getAllUsers');
   }
-
-  createUsers(user:UsersModel): Observable<any> {
-    return this.http.post<any>(environment.urlBackend+'createNewUser', user);
+  getAccesorios(): Observable<any> {
+    return this.http.get<any>(environment.urlBackend+'getAllUsers');
+  }
+  getLunas(): Observable<any> {
+    return this.http.get<any>(environment.urlBackend+'getAllUsers');
+  }
+  createUsers(producto:any): Observable<any> {
+    return this.http.post<any>(environment.urlBackend+'createNewUser',producto);
   }
 
   updateUsers(idUser:any): Observable<any> {

@@ -1,14 +1,12 @@
 import { Injectable, PipeTransform } from '@angular/core';
 
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-
-import { Customer } from './customer.model';
-import { CUSTOMERS } from './data';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { CustomersModel } from 'src/models/customer';
+import { MedidasModel } from 'src/models/medidas';
 
 interface SearchResult {
   customers: CustomersModel[];
@@ -23,13 +21,14 @@ interface State {
   sortDirection: SortDirection;
 }
 
-const compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+const compare = (v1: string | number | Date | MedidasModel[], v2: string | number | Date | MedidasModel[]) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
 function sort(customers: CustomersModel[], column: SortColumn, direction: string): CustomersModel[] {
   if (direction === '' || column === '') {
     return customers;
   } else {
     return [...customers].sort((a, b) => {
+      console.log(a[column])
       const res = compare(a[column], b[column]);
       return direction === 'asc' ? res : -res;
     });
@@ -89,6 +88,7 @@ export class CustomerService {
   private _search(): Observable<SearchResult> {
     const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
     console.log(this.customerList);
+    console.log(sortColumn)
     // 1. sort
     let customers = sort(this.customerList, sortColumn, sortDirection);
 

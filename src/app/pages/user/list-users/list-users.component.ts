@@ -9,6 +9,7 @@ import {NgbdSortableHeader, SortEvent} from './sortable.directive';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UsersModel } from 'src/models/user';
 
 @Component({
   selector: 'app-list-users',
@@ -26,7 +27,7 @@ export class ListUsersComponent implements OnInit {
     breadCrumbItems: Array<{}>;
     term: any;
   
-    customers$: Observable<User[]>;
+    customers$: Observable<UsersModel[]>;
     total$: Observable<number>;
   
     @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;

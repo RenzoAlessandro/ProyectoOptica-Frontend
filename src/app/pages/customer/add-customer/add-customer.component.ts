@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { CustomersModel } from 'src/models/customer';
 import { MedidasModel } from 'src/models/medidas';
@@ -35,7 +35,7 @@ export class AddCustomerComponent implements OnInit {
   customer = new CustomersModel;
   medidas = new MedidasModel;
   submitted = false;
-  
+  fecha_actual: Date;
   constructor(
     private fb: FormBuilder,
     private customerService: ClienteService
@@ -53,17 +53,24 @@ export class AddCustomerComponent implements OnInit {
 
     this.stateValue = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Montana', 'Nevada', 'New Mexico', 'New York', 'North Dakota', 'Texas', 'Virginia', 'Wisconsin', 'Wyoming']
 
-    this.crearFormulario()
+    this.crearFormulario();
   }
 
   crearFormulario() {
+    this.fecha_actual = new Date();
     this.formCustomer = this.fb.group({
-      [this.nombres]:[],
-      [this.apellidos]:[],
-      [this.dni]:[],
+      [this.nombres]:[null,[
+        Validators.required
+      ]],
+      [this.apellidos]:[null,[
+        Validators.required
+      ]],
+      [this.dni]:[null,[
+        Validators.required
+      ]],
       [this.telefono]:[],
       [this.fecha_nacimiento]:[],
-      [this.fecha_creacion]:[],
+      [this.fecha_creacion]:[{value: this.fecha_actual.toLocaleString(), disabled: true}],
       [this.od_cilindrico]:[],
       [this.od_eje]:[],
       [this.od_esferico]:[],
@@ -103,9 +110,9 @@ export class AddCustomerComponent implements OnInit {
       this.medidas.oi_esferico = Number(this.f(this.oi_esferico).value); 
       this.customer.medidas.push(this.medidas);
       console.log(this.customer);
-      this.customerService.createCustomers(this.customer).subscribe( res=>{
+      /* this.customerService.createCustomers(this.customer).subscribe( res=>{
         console.log("registrado ok");
-      })  
+      }); */  
     }
     
   } 

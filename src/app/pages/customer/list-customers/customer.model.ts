@@ -9,4 +9,4 @@ export interface Customer {
     status: string;
     encargadoMedicion: string;
     index: number;
-}
+} 

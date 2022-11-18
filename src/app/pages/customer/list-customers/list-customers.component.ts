@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { CustomersModel } from 'src/models/customer';
 import { MedidasModel } from 'src/models/medidas';
-import { Customer } from './customer.model';
 import { CustomerService } from './customer.service';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 
