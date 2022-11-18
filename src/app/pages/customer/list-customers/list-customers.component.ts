@@ -67,14 +67,12 @@ export class ListCustomersComponent implements OnInit {
     private fb: FormBuilder,
     private customerService: ClienteService) {
     this.customers$ = service.customers$;
-    console.log(this.customers$);
     this.total$ = service.total$;
   }
 
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'Customers', active: true }];
     this.crearFormulario();
-    this.getListClients();
   }
 
   f(campo:any){
@@ -116,6 +114,10 @@ export class ListCustomersComponent implements OnInit {
   /**
    * Close event modal
    */
+
+  /**
+   * guarda cliente en la base de datos
+   */
   guardarCliente() {
     if(this.formCustomer.valid){
       this.customer.apellidos = this.f(this.apellidos).value;
@@ -125,8 +127,6 @@ export class ListCustomersComponent implements OnInit {
       this.customer.fecha_nacimiento = new Date(Date.now());
       this.customer.nombres = this.f(this.nombres).value;
       this.customer.telefono = this.f(this.telefono).value;
-
-
       this.medidas.add = Number(this.f(this.add).value);
       this.medidas.dip = Number(this.f(this.dip).value);
       this.medidas.encargado = this.f(this.encargado).value;
@@ -177,10 +177,4 @@ export class ListCustomersComponent implements OnInit {
     })
   }
 
-  getListClients() {
-    this.customerService.getAllClients().subscribe( res=>{
-      console.log(res);
-      
-    })  
-  }
 }
