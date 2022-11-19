@@ -48,7 +48,7 @@
                       <div class="mb-3">
                         <label class="control-label">Fecha</label>
                         <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
-                          formControlName="{{this.fecha_registro}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                          formControlName="{{this.fecha_registro_montura}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                         <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                           <span *ngIf="form.title.errors.required">This value is required.</span>
                         </div>
@@ -60,7 +60,7 @@
                       <div class="mb-3">
                         <label class="control-label">Material</label>
                         <input class="form-control" placeholder="Material de la montura" type="text" name="title"
-                          formControlName="{{this.material}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                          formControlName="{{this.material_montura}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                         <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                           <span *ngIf="form.title.errors.required">This value is required.</span>
                         </div>
@@ -70,7 +70,7 @@
                       <div class="mb-3">
                         <label class="control-label">Marca</label>
                         <input class="form-control" placeholder="Marca de la montura" type="text" name="title"
-                          formControlName="{{this.marca}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                          formControlName="{{this.marca_montura}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                         <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                           <span *ngIf="form.title.errors.required">This value is required.</span>
                         </div>
@@ -83,7 +83,7 @@
                       <div class="mb-3">
                         <label class="control-label">Código</label>
                         <input class="form-control" placeholder="Código" type="text" name="title"
-                          formControlName="{{this.codigo}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                          formControlName="{{this.codigo_montura}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                         <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                           <span *ngIf="form.title.errors.required">This value is required.</span>
                         </div>
@@ -93,7 +93,7 @@
                       <div class="mb-3">
                         <label class="control-label">Código Interno</label>
                         <input class="form-control" placeholder="Código" type="text" name="title"
-                          formControlName="{{this.codigo_interno}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                          formControlName="{{this.codigo_interno_montura}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                         <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                           <span *ngIf="form.title.errors.required">This value is required.</span>
                         </div>
@@ -103,7 +103,7 @@
                       <div class="mb-3">
                         <label class="control-label">Talla</label>
                         <input class="form-control" placeholder="Talla de la montura" type="text" name="title"
-                          formControlName="{{this.talla}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                          formControlName="{{this.talla_montura}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                         <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                           <span *ngIf="form.title.errors.required">This value is required.</span>
                         </div>
@@ -117,7 +117,7 @@
                       <div class="mb-3">
                         <label class="control-label">Cantidad</label>
                         <input class="form-control" placeholder="Cantidad" type="text" name="title"
-                          formControlName="{{this.cantidad}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                          formControlName="{{this.cantidad_montura}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                         <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                           <span *ngIf="form.title.errors.required">This value is required.</span>
                         </div>
@@ -127,7 +127,7 @@
                       <div class="mb-3">
                         <label class="control-label">Precio de Compra</label>
                         <input class="form-control" placeholder="Precio" type="text" name="title"
-                          formControlName="{{this.precio_compra}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                          formControlName="{{this.precio_compra_montura}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                         <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                           <span *ngIf="form.title.errors.required">This value is required.</span>
                         </div>
@@ -137,7 +137,7 @@
                       <div class="mb-3">
                         <label class="control-label">Precio de Venta</label>
                         <input class="form-control" placeholder="Precio" type="text" name="title"
-                          formControlName="{{this.precio_venta}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                          formControlName="{{this.precio_venta_montura}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                         <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                           <span *ngIf="form.title.errors.required">This value is required.</span>
                         </div>
@@ -148,10 +148,10 @@
             
                   <div class="text-end mt-2">
                     <button type="button" class="btn btn-danger">
-                      Close
+                      Cerrar
                     </button>
                     <button type="submit" class="btn btn-success ms-1" id="btn-save-event">
-                      Save
+                      Guardar
                     </button>
                   </div>
                 </form>
@@ -164,13 +164,76 @@
           <div class="tab-content p-4">
             <div class="tab-pane active">
               <div>
-                <h5 class="font-size-16 mb-3">Active</h5>
-  
-                <h5 class="font-size-16 my-3">Upcoming</h5>
-  
-                <h5 class="font-size-16 my-3">Complete</h5>
-  
-
+                <form (ngSubmit)="saveEvent()" [formGroup]="formLunas">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="mb-3">
+                        <label class="control-label">Fecha</label>
+                        <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
+                          formControlName="{{this.fecha_registro_luna}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                        <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                          <span *ngIf="form.title.errors.required">This value is required.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="mb-3">
+                        <label class="control-label">Material</label>
+                        <input class="form-control" placeholder="Material de la luna" type="text" name="title"
+                          formControlName="{{this.material_luna}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                        <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                          <span *ngIf="form.title.errors.required">This value is required.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="mb-3">
+                        <label class="control-label">Cantidad</label>
+                        <input class="form-control" placeholder="Cantidad" type="text" name="title"
+                          formControlName="{{this.cantidad_luna}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                        <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                          <span *ngIf="form.title.errors.required">This value is required.</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="mb-3">
+                        <label class="control-label">Precio de Compra</label>
+                        <input class="form-control" placeholder="Precio" type="text" name="title"
+                          formControlName="{{this.precio_compra_luna}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                        <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                          <span *ngIf="form.title.errors.required">This value is required.</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="mb-3">
+                        <label class="control-label">Precio de Venta</label>
+                        <input class="form-control" placeholder="Precio" type="text" name="title"
+                          formControlName="{{this.precio_venta_luna}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                        <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                          <span *ngIf="form.title.errors.required">This value is required.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+          
+            
+                  <div class="text-end mt-2">
+                    <button type="button" class="btn btn-danger" (click)="closeEventModal()">
+                      Cerrar
+                    </button>
+                    <button type="submit" class="btn btn-success ms-1" id="btn-save-event">
+                      Guardar
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -180,8 +243,76 @@
           <div class="tab-content p-4">
             <div class="tab-pane active">
               <div>
-                <h5 class="font-size-16 mb-3">Active</h5>
-
+                <form (ngSubmit)="saveEvent()" [formGroup]="formAccesorios">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="mb-3">
+                        <label class="control-label">Fecha</label>
+                        <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
+                          formControlName="{{this.fecha_registro_accesorio}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                        <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                          <span *ngIf="form.title.errors.required">This value is required.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="mb-3">
+                        <label class="control-label">Nombre del Accesorio</label>
+                        <input class="form-control" placeholder="Accesorio" type="text" name="title"
+                          formControlName="{{this.nombre_accesorio}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                        <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                          <span *ngIf="form.title.errors.required">This value is required.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="mb-3">
+                        <label class="control-label">Cantidad</label>
+                        <input class="form-control" placeholder="Cantidad" type="text" name="title"
+                          formControlName="{{this.cantidad_accesorio}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                        <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                          <span *ngIf="form.title.errors.required">This value is required.</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="mb-3">
+                        <label class="control-label">Precio de Compra</label>
+                        <input class="form-control" placeholder="Precio" type="text" name="title"
+                          formControlName="{{this.precio_compra_accesorio}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                        <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                          <span *ngIf="form.title.errors.required">This value is required.</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="mb-3">
+                        <label class="control-label">Precio de Venta</label>
+                        <input class="form-control" placeholder="Precio" type="text" name="title"
+                          formControlName="{{this.precio_venta_accesorio}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                        <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                          <span *ngIf="form.title.errors.required">This value is required.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            
+            
+                  <div class="text-end mt-2">
+                    <button type="button" class="btn btn-danger" (click)="closeEventModal()">
+                      Cerrar
+                    </button>
+                    <button type="submit" class="btn btn-success ms-1" id="btn-save-event">
+                      Guardar
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
