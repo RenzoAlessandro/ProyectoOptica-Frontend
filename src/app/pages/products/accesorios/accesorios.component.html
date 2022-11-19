@@ -4,22 +4,31 @@
   
     <div class="row">
       <div class="col-12">
-        <div>
+<!--         <div>
           <button type="button" class="btn btn-success waves-effect waves-light mb-3" (click)="centerModal(centerDataModal)"><i class="mdi mdi-plus me-1"></i>
             Agregar un Accesorio</button>
-        </div>
+        </div> -->
         <div class="row mb-md-2">
           <!-- Search -->
-        <div class="col-sm-12 col-md-4 search-box chat-search-box">
+          <div class="col-sm-12 col-md-4 search-box chat-search-box">
               <div class="position-relative">
                   <input type="text" class="form-control border-light rounded" placeholder="Buscar accesorio" 
                       name="searchTerm" aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
                   <i class="uil uil-search search-icon"></i>
               </div>
-        </div>
+          </div>
         <!-- End search -->
-        <div class="col-sm-12 col-md-8 text-md-end">
-          <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
+          <div class="col-md-3 text-md-end">
+            <button type="button" class="btn btn-success waves-effect waves-light mb-3" (click)="centerModal(centerDataModal)"><i class="mdi mdi-plus me-1"></i>
+              Agregar un Accesorio</button>
+          </div>
+          <div class="btn-group me-2 mb-2 mb-sm-0 col-md-4">
+            <button type="button" class="btn btn-primary"><i class="fa fa-inbox"></i></button>
+            <button type="button" class="btn btn-primary"><i class="fa fa-exclamation-circle"></i></button>
+            <button type="button" class="btn btn-primary"><i class="far fa-trash-alt"></i></button>
+          </div>
+          <div class="col-sm-12 col-md-4 text-md-end">
+            <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
                 [(ngModel)]="service.pageSize"
                 class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
                 <option [ngValue]="10">10</option>
@@ -27,7 +36,7 @@
                 <option [ngValue]="50">50</option>
                 <option [ngValue]="100">100</option>
               </select> entradas</label></div>
-        </div>
+          </div>
       </div>
         <div class="table-responsive mb-4">
           <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
