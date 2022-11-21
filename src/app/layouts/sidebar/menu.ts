@@ -87,6 +87,26 @@ export const MENU: MenuItem[] = [
         ],
         link: '/products',
     },
+    {
+        id: 14,
+        label: 'MENUITEMS.STORES.TEXT',
+        icon: 'uil-box',
+        subItems: [
+            {
+                id: 15,
+                label: 'MENUITEMS.STORES.LIST.STORES',
+                link: '/store/liststores',
+                parentId: 9
+            }, 
+            {
+                id: 16,
+                label: 'MENUITEMS.STORES.LIST.ADDSTORES',
+                link: '/store/addstore',
+                parentId: 9
+            },
+        ],
+        link: '/store',
+    },
     /* {
         id: 3,
         isLayout: true

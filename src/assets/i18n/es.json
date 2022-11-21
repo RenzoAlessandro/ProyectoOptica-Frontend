@@ -123,6 +123,13 @@
         "ADDPRODUCTS": "Añadir Productos"
       }
     },
+    "STORES": {
+      "TEXT": "Tiendas",
+      "LIST": {
+        "STORES": "Tiendas",
+        "ADDSTORES": "Añadir Tienda"
+      }
+    },
     "AUTHENTICATION": {
       "TEXT": "Autenticación",
       "LIST": {

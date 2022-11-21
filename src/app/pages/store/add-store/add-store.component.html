@@ -1,0 +1,54 @@
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <app-page-title title="Form Validation" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <!-- end page title -->
+  
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Bootstrap Validation - Normal</h4>
+            <p class="card-title-desc">Provide valuable, actionable feedback to your users with HTML5 form
+              validation–available in all our supported browsers.</p>
+
+              <form (ngSubmit)="saveEvent()" [formGroup]="formTiendas">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="validationCustom01">Nombre de la Tienda</label>
+                        <input class="form-control" placeholder="Marca de la montura" type="text" name="title"
+                          formControlName="{{this.nombre_tienda}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                        <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                          <span *ngIf="form.title.errors.required">This value is required.</span>
+                        </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="mb-3">
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="invalidCheck">
+                      <label class="form-check-label" for="invalidCheck">Agree to terms and conditions</label>
+                      <div class="invalid-feedback">
+                        You must agree before submitting.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary" type="submit">Submit form</button>
+            </form>
+          </div>
+        </div>
+        <!-- end card -->
+      </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+  
+
+  </div>
+  
