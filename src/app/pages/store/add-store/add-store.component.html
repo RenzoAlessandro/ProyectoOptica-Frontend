@@ -17,11 +17,13 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label for="validationCustom01">Nombre de la Tienda</label>
-                        <input class="form-control" placeholder="Marca de la montura" type="text" name="title"
-                          formControlName="{{this.nombre_tienda}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                        <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                      <input class="form-control" placeholder="Marca de la montura" type="text" name="title"
+                          formControlName="{{this.nombre_tienda}}" />
+                        <!-- <input class="form-control" placeholder="Marca de la montura" type="text" name="title"
+                          formControlName="{{this.nombre_tienda}}" [ngClass]="{'is-invalid': submitted && form.nombre_tienda.errors}" /> -->
+                        <!-- <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                           <span *ngIf="form.title.errors.required">This value is required.</span>
-                        </div>
+                        </div> -->
                   </div>
                 </div>
 
