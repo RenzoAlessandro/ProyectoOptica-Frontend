@@ -8,6 +8,10 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 })
 export class AddStoreComponent implements OnInit {
 
+  selectValue = [];
+  selectedValue = '';
+  stateValue = [];
+
   submitted = false;
 
   formTiendas: FormGroup;
@@ -23,6 +27,8 @@ export class AddStoreComponent implements OnInit {
 
   ngOnInit(): void {
     this.crearFormulario();
+
+    this.selectValue = ['Disponible', 'Cerrado', 'Pendiente'];
   }
 
   crearFormulario() {
