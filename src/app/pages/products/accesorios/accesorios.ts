@@ -2,14 +2,14 @@ import { Injectable, PipeTransform } from '@angular/core';
 
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 
-import { Accesorio } from './accesorios.model';
-import { USERS } from './data';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
+import { AccesorioModel } from 'src/models/accesorio';
+import { ProductosService } from 'src/app/services/productos.service';
 
 interface SearchResult {
-  customers: Accesorio[];
+  customers: AccesorioModel[];
   total: number;
 }
 
@@ -21,9 +21,9 @@ interface State {
   sortDirection: SortDirection;
 }
 
-const compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+const compare = (v1: string | number | Date, v2: string | number | Date) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-function sort(customers: Accesorio[], column: SortColumn, direction: string): Accesorio[] {
+function sort(customers: AccesorioModel[], column: SortColumn, direction: string): AccesorioModel[] {
   if (direction === '' || column === '') {
     return customers;
   } else {
@@ -34,23 +34,22 @@ function sort(customers: Accesorio[], column: SortColumn, direction: string): Ac
   }
 }
 
-function matches(customer: Accesorio, term: string, pipe: PipeTransform) {
-  return customer.id.toLowerCase().includes(term)
+function matches(customer: AccesorioModel, term: string, pipe: PipeTransform) {
+  return customer.id_accesorio.toLowerCase().includes(term)
   || customer.nombre_accesorio.toLowerCase().includes(term.toLowerCase())
-  || customer.precio_compra.toLowerCase().includes(term.toLowerCase())
-  || customer.precio_venta.toLowerCase().includes(term.toLowerCase())
-  || customer.cantidad.toLowerCase().includes(term.toLowerCase())
-  || customer.sede.toLowerCase().includes(term.toLowerCase())
-  || customer.date.toLowerCase().includes(term);
+  || String(customer.precio_accesorio_c).toLowerCase().includes(term.toLowerCase())
+  || String(customer.precio_accesorio_v).toLowerCase().includes(term.toLowerCase())
+  || (customer.fecha_creacion_accesorio).toLocaleString().includes(term.toLowerCase())
+  || String(customer.cantidad).toLowerCase().includes(term);
 }
 
 @Injectable({ providedIn: 'root' })
 export class CustomerService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _customers$ = new BehaviorSubject<Accesorio[]>([]);
+  private _customers$ = new BehaviorSubject<AccesorioModel[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
-
+  accesorioList: AccesorioModel[] = [];
   private _state: State = {
     page: 1,
     pageSize: 10,
@@ -59,19 +58,11 @@ export class CustomerService {
     sortDirection: ''
   };
 
-  constructor(private pipe: DecimalPipe) {
-    this._search$.pipe(
-      tap(() => this._loading$.next(true)),
-      debounceTime(200),
-      switchMap(() => this._search()),
-      delay(200),
-      tap(() => this._loading$.next(false))
-    ).subscribe(result => {
-      this._customers$.next(result.customers);
-      this._total$.next(result.total);
-    });
-
-    this._search$.next();
+  constructor(
+    private pipe: DecimalPipe,
+    private accesorioService: ProductosService
+    ) {
+    this.getListAccesorios();
   }
 
   get customers$() { return this._customers$.asObservable(); }
@@ -96,7 +87,7 @@ export class CustomerService {
     const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
     // 1. sort
-    let customers = sort(USERS, sortColumn, sortDirection);
+    let customers = sort(this.accesorioList, sortColumn, sortDirection);
 
     // 2. filter
     customers = customers.filter(customer => matches(customer, searchTerm, this.pipe));
@@ -105,5 +96,27 @@ export class CustomerService {
     // 3. paginate
     customers = customers.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
     return of({ customers, total });
+  }
+
+  /**
+   * Funcion para obtener el listado de accesorios del backend
+   */
+   getListAccesorios() {
+    this.accesorioService.getAccesorios().subscribe( res=>{
+      this.accesorioList = res;
+      console.log(res);
+      this._search$.pipe(
+        tap(() => this._loading$.next(true)),
+        debounceTime(200),
+        switchMap(() => this._search()),
+        delay(200),
+        tap(() => this._loading$.next(false))
+      ).subscribe(result => {
+        this._customers$.next(result.customers);
+        this._total$.next(result.total);
+      });
+  
+      this._search$.next();
+    })
   }
 }

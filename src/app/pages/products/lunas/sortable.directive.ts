@@ -1,7 +1,7 @@
 import { Directive, EventEmitter, Input, Output } from '@angular/core';
-import { Lunas } from './lunas.model';
+import { LunasModel } from 'src/models/lunas';
 
-export type SortColumn = keyof Lunas | '';
+export type SortColumn = keyof LunasModel | '';
 export type SortDirection = 'asc' | 'desc' | '';
 const rotate: { [key: string]: SortDirection } = { 'asc': 'desc', 'desc': '', '': 'asc' };
 

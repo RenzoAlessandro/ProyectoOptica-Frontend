@@ -1,14 +1,12 @@
 import { Component, OnInit, QueryList, ViewChildren  } from '@angular/core';
-
 import {DecimalPipe} from '@angular/common';
 import {Observable} from 'rxjs';
-
-import {Monturas} from './monturas.model';
 import {CustomerService} from './monturas.service';
 import {NgbdSortableHeader, SortEvent} from './sortable.directive';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { MonturasModel } from 'src/models/monturas';
 
 @Component({
   selector: 'app-monturas',
@@ -26,7 +24,7 @@ export class MonturasComponent implements OnInit {
     breadCrumbItems: Array<{}>;
     term: any;
   
-    customers$: Observable<Monturas[]>;
+    customers$: Observable<MonturasModel[]>;
     total$: Observable<number>;
   
     @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;

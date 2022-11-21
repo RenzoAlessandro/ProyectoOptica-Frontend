@@ -3,12 +3,12 @@ import { Component, OnInit, QueryList, ViewChildren  } from '@angular/core';
 import {DecimalPipe} from '@angular/common';
 import {Observable} from 'rxjs';
 
-import {Lunas} from './lunas.model';
 import {CustomerService} from './lunas.service';
 import {NgbdSortableHeader, SortEvent} from './sortable.directive';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { LunasModel } from 'src/models/lunas';
 @Component({
   selector: 'app-lunas',
   templateUrl: './lunas.component.html',
@@ -26,7 +26,7 @@ export class LunasComponent implements OnInit {
     breadCrumbItems: Array<{}>;
     term: any;
   
-    customers$: Observable<Lunas[]>;
+    customers$: Observable<LunasModel[]>;
     total$: Observable<number>;
   
     @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;

@@ -2,14 +2,14 @@ import { Injectable, PipeTransform } from '@angular/core';
 
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 
-import { Lunas } from './lunas.model';
-import { USERS } from './data';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
+import { LunasModel } from 'src/models/lunas';
+import { ProductosService } from 'src/app/services/productos.service';
 
 interface SearchResult {
-  customers: Lunas[];
+  customers: LunasModel[];
   total: number;
 }
 
@@ -21,9 +21,9 @@ interface State {
   sortDirection: SortDirection;
 }
 
-const compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+const compare = (v1: string | number | Date, v2: string | number | Date) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-function sort(customers: Lunas[], column: SortColumn, direction: string): Lunas[] {
+function sort(customers: LunasModel[], column: SortColumn, direction: string): LunasModel[] {
   if (direction === '' || column === '') {
     return customers;
   } else {
@@ -34,23 +34,21 @@ function sort(customers: Lunas[], column: SortColumn, direction: string): Lunas[
   }
 }
 
-function matches(customer: Lunas, term: string, pipe: PipeTransform) {
-  return customer.id.toLowerCase().includes(term)
-  || customer.material.toLowerCase().includes(term.toLowerCase())
-  || customer.precio_compra.toLowerCase().includes(term.toLowerCase())
-  || customer.precio_venta.toLowerCase().includes(term.toLowerCase())
-  || customer.cantidad.toLowerCase().includes(term.toLowerCase())
-  || customer.sede.toLowerCase().includes(term.toLowerCase())
-  || customer.date.toLowerCase().includes(term);
+function matches(customer: LunasModel, term: string, pipe: PipeTransform) {
+  return customer.material.toLowerCase().includes(term.toLowerCase())
+  || String(customer.precio_luna_c).toLowerCase().includes(term.toLowerCase())
+  || String(customer.precio_muna_v).toLowerCase().includes(term.toLowerCase())
+  || (customer.fecha_creacion_luna).toLocaleString().includes(term.toLowerCase())
+  || String(customer.cantidad).toLowerCase().includes(term.toLowerCase())
 }
 
 @Injectable({ providedIn: 'root' })
 export class CustomerService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _customers$ = new BehaviorSubject<Lunas[]>([]);
+  private _customers$ = new BehaviorSubject<LunasModel[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
-
+  lunasList: LunasModel[] = [];
   private _state: State = {
     page: 1,
     pageSize: 10,
@@ -59,19 +57,11 @@ export class CustomerService {
     sortDirection: ''
   };
 
-  constructor(private pipe: DecimalPipe) {
-    this._search$.pipe(
-      tap(() => this._loading$.next(true)),
-      debounceTime(200),
-      switchMap(() => this._search()),
-      delay(200),
-      tap(() => this._loading$.next(false))
-    ).subscribe(result => {
-      this._customers$.next(result.customers);
-      this._total$.next(result.total);
-    });
-
-    this._search$.next();
+  constructor(
+    private pipe: DecimalPipe,
+    private lunasService: ProductosService
+    ) {
+    this.getListLunas();
   }
 
   get customers$() { return this._customers$.asObservable(); }
@@ -96,7 +86,7 @@ export class CustomerService {
     const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
     // 1. sort
-    let customers = sort(USERS, sortColumn, sortDirection);
+    let customers = sort(this.lunasList, sortColumn, sortDirection);
 
     // 2. filter
     customers = customers.filter(customer => matches(customer, searchTerm, this.pipe));
@@ -105,5 +95,27 @@ export class CustomerService {
     // 3. paginate
     customers = customers.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
     return of({ customers, total });
+  }
+
+  /**
+   * Funcion para obtener la lista de clientes desde el backend
+   */
+   getListLunas() {
+    this.lunasService.getLunas().subscribe( res=>{
+      console.log(res)
+      this.lunasList = res;
+      this._search$.pipe(
+        tap(() => this._loading$.next(true)),
+        debounceTime(200),
+        switchMap(() => this._search()),
+        delay(200),
+        tap(() => this._loading$.next(false))
+      ).subscribe(result => {
+        this._customers$.next(result.customers);
+        this._total$.next(result.total);
+      });
+  
+      this._search$.next();
+    })  
   }
 }

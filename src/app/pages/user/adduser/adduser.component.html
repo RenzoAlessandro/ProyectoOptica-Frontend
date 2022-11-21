@@ -201,37 +201,16 @@
                         <div class="border-top py-4">
                           <h5 class="font-size-14 mb-3">Sedes :</h5>
                           <div class="row">
-                            <div class="col-lg-4 col-sm-6">
-                              <div class="card border rounded active shipping-address">
-                                <div class="card-body">
-                                  <a href="javascript:void(0);" class="float-right ml-1" data-toggle="tooltip" data-placement="top"
-                                    title="Edit">
-                                    <i class="uil uil-shop font-size-16"></i>
-                                  </a>
-                                  <h5 class="font-size-14 mb-4">Address 1</h5>
-    
-                                  <h5 class="font-size-14">Arequipa</h5>
-                                  <p class="mb-1">
-                                    1557 Sundown Lane Smithville, TX 78957
-                                  </p>
-                                  <p class="mb-0">Mo. 012-345-6789</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
-                              <div class="card border rounded shipping-address">
-                                <div class="card-body">
-                                  <a href="javascript:void(0);" class="float-right ml-1" data-toggle="tooltip" data-placement="top"
-                                    title="Edit">
-                                    <i class="uil uil-shop font-size-16"></i>
-                                  </a>
-                                  <h5 class="font-size-14 mb-4">Address 2</h5>
-                                  <h5 class="font-size-14">Moquegua</h5>
-                                  <p class="mb-1">
-                                    1557 Sundown Lane Smithville, TX 78957
-                                  </p>
-                                  <p class="mb-0">Mo. 012-345-6789</p>
-                                </div>
+                            <div class="col-lg-3 col-sm-6" *ngFor='let sede of listSedes;let i = index'>
+                              <div data-toggle="collapse" >
+                                <label class="card-radio-label">
+                                  <input type="radio" id="{{sede.id_sede}}" name="sede" class="card-radio-input" formControlName="sede" value="{{sede.id_sede}}"/>
+                                  <span class="card-radio text-center text-truncate">
+                                    <i class="uil uil-user d-block h2 mb-3"></i>
+                                    {{sede.nombre_sede}}<br>
+                                    {{sede.direccion}}
+                                  </span>
+                                </label>
                               </div>
                             </div>
                           </div>

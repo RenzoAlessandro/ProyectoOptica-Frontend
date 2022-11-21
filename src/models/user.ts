@@ -8,4 +8,5 @@ export class UsersModel {
     fecha_modificacion: Date;
     rol: string;
     habilitado: boolean;
+    id_sede: string;
 }

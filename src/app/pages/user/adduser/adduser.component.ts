@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { SedesModel } from 'src/models/sedes';
 import { UsersModel } from 'src/models/user';
 
 @Component({
@@ -30,11 +31,7 @@ export class AdduserComponent implements OnInit {
     { cNombre:2, tNombre: "Vendedor" },
     { cNombre:3, tNombre: "Contador" }
   ];
-  listSedes = [
-    { cNombre:1, tNombre: "Lima" },
-    { cNombre:2, tNombre: "Arequipa" },
-    { cNombre:3, tNombre: "Cuzco" }
-  ];
+  listSedes: SedesModel[] = [];
   user= new UsersModel;
   lettersPattern = '[a-zA-Z ]*';
   numberPattern = '^[0-9]+$|^\S*$';
@@ -56,6 +53,7 @@ export class AdduserComponent implements OnInit {
 
     this.stateValue = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Montana', 'Nevada', 'New Mexico', 'New York', 'North Dakota', 'Texas', 'Virginia', 'Wisconsin', 'Wyoming']
     this.crearFormulario();
+    this.getListSedes();
   }
 
   crearFormulario(){
@@ -85,7 +83,7 @@ export class AdduserComponent implements OnInit {
       [this.fechaNacimiento]:[null,[
         //Validators.required
       ]],
-      [this.sede]:[null],
+      sede:[],
       [this.password]:[null,[
         Validators.required,
         //Validators.minLength(6),
@@ -119,7 +117,7 @@ export class AdduserComponent implements OnInit {
       this.user.nombres = this.f(this.nombres).value;
       this.user.rol = this.f('rol').value;
       this.user.telefono = this.f(this.telefono).value;
-
+      this.user.id_sede = this.f('sede').value;
       console.log(this.user);
       this.usuarioService.createUsers(this.user).subscribe( res=>{
         console.log("registrado ok")
@@ -145,4 +143,10 @@ export class AdduserComponent implements OnInit {
     };
   }
 
+  getListSedes() {
+    this.usuarioService.getSedes().subscribe(res=>{
+      console.log(res);
+      this.listSedes = res;
+    })
+  }
 }

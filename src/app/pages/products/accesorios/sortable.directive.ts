@@ -1,7 +1,7 @@
 import { Directive, EventEmitter, Input, Output } from '@angular/core';
-import { Accesorio } from './accesorios.model';
+import { AccesorioModel } from 'src/models/accesorio';
 
-export type SortColumn = keyof Accesorio | '';
+export type SortColumn = keyof AccesorioModel | '';
 export type SortDirection = 'asc' | 'desc' | '';
 const rotate: { [key: string]: SortDirection } = { 'asc': 'desc', 'desc': '', '': 'asc' };
 

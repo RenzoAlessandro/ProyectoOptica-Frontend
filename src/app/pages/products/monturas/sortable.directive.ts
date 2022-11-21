@@ -1,7 +1,7 @@
 import { Directive, EventEmitter, Input, Output } from '@angular/core';
-import { Monturas } from './monturas.model';
+import { MonturasModel } from 'src/models/monturas';
 
-export type SortColumn = keyof Monturas | '';
+export type SortColumn = keyof MonturasModel | '';
 export type SortDirection = 'asc' | 'desc' | '';
 const rotate: { [key: string]: SortDirection } = { 'asc': 'desc', 'desc': '', '': 'asc' };
 

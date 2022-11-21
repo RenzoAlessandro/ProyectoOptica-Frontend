@@ -24,4 +24,8 @@ export class UsuarioService {
   updateUsers(idUser:any): Observable<any> {
     return this.http.put<any>(environment.urlBackend+'editClientById/', idUser);
   }
+
+  getSedes(): Observable<any> {
+    return this.http.get<any>(environment.urlBackend+'getAllSedes');
+  }
 }

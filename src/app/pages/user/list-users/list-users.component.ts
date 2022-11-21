@@ -3,7 +3,6 @@ import { Component, OnInit, QueryList, ViewChildren  } from '@angular/core';
 import {DecimalPipe} from '@angular/common';
 import {Observable} from 'rxjs';
 
-import {User} from './list-users.model';
 import {CustomerService} from './list-users.service';
 import {NgbdSortableHeader, SortEvent} from './sortable.directive';
 

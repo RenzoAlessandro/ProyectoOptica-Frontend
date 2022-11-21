@@ -12,13 +12,13 @@ export class ProductosService {
     private http: HttpClient
   ) { }
   getMonturas(): Observable<any> {
-    return this.http.get<any>(environment.urlBackend+'getAllUsers');
+    return this.http.get<any>(environment.urlBackend+'getAllMonturas');
   }
   getAccesorios(): Observable<any> {
-    return this.http.get<any>(environment.urlBackend+'getAllUsers');
+    return this.http.get<any>(environment.urlBackend+'getAllAccesorios');
   }
   getLunas(): Observable<any> {
-    return this.http.get<any>(environment.urlBackend+'getAllUsers');
+    return this.http.get<any>(environment.urlBackend+'getAllLunas');
   }
   createUsers(producto:any): Observable<any> {
     return this.http.post<any>(environment.urlBackend+'createNewUser',producto);

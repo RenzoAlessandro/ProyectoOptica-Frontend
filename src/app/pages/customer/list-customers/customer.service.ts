@@ -100,6 +100,9 @@ export class CustomerService {
     customers = customers.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
     return of({ customers, total });
   }
+  /**
+   * Funcion para obtener la lista de clientes desde el backend
+   */
   getListClients() {
     this.customerService.getAllClients().subscribe( res=>{
       console.log("entre..")
