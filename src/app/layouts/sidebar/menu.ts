@@ -90,7 +90,7 @@ export const MENU: MenuItem[] = [
     {
         id: 14,
         label: 'MENUITEMS.STORES.TEXT',
-        icon: 'uil-box',
+        icon: 'uil-shop',
         subItems: [
             {
                 id: 15,
@@ -106,6 +106,26 @@ export const MENU: MenuItem[] = [
             },
         ],
         link: '/store',
+    },
+    {
+        id: 17,
+        label: 'MENUITEMS.SALES.TEXT',
+        icon: 'uil-invoice',
+        subItems: [
+            {
+                id: 18,
+                label: 'MENUITEMS.SALES.LIST.SALES',
+                link: '/sale/listsales',
+                parentId: 9
+            }, 
+            {
+                id: 19,
+                label: 'MENUITEMS.SALES.LIST.ADDSALES',
+                link: '/sale/addsale',
+                parentId: 9
+            },
+        ],
+        link: '/sale',
     },
     /* {
         id: 3,

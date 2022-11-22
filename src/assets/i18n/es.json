@@ -130,6 +130,13 @@
         "ADDSTORES": "Añadir Tienda"
       }
     },
+    "SALES": {
+      "TEXT": "Venta",
+      "LIST": {
+        "SALES": "Lista de Ventas",
+        "ADDSALES": "Realizar Venta"
+      }
+    },
     "AUTHENTICATION": {
       "TEXT": "Autenticación",
       "LIST": {
