@@ -1,0 +1,183 @@
+<div class="container-fluid">
+    <app-page-title title="Añadir un Producto" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  
+    <div class="row mb-4">  
+      <div class="col-xl-12">
+        <div class="card mb-0">
+          <!-- Nav tabs -->
+          <ul ngbNav #justifiednav="ngbNav" [activeId]="1" class="nav nav-tabs nav-justified nav-tabs-custom">
+            <li [ngbNavItem]="1" class="nav-item">
+              <a ngbNavLink class="nav-link">
+                <i class="uil uil-nerd font-size-20"></i>
+                <span class="d-none d-sm-block">Montura</span>
+              </a>
+              <ng-template ngbNavContent>
+                <ng-template [ngTemplateOutlet]="TabContentAbout"></ng-template>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="2" class="nav-item">
+              <a ngbNavLink class="nav-link">
+                <i class="uil uil-panorama-h-alt font-size-20"></i>
+                <span class="d-none d-sm-block">Luna</span>
+              </a>
+              <ng-template ngbNavContent>
+                <ng-template [ngTemplateOutlet]="TabContentTasks"></ng-template>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="3" class="nav-item">
+              <a ngbNavLink class="nav-link">
+                <i class="uil uil-box font-size-20"></i>
+                <span class="d-none d-sm-block">Accesorio</span>
+              </a>
+              <ng-template ngbNavContent>
+                <ng-template [ngTemplateOutlet]="TabContentMessages"></ng-template>
+              </ng-template>
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="justifiednav"></div>
+        </div>
+  
+        <!-- Tab content -->
+        <ng-template #TabContentAbout>
+          <div class="tab-content p-4">
+            <div class="tab-pane active">
+              <div>
+                  <div class="row">
+                    <!-- Search -->
+                    <div class="col-sm-12 col-md-12 search-box chat-search-box">
+                      <div class="position-relative">
+                        <input type="text" class="form-control border-light rounded" placeholder="Buscar montura" name="searchTerm"
+                          aria-controls="tickets-table" >
+                        <i class="uil uil-search search-icon"></i>
+                      </div>
+                    </div>
+                    <!-- End search -->
+                  </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+  
+        <ng-template #TabContentTasks>
+          <div class="tab-content p-4">
+            <div class="tab-pane active">
+              <div>
+                <div class="row">
+                  <!-- Search -->
+                  <div class="col-sm-12 col-md-12 search-box chat-search-box">
+                    <div class="position-relative">
+                      <input type="text" class="form-control border-light rounded" placeholder="Buscar luna" name="searchTerm"
+                        aria-controls="tickets-table" >
+                      <i class="uil uil-search search-icon"></i>
+                    </div>
+                  </div>
+                  <!-- End search -->
+                </div>
+            </div>
+            </div>
+          </div>
+        </ng-template>
+  
+        <ng-template #TabContentMessages>
+          <div class="tab-content p-4">
+            <div class="tab-pane active">
+              <div>
+                <div class="row">
+                  <!-- Search -->
+                  <div class="col-sm-12 col-md-12 search-box chat-search-box">
+                    <div class="position-relative">
+                      <input type="text" class="form-control border-light rounded" placeholder="Buscar accesorio" name="searchTerm"
+                        aria-controls="tickets-table" >
+                      <i class="uil uil-search search-icon"></i>
+                    </div>
+                  </div>
+                  <!-- End search -->
+                </div>
+            </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <!-- end row -->
+
+    <div class="row mb-4">
+      <h4>Total de la Venta: PEN 000.00</h4>
+    </div>
+
+
+    <div class="row mb-4">  
+      <div class="col-xl-12">
+        <div class="card mb-0">
+          <div class="p-4">
+            <label>Lista de Productos</label>
+
+            <div class="table-responsive mb-4">
+              <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <form>
+                  <table class="table table-centered datatables dt-responsive nowrap table-card-list"
+                    style="border-spacing: 0 12px; width: 100%;">
+                    <thead>
+                      <tr class="bg-transparent">
+                        <th scope="col" sortable="id" (sort)="onSort($event)">ID Producto</th>
+                        <th scope="col" sortable="tipo" (sort)="onSort($event)">Tipo</th>
+                        <th scope="col" sortable="detalle" (sort)="onSort($event)">Detalle</th>
+                        <th scope="col" sortable="cantidad" (sort)="onSort($event)">Cantidad</th>
+                        <th scope="col" sortable="precio" (sort)="onSort($event)">Precio</th>
+                        <th scope="col" sortable="total" (sort)="onSort($event)">Total</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of addsales$ | async">
+                        <td>
+                          <ngb-highlight [result]="data.id" [term]="service.searchTerm"></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="data.tipo" [term]="service.searchTerm"></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="data.detalle" [term]="service.searchTerm"></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="data.cantidad" [term]="service.searchTerm"></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="data.precio" [term]="service.searchTerm"></ngb-highlight>
+                        </td>
+                       <td>
+                          <ngb-highlight [result]="data.total" [term]="service.searchTerm"></ngb-highlight>
+                        </td>
+                        <td>
+                          <a href="javascript:void(0);" class="px-2 text-warning" placement="top" ngbTooltip="Disminuir"><i
+                            class="uil uil-minus-circle font-size-18"></i></a>
+                          <a href="javascript:void(0);" class="px-2 text-success" placement="top" ngbTooltip="Agregar"><i
+                            class="uil uil-plus-circle font-size-18"></i></a>
+                          <a href="javascript:void(0);" class="px-2 text-primary" placement="top" ngbTooltip="Editar"><i
+                              class="uil uil-pen font-size-18"></i></a>
+                          <a href="javascript:void(0);" class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
+                              class="uil uil-trash-alt font-size-18"></i></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+      
+                  <div class="float-end">
+                    <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                      [pageSize]="service.pageSize">
+                      <ng-template ngbPaginationPrevious>Antes</ng-template>
+                      <ng-template ngbPaginationNext>Siguiente</ng-template>
+                    </ngb-pagination>
+                  </div>
+      
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>

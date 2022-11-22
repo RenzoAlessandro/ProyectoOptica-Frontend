@@ -1,22 +1,23 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { NgbAccordionModule, NgbCollapseModule, NgbDropdownModule, NgbPaginationModule, NgbTooltipModule, NgbTypeaheadModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbAccordionModule, NgbCollapseModule, NgbDropdownModule, NgbPaginationModule, NgbTooltipModule, NgbTypeaheadModule, NgbModule, NgbNavModule, } from "@ng-bootstrap/ng-bootstrap";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { Ng2SearchPipeModule } from "ng2-search-filter";
 import { Ng5SliderModule } from "ng5-slider";
 import { DropzoneModule, DROPZONE_CONFIG } from "ngx-dropzone-wrapper";
 import { config } from "rxjs";
 import { UIModule } from "src/app/shared/ui/ui.module";
-import { AddStoreComponent } from "./add-store/add-store.component";
-import { StoreRoutingModule } from "./store-routing.module";
-import { ListStoresComponent } from "./list-stores/list-stores.component";
+import { AddSaleComponent } from "./add-sale/add-sale.component";
+import { SaleRoutingModule } from "./sale-routing.module";
+import { ListSalesComponent } from "./list-sales/list-sales.component";
+
 
 @NgModule({
     // tslint:disable-next-line: max-line-length
-    declarations: [AddStoreComponent, ListStoresComponent],
+    declarations: [AddSaleComponent, ListSalesComponent],
     imports: [
-      StoreRoutingModule,
+      SaleRoutingModule,
       CommonModule,
       ReactiveFormsModule,
       FormsModule,
@@ -30,7 +31,9 @@ import { ListStoresComponent } from "./list-stores/list-stores.component";
       NgbTooltipModule,
       NgbAccordionModule,
       NgbTypeaheadModule,
-      NgbCollapseModule
+      NgbCollapseModule,
+      NgbNavModule,
+      NgbModule
     ],
     providers: [
       {
@@ -39,4 +42,4 @@ import { ListStoresComponent } from "./list-stores/list-stores.component";
       }
     ]
   })
-  export class StoreModule { }
+  export class SaleModule { }
