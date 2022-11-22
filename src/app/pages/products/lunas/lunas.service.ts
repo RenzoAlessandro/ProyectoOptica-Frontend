@@ -21,7 +21,7 @@ interface State {
   sortDirection: SortDirection;
 }
 
-const compare = (v1: string | number | Date, v2: string | number | Date) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+const compare = (v1: string | number | Date | boolean, v2: string | number | Date | boolean) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
 function sort(customers: LunasModel[], column: SortColumn, direction: string): LunasModel[] {
   if (direction === '' || column === '') {
@@ -37,7 +37,7 @@ function sort(customers: LunasModel[], column: SortColumn, direction: string): L
 function matches(customer: LunasModel, term: string, pipe: PipeTransform) {
   return customer.material.toLowerCase().includes(term.toLowerCase())
   || String(customer.precio_luna_c).toLowerCase().includes(term.toLowerCase())
-  || String(customer.precio_muna_v).toLowerCase().includes(term.toLowerCase())
+  || String(customer.precio_luna_v).toLowerCase().includes(term.toLowerCase())
   || (customer.fecha_creacion_luna).toLocaleString().includes(term.toLowerCase())
   || String(customer.cantidad).toLowerCase().includes(term.toLowerCase())
 }

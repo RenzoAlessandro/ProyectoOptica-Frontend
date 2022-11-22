@@ -6,4 +6,6 @@ export class AccesorioModel {
     fecha_creacion_accesorio: Date;
     fecha_modificacion_accesorio: Date;
     cantidad: number;
+    id_sede: string;
+    habilitado: boolean;
 }
