@@ -20,12 +20,14 @@ export class AdduserComponent implements OnInit {
   nombres: string = "campoNombres";
   apellidos: string = "campoApellidos";
   dni: string = "campoDNI";
-  rol: any
+  rol: string = "campoRol";
   sede: string = "campoSede";
-  telefono: string = "campoTelefono"
+  telefono: string = "campoTelefono";
   password: string = "campoPassword";
-  fechaNacimiento: string = "campoFechaNacimiento"
+  fechaNacimiento: string = "campoFechaNacimiento";
   repeatPassword: string = "campoRepeatPassword";
+  email: string = "campoEmail";
+  observaciones: string = "campoObservaciones";
   listRoles = [
     { cNombre:1, tNombre: "Admin" },
     { cNombre:2, tNombre: "Vendedor" },
@@ -77,6 +79,11 @@ export class AdduserComponent implements OnInit {
         Validators.max(99999999)
       ]],
       rol:[this.listRoles[0].tNombre],
+      [this.email]:[null,[
+        Validators.email
+      ]],
+      [this.observaciones]:[null,[
+      ]],
       [this.telefono]:[null,[
         Validators.pattern(this.numberPattern)
       ]],

@@ -59,14 +59,14 @@
                               <div class="col-lg-4">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-fechanacimiento">Fecha de Nacimiento</label>
-                                  <input type="text" class="form-control" id="billing-fechanacimiento"
+                                  <input type="date" class="form-control" id="billing-fechanacimiento"
                                     placeholder="Ingrese correo electrónico" formControlName="{{this.fechaNacimiento}}"/>
                                 </div>
                               </div>
                               <div class="col-lg-4">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-email-address">Correo Electrónico</label>
-                                  <input type="email" class="form-control" id="billing-email-address" placeholder="Correo electrónico" formControlName="{{this.nombres}}"/>
+                                  <input type="email" class="form-control" id="billing-email-address" placeholder="Correo electrónico" formControlName="{{this.email}}"/>
                                 </div>
                               </div>
 
@@ -126,7 +126,7 @@
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-observaciones">Observaciones</label>
                                   <textarea class="form-control" id="billing-observaciones" rows="3"
-                                    placeholder="Ingrese las observaciones"></textarea>
+                                    placeholder="Ingrese las observaciones" formControlName="{{this.observaciones}}"></textarea>
                                 </div>
                               </div>
                             </div>

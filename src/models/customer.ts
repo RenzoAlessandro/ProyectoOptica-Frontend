@@ -11,5 +11,8 @@ export class CustomersModel {
     fecha_creacion: Date;
     fecha_modificacion: Date;
     medidas: Array<MedidasModel>;
+    email: string;
     habilitado: boolean;
+    antecedentes: string;
+    direccion: string;
 }

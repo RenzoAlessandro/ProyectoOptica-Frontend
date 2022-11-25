@@ -32,6 +32,9 @@ export class AddCustomerComponent implements OnInit {
   dip: string = "campoDip";
   add: string = "campoAdd";
   encargado: string = "campoEncargado";
+  email: string = "campoEmail";
+  antecedentes: string = "campoAntecedentes";
+  direccion: string = "campoDireccion";
   customer = new CustomersModel;
   medidas = new MedidasModel;
   submitted = false;
@@ -65,8 +68,13 @@ export class AddCustomerComponent implements OnInit {
       [this.apellidos]:[null,[
         Validators.required
       ]],
+      [this.email]: [null,[
+        Validators.email
+      ]],
+      [this.antecedentes]: [],
+      [this.direccion]: [],
       [this.dni]:[null,[
-        Validators.required
+        
       ]],
       [this.telefono]:[],
       [this.fecha_nacimiento]:[],
@@ -95,11 +103,14 @@ export class AddCustomerComponent implements OnInit {
       this.customer.apellidos = this.f(this.apellidos).value;
       this.customer.dni = Number(this.f(this.dni).value);
       this.customer.fecha_creacion = new Date(Date.now());
+      this.customer.email = this.f(this.email).value;
       this.customer.fecha_modificacion = new Date(Date.now());
       this.customer.fecha_nacimiento = new Date(Date.now());
       this.customer.nombres = this.f(this.nombres).value;
       this.customer.telefono = this.f(this.telefono).value;
       this.customer.habilitado = true;
+      this.customer.antecedentes = this.f(this.antecedentes).value;
+      this.customer.direccion = this.f(this.direccion).value;
       this.medidas.add = Number(this.f(this.add).value);
       this.medidas.dip = Number(this.f(this.dip).value);
       this.medidas.encargado = this.f(this.encargado).value;
@@ -113,9 +124,9 @@ export class AddCustomerComponent implements OnInit {
       listaMedidas.push(this.medidas);
       this.customer.medidas = listaMedidas;
       console.log(this.customer); 
-      this.customerService.createCustomers(this.customer).subscribe( res=>{
+      /*this.customerService.createCustomers(this.customer).subscribe( res=>{
         console.log("registrado ok");
-      }); 
+      });*/ 
     }
     
   } 

@@ -32,7 +32,7 @@
                               <div class="col-lg-4">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-dni">DNI</label>
-                                  <input type="text" class="form-control" id="billing-dni" placeholder="DNI del CLiente" formControlName="{{this.dni}}"/>
+                                  <input type="text" class="form-control" id="billing-dni" placeholder="DNI del Cliente" formControlName="{{this.dni}}"/>
                                 </div>
                               </div>
                               <div class="col-lg-4">
@@ -60,7 +60,7 @@
                               <div class="col-lg-3">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-fechanacimiento">Fecha de Nacimiento</label>
-                                  <input type="text" class="form-control" id="billing-fechanacimiento"
+                                  <input type="date" class="form-control" id="billing-fechanacimiento"
                                     placeholder="Seleccione la fecha" formControlName="{{this.fecha_nacimiento}}"/>
                                 </div>
                               </div>
@@ -74,7 +74,7 @@
                               <div class="col-lg-3">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-email-address">Correo Electrónico</label>
-                                  <input type="email" class="form-control" id="billing-email-address" placeholder="Correo electrónico" formControlName="{{this.nombres}}"/>
+                                  <input type="email" class="form-control" id="billing-email-address" placeholder="Correo electrónico" formControlName="{{this.email}}"/>
                                 </div>
                               </div>
                             </div>
@@ -94,14 +94,14 @@
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-direccion">Dirección</label>
                                   <textarea class="form-control" id="billing-direccion" rows="3"
-                                    placeholder="Ingrese la dirección completa del cliente"></textarea>
+                                    placeholder="Ingrese la dirección completa del cliente" formControlName="{{this.direccion}}"></textarea>
                                 </div>
                               </div>
                               <div class="col-lg-6">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-antecedentes">Antecedentes</label>
                                   <textarea class="form-control" id="billing-antecedentes" rows="3"
-                                    placeholder="Ingrese los antecedentes del cliente"></textarea>
+                                    placeholder="Ingrese los antecedentes del cliente" formControlName="{{this.antecedentes}}"></textarea>
                                 </div>
                               </div>
                             </div>
@@ -288,7 +288,7 @@
             <!-- end col -->
             <div class="col">
               <div class="text-sm-end mt-2 mt-sm-0">
-                <button class="btn btn-success" (click)="guardarCliente()">
+                <button class="btn btn-success" (click)="guardarCliente()" [disabled]="!formCustomer.valid">
                   <i class="uil uil-shopping-cart-alt me-1"></i> Procced
                 </button>
               </div>
