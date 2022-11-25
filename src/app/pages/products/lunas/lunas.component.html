@@ -54,7 +54,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of customers$ | async">
+                  <tr *ngFor="let data of customers$ | async; let i = index">
 <!--                     <td>
                       <div class="form-check text-center">
                         <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input" />
@@ -62,7 +62,7 @@
                       </div>
                     </td> -->
                     <td>
-                      <ngb-highlight [result]="data.id_luna" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]=i+1 [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
                       <ngb-highlight [result]="data.material" [term]="service.searchTerm"></ngb-highlight>
@@ -80,7 +80,7 @@
                       <ngb-highlight [result]="" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.fecha_creacion_luna" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.fecha_creacion_luna | date: 'dd/MM/yyyy'" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
                       <span class="badge bg-pill bg-soft-success font-size-12"

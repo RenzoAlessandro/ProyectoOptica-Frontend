@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ProductosService } from 'src/app/services/productos.service';
+import { AccesorioModel } from 'src/models/accesorio';
+import { LunasModel } from 'src/models/lunas';
+import { MonturasModel } from 'src/models/monturas';
 
 @Component({
   selector: 'app-add-product',
@@ -38,14 +42,17 @@ export class AddProductComponent implements OnInit {
   fecha_registro_accesorio: string = "campoFechaRegistroAccesorio";
   fecha_modificacion_accesorio: string = "campoFechaModificacionAccesorio";
 
-
+  lunas = new LunasModel;
+  monturas = new MonturasModel;
+  accesorios = new AccesorioModel;
 
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
 
   constructor(
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private productosService: ProductosService) { }
 
   ngOnInit(): void {
     this.crearFormulario();
@@ -94,4 +101,76 @@ export class AddProductComponent implements OnInit {
     this.submitted = true;
   }
 
+  fA(campo:any){
+    return this.formAccesorios.get(campo);
+  }
+
+  fL(campo:any){
+    return this.formLunas.get(campo);
+  }
+
+  fM(campo:any){
+    return this.formMonturas.get(campo);
+  }
+
+  guardarAccesorios() {
+    if (this.formAccesorios.valid) {
+      this.accesorios.nombre_accesorio = this.fA(this.nombre_accesorio).value;
+      this.accesorios.cantidad = Number(this.fA(this.cantidad_accesorio).value);
+      this.accesorios.fecha_creacion_accesorio = new Date();
+      this.accesorios.precio_accesorio_v = Number(this.fA(this.precio_venta_accesorio).value);
+      this.accesorios.precio_accesorio_c = Number(this.fA(this.precio_compra_accesorio).value);
+      this.accesorios.fecha_modificacion_accesorio = new Date();
+      this.accesorios.id_sede = "por confirmar";
+      this.accesorios.habilitado = true;
+      console.log(this.accesorios);
+      this.productosService.createAccesorios(this.accesorios).subscribe(res=>{
+        console.log("accesorio guardado")
+      })
+    } else {
+      
+    }
+  }
+
+  guardarLunas() {
+    if (this.formLunas.valid) {
+      this.lunas.material = this.fL(this.material_luna).value;
+      this.lunas.precio_luna_c = Number(this.fL(this.precio_compra_luna).value);
+      this.lunas.precio_luna_v = Number(this.fL(this.precio_venta_luna).value);
+      this.lunas.fecha_creacion_luna = new Date();
+      this.lunas.fecha_modificacion_luna = new Date()
+      this.lunas.cantidad = Number(this.fL(this.cantidad_luna).value);
+      this.lunas.id_sede = "por confirmar";
+      this.lunas.habilitado = true;
+      console.log(this.lunas);
+      this.productosService.createLunas(this.lunas).subscribe(res=>{
+        console.log("lunas guardado")
+      })
+    } else {
+      
+    }
+  }
+
+  guardarMonturas() {
+    if (this.formMonturas.valid) {
+      this.monturas.material = this.fM(this.material_montura).value;
+      this.monturas.marca = this.fM(this.marca_montura).value;
+      this.monturas.talla = this.fM(this.talla_montura).value;
+      this.monturas.codigo_interno = this.fM(this.codigo_interno_montura).value;
+      this.monturas.codigo = this.fM(this.codigo_montura).value;
+      this.monturas.precio_montura_c = Number(this.fM(this.precio_compra_montura).value);
+      this.monturas.precio_montura_v = Number(this.fM(this.precio_venta_montura).value);
+      this.monturas.fecha_creacion_monturas = new Date();
+      this.monturas.fecha_modificacion_monturas = new Date()
+      this.monturas.cantidad = Number(this.fM(this.cantidad_montura).value);
+      this.monturas.id_sede = "por confirmar";
+      this.monturas.habilitado = true;
+      console.log(this.monturas);
+      this.productosService.createMonturas(this.monturas).subscribe(res=>{
+        console.log("monturas guardado")
+      })
+    } else {
+      
+    }
+  }
 }

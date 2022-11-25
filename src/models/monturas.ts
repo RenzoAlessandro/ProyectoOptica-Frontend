@@ -9,4 +9,6 @@ export class MonturasModel {
     fecha_creacion_monturas: Date;
     fecha_modificacion_monturas: Date;
     cantidad: number;
+    id_sede: string;
+    habilitado: boolean;
 }

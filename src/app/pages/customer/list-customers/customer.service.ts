@@ -21,7 +21,7 @@ interface State {
   sortDirection: SortDirection;
 }
 
-const compare = (v1: string | number | Date | MedidasModel[], v2: string | number | Date | MedidasModel[]) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+const compare = (v1: string | number | Date | MedidasModel[] | boolean, v2: string | number | Date | MedidasModel[] | boolean) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
 function sort(customers: CustomersModel[], column: SortColumn, direction: string): CustomersModel[] {
   if (direction === '' || column === '') {

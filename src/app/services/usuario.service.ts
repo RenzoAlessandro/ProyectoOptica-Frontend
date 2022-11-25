@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { SedesModel } from 'src/models/sedes';
 import { UsersModel } from 'src/models/user';
 
 @Injectable({
@@ -27,5 +28,9 @@ export class UsuarioService {
 
   getSedes(): Observable<any> {
     return this.http.get<any>(environment.urlBackend+'getAllSedes');
+  }
+
+  createSedes(sede:SedesModel): Observable<any> {
+    return this.http.post<any>(environment.urlBackend+'createNewSede', sede);
   }
 }

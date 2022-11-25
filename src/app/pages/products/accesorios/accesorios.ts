@@ -21,7 +21,7 @@ interface State {
   sortDirection: SortDirection;
 }
 
-const compare = (v1: string | number | Date, v2: string | number | Date) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+const compare = (v1: string | number | Date | boolean, v2: string | number | Date | boolean) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
 function sort(customers: AccesorioModel[], column: SortColumn, direction: string): AccesorioModel[] {
   if (direction === '' || column === '') {

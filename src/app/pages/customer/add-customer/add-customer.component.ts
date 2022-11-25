@@ -99,6 +99,7 @@ export class AddCustomerComponent implements OnInit {
       this.customer.fecha_nacimiento = new Date(Date.now());
       this.customer.nombres = this.f(this.nombres).value;
       this.customer.telefono = this.f(this.telefono).value;
+      this.customer.habilitado = true;
       this.medidas.add = Number(this.f(this.add).value);
       this.medidas.dip = Number(this.f(this.dip).value);
       this.medidas.encargado = this.f(this.encargado).value;
@@ -108,11 +109,13 @@ export class AddCustomerComponent implements OnInit {
       this.medidas.oi_cilindrico = Number(this.f(this.oi_cilindrico).value);
       this.medidas.oi_eje = Number(this.f(this.oi_eje).value);
       this.medidas.oi_esferico = Number(this.f(this.oi_esferico).value); 
-      this.customer.medidas.push(this.medidas);
-      console.log(this.customer);
-      /* this.customerService.createCustomers(this.customer).subscribe( res=>{
+      const listaMedidas = []
+      listaMedidas.push(this.medidas);
+      this.customer.medidas = listaMedidas;
+      console.log(this.customer); 
+      this.customerService.createCustomers(this.customer).subscribe( res=>{
         console.log("registrado ok");
-      }); */  
+      }); 
     }
     
   } 
