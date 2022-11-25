@@ -8,7 +8,8 @@ export const VENTAS: Venta[] = [
         detalle: 'ACETATO KEVIN',
         cantidad: '3',
         precio: '33.00',
-        total: '37.00'
+        total: '37.00',
+
     },
     {
         index: 2,
@@ -22,8 +23,8 @@ export const VENTAS: Venta[] = [
     {
         index: 3,
         id: '#MN0121',
-        tipo: 'Luna',
-        detalle: 'RESINAS AR 3RA SERIE',
+        tipo: 'Montura',
+        detalle: 'ACETATO VIPSUAL',
         cantidad: '2',
         precio: '73.90',
         total: '26.00'
@@ -31,8 +32,8 @@ export const VENTAS: Venta[] = [
     {
         index: 4,
         id: '#MN0120',
-        tipo: 'Luna',
-        detalle: 'BLUE PROTECT 2DA SERIE',
+        tipo: 'Montura',
+        detalle: 'CAREY	COLOR WISE',
         cantidad: '1',
         precio: '84.00',
         total: '83.00'
@@ -40,8 +41,8 @@ export const VENTAS: Venta[] = [
     {
         index: 5,
         id: '#MN0119',
-        tipo: 'Accesorio',
-        detalle: 'PAÑOS ANTIFOG',
+        tipo: 'Montura',
+        detalle: 'ACETATO FIORALBA',
         cantidad: '5',
         precio: '62.00',
         total: '38.00'

@@ -30,22 +30,25 @@
                             <div class="row">
                               <div class="col-lg-4">
                                 <div class="mb-4">
-                                  <label class="form-label" for="billing-name">DNI</label>
+                                  <label class="form-label" for="billing-dni">DNI</label>
                                   <input type="text" class="form-control" id="billing-dni" placeholder="Ingrese el DNI" formControlName="{{this.dni}}"/>
                                 </div>
                               </div>
                               <div class="col-lg-4">
                                 <div class="mb-4">
-                                  <label class="form-label" for="billing-name">Nombres</label>
+                                  <label class="form-label" for="billing-firstnames">Nombres</label>
                                   <input type="text" class="form-control" id="billing-firstnames" placeholder="Ingrese los nombres" formControlName="{{this.nombres}}" />
                                 </div>
                               </div>
                               <div class="col-lg-4">
                                 <div class="mb-4">
-                                  <label class="form-label" for="billing-name">Apellidos</label>
+                                  <label class="form-label" for="billing-lastnames">Apellidos</label>
                                   <input type="text" class="form-control" id="billing-lastnames" placeholder="Ingrese los apellidos" formControlName="{{this.apellidos}}"/>
                                 </div>
                               </div>
+                            </div>
+
+                            <div class="row">
                               <div class="col-lg-4">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-phone">Telefono</label>
@@ -55,14 +58,24 @@
                               </div>
                               <div class="col-lg-4">
                                 <div class="mb-4">
-                                  <label class="form-label" for="billing-email-address">Fecha de Nacimiento</label>
-                                  <input type="email" class="form-control" id="billing-email-address"
+                                  <label class="form-label" for="billing-fechanacimiento">Fecha de Nacimiento</label>
+                                  <input type="text" class="form-control" id="billing-fechanacimiento"
                                     placeholder="Ingrese correo electrónico" formControlName="{{this.fechaNacimiento}}"/>
                                 </div>
                               </div>
                               <div class="col-lg-4">
                                 <div class="mb-4">
-                                  <label class="form-label" for="billing-email-address">Contraseña</label>
+                                  <label class="form-label" for="billing-email-address">Correo Electrónico</label>
+                                  <input type="email" class="form-control" id="billing-email-address" placeholder="Correo electrónico" formControlName="{{this.nombres}}"/>
+                                </div>
+                              </div>
+
+                            </div>
+
+                            <div class="row">
+                              <div class="col-lg-4">
+                                <div class="mb-4">
+                                  <label class="form-label" for="billing-password">Contraseña</label>
                                   <input type="password" class="form-control" id="billing-password"
                                     placeholder="Ingrese la contraseña" formControlName="{{this.password}}"/>
                                     <div class="text-danger" *ngIf="formRegister.controls['campoPassword'].invalid && (formRegister.controls['campoPassword'].dirty || formRegister.controls['campoPassword'].touched)">                 
@@ -83,7 +96,7 @@
                               </div>
                               <div class="col-lg-4">
                                 <div class="mb-4">
-                                  <label class="form-label" for="billing-email-address">Repita la contraseña</label>
+                                  <label class="form-label" for="billing-repet-password">Repita la contraseña</label>
                                   <input type="password" class="form-control" id="billing-repet-password"
                                     placeholder="Repita la contraseña" formControlName="{{this.repeatPassword}}"/>
                                     <div class="text-danger" *ngIf="formRegister.controls['campoRepeatPassword'].invalid && (formRegister.controls['campoRepeatPassword'].dirty || formRegister.controls['campoRepeatPassword'].touched)">                 
@@ -106,27 +119,14 @@
                                 </div>
                               </div>
                             </div>
-  
+
+
                             <div class="row">
-                              <div class="col-lg-4">
-                                <div class="mb-4 mb-lg-0">
-                                  <label class="form-label">Country</label>
-                                  <ng-select name="selectCountry" [items]="selectValue" >
-                                  </ng-select>
-                                </div>
-                              </div>
-  
-                              <div class="col-lg-4">
-                                <div class="mb-4 mb-lg-0">
-                                  <label class="form-label" for="billing-city">City</label>
-                                  <input type="text" class="form-control" id="billing-city" placeholder="Enter City" />
-                                </div>
-                              </div>
-  
-                              <div class="col-lg-4">
-                                <div class="mb-0">
-                                  <label class="form-label" for="zip-code">Zip / Postal code</label>
-                                  <input type="text" class="form-control" id="zip-code" placeholder="Enter Postal code" />
+                              <div class="col-lg-12">
+                                <div class="mb-4">
+                                  <label class="form-label" for="billing-observaciones">Observaciones</label>
+                                  <textarea class="form-control" id="billing-observaciones" rows="3"
+                                    placeholder="Ingrese las observaciones"></textarea>
                                 </div>
                               </div>
                             </div>

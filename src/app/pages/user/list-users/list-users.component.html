@@ -67,12 +67,11 @@
                       <ngb-highlight [result]="data.index" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <!-- <img src="{{data.photo}}" alt="" class="avatar-xs rounded-circle me-2" *ngIf="data.photo">
-                      <div class="avatar-xs d-inline-block me-2" *ngIf="!data.photo">
+                      <div class="avatar-xs d-inline-block me-2">
                         <span class="avatar-title rounded-circle bg-light text-body">
-                          {{data.firstnames.charAt(0)}}
+                          {{data.nombres.charAt(0)}}
                         </span>
-                      </div> -->
+                      </div>
                       <ngb-highlight [result]="data.nombres" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
