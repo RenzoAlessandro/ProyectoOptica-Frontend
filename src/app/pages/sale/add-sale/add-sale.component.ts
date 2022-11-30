@@ -3,11 +3,15 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import {DecimalPipe} from '@angular/common';
 import {Observable} from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { NgbModal, NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap'
 
 import {Venta} from './addsale.model';
 import {AddsaleService} from './addsale.service';
 import {NgbdSortableHeader, SortEvent} from './sortable.directive';
+import { ProductosService } from 'src/app/services/productos.service';
+import { VentasModel } from 'src/models/venta';
+import { TipoVentaModel } from 'src/models/tipo_venta';
+import { ThemeService } from 'ng2-charts';
 
 import { Options } from 'ng5-slider';
 
@@ -45,8 +49,14 @@ export class AddSaleComponent implements OnInit {
 
   // modal
   editEvent: any;
-  formData: FormGroup;
+  formVenta: FormGroup;
   submitted = false;
+  cantidadRecibida: string = "campoCantidadRecibida";
+  fechaVenta: string = "campoFechaVenta";
+  precioTotal: string = "campoPrecioTotal";
+  pago: string = "campoPago";
+  cambio: string = "campoCambio";
+  observaciones: string = "campoObservaciones";
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
@@ -56,47 +66,30 @@ export class AddSaleComponent implements OnInit {
   total$: Observable<number>;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
+  listMonturas: any;
+  listAccesorios: any;
+  listLunas: any;
+  active = 1;
+  keyword = 'marca';
+  products: any = [];
+  precioTotalVenta: number;
+
+  venta = new VentasModel;
+  tipoPago = new TipoVentaModel;
 
   constructor(public service: AddsaleService, 
     private fb: FormBuilder,
     private modalService: NgbModal,
-    private formBuilder: FormBuilder) {
+    private productosService: ProductosService
+    ) {
     this.addsales$ = service.Addsales$;
     this.total$ = service.total$;
   }
 
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'addsales', active: true }];
-    this.crearFormulario();
-  }
-
-  crearFormulario() {
-    this.formContado = this.fb.group({
-      [this.cantidadRecivida_Contado]:[],
-      [this.fechaRegistro_Contado]:[],
-      [this.usuario_Contado]:[],
-      [this.total_Contado]:[],
-      [this.pago_Contado]:[],
-      [this.cambio_Contado]:[],
-      [this.observaciones_Contado]:[],
-    })
-
-    this.formCredito = this.fb.group({
-      [this.cantidadRecivida_Credito]:[],
-      [this.fechaRegistro_Credito]:[],
-      [this.usuario_Credito]:[],
-      [this.total_Credito]:[],
-      [this.pago_Credito]:[],
-      [this.cambio_Credito]:[],
-      [this.observaciones_Credito]:[],
-    })
-
-    this.formEditar = this.fb.group({
-      [this.precioOriginal_Editar]:[],
-      [this.fechaCambio_Editar]:[],
-      [this.nuevoPrecio_Editar]:[],
-
-    })
+    this.getListMonturas();
+    
   }
 
   onSort({column, direction}: SortEvent) {
@@ -115,8 +108,18 @@ export class AddSaleComponent implements OnInit {
    * Open center modal
    * @param centerDataModal center modal data
    */
-  centerModal(centerDataModal: any) {
+  centerModal(centerDataModal: any, products: any) {
+      this.crearFormulario();
       this.modalService.open(centerDataModal, { centered: true,windowClass:'modal-holder' });
+      console.log("modal",products);
+      this.formVenta.setValue({
+        campoCantidadRecibida: null,
+        campoFechaVenta: new Date().toLocaleDateString(),
+        campoPrecioTotal: this.precioTotalVenta,
+        campoPago: null,
+        campoCambio: null, 
+        campoObservaciones: null,
+      });
   }
   /**
    * Open scroll modal
@@ -137,7 +140,7 @@ export class AddSaleComponent implements OnInit {
    * Close event modal
    */
   closeEventModal() {
-    this.formData = this.formBuilder.group({
+    this.formVenta = this.fb.group({
       title: '',
       category: '',
     });
@@ -148,7 +151,7 @@ export class AddSaleComponent implements OnInit {
    * Save the event
    */
   saveEvent() {
-    if (this.formData.valid) {
+    if (this.formVenta.valid) {
 
     }
     this.submitted = true;
@@ -169,4 +172,145 @@ export class AddSaleComponent implements OnInit {
       { value: 9, legend: 'Máximo' }
     ]
   };
+  getListMonturas() {
+    this.productosService.getMonturas().subscribe(res => {
+      this.listMonturas = res;
+      console.log(this.listMonturas);
+    });
+  }
+
+  getListAccesorios() {
+    this.productosService.getAccesorios().subscribe(res => {
+      this.listAccesorios = res;
+      console.log(this.listAccesorios);
+    });
+  }
+
+  getListLunas() {
+    this.productosService.getLunas().subscribe(res => {
+      this.listLunas = res;
+      console.log(this.listLunas);
+    });
+  }
+
+  prueba(changeEvent: NgbNavChangeEvent) {
+    console.log(changeEvent.nextId);
+    switch (changeEvent.nextId) {
+      case 1:
+        this.getListMonturas();
+        break;
+      case 2:
+        this.getListLunas();
+        break;
+      case 3:
+        this.getListAccesorios();
+      default:
+        break;
+    }
+  }
+
+  selectEvent(item) {
+    this.products.push({...item, num:1, precio:item.precio_montura_v});
+    console.log(this.products);
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e) {
+    // do something
+  }
+
+  /** Gets the total cost of all products. */
+  getTotalCost() {
+    this.precioTotalVenta = this.products.map(t => t.precio).reduce((acc, value) => acc + value, 0);
+    return this.precioTotalVenta;
+  } 
+
+  /** actualiza el precio por cantidad */
+  addQuantityProduct(product,i) {
+    console.log(this.products)
+    this.products[i].num += 1;
+    this.products[i].precio = this.products[i].precio_montura_v*this.products[i].num;
+  }
+
+  substractQuantityProduct(product,i) {
+    console.log(this.products)
+    
+    this.products[i].num -= 1;
+    this.products[i].precio = this.products[i].precio_montura_v*this.products[i].num;
+    if (this.products[i].num === 0) {
+      this.removeProduct();
+     }
+  }
+  
+  /**
+   * Remueve elementos de la lista cuando la cantidad es = 0
+   */
+  removeProduct() {
+    //console.log(this.cartProductList);
+    this.products = this.products.filter(
+      ( name ) => name.num !== 0
+    );
+  }
+
+  /**
+   * Remueve productos del carrito de compras
+   */
+  removeCartProduct(product,i){
+    console.log("eliminado",this.products)
+    this.products[i].num = 0;
+    this.removeProduct();
+  }
+
+  crearFormulario() {
+    this.formVenta = this.fb.group({
+      [this.cantidadRecibida] : [null],
+      [this.fechaVenta] : [{value: null, disabled: true}],
+      [this.precioTotal] : [{value: null, disabled: true}],
+      [this.pago] : [{value: null, disabled: true}],
+      [this.cambio] : [{value: null, disabled: true}],
+      [this.observaciones]: [null]
+    })
+  }
+
+  f(campo:any){
+    return this.formVenta.get(campo);
+  }
+
+
+  updatePago(event:any){
+    this.f(this.pago).setValue(this.f(this.cantidadRecibida).value);
+    this.f(this.cambio).setValue( this.f(this.cantidadRecibida).value - this.precioTotalVenta);
+  }
+
+  guardarVenta() {
+    if (this.formVenta.valid) {
+      this.venta.list_monturas = this.products;
+      this.venta.list_lunas = [];
+      this.venta.list_accesorios = [];
+      this.venta.observaciones = this.f(this.observaciones).value;
+      this.venta.id_vendedor = "1234456";
+      this.venta.fecha_creacion_venta = this.f(this.fechaVenta).value;
+      this.tipoPago.forma_pago = "contado";
+      this.tipoPago.cantidad_recibida = this.f(this.cantidadRecibida).value;
+      this.tipoPago.deuda = this.precioTotalVenta - this.f(this.cantidadRecibida).value ;
+      this.tipoPago.cuotas = '3';
+      this.tipoPago.precio_total = this.precioTotalVenta;
+      this.tipoPago.metodo_pago = "PLIN";
+      this.tipoPago.fecha_pago = new Date();
+      this.venta.tipo_venta.push(this.tipoPago);
+      this.venta.id_sede = '1234234';
+      this.venta.id_cliente = 'sdfsdff';
+
+      console.log("venta",this.venta);
+      this.productosService.createVenta(this.venta).subscribe(res =>{
+        console.log("venta guardado")
+      }) 
+    } else {
+      
+    }
+  }  
 }

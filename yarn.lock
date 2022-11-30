@@ -2114,6 +2114,13 @@
   dependencies:
     "tslib" "^2.0.0"
 
+"angular-ng-autocomplete@^2.0.12":
+  "integrity" "sha512-EVv0x5REi96bQ7gXqGls+xUNiWLZxpbOLqQDg667jzV1swuBxVy/1oLvskTwsiLpgtxiDMgqq9M7fOEur6a/9A=="
+  "resolved" "https://registry.npmjs.org/angular-ng-autocomplete/-/angular-ng-autocomplete-2.0.12.tgz"
+  "version" "2.0.12"
+  dependencies:
+    "tslib" "^2.3.0"
+
 "angularx-flatpickr@^6.6.0":
   "integrity" "sha512-n/csZmAwfL32P7pUv52FXihSbPjVAjiKglbY8WO9hsBKvAk7mw8PKNjiovln4+fuscJwKo0wSsw+s7A+JpetQg=="
   "resolved" "https://registry.npmjs.org/angularx-flatpickr/-/angularx-flatpickr-6.6.0.tgz"
@@ -4304,6 +4311,13 @@
   "integrity" "sha512-7PnF4oN3CvZF23ADhA5wRaYEQpJ8qygSkbtTXWBeXWXmEVRXK+1ITciHWwHhsjv1TmW0MgacIv6hEi5pX5NQdA=="
   "resolved" "https://registry.npmjs.org/ini/-/ini-2.0.0.tgz"
   "version" "2.0.0"
+
+"input-search-select-option@^7.0.1":
+  "integrity" "sha512-snhvkoFG7w2UdB2ntaCfvwHGfaPjo8m3BdpWu/jDlDuj/SmET/xeXX0PgE2QH+yebJJKAFeen7K0du8P+8r9Lw=="
+  "resolved" "https://registry.npmjs.org/input-search-select-option/-/input-search-select-option-7.0.1.tgz"
+  "version" "7.0.1"
+  dependencies:
+    "tslib" "^1.9.0"
 
 "inquirer@8.2.0":
   "integrity" "sha512-0crLweprevJ02tTuA6ThpoAERAGyVILC4sS74uib58Xf/zSr1/ZWtmm7D5CI+bSQEaA04f0K7idaHpQbSWgiVQ=="

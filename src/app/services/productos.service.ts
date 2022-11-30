@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { AccesorioModel } from 'src/models/accesorio';
 import { LunasModel } from 'src/models/lunas';
 import { MonturasModel } from 'src/models/monturas';
+import { VentasModel } from 'src/models/venta';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +36,9 @@ export class ProductosService {
 
   updateUsers(idUser:any): Observable<any> {
     return this.http.put<any>(environment.urlBackend+'editClientById/', idUser);
+  }
+
+  createVenta(venta:VentasModel): Observable<any> {
+    return this.http.post<any>(environment.urlBackend+'createNewVenta',venta);
   }
 }

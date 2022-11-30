@@ -11,6 +11,8 @@ import { UIModule } from "src/app/shared/ui/ui.module";
 import { AddSaleComponent } from "./add-sale/add-sale.component";
 import { SaleRoutingModule } from "./sale-routing.module";
 import { ListSalesComponent } from "./list-sales/list-sales.component";
+import { InputSearchSelectOptionModule } from "input-search-select-option";
+import { AutocompleteLibModule } from "angular-ng-autocomplete";
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { ListSalesComponent } from "./list-sales/list-sales.component";
       NgbTypeaheadModule,
       NgbCollapseModule,
       NgbNavModule,
-      NgbModule
+      NgbModule,
+      AutocompleteLibModule
     ],
     providers: [
       {
