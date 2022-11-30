@@ -191,7 +191,7 @@
     <button type="button" class="btn btn-danger"><i class="uil uil-times me-2"></i>
       Cerrar
     </button>
-    <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="centerModal(centerDataModal)"> <i class="uil uil-shopping-cart-alt mt-2 me-1"></i>
+    <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="centerModal(centerDataModal,products)"> <i class="uil uil-shopping-cart-alt mt-2 me-1"></i>
       Guardar
     </button>
   </div>
@@ -210,21 +210,15 @@
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Cantidad Recibida</label>
-            <input class="form-control" placeholder="Cantidad en soles" type="text" name="title" formControlName="title"
-              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
+            <input class="form-control" placeholder="Cantidad en soles" type="text" name="title" formControlName="{{this.cantidadRecibida}}" (change)="updatePago($event)"
+               />
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Fecha</label>
             <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
+              formControlName="{{this.fechaVenta}}"  />
           </div>
         </div>
       </div>
@@ -234,10 +228,7 @@
           <div class="mb-3">
             <label class="control-label">Buscar o Crear nuevo Cliente</label>
             <input class="form-control" placeholder="Material de la luna" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
+                />
           </div>
         </div>
       </div>
@@ -252,22 +243,22 @@
         <div class="col-4">
           <div class="mb-3">
             <label class="control-label">Total</label>
-            <input class="form-control" placeholder="PEN 000.00" type="text" name="title" formControlName="title"
-              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="PEN 000.00" type="text" name="title" formControlName="{{this.precioTotal}}"
+              />
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
             <label class="control-label">Pago</label>
-            <input class="form-control" placeholder="PEN 000.00" type="text" name="title" formControlName="title"
-              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="PEN 000.00" type="text" name="pago" formControlName="{{this.pago}}"
+              />
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
             <label class="control-label">Cambio</label>
-            <input class="form-control" placeholder="PEN 000.00" type="text" name="title" formControlName="title"
-              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="PEN 000.00" type="text" name="cambio" formControlName="{{this.cambio}}"
+              />
           </div>
         </div>
       </div>
@@ -286,7 +277,7 @@
         <button type="button" class="btn btn-danger" (click)="closeEventModal()">
           Cerrar
         </button>
-        <button type="submit" class="btn btn-success ms-1" (click)="scrollModal(scrollDataModal)" id="btn-save-event">
+        <button type="submit" class="btn btn-success ms-1" (click)="guardarVenta()" id="btn-save-event">
           Terminar Venta
         </button>
       </div>

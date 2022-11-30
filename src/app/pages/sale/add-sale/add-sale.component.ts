@@ -9,6 +9,9 @@ import {Venta} from './addsale.model';
 import {AddsaleService} from './addsale.service';
 import {NgbdSortableHeader, SortEvent} from './sortable.directive';
 import { ProductosService } from 'src/app/services/productos.service';
+import { VentasModel } from 'src/models/venta';
+import { TipoVentaModel } from 'src/models/tipo_venta';
+import { ThemeService } from 'ng2-charts';
 
 @Component({
   selector: 'app-add-sale',
@@ -43,6 +46,11 @@ export class AddSaleComponent implements OnInit {
   active = 1;
   keyword = 'marca';
   products: any = [];
+  precioTotalVenta: number;
+
+  venta = new VentasModel;
+  tipoPago = new TipoVentaModel;
+
   constructor(public service: AddsaleService, 
     private modalService: NgbModal,
     private fb: FormBuilder,
@@ -55,6 +63,7 @@ export class AddSaleComponent implements OnInit {
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'addsales', active: true }];
     this.getListMonturas();
+    
   }
 
   onSort({column, direction}: SortEvent) {
@@ -73,8 +82,18 @@ export class AddSaleComponent implements OnInit {
    * Open center modal
    * @param centerDataModal center modal data
    */
-  centerModal(centerDataModal: any) {
+  centerModal(centerDataModal: any, products: any) {
+      this.crearFormulario();
       this.modalService.open(centerDataModal, { centered: true,windowClass:'modal-holder' });
+      console.log("modal",products);
+      this.formVenta.setValue({
+        campoCantidadRecibida: null,
+        campoFechaVenta: new Date().toLocaleDateString(),
+        campoPrecioTotal: this.precioTotalVenta,
+        campoPago: null,
+        campoCambio: null, 
+        campoObservaciones: null,
+      });
   }
   /**
    * Open scroll modal
@@ -165,8 +184,8 @@ export class AddSaleComponent implements OnInit {
 
   /** Gets the total cost of all products. */
   getTotalCost() {
-    const precioTotal = this.products.map(t => t.precio).reduce((acc, value) => acc + value, 0);
-    return precioTotal;
+    this.precioTotalVenta = this.products.map(t => t.precio).reduce((acc, value) => acc + value, 0);
+    return this.precioTotalVenta;
   } 
 
   /** actualiza el precio por cantidad */
@@ -207,12 +226,50 @@ export class AddSaleComponent implements OnInit {
 
   crearFormulario() {
     this.formVenta = this.fb.group({
-      [this.cantidadRecibida] : [],
-      [this.fechaVenta] : [],
-      [this.precioTotal] : [],
-      [this.pago] : [],
-      [this.cambio] : [],
-      [this.observaciones]: []
+      [this.cantidadRecibida] : [null],
+      [this.fechaVenta] : [{value: null, disabled: true}],
+      [this.precioTotal] : [{value: null, disabled: true}],
+      [this.pago] : [{value: null, disabled: true}],
+      [this.cambio] : [{value: null, disabled: true}],
+      [this.observaciones]: [null]
     })
   }
+
+  f(campo:any){
+    return this.formVenta.get(campo);
+  }
+
+
+  updatePago(event:any){
+    this.f(this.pago).setValue(this.f(this.cantidadRecibida).value);
+    this.f(this.cambio).setValue( this.f(this.cantidadRecibida).value - this.precioTotalVenta);
+  }
+
+  guardarVenta() {
+    if (this.formVenta.valid) {
+      this.venta.list_monturas = this.products;
+      this.venta.list_lunas = [];
+      this.venta.list_accesorios = [];
+      this.venta.observaciones = this.f(this.observaciones).value;
+      this.venta.id_vendedor = "1234456";
+      this.venta.fecha_creacion_venta = this.f(this.fechaVenta).value;
+      this.tipoPago.forma_pago = "contado";
+      this.tipoPago.cantidad_recibida = this.f(this.cantidadRecibida).value;
+      this.tipoPago.deuda = this.precioTotalVenta - this.f(this.cantidadRecibida).value ;
+      this.tipoPago.cuotas = '3';
+      this.tipoPago.precio_total = this.precioTotalVenta;
+      this.tipoPago.metodo_pago = "PLIN";
+      this.tipoPago.fecha_pago = new Date();
+      this.venta.tipo_venta.push(this.tipoPago);
+      this.venta.id_sede = '1234234';
+      this.venta.id_cliente = 'sdfsdff';
+
+      console.log("venta",this.venta);
+      this.productosService.createVenta(this.venta).subscribe(res =>{
+        console.log("venta guardado")
+      }) 
+    } else {
+      
+    }
+  }  
 }
