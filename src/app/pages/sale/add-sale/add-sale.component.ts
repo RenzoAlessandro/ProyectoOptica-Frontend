@@ -9,6 +9,8 @@ import {Venta} from './addsale.model';
 import {AddsaleService} from './addsale.service';
 import {NgbdSortableHeader, SortEvent} from './sortable.directive';
 
+import { Options } from 'ng5-slider';
+
 @Component({
   selector: 'app-add-sale',
   templateUrl: './add-sale.component.html',
@@ -16,6 +18,30 @@ import {NgbdSortableHeader, SortEvent} from './sortable.directive';
   providers: [AddsaleService, DecimalPipe]
 })
 export class AddSaleComponent implements OnInit {
+
+  formContado: FormGroup;
+  cantidadRecivida_Contado: string = "campoCantidadRecibidaContado";
+  fechaRegistro_Contado: string = "campoFechaRegistroContado";
+  usuario_Contado: string = "campoUsuarioContado";
+  total_Contado: string = "campoTotalContado";
+  pago_Contado: string = "campoPagoContado";
+  cambio_Contado: string = "campoCambioContado";
+  observaciones_Contado: string = "campoObservacionesContado";
+
+  formCredito: FormGroup;
+  cantidadRecivida_Credito: string = "campoCantidadRecibidaCredito";
+  fechaRegistro_Credito: string = "campoFechaRegistroCredito";
+  usuario_Credito: string = "campoUsuarioCredito";
+  total_Credito: string = "campoTotalCredito";
+  pago_Credito: string = "campoPagoCredito";
+  cambio_Credito: string = "campoCambioCredito";
+  observaciones_Credito: string = "campoObservacionesCredito";
+
+  formEditar: FormGroup;
+  precioOriginal_Editar: string = "campoPrecioOriginalEditar";
+  fechaCambio_Editar: string = "campoFechaCambioEditar";
+  nuevoPrecio_Editar: string = "campoNuevoPrecioEditar";
+
 
   // modal
   editEvent: any;
@@ -32,6 +58,7 @@ export class AddSaleComponent implements OnInit {
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   constructor(public service: AddsaleService, 
+    private fb: FormBuilder,
     private modalService: NgbModal,
     private formBuilder: FormBuilder) {
     this.addsales$ = service.Addsales$;
@@ -40,6 +67,36 @@ export class AddSaleComponent implements OnInit {
 
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'addsales', active: true }];
+    this.crearFormulario();
+  }
+
+  crearFormulario() {
+    this.formContado = this.fb.group({
+      [this.cantidadRecivida_Contado]:[],
+      [this.fechaRegistro_Contado]:[],
+      [this.usuario_Contado]:[],
+      [this.total_Contado]:[],
+      [this.pago_Contado]:[],
+      [this.cambio_Contado]:[],
+      [this.observaciones_Contado]:[],
+    })
+
+    this.formCredito = this.fb.group({
+      [this.cantidadRecivida_Credito]:[],
+      [this.fechaRegistro_Credito]:[],
+      [this.usuario_Credito]:[],
+      [this.total_Credito]:[],
+      [this.pago_Credito]:[],
+      [this.cambio_Credito]:[],
+      [this.observaciones_Credito]:[],
+    })
+
+    this.formEditar = this.fb.group({
+      [this.precioOriginal_Editar]:[],
+      [this.fechaCambio_Editar]:[],
+      [this.nuevoPrecio_Editar]:[],
+
+    })
   }
 
   onSort({column, direction}: SortEvent) {
@@ -96,4 +153,20 @@ export class AddSaleComponent implements OnInit {
     }
     this.submitted = true;
   }
+
+
+  tickValue = 2;
+  tickValueoptions: Options = {
+    showTicksValues: true,
+    stepsArray: [
+      { value: 2, legend: 'Mínimo' },
+      { value: 3 },
+      { value: 4 },
+      { value: 5 },
+      { value: 6 },
+      { value: 7 },
+      { value: 8 },
+      { value: 9, legend: 'Máximo' }
+    ]
+  };
 }

@@ -149,7 +149,7 @@
                                   class="uil uil-minus-circle font-size-18"></i></a>
                                 <a href="javascript:void(0);" class="px-2 text-success" placement="top" ngbTooltip="Agregar"><i
                                   class="uil uil-plus-circle font-size-18"></i></a>
-                                <a href="javascript:void(0);" class="px-2 text-primary" placement="top" ngbTooltip="Editar"><i
+                                <a (click)="centerModal(centerDataModalEditar)" class="px-2 text-primary" placement="top" ngbTooltip="Editar"><i
                                     class="uil uil-pen font-size-18"></i></a>
                                 <a href="javascript:void(0);" class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
                                     class="uil uil-trash-alt font-size-18"></i></a>
@@ -175,14 +175,73 @@
     <button type="button" class="btn btn-danger"><i class="uil uil-times me-2"></i>
       Cerrar
     </button>
-    <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="centerModal(centerDataModal)"> <i class="uil uil-shopping-cart-alt mt-2 me-1"></i>
+    <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="centerModal(centerDataModalGuardar2)"> <i class="uil uil-shopping-cart-alt mt-2 me-1"></i>
       Guardar
     </button>
   </div>
 </div>
 
-<!-- Add New User - Center Modal -->
-<ng-template #centerDataModal let-modal>
+
+<!-- Editar Precio - Center Modal -->
+<ng-template #centerDataModalEditar let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-title">Cambio de Precio</h5>
+    <button type="button" class="btn-close" (click)="closeEventModal()">
+    </button>
+  </div>
+  <div class="modal-body p-4">
+    <form (ngSubmit)="saveEvent()" [formGroup]="formData">
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <label class="control-label">Precio Original</label>
+            <input class="form-control" placeholder="PEN 000.00" type="text" name="campoPrecioOriginalEditar"
+              formControlName="{{this.precioOriginal_Editar}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+              <span *ngIf="form.title.errors.required">This value is required.</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <label class="control-label">Fecha de Cambio</label>
+            <input class="form-control" placeholder="Seleccione la fecha" type="text" name="campoFechaCambioEditar"
+              formControlName="{{this.fechaCambio_Editar}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+              <span *ngIf="form.title.errors.required">This value is required.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="mb-3">
+            <label class="control-label">Nuevo Precio de Venta</label>
+            <input class="form-control" placeholder="Escriba el nuevo precio de venta" type="text" name="campoNuevoPrecioEditar"
+              formControlName="{{this.nuevoPrecio_Editar}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+          </div>
+        </div>
+      </div>
+
+      <div class="text-end mt-2">
+        <button type="button" class="btn btn-danger" (click)="closeEventModal()">
+          Cerrar
+        </button>
+        <button type="submit" class="btn btn-success ms-1" (click)="closeEventModal()" id="btn-save-event">
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+  <!-- end modal dialog-->
+</ng-template>
+<!-- end modal-->
+
+
+
+<!-- Guardar Venta - Center Modal -->
+<!-- <ng-template #centerDataModalGuardar let-modal>
   <div class="modal-header">
     <h5 class="modal-title" id="modal-title">Registrar Venta al Contado</h5>
     <button type="button" class="btn-close" (click)="closeEventModal()">
@@ -271,17 +330,275 @@
           Cerrar
         </button>
         <button type="submit" class="btn btn-success ms-1" (click)="scrollModal(scrollDataModal)" id="btn-save-event">
-          Terminar Venta
+          Registrar Venta
         </button>
       </div>
     </form>
+  </div>
+</ng-template> -->
+<!-- end modal-->
+ -->
+
+
+
+
+<!-- Guardar Venta 2 - Center Modal -->
+<ng-template #centerDataModalGuardar2 let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-title">Registrar Venta</h5>
+    <button type="button" class="btn-close" (click)="closeEventModal()">
+    </button>
+  </div>
+  <div class="modal-body p-4">
+      <div class="col-lg-14">
+        <ul ngbNav #justifiednavpills="ngbNav" [activeId]="1" class="nav-pills nav-justified bg-light">
+          <li [ngbNavItem]="1">
+            <a ngbNavLink>
+              <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+              <span class="d-none d-sm-block">Al Contado</span>
+            </a>
+            <ng-template ngbNavContent>
+              
+
+
+
+              <form (ngSubmit)="saveEvent()" [formGroup]="formData">
+                <div class="row mt-4">
+                  <div class="col-6">
+                    <div class="mb-3">
+                      <label class="control-label">Cantidad Recibida</label>
+                      <input class="form-control" placeholder="Cantidad en soles" type="text" name="campoCantidadRecibidaContado"
+                        formControlName="{{this.cantidadRecivida_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                      <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                        <span *ngIf="form.title.errors.required">This value is required.</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="mb-3">
+                      <label class="control-label">Fecha</label>
+                      <input class="form-control" placeholder="Seleccione la fecha" type="text" name="campoFechaRegistroContado"
+                        formControlName="{{this.fechaRegistro_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                      <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                        <span *ngIf="form.title.errors.required">This value is required.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+          
+                <div class="row">
+                  <div class="col-12">
+                    <div class="mb-3">
+                      <label class="control-label">Buscar o Crear nuevo Cliente</label>
+                      <input class="form-control" placeholder="Material de la luna" type="text" name="campoUsuarioContado"
+                        formControlName="{{this.usuario_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                      <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                        <span *ngIf="form.title.errors.required">This value is required.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="row">
+                  <div class="col-12">
+                    <label class="control-label" style="text-align: left;">Montos:</label>
+                  </div>
+                </div>
+          
+                <div class="row">
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Total</label>
+                      <input class="form-control" placeholder="PEN 000.00" type="text" name="campoTotalContado"
+                        formControlName="{{this.total_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Pago</label>
+                      <input class="form-control" placeholder="PEN 000.00" type="text" name="campoPagoContado"
+                        formControlName="{{this.pago_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Cambio</label>
+                      <input class="form-control" placeholder="PEN 000.00" type="text" name="campoCambioContado"
+                        formControlName="{{this.cambio_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="mb-4">
+                      <label class="form-label" for="billing-observaciones">Observaciones</label>
+                      <textarea class="form-control" id="billing-observaciones" rows="3"
+                        placeholder="Ingrese las observaciones" formControlName="{{this.observaciones_Contado}}"></textarea>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="text-end mt-2">
+                  <button type="button" class="btn btn-danger" (click)="closeEventModal()">
+                    Cerrar
+                  </button>
+                  <button type="submit" class="btn btn-success ms-1" (click)="scrollModal(scrollDataModal)" id="btn-save-event">
+                    Registrar Venta
+                  </button>
+                </div>
+              </form>
+
+
+
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2">
+            <a ngbNavLink>
+              <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+              <span class="d-none d-sm-block">Al Crédito</span>
+            </a>
+            <ng-template ngbNavContent>
+
+
+
+
+
+
+
+
+
+              <form (ngSubmit)="saveEvent()" [formGroup]="formData">
+                <div class="row mt-4">
+                  <div class="col-6">
+                    <div class="mb-3">
+                      <label class="control-label">Cantidad Recibida</label>
+                      <input class="form-control" placeholder="Cantidad en soles" type="text" name="campoCantidadRecibidaCredito"
+                        formControlName="{{this.cantidadRecivida_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                      <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                        <span *ngIf="form.title.errors.required">This value is required.</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="mb-3">
+                      <label class="control-label">Fecha</label>
+                      <input class="form-control" placeholder="Seleccione la fecha" type="text" name="campoFechaRegistroCredito"
+                        formControlName="{{this.fechaRegistro_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                      <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                        <span *ngIf="form.title.errors.required">This value is required.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <div class="mb-3">
+                      <label class="control-label">Número de Cuotas</label>
+                      <div class="p-3">
+                        <ng5-slider [(value)]="tickValue" [options]="tickValueoptions"></ng5-slider>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="row">
+                  <div class="col-12">
+                    <div class="mb-3">
+                      <label class="control-label">Buscar o Crear nuevo Cliente</label>
+                      <input class="form-control" placeholder="Material de la luna" type="text" name="campoUsuarioCredito"
+                        formControlName="{{this.usuario_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                      <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                        <span *ngIf="form.title.errors.required">This value is required.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="row">
+                  <div class="col-12">
+                    <label class="control-label" style="text-align: left;">Montos:</label>
+                  </div>
+                </div>
+          
+                <div class="row">
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Total</label>
+                      <input class="form-control" placeholder="PEN 000.00" type="text" name="campoTotalCredito"
+                        formControlName="{{this.total_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Pago</label>
+                      <input class="form-control" placeholder="PEN 000.00" type="text" name="campoPagoCredito"
+                        formControlName="{{this.pago_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Cambio</label>
+                      <input class="form-control" placeholder="PEN 000.00" type="text" name="campoCambioCredito"
+                        formControlName="{{this.cambio_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="mb-4">
+                      <label class="form-label" for="billing-observaciones">Observaciones</label>
+                      <textarea class="form-control" id="billing-observaciones" rows="3"
+                        placeholder="Ingrese las observaciones" formControlName="{{this.observaciones_Credito}}"></textarea>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="text-end mt-2">
+                  <button type="button" class="btn btn-danger" (click)="closeEventModal()">
+                    Cerrar
+                  </button>
+                  <button type="submit" class="btn btn-success ms-1" (click)="scrollModal(scrollDataModal)" id="btn-save-event">
+                    Registrar Venta
+                  </button>
+                </div>
+              </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </ng-template>
+          </li>
+        </ul>
+        <div [ngbNavOutlet]="justifiednavpills"></div>
+      </div><!-- End Justified Tabs -->
+
   </div>
   <!-- end modal dialog-->
 </ng-template>
 <!-- end modal-->
 
 
-<!-- Scrollable Modal -->
+
+
+
+
+
+
+<!-- Factura - Scrollable Modal -->
 <ng-template #scrollDataModal let-modal>
   <div class="modal-header">
     <h5 class="modal-title mt-0">Factura de Venta</h5>
@@ -297,12 +614,12 @@
                   <div class="invoice-title">
                       <h4 class="float-end font-size-16">Factura #MN0131 <span class="badge bg-success font-size-12 ms-2">Paid</span></h4>
                       <div class="mb-4">
-                          <img src="assets/images/logo-dark.png" alt="logo" height="20"/>
+                          <img src="assets/images/logo-dark.png" alt="logo" height="100"/>
                       </div>
                       <div class="text-muted">
-                          <p class="mb-1">641 Counts Lane Wilmore, KY 40390</p>
-                          <p class="mb-1"><i class="uil uil-envelope-alt me-1"></i> abc@123.com</p>
-                          <p><i class="uil uil-phone me-1"></i> 012-345-6789</p>
+                          <p class="mb-1">Calle Santa Marta 218, Arequipa</p>
+                          <p class="mb-1"><i class="uil uil-envelope-alt me-1"></i> raulcg1234@hotmail.com</p>
+                          <p><i class="uil uil-phone me-1"></i> +51 955 739 464</p>
                       </div>
                   </div>
   
@@ -361,9 +678,9 @@
                                               <li class="list-inline-item">Size : <span class="fw-medium">08</span></li>
                                           </ul>
                                       </td>
-                                      <td>$260</td>
+                                      <td>S/ 260</td>
                                       <td>1</td>
-                                      <td class="text-end">PEN 260.00</td>
+                                      <td class="text-end">S/ 260.00</td>
                                   </tr>
                                   
                                   <tr>
@@ -375,34 +692,34 @@
                                               <li class="list-inline-item">Size : <span class="fw-medium">09</span></li>
                                           </ul>
                                       </td>
-                                      <td>$250</td>
+                                      <td>S/ 250</td>
                                       <td>1</td>
-                                      <td class="text-end">PEN 250.00</td>
+                                      <td class="text-end">S/ 250.00</td>
                                   </tr>
   
   
                                   <tr>
                                       <th scope="row" colspan="4" class="text-end">Sub Total</th>
-                                      <td class="text-end">PEN 510.00</td>
+                                      <td class="text-end">S/ 510.00</td>
                                   </tr>
                                   <tr>
                                       <th scope="row" colspan="4" class="border-0 text-end">
                                         Descuento :</th>
-                                      <td class="border-0 text-end">- PEN 50.00</td>
+                                      <td class="border-0 text-end">- S/ 50.00</td>
                                   </tr>
                                   <tr>
                                       <th scope="row" colspan="4" class="border-0 text-end">
                                         Costo de envío :</th>
-                                      <td class="border-0 text-end">PEN 25.00</td>
+                                      <td class="border-0 text-end">S/ 25.00</td>
                                   </tr>
                                   <tr>
                                       <th scope="row" colspan="4" class="border-0 text-end">
                                         Impuesto (IGV)</th>
-                                      <td class="border-0 text-end">PEN 13.00</td>
+                                      <td class="border-0 text-end">S/ 13.00</td>
                                   </tr>
                                   <tr>
                                       <th scope="row" colspan="4" class="border-0 text-end">Total</th>
-                                      <td class="border-0 text-end"><h4 class="m-0">PEN 498.00</h4></td>
+                                      <td class="border-0 text-end"><h4 class="m-0">S/ 498.00</h4></td>
                                   </tr>
                               </tbody>
                           </table>
@@ -415,9 +732,9 @@
     <!-- end row -->
   </div>
   <div class="modal-footer">
-    <a href="javascript(0)" class="btn btn-success waves-effect waves-light me-1"><i class="fa fa-download"></i></a>
-    <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light me-1"><i class="fa fa-print"></i></a>
-    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Cerrar</button>
-    <button type="button" class="btn btn-primary">Guardar cambios</button>
+    <a href="javascript(0)" class="btn btn-secondary waves-effect waves-light me-1"><i class="fa fa-download"></i></a>
+    <a href="javascript:window.print()" class="btn btn-secondary waves-effect waves-light me-1"><i class="fa fa-print"></i></a>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Cerrar</button>
+    <button type="button" class="btn btn-success">Guardar</button>
   </div>
 </ng-template>

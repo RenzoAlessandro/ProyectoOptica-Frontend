@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <app-page-title title="Añadir un Producto" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <app-page-title title="Registrar un Producto" [breadcrumbItems]="breadCrumbItems"></app-page-title>
   
     <div class="row mb-4">  
       <div class="col-xl-12">
@@ -128,11 +128,8 @@
                   </div>
           
                   <div class="text-end mt-2">
-                    <button type="button" class="btn btn-danger">
-                      Cerrar
-                    </button>
                     <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="guardarMonturas()">
-                      Guardar
+                      Registrar
                     </button>
                   </div>
                 </form>
@@ -163,7 +160,6 @@
                         <label class="control-label">Material</label>
                         <input class="form-control" placeholder="Material de la luna" type="text" name="title"
                           formControlName="{{this.material_luna}}"   />
-                        
                       </div>
                     </div>
                   </div>
@@ -196,11 +192,8 @@
                   </div>
           
                   <div class="text-end mt-2">
-                    <button type="button" class="btn btn-danger" (click)="closeEventModal()">
-                      Cerrar
-                    </button>
                     <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="guardarLunas()">
-                      Guardar
+                      Registrar
                     </button>
                   </div>
                 </form>
@@ -264,11 +257,8 @@
                   </div>
 
                   <div class="text-end mt-2">
-                    <button type="button" class="btn btn-danger" (click)="closeEventModal()">
-                      Cerrar
-                    </button>
                     <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="guardarAccesorios()">
-                      Guardar
+                      Registrar
                     </button>
                   </div>
                 </form>
