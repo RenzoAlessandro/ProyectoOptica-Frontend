@@ -123,6 +123,7 @@ export class AddProductComponent implements OnInit {
       this.accesorios.fecha_modificacion_accesorio = new Date();
       this.accesorios.id_sede = "por confirmar";
       this.accesorios.habilitado = true;
+      this.accesorios.tipo = "accesorio";
       console.log(this.accesorios);
       this.productosService.createAccesorios(this.accesorios).subscribe(res=>{
         console.log("accesorio guardado")
@@ -142,6 +143,7 @@ export class AddProductComponent implements OnInit {
       this.lunas.cantidad = Number(this.fL(this.cantidad_luna).value);
       this.lunas.id_sede = "por confirmar";
       this.lunas.habilitado = true;
+      this.lunas.tipo = "luna";
       console.log(this.lunas);
       this.productosService.createLunas(this.lunas).subscribe(res=>{
         console.log("lunas guardado")
@@ -165,6 +167,7 @@ export class AddProductComponent implements OnInit {
       this.monturas.cantidad = Number(this.fM(this.cantidad_montura).value);
       this.monturas.id_sede = "por confirmar";
       this.monturas.habilitado = true;
+      this.monturas.tipo = "montura";
       console.log(this.monturas);
       this.productosService.createMonturas(this.monturas).subscribe(res=>{
         console.log("monturas guardado")

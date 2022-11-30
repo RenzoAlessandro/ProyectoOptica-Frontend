@@ -8,4 +8,5 @@ export class AccesorioModel {
     cantidad: number;
     id_sede: string;
     habilitado: boolean;
+    tipo: string;
 }

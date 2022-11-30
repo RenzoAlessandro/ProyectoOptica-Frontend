@@ -7,4 +7,5 @@ export class LunasModel {
     cantidad: number;
     id_sede: string;
     habilitado: true;
+    tipo:string;
 }

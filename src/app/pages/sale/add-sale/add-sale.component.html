@@ -1,180 +1,197 @@
 <div class="container-fluid">
-    <app-page-title title="Añadir un Producto" [breadcrumbItems]="breadCrumbItems"></app-page-title>
-  
-    <div class="row mb-4">  
-      <div class="col-xl-12">
-        <div class="card mb-0">
-          <!-- Nav tabs -->
-          <ul ngbNav #justifiednav="ngbNav" [activeId]="1" class="nav nav-tabs nav-justified nav-tabs-custom">
-            <li [ngbNavItem]="1" class="nav-item">
-              <a ngbNavLink class="nav-link">
-                <i class="uil uil-nerd font-size-20"></i>
-                <span class="d-none d-sm-block">Montura</span>
-              </a>
-              <ng-template ngbNavContent>
-                <ng-template [ngTemplateOutlet]="TabContentAbout"></ng-template>
-              </ng-template>
-            </li>
-            <li [ngbNavItem]="2" class="nav-item">
-              <a ngbNavLink class="nav-link">
-                <i class="uil uil-panorama-h-alt font-size-20"></i>
-                <span class="d-none d-sm-block">Luna</span>
-              </a>
-              <ng-template ngbNavContent>
-                <ng-template [ngTemplateOutlet]="TabContentTasks"></ng-template>
-              </ng-template>
-            </li>
-            <li [ngbNavItem]="3" class="nav-item">
-              <a ngbNavLink class="nav-link">
-                <i class="uil uil-box font-size-20"></i>
-                <span class="d-none d-sm-block">Accesorio</span>
-              </a>
-              <ng-template ngbNavContent>
-                <ng-template [ngTemplateOutlet]="TabContentMessages"></ng-template>
-              </ng-template>
-            </li>
-          </ul>
-          <div [ngbNavOutlet]="justifiednav"></div>
+  <app-page-title title="Añadir un Producto" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row mb-4">
+    <div class="col-xl-12">
+      <div class="card mb-0">
+        <!-- Nav tabs -->
+        <ul ngbNav #justifiednav="ngbNav" [activeId]="active" class="nav nav-tabs nav-justified nav-tabs-custom"
+          (navChange)="prueba($event)">
+          <li [ngbNavItem]="1" class="nav-item">
+            <a ngbNavLink class="nav-link">
+              <i class="uil uil-nerd font-size-20"></i>
+              <span class="d-none d-sm-block">Montura</span>
+            </a>
+            <ng-template ngbNavContent>
+              <ng-template [ngTemplateOutlet]="TabContentAbout"></ng-template>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2" class="nav-item">
+            <a ngbNavLink class="nav-link">
+              <i class="uil uil-panorama-h-alt font-size-20"></i>
+              <span class="d-none d-sm-block">Luna</span>
+            </a>
+            <ng-template ngbNavContent>
+              <ng-template [ngTemplateOutlet]="TabContentTasks"></ng-template>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="3" class="nav-item">
+            <a ngbNavLink class="nav-link">
+              <i class="uil uil-box font-size-20"></i>
+              <span class="d-none d-sm-block">Accesorio</span>
+            </a>
+            <ng-template ngbNavContent>
+              <ng-template [ngTemplateOutlet]="TabContentMessages"></ng-template>
+            </ng-template>
+          </li>
+        </ul>
+        <div [ngbNavOutlet]="justifiednav"></div>
+      </div>
+
+      <!-- Tab content -->
+      <ng-template #TabContentAbout>
+        <div class="tab-content p-4">
+          <div class="tab-pane active">
+            <div>
+              <div class="row">
+                <!-- Search -->
+                <div class="col-sm-12 col-md-12 search-box chat-search-box">
+                  <div class="position-relative">
+                    <ng-autocomplete [data]="listMonturas" [searchKeyword]="keyword" placeholder="Buscar Montura"
+                      (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
+                      (inputFocused)='onFocused($event)' historyIdentifier="listMonturas" [itemTemplate]="itemTemplate"
+                      [notFoundTemplate]="notFoundTemplate">
+                    </ng-autocomplete>
+
+                    <ng-template #itemTemplate let-item>
+                      <a [innerHTML]="item.marca"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                  </div>
+                </div>
+                <!-- End search -->
+              </div>
+            </div>
+          </div>
         </div>
-  
-        <!-- Tab content -->
-        <ng-template #TabContentAbout>
-          <div class="tab-content p-4">
-            <div class="tab-pane active">
-              <div>
-                  <div class="row">
-                    <!-- Search -->
-                    <div class="col-sm-12 col-md-12 search-box chat-search-box">
-                      <div class="position-relative">
-                        <input type="text" class="form-control border-light rounded" placeholder="Buscar montura" name="searchTerm"
-                          aria-controls="tickets-table" >
-                        <i class="uil uil-search search-icon"></i>
-                      </div>
-                    </div>
-                    <!-- End search -->
+      </ng-template>
+
+      <ng-template #TabContentTasks>
+        <div class="tab-content p-4">
+          <div class="tab-pane active">
+            <div>
+              <div class="row">
+                <!-- Search -->
+                <div class="col-sm-12 col-md-12 search-box chat-search-box">
+                  <div class="position-relative">
+                    <input type="text" class="form-control border-light rounded" placeholder="Buscar luna"
+                      name="searchTerm" aria-controls="tickets-table">
+
+                    <i class="uil uil-search search-icon"></i>
                   </div>
+                </div>
+
+                <!-- End search -->
               </div>
             </div>
           </div>
-        </ng-template>
-  
-        <ng-template #TabContentTasks>
-          <div class="tab-content p-4">
-            <div class="tab-pane active">
-              <div>
-                <div class="row">
-                  <!-- Search -->
-                  <div class="col-sm-12 col-md-12 search-box chat-search-box">
-                    <div class="position-relative">
-                      <input type="text" class="form-control border-light rounded" placeholder="Buscar luna" name="searchTerm"
-                        aria-controls="tickets-table" >
-                      <i class="uil uil-search search-icon"></i>
-                    </div>
-                  </div>
-                  <!-- End search -->
-                </div>
-            </div>
-            </div>
-          </div>
-        </ng-template>
-  
-        <ng-template #TabContentMessages>
-          <div class="tab-content p-4">
-            <div class="tab-pane active">
-              <div>
-                <div class="row">
-                  <!-- Search -->
-                  <div class="col-sm-12 col-md-12 search-box chat-search-box">
-                    <div class="position-relative">
-                      <input type="text" class="form-control border-light rounded" placeholder="Buscar accesorio" name="searchTerm"
-                        aria-controls="tickets-table" >
-                      <i class="uil uil-search search-icon"></i>
-                    </div>
-                  </div>
-                  <!-- End search -->
-                </div>
-            </div>
-            </div>
-          </div>
-        </ng-template>
-      </div>
-    </div>
-    <!-- end row -->
+        </div>
+      </ng-template>
 
-    <div class="row mb-4">
-      <h4>Total de la Venta: PEN 000.00</h4>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-12">
-          <div class="card">
-              <div class="card-body">
-                  <h4 class="card-title mb-4">Lista de Productos</h4>
-                  <div class="table-responsive">
-                    <form>
-                      <table class="table table-centered datatables dt-responsive table-nowrap mb-0 align-middle " style="border-spacing: 0 12px; width: 100%;">
-                          <thead class="table-light">
-                            <tr class="bg-transparent">
-                              <th scope="col" sortable="id" (sort)="onSort($event)">ID Producto</th>
-                              <th scope="col" sortable="tipo" (sort)="onSort($event)">Tipo</th>
-                              <th scope="col" sortable="detalle" (sort)="onSort($event)">Detalle</th>
-                              <th scope="col" sortable="cantidad" (sort)="onSort($event)">Cantidad</th>
-                              <th scope="col" sortable="precio" (sort)="onSort($event)">Precio</th>
-                              <th scope="col" sortable="total" (sort)="onSort($event)">Total</th>
-                              <th>Action</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let data of addsales$ | async">
-                              <td>
-                                <ngb-highlight [result]="data.id" [term]="service.searchTerm"></ngb-highlight>
-                              </td>
-                              <td>
-                                <ngb-highlight [result]="data.tipo" [term]="service.searchTerm"></ngb-highlight>
-                              </td>
-                              <td>
-                                <ngb-highlight [result]="data.detalle" [term]="service.searchTerm"></ngb-highlight>
-                              </td>
-                              <td>
-                                <ngb-highlight [result]="data.cantidad" [term]="service.searchTerm"></ngb-highlight>
-                              </td>
-                              <td>
-                                <ngb-highlight [result]="data.precio" [term]="service.searchTerm"></ngb-highlight>
-                              </td>
-                             <td>
-                                <ngb-highlight [result]="data.total" [term]="service.searchTerm"></ngb-highlight>
-                              </td>
-                              <td>
-                                <a href="javascript:void(0);" class="px-2 text-warning" placement="top" ngbTooltip="Disminuir"><i
-                                  class="uil uil-minus-circle font-size-18"></i></a>
-                                <a href="javascript:void(0);" class="px-2 text-success" placement="top" ngbTooltip="Agregar"><i
-                                  class="uil uil-plus-circle font-size-18"></i></a>
-                                <a href="javascript:void(0);" class="px-2 text-primary" placement="top" ngbTooltip="Editar"><i
-                                    class="uil uil-pen font-size-18"></i></a>
-                                <a href="javascript:void(0);" class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
-                                    class="uil uil-trash-alt font-size-18"></i></a>
-                              </td>
-                            </tr>
-                          </tbody>
-                      </table>
-                      <div class="float-end">
-                        <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
-                          [pageSize]="service.pageSize">
-                          <ng-template ngbPaginationPrevious>Antes</ng-template>
-                          <ng-template ngbPaginationNext>Siguiente</ng-template>
-                        </ngb-pagination>
-                      </div>
-                    </form>
+      <ng-template #TabContentMessages>
+        <div class="tab-content p-4">
+          <div class="tab-pane active">
+            <div>
+              <div class="row">
+                <!-- Search -->
+                <div class="col-sm-12 col-md-12 search-box chat-search-box">
+                  <div class="position-relative">
+                    <input type="text" class="form-control border-light rounded" placeholder="Buscar accesorio"
+                      name="searchTerm" aria-controls="tickets-table">
+                    <i class="uil uil-search search-icon"></i>
                   </div>
-                  <!-- end table -->
+                </div>
+                <!-- End search -->
               </div>
+            </div>
           </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <!-- end row -->
+
+  <div class="row mb-4">
+    <h4>Total de la Venta: PEN {{getTotalCost()|currency:'S/.'}}</h4>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Lista de Productos</h4>
+          <div class="table-responsive">
+            <form>
+              <table class="table table-centered datatables dt-responsive table-nowrap mb-0 align-middle "
+                style="border-spacing: 0 12px; width: 100%;">
+                <thead class="table-light">
+                  <tr class="bg-transparent">
+                    <th scope="col" sortable="id" (sort)="onSort($event)">ID Producto</th>
+                    <th scope="col" sortable="tipo" (sort)="onSort($event)">Tipo</th>
+                    <th scope="col" sortable="detalle" (sort)="onSort($event)">Detalle</th>
+                    <th scope="col" sortable="cantidad" (sort)="onSort($event)">Cantidad</th>
+                    <th scope="col" sortable="precio" (sort)="onSort($event)">Precio</th>
+                    <th scope="col" sortable="total" (sort)="onSort($event)">Total</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of products; let i = index">
+                    <td>
+                      <ngb-highlight [result]="i+1"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="item.tipo"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="item.detalle"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="item.num"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="item.precio_montura_v"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="item.precio"></ngb-highlight>
+                    </td>
+                    <td>
+                      <a class="px-2 text-warning" placement="top" ngbTooltip="Disminuir"><i
+                          class="uil uil-minus-circle font-size-18" (click)="substractQuantityProduct($event,i)"></i></a>
+                      <a class="px-2 text-success" placement="top" ngbTooltip="Agregar"><i
+                          class="uil uil-plus-circle font-size-18" name="quantity" ngDefaultControl
+                          [(ngModel)]="item.num" min="0"
+                          (click)="addQuantityProduct($event,i)"></i></a>
+                      <a href="javascript:void(0);" class="px-2 text-primary" placement="top" ngbTooltip="Editar"><i
+                          class="uil uil-pen font-size-18"></i></a>
+                      <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
+                          class="uil uil-trash-alt font-size-18" (click)="removeCartProduct($event,i)"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="float-end">
+                <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                  [pageSize]="service.pageSize">
+                  <ng-template ngbPaginationPrevious>Antes</ng-template>
+                  <ng-template ngbPaginationNext>Siguiente</ng-template>
+                </ngb-pagination>
+              </div>
+            </form>
+          </div>
+          <!-- end table -->
+        </div>
       </div>
+    </div>
   </div>
 
   <div class="row mb-4">
     <div class="col text-end">
-      <button type="button" class="btn btn-success ms-1" (click)="centerModal(centerDataModal)"> <i class="uil uil-shopping-cart-alt mt-2 me-1"></i> Vender </button>
+      <button type="button" class="btn btn-success ms-1" (click)="centerModal(centerDataModal)"> <i
+          class="uil uil-shopping-cart-alt mt-2 me-1"></i> Vender </button>
       <button type="button" class="btn btn-danger"> <i class="uil uil-times me-2"></i> Cancelar </button>
     </div> <!-- end col -->
   </div> <!-- end row-->
@@ -188,13 +205,13 @@
     </button>
   </div>
   <div class="modal-body p-4">
-    <form (ngSubmit)="saveEvent()" [formGroup]="formData">
+    <form (ngSubmit)="saveEvent()" [formGroup]="formVenta">
       <div class="row">
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Cantidad Recibida</label>
-            <input class="form-control" placeholder="Cantidad en soles" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="Cantidad en soles" type="text" name="title" formControlName="title"
+              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
             </div>
@@ -235,22 +252,22 @@
         <div class="col-4">
           <div class="mb-3">
             <label class="control-label">Total</label>
-            <input class="form-control" placeholder="PEN 000.00" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="PEN 000.00" type="text" name="title" formControlName="title"
+              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
             <label class="control-label">Pago</label>
-            <input class="form-control" placeholder="PEN 000.00" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="PEN 000.00" type="text" name="title" formControlName="title"
+              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
             <label class="control-label">Cambio</label>
-            <input class="form-control" placeholder="PEN 000.00" type="text" name="title"
-              formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="PEN 000.00" type="text" name="title" formControlName="title"
+              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
           </div>
         </div>
       </div>
@@ -259,8 +276,8 @@
         <div class="col-lg-12">
           <div class="mb-4">
             <label class="form-label" for="billing-observaciones">Observaciones</label>
-            <textarea class="form-control" id="billing-observaciones" rows="3"
-              placeholder="Ingrese las observaciones" formControlName="{{this.observaciones}}"></textarea>
+            <textarea class="form-control" id="billing-observaciones" rows="3" placeholder="Ingrese las observaciones"
+              formControlName="{{this.observaciones}}"></textarea>
           </div>
         </div>
       </div>
@@ -291,131 +308,135 @@
   <div class="modal-body">
     <div class="row">
       <div class="col-lg-12">
-          <div class="card">
-              <div class="card-body">
-                  <div class="invoice-title">
-                      <h4 class="float-end font-size-16">Factura #MN0131 <span class="badge bg-success font-size-12 ms-2">Paid</span></h4>
-                      <div class="mb-4">
-                          <img src="assets/images/logo-dark.png" alt="logo" height="20"/>
-                      </div>
-                      <div class="text-muted">
-                          <p class="mb-1">641 Counts Lane Wilmore, KY 40390</p>
-                          <p class="mb-1"><i class="uil uil-envelope-alt me-1"></i> abc@123.com</p>
-                          <p><i class="uil uil-phone me-1"></i> 012-345-6789</p>
-                      </div>
-                  </div>
-  
-                  <hr class="my-4">
-  
-                  <div class="row">
-                      <div class="col-sm-6">
-                          <div class="text-muted">
-                              <h5 class="font-size-16 mb-3">Facturado a:</h5>
-                              <h5 class="font-size-15 mb-2">Preston Miller</h5>
-                              <p class="mb-1">4450 Fancher Drive Dallas, TX 75247</p>
-                              <p class="mb-1">PrestonMiller@armyspy.com</p>
-                              <p>001-234-5678</p>
-                          </div>
-                      </div>
-                      <div class="col-sm-6">
-                          <div class="text-muted text-sm-end">
-                              <div>
-                                  <h5 class="font-size-16 mb-1">Nº de Factura:</h5>
-                                  <p>#MN0131</p>
-                              </div>
-                              <div class="mt-4">
-                                  <h5 class="font-size-16 mb-1">Fecha de la Factura:</h5>
-                                  <p>09 Jul, 2020</p>
-                              </div>
-                              <div class="mt-4">
-                                  <h5 class="font-size-16 mb-1">Nº de pedido:</h5>
-                                  <p>#1123456</p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-  
-                  
-                  <div class="py-2">
-                      <h5 class="font-size-15">Resumen del Pedido</h5>
-  
-                      <div class="table-responsive">
-                          <table class="table table-nowrap table-centered mb-0">
-                              <thead>
-                                  <tr>
-                                      <th style="width: 70px;">No.</th>
-                                      <th>Detalle</th>
-                                      <th>Precio</th>
-                                      <th>Cantidad</th>
-                                      <th class="text-end" style="width: 120px;">Total</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  <tr>
-                                      <th scope="row">01</th>
-                                      <td>
-                                          <h5 class="font-size-15 mb-1">Nike N012 Running Shoes</h5>
-                                          <ul class="list-inline mb-0">
-                                              <li class="list-inline-item">Color : <span class="fw-medium">Gray</span></li>
-                                              <li class="list-inline-item">Size : <span class="fw-medium">08</span></li>
-                                          </ul>
-                                      </td>
-                                      <td>$260</td>
-                                      <td>1</td>
-                                      <td class="text-end">PEN 260.00</td>
-                                  </tr>
-                                  
-                                  <tr>
-                                      <th scope="row">02</th>
-                                      <td>
-                                          <h5 class="font-size-15 mb-1">Adidas Running Shoes</h5>
-                                          <ul class="list-inline mb-0">
-                                              <li class="list-inline-item">Color : <span class="fw-medium">Black</span></li>
-                                              <li class="list-inline-item">Size : <span class="fw-medium">09</span></li>
-                                          </ul>
-                                      </td>
-                                      <td>$250</td>
-                                      <td>1</td>
-                                      <td class="text-end">PEN 250.00</td>
-                                  </tr>
-  
-  
-                                  <tr>
-                                      <th scope="row" colspan="4" class="text-end">Sub Total</th>
-                                      <td class="text-end">PEN 510.00</td>
-                                  </tr>
-                                  <tr>
-                                      <th scope="row" colspan="4" class="border-0 text-end">
-                                        Descuento :</th>
-                                      <td class="border-0 text-end">- PEN 50.00</td>
-                                  </tr>
-                                  <tr>
-                                      <th scope="row" colspan="4" class="border-0 text-end">
-                                        Costo de envío :</th>
-                                      <td class="border-0 text-end">PEN 25.00</td>
-                                  </tr>
-                                  <tr>
-                                      <th scope="row" colspan="4" class="border-0 text-end">
-                                        Impuesto (IGV)</th>
-                                      <td class="border-0 text-end">PEN 13.00</td>
-                                  </tr>
-                                  <tr>
-                                      <th scope="row" colspan="4" class="border-0 text-end">Total</th>
-                                      <td class="border-0 text-end"><h4 class="m-0">PEN 498.00</h4></td>
-                                  </tr>
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="invoice-title">
+              <h4 class="float-end font-size-16">Factura #MN0131 <span
+                  class="badge bg-success font-size-12 ms-2">Paid</span></h4>
+              <div class="mb-4">
+                <img src="assets/images/logo-dark.png" alt="logo" height="20" />
               </div>
+              <div class="text-muted">
+                <p class="mb-1">641 Counts Lane Wilmore, KY 40390</p>
+                <p class="mb-1"><i class="uil uil-envelope-alt me-1"></i> abc@123.com</p>
+                <p><i class="uil uil-phone me-1"></i> 012-345-6789</p>
+              </div>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="text-muted">
+                  <h5 class="font-size-16 mb-3">Facturado a:</h5>
+                  <h5 class="font-size-15 mb-2">Preston Miller</h5>
+                  <p class="mb-1">4450 Fancher Drive Dallas, TX 75247</p>
+                  <p class="mb-1">PrestonMiller@armyspy.com</p>
+                  <p>001-234-5678</p>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="text-muted text-sm-end">
+                  <div>
+                    <h5 class="font-size-16 mb-1">Nº de Factura:</h5>
+                    <p>#MN0131</p>
+                  </div>
+                  <div class="mt-4">
+                    <h5 class="font-size-16 mb-1">Fecha de la Factura:</h5>
+                    <p>09 Jul, 2020</p>
+                  </div>
+                  <div class="mt-4">
+                    <h5 class="font-size-16 mb-1">Nº de pedido:</h5>
+                    <p>#1123456</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="py-2">
+              <h5 class="font-size-15">Resumen del Pedido</h5>
+
+              <div class="table-responsive">
+                <table class="table table-nowrap table-centered mb-0">
+                  <thead>
+                    <tr>
+                      <th style="width: 70px;">No.</th>
+                      <th>Detalle</th>
+                      <th>Precio</th>
+                      <th>Cantidad</th>
+                      <th class="text-end" style="width: 120px;">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">01</th>
+                      <td>
+                        <h5 class="font-size-15 mb-1">Nike N012 Running Shoes</h5>
+                        <ul class="list-inline mb-0">
+                          <li class="list-inline-item">Color : <span class="fw-medium">Gray</span></li>
+                          <li class="list-inline-item">Size : <span class="fw-medium">08</span></li>
+                        </ul>
+                      </td>
+                      <td>$260</td>
+                      <td>1</td>
+                      <td class="text-end">PEN 260.00</td>
+                    </tr>
+
+                    <tr>
+                      <th scope="row">02</th>
+                      <td>
+                        <h5 class="font-size-15 mb-1">Adidas Running Shoes</h5>
+                        <ul class="list-inline mb-0">
+                          <li class="list-inline-item">Color : <span class="fw-medium">Black</span></li>
+                          <li class="list-inline-item">Size : <span class="fw-medium">09</span></li>
+                        </ul>
+                      </td>
+                      <td>$250</td>
+                      <td>1</td>
+                      <td class="text-end">PEN 250.00</td>
+                    </tr>
+
+
+                    <tr>
+                      <th scope="row" colspan="4" class="text-end">Sub Total</th>
+                      <td class="text-end">PEN 510.00</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" colspan="4" class="border-0 text-end">
+                        Descuento :</th>
+                      <td class="border-0 text-end">- PEN 50.00</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" colspan="4" class="border-0 text-end">
+                        Costo de envío :</th>
+                      <td class="border-0 text-end">PEN 25.00</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" colspan="4" class="border-0 text-end">
+                        Impuesto (IGV)</th>
+                      <td class="border-0 text-end">PEN 13.00</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" colspan="4" class="border-0 text-end">Total</th>
+                      <td class="border-0 text-end">
+                        <h4 class="m-0">PEN 498.00</h4>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
+        </div>
       </div>
     </div>
     <!-- end row -->
   </div>
   <div class="modal-footer">
     <a href="javascript(0)" class="btn btn-success waves-effect waves-light me-1"><i class="fa fa-download"></i></a>
-    <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light me-1"><i class="fa fa-print"></i></a>
+    <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light me-1"><i
+        class="fa fa-print"></i></a>
     <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Cerrar</button>
     <button type="button" class="btn btn-primary">Guardar cambios</button>
   </div>

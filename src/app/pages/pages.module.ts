@@ -58,7 +58,7 @@ FullCalendarModule.registerPlugins([
     NgbAccordionModule,
     NgbTypeaheadModule,
     NgbCollapseModule,
-    SimplebarAngularModule
+    SimplebarAngularModule,
   ]
 })
 export class PagesModule { }
