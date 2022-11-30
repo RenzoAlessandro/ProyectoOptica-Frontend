@@ -49,28 +49,35 @@
                             </div>
 
                             <div class="row">
-                              <div class="col-lg-4">
+                              <div class="col-lg-3">
                                 <div class="mb-4">
-                                  <label class="form-label" for="billing-phone">Telefono</label>
-                                  <input type="text" class="form-control" id="billing-phone"
-                                    placeholder="Ingrese el número de telefono" formControlName="{{this.telefono}}"/>
+                                  <label class="form-label" for="billing-fecharegistro">Fecha de Registro</label>
+                                  <input type="text" class="form-control" id="billing-fecharegistro"
+                                    placeholder="Seleccione la fecha" formControlName="{{this.fecha_creacion}}"/>
                                 </div>
                               </div>
-                              <div class="col-lg-4">
+                              <div class="col-lg-3">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-fechanacimiento">Fecha de Nacimiento</label>
                                   <input type="date" class="form-control" id="billing-fechanacimiento"
-                                    placeholder="Ingrese correo electrónico" formControlName="{{this.fechaNacimiento}}"/>
+                                    placeholder="Seleccione la fecha" formControlName="{{this.fechaNacimiento}}"/>
                                 </div>
                               </div>
-                              <div class="col-lg-4">
+                              <div class="col-lg-3">
+                                <div class="mb-4">
+                                  <label class="form-label" for="billing-phone">Teléfono</label>
+                                  <input type="text" class="form-control" id="billing-phone"
+                                    placeholder="Teléfono del Cliente" formControlName="{{this.telefono}}"/>
+                                </div>
+                              </div>
+                              <div class="col-lg-3">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-email-address">Correo Electrónico</label>
                                   <input type="email" class="form-control" id="billing-email-address" placeholder="Correo electrónico" formControlName="{{this.email}}"/>
                                 </div>
                               </div>
-
                             </div>
+
 
                             <div class="row">
                               <div class="col-lg-4">
@@ -227,7 +234,7 @@
             <div class="col">
               <div class="text-sm-end mt-2 mt-sm-0">
                 <button  class="btn btn-success" (click)="guardarUsuario()" [disabled]="!formRegister.valid">
-                  <i class="uil uil-user-plus me-1"></i> Registrar
+                  <i class="uil uil-user-plus me-1"></i> Registrar Usuario
                 </button>
               </div>
             </div>

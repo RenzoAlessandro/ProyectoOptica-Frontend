@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <app-page-title title="Checkout" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <app-page-title title="Registrar Nuevo Cliente" [breadcrumbItems]="breadCrumbItems"></app-page-title>
     <div class="checkout-tabs">
       <div class="row">
         <div class="col-xl-12">
@@ -66,9 +66,9 @@
                               </div>
                               <div class="col-lg-3">
                                 <div class="mb-4">
-                                  <label class="form-label" for="billing-phone">Telefono</label>
+                                  <label class="form-label" for="billing-phone">Teléfono</label>
                                   <input type="text" class="form-control" id="billing-phone"
-                                    placeholder="Telefono del Cliente" formControlName="{{this.telefono}}"/>
+                                    placeholder="Teléfono del Cliente" formControlName="{{this.telefono}}"/>
                                 </div>
                               </div>
                               <div class="col-lg-3">
@@ -289,7 +289,7 @@
             <div class="col">
               <div class="text-sm-end mt-2 mt-sm-0">
                 <button class="btn btn-success" (click)="guardarCliente()" [disabled]="!formCustomer.valid">
-                  <i class="uil uil-shopping-cart-alt me-1"></i> Procced
+                  <i class="uil uil-user-plus me-1"></i> Registar Cliente
                 </button>
               </div>
             </div>

@@ -1,6 +1,6 @@
 <div class="container-fluid">
 
-  <app-page-title title="Clientes" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <app-page-title title="Lista de Clientes" [breadcrumbItems]="breadCrumbItems"></app-page-title>
 
   <div class="row">
     <div class="col-12">
@@ -48,7 +48,7 @@
                   <th scope="col" sortable="nombres" (sort)="onSort($event)">Nombres</th>
                   <th scope="col" sortable="apellidos" (sort)="onSort($event)">Apellidos</th>
                   <th scope="col" sortable="dni" (sort)="onSort($event)">DNI</th>
-                  <th scope="col" sortable="Telefono" (sort)="onSort($event)">Telefono</th>
+                  <th scope="col" sortable="Telefono" (sort)="onSort($event)">Teléfono</th>
                   <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de Nacimiento</th>
                   <th scope="col" sortable="Encarg. Medición" (sort)="onSort($event)">Encargado Medicion</th>
                   <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
@@ -147,7 +147,7 @@
         </div>
         <div class="col-6">
           <div class="mb-3">
-            <label class="control-label">Fecha</label>
+            <label class="control-label">Fecha de Registro</label>
             <input class="form-control" placeholder="Seleccione la fecha" type="text"
               formControlName="{{this.fecha_creacion}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <!-- <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
@@ -193,9 +193,22 @@
         </div>
         <div class="col-6">
           <div class="mb-3">
-            <label class="control-label">Telefono</label>
-            <input class="form-control" placeholder="Telefono del cliente" type="text"
+            <label class="control-label">Teléfono</label>
+            <input class="form-control" placeholder="Teléfono del cliente" type="text"
               formControlName="{{this.telefono}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+              <span *ngIf="form.title.errors.required">This value is required.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="mb-3">
+            <label class="control-label">Correo Electrónico</label>
+            <input class="form-control" placeholder="Correo electrónico" type="email"
+              formControlName="{{this.emailaddress}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
             </div>
@@ -319,11 +332,11 @@
 
 
       <div class="text-end mt-2">
-        <button type="button" class="btn btn-danger">
-          Close
+        <button type="button" class="btn btn-danger" (click)="closeEventModal()">
+          Cerrar
         </button>
         <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="guardarCliente()">
-          Save
+          Guardar
         </button>
       </div>
     </form>
