@@ -4312,13 +4312,6 @@
   "resolved" "https://registry.npmjs.org/ini/-/ini-2.0.0.tgz"
   "version" "2.0.0"
 
-"input-search-select-option@^7.0.1":
-  "integrity" "sha512-snhvkoFG7w2UdB2ntaCfvwHGfaPjo8m3BdpWu/jDlDuj/SmET/xeXX0PgE2QH+yebJJKAFeen7K0du8P+8r9Lw=="
-  "resolved" "https://registry.npmjs.org/input-search-select-option/-/input-search-select-option-7.0.1.tgz"
-  "version" "7.0.1"
-  dependencies:
-    "tslib" "^1.9.0"
-
 "inquirer@8.2.0":
   "integrity" "sha512-0crLweprevJ02tTuA6ThpoAERAGyVILC4sS74uib58Xf/zSr1/ZWtmm7D5CI+bSQEaA04f0K7idaHpQbSWgiVQ=="
   "resolved" "https://registry.npmjs.org/inquirer/-/inquirer-8.2.0.tgz"

@@ -131,7 +131,7 @@
       </ng-template>
     </div>
   </div>
-  <!-- end row -->
+
 
   <div class="row mb-4">
     <h4>Total de la Venta: PEN {{getTotalCost()|currency:'S/.'}}</h4>
@@ -144,16 +144,16 @@
           <h4 class="card-title mb-4">Lista de Productos</h4>
           <div class="table-responsive">
             <form>
-              <table class="table table-centered datatables dt-responsive table-nowrap mb-0 align-middle "
+              <table class="table table-centered dt-responsive table-nowrap mb-0 align-middle "
                 style="border-spacing: 0 12px; width: 100%;">
                 <thead class="table-light">
                   <tr class="bg-transparent">
-                    <th scope="col" sortable="id" (sort)="onSort($event)">ID Producto</th>
-                    <th scope="col" sortable="tipo" (sort)="onSort($event)">Tipo</th>
-                    <th scope="col" sortable="detalle" (sort)="onSort($event)">Detalle</th>
-                    <th scope="col" sortable="cantidad" (sort)="onSort($event)">Cantidad</th>
-                    <th scope="col" sortable="precio" (sort)="onSort($event)">Precio</th>
-                    <th scope="col" sortable="total" (sort)="onSort($event)">Total</th>
+                    <th>ID Producto</th>
+                    <th>Tipo</th>
+                    <th>Detalle</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Total</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -216,34 +216,41 @@
     <button type="button" class="btn btn-danger"><i class="uil uil-times me-2"></i>
       Cerrar
     </button>
-    <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="centerModal(centerDataModal,products)"> <i class="uil uil-shopping-cart-alt mt-2 me-1"></i>
+    <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="centerModal(centerDataModalGuardar2,products)"> <i class="uil uil-shopping-cart-alt mt-2 me-1"></i>
       Guardar
     </button>
   </div>
 </div>
 
-<!-- Add New User - Center Modal -->
-<ng-template #centerDataModal let-modal>
+
+<!-- Editar Precio - Center Modal -->
+<ng-template #centerDataModalEditar let-modal>
   <div class="modal-header">
-    <h5 class="modal-title" id="modal-title">Registrar Venta al Contado</h5>
+    <h5 class="modal-title" id="modal-title">Cambio de Precio</h5>
     <button type="button" class="btn-close" (click)="closeEventModal()">
     </button>
   </div>
   <div class="modal-body p-4">
-    <form (ngSubmit)="saveEvent()" [formGroup]="formVenta">
+    <form (ngSubmit)="saveEvent()" [formGroup]="formEditar">
       <div class="row">
         <div class="col-6">
           <div class="mb-3">
-            <label class="control-label">Cantidad Recibida</label>
-            <input class="form-control" placeholder="Cantidad en soles" type="text" name="title" formControlName="{{this.cantidadRecibida}}" (change)="updatePago($event)"
-               />
+            <label class="control-label">Precio Original</label>
+            <input class="form-control" placeholder="PEN 000.00" type="text" name="namePrecioOriginalEditar"
+              formControlName="{{this.precioOriginal_Editar}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+              <span *ngIf="form.title.errors.required">This value is required.</span>
+            </div>
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
-            <label class="control-label">Fecha</label>
-            <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
-              formControlName="{{this.fechaVenta}}"  />
+            <label class="control-label">Fecha de Cambio</label>
+            <input class="form-control" placeholder="Seleccione la fecha" type="text" name="nameFechaCambioEditar"
+              formControlName="{{this.fechaCambio_Editar}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+              <span *ngIf="form.title.errors.required">This value is required.</span>
+            </div>
           </div>
         </div>
       </div>
@@ -251,49 +258,9 @@
       <div class="row">
         <div class="col-12">
           <div class="mb-3">
-            <label class="control-label">Buscar o Crear nuevo Cliente</label>
-            <input class="form-control" placeholder="Material de la luna" type="text" name="title"
-                />
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12">
-          <label class="control-label" style="text-align: left;">Montos:</label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-4">
-          <div class="mb-3">
-            <label class="control-label">Total</label>
-            <input class="form-control" placeholder="PEN 000.00" type="text" name="title" formControlName="{{this.precioTotal}}"
-              />
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="mb-3">
-            <label class="control-label">Pago</label>
-            <input class="form-control" placeholder="PEN 000.00" type="text" name="pago" formControlName="{{this.pago}}"
-              />
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="mb-3">
-            <label class="control-label">Cambio</label>
-            <input class="form-control" placeholder="PEN 000.00" type="text" name="cambio" formControlName="{{this.cambio}}"
-              />
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="mb-4">
-            <label class="form-label" for="billing-observaciones">Observaciones</label>
-            <textarea class="form-control" id="billing-observaciones" rows="3" placeholder="Ingrese las observaciones"
-              formControlName="{{this.observaciones}}"></textarea>
+            <label class="control-label">Nuevo Precio de Venta</label>
+            <input class="form-control" placeholder="Escriba el nuevo precio de venta" type="text" name="nameNuevoPrecioEditar"
+              formControlName="{{this.nuevoPrecio_Editar}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
           </div>
         </div>
       </div>
@@ -302,8 +269,8 @@
         <button type="button" class="btn btn-danger" (click)="closeEventModal()">
           Cerrar
         </button>
-        <button type="submit" class="btn btn-success ms-1" (click)="guardarVenta()" id="btn-save-event">
-          Terminar Venta
+        <button type="submit" class="btn btn-success ms-1" (click)="closeEventModal()" id="btn-save-event">
+          Guardar
         </button>
       </div>
     </form>
@@ -311,6 +278,273 @@
   <!-- end modal dialog-->
 </ng-template>
 <!-- end modal-->
+
+
+<!-- Guardar Venta 2 - Center Modal -->
+<ng-template #centerDataModalGuardar2 let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-title">Registrar Venta</h5>
+    <button type="button" class="btn-close" (click)="closeEventModal()">
+    </button>
+  </div>
+  <div class="modal-body p-4">
+      <div class="col-lg-14">
+        <ul ngbNav #justifiednavpills="ngbNav" [activeId]="1" class="nav-pills nav-justified bg-light">
+          <li [ngbNavItem]="1">
+            <a ngbNavLink>
+              <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+              <span class="d-none d-sm-block">Al Contado</span>
+            </a>
+            <ng-template ngbNavContent>
+              
+
+
+
+              <form (ngSubmit)="saveEvent()" [formGroup]="formContado">
+                <div class="row mt-4">
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Cantidad Recibida</label>
+                      <input class="form-control" placeholder="Cantidad en soles" type="text" name="nameCantidadRecibidaContado"
+                        formControlName="{{this.cantidadRecivida_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                      <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                        <span *ngIf="form.title.errors.required">This value is required.</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="form-label">Método</label>
+                      <ng-select name="selectMetodo" [items]="selectValue">
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Fecha</label>
+                      <input class="form-control" placeholder="Seleccione la fecha" type="text" name="nameFechaRegistroContado"
+                        formControlName="{{this.fechaVenta_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                      <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                        <span *ngIf="form.title.errors.required">This value is required.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+          
+                <div class="row">
+                  <div class="col-12">
+                    <div class="mb-3">
+                      <label class="control-label">Buscar o Crear nuevo Cliente</label>
+                      <input class="form-control" placeholder="Nombre del cliente" type="text" name="nameUsuarioContado"
+                        formControlName="{{this.usuario_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                      <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                        <span *ngIf="form.title.errors.required">This value is required.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="row">
+                  <div class="col-12">
+                    <label class="control-label" style="text-align: left;">Montos:</label>
+                  </div>
+                </div>
+          
+                <div class="row">
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Total</label>
+                      <input class="form-control" placeholder="S/ 000.00" type="text" name="nameTotalContado"
+                        formControlName="{{this.precioTotal_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Pago</label>
+                      <input class="form-control" placeholder="S/ 000.00" type="text" name="namePagoContado"
+                        formControlName="{{this.pago_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Cambio</label>
+                      <input class="form-control" placeholder="S/ 000.00" type="text" name="nameCambioContado"
+                        formControlName="{{this.cambio_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="mb-4">
+                      <label class="form-label" for="billing-observaciones">Observaciones</label>
+                      <textarea class="form-control" id="billing-observaciones" rows="3"
+                        placeholder="Ingrese las observaciones" formControlName="{{this.observaciones_Contado}}"></textarea>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="text-end mt-2">
+                  <button type="button" class="btn btn-danger" (click)="closeEventModal()">
+                    Cerrar
+                  </button>
+                  <button type="submit" class="btn btn-success ms-1" (click)="scrollModal(scrollDataModal)" id="btn-save-event">
+                    Registrar Venta
+                  </button>
+                </div>
+              </form>
+
+
+
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2">
+            <a ngbNavLink>
+              <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+              <span class="d-none d-sm-block">Al Crédito</span>
+            </a>
+            <ng-template ngbNavContent>
+
+
+
+
+
+
+
+
+
+              <form (ngSubmit)="saveEvent()" [formGroup]="formCredito">
+                <div class="row mt-4">
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Cantidad Recibida</label>
+                      <input class="form-control" placeholder="Cantidad en soles" type="text" name="nameCantidadRecibidaCredito"
+                        formControlName="{{this.cantidadRecivida_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                      <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                        <span *ngIf="form.title.errors.required">This value is required.</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="form-label">Método</label>
+                      <ng-select name="selectMetodo" [items]="selectValue">
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Fecha</label>
+                      <input class="form-control" placeholder="Seleccione la fecha" type="text" name="nameFechaRegistroCredito"
+                        formControlName="{{this.fechaVenta_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                      <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                        <span *ngIf="form.title.errors.required">This value is required.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <div class="mb-3">
+                      <label class="control-label">Número de Cuotas</label>
+                      <div class="p-3">
+                        <ng5-slider [(value)]="tickValue" [options]="tickValueoptions"></ng5-slider>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="row">
+                  <div class="col-12">
+                    <div class="mb-3">
+                      <label class="control-label">Buscar o Crear nuevo Cliente</label>
+                      <input class="form-control" placeholder="Nombre del Cliente" type="text" name="nameUsuarioCredito"
+                        formControlName="{{this.usuario_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                      <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                        <span *ngIf="form.title.errors.required">This value is required.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="row">
+                  <div class="col-12">
+                    <label class="control-label" style="text-align: left;">Montos:</label>
+                  </div>
+                </div>
+          
+                <div class="row">
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Total</label>
+                      <input class="form-control" placeholder="S/ 000.00" type="text" name="nameTotalCredito"
+                        formControlName="{{this.precioTotal_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Pago</label>
+                      <input class="form-control" placeholder="S/ 000.00" type="text" name="namePagoCredito"
+                        formControlName="{{this.pago_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Cambio</label>
+                      <input class="form-control" placeholder="S/ 000.00" type="text" name="nameCambioCredito"
+                        formControlName="{{this.cambio_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="mb-4">
+                      <label class="form-label" for="billing-observaciones">Observaciones</label>
+                      <textarea class="form-control" id="billing-observaciones" rows="3"
+                        placeholder="Ingrese las observaciones" formControlName="{{this.observaciones_Credito}}"></textarea>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="text-end mt-2">
+                  <button type="button" class="btn btn-danger" (click)="closeEventModal()">
+                    Cerrar
+                  </button>
+                  <button type="submit" class="btn btn-success ms-1" (click)="scrollModal(scrollDataModal)" id="btn-save-event">
+                    Registrar Venta
+                  </button>
+                </div>
+              </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </ng-template>
+          </li>
+        </ul>
+        <div [ngbNavOutlet]="justifiednavpills"></div>
+      </div><!-- End Justified Tabs -->
+
+  </div>
+  <!-- end modal dialog-->
+</ng-template>
+<!-- end modal-->
+
+
+
 
 
 <!-- Scrollable Modal -->

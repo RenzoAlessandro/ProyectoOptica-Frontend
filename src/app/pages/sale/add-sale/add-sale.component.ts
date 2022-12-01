@@ -13,6 +13,8 @@ import { VentasModel } from 'src/models/venta';
 import { TipoVentaModel } from 'src/models/tipo_venta';
 import { MonturasModel } from 'src/models/monturas';
 
+import { Options } from 'ng5-slider';
+
 @Component({
   selector: 'app-add-sale',
   templateUrl: './add-sale.component.html',
@@ -21,16 +23,33 @@ import { MonturasModel } from 'src/models/monturas';
 })
 export class AddSaleComponent implements OnInit {
 
+  formContado: FormGroup;
+  submitted_Contado= false;
+  cantidadRecivida_Contado: string = "campoCantidadRecibidaContado";
+  fechaVenta_Contado: string = "campoFechaVentaContado";
+  usuario_Contado: string = "campoUsuarioContado";
+  precioTotal_Contado: string = "campoPrecioTotalContado";
+  pago_Contado: string = "campoPagoContado";
+  cambio_Contado: string = "campoCambioContado";
+  observaciones_Contado: string = "campoObservacionesContado";
+
+  formCredito: FormGroup;
+  cantidadRecivida_Credito: string = "campoCantidadRecibidaCredito";
+  fechaVenta_Credito: string = "campoFechaVentaCredito";
+  usuario_Credito: string = "campoUsuarioCredito";
+  precioTotal_Credito: string = "campoPrecioTotalCredito";
+  pago_Credito: string = "campoPagoCredito";
+  cambio_Credito: string = "campoCambioCredito";
+  observaciones_Credito: string = "campoObservacionesCredito";
+
+  formEditar: FormGroup;
+  precioOriginal_Editar: string = "campoPrecioOriginalEditar";
+  fechaCambio_Editar: string = "campoFechaCambioEditar";
+  nuevoPrecio_Editar: string = "campoNuevoPrecioEditar";
+
+
   // modal
   editEvent: any;
-  formVenta: FormGroup;
-  submitted = false;
-  cantidadRecibida: string = "campoCantidadRecibida";
-  fechaVenta: string = "campoFechaVenta";
-  precioTotal: string = "campoPrecioTotal";
-  pago: string = "campoPago";
-  cambio: string = "campoCambio";
-  observaciones: string = "campoObservaciones";
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
@@ -50,10 +69,13 @@ export class AddSaleComponent implements OnInit {
 
   venta = new VentasModel;
   tipoPago = new TipoVentaModel;
-  listAutocomplete:any = [];
+
+  selectValue = [];
+  selectedValue = '';
+
   constructor(public service: AddsaleService, 
-    private modalService: NgbModal,
     private fb: FormBuilder,
+    private modalService: NgbModal,
     private productosService: ProductosService
     ) {
     this.addsales$ = service.Addsales$;
@@ -63,6 +85,9 @@ export class AddSaleComponent implements OnInit {
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'addsales', active: true }];
     this.getListMonturas();
+
+    this.selectValue = ['Físico', 'Yape', 'Plim'];
+    this.selectedValue = this.selectValue[0];
     
   }
 
@@ -86,14 +111,14 @@ export class AddSaleComponent implements OnInit {
       this.crearFormulario();
       this.modalService.open(centerDataModal, { centered: true,windowClass:'modal-holder' });
       console.log("modal",products);
-      this.formVenta.setValue({
-        campoCantidadRecibida: null,
-        campoFechaVenta: new Date().toLocaleDateString(),
-        campoPrecioTotal: this.precioTotalVenta,
-        campoPago: null,
-        campoCambio: null, 
-        campoObservaciones: null,
-      });
+/*       this.formContado.setValue({
+        campoCantidadRecibidaContado: null,
+        campoFechaVentaContado: new Date().toLocaleDateString(),
+        campoPrecioTotalContado: this.precioTotalVenta,
+        campoPagoContado: null,
+        campoCambioContado: null, 
+        campoObservacionesContado: null,
+      }); */
   }
   /**
    * Open scroll modal
@@ -114,7 +139,7 @@ export class AddSaleComponent implements OnInit {
    * Close event modal
    */
   closeEventModal() {
-    this.formVenta = this.fb.group({
+    this.formContado = this.fb.group({
       title: '',
       category: '',
     });
@@ -125,12 +150,27 @@ export class AddSaleComponent implements OnInit {
    * Save the event
    */
   saveEvent() {
-    if (this.formVenta.valid) {
+    if (this.formContado.valid) {
 
     }
-    this.submitted = true;
+    this.submitted_Contado = true;
   }
 
+
+  tickValue = 2;
+  tickValueoptions: Options = {
+    showTicksValues: true,
+    stepsArray: [
+      { value: 2, legend: 'Mínimo' },
+      { value: 3 },
+      { value: 4 },
+      { value: 5 },
+      { value: 6 },
+      { value: 7 },
+      { value: 8 },
+      { value: 9, legend: 'Máximo' }
+    ]
+  };
   getListMonturas() {
     this.productosService.getMonturas().subscribe(res => {
       this.listMonturas = res;
@@ -229,37 +269,49 @@ export class AddSaleComponent implements OnInit {
   }
 
   crearFormulario() {
-    this.formVenta = this.fb.group({
-      [this.cantidadRecibida] : [null],
-      [this.fechaVenta] : [{value: null, disabled: true}],
-      [this.precioTotal] : [{value: null, disabled: true}],
-      [this.pago] : [{value: null, disabled: true}],
-      [this.cambio] : [{value: null, disabled: true}],
-      [this.observaciones]: [null]
+    this.formContado = this.fb.group({
+      [this.cantidadRecivida_Contado] : [null],
+      [this.fechaVenta_Contado] : [{value: null, disabled: true}],
+      [this.usuario_Contado] : [null],
+      [this.precioTotal_Contado] : [{value: null, disabled: true}],
+      [this.pago_Contado] : [{value: null, disabled: true}],
+      [this.cambio_Contado] : [{value: null, disabled: true}],
+      [this.observaciones_Contado]: [null]
     })
+
+    this.formCredito = this.fb.group({
+      [this.cantidadRecivida_Credito] : [null],
+      [this.fechaVenta_Credito] : [{value: null, disabled: true}],
+      [this.usuario_Credito] : [null],
+      [this.precioTotal_Credito] : [{value: null, disabled: true}],
+      [this.pago_Credito] : [{value: null, disabled: true}],
+      [this.cambio_Credito] : [{value: null, disabled: true}],
+      [this.observaciones_Credito]: [null]
+    })
+
   }
 
   f(campo:any){
-    return this.formVenta.get(campo);
+    return this.formContado.get(campo);
   }
 
 
   updatePago(event:any){
-    this.f(this.pago).setValue(this.f(this.cantidadRecibida).value);
-    this.f(this.cambio).setValue( this.f(this.cantidadRecibida).value - this.precioTotalVenta);
+    this.f(this.pago_Contado).setValue(this.f(this.cantidadRecivida_Contado).value);
+    this.f(this.cambio_Contado).setValue( this.f(this.cantidadRecivida_Contado).value - this.precioTotalVenta);
   }
 
   guardarVenta() {
-    if (this.formVenta.valid) {
+    if (this.formContado.valid) {
       this.venta.list_monturas = this.products;
       this.venta.list_lunas = [];
       this.venta.list_accesorios = [];
-      this.venta.observaciones = this.f(this.observaciones).value;
+      this.venta.observaciones = this.f(this.observaciones_Contado).value;
       this.venta.id_vendedor = "1234456";
-      this.venta.fecha_creacion_venta = this.f(this.fechaVenta).value;
+      this.venta.fecha_creacion_venta = this.f(this.fechaVenta_Contado).value;
       this.tipoPago.forma_pago = "contado";
-      this.tipoPago.cantidad_recibida = this.f(this.cantidadRecibida).value;
-      this.tipoPago.deuda = this.precioTotalVenta - this.f(this.cantidadRecibida).value ;
+      this.tipoPago.cantidad_recibida = this.f(this.cantidadRecivida_Contado).value;
+      this.tipoPago.deuda = this.precioTotalVenta - this.f(this.cantidadRecivida_Contado).value ;
       this.tipoPago.cuotas = '3';
       this.tipoPago.precio_total = this.precioTotalVenta;
       this.tipoPago.metodo_pago = "PLIN";
