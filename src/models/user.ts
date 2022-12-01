@@ -9,4 +9,5 @@ export class UsersModel {
     rol: string;
     habilitado: boolean;
     id_sede: string;
+    contrasenia: string;
 }

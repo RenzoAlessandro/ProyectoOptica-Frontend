@@ -48,7 +48,7 @@
                 <div class="col-sm-12 col-md-12 search-box chat-search-box">
                   <div class="position-relative">
                     <ng-autocomplete [data]="listMonturas" [searchKeyword]="keyword" placeholder="Buscar Montura"
-                      (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
+                      (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)'
                       (inputFocused)='onFocused($event)' historyIdentifier="listMonturas" [itemTemplate]="itemTemplate"
                       [notFoundTemplate]="notFoundTemplate">
                     </ng-autocomplete>
@@ -77,10 +77,19 @@
                 <!-- Search -->
                 <div class="col-sm-12 col-md-12 search-box chat-search-box">
                   <div class="position-relative">
-                    <input type="text" class="form-control border-light rounded" placeholder="Buscar luna"
-                      name="searchTerm" aria-controls="tickets-table">
+                    <ng-autocomplete [data]="listLunas" [searchKeyword]="keyword" placeholder="Buscar Lunas"
+                      (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
+                      (inputFocused)='onFocused($event)' historyIdentifier="listLunas" [itemTemplate]="itemTemplate"
+                      [notFoundTemplate]="notFoundTemplate">
+                    </ng-autocomplete>
 
-                    <i class="uil uil-search search-icon"></i>
+                    <ng-template #itemTemplate let-item>
+                      <a [innerHTML]="item.material"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
                   </div>
                 </div>
 
@@ -99,9 +108,19 @@
                 <!-- Search -->
                 <div class="col-sm-12 col-md-12 search-box chat-search-box">
                   <div class="position-relative">
-                    <input type="text" class="form-control border-light rounded" placeholder="Buscar accesorio"
-                      name="searchTerm" aria-controls="tickets-table">
-                    <i class="uil uil-search search-icon"></i>
+                    <ng-autocomplete [data]="listAccesorios" [searchKeyword]="keyword" placeholder="Buscar Accesorios"
+                      (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
+                      (inputFocused)='onFocused($event)' historyIdentifier="listAccesorios" [itemTemplate]="itemTemplate"
+                      [notFoundTemplate]="notFoundTemplate">
+                    </ng-autocomplete>
+
+                    <ng-template #itemTemplate let-item>
+                      <a [innerHTML]="item.nombre_accesorio"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
                   </div>
                 </div>
                 <!-- End search -->
@@ -152,8 +171,14 @@
                     <td>
                       <ngb-highlight [result]="item.num"></ngb-highlight>
                     </td>
-                    <td>
+                    <td *ngIf="item.tipo == 'montura'">
                       <ngb-highlight [result]="item.precio_montura_v"></ngb-highlight>
+                    </td>
+                    <td *ngIf="item.tipo == 'luna'">
+                      <ngb-highlight [result]="item.precio_luna_v"></ngb-highlight>
+                    </td>
+                    <td *ngIf="item.tipo == 'accesorio'">
+                      <ngb-highlight [result]="item.precio_accesorio_v"></ngb-highlight>
                     </td>
                     <td>
                       <ngb-highlight [result]="item.precio"></ngb-highlight>

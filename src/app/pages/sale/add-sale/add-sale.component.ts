@@ -11,7 +11,7 @@ import {NgbdSortableHeader, SortEvent} from './sortable.directive';
 import { ProductosService } from 'src/app/services/productos.service';
 import { VentasModel } from 'src/models/venta';
 import { TipoVentaModel } from 'src/models/tipo_venta';
-import { ThemeService } from 'ng2-charts';
+import { MonturasModel } from 'src/models/monturas';
 
 @Component({
   selector: 'app-add-sale',
@@ -44,13 +44,13 @@ export class AddSaleComponent implements OnInit {
   listAccesorios: any;
   listLunas: any;
   active = 1;
-  keyword = 'marca';
+  keyword = "marca";
   products: any = [];
   precioTotalVenta: number;
 
   venta = new VentasModel;
   tipoPago = new TipoVentaModel;
-
+  listAutocomplete:any = [];
   constructor(public service: AddsaleService, 
     private modalService: NgbModal,
     private fb: FormBuilder,
@@ -134,21 +134,21 @@ export class AddSaleComponent implements OnInit {
   getListMonturas() {
     this.productosService.getMonturas().subscribe(res => {
       this.listMonturas = res;
-      console.log(this.listMonturas);
+      console.log("monturas",this.listMonturas);
     });
   }
 
   getListAccesorios() {
     this.productosService.getAccesorios().subscribe(res => {
       this.listAccesorios = res;
-      console.log(this.listAccesorios);
+      console.log("accesorios",this.listAccesorios);
     });
   }
 
   getListLunas() {
     this.productosService.getLunas().subscribe(res => {
       this.listLunas = res;
-      console.log(this.listLunas);
+      console.log("lunas",this.listLunas);
     });
   }
 
@@ -157,20 +157,24 @@ export class AddSaleComponent implements OnInit {
     switch (changeEvent.nextId) {
       case 1:
         this.getListMonturas();
+        this.keyword = "marca";
         break;
       case 2:
         this.getListLunas();
+        this.keyword = "material";
         break;
       case 3:
         this.getListAccesorios();
+        this.keyword = "nombre_accesorio";
       default:
         break;
     }
   }
 
-  selectEvent(item) {
+  selectEvent(item:any) {
+    console.log(item);
     this.products.push({...item, num:1, precio:item.precio_montura_v});
-    console.log(this.products);
+    console.log("autocomplete",this.products);
   }
 
   onChangeSearch(search: string) {
