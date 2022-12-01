@@ -213,7 +213,21 @@ export class AddSaleComponent implements OnInit {
 
   selectEvent(item:any) {
     console.log(item);
-    this.products.push({...item, num:1, precio:item.precio_montura_v});
+
+    switch (item.tipo) {
+      case 'montura':
+        this.products.push({...item, num:1, precio:item.precio_montura_v});
+        break;
+      case 'luna':
+        this.products.push({...item, num:1, precio:item.precio_luna_v});
+        break;
+      case 'accesorio':
+        this.products.push({...item, num:1, precio:item.precio_accesorio_v});
+        break;
+      default:
+        break;
+    }
+    
     console.log("autocomplete",this.products);
   }
 
@@ -236,14 +250,40 @@ export class AddSaleComponent implements OnInit {
   addQuantityProduct(product,i) {
     console.log(this.products)
     this.products[i].num += 1;
-    this.products[i].precio = this.products[i].precio_montura_v*this.products[i].num;
+    switch (this.products[i].tipo) {
+      case 'montura':
+        this.products[i].precio = this.products[i].precio_montura_v*this.products[i].num;
+        break;
+      case 'luna':
+        this.products[i].precio = this.products[i].precio_luna_v*this.products[i].num;
+        break;
+      case 'accesorio':
+        this.products[i].precio = this.products[i].precio_accesorio_v*this.products[i].num;
+        break;
+      default:
+        break;
+    }
+    
   }
 
   substractQuantityProduct(product,i) {
     console.log(this.products)
     
     this.products[i].num -= 1;
-    this.products[i].precio = this.products[i].precio_montura_v*this.products[i].num;
+    switch (this.products[i].tipo) {
+      case 'montura':
+        this.products[i].precio = this.products[i].precio_montura_v*this.products[i].num;
+        break;
+      case 'luna':
+        this.products[i].precio = this.products[i].precio_luna_v*this.products[i].num;
+        break;
+      case 'accesorio':
+        this.products[i].precio = this.products[i].precio_accesorio_v*this.products[i].num;
+        break;
+      default:
+        break;
+    }
+    
     if (this.products[i].num === 0) {
       this.removeProduct();
      }

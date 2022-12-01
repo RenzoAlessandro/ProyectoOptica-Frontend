@@ -49,7 +49,7 @@
                   <div class="position-relative">
                     <ng-autocomplete [data]="listMonturas" [searchKeyword]="keyword" placeholder="Buscar Montura"
                       (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)'
-                      (inputFocused)='onFocused($event)' historyIdentifier="listMonturas" [itemTemplate]="itemTemplate"
+                      (inputFocused)='onFocused($event)' historyIdentifier="" [itemTemplate]="itemTemplate"
                       [notFoundTemplate]="notFoundTemplate">
                     </ng-autocomplete>
 
@@ -79,7 +79,7 @@
                   <div class="position-relative">
                     <ng-autocomplete [data]="listLunas" [searchKeyword]="keyword" placeholder="Buscar Lunas"
                       (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
-                      (inputFocused)='onFocused($event)' historyIdentifier="listLunas" [itemTemplate]="itemTemplate"
+                      (inputFocused)='onFocused($event)' historyIdentifier="" [itemTemplate]="itemTemplate"
                       [notFoundTemplate]="notFoundTemplate">
                     </ng-autocomplete>
 
@@ -110,7 +110,7 @@
                   <div class="position-relative">
                     <ng-autocomplete [data]="listAccesorios" [searchKeyword]="keyword" placeholder="Buscar Accesorios"
                       (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
-                      (inputFocused)='onFocused($event)' historyIdentifier="listAccesorios" [itemTemplate]="itemTemplate"
+                      (inputFocused)='onFocused($event)' historyIdentifier="" [itemTemplate]="itemTemplate"
                       [notFoundTemplate]="notFoundTemplate">
                     </ng-autocomplete>
 
@@ -198,13 +198,6 @@
                   </tr>
                 </tbody>
               </table>
-              <div class="float-end">
-                <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
-                  [pageSize]="service.pageSize">
-                  <ng-template ngbPaginationPrevious>Antes</ng-template>
-                  <ng-template ngbPaginationNext>Siguiente</ng-template>
-                </ngb-pagination>
-              </div>
             </form>
           </div>
           <!-- end table -->

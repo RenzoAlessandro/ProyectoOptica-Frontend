@@ -26,6 +26,7 @@ export class AdduserComponent implements OnInit {
   password: string = "campoPassword";
   fechaNacimiento: string = "campoFechaNacimiento";
   repeatPassword: string = "campoRepeatPassword";
+  fechaCreacion: string = "campoFechaCreacion";
   email: string = "campoEmail";
   observaciones: string = "campoObservaciones";
   listRoles = [
@@ -88,6 +89,9 @@ export class AdduserComponent implements OnInit {
         Validators.pattern(this.numberPattern)
       ]],
       [this.fechaNacimiento]:[null,[
+        //Validators.required
+      ]],
+      [this.fechaCreacion]:[new Date(Date.now()).toLocaleDateString(),[
         //Validators.required
       ]],
       sede:[],
