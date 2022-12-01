@@ -206,12 +206,12 @@
     </button>
   </div>
   <div class="modal-body p-4">
-    <form (ngSubmit)="saveEvent()" [formGroup]="formData">
+    <form (ngSubmit)="saveEvent()" [formGroup]="formEditar">
       <div class="row">
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Precio Original</label>
-            <input class="form-control" placeholder="PEN 000.00" type="text" name="campoPrecioOriginalEditar"
+            <input class="form-control" placeholder="PEN 000.00" type="text" name="namePrecioOriginalEditar"
               formControlName="{{this.precioOriginal_Editar}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
@@ -221,7 +221,7 @@
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Fecha de Cambio</label>
-            <input class="form-control" placeholder="Seleccione la fecha" type="text" name="campoFechaCambioEditar"
+            <input class="form-control" placeholder="Seleccione la fecha" type="text" name="nameFechaCambioEditar"
               formControlName="{{this.fechaCambio_Editar}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
@@ -234,7 +234,7 @@
         <div class="col-12">
           <div class="mb-3">
             <label class="control-label">Nuevo Precio de Venta</label>
-            <input class="form-control" placeholder="Escriba el nuevo precio de venta" type="text" name="campoNuevoPrecioEditar"
+            <input class="form-control" placeholder="Escriba el nuevo precio de venta" type="text" name="nameNuevoPrecioEditar"
               formControlName="{{this.nuevoPrecio_Editar}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
           </div>
         </div>
@@ -253,100 +253,6 @@
   <!-- end modal dialog-->
 </ng-template>
 <!-- end modal-->
-
-
-
-<!-- Guardar Venta - Center Modal -->
-<!-- <ng-template #centerDataModalGuardar let-modal>
-  <div class="modal-header">
-    <h5 class="modal-title" id="modal-title">Registrar Venta al Contado</h5>
-    <button type="button" class="btn-close" (click)="closeEventModal()">
-    </button>
-  </div>
-  <div class="modal-body p-4">
-    <form (ngSubmit)="saveEvent()" [formGroup]="formVenta">
-      <div class="row">
-        <div class="col-6">
-          <div class="mb-3">
-            <label class="control-label">Cantidad Recibida</label>
-            <input class="form-control" placeholder="Cantidad en soles" type="text" name="title" formControlName="{{this.cantidadRecibida}}" (change)="updatePago($event)"
-               />
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="mb-3">
-            <label class="control-label">Fecha</label>
-            <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
-              formControlName="{{this.fechaVenta}}"  />
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12">
-          <div class="mb-3">
-            <label class="control-label">Buscar o Crear nuevo Cliente</label>
-            <input class="form-control" placeholder="Material de la luna" type="text" name="title"
-                />
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12">
-          <label class="control-label" style="text-align: left;">Montos:</label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-4">
-          <div class="mb-3">
-            <label class="control-label">Total</label>
-            <input class="form-control" placeholder="PEN 000.00" type="text" name="title" formControlName="{{this.precioTotal}}"
-              />
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="mb-3">
-            <label class="control-label">Pago</label>
-            <input class="form-control" placeholder="PEN 000.00" type="text" name="pago" formControlName="{{this.pago}}"
-              />
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="mb-3">
-            <label class="control-label">Cambio</label>
-            <input class="form-control" placeholder="PEN 000.00" type="text" name="cambio" formControlName="{{this.cambio}}"
-              />
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="mb-4">
-            <label class="form-label" for="billing-observaciones">Observaciones</label>
-            <textarea class="form-control" id="billing-observaciones" rows="3" placeholder="Ingrese las observaciones"
-              formControlName="{{this.observaciones}}"></textarea>
-          </div>
-        </div>
-      </div>
-
-      <div class="text-end mt-2">
-        <button type="button" class="btn btn-danger" (click)="closeEventModal()">
-          Cerrar
-        </button>
-        <button type="submit" class="btn btn-success ms-1" (click)="guardarVenta()" id="btn-save-event">
-          Terminar Venta
-        </button>
-      </div>
-    </form>
-  </div>
-</ng-template> -->
-<!-- end modal-->
- -->
-
-
 
 
 <!-- Guardar Venta 2 - Center Modal -->
@@ -369,23 +275,30 @@
 
 
 
-              <form (ngSubmit)="saveEvent()" [formGroup]="formData">
+              <form (ngSubmit)="saveEvent()" [formGroup]="formContado">
                 <div class="row mt-4">
-                  <div class="col-6">
+                  <div class="col-4">
                     <div class="mb-3">
                       <label class="control-label">Cantidad Recibida</label>
-                      <input class="form-control" placeholder="Cantidad en soles" type="text" name="campoCantidadRecibidaContado"
+                      <input class="form-control" placeholder="Cantidad en soles" type="text" name="nameCantidadRecibidaContado"
                         formControlName="{{this.cantidadRecivida_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                       <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                         <span *ngIf="form.title.errors.required">This value is required.</span>
                       </div>
                     </div>
                   </div>
-                  <div class="col-6">
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="form-label">Método</label>
+                      <ng-select name="selectMetodo" [items]="selectValue">
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="col-4">
                     <div class="mb-3">
                       <label class="control-label">Fecha</label>
-                      <input class="form-control" placeholder="Seleccione la fecha" type="text" name="campoFechaRegistroContado"
-                        formControlName="{{this.fechaRegistro_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                      <input class="form-control" placeholder="Seleccione la fecha" type="text" name="nameFechaRegistroContado"
+                        formControlName="{{this.fechaVenta_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                       <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                         <span *ngIf="form.title.errors.required">This value is required.</span>
                       </div>
@@ -398,7 +311,7 @@
                   <div class="col-12">
                     <div class="mb-3">
                       <label class="control-label">Buscar o Crear nuevo Cliente</label>
-                      <input class="form-control" placeholder="Material de la luna" type="text" name="campoUsuarioContado"
+                      <input class="form-control" placeholder="Nombre del cliente" type="text" name="nameUsuarioContado"
                         formControlName="{{this.usuario_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                       <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                         <span *ngIf="form.title.errors.required">This value is required.</span>
@@ -417,21 +330,21 @@
                   <div class="col-4">
                     <div class="mb-3">
                       <label class="control-label">Total</label>
-                      <input class="form-control" placeholder="PEN 000.00" type="text" name="campoTotalContado"
-                        formControlName="{{this.total_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                      <input class="form-control" placeholder="S/ 000.00" type="text" name="nameTotalContado"
+                        formControlName="{{this.precioTotal_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                     </div>
                   </div>
                   <div class="col-4">
                     <div class="mb-3">
                       <label class="control-label">Pago</label>
-                      <input class="form-control" placeholder="PEN 000.00" type="text" name="campoPagoContado"
+                      <input class="form-control" placeholder="S/ 000.00" type="text" name="namePagoContado"
                         formControlName="{{this.pago_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                     </div>
                   </div>
                   <div class="col-4">
                     <div class="mb-3">
                       <label class="control-label">Cambio</label>
-                      <input class="form-control" placeholder="PEN 000.00" type="text" name="campoCambioContado"
+                      <input class="form-control" placeholder="S/ 000.00" type="text" name="nameCambioContado"
                         formControlName="{{this.cambio_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                     </div>
                   </div>
@@ -476,23 +389,30 @@
 
 
 
-              <form (ngSubmit)="saveEvent()" [formGroup]="formData">
+              <form (ngSubmit)="saveEvent()" [formGroup]="formCredito">
                 <div class="row mt-4">
-                  <div class="col-6">
+                  <div class="col-4">
                     <div class="mb-3">
                       <label class="control-label">Cantidad Recibida</label>
-                      <input class="form-control" placeholder="Cantidad en soles" type="text" name="campoCantidadRecibidaCredito"
+                      <input class="form-control" placeholder="Cantidad en soles" type="text" name="nameCantidadRecibidaCredito"
                         formControlName="{{this.cantidadRecivida_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                       <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                         <span *ngIf="form.title.errors.required">This value is required.</span>
                       </div>
                     </div>
                   </div>
-                  <div class="col-6">
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="form-label">Método</label>
+                      <ng-select name="selectMetodo" [items]="selectValue">
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="col-4">
                     <div class="mb-3">
                       <label class="control-label">Fecha</label>
-                      <input class="form-control" placeholder="Seleccione la fecha" type="text" name="campoFechaRegistroCredito"
-                        formControlName="{{this.fechaRegistro_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                      <input class="form-control" placeholder="Seleccione la fecha" type="text" name="nameFechaRegistroCredito"
+                        formControlName="{{this.fechaVenta_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                       <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                         <span *ngIf="form.title.errors.required">This value is required.</span>
                       </div>
@@ -515,7 +435,7 @@
                   <div class="col-12">
                     <div class="mb-3">
                       <label class="control-label">Buscar o Crear nuevo Cliente</label>
-                      <input class="form-control" placeholder="Material de la luna" type="text" name="campoUsuarioCredito"
+                      <input class="form-control" placeholder="Nombre del Cliente" type="text" name="nameUsuarioCredito"
                         formControlName="{{this.usuario_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                       <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                         <span *ngIf="form.title.errors.required">This value is required.</span>
@@ -534,21 +454,21 @@
                   <div class="col-4">
                     <div class="mb-3">
                       <label class="control-label">Total</label>
-                      <input class="form-control" placeholder="PEN 000.00" type="text" name="campoTotalCredito"
-                        formControlName="{{this.total_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                      <input class="form-control" placeholder="S/ 000.00" type="text" name="nameTotalCredito"
+                        formControlName="{{this.precioTotal_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                     </div>
                   </div>
                   <div class="col-4">
                     <div class="mb-3">
                       <label class="control-label">Pago</label>
-                      <input class="form-control" placeholder="PEN 000.00" type="text" name="campoPagoCredito"
+                      <input class="form-control" placeholder="S/ 000.00" type="text" name="namePagoCredito"
                         formControlName="{{this.pago_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                     </div>
                   </div>
                   <div class="col-4">
                     <div class="mb-3">
                       <label class="control-label">Cambio</label>
-                      <input class="form-control" placeholder="PEN 000.00" type="text" name="campoCambioCredito"
+                      <input class="form-control" placeholder="S/ 000.00" type="text" name="nameCambioCredito"
                         formControlName="{{this.cambio_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                     </div>
                   </div>
