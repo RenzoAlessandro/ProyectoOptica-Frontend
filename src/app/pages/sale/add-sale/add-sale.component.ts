@@ -25,22 +25,24 @@ export class AddSaleComponent implements OnInit {
 
   formContado: FormGroup;
   submitted_Contado= false;
-  cantidadRecivida_Contado: string = "campoCantidadRecibidaContado";
+  cantidadRecibida_Contado: string = "campoCantidadRecibidaContado";
   fechaVenta_Contado: string = "campoFechaVentaContado";
   usuario_Contado: string = "campoUsuarioContado";
   precioTotal_Contado: string = "campoPrecioTotalContado";
   pago_Contado: string = "campoPagoContado";
   cambio_Contado: string = "campoCambioContado";
   observaciones_Contado: string = "campoObservacionesContado";
+  metodoPagoContado: string = "campoMetodoPagoContado";
 
   formCredito: FormGroup;
-  cantidadRecivida_Credito: string = "campoCantidadRecibidaCredito";
+  cantidadRecibida_Credito: string = "campoCantidadRecibidaCredito";
   fechaVenta_Credito: string = "campoFechaVentaCredito";
   usuario_Credito: string = "campoUsuarioCredito";
   precioTotal_Credito: string = "campoPrecioTotalCredito";
   pago_Credito: string = "campoPagoCredito";
   cambio_Credito: string = "campoCambioCredito";
   observaciones_Credito: string = "campoObservacionesCredito";
+  metodoPagoCredito: string = "campoMetodoPagoCredito";
 
   formEditar: FormGroup;
   precioOriginal_Editar: string = "campoPrecioOriginalEditar";
@@ -70,8 +72,10 @@ export class AddSaleComponent implements OnInit {
   venta = new VentasModel;
   tipoPago = new TipoVentaModel;
 
-  selectValue = [];
-  selectedValue = '';
+  activePago = 1;
+  selectorPago: string = "contado";
+  listMetodosPagos = ['Físico', 'Yape', 'Plin'];
+  
 
   constructor(public service: AddsaleService, 
     private fb: FormBuilder,
@@ -85,9 +89,6 @@ export class AddSaleComponent implements OnInit {
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'addsales', active: true }];
     this.getListMonturas();
-
-    this.selectValue = ['Físico', 'Yape', 'Plim'];
-    this.selectedValue = this.selectValue[0];
     
   }
 
@@ -111,14 +112,18 @@ export class AddSaleComponent implements OnInit {
       this.crearFormulario();
       this.modalService.open(centerDataModal, { centered: true,windowClass:'modal-holder' });
       console.log("modal",products);
-/*       this.formContado.setValue({
+      this.f(this.fechaVenta_Contado).setValue(new Date(Date.now()).toLocaleDateString());
+      this.f(this.precioTotal_Contado).setValue(this.precioTotalVenta);
+      this.g(this.fechaVenta_Credito).setValue(new Date(Date.now()).toLocaleDateString());
+      this.g(this.precioTotal_Credito).setValue(this.precioTotalVenta);
+      /* this.formContado.setValue({
         campoCantidadRecibidaContado: null,
         campoFechaVentaContado: new Date().toLocaleDateString(),
         campoPrecioTotalContado: this.precioTotalVenta,
         campoPagoContado: null,
         campoCambioContado: null, 
         campoObservacionesContado: null,
-      }); */
+      });  */
   }
   /**
    * Open scroll modal
@@ -192,7 +197,7 @@ export class AddSaleComponent implements OnInit {
     });
   }
 
-  prueba(changeEvent: NgbNavChangeEvent) {
+  selectorProducts(changeEvent: NgbNavChangeEvent) {
     console.log(changeEvent.nextId);
     switch (changeEvent.nextId) {
       case 1:
@@ -211,6 +216,14 @@ export class AddSaleComponent implements OnInit {
     }
   }
 
+  selectorMetodoPago(changeEvent: NgbNavChangeEvent) {
+    console.log(changeEvent.nextId);
+    if (changeEvent.nextId == 1) {
+      this.selectorPago = "contado";
+    } else {
+      this.selectorPago = "credito";
+    }
+  }
   selectEvent(item:any) {
     console.log(item);
 
@@ -310,23 +323,25 @@ export class AddSaleComponent implements OnInit {
 
   crearFormulario() {
     this.formContado = this.fb.group({
-      [this.cantidadRecivida_Contado] : [null],
+      [this.cantidadRecibida_Contado] : [null],
       [this.fechaVenta_Contado] : [{value: null, disabled: true}],
       [this.usuario_Contado] : [null],
       [this.precioTotal_Contado] : [{value: null, disabled: true}],
       [this.pago_Contado] : [{value: null, disabled: true}],
       [this.cambio_Contado] : [{value: null, disabled: true}],
-      [this.observaciones_Contado]: [null]
+      [this.observaciones_Contado]: [null],
+      [this.metodoPagoContado]:[]
     })
 
     this.formCredito = this.fb.group({
-      [this.cantidadRecivida_Credito] : [null],
+      [this.cantidadRecibida_Credito] : [null],
       [this.fechaVenta_Credito] : [{value: null, disabled: true}],
       [this.usuario_Credito] : [null],
       [this.precioTotal_Credito] : [{value: null, disabled: true}],
       [this.pago_Credito] : [{value: null, disabled: true}],
       [this.cambio_Credito] : [{value: null, disabled: true}],
-      [this.observaciones_Credito]: [null]
+      [this.observaciones_Credito]: [null],
+      [this.metodoPagoCredito]: []
     })
 
   }
@@ -335,37 +350,62 @@ export class AddSaleComponent implements OnInit {
     return this.formContado.get(campo);
   }
 
+  g(campo:any){
+    return this.formCredito.get(campo);
+  }
 
   updatePago(event:any){
-    this.f(this.pago_Contado).setValue(this.f(this.cantidadRecivida_Contado).value);
-    this.f(this.cambio_Contado).setValue( this.f(this.cantidadRecivida_Contado).value - this.precioTotalVenta);
+    console.log("entre")
+    if (this.selectorPago == "contado") {
+      this.f(this.pago_Contado).setValue(this.f(this.cantidadRecibida_Contado).value);
+      this.f(this.cambio_Contado).setValue( this.f(this.cantidadRecibida_Contado).value - this.precioTotalVenta);
+    } else {
+      
+      this.g(this.pago_Credito).setValue(this.g(this.cantidadRecibida_Credito).value);
+      this.g(this.cambio_Credito).setValue( this.g(this.cantidadRecibida_Credito).value - this.precioTotalVenta);
+    }
+    
   }
 
   guardarVenta() {
     if (this.formContado.valid) {
-      this.venta.list_monturas = this.products;
-      this.venta.list_lunas = [];
-      this.venta.list_accesorios = [];
-      this.venta.observaciones = this.f(this.observaciones_Contado).value;
+
+      const tempMonturas = this.products.filter(monturas => monturas.tipo == 'montura' );
+      const tempLunas = this.products.filter(lunas => lunas.tipo == 'luna' );
+      const tempAccesorios = this.products.filter(accesorios => accesorios.tipo == 'accesorio' );
+      this.venta.list_monturas = tempMonturas;
+      this.venta.list_lunas = tempLunas;
+      this.venta.list_accesorios = tempAccesorios;
+      if (this.selectorPago == "contado") {
+        this.venta.observaciones = this.f(this.observaciones_Contado).value;
+        this.venta.fecha_creacion_venta = this.f(this.fechaVenta_Contado).value;
+        this.tipoPago.cantidad_recibida = this.f(this.cantidadRecibida_Contado).value;
+        this.tipoPago.deuda = this.precioTotalVenta - this.f(this.cantidadRecibida_Contado).value ;
+        this.tipoPago.metodo_pago = this.f(this.metodoPagoContado).value;
+        this.tipoPago.cuotas = String(0);
+      } else {
+        this.venta.observaciones = this.g(this.observaciones_Credito).value;
+        this.venta.fecha_creacion_venta = this.g(this.fechaVenta_Credito).value;
+        this.tipoPago.cantidad_recibida = this.g(this.cantidadRecibida_Credito).value;
+        this.tipoPago.deuda = this.precioTotalVenta - this.g(this.cantidadRecibida_Credito).value ;
+        this.tipoPago.metodo_pago = this.g(this.metodoPagoCredito).value;
+        this.tipoPago.cuotas = String(this.tickValue);
+      }
       this.venta.id_vendedor = "1234456";
-      this.venta.fecha_creacion_venta = this.f(this.fechaVenta_Contado).value;
-      this.tipoPago.forma_pago = "contado";
-      this.tipoPago.cantidad_recibida = this.f(this.cantidadRecivida_Contado).value;
-      this.tipoPago.deuda = this.precioTotalVenta - this.f(this.cantidadRecivida_Contado).value ;
-      this.tipoPago.cuotas = '3';
+      this.tipoPago.forma_pago = this.selectorPago;
       this.tipoPago.precio_total = this.precioTotalVenta;
-      this.tipoPago.metodo_pago = "PLIN";
       this.tipoPago.fecha_pago = new Date();
       this.venta.tipo_venta.push(this.tipoPago);
       this.venta.id_sede = '1234234';
       this.venta.id_cliente = 'sdfsdff';
 
       console.log("venta",this.venta);
-      this.productosService.createVenta(this.venta).subscribe(res =>{
+      /* this.productosService.createVenta(this.venta).subscribe(res =>{
         console.log("venta guardado")
-      }) 
+      })  */
     } else {
       
     }
   }  
+
 }

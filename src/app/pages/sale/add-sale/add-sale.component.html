@@ -6,7 +6,7 @@
       <div class="card mb-0">
         <!-- Nav tabs -->
         <ul ngbNav #justifiednav="ngbNav" [activeId]="active" class="nav nav-tabs nav-justified nav-tabs-custom"
-          (navChange)="prueba($event)">
+          (navChange)="selectorProducts($event)">
           <li [ngbNavItem]="1" class="nav-item">
             <a ngbNavLink class="nav-link">
               <i class="uil uil-nerd font-size-20"></i>
@@ -282,7 +282,7 @@
   </div>
   <div class="modal-body p-4">
       <div class="col-lg-14">
-        <ul ngbNav #justifiednavpills="ngbNav" [activeId]="1" class="nav-pills nav-justified bg-light">
+        <ul ngbNav #justifiednavpills="ngbNav" [activeId]="activePago" class="nav-pills nav-justified bg-light" (navChange)="selectorMetodoPago($event)">
           <li [ngbNavItem]="1">
             <a ngbNavLink>
               <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
@@ -298,8 +298,8 @@
                   <div class="col-4">
                     <div class="mb-3">
                       <label class="control-label">Cantidad Recibida</label>
-                      <input class="form-control" placeholder="Cantidad en soles" type="text" name="nameCantidadRecibidaContado"
-                        formControlName="{{this.cantidadRecivida_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                      <input class="form-control" placeholder="Cantidad en soles" type="text" name="nameCantidadRecibidaContado" (change)="updatePago($event)"
+                        formControlName="{{this.cantidadRecibida_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                       <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                         <span *ngIf="form.title.errors.required">This value is required.</span>
                       </div>
@@ -308,7 +308,7 @@
                   <div class="col-4">
                     <div class="mb-3">
                       <label class="form-label">Método</label>
-                      <ng-select name="selectMetodo" [items]="selectValue">
+                      <ng-select name="selectMetodo" [items]="listMetodosPagos" formControlName="{{this.metodoPagoContado}}">
                       </ng-select>
                     </div>
                   </div>
@@ -382,7 +382,7 @@
                   <button type="button" class="btn btn-danger" (click)="closeEventModal()">
                     Cerrar
                   </button>
-                  <button type="submit" class="btn btn-success ms-1" (click)="scrollModal(scrollDataModal)" id="btn-save-event">
+                  <button type="submit" class="btn btn-success ms-1" (click)="guardarVenta()" id="btn-save-event">
                     Registrar Venta
                   </button>
                 </div>
@@ -401,19 +401,13 @@
 
 
 
-
-
-
-
-
-
               <form (ngSubmit)="saveEvent()" [formGroup]="formCredito">
                 <div class="row mt-4">
                   <div class="col-4">
                     <div class="mb-3">
                       <label class="control-label">Cantidad Recibida</label>
-                      <input class="form-control" placeholder="Cantidad en soles" type="text" name="nameCantidadRecibidaCredito"
-                        formControlName="{{this.cantidadRecivida_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                      <input class="form-control" placeholder="Cantidad en soles" type="text" name="nameCantidadRecibidaCredito" (change)="updatePago($event)"
+                        formControlName="{{this.cantidadRecibida_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                       <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                         <span *ngIf="form.title.errors.required">This value is required.</span>
                       </div>
@@ -422,7 +416,7 @@
                   <div class="col-4">
                     <div class="mb-3">
                       <label class="form-label">Método</label>
-                      <ng-select name="selectMetodo" [items]="selectValue">
+                      <ng-select name="selectMetodo" [items]="listMetodosPagos" formControlName="{{this.metodoPagoCredito}}">
                       </ng-select>
                     </div>
                   </div>
@@ -443,7 +437,7 @@
                     <div class="mb-3">
                       <label class="control-label">Número de Cuotas</label>
                       <div class="p-3">
-                        <ng5-slider [(value)]="tickValue" [options]="tickValueoptions"></ng5-slider>
+                        <ng5-slider [(value)]="tickValue" [options]="tickValueoptions" ></ng5-slider>
                       </div>
                     </div>
                   </div>
@@ -506,7 +500,7 @@
                   <button type="button" class="btn btn-danger" (click)="closeEventModal()">
                     Cerrar
                   </button>
-                  <button type="submit" class="btn btn-success ms-1" (click)="scrollModal(scrollDataModal)" id="btn-save-event">
+                  <button type="submit" class="btn btn-success ms-1" (click)="guardarVenta()" id="btn-save-event">
                     Registrar Venta
                   </button>
                 </div>

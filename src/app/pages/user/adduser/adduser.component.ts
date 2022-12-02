@@ -120,7 +120,7 @@ export class AdduserComponent implements OnInit {
   guardarUsuario(){
     if(this.formRegister.valid){
       this.user.apellidos = this.f(this.apellidos).value;
-      this.user.dni = Number(this.f(this.dni).value);
+      this.user.dni = this.f(this.dni).value;
       this.user.habilitado = true;
       this.user.fecha_creacion = new Date(Date.now());
       this.user.fecha_modificacion = new Date(Date.now());
