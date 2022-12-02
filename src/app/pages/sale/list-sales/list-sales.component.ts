@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Transaction } from './transaction';
 import { TransactionService } from './sale.service';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
+import { VentasModel } from 'src/models/venta';
 
 @Component({
   selector: 'app-list-sales',
@@ -20,7 +21,7 @@ export class ListSalesComponent implements OnInit {
   breadCrumbItems: Array<{}>;
   term: any;
 
-  transactions$: Observable<Transaction[]>;
+  transactions$: Observable<VentasModel[]>;
   total$: Observable<number>;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;

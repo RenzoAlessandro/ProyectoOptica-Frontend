@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VentaService {
 
-  constructor() { }
+  constructor(    private http: HttpClient
+    ) { }
+  getVentas(): Observable<any> {
+    return this.http.get<any>(environment.urlBackend+'getAllVentas');
+  }
 }

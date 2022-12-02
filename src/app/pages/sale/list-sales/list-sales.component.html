@@ -45,11 +45,11 @@
                 style="border-spacing: 0 12px; width: 100%;">
                 <thead>
                   <tr class="bg-transparent">
-                    <th scope="col" sortable="id" (sort)="onSort($event)">ID Orden</th>
-                    <th scope="col" sortable="date" (sort)="onSort($event)">Fecha</th>
-                    <th scope="col" sortable="name" (sort)="onSort($event)">Nombre del Cliente</th>
-                    <th scope="col" sortable="amount" (sort)="onSort($event)">Total</th>
-                    <th scope="col" sortable="status" (sort)="onSort($event)">Estado de Pago</th>
+                    <th scope="col" sortable="observaciones" (sort)="onSort($event)">ID Orden</th>
+                    <th scope="col" sortable="id_sede" (sort)="onSort($event)">Fecha</th>
+                    <th scope="col" sortable="" (sort)="onSort($event)">Nombre del Cliente</th>
+                    <th scope="col" sortable="" (sort)="onSort($event)">Total</th>
+                    <th scope="col" sortable="" (sort)="onSort($event)">Estado de Pago</th>
                     <th style="width: 170px;">Action</th>
                   </tr>
                 </thead>
@@ -58,26 +58,25 @@
                   <tr *ngFor="let data of transactions$ | async" class="odd">
 
                     <td>
-                      <ngb-highlight [result]="data.id" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.observaciones" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.date" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.id_sede" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
                       <div class="avatar-xs d-inline-block me-2">
                         <span class="avatar-title rounded-circle bg-light text-body">
-                          {{data.name.charAt(0)}}
                         </span>
                       </div>
-                      <ngb-highlight [result]="data.name" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.amount" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
                       
                       <span class="badge rounded-pill bg-soft-success font-size-12" [ngClass]=" { 'bg-soft-danger': data.status === 'Chargeback',
-                                'bg-soft-warning':data.status === 'Unpaid' }">{{data.status}}</span>
+                                'bg-soft-warning':data.status === 'Unpaid' }"></span>
                     </td>
                     <td>
                       <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i
