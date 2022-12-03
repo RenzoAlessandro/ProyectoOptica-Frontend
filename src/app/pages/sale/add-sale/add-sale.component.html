@@ -329,11 +329,18 @@
                   <div class="col-12">
                     <div class="mb-3">
                       <label class="control-label">Buscar o Crear nuevo Cliente</label>
-                      <input class="form-control" placeholder="Nombre del cliente" type="text" name="nameUsuarioContado"
-                        formControlName="{{this.usuario_Contado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                      <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                        <span *ngIf="form.title.errors.required">This value is required.</span>
-                      </div>
+                      <ng-autocomplete [data]="listClients" [searchKeyword]="keywordCliente" placeholder="DNI del cliente"
+                      (selected)="selectEventCliente($event)"  historyIdentifier="" [itemTemplate]="itemTemplate2"
+                      [notFoundTemplate]="notFoundTemplate">
+                    </ng-autocomplete>
+
+                    <ng-template #itemTemplate2 let-item>
+                      <a [innerHTML]="item.dni"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
                     </div>
                   </div>
                 </div>
@@ -447,11 +454,10 @@
                   <div class="col-12">
                     <div class="mb-3">
                       <label class="control-label">Buscar o Crear nuevo Cliente</label>
-                      <input class="form-control" placeholder="Nombre del Cliente" type="text" name="nameUsuarioCredito"
-                        formControlName="{{this.usuario_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                      <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                        <span *ngIf="form.title.errors.required">This value is required.</span>
-                      </div>
+                      <ng-autocomplete [data]="listClients" [searchKeyword]="keywordCliente" placeholder="DNI del cliente"
+                      (selected)="selectEventCliente($event)"  historyIdentifier="" [itemTemplate]="itemTemplate2"
+                      [notFoundTemplate]="notFoundTemplate">
+                    </ng-autocomplete>
                     </div>
                   </div>
                 </div>

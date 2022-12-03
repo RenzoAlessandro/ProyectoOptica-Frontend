@@ -2,13 +2,15 @@ import { Injectable, PipeTransform } from '@angular/core';
 
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 
-import { Transaction } from './transaction';
-import { TRANSACTIONS } from './transactions';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
 import { VentaService } from 'src/app/services/venta.service';
 import { VentasModel } from 'src/models/venta';
+import { MonturasModel } from 'src/models/monturas';
+import { LunasModel } from 'src/models/lunas';
+import { AccesorioModel } from 'src/models/accesorio';
+import { TipoVentaModel } from 'src/models/tipo_venta';
 
 interface SearchResult {
   transactions: VentasModel[];
@@ -22,7 +24,7 @@ interface State {
   sortDirection: SortDirection;
 }
 
-const compare = (v1: string | number | boolean, v2: string | number | boolean) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+const compare = (v1: string | number | boolean | MonturasModel[] | LunasModel[] | AccesorioModel[] | Date | TipoVentaModel[], v2: string | number | boolean | MonturasModel[] | LunasModel[] | AccesorioModel[] | Date | TipoVentaModel[]) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
 function sort(transactions: VentasModel[], column: SortColumn, direction: string): VentasModel[] {
   if (direction === '' || column === '') {
@@ -36,9 +38,9 @@ function sort(transactions: VentasModel[], column: SortColumn, direction: string
 }
 
 function matches(transaction: VentasModel, term: string, pipe: PipeTransform) {
-  return transaction.observaciones.toLowerCase().includes(term)
-    || transaction.id_sede.toLowerCase().includes(term.toLowerCase())
-    //|| transaction.date.toLowerCase().includes(term)
+  return transaction.id_cliente.toLowerCase().includes(term)
+    || String(transaction.tipo_venta[0].precio_total).toLowerCase().includes(term.toLowerCase())
+    || (transaction.fecha_creacion_venta).toLocaleString().includes(term)
     //|| transaction.id_sede.toLowerCase().includes(term)
     //|| transaction.id_cliente.toLowerCase().includes(term)
     //|| pipe.transform(transaction.index).includes(term);
@@ -48,7 +50,6 @@ function matches(transaction: VentasModel, term: string, pipe: PipeTransform) {
 export class TransactionService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _transactions$ = new BehaviorSubject<VentasModel[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
 
   private _ventas$ = new BehaviorSubject<VentasModel[]>([]);
@@ -69,7 +70,7 @@ export class TransactionService {
     this.getAllVentas();
   }
 
-  get transactions$() { return this._transactions$.asObservable(); }
+  get transactions$() { return this._ventas$.asObservable(); }
   get total$() { return this._total$.asObservable(); }
   get loading$() { return this._loading$.asObservable(); }
   get page() { return this._state.page; }

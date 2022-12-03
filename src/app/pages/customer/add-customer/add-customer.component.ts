@@ -101,7 +101,7 @@ export class AddCustomerComponent implements OnInit {
    guardarCliente() {
     if(this.formCustomer.valid){
       this.customer.apellidos = this.f(this.apellidos).value;
-      this.customer.dni = Number(this.f(this.dni).value);
+      this.customer.dni = this.f(this.dni).value;
       this.customer.fecha_creacion = new Date(Date.now());
       this.customer.email = this.f(this.email).value;
       this.customer.fecha_modificacion = new Date(Date.now());
@@ -124,9 +124,9 @@ export class AddCustomerComponent implements OnInit {
       listaMedidas.push(this.medidas);
       this.customer.medidas = listaMedidas;
       console.log(this.customer); 
-      /*this.customerService.createCustomers(this.customer).subscribe( res=>{
+      this.customerService.createCustomers(this.customer).subscribe( res=>{
         console.log("registrado ok");
-      });*/ 
+      });
     }
     
   } 

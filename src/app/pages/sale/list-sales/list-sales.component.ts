@@ -3,7 +3,6 @@ import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 
-import { Transaction } from './transaction';
 import { TransactionService } from './sale.service';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 import { VentasModel } from 'src/models/venta';

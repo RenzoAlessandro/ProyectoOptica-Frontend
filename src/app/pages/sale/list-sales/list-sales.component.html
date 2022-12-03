@@ -55,13 +55,13 @@
                 </thead>
                 <tbody>
   
-                  <tr *ngFor="let data of transactions$ | async" class="odd">
+                  <tr *ngFor="let data of transactions$ | async; let i = index" class="odd">
 
                     <td>
-                      <ngb-highlight [result]="data.observaciones" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="i+1" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.id_sede" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.fecha_creacion_venta" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
                       <div class="avatar-xs d-inline-block me-2">
@@ -71,12 +71,12 @@
                       <ngb-highlight [result]="" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.tipo_venta[0].precio_total" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
                       
-                      <span class="badge rounded-pill bg-soft-success font-size-12" [ngClass]=" { 'bg-soft-danger': data.status === 'Chargeback',
-                                'bg-soft-warning':data.status === 'Unpaid' }"></span>
+                      <span class="badge rounded-pill bg-soft-success font-size-12" [ngClass]=" { 'bg-soft-danger': data.tipo_venta[0].deuda > 0,
+                                'bg-soft-warning':data.tipo_venta[0].deuda < 0 }">{{data.tipo_venta[0].deuda}}</span>
                     </td>
                     <td>
                       <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i

@@ -14,6 +14,7 @@ import { TipoVentaModel } from 'src/models/tipo_venta';
 import { MonturasModel } from 'src/models/monturas';
 
 import { Options } from 'ng5-slider';
+import { ClienteService } from 'src/app/services/cliente.service';
 
 @Component({
   selector: 'app-add-sale',
@@ -66,6 +67,7 @@ export class AddSaleComponent implements OnInit {
   listLunas: any;
   active = 1;
   keyword = "marca";
+  keywordCliente = "dni";
   products: any = [];
   precioTotalVenta: number;
 
@@ -75,12 +77,14 @@ export class AddSaleComponent implements OnInit {
   activePago = 1;
   selectorPago: string = "contado";
   listMetodosPagos = ['Físico', 'Yape', 'Plin'];
+  listClients: any = [];
   
 
   constructor(public service: AddsaleService, 
     private fb: FormBuilder,
     private modalService: NgbModal,
-    private productosService: ProductosService
+    private productosService: ProductosService,
+    private customerService: ClienteService
     ) {
     this.addsales$ = service.Addsales$;
     this.total$ = service.total$;
@@ -110,20 +114,14 @@ export class AddSaleComponent implements OnInit {
    */
   centerModal(centerDataModal: any, products: any) {
       this.crearFormulario();
+      this.getListClients();
       this.modalService.open(centerDataModal, { centered: true,windowClass:'modal-holder' });
       console.log("modal",products);
       this.f(this.fechaVenta_Contado).setValue(new Date(Date.now()).toLocaleDateString());
       this.f(this.precioTotal_Contado).setValue(this.precioTotalVenta);
       this.g(this.fechaVenta_Credito).setValue(new Date(Date.now()).toLocaleDateString());
       this.g(this.precioTotal_Credito).setValue(this.precioTotalVenta);
-      /* this.formContado.setValue({
-        campoCantidadRecibidaContado: null,
-        campoFechaVentaContado: new Date().toLocaleDateString(),
-        campoPrecioTotalContado: this.precioTotalVenta,
-        campoPagoContado: null,
-        campoCambioContado: null, 
-        campoObservacionesContado: null,
-      });  */
+      
   }
   /**
    * Open scroll modal
@@ -197,6 +195,13 @@ export class AddSaleComponent implements OnInit {
     });
   }
 
+  getListClients() {
+    this.customerService.getAllClients().subscribe(res=> {
+      this.listClients = res;
+      console.log("clientes",this.listClients);
+    })
+  }
+
   selectorProducts(changeEvent: NgbNavChangeEvent) {
     console.log(changeEvent.nextId);
     switch (changeEvent.nextId) {
@@ -244,6 +249,17 @@ export class AddSaleComponent implements OnInit {
     console.log("autocomplete",this.products);
   }
 
+  selectEventCliente(item:any) {
+    console.log(item);
+
+    if (this.selectorPago == "contado") {
+      this.f(this.usuario_Contado).setValue(item.id_cliente);
+    } else {
+      this.f(this.usuario_Credito).setValue(item.id_cliente);
+    }
+    this.venta.nombre_cliente = item.nombres;
+    console.log("autocompleteCliente",this.products);
+  }
   onChangeSearch(search: string) {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
