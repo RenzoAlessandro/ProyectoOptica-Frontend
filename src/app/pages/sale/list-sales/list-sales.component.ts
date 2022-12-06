@@ -3,9 +3,9 @@ import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 
-import { Transaction } from './transaction';
 import { TransactionService } from './sale.service';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
+import { VentasModel } from 'src/models/venta';
 
 import { FlatpickrOptions } from 'ng2-flatpickr';
 
@@ -28,7 +28,7 @@ export class ListSalesComponent implements OnInit {
   breadCrumbItems: Array<{}>;
   term: any;
 
-  transactions$: Observable<Transaction[]>;
+  transactions$: Observable<VentasModel[]>;
   total$: Observable<number>;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;

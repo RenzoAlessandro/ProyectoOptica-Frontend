@@ -13,4 +13,5 @@ export class VentasModel {
     tipo_venta: Array<TipoVentaModel> = [];
     id_sede: string;
     id_cliente: string;
+    nombre_cliente: string;
 }

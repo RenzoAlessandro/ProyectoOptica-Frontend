@@ -5,7 +5,7 @@ export class CustomersModel {
     id_persona?:string;
     nombres: string;
     apellidos: string;
-    dni: number;
+    dni: string;
     telefono:string;
     fecha_nacimiento: Date;
     fecha_creacion: Date;

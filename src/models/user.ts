@@ -1,7 +1,7 @@
 export class UsersModel {
     nombres: string;
     apellidos: string;
-    dni: number;
+    dni: string;
     telefono:string;
     fecha_nacimiento: Date;
     fecha_creacion: Date;
@@ -9,4 +9,5 @@ export class UsersModel {
     rol: string;
     habilitado: boolean;
     id_sede: string;
+    contrasenia: string;
 }

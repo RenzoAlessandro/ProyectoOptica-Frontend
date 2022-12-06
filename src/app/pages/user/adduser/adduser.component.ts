@@ -26,6 +26,7 @@ export class AdduserComponent implements OnInit {
   password: string = "campoPassword";
   fechaNacimiento: string = "campoFechaNacimiento";
   repeatPassword: string = "campoRepeatPassword";
+  fechaCreacion: string = "campoFechaCreacion";
   email: string = "campoEmail";
   observaciones: string = "campoObservaciones";
   listRoles = [
@@ -90,6 +91,9 @@ export class AdduserComponent implements OnInit {
       [this.fechaNacimiento]:[null,[
         //Validators.required
       ]],
+      [this.fechaCreacion]:[new Date(Date.now()).toLocaleDateString(),[
+        //Validators.required
+      ]],
       sede:[],
       [this.password]:[null,[
         Validators.required,
@@ -116,7 +120,7 @@ export class AdduserComponent implements OnInit {
   guardarUsuario(){
     if(this.formRegister.valid){
       this.user.apellidos = this.f(this.apellidos).value;
-      this.user.dni = Number(this.f(this.dni).value);
+      this.user.dni = this.f(this.dni).value;
       this.user.habilitado = true;
       this.user.fecha_creacion = new Date(Date.now());
       this.user.fecha_modificacion = new Date(Date.now());

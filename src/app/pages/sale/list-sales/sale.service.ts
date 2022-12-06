@@ -2,17 +2,20 @@ import { Injectable, PipeTransform } from '@angular/core';
 
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 
-import { Transaction } from './transaction';
-import { TRANSACTIONS } from './transactions';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
+import { VentaService } from 'src/app/services/venta.service';
+import { VentasModel } from 'src/models/venta';
+import { MonturasModel } from 'src/models/monturas';
+import { LunasModel } from 'src/models/lunas';
+import { AccesorioModel } from 'src/models/accesorio';
+import { TipoVentaModel } from 'src/models/tipo_venta';
 
 interface SearchResult {
-  transactions: Transaction[];
+  transactions: VentasModel[];
   total: number;
 }
-
 interface State {
   page: number;
   pageSize: number;
@@ -21,9 +24,9 @@ interface State {
   sortDirection: SortDirection;
 }
 
-const compare = (v1: string | number | boolean, v2: string | number | boolean) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+const compare = (v1: string | number | boolean | MonturasModel[] | LunasModel[] | AccesorioModel[] | Date | TipoVentaModel[], v2: string | number | boolean | MonturasModel[] | LunasModel[] | AccesorioModel[] | Date | TipoVentaModel[]) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-function sort(transactions: Transaction[], column: SortColumn, direction: string): Transaction[] {
+function sort(transactions: VentasModel[], column: SortColumn, direction: string): VentasModel[] {
   if (direction === '' || column === '') {
     return transactions;
   } else {
@@ -34,21 +37,24 @@ function sort(transactions: Transaction[], column: SortColumn, direction: string
   }
 }
 
-function matches(transaction: Transaction, term: string, pipe: PipeTransform) {
-  return transaction.id.toLowerCase().includes(term)
-    || transaction.name.toLowerCase().includes(term.toLowerCase())
-    || transaction.date.toLowerCase().includes(term)
-    || transaction.amount.toLowerCase().includes(term)
-    || transaction.status.toLowerCase().includes(term)
-    || pipe.transform(transaction.index).includes(term);
+function matches(transaction: VentasModel, term: string, pipe: PipeTransform) {
+  return transaction.id_cliente.toLowerCase().includes(term)
+    || String(transaction.tipo_venta[0].precio_total).toLowerCase().includes(term.toLowerCase())
+    || (transaction.fecha_creacion_venta).toLocaleString().includes(term)
+    //|| transaction.id_sede.toLowerCase().includes(term)
+    //|| transaction.id_cliente.toLowerCase().includes(term)
+    //|| pipe.transform(transaction.index).includes(term);
 }
 
 @Injectable({ providedIn: 'root' })
 export class TransactionService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _transactions$ = new BehaviorSubject<Transaction[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
+
+  private _ventas$ = new BehaviorSubject<VentasModel[]>([]);
+
+  ventaList: VentasModel[] = [];
 
   private _state: State = {
     page: 1,
@@ -57,23 +63,14 @@ export class TransactionService {
     sortColumn: '',
     sortDirection: ''
   };
-
-  constructor(private pipe: DecimalPipe) {
-    this._search$.pipe(
-      tap(() => this._loading$.next(true)),
-      debounceTime(200),
-      switchMap(() => this._search()),
-      delay(200),
-      tap(() => this._loading$.next(false))
-    ).subscribe(result => {
-      this._transactions$.next(result.transactions);
-      this._total$.next(result.total);
-    });
-
-    this._search$.next();
+  constructor(
+    private pipe: DecimalPipe,
+    private ventaService: VentaService
+    ) {
+    this.getAllVentas();
   }
 
-  get transactions$() { return this._transactions$.asObservable(); }
+  get transactions$() { return this._ventas$.asObservable(); }
   get total$() { return this._total$.asObservable(); }
   get loading$() { return this._loading$.asObservable(); }
   get page() { return this._state.page; }
@@ -95,14 +92,34 @@ export class TransactionService {
     const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
     // 1. sort
-    let transactions = sort(TRANSACTIONS, sortColumn, sortDirection);
+    let transactions = sort(this.ventaList, sortColumn, sortDirection);
 
     // 2. filter
     transactions = transactions.filter(transaction => matches(transaction, searchTerm, this.pipe));
     const total = transactions.length;
 
     // 3. paginate
+    
     transactions = transactions.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
     return of({ transactions, total });
+  }
+  //Servicio 
+  getAllVentas() {
+    this.ventaService.getVentas().subscribe( res=>{
+      this.ventaList = res;
+      console.log(res);
+      this._search$.pipe(
+        tap(() => this._loading$.next(true)),
+        debounceTime(200),
+        switchMap(() => this._search()),
+        delay(200),
+        tap(() => this._loading$.next(false))
+      ).subscribe(result => {
+        this._ventas$.next(result.transactions);
+        this._total$.next(result.total);
+      });
+  
+      this._search$.next();
+    })
   }
 }

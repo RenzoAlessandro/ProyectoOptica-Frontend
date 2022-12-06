@@ -120,7 +120,7 @@ export class ListCustomersComponent implements OnInit {
   guardarCliente() {
     if(this.formCustomer.valid){
       this.customer.apellidos = this.f(this.apellidos).value;
-      this.customer.dni = Number(this.f(this.dni).value);
+      this.customer.dni = this.f(this.dni).value;
       this.customer.fecha_creacion = new Date(Date.now());
       this.customer.fecha_modificacion = new Date(Date.now());
       this.customer.fecha_nacimiento = new Date(Date.now());
