@@ -127,6 +127,12 @@ export const MENU: MenuItem[] = [
         ],
         link: '/sale',
     },
+    {
+        id: 18,
+        label: 'MENUITEMS.CASHREGISTER.TEXT',
+        icon: 'uil-money-bill-stack',
+        link: '/cash-register',
+    },
     /* {
         id: 3,
         isLayout: true

@@ -1,0 +1,301 @@
+<div class="container-fluid">
+
+  <!-- start page title -->
+  <app-page-title title="Caja de Registro" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <!-- end page title -->
+  
+
+  <div class="row text-center mt-2 mb-4">
+    <div class="col-sm-6 col-lg-3 d-grid">
+        <button type="button" class="btn btn-primary btn-block mt-2 me-1" (click)="centerModal(centerDataModalIngreso)">
+            <i class="uil uil-arrow-growth me-2"></i> Registar Ingreso
+        </button>
+    </div>
+    <div class="col-sm-6 col-lg-3 d-grid">
+        <button type="button" class="btn btn-danger btn-block mt-2" (click)="centerModal(centerDataModalEgreso)">
+            <i class="uil uil-chart-down me-2"></i>Registar Egreso
+        </button>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-lg-6">
+      <h3>Ingresos: S/. 000.00</h3>
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-md-2">
+            <!-- Search -->
+            <div class="col-sm-12 col-md-4 search-box chat-search-box">
+              <div class="position-relative">
+                <input type="text" class="form-control border-light rounded" placeholder="Buscar ingreso" name="searchTerm"
+                  aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
+                <i class="uil uil-search search-icon"></i>
+              </div>
+            </div>
+            <!-- End search -->
+            <div class="col-sm-12 col-md-8 text-md-end">
+              <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
+                    [(ngModel)]="service.pageSize"
+                    class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+                    <option [ngValue]="5">5</option>
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select> entradas</label></div>
+            </div>
+          </div>
+          <div class="table-responsive mb-4">
+            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+              <form>
+                <table class="table table-centered datatables dt-responsive nowrap table-card-list"
+                  style="border-spacing: 0 12px; width: 100%;">
+                  <thead class="table-light">
+                    <tr class="bg-transparent">
+                      <th scope="col" sortable="amount" (sort)="onSort($event)">Monto</th>
+                      <th scope="col" sortable="description" (sort)="onSort($event)">Descripción</th>
+                      <th scope="col" sortable="date" (sort)="onSort($event)">Fecha</th>
+                      <th scope="col" sortable="name" (sort)="onSort($event)">Usuario</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let data of invoices$ | async">
+                      <td>
+                        <ngb-highlight [result]="data.amount" [term]="service.searchTerm"></ngb-highlight>
+                      </td>
+                      <td>
+                        <ngb-highlight [result]="data.description" [term]="service.searchTerm"></ngb-highlight>
+                      </td>
+                      <td>
+                        <ngb-highlight [result]="data.date" [term]="service.searchTerm"></ngb-highlight>
+                      </td>
+                      <td>
+                        <ngb-highlight [result]="data.name" [term]="service.searchTerm"></ngb-highlight>
+                      </td>
+                      <td>
+                        <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i
+                            class="uil uil-pen font-size-18"></i></a>
+                        <a href="javascript:void(0);" class="px-3 text-danger" placement="top" ngbTooltip="Delete"><i
+                            class="uil uil-trash-alt font-size-18"></i></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="float-end">
+                  <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                    [pageSize]="service.pageSize">
+                    <ng-template ngbPaginationPrevious>Antes</ng-template>
+                    <ng-template ngbPaginationNext>Siguiente</ng-template>
+                  </ngb-pagination>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <h3>Egresos: S/. 000.00</h3>
+      <div class="card">
+        <div class="card-body">
+
+          <div class="row mb-md-2">
+            <!-- Search -->
+            <div class="col-sm-12 col-md-4 search-box chat-search-box">
+              <div class="position-relative">
+                <input type="text" class="form-control border-light rounded" placeholder="Buscar egreso" name="searchTerm"
+                  aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
+                <i class="uil uil-search search-icon"></i>
+              </div>
+            </div>
+            <!-- End search -->
+            <div class="col-sm-12 col-md-8 text-md-end">
+              <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
+                    [(ngModel)]="service.pageSize"
+                    class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+                    <option [ngValue]="5">5</option>
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select> entradas</label></div>
+            </div>
+          </div>
+          <div class="table-responsive mb-4">
+            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+              <form>
+                <table class="table table-centered datatables dt-responsive nowrap table-card-list"
+                  style="border-spacing: 0 12px; width: 100%;">
+                  <thead class="table-light">
+                    <tr class="bg-transparent">
+                      <th scope="col" sortable="amount" (sort)="onSort($event)">Monto</th>
+                      <th scope="col" sortable="description" (sort)="onSort($event)">Descripción</th>
+                      <th scope="col" sortable="date" (sort)="onSort($event)">Fecha</th>
+                      <th scope="col" sortable="name" (sort)="onSort($event)">Usuario</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let data of invoices$ | async">
+                      <td>
+                        <ngb-highlight [result]="data.amount" [term]="service.searchTerm"></ngb-highlight>
+                      </td>
+                      <td>
+                        <ngb-highlight [result]="data.description" [term]="service.searchTerm"></ngb-highlight>
+                      </td>
+                      <td>
+                        <ngb-highlight [result]="data.date" [term]="service.searchTerm"></ngb-highlight>
+                      </td>
+                      <td>
+                        <ngb-highlight [result]="data.name" [term]="service.searchTerm"></ngb-highlight>
+                      </td>
+                      <td>
+                        <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i
+                            class="uil uil-pen font-size-18"></i></a>
+                        <a href="javascript:void(0);" class="px-3 text-danger" placement="top" ngbTooltip="Delete"><i
+                            class="uil uil-trash-alt font-size-18"></i></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="float-end">
+                  <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                    [pageSize]="service.pageSize">
+                    <ng-template ngbPaginationPrevious>Antes</ng-template>
+                    <ng-template ngbPaginationNext>Siguiente</ng-template>
+                  </ngb-pagination>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> <!-- container-fluid -->
+
+
+<!-- Add New Ingreso - Center Modal -->
+<ng-template #centerDataModalIngreso let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-title">Nuevo Ingreso</h5>
+    <button type="button" class="btn-close" (click)="closeEventModal()">
+    </button>
+  </div>
+  <div class="modal-body p-4">
+    <form (ngSubmit)="saveEvent()" [formGroup]="formIngreso">
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <label class="control-label">Monto</label>
+            <input class="form-control" placeholder="Ingrese el monto" type="text" name="title"
+              formControlName="{{this.monto_ingreso}}"/>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="mb-3">
+            <label class="control-label">Fecha</label>
+            <input class="form-control" placeholder="Fecha de registro" type="text" name="title"
+              formControlName="{{this.fecha_ingreso}}"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="mb-3">
+            <label class="control-label">Encargado</label>
+            <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
+              formControlName="{{this.encargado_ingreso}}"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="mb-3">
+            <label class="control-label">Descripción</label>
+            <textarea class="form-control" id="billing-observaciones" rows="3"
+              placeholder="Ingrese la descripción" formControlName="{{this.descripcion_ingreso}}"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-end mt-2">
+        <button type="button" class="btn btn-danger" (click)="closeEventModal()">
+          Cerrar
+        </button>
+        <button type="submit" class="btn btn-success ms-1" id="btn-save-event">
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+  <!-- end modal dialog-->
+</ng-template>
+<!-- end modal-->
+
+
+<!-- Add New Egreso - Center Modal -->
+<ng-template #centerDataModalEgreso let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-title">Nuevo Egreso</h5>
+    <button type="button" class="btn-close" (click)="closeEventModal()">
+    </button>
+  </div>
+  <div class="modal-body p-4">
+    <form (ngSubmit)="saveEvent()" [formGroup]="formIngreso">
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <label class="control-label">Monto</label>
+            <input class="form-control" placeholder="Ingrese el monto" type="text" name="title"
+              formControlName="{{this.monto_egreso}}"/>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="mb-3">
+            <label class="control-label">Fecha</label>
+            <input class="form-control" placeholder="Fecha de registro" type="text" name="title"
+              formControlName="{{this.fecha_egreso}}"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="mb-3">
+            <label class="control-label">Encargado</label>
+            <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
+              formControlName="{{this.encargado_egreso}}"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="mb-3">
+            <label class="control-label">Descripción</label>
+            <textarea class="form-control" id="billing-observaciones" rows="3"
+              placeholder="Ingrese la descripción" formControlName="{{this.descripcion_egreso}}"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-end mt-2">
+        <button type="button" class="btn btn-danger" (click)="closeEventModal()">
+          Cerrar
+        </button>
+        <button type="submit" class="btn btn-success ms-1" id="btn-save-event">
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+  <!-- end modal dialog-->
+</ng-template>
+<!-- end modal-->

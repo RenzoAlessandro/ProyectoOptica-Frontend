@@ -42,6 +42,9 @@
     "DASHBOARDS": {
       "TEXT": "Tableros"
     },
+    "CASHREGISTER": {
+      "TEXT": "Caja"
+    },
     "LAYOUTS": {
       "TEXT": "Diseños",
       "LIST": {

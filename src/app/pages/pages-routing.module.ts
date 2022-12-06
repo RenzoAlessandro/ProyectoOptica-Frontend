@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DefaultComponent } from './dashboards/default/default.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { ChatComponent } from './chat/chat.component';
+import { CashRegisterComponent } from './cash/cash-register/cash-register.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,8 @@ const routes: Routes = [
   { path: 'store', loadChildren: () => import('./store/store.module').then(m => m.StoreModule) },
   { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
   { path: 'sale', loadChildren: () => import('./sale/sale.module').then(m => m.SaleModule) },
+  { path: 'cash-register', component: CashRegisterComponent },
+  
   { path: 'dashboards', loadChildren: () => import('./dashboards/dashboards.module').then(m => m.DashboardsModule) },
   { path: 'ecommerce', loadChildren: () => import('./ecommerce/ecommerce.module').then(m => m.EcommerceModule) },
   { path: 'email', loadChildren: () => import('./email/email.module').then(m => m.EmailModule) },

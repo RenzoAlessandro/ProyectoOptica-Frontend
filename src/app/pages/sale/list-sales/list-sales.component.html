@@ -1,42 +1,77 @@
 <div class="container-fluid">
     <app-page-title title="Ventas" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div>
+          <button type="button" class="btn btn-success mb-3"><i class="mdi mdi-plus me-1"></i>
+            Agregar nueva Venta</button>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="float-end">
+          <div class="mb-3">
+            <div class="input-daterange input-group" id="datepicker6" data-date-format="dd M, yyyy"
+              data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker6'>
+              <ng2-flatpickr mode="range" class="text-start" [config]="exampleOptions" placeholder="Desde"></ng2-flatpickr>
+              <ng2-flatpickr class="text-start" placeholder="Hasta"></ng2-flatpickr>
+              <button type="button" class="btn btn-primary"><i class="mdi mdi-filter-variant"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row ">
+      <div class="col-sm-12 col-md-4">
+        <div class="mb-3">
+        <!-- Search -->
+        <div class="search-box chat-search-box">
+          <div class="position-relative">
+            <input type="text" class="form-control border-light rounded" placeholder="Buscar venta" name="searchTerm"
+              aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
+            <i class="uil uil-search search-icon"></i>
+          </div>
+        </div>
+      </div>
+        <!-- End search -->
+      </div>
+      <div class="col-sm-12 col-md-8">
+        <div class="float-end">
+          <div class="mb-3">
+            <div class="row">
+              <div class="col">
+                <form class="d-inline-flex mb-3">
+                  <label class="form-check-label my-2 me-2" for="order-selectinput">Ventas</label>
+                  <select class="form-select" id="order-selectinput">
+                    <option selected>Todo</option>
+                    <option value="1">Activos</option>
+                    <option value="2">Sin pagar</option>
+                  </select>
+                </form>
+              </div>
+              <div class="col">
+                <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
+                  [(ngModel)]="service.pageSize"
+                  class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+                  <option [ngValue]="10">10</option>
+                  <option [ngValue]="25">25</option>
+                  <option [ngValue]="50">50</option>
+                  <option [ngValue]="100">100</option>
+                </select> entradas</label></div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    
   
     <div class="row">
       <div class="col-12">
         <div>
-          <div class="float-end">
-            <form class="d-inline-flex mb-3">
-              <label class="form-check-label my-2 me-2" for="order-selectinput">Ventas</label>
-              <select class="form-select" id="order-selectinput">
-                <option selected>Todo</option>
-                <option value="1">Activos</option>
-                <option value="2">Sin pagar</option>
-              </select>
-            </form>
-          </div>
-          <button type="button" class="btn btn-success mb-3"><i class="mdi mdi-plus me-1"></i>
-            Agregar nueva Venta</button>
-            <div class="row mb-md-2">
-              <!-- Search -->
-              <div class="col-sm-12 col-md-4 search-box chat-search-box">
-                <div class="position-relative">
-                  <input type="text" class="form-control border-light rounded" placeholder="Buscar venta" name="searchTerm"
-                    aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
-                  <i class="uil uil-search search-icon"></i>
-                </div>
-              </div>
-              <!-- End search -->
-              <div class="col-sm-12 col-md-8 text-md-end">
-                <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
-                      [(ngModel)]="service.pageSize"
-                      class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
-                      <option [ngValue]="10">10</option>
-                      <option [ngValue]="25">25</option>
-                      <option [ngValue]="50">50</option>
-                      <option [ngValue]="100">100</option>
-                    </select> entradas</label></div>
-              </div>
-            </div>
         <div class="table-responsive mb-4">
           <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <form>

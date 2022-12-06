@@ -21,6 +21,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 
 import { DashboardsModule } from './dashboards/dashboards.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CashRegisterModule } from './cash/cash-register.module';
 
 import { LoaderService } from '../core/services/loader.service';
 
@@ -50,6 +51,7 @@ FullCalendarModule.registerPlugins([
     NgApexchartsModule,
     ReactiveFormsModule,
     DashboardsModule,
+    CashRegisterModule,
     HttpClientModule,
     FullCalendarModule,
     NgbNavModule,

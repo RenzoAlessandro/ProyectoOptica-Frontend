@@ -12,6 +12,8 @@ import { AddSaleComponent } from "./add-sale/add-sale.component";
 import { SaleRoutingModule } from "./sale-routing.module";
 import { ListSalesComponent } from "./list-sales/list-sales.component";
 import { AutocompleteLibModule } from "angular-ng-autocomplete";
+import { Ng2FlatpickrModule } from 'ng2-flatpickr';
+import { FormModule } from '../form/form.module';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { AutocompleteLibModule } from "angular-ng-autocomplete";
       NgbCollapseModule,
       NgbNavModule,
       NgbModule,
-      AutocompleteLibModule
+      AutocompleteLibModule,
+      NgbModule,
+      Ng2FlatpickrModule
     ],
     providers: [
       {

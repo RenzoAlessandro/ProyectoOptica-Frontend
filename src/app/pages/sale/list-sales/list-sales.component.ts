@@ -7,6 +7,8 @@ import { Transaction } from './transaction';
 import { TransactionService } from './sale.service';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 
+import { FlatpickrOptions } from 'ng2-flatpickr';
+
 @Component({
   selector: 'app-list-sales',
   templateUrl: './list-sales.component.html',
@@ -15,6 +17,12 @@ import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 })
 
 export class ListSalesComponent implements OnInit {
+
+  // rango de fecha
+  exampleOptions: FlatpickrOptions = {
+    defaultDate: '',
+    altInputClass: 'form-control'
+  };
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
