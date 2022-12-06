@@ -2,34 +2,38 @@
 
   <app-page-title title="Lista de Clientes" [breadcrumbItems]="breadCrumbItems"></app-page-title>
 
-  <div class="row">
-    <div class="col-12">
-      <div>
-        <button type="button" class="btn btn-success waves-effect waves-light mb-3"
-          (click)="centerModal(centerDataModal)"><i class="mdi mdi-plus me-1"></i>
-          Agregar Cliente</button>
-      </div>
-      <div class="row mb-md-2">
-        <!-- Search -->
-        <div class="col-sm-12 col-md-4 search-box chat-search-box">
+  <div class="row mt-2 mb-2">
+    <div class="col-sm-12 col-md-8 justify-content-start">
+      <div class="row mb-2">
+        <div class="col-8 search-box chat-search-box">
           <div class="position-relative">
             <input type="text" class="form-control border-light rounded" placeholder="Buscar cliente" name="searchTerm"
               aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
             <i class="uil uil-search search-icon"></i>
           </div>
         </div>
-        <!-- End search -->
-        <div class="col-sm-12 col-md-8 text-md-end">
-          <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
-                [(ngModel)]="service.pageSize"
-                class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
-                <option [ngValue]="10">10</option>
-                <option [ngValue]="25">25</option>
-                <option [ngValue]="50">50</option>
-                <option [ngValue]="100">100</option>
-              </select> entradas</label></div>
+        <div class="col-4">
+          <div class="btn-group text-md-start">
+            <button type="button" class="btn btn-primary"><i class="uil uil-import" ngbTooltip="Exportar"></i></button>
+            <button type="button" class="btn btn-primary"><i class="uil uil-export" ngbTooltip="Importar"></i></button>
+          </div>
         </div>
       </div>
+    </div>
+    <div class="col-sm-12 col-md-4 text-md-end">
+      <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
+        [(ngModel)]="service.pageSize"
+        class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+        <option [ngValue]="10">10</option>
+        <option [ngValue]="25">25</option>
+        <option [ngValue]="50">50</option>
+        <option [ngValue]="100">100</option>
+      </select> entradas</label></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
       <div class="table-responsive mb-4">
         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
           <form>

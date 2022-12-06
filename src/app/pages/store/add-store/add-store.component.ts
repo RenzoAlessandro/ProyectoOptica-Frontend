@@ -30,6 +30,8 @@ export class AddStoreComponent implements OnInit {
     private sedeService: UsuarioService) { }
 
   ngOnInit(): void {
+    this.breadCrumbItems = [{ label: 'Tiendas' }, { label: 'Añadir Tienda', active: true }];
+
     this.crearFormulario();
 
     this.selectValue = ['Disponible', 'Cerrado', 'Pendiente'];

@@ -41,7 +41,7 @@ export class AccesoriosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'Customers', active: true }];
+    this.breadCrumbItems = [{ label: 'Productos' }, { label: 'Lista de Accesorios', active: true }];
   }
 
   onSort({column, direction}: SortEvent) {

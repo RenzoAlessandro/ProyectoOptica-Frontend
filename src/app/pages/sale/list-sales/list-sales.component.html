@@ -1,14 +1,26 @@
 <div class="container-fluid">
+
     <app-page-title title="Ventas" [breadcrumbItems]="breadCrumbItems"></app-page-title>
 
-    <div class="row">
-      <div class="col-md-4">
-        <div>
-          <button type="button" class="btn btn-success mb-3"><i class="mdi mdi-plus me-1"></i>
-            Agregar nueva Venta</button>
+    <div class="row mt-2 mb-2">
+      <div class="col-12 col-md-6 justify-content-start">
+        <div class="row mb-3">
+          <div class="col-8 search-box chat-search-box">
+            <div class="position-relative">
+              <input type="text" class="form-control border-light rounded" placeholder="Buscar venta" name="searchTerm"
+                aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
+              <i class="uil uil-search search-icon"></i>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="btn-group text-md-start">
+              <button type="button" class="btn btn-primary"><i class="uil uil-import" ngbTooltip="Exportar"></i></button>
+              <button type="button" class="btn btn-primary"><i class="uil uil-export" ngbTooltip="Importar"></i></button>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-8">
+      <div class="col-sm-12 col-md-6 text-md-end">
         <div class="float-end">
           <div class="mb-3">
             <div class="input-daterange input-group" id="datepicker6" data-date-format="dd M, yyyy"
@@ -22,21 +34,8 @@
       </div>
     </div>
 
-    <div class="row ">
-      <div class="col-sm-12 col-md-4">
-        <div class="mb-3">
-        <!-- Search -->
-        <div class="search-box chat-search-box">
-          <div class="position-relative">
-            <input type="text" class="form-control border-light rounded" placeholder="Buscar venta" name="searchTerm"
-              aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
-            <i class="uil uil-search search-icon"></i>
-          </div>
-        </div>
-      </div>
-        <!-- End search -->
-      </div>
-      <div class="col-sm-12 col-md-8">
+    <div class="row">
+      <div class="col text-md-end">
         <div class="float-end">
           <div class="mb-3">
             <div class="row">

@@ -55,6 +55,8 @@ export class AddProductComponent implements OnInit {
     private productosService: ProductosService) { }
 
   ngOnInit(): void {
+    this.breadCrumbItems = [{ label: 'Productos' }, { label: 'Añadir Productos', active: true }];
+
     this.crearFormulario();
   }
 

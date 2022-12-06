@@ -91,7 +91,7 @@ export class AddSaleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'addsales', active: true }];
+    this.breadCrumbItems = [{ label: 'Venta' }, { label: 'Realizar Venta', active: true }];
     this.getListMonturas();
     
   }

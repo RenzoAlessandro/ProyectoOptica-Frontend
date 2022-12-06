@@ -39,7 +39,7 @@ export class ListSalesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'Orders', active: true }];
+    this.breadCrumbItems = [{ label: 'Venta' }, { label: 'Lista de Ventas', active: true }];
   }
 
   onSort({ column, direction }: SortEvent) {
