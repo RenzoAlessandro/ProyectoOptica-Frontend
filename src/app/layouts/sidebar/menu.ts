@@ -84,22 +84,28 @@ export const MENU: MenuItem[] = [
                 link: '/products/addproducts',
                 parentId: 9
             },
+            {
+                id: 14,
+                label: 'MENUITEMS.PRODUCTS.LIST.UPDATEEXCEL',
+                link: '/products/updateexcel',
+                parentId: 9
+            },
         ],
         link: '/products',
     },
     {
-        id: 14,
+        id: 15,
         label: 'MENUITEMS.STORES.TEXT',
         icon: 'uil-shop',
         subItems: [
             {
-                id: 15,
+                id: 16,
                 label: 'MENUITEMS.STORES.LIST.STORES',
                 link: '/store/liststores',
                 parentId: 9
             }, 
             {
-                id: 16,
+                id: 17,
                 label: 'MENUITEMS.STORES.LIST.ADDSTORES',
                 link: '/store/addstore',
                 parentId: 9
@@ -108,18 +114,18 @@ export const MENU: MenuItem[] = [
         link: '/store',
     },
     {
-        id: 17,
+        id: 18,
         label: 'MENUITEMS.SALES.TEXT',
         icon: 'uil-invoice',
         subItems: [
             {
-                id: 18,
+                id: 19,
                 label: 'MENUITEMS.SALES.LIST.SALES',
                 link: '/sale/listsales',
                 parentId: 9
             }, 
             {
-                id: 19,
+                id: 20,
                 label: 'MENUITEMS.SALES.LIST.ADDSALES',
                 link: '/sale/addsale',
                 parentId: 9
@@ -128,7 +134,7 @@ export const MENU: MenuItem[] = [
         link: '/sale',
     },
     {
-        id: 18,
+        id: 21,
         label: 'MENUITEMS.CASHREGISTER.TEXT',
         icon: 'uil-money-bill-stack',
         link: '/cash-register',

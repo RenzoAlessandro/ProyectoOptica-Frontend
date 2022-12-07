@@ -123,7 +123,8 @@
         "ACCESORIOS": "Accesorios",
         "LENTES": "Lunas",
         "MONTURAS": "Monturas",
-        "ADDPRODUCTS": "Añadir Productos"
+        "ADDPRODUCTS": "Añadir Productos",
+        "UPDATEEXCEL": "Actualización por Excel"
       }
     },
     "STORES": {
