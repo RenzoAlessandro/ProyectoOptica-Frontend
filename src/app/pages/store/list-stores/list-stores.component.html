@@ -23,21 +23,21 @@
     </div>
   
     <div class="row">
-      <div class="col-xl-4 col-sm-6" *ngFor="let data of shopsData">
+      <div class="col-xl-4 col-sm-6" *ngFor="let data of listSedes">
         <div class="card">
   
           <div class="card-body">
             <div class="d-flex align-items-start">
                 <div class="avatar-sm me-4">
                     <span class="avatar-title bg-soft-{{data.color}} text-{{data.color}} font-size-16 rounded-circle">
-                      {{data.title.charAt(0)}}
+                      {{data.nombre_sede.charAt(0)}}
                     </span>
                 </div>
                 <div class="flex-1 align-self-center">
                     <div class="border-bottom pb-1">
-                        <h5 class="text-truncate font-size-16 mb-1"><a href="javascript:void(0);" class="text-dark">{{data.title}}</a></h5>
+                        <h5 class="text-truncate font-size-16 mb-1"><a class="text-dark">{{data.nombre_sede}}</a></h5>
                         <p class="text-muted">
-                            <i class="mdi mdi-account me-1"></i> {{data.account}}
+                            <i class="mdi mdi-account me-1"></i> {{data.direccion}}
                         </p>
                     </div>
                     <div class="row">

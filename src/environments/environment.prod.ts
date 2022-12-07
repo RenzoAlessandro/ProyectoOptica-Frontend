@@ -10,5 +10,6 @@ export const environment = {
     messagingSenderId: '',
     appId: '',
     measurementId: ''
-  }
+  },
+  urlBackend:'http://3.83.29.81:5000/'
 };

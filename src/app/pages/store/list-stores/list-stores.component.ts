@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SedeService } from 'src/app/services/sede.service';
 
 import { shopsData } from './data';
 
@@ -15,8 +16,11 @@ export class ListStoresComponent implements OnInit {
   breadCrumbItems: Array<{}>;
 
   shopsData: Stores[];
+  listSedes: any;
 
-  constructor() { }
+  constructor(
+    private sedeService: SedeService
+  ) { }
 
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'Shops', active: true }];
@@ -25,6 +29,7 @@ export class ListStoresComponent implements OnInit {
      * fetches data
      */
     this._fetchData();
+    this.getListSedes();
   }
 
   /**
@@ -34,4 +39,11 @@ export class ListStoresComponent implements OnInit {
     this.shopsData = shopsData;
   }
 
+
+  getListSedes() {
+    this.sedeService.getSedes().subscribe(res => {
+      console.log(res)
+      this.listSedes = res;
+    })
+  }
 }

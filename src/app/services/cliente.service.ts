@@ -19,4 +19,8 @@ export class ClienteService {
   getAllClients(): Observable<any> {
     return this.http.get<any>(environment.urlBackend+'getAllClients');
   }
+
+  getAllClientsforSale(): Observable<any> {
+    return this.http.get<any>(environment.urlBackend+'getAllClientsMinified');
+  }
 }

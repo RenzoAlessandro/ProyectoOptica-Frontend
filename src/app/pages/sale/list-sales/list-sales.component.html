@@ -13,8 +13,20 @@
           <div class="mb-3">
             <div class="input-daterange input-group" id="datepicker6" data-date-format="dd M, yyyy"
               data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker6'>
-              <ng2-flatpickr mode="range" class="text-start" [config]="exampleOptions" placeholder="Desde"></ng2-flatpickr>
-              <ng2-flatpickr class="text-start" placeholder="Hasta"></ng2-flatpickr>
+              <div class="col-lg">
+                <div class="mb-4">
+                  <label class="form-label" for="billing-fechanacimiento">Desde</label>
+                  <input type="date" class="form-control" id="billing-fechanacimiento"
+                    placeholder="Seleccione la fecha"/>
+                </div>
+              </div>
+              <div class="col-lg">
+                <div class="mb-4">
+                  <label class="form-label" for="billing-phone">Hasta</label>
+                  <input type="date" class="form-control" id="billing-phone"
+                    placeholder="Teléfono del Cliente"/>
+                </div>
+              </div>
               <button type="button" class="btn btn-primary"><i class="mdi mdi-filter-variant"></i></button>
             </div>
           </div>
