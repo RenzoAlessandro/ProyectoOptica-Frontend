@@ -23,7 +23,7 @@ export class ListStoresComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'Shops', active: true }];
+    this.breadCrumbItems = [{ label: 'Tiendas' }, { label: 'Lista de Tiendas', active: true }];
 
     /**
      * fetches data

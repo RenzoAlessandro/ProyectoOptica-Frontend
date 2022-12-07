@@ -1,34 +1,39 @@
 <div class="container-fluid">
 
     <app-page-title title="Lista de Lunas" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+    <div class="row mt-2 mb-2">
+      <div class="col-sm-12 col-md-8 justify-content-start">
+        <div class="row mb-2">
+          <div class="col-8 search-box chat-search-box">
+            <div class="position-relative">
+              <input type="text" class="form-control border-light rounded" placeholder="Buscar luna" name="searchTerm"
+                aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
+              <i class="uil uil-search search-icon"></i>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="btn-group text-md-start">
+              <button type="button" class="btn btn-primary"><i class="uil uil-import" ngbTooltip="Exportar"></i></button>
+              <button type="button" class="btn btn-primary"><i class="uil uil-export" ngbTooltip="Importar"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4 text-md-end">
+        <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
+          [(ngModel)]="service.pageSize"
+          class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+          <option [ngValue]="10">10</option>
+          <option [ngValue]="25">25</option>
+          <option [ngValue]="50">50</option>
+          <option [ngValue]="100">100</option>
+        </select> entradas</label></div>
+      </div>
+    </div>
   
     <div class="row">
       <div class="col-12">
-        <div>
-          <button type="button" class="btn btn-success waves-effect waves-light mb-3" (click)="centerModal(centerDataModal)"><i class="mdi mdi-plus me-1"></i>
-            Agregar una Luna</button>
-        </div>
-        <div class="row mb-md-2">
-          <!-- Search -->
-        <div class="col-sm-12 col-md-4 search-box chat-search-box">
-              <div class="position-relative">
-                  <input type="text" class="form-control border-light rounded" placeholder="Buscar luna" 
-                      name="searchTerm" aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
-                  <i class="uil uil-search search-icon"></i>
-              </div>
-        </div>
-        <!-- End search -->
-        <div class="col-sm-12 col-md-8 text-md-end">
-          <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
-                [(ngModel)]="service.pageSize"
-                class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
-                <option [ngValue]="10">10</option>
-                <option [ngValue]="25">25</option>
-                <option [ngValue]="50">50</option>
-                <option [ngValue]="100">100</option>
-              </select> entradas</label></div>
-        </div>
-      </div>
         <div class="table-responsive mb-4">
           <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <form>
@@ -36,12 +41,6 @@
                 style="border-spacing: 0 12px; width: 100%;">
                 <thead>
                   <tr class="bg-transparent">
-<!--                     <th style="width: 20px;">
-                      <div class="form-check text-center">
-                        <input type="checkbox" class="form-check-input" id="customercheck">
-                        <label class="form-check-label" for="customercheck"></label>
-                      </div>
-                    </th> -->
                     <th scope="col" sortable="id" (sort)="onSort($event)">#</th>
                     <th scope="col" sortable="material" (sort)="onSort($event)">Material</th>
                     <th scope="col" sortable="precio_compra" (sort)="onSort($event)">Precio Compra</th>
@@ -55,12 +54,6 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let data of customers$ | async; let i = index">
-<!--                     <td>
-                      <div class="form-check text-center">
-                        <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input" />
-                        <label class="form-check-label" for="ordercheck{{data.index}}">&nbsp;</label>
-                      </div>
-                    </td> -->
                     <td>
                       <ngb-highlight [result]=i+1 [term]="service.searchTerm"></ngb-highlight>
                     </td>

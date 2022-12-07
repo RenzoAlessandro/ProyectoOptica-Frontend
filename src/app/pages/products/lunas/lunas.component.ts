@@ -40,7 +40,7 @@ export class LunasComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'Customers', active: true }];
+    this.breadCrumbItems = [{ label: 'Productos' }, { label: 'Lista de Lunas', active: true }];
   }
 
   onSort({column, direction}: SortEvent) {

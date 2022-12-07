@@ -40,7 +40,7 @@ export class ListUsersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'Customers', active: true }];
+    this.breadCrumbItems = [{ label: 'Usuarios' }, { label: 'Lista de Usuarios', active: true }];
   }
 
   onSort({column, direction}: SortEvent) {
