@@ -99,9 +99,9 @@
                         [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
                     </td> -->
                   <td>
-                    <a href="javascript:void(0);" class="px-2 text-info" placement="top" ngbTooltip="Eliminar"><i
+                    <a href="javascript:void(0);" class="px-2 text-info" placement="top" ngbTooltip="Info"><i
                         class="uil uil-info-circle font-size-18"></i></a>
-                    <a (click)="centerModal(centerDataModal)" class="px-2 text-primary" placement="top"
+                    <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top"
                       ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
                     <a href="javascript:void(0);" class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
                         class="uil uil-trash-alt font-size-18"></i></a>
@@ -153,7 +153,7 @@
           <div class="mb-3">
             <label class="control-label">Fecha de Registro</label>
             <input class="form-control" placeholder="Seleccione la fecha" type="text"
-              formControlName="{{this.fecha_creacion}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+              formControlName="{{this.fecha_modificacion}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <!-- <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
             </div> -->
@@ -212,7 +212,7 @@
           <div class="mb-3">
             <label class="control-label">Correo Electrónico</label>
             <input class="form-control" placeholder="Correo electrónico" type="email"
-              formControlName="{{this.emailaddress}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+              formControlName="{{this.email}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
             </div>

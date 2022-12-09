@@ -88,6 +88,9 @@ export class TransactionService {
     this._search$.next();
   }
 
+  updateTable (data) {
+    this._ventas$.next(data);
+  }
   private _search(): Observable<SearchResult> {
     const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 

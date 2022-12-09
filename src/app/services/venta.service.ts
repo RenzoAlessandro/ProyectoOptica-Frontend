@@ -13,4 +13,8 @@ export class VentaService {
   getVentas(): Observable<any> {
     return this.http.get<any>(environment.urlBackend+'getAllVentas');
   }
+
+  getVentasByDate(fechaIni:any,fechaFin:any): Observable<any> {
+    return this.http.get<any>(environment.urlBackend+'getAllVentasByDate/'+fechaIni+'/'+fechaFin)
+  }
 }
