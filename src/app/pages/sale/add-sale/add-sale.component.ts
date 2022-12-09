@@ -265,7 +265,7 @@ export class AddSaleComponent implements OnInit {
     } else {
       this.g(this.usuario_Credito).setValue(item.id_cliente);
     }
-    this.venta.nombre_cliente = item.nombres;
+    this.venta.nombre_cliente = item.nombres + ' '+ item.apellidos;
     console.log("autocompleteCliente", this.products);
   }
   onChangeSearch(search: string) {
@@ -433,7 +433,7 @@ export class AddSaleComponent implements OnInit {
         this.venta.observaciones = this.f(this.observaciones_Contado).value;
         this.venta.fecha_creacion_venta = this.fechaVenta;
         this.tipoPago.cantidad_recibida = this.f(this.cantidadRecibida_Contado).value;
-        this.tipoPago.deuda = this.precioTotalVenta - this.f(this.cantidadRecibida_Contado).value;
+        this.tipoPago.deuda = 0;
         this.tipoPago.metodo_pago = this.f(this.metodoPagoContado).value;
         this.tipoPago.cuotas = String(0);
         this.venta.id_cliente = this.f(this.usuario_Contado).value;

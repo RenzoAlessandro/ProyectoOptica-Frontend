@@ -1,92 +1,83 @@
 <div class="container-fluid">
 
-    <app-page-title title="Ventas" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <app-page-title title="Ventas" [breadcrumbItems]="breadCrumbItems"></app-page-title>
 
-    <div class="row mt-2 mb-2">
-      <div class="col-12 col-md-6 justify-content-start">
-        <div class="row mb-3">
-          <div class="col-8 search-box chat-search-box">
-            <div class="position-relative">
-              <input type="text" class="form-control border-light rounded" placeholder="Buscar venta" name="searchTerm"
-                aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
-              <i class="uil uil-search search-icon"></i>
-            </div>
+  <div class="row mt-2 mb-2">
+    <div class="col-12 col-md-6 justify-content-start">
+      <div class="row mb-3">
+        <div class="col-8 search-box chat-search-box">
+          <div class="position-relative">
+            <input type="text" class="form-control border-light rounded" placeholder="Buscar venta" name="searchTerm"
+              aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
+            <i class="uil uil-search search-icon"></i>
           </div>
-          <div class="col-4">
-            <div class="btn-group text-md-start">
-              <button type="button" class="btn btn-primary"><i class="uil uil-import" ngbTooltip="Exportar"></i></button>
-              <button type="button" class="btn btn-primary"><i class="uil uil-export" ngbTooltip="Importar"></i></button>
-            </div>
+        </div>
+        <div class="col-4">
+          <div class="btn-group text-md-start">
+            <button type="button" class="btn btn-primary"><i class="uil uil-import" ngbTooltip="Exportar"></i></button>
+            <button type="button" class="btn btn-primary"><i class="uil uil-export" ngbTooltip="Importar"></i></button>
           </div>
         </div>
       </div>
-      <div class="col-sm-12 col-md-6 text-md-end">
-        <div class="float-end">
-          <div class="mb-3">
+    </div>
+    <div class="col-sm-12 col-md-6 text-md-end">
+      <div class="float-end">
+        <div class="mb-3">
+          <form [formGroup]="formDateRange">
             <div class="input-daterange input-group" id="datepicker6" data-date-format="dd M, yyyy"
-              data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker6'>
-              <div class="col-lg">
-                <div class="mb-4">
-                  <label class="form-label" for="billing-fechanacimiento">Desde</label>
-                  <input type="date" class="form-control" id="billing-fechanacimiento"
-                    placeholder="Seleccione la fecha"/>
-                </div>
-              </div>
-              <div class="col-lg">
-                <div class="mb-4">
-                  <label class="form-label" for="billing-phone">Hasta</label>
-                  <input type="date" class="form-control" id="billing-phone"
-                    placeholder="Teléfono del Cliente"/>
-                </div>
-              </div>
-              <button type="button" class="btn btn-primary"><i class="mdi mdi-filter-variant"></i></button>
-            </div>
+            data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker6'>
+            <ng2-flatpickr mode="range" class="text-start" [config]="exampleOptions" placeholder="Desde" formControlName="{{this.fechaDesde}}">
+            </ng2-flatpickr>
+            <ng2-flatpickr class="text-start" [config]="exampleOptions" placeholder="Hasta" formControlName="{{this.fechaHasta}}"></ng2-flatpickr>
+            <button type="button" class="btn btn-primary"  (click)="filterDateRange()"><i class="mdi mdi-filter-variant"></i></button>
           </div>
+          </form>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="row">
-      <div class="col text-md-end">
-        <div class="float-end">
-          <div class="mb-3">
-            <div class="row">
-              <div class="col">
-                <form class="d-inline-flex mb-3">
-                  <label class="form-check-label my-2 me-2" for="order-selectinput">Ventas</label>
-                  <select class="form-select" id="order-selectinput">
-                    <option selected>Todo</option>
-                    <option value="1">Activos</option>
-                    <option value="2">Sin pagar</option>
-                  </select>
-                </form>
-              </div>
-              <div class="col">
-                <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
-                  [(ngModel)]="service.pageSize"
-                  class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
-                  <option [ngValue]="10">10</option>
-                  <option [ngValue]="25">25</option>
-                  <option [ngValue]="50">50</option>
-                  <option [ngValue]="100">100</option>
-                </select> entradas</label></div>
-
-              </div>
+  <div class="row">
+    <div class="col text-md-end">
+      <div class="float-end">
+        <div class="mb-3">
+          <div class="row">
+            <div class="col">
+              <form class="d-inline-flex mb-3">
+                <label class="form-check-label my-2 me-2" for="order-selectinput">Ventas</label>
+                <select class="form-select" id="order-selectinput">
+                  <option selected>Todo</option>
+                  <option value="1">Activos</option>
+                  <option value="2">Sin pagar</option>
+                </select>
+              </form>
             </div>
+            <div class="col">
+              <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select
+                    name="pageSize" [(ngModel)]="service.pageSize"
+                    class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select> entradas</label></div>
 
+            </div>
           </div>
+
         </div>
       </div>
     </div>
-    
-  
-    <div class="row">
-      <div class="col-12">
-        <div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-12">
+      <div>
         <div class="table-responsive mb-4">
           <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <form>
-  
+
               <table class="table table-centered datatables dt-responsive nowrap table-card-list"
                 style="border-spacing: 0 12px; width: 100%;">
                 <thead>
@@ -100,29 +91,35 @@
                   </tr>
                 </thead>
                 <tbody>
-  
+
                   <tr *ngFor="let data of transactions$ | async; let i = index" class="odd">
 
                     <td>
                       <ngb-highlight [result]="i+1" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.fecha_creacion_venta" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.fecha_creacion_venta| date: 'dd/MM/yyyy'" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
                       <div class="avatar-xs d-inline-block me-2">
                         <span class="avatar-title rounded-circle bg-light text-body">
+                        {{data.nombre_cliente.charAt(0)}}
                         </span>
                       </div>
-                      <ngb-highlight [result]="" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.nombre_cliente" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.tipo_venta[0].precio_total" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.tipo_venta[0].precio_total" [term]="service.searchTerm">
+                      </ngb-highlight>
                     </td>
-                    <td>
-                      
-                      <span class="badge rounded-pill bg-soft-success font-size-12" [ngClass]=" { 'bg-soft-danger': data.tipo_venta[0].deuda > 0,
-                                'bg-soft-warning':data.tipo_venta[0].deuda < 0 }">{{data.tipo_venta[0].deuda}}</span>
+                    <td *ngIf="data.tipo_venta[0].deuda>0">
+                      <span  class="text-danger">Deuda &nbsp;</span>
+                      <span class="badge rounded-pill bg-soft-success font-size-12" [ngClass]=" { 'bg-soft-danger': data.tipo_venta[0].deuda > 0}">
+                        {{data.tipo_venta[0].deuda}}
+                      </span>
+                    </td>
+                    <td *ngIf="data.tipo_venta[0].deuda == 0">
+                      <span  class="text-success">Pagado</span>
                     </td>
                     <td>
                       <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i
@@ -133,7 +130,7 @@
                   </tr>
                 </tbody>
               </table>
-  
+
               <div class="float-end">
                 <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
                   [pageSize]="service.pageSize">
@@ -141,11 +138,11 @@
                   <ng-template ngbPaginationNext>Siguiente</ng-template>
                 </ngb-pagination>
               </div>
-  
+
             </form>
           </div>
         </div>
-  
+
       </div>
     </div>
   </div>

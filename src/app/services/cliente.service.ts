@@ -23,4 +23,8 @@ export class ClienteService {
   getAllClientsforSale(): Observable<any> {
     return this.http.get<any>(environment.urlBackend+'getAllClientsMinified');
   }
+
+  updateClient(idClient:string, idPersona:string, customer:CustomersModel): Observable<any> {
+    return this.http.put<any>(environment.urlBackend+'editClientById/'+idClient+'/'+idPersona, customer);
+  }
 }

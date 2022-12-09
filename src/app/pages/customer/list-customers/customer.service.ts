@@ -67,6 +67,10 @@ export class CustomerService {
     
   }
 
+  updateTable (data) {
+    this._customers$.next(data);
+  }
+  
   get customers$() { return this._customers$.asObservable(); }
   get total$() { return this._total$.asObservable(); }
   get loading$() { return this._loading$.asObservable(); }
@@ -88,7 +92,7 @@ export class CustomerService {
   private _search(): Observable<SearchResult> {
     const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
     console.log(this.customerList);
-    console.log(sortColumn)
+    //console.log(sortColumn)
     // 1. sort
     let customers = sort(this.customerList, sortColumn, sortDirection);
 

@@ -88,6 +88,7 @@ export class AddCustomerComponent implements OnInit {
       [this.dip]:[],
       [this.add]:[],
       [this.encargado]:[],
+      [this.antecedentes]:[]
     })
   }
 

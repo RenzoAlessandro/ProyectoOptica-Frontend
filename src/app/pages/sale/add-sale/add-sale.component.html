@@ -166,7 +166,7 @@
                       <ngb-highlight [result]="item.tipo"></ngb-highlight>
                     </td>
                     <td *ngIf="item.tipo == 'montura'">
-                      <ngb-highlight [result]="item.material"></ngb-highlight><br>
+                      <ngb-highlight [result]="item.material"></ngb-highlight>&nbsp;
                       <ngb-highlight [result]="item.marca"></ngb-highlight>
                     </td>
                     <td *ngIf="item.tipo == 'luna'">
@@ -343,7 +343,7 @@
                   <div class="col-12">
                     <div class="mb-3">
                       <label class="control-label">Buscar o Crear nuevo Cliente</label>
-                      <ng-autocomplete [data]="listClients" [searchKeyword]="keywordCliente" placeholder="DNI del cliente"
+                      <ng-autocomplete [data]="listClients" [searchKeyword]="keywordCliente" placeholder="Apellidos del cliente"
                       (selected)="selectEventCliente($event)"  historyIdentifier="" [itemTemplate]="itemTemplate3" formControlName="{{this.nombreContado}}"
                       [notFoundTemplate]="notFoundTemplate">
                     </ng-autocomplete>
@@ -479,7 +479,7 @@
                   <div class="col-12">
                     <div class="mb-3">
                       <label class="control-label">Buscar o Crear nuevo Cliente</label>
-                      <ng-autocomplete [data]="listClients" [searchKeyword]="keywordCliente" placeholder="DNI del cliente"
+                      <ng-autocomplete [data]="listClients" [searchKeyword]="keywordCliente" placeholder="Apellidos del cliente"
                       (selected)="selectEventCliente($event)"  historyIdentifier="" [itemTemplate]="itemTemplate2"
                       [notFoundTemplate]="notFoundTemplate" formControlName="{{this.nombreCredito}}">
                     </ng-autocomplete>

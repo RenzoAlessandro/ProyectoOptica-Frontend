@@ -25,7 +25,8 @@ export class ListCustomersComponent implements OnInit {
   dni: string = "campoDNI";
   telefono:string = "campoTelefono";
   fecha_nacimiento: string = "campoFechaNacimiento";
-  fecha_creacion: string = "campoFechaCreacion";
+  fecha_modificacion: string = "campoFechaModificacion";
+  email: string = "campoEmail";
   od_esferico: string = "campoOdEsferico";
   od_cilindrico: string = "campoOd_Cilindrico";
   od_eje: string = "campoOdEje";
@@ -58,7 +59,7 @@ export class ListCustomersComponent implements OnInit {
   total$: Observable<number>;
   
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
-  
+  fch_nac: Date;
 
   constructor(
     public service: CustomerService, 
@@ -95,7 +96,28 @@ export class ListCustomersComponent implements OnInit {
    * Open center modal
    * @param centerDataModal center modal data
    */
-  centerModal(centerDataModal: any) {
+     centerModal(centerDataModal: any, data: CustomersModel) {
+      const date = new Date(Date.now());
+      this.f(this.dni).setValue(data.dni);
+      this.f(this.fecha_modificacion).setValue(date.toLocaleDateString());
+      this.f(this.nombres).setValue(data.nombres);
+      this.f(this.apellidos).setValue(data.apellidos);
+      this.fch_nac = data.fecha_nacimiento;
+      this.f(this.fecha_nacimiento).setValue(new Date(this.fch_nac).toLocaleDateString());
+      this.f(this.telefono).setValue(data.telefono);
+      this.f(this.email).setValue(data.email);
+      this.f(this.od_cilindrico).setValue(data.medidas[0].od_cilindrico);
+      this.f(this.od_eje).setValue(data.medidas[0].od_eje);
+      this.f(this.od_esferico).setValue(data.medidas[0].od_esferico);
+      this.f(this.oi_cilindrico).setValue(data.medidas[0].oi_cilindrico);
+      this.f(this.oi_esferico).setValue(data.medidas[0].oi_esferico);
+      this.f(this.oi_eje).setValue(data.medidas[0].oi_eje);
+      this.f(this.dip).setValue(data.medidas[0].dip);
+      this.f(this.add).setValue(data.medidas[0].add);
+      this.f(this.encargado).setValue(data.medidas[0].encargado);
+      this.customer.id_cliente = data.id_cliente;
+      this.customer.id_persona = data.id_persona;
+      this.customer.antecedentes = data.antecedentes;
       this.modalService.open(centerDataModal, { size: 'lg', scrollable: true });
     }
 
@@ -121,11 +143,11 @@ export class ListCustomersComponent implements OnInit {
     if(this.formCustomer.valid){
       this.customer.apellidos = this.f(this.apellidos).value;
       this.customer.dni = this.f(this.dni).value;
-      this.customer.fecha_creacion = new Date(Date.now());
       this.customer.fecha_modificacion = new Date(Date.now());
-      this.customer.fecha_nacimiento = new Date(Date.now());
+      this.customer.fecha_nacimiento = this.fch_nac;
       this.customer.nombres = this.f(this.nombres).value;
       this.customer.telefono = this.f(this.telefono).value;
+      this.customer.email = this.f(this.email).value;
       this.medidas.add = Number(this.f(this.add).value);
       this.medidas.dip = Number(this.f(this.dip).value);
       this.medidas.encargado = this.f(this.encargado).value;
@@ -139,14 +161,20 @@ export class ListCustomersComponent implements OnInit {
       listaMedidas.push(this.medidas);
       this.customer.medidas = listaMedidas;
       console.log(this.customer);
-      this.customerService.createCustomers(this.customer).subscribe( res=>{
+      this.customerService.updateClient(this.customer.id_cliente,this.customer.id_persona,this.customer).subscribe( res=>{
         console.log("registrado ok");
+        this.getListClients();
         this.modalService.dismissAll();
-      })  
+      }) ; 
     }
     
   } 
 
+  getListClients() {
+    this.customerService.getAllClients().subscribe( res=>{
+      this.service.updateTable(res);
+    })
+  }
   /**
    * Save the event
    */
@@ -163,7 +191,8 @@ export class ListCustomersComponent implements OnInit {
       [this.dni]:[],
       [this.telefono]:[],
       [this.fecha_nacimiento]:[],
-      [this.fecha_creacion]:[],
+      [this.fecha_modificacion]:[],
+      [this.email]:[],
       [this.od_cilindrico]:[],
       [this.od_eje]:[],
       [this.od_esferico]:[],
