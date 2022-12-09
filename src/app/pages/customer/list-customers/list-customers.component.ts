@@ -95,8 +95,8 @@ export class ListCustomersComponent implements OnInit {
    * Open center modal
    * @param centerDataModal center modal data
    */
-     centerModal(centerDataModal: any) {
-      this.modalService.open(centerDataModal, { centered: true,windowClass:'modal-holder' });
+  centerModal(centerDataModal: any) {
+      this.modalService.open(centerDataModal, { scrollable: true });
     }
 
       /**
