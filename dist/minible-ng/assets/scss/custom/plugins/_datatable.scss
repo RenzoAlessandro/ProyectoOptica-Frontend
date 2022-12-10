@@ -1,0 +1,128 @@
+// datatable
+
+
+.table-bordered {
+  border: $table-border-width solid $table-border-color;
+}
+
+
+div.dataTables_wrapper {
+  div.dataTables_filter {
+    text-align: right;
+
+    input {
+      margin-left: 0.5em;
+      margin-right: 0;
+    }
+  }
+}
+
+div.table-responsive>div.dataTables_wrapper>div.row>div[class^="col-"] {
+  &:first-child {
+    padding-left: 0;
+  }
+
+  &:last-child {
+    padding-right: 0;
+  }
+}
+
+
+.table.dataTable {
+  thead {
+
+    .sorting,
+    .sorting_asc,
+    .sorting_desc,
+    .sorting_asc_disabled,
+    .sorting_desc_disabled {
+      &:before {
+        left: auto;
+        right: 1em;
+      }
+    }
+
+    .sorting,
+    .sorting_asc,
+    .sorting_desc,
+    .sorting_asc_disabled,
+    .sorting_desc_disabled {
+      &:after {
+        left: auto;
+        right: 0.5em;
+      }
+    }
+
+    tr {
+
+      th,
+      td {
+
+        &.sorting_asc,
+        &.sorting_desc,
+        &.sorting {
+          padding-left: 12px;
+          padding-right: 30px;
+        }
+      }
+    }
+  }
+}
+
+div.dataTables_length {
+  select {
+    width: auto;
+    display: inline-block;
+  }
+  .form-select {
+    padding-right: 1.75rem !important;
+    margin: 4px !important;
+  }
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+  display: inline-block;
+  width: auto;
+}
+
+
+// data table
+
+.datatables {
+  thead {
+    tr {
+      th {
+        position: relative;
+        &:before {
+          content: "\F0143";
+          position: absolute;
+          right: 0;
+          top: 7px;
+          font: normal normal normal 24px/1 "Material Design Icons";
+          opacity: 0.3;
+        }
+
+        &:after {
+          content: "\F0140";
+          position: absolute;
+          right: 0;
+          top: 14px;
+          opacity: 0.3;
+          font: normal normal normal 24px/1 "Material Design Icons";
+        }
+      }
+
+      .asc {
+        &:before {
+          opacity: 1;
+        }
+      }
+
+      .desc {
+        &:after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

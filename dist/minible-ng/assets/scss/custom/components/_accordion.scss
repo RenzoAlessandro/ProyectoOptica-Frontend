@@ -1,0 +1,83 @@
+//
+// accordion.scss
+//
+.checkout-acco {
+  .accordion {
+    .card {
+      margin-bottom: 15px;
+      box-shadow: 0 2px 4px rgba(15, 34, 58, .12);
+    }
+
+    .card-header {
+      padding: 20px;
+      border-radius: 7px !important;
+      background-color: $card-bg !important;
+
+      .btn-link {
+        padding: 0 !important;
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}
+
+.custom-accordion {
+  .accordion {
+    .card {
+      margin-bottom: 0px;
+      box-shadow: none;
+    }
+
+    .card-header {
+      padding: 5px;
+      border-radius: 7px !important;
+    }
+
+    .card-body {
+      padding-bottom: 0px;
+    }
+  }
+
+  .card-body {
+    color: $text-muted;
+  }
+}
+
+.accordionpage {
+  .card-header {
+    padding: 0 !important;
+
+    .btn {
+      margin-top: 0.25rem !important;
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+
+#faqs-accordion {
+  .card {
+    border: 1px solid $gray-200;
+    margin-bottom: 15px;
+
+    .card-header {
+      padding: 8px !important;
+      background-color: $gray-200 !important;
+    }
+  }
+}
+
+
+.accordion {
+  .btn {
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
