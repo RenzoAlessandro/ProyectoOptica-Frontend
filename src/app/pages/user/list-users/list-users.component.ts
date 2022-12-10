@@ -89,7 +89,7 @@ export class ListUsersComponent implements OnInit {
     this.f(this.dni).setValue(data.dni);
     this.f(this.fechaModificaion).setValue(data.fecha_modificacion);
     this.f(this.nombres).setValue(data.nombres);
-    this.modalService.open(centerDataModal, { centered: true,windowClass:'modal-holder' });
+    this.modalService.open(centerDataModal, { centered: true, size: 'lg', windowClass:'modal-holder' });
   }
   
     /**

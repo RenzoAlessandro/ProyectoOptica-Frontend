@@ -120,7 +120,7 @@ export class ListCustomersComponent implements OnInit {
       this.customer.id_cliente = data.id_cliente;
       this.customer.id_persona = data.id_persona;
       this.customer.antecedentes = data.antecedentes;
-      this.modalService.open(centerDataModal, { size: 'lg', scrollable: true });
+      this.modalService.open(centerDataModal, { centered: true, size: 'lg'});
     }
 
       /**

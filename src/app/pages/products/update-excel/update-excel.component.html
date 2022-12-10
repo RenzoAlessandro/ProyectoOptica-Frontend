@@ -10,37 +10,32 @@
               </p>
               <div>
                 <form>
-                  <div class="row">
-                    <div class="mb-3 col-lg-2">
-                      <!-- <label for="name">Name</label> -->
-                      <div class="dropdown" ngbDropdown>
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
-                          ngbDropdownToggle>
-                          Seleccione Sede <i class="mdi mdi-chevron-down"></i>
-                        </button>
-                        <div class="dropdown-menu" ngbDropdownMenu>
-                          <a class="dropdown-item" href="javascript: void(0);">Arequipa</a>
-                          <a class="dropdown-item" href="javascript: void(0);">Moquegua</a>
-                          <a class="dropdown-item" href="javascript: void(0);">Puno</a>
-                        </div>
+
+                  <div class="mb-3">
+                    <!-- Default dropup button -->
+                    <div class="btn-group mt-2 me-1" ngbDropdown>
+                      <button type="button" class="btn btn-primary dropdown-toggle" ngbDropdownToggle>Seleccione la Sede <i
+                          class="mdi mdi-chevron-down"></i></button>
+                      <div class="dropdown-menu" ngbDropdownMenu>
+                        <a class="dropdown-item" href="javascript: void(0);">Arequipa</a>
+                        <a class="dropdown-item" href="javascript: void(0);">Moquegua</a>
+                        <a class="dropdown-item" href="javascript: void(0);">Puno</a>
                       </div>
                     </div>
-  
-                    <div class="mb-3 col-lg-2">
-                      <!-- <label for="email">Email</label> -->
-                      <div class="dropdown" ngbDropdown>
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
-                          ngbDropdownToggle>
-                          Seleccione Producto <i class="mdi mdi-chevron-down"></i>
-                        </button>
-                        <div class="dropdown-menu" ngbDropdownMenu>
-                          <a class="dropdown-item" href="javascript: void(0);">Monturas</a>
-                          <a class="dropdown-item" href="javascript: void(0);">Lunas</a>
-                          <a class="dropdown-item" href="javascript: void(0);">Accesorios</a>
-                        </div>
+
+                    <!-- Default dropup button -->
+                    <div class="btn-group mt-2 me-1" ngbDropdown>
+                      <button type="button" class="btn btn-primary dropdown-toggle" ngbDropdownToggle>Seleccione el Producto <i
+                        class="mdi mdi-chevron-down"></i></button>
+                      <div class="dropdown-menu" ngbDropdownMenu>
+                        <a class="dropdown-item" href="javascript: void(0);">Monturas</a>
+                        <a class="dropdown-item" href="javascript: void(0);">Lunas</a>
+                        <a class="dropdown-item" href="javascript: void(0);">Accesorios</a>
                       </div>
-                    </div>  
-                    <div class="mb-3 col-lg-2 align-self-center d-grid">
+                    </div>
+                    
+                    <!-- Default button -->
+                    <div class="btn-group mt-2 me-1">
                       <input type="button" class="btn btn-primary btn-block" value="Descargar Archivo" (click)="0">
                     </div>
                   </div>
@@ -56,10 +51,22 @@
         <div class="card">
           <div class="card-body">
             <div class="card-title">Importar</div>
-            <p class="card-title-desc">Cargué el archivo mofificado, según <strong>sede</strong> y <strong>tipo de producto</strong> seleccionado anteriormente.
+            <p class="card-title-desc">Cargué el archivo mofificado, seleccione el <strong>tipo de producto</strong>.
             </p>
             <div>
               <form>
+                <div class="mb-3">
+                  <!-- Default dropup button -->
+                  <div class="btn-group mt-2 me-1" ngbDropdown>
+                    <button type="button" class="btn btn-primary dropdown-toggle" ngbDropdownToggle>Seleccione el Producto <i
+                      class="mdi mdi-chevron-down"></i></button>
+                    <div class="dropdown-menu" ngbDropdownMenu>
+                      <a class="dropdown-item" href="javascript: void(0);">Monturas</a>
+                      <a class="dropdown-item" href="javascript: void(0);">Lunas</a>
+                      <a class="dropdown-item" href="javascript: void(0);">Accesorios</a>
+                    </div>
+                  </div>
+                </div>
                 <dropzone class="dropzone" [message]="message"></dropzone>
               </form>
             </div>
