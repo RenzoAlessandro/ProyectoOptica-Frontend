@@ -51,7 +51,7 @@ export class ListUsersComponent implements OnInit {
       { cNombre:2, tNombre: "Vendedor" },
       { cNombre:3, tNombre: "Contador" }
     ];
-
+    user= new UsersModel;
   constructor(
     public service: CustomerService,
     private modalService: NgbModal, 
@@ -78,13 +78,17 @@ export class ListUsersComponent implements OnInit {
     this.service.sortDirection = direction;
   }
 
-
+  f(campo:any) {
+    return this.formUser.get(campo);
+  }
   /**
    * Open center modal
    * @param centerDataModal center modal data
    */
    centerModal(centerDataModal: any, data: UsersModel) {
-
+    this.f(this.dni).setValue(data.dni);
+    this.f(this.fechaModificaion).setValue(data.fecha_modificacion);
+    this.f(this.nombres).setValue(data.nombres);
     this.modalService.open(centerDataModal, { centered: true,windowClass:'modal-holder' });
   }
   

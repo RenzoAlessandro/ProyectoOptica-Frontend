@@ -36,6 +36,7 @@ export class ListCustomersComponent implements OnInit {
   dip: string = "campoDip";
   add: string = "campoAdd";
   encargado: string = "campoEncargado";
+  antecedentes: string = "campoAntecedentes";
   customer = new CustomersModel;
   medidas = new MedidasModel;
   submitted = false;
@@ -115,9 +116,9 @@ export class ListCustomersComponent implements OnInit {
       this.f(this.dip).setValue(data.medidas[0].dip);
       this.f(this.add).setValue(data.medidas[0].add);
       this.f(this.encargado).setValue(data.medidas[0].encargado);
+      this.f(this.antecedentes).setValue(data.antecedentes);
       this.customer.id_cliente = data.id_cliente;
       this.customer.id_persona = data.id_persona;
-      this.customer.antecedentes = data.antecedentes;
       this.modalService.open(centerDataModal, { centered: true,windowClass:'modal-holder' });
     }
 
@@ -148,6 +149,7 @@ export class ListCustomersComponent implements OnInit {
       this.customer.nombres = this.f(this.nombres).value;
       this.customer.telefono = this.f(this.telefono).value;
       this.customer.email = this.f(this.email).value;
+      this.customer.antecedentes = this.f(this.antecedentes).value;
       this.medidas.add = Number(this.f(this.add).value);
       this.medidas.dip = Number(this.f(this.dip).value);
       this.medidas.encargado = this.f(this.encargado).value;
@@ -202,6 +204,7 @@ export class ListCustomersComponent implements OnInit {
       [this.dip]:[],
       [this.add]:[],
       [this.encargado]:[],
+      [this.antecedentes]:[],
     })
   }
 
