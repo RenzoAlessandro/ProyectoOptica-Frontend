@@ -39,6 +39,7 @@ export class AdduserComponent implements OnInit {
   lettersPattern = '[a-zA-Z ]*';
   numberPattern = '^[0-9]+$|^\S*$';
   passwordPattern = '/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/';
+  fecha_actual: Date;
   constructor(
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
@@ -60,6 +61,7 @@ export class AdduserComponent implements OnInit {
   }
 
   crearFormulario(){
+    this.fecha_actual = new Date(Date.now());
     this.formRegister = this.fb.group({
       [this.nombres]:[null,[
         Validators.required,
@@ -91,9 +93,7 @@ export class AdduserComponent implements OnInit {
       [this.fechaNacimiento]:[null,[
         //Validators.required
       ]],
-      [this.fechaCreacion]:[new Date(Date.now()).toLocaleDateString(),[
-        //Validators.required
-      ]],
+      [this.fechaCreacion]:[{value:this.fecha_actual.toLocaleDateString(), disabled: true}],
       sede:[],
       [this.password]:[null,[
         Validators.required,

@@ -1,4 +1,5 @@
 export class UsersModel {
+    id_usuario?:string;
     nombres: string;
     apellidos: string;
     dni: string;
@@ -10,4 +11,6 @@ export class UsersModel {
     habilitado: boolean;
     id_sede: string;
     contrasenia: string;
+    email: string;
+    observaciones:string
 }
