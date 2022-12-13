@@ -1,11 +1,11 @@
 <div class="container-fluid">
-    <app-page-title title="Registrar Nuevo Cliente" [breadcrumbItems]="breadCrumbItems"></app-page-title>
-    <div class="checkout-tabs">
-      <div class="row">
-        <div class="col-xl-12">
-          <div class="">
-            <div class="checkout-acco">
-              <form [formGroup]="formCustomer">
+  <app-page-title title="Registrar Nuevo Cliente" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <!--   <div class="checkout-tabs">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="">
+          <div class="checkout-acco">
+            <form [formGroup]="formCustomer">
               <ngb-accordion [closeOthers]="true" activeIds="static-1">
                 <ngb-panel id="static-1">
                   <ng-template ngbPanelTitle>
@@ -26,83 +26,89 @@
                   <ng-template ngbPanelContent>
                     <div id="checkout-customerinfo-collapse">
                       <div class="border-top py-4">
-                        
-                          <div>
-                            <div class="row">
-                              <div class="col-lg-4">
-                                <div class="mb-4">
-                                  <label class="form-label" for="billing-dni">DNI</label>
-                                  <input type="text" class="form-control" id="billing-dni" placeholder="DNI del Cliente" formControlName="{{this.dni}}"/>
-                                </div>
-                              </div>
-                              <div class="col-lg-4">
-                                <div class="mb-4">
-                                  <label class="form-label" for="billing-firstnames">Nombres</label>
-                                  <input type="text" class="form-control" id="billing-firstnames" placeholder="Nombres del Cliente" formControlName="{{this.nombres}}"/>
-                                </div>
-                              </div>
-                              <div class="col-lg-4">
-                                <div class="mb-4">
-                                  <label class="form-label" for="billing-lastnames">Apellidos</label>
-                                  <input type="text" class="form-control" id="billing-lastnames" placeholder="Apellidos del Cliente" formControlName="{{this.apellidos}}"/>
-                                </div>
+
+                        <div>
+                          <div class="row">
+                            <div class="col-lg-4">
+                              <div class="mb-4">
+                                <label class="form-label" for="billing-dni">DNI</label>
+                                <input type="text" class="form-control" id="billing-dni" placeholder="DNI del Cliente"
+                                  formControlName="{{this.dni}}" />
                               </div>
                             </div>
-
-                            <div class="row">
-                              <div class="col-lg-3">
-                                <div class="mb-4">
-                                  <label class="form-label" for="billing-fecharegistro">Fecha de Registro</label>
-                                  <input type="text" class="form-control" id="billing-fecharegistro"
-                                    placeholder="Seleccione la fecha" formControlName="{{this.fecha_creacion}}"/>
-                                </div>
-                              </div>
-                              <div class="col-lg-3">
-                                <div class="mb-4">
-                                  <label class="form-label" for="billing-fechanacimiento">Fecha de Nacimiento</label>
-                                  <input type="date" class="form-control" id="billing-fechanacimiento"
-                                    placeholder="Seleccione la fecha" formControlName="{{this.fecha_nacimiento}}"/>
-                                </div>
-                              </div>
-                              <div class="col-lg-3">
-                                <div class="mb-4">
-                                  <label class="form-label" for="billing-phone">Teléfono</label>
-                                  <input type="text" class="form-control" id="billing-phone"
-                                    placeholder="Teléfono del Cliente" formControlName="{{this.telefono}}"/>
-                                </div>
-                              </div>
-                              <div class="col-lg-3">
-                                <div class="mb-4">
-                                  <label class="form-label" for="billing-email-address">Correo Electrónico</label>
-                                  <input type="email" class="form-control" id="billing-email-address" placeholder="Correo electrónico" formControlName="{{this.email}}"/>
-                                </div>
+                            <div class="col-lg-4">
+                              <div class="mb-4">
+                                <label class="form-label" for="billing-firstnames">Nombres</label>
+                                <input type="text" class="form-control" id="billing-firstnames"
+                                  placeholder="Nombres del Cliente" formControlName="{{this.nombres}}" />
                               </div>
                             </div>
-
-                            <div class="row">
-                              <div class="col-lg-6">
-                                <div class="mb-4">
-                                  <label class="form-label" for="billing-direccion">Dirección</label>
-                                  <textarea class="form-control" id="billing-direccion" rows="3"
-                                    placeholder="Ingrese la dirección completa del cliente" formControlName="{{this.direccion}}"></textarea>
-                                </div>
-                              </div>
-                              <div class="col-lg-6">
-                                <div class="mb-4">
-                                  <label class="form-label" for="billing-antecedentes">Antecedentes</label>
-                                  <textarea class="form-control" id="billing-antecedentes" rows="3"
-                                    placeholder="Ingrese los antecedentes del cliente" formControlName="{{this.antecedentes}}"></textarea>
-                                </div>
+                            <div class="col-lg-4">
+                              <div class="mb-4">
+                                <label class="form-label" for="billing-lastnames">Apellidos</label>
+                                <input type="text" class="form-control" id="billing-lastnames"
+                                  placeholder="Apellidos del Cliente" formControlName="{{this.apellidos}}" />
                               </div>
                             </div>
-
                           </div>
+
+                          <div class="row">
+                            <div class="col-lg-3">
+                              <div class="mb-4">
+                                <label class="form-label" for="billing-fecharegistro">Fecha de Registro</label>
+                                <input type="text" class="form-control" id="billing-fecharegistro"
+                                  placeholder="Seleccione la fecha" formControlName="{{this.fecha_creacion}}" />
+                              </div>
+                            </div>
+                            <div class="col-lg-3">
+                              <div class="mb-4">
+                                <label class="form-label" for="billing-fechanacimiento">Fecha de Nacimiento</label>
+                                <input type="date" class="form-control" id="billing-fechanacimiento"
+                                  placeholder="Seleccione la fecha" formControlName="{{this.fecha_nacimiento}}" />
+                              </div>
+                            </div>
+                            <div class="col-lg-3">
+                              <div class="mb-4">
+                                <label class="form-label" for="billing-phone">Teléfono</label>
+                                <input type="text" class="form-control" id="billing-phone"
+                                  placeholder="Teléfono del Cliente" formControlName="{{this.telefono}}" />
+                              </div>
+                            </div>
+                            <div class="col-lg-3">
+                              <div class="mb-4">
+                                <label class="form-label" for="billing-email-address">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="billing-email-address"
+                                  placeholder="Correo electrónico" formControlName="{{this.email}}" />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="mb-4">
+                                <label class="form-label" for="billing-direccion">Dirección</label>
+                                <textarea class="form-control" id="billing-direccion" rows="3"
+                                  placeholder="Ingrese la dirección completa del cliente"
+                                  formControlName="{{this.direccion}}"></textarea>
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="mb-4">
+                                <label class="form-label" for="billing-antecedentes">Antecedentes</label>
+                                <textarea class="form-control" id="billing-antecedentes" rows="3"
+                                  placeholder="Ingrese los antecedentes del cliente"
+                                  formControlName="{{this.antecedentes}}"></textarea>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
                       </div>
                     </div>
                   </ng-template>
                 </ngb-panel>
 
-                
+
                 <ngb-panel id="static-2">
                   <ng-template ngbPanelTitle>
                     <a class="text-dark" style="text-align: left;">
@@ -129,22 +135,22 @@
                               <div class="col-lg-4">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-OD-ESF">ESF</label>
-                                  <input type="text" class="form-control" id="billing-OD-ESF"
-                                    placeholder="Esfera" formControlName="{{this.od_esferico}}"/>
+                                  <input type="text" class="form-control" id="billing-OD-ESF" placeholder="Esfera"
+                                    formControlName="{{this.od_esferico}}" />
                                 </div>
                               </div>
                               <div class="col-lg-4">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-OD-CYL">CYL</label>
-                                  <input type="text" class="form-control" id="billing-OD-CYL"
-                                    placeholder="Cilindro" formControlName="{{this.od_cilindrico}}"/>
+                                  <input type="text" class="form-control" id="billing-OD-CYL" placeholder="Cilindro"
+                                    formControlName="{{this.od_cilindrico}}" />
                                 </div>
                               </div>
                               <div class="col-lg-4">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-OD-EJE">EJE</label>
-                                  <input type="text" class="form-control" id="billing-OD-EJE"
-                                    placeholder="Eje" formControlName="{{this.od_eje}}"/>
+                                  <input type="text" class="form-control" id="billing-OD-EJE" placeholder="Eje"
+                                    formControlName="{{this.od_eje}}" />
                                 </div>
                               </div>
                             </div>
@@ -155,25 +161,25 @@
                               <div class="col-lg-4">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-OI-ESF">ESF</label>
-                                  <input type="text" class="form-control" id="billing-phone"
-                                    placeholder="Esfera" formControlName="{{this.oi_esferico}}"/>
+                                  <input type="text" class="form-control" id="billing-phone" placeholder="Esfera"
+                                    formControlName="{{this.oi_esferico}}" />
                                 </div>
                               </div>
                               <div class="col-lg-4">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-OI-CYL">CYL</label>
-                                  <input type="text" class="form-control" id="billing-OI-CYL"
-                                    placeholder="Cilindro" formControlName="{{this.oi_cilindrico}}"/>
+                                  <input type="text" class="form-control" id="billing-OI-CYL" placeholder="Cilindro"
+                                    formControlName="{{this.oi_cilindrico}}" />
                                 </div>
                               </div>
                               <div class="col-lg-4">
                                 <div class="mb-4">
                                   <label class="form-label" for="billing-OI-EJE">EJE</label>
-                                  <input type="text" class="form-control" id="billing-OI-EJE"
-                                    placeholder="Eje" formControlName="{{this.oi_eje}}"/>
+                                  <input type="text" class="form-control" id="billing-OI-EJE" placeholder="Eje"
+                                    formControlName="{{this.oi_eje}}" />
                                 </div>
                               </div>
-                            </div>  
+                            </div>
                           </div>
                         </div>
                         <h5 class="font-size-14 mb-3 d-flex justify-content-center">Otros</h5>
@@ -182,21 +188,22 @@
                             <div class="mb-4">
                               <label class="form-label" for="billing-DIP">DIP</label>
                               <input type="text" class="form-control" id="billing-DIP"
-                                placeholder="Distancia Interpupilar" formControlName="{{this.dip}}"/>
+                                placeholder="Distancia Interpupilar" formControlName="{{this.dip}}" />
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-4">
                               <label class="form-label" for="billing-ADD">ADD</label>
-                              <input type="text" class="form-control" id="billing-ADD"
-                                placeholder="Adición" formControlName="{{this.add}}"/>
+                              <input type="text" class="form-control" id="billing-ADD" placeholder="Adición"
+                                formControlName="{{this.add}}" />
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="mb-4">
-                              <label class="form-label" for="billing-encargado-medicion">Encargado de la Medición</label>
+                              <label class="form-label" for="billing-encargado-medicion">Encargado de la
+                                Medición</label>
                               <input type="text" class="form-control" id="billing-encargado-medicion"
-                                placeholder="Encargado" formControlName="{{this.encargado}}"/>
+                                placeholder="Encargado" formControlName="{{this.encargado}}" />
                             </div>
                           </div>
                         </div>
@@ -206,36 +213,34 @@
                 </ngb-panel>
               </ngb-accordion>
             </form>
+          </div>
+        </div>
+
+        <div class="row my-4">
+          <div class="col">
+            <div class="text-sm-end mt-2 mt-sm-0">
+              <button class="btn btn-success" (click)="guardarCliente()" [disabled]="!formCustomer.valid">
+                <i class="uil uil-user-plus me-1"></i> Registar Cliente
+              </button>
             </div>
           </div>
-  
-          <div class="row my-4">
-            <!-- end col -->
-            <div class="col">
-              <div class="text-sm-end mt-2 mt-sm-0">
-                <button class="btn btn-success" (click)="guardarCliente()" [disabled]="!formCustomer.valid">
-                  <i class="uil uil-user-plus me-1"></i> Registar Cliente
-                </button>
-              </div>
-            </div>
-            <!-- end col -->
-          </div>
-          <!-- end row-->
         </div>
       </div>
     </div>
-
+  </div>
+ -->
 
 
 
   <!-- SECCION DE NUEVA VISTA (ESTA EN EVALUACION DE SER APROBADO)  -->
-  <div class="row">
-    <div class="col-xl-6 mb-4">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">
-            <div class="p-3 px-4">
-              <div class="d-flex align-items-start">
+  <form [formGroup]="formCustomer">
+    <div class="row">
+      <div class="col-xl-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">
+              <div class="p-3 px-4">
+                <div class="d-flex align-items-start">
                   <div class="align-self-center me-3">
                     <i class="uil uil-file-bookmark-alt text-primary h2"></i>
                   </div>
@@ -245,41 +250,99 @@
                       Datos básicos del nuevo cliente.
                     </p>
                   </div>
+                </div>
               </div>
-            </div>
-          </h4>
-          <p class="card-title-desc">Provide valuable, actionable feedback to your users with HTML5 form
-            validation–available in all our supported browsers.</p>
-<!--           <form class="needs-validation" (ngSubmit)="0" [formGroup]="0">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="validationCustom01">First name</label>
-                  <input type="text" class="form-control" id="validationCustom01" formControlName="firstName"
-                    placeholder="First name">
+            </h4>
+            <!--             <p class="card-title-desc">Provide valuable, actionable feedback to your users with HTML5 form
+              validation–available in all our supported browsers.</p> -->
+            <div class="border-top py-4">
+              <div>
+                <div class="row">
+                  <div class="col-6">
+                    <div class="mb-4">
+                      <label class="form-label" for="billing-dni">DNI</label>
+                      <input type="text" class="form-control" id="billing-dni" placeholder="DNI del Cliente"
+                        formControlName="{{this.dni}}" />
+                    </div>
+                  </div>
 
+                  <div class="col-6">
+                    <div class="mb-4">
+                      <label class="form-label" for="billing-fecharegistro">Fecha de Registro</label>
+                      <input type="text" class="form-control" id="billing-fecharegistro"
+                        placeholder="Seleccione la fecha" formControlName="{{this.fecha_creacion}}" />
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="validationCustom02">Last name</label>
-                  <input type="text" class="form-control" id="validationCustom02" formControlName="lastName"
-                    placeholder="Last name">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="mb-4">
+                      <label class="form-label" for="billing-firstnames">Nombres</label>
+                      <input type="text" class="form-control" id="billing-firstnames" placeholder="Nombres del Cliente"
+                        formControlName="{{this.nombres}}" />
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="mb-4">
+                      <label class="form-label" for="billing-lastnames">Apellidos</label>
+                      <input type="text" class="form-control" id="billing-lastnames" placeholder="Apellidos del Cliente"
+                        formControlName="{{this.apellidos}}" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-3">
+                    <div class="mb-4">
+                      <label class="form-label" for="billing-fechanacimiento">Fecha de Nacimiento</label>
+                      <input type="date" class="form-control" id="billing-fechanacimiento"
+                        placeholder="Seleccione la fecha" formControlName="{{this.fecha_nacimiento}}" />
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="mb-4">
+                      <label class="form-label" for="billing-phone">Teléfono</label>
+                      <input type="text" class="form-control" id="billing-phone" placeholder="Teléfono del Cliente"
+                        formControlName="{{this.telefono}}" />
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="mb-4">
+                      <label class="form-label" for="billing-email-address">Correo Electrónico</label>
+                      <input type="email" class="form-control" id="billing-email-address"
+                        placeholder="Correo electrónico" formControlName="{{this.email}}" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <div class="mb-4">
+                      <label class="form-label" for="billing-direccion">Dirección</label>
+                      <textarea class="form-control" id="billing-direccion" rows="3"
+                        placeholder="Ingrese la dirección completa del cliente"
+                        formControlName="{{this.direccion}}"></textarea>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="mb-4">
+                      <label class="form-label" for="billing-antecedentes">Antecedentes</label>
+                      <textarea class="form-control" id="billing-antecedentes" rows="3"
+                        placeholder="Ingrese los antecedentes del cliente"
+                        formControlName="{{this.antecedentes}}"></textarea>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </form> -->
+          </div>
         </div>
-      </div>
-      <!-- end card -->
-    </div> <!-- end col -->
-
-    <div class="col-xl-6 mb-4">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">
-            <div class="p-3 px-4">
-              <div class="d-flex align-items-start">
+        <!-- end card -->
+      </div> <!-- end col -->
+      <div class="col-xl-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">
+              <div class="p-3 px-4">
+                <div class="d-flex align-items-start">
                   <div class="align-self-center me-3">
                     <i class="uil uil-receipt text-primary h2"></i>
                   </div>
@@ -289,42 +352,105 @@
                       Valores de medición del ojo derecho e izquierdo del cliente.
                     </p>
                   </div>
-              </div>
-            </div>
-          </h4>
-          <p class="card-title-desc">Provide valuable, actionable feedback to your users with HTML5 form
-            validation–available in all our supported browsers.</p>
-<!--           <form class="needs-validation" (ngSubmit)="0" [formGroup]="0">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="validationCustom01">First name</label>
-                  <input type="text" class="form-control" id="validationCustom01" formControlName="firstName"
-                    placeholder="First name">
-
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="validationCustom02">Last name</label>
-                  <input type="text" class="form-control" id="validationCustom02" formControlName="lastName"
-                    placeholder="Last name">
+            </h4>
+            <!--             <p class="card-title-desc">Provide valuable, actionable feedback to your users with HTML5 form
+              validation–available in all our supported browsers.</p> -->
+            <div class="border-top py-4">
+              <div class="row">
+                <div class="col-6">
+                  <h5 class="font-size-14 mb-3 d-flex justify-content-center">Ojo Derecho</h5>
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="mb-4">
+                        <label class="form-label" for="billing-OD-ESF">ESF</label>
+                        <input type="text" class="form-control" id="billing-OD-ESF" placeholder="Esfera"
+                          formControlName="{{this.od_esferico}}" />
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="mb-4">
+                        <label class="form-label" for="billing-OD-CYL">CYL</label>
+                        <input type="text" class="form-control" id="billing-OD-CYL" placeholder="Cilindro"
+                          formControlName="{{this.od_cilindrico}}" />
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="mb-4">
+                        <label class="form-label" for="billing-OD-EJE">EJE</label>
+                        <input type="text" class="form-control" id="billing-OD-EJE" placeholder="Eje"
+                          formControlName="{{this.od_eje}}" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <h5 class="font-size-14 mb-3 d-flex justify-content-center">Ojo Izquierdo</h5>
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="mb-4">
+                        <label class="form-label" for="billing-OI-ESF">ESF</label>
+                        <input type="text" class="form-control" id="billing-phone" placeholder="Esfera"
+                          formControlName="{{this.oi_esferico}}" />
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="mb-4">
+                        <label class="form-label" for="billing-OI-CYL">CYL</label>
+                        <input type="text" class="form-control" id="billing-OI-CYL" placeholder="Cilindro"
+                          formControlName="{{this.oi_cilindrico}}" />
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="mb-4">
+                        <label class="form-label" for="billing-OI-EJE">EJE</label>
+                        <input type="text" class="form-control" id="billing-OI-EJE" placeholder="Eje"
+                          formControlName="{{this.oi_eje}}" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h5 class="font-size-14 mb-3 d-flex justify-content-center">Otros</h5>
+              <div class="row">
+                <div class="col-2">
+                  <div class="mb-4">
+                    <label class="form-label" for="billing-DIP">DIP</label>
+                    <input type="text" class="form-control" id="billing-DIP" placeholder="Distancia Interpupilar"
+                      formControlName="{{this.dip}}" />
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="mb-4">
+                    <label class="form-label" for="billing-ADD">ADD</label>
+                    <input type="text" class="form-control" id="billing-ADD" placeholder="Adición"
+                      formControlName="{{this.add}}" />
+                  </div>
+                </div>
+                <div class="col-8">
+                  <div class="mb-4">
+                    <label class="form-label" for="billing-encargado-medicion">Encargado de la
+                      Medición</label>
+                    <input type="text" class="form-control" id="billing-encargado-medicion" placeholder="Encargado"
+                      formControlName="{{this.encargado}}" />
+                  </div>
                 </div>
               </div>
             </div>
-          </form> -->
+          </div>
         </div>
+        <!-- end card -->
+      </div> <!-- end col -->
+    </div>
+  </form>
+  <div class="row my-4">
+    <div class="col">
+      <div class="text-sm-end mt-2 mt-sm-0">
+        <button class="btn btn-success" (click)="guardarCliente()" [disabled]="!formCustomer.valid">
+          <i class="uil uil-user-plus me-1"></i> Registar Cliente
+        </button>
       </div>
-      <!-- end card -->
-    </div> <!-- end col -->
+    </div>
   </div>
-
-
-
-
-
-
-
-
-
-  </div>
+</div>
