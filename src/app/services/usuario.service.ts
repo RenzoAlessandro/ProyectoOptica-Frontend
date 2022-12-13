@@ -33,4 +33,8 @@ export class UsuarioService {
   createSedes(sede:SedesModel): Observable<any> {
     return this.http.post<any>(environment.urlBackend+'createNewSede', sede);
   }
+
+  darBajaUser(idUser:string): Observable<any> {
+    return this.http.put<any>(environment.urlBackend+'darBajaUsuarioById/'+idUser,idUser);
+  }
 }

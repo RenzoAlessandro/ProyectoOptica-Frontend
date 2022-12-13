@@ -1,6 +1,6 @@
 import { Component, OnInit, QueryList, ViewChildren  } from '@angular/core';
 
-import {DecimalPipe} from '@angular/common';
+import {DecimalPipe, formatDate} from '@angular/common';
 import {Observable} from 'rxjs';
 
 import {CustomerService} from './list-users.service';
@@ -9,6 +9,9 @@ import {NgbdSortableHeader, SortEvent} from './sortable.directive';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UsersModel } from 'src/models/user';
+import { SedeService } from 'src/app/services/sede.service';
+import { SedesModel } from 'src/models/sedes';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-list-users',
@@ -31,7 +34,7 @@ export class ListUsersComponent implements OnInit {
     password: string = "campoPassword";
     fechaNacimiento: string = "campoFechaNacimiento";
     repeatPassword: string = "campoRepeatPassword";
-    fechaModificaion: string = "campoFechaModificacion";
+    fechaModificacion: string = "campoFechaModificacion";
     email: string = "campoEmail";
     observaciones: string = "campoObservaciones";
     // bread crumb items
@@ -52,10 +55,14 @@ export class ListUsersComponent implements OnInit {
       { cNombre:3, tNombre: "Contador" }
     ];
     user= new UsersModel;
+  fecha_actual: Date;
+  listSedes: Array<SedesModel>;
+  
   constructor(
     public service: CustomerService,
+    private usuarioService: UsuarioService,
     private modalService: NgbModal, 
-    private fb: FormBuilder
+    private fb: FormBuilder,
     ) {
     this.customers$ = service.customers$;
     this.total$ = service.total$;
@@ -63,6 +70,7 @@ export class ListUsersComponent implements OnInit {
 
   ngOnInit() {
     this.crearFormulario();
+    this.getSedes();
     this.breadCrumbItems = [{ label: 'Usuarios' }, { label: 'Lista de Usuarios', active: true }];
   }
 
@@ -86,9 +94,17 @@ export class ListUsersComponent implements OnInit {
    * @param centerDataModal center modal data
    */
    centerModal(centerDataModal: any, data: UsersModel) {
+    this.fecha_actual = new Date(Date.now());
     this.f(this.dni).setValue(data.dni);
-    this.f(this.fechaModificaion).setValue(data.fecha_modificacion);
+    this.f(this.fechaModificacion).setValue(formatDate(this.fecha_actual,'yyyy-MM-dd','en'));
     this.f(this.nombres).setValue(data.nombres);
+    this.f(this.apellidos).setValue(data.apellidos);
+    this.f(this.fechaNacimiento).setValue(formatDate(data.fecha_nacimiento,'yyyy-MM-dd','en'));
+    this.f(this.telefono).setValue(data.telefono);
+    this.f(this.email).setValue(data.email);
+    this.f('rol').setValue(data.rol);
+    this.f('sede').setValue(data.id_sede);
+    this.f(this.observaciones).setValue(data.observaciones);
     this.modalService.open(centerDataModal, { centered: true,windowClass:'modal-holder' });
   }
   
@@ -149,7 +165,7 @@ closeEventModal() {
       [this.fechaNacimiento]:[null,[
         //Validators.required
       ]],
-      [this.fechaModificaion]:[new Date(Date.now()).toLocaleDateString(),[
+      [this.fechaModificacion]:[{value:null,disabled:true},[
         //Validators.required
       ]],
       sede:[],
@@ -187,5 +203,19 @@ closeEventModal() {
         matchingControl.setErrors(null);
       }
     };
+  }
+
+  getSedes() {
+    this.usuarioService.getSedes().subscribe(res =>{
+      this.listSedes = res;
+    })
+  }
+
+  eliminar(data:UsersModel) {
+    console.log(data.id_usuario)
+    this.usuarioService.darBajaUser(data.id_usuario).subscribe(res => {
+      console.log("usuario borrado");
+
+    });
   }
 }
