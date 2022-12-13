@@ -1,299 +1,300 @@
 <div class="container-fluid">
-    <app-page-title title="Lista de Usuarios" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <app-page-title title="Lista de Usuarios" [breadcrumbItems]="breadCrumbItems"></app-page-title>
 
-    <div class="row mt-2 mb-2">
-      <div class="col-sm-12 col-md-8 justify-content-start">
-        <div class="row mb-2">
-          <div class="col-8 search-box chat-search-box">
-            <div class="position-relative">
-              <input type="text" class="form-control border-light rounded" placeholder="Buscar usuario" name="searchTerm"
-                aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
-              <i class="uil uil-search search-icon"></i>
-            </div>
+  <div class="row mt-2 mb-2">
+    <div class="col-sm-12 col-md-8 justify-content-start">
+      <div class="row mb-2">
+        <div class="col-8 search-box chat-search-box">
+          <div class="position-relative">
+            <input type="text" class="form-control border-light rounded" placeholder="Buscar usuario" name="searchTerm"
+              aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
+            <i class="uil uil-search search-icon"></i>
           </div>
-          <div class="col-4">
-            <div class="btn-group text-md-start">
-              <button type="button" class="btn btn-primary"><i class="uil uil-import" ngbTooltip="Exportar"></i></button>
-              <button type="button" class="btn btn-primary"><i class="uil uil-export" ngbTooltip="Importar"></i></button>
-            </div>
+        </div>
+        <div class="col-4">
+          <div class="btn-group text-md-start">
+            <button type="button" class="btn btn-primary"><i class="uil uil-import" ngbTooltip="Exportar"></i></button>
+            <button type="button" class="btn btn-primary"><i class="uil uil-export" ngbTooltip="Importar"></i></button>
           </div>
         </div>
       </div>
-      <div class="col-sm-12 col-md-4 text-md-end">
-        <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
-          [(ngModel)]="service.pageSize"
-          class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
-          <option [ngValue]="10">10</option>
-          <option [ngValue]="25">25</option>
-          <option [ngValue]="50">50</option>
-          <option [ngValue]="100">100</option>
-        </select> entradas</label></div>
-      </div>
     </div>
+    <div class="col-sm-12 col-md-4 text-md-end">
+      <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
+            [(ngModel)]="service.pageSize"
+            class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+            <option [ngValue]="10">10</option>
+            <option [ngValue]="25">25</option>
+            <option [ngValue]="50">50</option>
+            <option [ngValue]="100">100</option>
+          </select> entradas</label></div>
+    </div>
+  </div>
 
-  
-    <div class="row">
-      <div class="col-12">
-        <div class="table-responsive mb-4">
-          <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-            <form>
-              <table class="table table-centered datatables dt-responsive nowrap table-card-list"
-                style="border-spacing: 0 12px; width: 100%;">
-                <thead>
-                  <tr class="bg-transparent">
-<!--                     <th style="width: 20px;">
+
+  <div class="row">
+    <div class="col-12">
+      <div class="table-responsive mb-4">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+          <form>
+            <table class="table table-centered datatables dt-responsive nowrap table-card-list"
+              style="border-spacing: 0 12px; width: 100%;">
+              <thead>
+                <tr class="bg-transparent">
+                  <!--                     <th style="width: 20px;">
                       <div class="form-check text-center">
                         <input type="checkbox" class="form-check-input" id="customercheck">
                         <label class="form-check-label" for="customercheck"></label>
                       </div>
                     </th> -->
-                    <th scope="col" sortable="id" (sort)="onSort($event)">#</th>
-                    <th scope="col" sortable="nombres" (sort)="onSort($event)">Nombres</th>
-                    <th scope="col" sortable="apellidos" (sort)="onSort($event)">Apellidos</th>
-                    <th scope="col" sortable="dni" (sort)="onSort($event)">DNI</th>
-                    <th scope="col" sortable="rol" (sort)="onSort($event)">Rol</th>
-                    <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th>
-                    <th scope="col" sortable="email" (sort)="onSort($event)">Email</th>
-                    <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de Ingreso</th>
-                    <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let data of customers$ | async">
-<!--                     <td>
+                  <th scope="col" sortable="id" (sort)="onSort($event)">#</th>
+                  <th scope="col" sortable="nombres" (sort)="onSort($event)">Nombres</th>
+                  <th scope="col" sortable="apellidos" (sort)="onSort($event)">Apellidos</th>
+                  <th scope="col" sortable="dni" (sort)="onSort($event)">DNI</th>
+                  <th scope="col" sortable="rol" (sort)="onSort($event)">Rol</th>
+                  <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th>
+                  <th scope="col" sortable="email" (sort)="onSort($event)">Email</th>
+                  <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de Ingreso</th>
+                  <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of customers$ | async">
+                  <!--                     <td>
                       <div class="form-check text-center">
                         <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input" />
                         <label class="form-check-label" for="ordercheck{{data.index}}">&nbsp;</label>
                       </div>
                     </td> -->
-                    <td>
-                      <ngb-highlight [result]="data.index" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <div class="avatar-xs d-inline-block me-2">
-                        <span class="avatar-title rounded-circle bg-light text-body">
-                          {{data.nombres.charAt(0)}}
-                        </span>
-                      </div>
-                      <ngb-highlight [result]="data.nombres" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="data.apellidos" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="data.dni" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="data.rol" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="data.sede" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="data.email" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="data.fecha_creacion| date: 'dd/MM/yyyy'" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <span class="badge bg-pill bg-soft-success font-size-12"
-                        [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
-                    </td>
-                    <td>
-                      <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top" ngbTooltip="Editar"><i
-                          class="uil uil-pen font-size-18"></i></a>
-                      <a href="javascript:void(0);" class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
-                          class="uil uil-trash-alt font-size-18"></i></a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-  
-              <div class="float-end">
-                <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
-                  [pageSize]="service.pageSize">
-                  <ng-template ngbPaginationPrevious>Previous</ng-template>
-                  <ng-template ngbPaginationNext>Next</ng-template>
-                </ngb-pagination>
-              </div>
-  
-            </form>
+                  <td>
+                    <ngb-highlight [result]="data.index" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <div class="avatar-xs d-inline-block me-2">
+                      <span class="avatar-title rounded-circle bg-light text-body">
+                        {{data.nombres.charAt(0)}}
+                      </span>
+                    </div>
+                    <ngb-highlight [result]="data.nombres" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.apellidos" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.dni" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.rol" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.sede" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.email" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.fecha_creacion| date: 'dd/MM/yyyy'"
+                      [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <span class="badge bg-pill bg-soft-success font-size-12"
+                      [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
+                  </td>
+                  <td>
+                    <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top"
+                      ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
+                    <a href="javascript:void(0);" class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
+                        class="uil uil-trash-alt font-size-18"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="float-end">
+              <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                [pageSize]="service.pageSize">
+                <ng-template ngbPaginationPrevious>Previous</ng-template>
+                <ng-template ngbPaginationNext>Next</ng-template>
+              </ngb-pagination>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <!-- end row -->
+</div>
+
+
+<!-- Add New User - Center Modal -->
+<ng-template #centerDataModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-title">Registrar Nuevo Usuario</h5>
+    <button type="button" class="btn-close" (click)="closeEventModal()">
+    </button>
+  </div>
+  <div class="modal-body p-4">
+    <form (ngSubmit)="saveEvent()" [formGroup]="formUser">
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <label class="control-label">DNI</label>
+            <input class="form-control" placeholder="DNI del cliente" type="text" name="title"
+              formControlName="{{this.dni}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+              <span *ngIf="form.title.errors.required">This value is required.</span>
+            </div>
           </div>
         </div>
-  
-  
+        <div class="col-6">
+          <div class="mb-3">
+            <label class="control-label">Fecha de Registro</label>
+            <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
+              formControlName="{{this.fechaModificaion}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+              <span *ngIf="form.title.errors.required">This value is required.</span>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <!-- end row -->
-  </div>
-  
-  
-    <!-- Add New User - Center Modal -->
-    <ng-template #centerDataModal let-modal>
-      <div class="modal-header">
-        <h5 class="modal-title" id="modal-title">Registrar Nuevo Usuario</h5>
-        <button type="button" class="btn-close" (click)="closeEventModal()">
+
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <label class="control-label">Nombres</label>
+            <input class="form-control" placeholder="Nombres del cliente" type="text" name="title"
+              formControlName="{{this.nombres}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+              <span *ngIf="form.title.errors.required">This value is required.</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <label class="control-label">Apellidos</label>
+            <input class="form-control" placeholder="Apellidos del cliente" type="text" name="title"
+              formControlName="{{this.apellidos}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+              <span *ngIf="form.title.errors.required">This value is required.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-3">
+          <div class="mb-3">
+            <label class="control-label">Fecha de Nacimiento</label>
+            <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
+              formControlName="{{this.fechaNacimiento}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+              <span *ngIf="form.title.errors.required">This value is required.</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="mb-3">
+            <label class="control-label">Telefono</label>
+            <input class="form-control" placeholder="Telefono del cliente" type="text" name="title"
+              formControlName="{{this.telefono}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+              <span *ngIf="form.title.errors.required">This value is required.</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <label class="control-label">Correo Electrónico</label>
+            <input class="form-control" placeholder="Correo electrónico" type="email" formControlName="{{this.email}}"
+              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+              <span *ngIf="form.title.errors.required">This value is required.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <label class="control-label">Contraseña</label>
+            <input class="form-control" placeholder="Rol del usuario" type="password" name="password"
+              formControlName="{{this.password}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+              <span *ngIf="form.title.errors.required">This value is required.</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <label class="control-label">Repita Contraseña</label>
+            <input class="form-control" placeholder="Sede del usuario" type="password" name="repeatpassword"
+              formControlName="{{this.repeatPassword}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+              <span *ngIf="form.title.errors.required">This value is required.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="border-top py-2">
+        <div class="d-flex justify-content-center">
+          <h6>Rol y Sede del Usuario</h6>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <div class="mb-3">
+              <label class="control-label">Rol</label>
+              <input class="form-control" placeholder="Rol del usuario" type="text" name="title" formControlName="rol"
+                [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+              <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                <span *ngIf="form.title.errors.required">This value is required.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="mb-3">
+              <label class="control-label">Sede</label>
+              <input class="form-control" placeholder="Sede del usuario" type="text" name="title" formControlName="sede"
+                [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+              <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                <span *ngIf="form.title.errors.required">This value is required.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-top py-2">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="mb-4">
+              <label class="form-label" for="billing-observaciones">Observaciones</label>
+              <textarea class="form-control" id="billing-observaciones" rows="3" placeholder="Ingrese las observaciones"
+                formControlName="{{this.observaciones}}"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="text-end mt-2">
+        <button type="button" class="btn btn-danger" (click)="closeEventModal()">
+          Cerrar
+        </button>
+        <button type="submit" class="btn btn-success ms-1" id="btn-save-event">
+          Guardar
         </button>
       </div>
-      <div class="modal-body p-4">
-        <form (ngSubmit)="saveEvent()" [formGroup]="formUser">
-          <div class="row">
-            <div class="col-6">
-              <div class="mb-3">
-                <label class="control-label">DNI</label>
-                <input class="form-control" placeholder="DNI del cliente" type="text" name="title"
-                  formControlName="{{this.dni}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                  <span *ngIf="form.title.errors.required">This value is required.</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="mb-3">
-                <label class="control-label">Fecha de Registro</label>
-                <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
-                  formControlName="{{this.fechaModificaion}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                  <span *ngIf="form.title.errors.required">This value is required.</span>
-                </div>
-              </div>
-            </div>
-          </div>
-    
-          <div class="row">
-            <div class="col-6">
-              <div class="mb-3">
-                <label class="control-label">Nombres</label>
-                <input class="form-control" placeholder="Nombres del cliente" type="text" name="title"
-                  formControlName="{{this.nombres}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                  <span *ngIf="form.title.errors.required">This value is required.</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="mb-3">
-                <label class="control-label">Apellidos</label>
-                <input class="form-control" placeholder="Apellidos del cliente" type="text" name="title"
-                  formControlName="{{this.apellidos}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                  <span *ngIf="form.title.errors.required">This value is required.</span>
-                </div>
-              </div>
-            </div>
-          </div>
-    
-          <div class="row">
-            <div class="col-3">
-              <div class="mb-3">
-                <label class="control-label">Fecha de Nacimiento</label>
-                <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
-                  formControlName="{{this.fechaNacimiento}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                  <span *ngIf="form.title.errors.required">This value is required.</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="mb-3">
-                <label class="control-label">Telefono</label>
-                <input class="form-control" placeholder="Telefono del cliente" type="text" name="title"
-                  formControlName="{{this.telefono}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                  <span *ngIf="form.title.errors.required">This value is required.</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="mb-3">
-                <label class="control-label">Correo Electrónico</label>
-                <input class="form-control" placeholder="Correo electrónico" type="email"
-                  formControlName="{{this.email}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                  <span *ngIf="form.title.errors.required">This value is required.</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-6">
-              <div class="mb-3">
-                <label class="control-label">Contraseña</label>
-                <input class="form-control" placeholder="Rol del usuario" type="password" name="password"
-                  formControlName="{{this.password}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                  <span *ngIf="form.title.errors.required">This value is required.</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="mb-3">
-                <label class="control-label">Repita Contraseña</label>
-                <input class="form-control" placeholder="Sede del usuario" type="password" name="repeatpassword"
-                  formControlName="{{this.repeatPassword}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                  <span *ngIf="form.title.errors.required">This value is required.</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-
-
-          <div class="border-top py-2">
-            <div class="d-flex justify-content-center">
-              <h6>Rol y Sede del Usuario</h6>
-            </div>
-
-            <div class="row">
-              <div class="col-6">
-                <div class="mb-3">
-                  <label class="control-label">Rol</label>
-                  <input class="form-control" placeholder="Rol del usuario" type="text" name="title"
-                    formControlName="rol" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                  <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                    <span *ngIf="form.title.errors.required">This value is required.</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="mb-3">
-                  <label class="control-label">Sede</label>
-                  <input class="form-control" placeholder="Sede del usuario" type="text" name="title"
-                    formControlName="sede" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                  <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                    <span *ngIf="form.title.errors.required">This value is required.</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="border-top py-2">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="mb-4">
-                  <label class="form-label" for="billing-observaciones">Observaciones</label>
-                  <textarea class="form-control" id="billing-observaciones" rows="3"
-                    placeholder="Ingrese las observaciones" formControlName="{{this.observaciones}}"></textarea>
-                </div>
-              </div>
-            </div>
-          </div>
-    
-    
-          <div class="text-end mt-2">
-            <button type="button" class="btn btn-danger" (click)="closeEventModal()">
-              Cerrar
-            </button>
-            <button type="submit" class="btn btn-success ms-1" id="btn-save-event">
-              Guardar
-            </button>
-          </div>
-        </form>
-      </div>
-      <!-- end modal dialog-->
-    </ng-template>
-    <!-- end modal-->
+    </form>
+  </div>
+  <!-- end modal dialog-->
+</ng-template>
+<!-- end modal-->
