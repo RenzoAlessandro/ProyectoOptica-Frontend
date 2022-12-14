@@ -22,8 +22,8 @@ export class UsuarioService {
     return this.http.post<any>(environment.urlBackend+'createNewUser', user);
   }
 
-  updateUsers(idUser:any): Observable<any> {
-    return this.http.put<any>(environment.urlBackend+'editClientById/', idUser);
+  updateUsers(idUser:string,idPersona:string, user:UsersModel): Observable<any> {
+    return this.http.put<any>(environment.urlBackend+'editUserById/'+idUser+'/'+idPersona, user);
   }
 
   getSedes(): Observable<any> {

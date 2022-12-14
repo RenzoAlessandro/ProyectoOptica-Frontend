@@ -186,7 +186,7 @@
       </div>
 
       <div class="row">
-        <div class="col-6">
+        <div class="col-3">
           <div class="mb-3">
             <label class="control-label">Fecha de Nacimiento</label>
             <input class="form-control" placeholder="Seleccione la fecha" type="date" name="title"
@@ -196,7 +196,7 @@
             </div>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-3">
           <div class="mb-3">
             <label class="control-label">Telefono</label>
             <input class="form-control" placeholder="Telefono del cliente" type="text" name="title"
@@ -206,10 +206,7 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12">
+        <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Correo Electrónico</label>
             <input class="form-control" placeholder="Correo electrónico" type="email" formControlName="{{this.email}}"
@@ -225,7 +222,7 @@
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Contraseña</label>
-            <input class="form-control" placeholder="Rol del usuario" type="password" name="password"
+            <input class="form-control" placeholder="Contraseña" type="password" name="password"
               formControlName="{{this.password}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
@@ -235,7 +232,7 @@
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Repita Contraseña</label>
-            <input class="form-control" placeholder="Sede del usuario" type="password" name="repeatpassword"
+            <input class="form-control" placeholder="Contraseña" type="password" name="repeatpassword"
               formControlName="{{this.repeatPassword}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
@@ -246,42 +243,45 @@
 
 
 
+      <div class="border-top py-2">
+        <div class="d-flex justify-content-center">
+          <h6>Rol y Sede del Usuario</h6>
+        </div>
 
-      <div class="d-flex justify-content-center">
-        <h6>Rol y Sede del Usuario</h6>
-      </div>
-
-      <div class="row">
-        <div class="col-6">
-          <div class="mb-3">
-            <label class="control-label">Rol</label>
-            <ng-select [items]="listRoles" formControlName="rol" placeholder="Seleccione" bindValue="tNombre"
-              bindLabel="tNombre">
-            </ng-select>
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
+        <div class="row">
+          <div class="col-6">
+            <div class="mb-3">
+              <label class="control-label">Rol</label>
+              <ng-select [items]="listRoles" formControlName="rol" placeholder="Seleccione" bindValue="tNombre"
+                bindLabel="tNombre">
+              </ng-select>
+              <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                <span *ngIf="form.title.errors.required">This value is required.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="mb-3">
+              <label class="control-label">Sede</label>
+              <ng-select [items]="listSedes" formControlName="sede" placeholder="Seleccione" bindValue="id_sede"
+                bindLabel="nombre_sede">
+              </ng-select>
+              <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                <span *ngIf="form.title.errors.required">This value is required.</span>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-6">
-          <div class="mb-3">
-            <label class="control-label">Sede</label>
-            <ng-select [items]="listSedes" formControlName="sede" placeholder="Seleccione" bindValue="id_sede"
-              bindLabel="nombre_sede">
-            </ng-select>
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
-          </div>
-        </div>
       </div>
 
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="mb-4">
-            <label class="form-label" for="billing-observaciones">Observaciones</label>
-            <textarea class="form-control" id="billing-observaciones" rows="3" placeholder="Ingrese las observaciones"
-              formControlName="{{this.observaciones}}"></textarea>
+      <div class="border-top py-2">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="mb-4">
+              <label class="form-label" for="billing-observaciones">Observaciones</label>
+              <textarea class="form-control" id="billing-observaciones" rows="3" placeholder="Ingrese las observaciones"
+                formControlName="{{this.observaciones}}"></textarea>
+            </div>
           </div>
         </div>
       </div>
@@ -291,7 +291,7 @@
         <button type="button" class="btn btn-danger" (click)="closeEventModal()">
           Cerrar
         </button>
-        <button type="submit" class="btn btn-success ms-1" id="btn-save-event">
+        <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="updateUser()">
           Guardar
         </button>
       </div>

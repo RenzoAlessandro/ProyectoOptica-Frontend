@@ -129,6 +129,9 @@ export class AdduserComponent implements OnInit {
       this.user.rol = this.f('rol').value;
       this.user.telefono = this.f(this.telefono).value;
       this.user.id_sede = this.f('sede').value;
+      this.user.observaciones = this.f(this.observaciones).value;
+      this.user.email = this.f(this.email).value;
+      this.user.contrasenia = this.f(this.password).value;
       console.log(this.user);
       this.usuarioService.createUsers(this.user).subscribe( res=>{
         console.log("registrado ok")

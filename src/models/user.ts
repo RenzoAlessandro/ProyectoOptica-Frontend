@@ -1,5 +1,6 @@
 export class UsersModel {
     id_usuario?:string;
+    id_persona?:string;
     nombres: string;
     apellidos: string;
     dni: string;
@@ -13,4 +14,5 @@ export class UsersModel {
     contrasenia: string;
     email: string;
     observaciones:string
+    prueba: string;
 }

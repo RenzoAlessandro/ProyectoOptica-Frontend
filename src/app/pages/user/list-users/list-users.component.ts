@@ -55,8 +55,8 @@ export class ListUsersComponent implements OnInit {
       { cNombre:3, tNombre: "Contador" }
     ];
     user= new UsersModel;
-  fecha_actual: Date;
-  listSedes: Array<SedesModel>;
+    fecha_actual: Date;
+    listSedes: Array<SedesModel>;
   
   constructor(
     public service: CustomerService,
@@ -105,7 +105,9 @@ export class ListUsersComponent implements OnInit {
     this.f('rol').setValue(data.rol);
     this.f('sede').setValue(data.id_sede);
     this.f(this.observaciones).setValue(data.observaciones);
-    this.modalService.open(centerDataModal, { centered: true,windowClass:'modal-holder' });
+    this.user.id_usuario = data.id_usuario;
+    this.user.id_persona = data.id_persona;
+    this.modalService.open(centerDataModal, { centered: true, size: 'lg', windowClass:'modal-holder' });
   }
   
     /**
@@ -217,5 +219,30 @@ closeEventModal() {
       console.log("usuario borrado");
 
     });
+  }
+
+  updateUser() {
+    if (this.formUser.valid) {
+      this.user.dni = this.f(this.dni).value;
+      this.user.fecha_modificacion = this.fecha_actual;
+      this.user.nombres = this.f(this.nombres).value;
+      this.user.apellidos = this.f(this.apellidos).value;
+      const fch_nac = new Date(this.f(this.fechaNacimiento).value);
+      this.user.fecha_nacimiento = fch_nac;
+      this.user.telefono = this.f(this.telefono).value;
+      this.user.email = this.f(this.email).value;
+      this.user.rol = this.f('rol').value;
+      this.user.id_sede = this.f('sede').value;
+      this.user.observaciones = this.f(this.observaciones).value;
+      this.user.contrasenia = this.f(this.password).value;
+      console.log(this.user);
+
+      this.usuarioService.updateUsers(this.user.id_usuario,this.user.id_persona,this.user).subscribe(res=>{
+        console.log(res);
+        console.log('actualizado');
+      }); 
+    } else {
+      
+    }
   }
 }

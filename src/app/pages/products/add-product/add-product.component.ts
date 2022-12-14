@@ -49,6 +49,7 @@ export class AddProductComponent implements OnInit {
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
+  fecha_actual: any;
 
   constructor(
     private fb: FormBuilder,
@@ -61,6 +62,7 @@ export class AddProductComponent implements OnInit {
   }
 
   crearFormulario() {
+    this.fecha_actual = new Date(Date.now());
     this.formMonturas = this.fb.group({
       [this.material_montura]:[],
       [this.marca_montura]:[],
@@ -70,7 +72,7 @@ export class AddProductComponent implements OnInit {
       [this.cantidad_montura]:[],
       [this.precio_compra_montura]:[],
       [this.precio_venta_montura]:[],
-      [this.fecha_registro_montura]:[],
+      [this.fecha_registro_montura]:[{value:this.fecha_actual.toLocaleDateString(), disabled:true}],
       [this.fecha_modificacion_montura]:[],
     })
 
@@ -164,7 +166,7 @@ export class AddProductComponent implements OnInit {
       this.monturas.codigo = this.fM(this.codigo_montura).value;
       this.monturas.precio_montura_c = Number(this.fM(this.precio_compra_montura).value);
       this.monturas.precio_montura_v = Number(this.fM(this.precio_venta_montura).value);
-      this.monturas.fecha_creacion_monturas = new Date();
+      this.monturas.fecha_creacion_monturas = new Date(Date.now());
       this.monturas.fecha_modificacion_monturas = new Date()
       this.monturas.cantidad = Number(this.fM(this.cantidad_montura).value);
       this.monturas.id_sede = "por confirmar";
