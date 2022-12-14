@@ -123,6 +123,15 @@ export class ListCustomersComponent implements OnInit {
       this.modalService.open(centerDataModal, { centered: true, size: 'lg'});
     }
 
+    /**
+     * Open Large modal
+     * @param centerModal_Info large modal data
+     */
+    centerModal_Info(centerModal_Info: any) {
+      this.modalService.open(centerModal_Info, { size: 'lg',windowClass:'modal-holder', centered: true });
+    }
+
+
       /**
    * Delete event
    */

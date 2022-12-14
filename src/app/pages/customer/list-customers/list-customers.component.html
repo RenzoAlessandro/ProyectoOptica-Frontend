@@ -22,13 +22,13 @@
     </div>
     <div class="col-sm-12 col-md-4 text-md-end">
       <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
-        [(ngModel)]="service.pageSize"
-        class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
-        <option [ngValue]="10">10</option>
-        <option [ngValue]="25">25</option>
-        <option [ngValue]="50">50</option>
-        <option [ngValue]="100">100</option>
-      </select> entradas</label></div>
+            [(ngModel)]="service.pageSize"
+            class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+            <option [ngValue]="10">10</option>
+            <option [ngValue]="25">25</option>
+            <option [ngValue]="50">50</option>
+            <option [ngValue]="100">100</option>
+          </select> entradas</label></div>
     </div>
   </div>
 
@@ -99,9 +99,9 @@
                         [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
                     </td> -->
                   <td>
-                    <a href="javascript:void(0);" class="px-2 text-info" placement="top" ngbTooltip="Info"><i
+                    <a (click)="centerModal(centerDataModalMeasurementsCustomer,data)"class="px-2 text-info" placement="top" ngbTooltip="Receta"><i
                         class="uil uil-info-circle font-size-18"></i></a>
-                    <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top"
+                    <a (click)="centerModal(centerDataModalEditCustomer,data)" class="px-2 text-primary" placement="top"
                       ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
                     <a href="javascript:void(0);" class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
                         class="uil uil-trash-alt font-size-18"></i></a>
@@ -129,8 +129,155 @@
 </div>
 
 
-<!-- Add New Customer - Center Modal -->
-<ng-template #centerDataModal let-modal>
+<!-- See Ophthalmic Measurements Customer - Center Modal -->
+<ng-template #centerDataModalMeasurementsCustomer let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Receta Oftalmológica</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="0">
+      <div class="row">
+        <div class="col-6">
+          <div class="d-flex justify-content-start">
+            <h6>Ojo Derecho</h6>
+          </div>
+
+          <div class="row">
+            <div class="col-4">
+              <div class="mb-3">
+                <label class="control-label">ESF</label>
+                <input class="form-control" placeholder="Esfera" type="text" formControlName="{{this.od_esferico}}"
+                  [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="mb-3">
+                <label class="control-label">CYL</label>
+                <input class="form-control" placeholder="Cilindro" type="text"
+                  formControlName="{{this.od_cilindrico}}"
+                  [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="mb-3">
+                <label class="control-label">EJE</label>
+                <input class="form-control" placeholder="Eje" type="text" formControlName="{{this.od_eje}}"
+                  [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="d-flex justify-content-start">
+            <h6>Ojo Izquierdo</h6>
+          </div>
+
+          <div class="row">
+            <div class="col-4">
+              <div class="mb-3">
+                <label class="control-label">ESF</label>
+                <input class="form-control" placeholder="Esfera" type="text" formControlName="{{this.oi_esferico}}"
+                  [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="mb-3">
+                <label class="control-label">CYL</label>
+                <input class="form-control" placeholder="Cilindro" type="text"
+                  formControlName="{{this.oi_cilindrico}}"
+                  [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="mb-3">
+                <label class="control-label">EJE</label>
+                <input class="form-control" placeholder="Eje" type="text" formControlName="{{this.oi_eje}}"
+                  [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                  <span *ngIf="form.title.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-3">
+          <div class="mb-3">
+            <label class="control-label">DIP</label>
+            <input class="form-control" placeholder="Distancia Interpupilar" type="text" formControlName="{{this.dip}}"
+              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+              <span *ngIf="form.title.errors.required">This value is required.</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="mb-3">
+            <label class="control-label">ADD</label>
+            <input class="form-control" placeholder="Adición" type="text" formControlName="{{this.add}}"
+              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+              <span *ngIf="form.title.errors.required">This value is required.</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <label class="control-label">Encargado de la Medición</label>
+            <input class="form-control" placeholder="Nombres y apellidos del Oftometra" type="text"
+              formControlName="{{this.encargado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+              <span *ngIf="form.title.errors.required">This value is required.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-top py-2">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="mb-3">
+              <label class="form-label" for="billing-observaciones">Antecedentes</label>
+              <textarea class="form-control" id="billing-observaciones" rows="3"
+                placeholder="Ingrese los antecedentes del cliente" formControlName="{{this.antecedentes}}"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-end mt-2">
+        <button type="button" class="btn btn-danger" (click)="closeEventModal()">
+          Cerrar
+        </button>
+        <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light me-1"><i class="fa fa-print"></i></a>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+
+<!-- Edit Customer - Center Modal -->
+<ng-template #centerDataModalEditCustomer let-modal>
   <div class="modal-header">
     <h5 class="modal-title" id="modal-title">Registrar Nuevo Cliente</h5>
     <button type="button" class="btn-close" (click)="closeEventModal()">
@@ -153,7 +300,8 @@
           <div class="mb-3">
             <label class="control-label">Fecha de Registro</label>
             <input class="form-control" placeholder="Seleccione la fecha" type="text"
-              formControlName="{{this.fecha_modificacion}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+              formControlName="{{this.fecha_modificacion}}"
+              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <!-- <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
             </div> -->
@@ -208,8 +356,8 @@
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Correo Electrónico</label>
-            <input class="form-control" placeholder="Correo electrónico" type="email"
-              formControlName="{{this.email}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+            <input class="form-control" placeholder="Correo electrónico" type="email" formControlName="{{this.email}}"
+              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>
             </div>
@@ -227,7 +375,7 @@
             <div class="d-flex justify-content-start">
               <h6>Ojo Derecho</h6>
             </div>
-      
+
             <div class="row">
               <div class="col-4">
                 <div class="mb-3">
@@ -242,7 +390,8 @@
               <div class="col-4">
                 <div class="mb-3">
                   <label class="control-label">CYL</label>
-                  <input class="form-control" placeholder="Cilindro" type="text" formControlName="{{this.od_cilindrico}}"
+                  <input class="form-control" placeholder="Cilindro" type="text"
+                    formControlName="{{this.od_cilindrico}}"
                     [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                   <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                     <span *ngIf="form.title.errors.required">This value is required.</span>
@@ -266,7 +415,7 @@
             <div class="d-flex justify-content-start">
               <h6>Ojo Izquierdo</h6>
             </div>
-      
+
             <div class="row">
               <div class="col-4">
                 <div class="mb-3">
@@ -281,7 +430,8 @@
               <div class="col-4">
                 <div class="mb-3">
                   <label class="control-label">CYL</label>
-                  <input class="form-control" placeholder="Cilindro" type="text" formControlName="{{this.oi_cilindrico}}"
+                  <input class="form-control" placeholder="Cilindro" type="text"
+                    formControlName="{{this.oi_cilindrico}}"
                     [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                   <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
                     <span *ngIf="form.title.errors.required">This value is required.</span>
@@ -299,7 +449,7 @@
                 </div>
               </div>
             </div>
-            
+
           </div>
         </div>
       </div>
