@@ -41,4 +41,8 @@ export class ProductosService {
   createVenta(venta:VentasModel): Observable<any> {
     return this.http.post<any>(environment.urlBackend+'createNewVenta',venta);
   }
+
+  darBajaMontura(idMontura: string): Observable<any> {
+    return this.http.put<any>(environment.urlBackend+'unsubscribeMonturasById/'+idMontura,idMontura);
+  }
 }

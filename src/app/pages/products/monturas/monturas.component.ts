@@ -7,6 +7,7 @@ import {NgbdSortableHeader, SortEvent} from './sortable.directive';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MonturasModel } from 'src/models/monturas';
+import { ProductosService } from 'src/app/services/productos.service';
 
 @Component({
   selector: 'app-monturas',
@@ -31,6 +32,7 @@ export class MonturasComponent implements OnInit {
   
 
   constructor(public service: CustomerService,
+    private monturaService: ProductosService,
     private modalService: NgbModal, 
     private formBuilder: FormBuilder) {
     this.customers$ = service.customers$;
@@ -89,5 +91,14 @@ export class MonturasComponent implements OnInit {
 
     }
     this.submitted = true;
+  }
+
+
+  eliminar(data:MonturasModel) {
+    console.log(data)
+    this.monturaService.darBajaMontura(data.id_montura).subscribe(res => {
+      console.log("montura borrado");
+
+    });
   }
 }

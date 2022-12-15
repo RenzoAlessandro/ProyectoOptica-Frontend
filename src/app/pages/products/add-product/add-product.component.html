@@ -1,272 +1,381 @@
 <div class="container-fluid">
-    <app-page-title title="Registrar un Producto" [breadcrumbItems]="breadCrumbItems"></app-page-title>
-  
-    <div class="row mb-4">  
-      <div class="col-xl-12">
-        <div class="card mb-0">
-          <!-- Nav tabs -->
-          <ul ngbNav #justifiednav="ngbNav" [activeId]="1" class="nav nav-tabs nav-justified nav-tabs-custom">
-            <li [ngbNavItem]="1" class="nav-item">
-              <a ngbNavLink class="nav-link">
-                <i class="uil uil-nerd font-size-20"></i>
-                <span class="d-none d-sm-block">Montura</span>
-              </a>
-              <ng-template ngbNavContent>
-                <ng-template [ngTemplateOutlet]="TabContentAbout"></ng-template>
-              </ng-template>
-            </li>
-            <li [ngbNavItem]="2" class="nav-item">
-              <a ngbNavLink class="nav-link">
-                <i class="uil uil-panorama-h-alt font-size-20"></i>
-                <span class="d-none d-sm-block">Luna</span>
-              </a>
-              <ng-template ngbNavContent>
-                <ng-template [ngTemplateOutlet]="TabContentTasks"></ng-template>
-              </ng-template>
-            </li>
-            <li [ngbNavItem]="3" class="nav-item">
-              <a ngbNavLink class="nav-link">
-                <i class="uil uil-box font-size-20"></i>
-                <span class="d-none d-sm-block">Accesorio</span>
-              </a>
-              <ng-template ngbNavContent>
-                <ng-template [ngTemplateOutlet]="TabContentMessages"></ng-template>
-              </ng-template>
-            </li>
-          </ul>
-          <div [ngbNavOutlet]="justifiednav"></div>
-        </div>
-  
-        <!-- Tab content -->
-        <ng-template #TabContentAbout>
-          <div class="tab-content p-4">
-            <div class="tab-pane active">
-              <div>
-                <form (ngSubmit)="saveEvent()" [formGroup]="formMonturas">
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="mb-3">
-                        <label class="control-label">Fecha</label>
-                        <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
-                          formControlName="{{this.fecha_registro_montura}}"   />
-                        
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="mb-3">
-                        <label class="control-label">Material</label>
-                        <input class="form-control" placeholder="Material de la montura" type="text" name="title"
-                          formControlName="{{this.material_montura}}"   />
-                        
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="mb-3">
-                        <label class="control-label">Marca</label>
-                        <input class="form-control" placeholder="Marca de la montura" type="text" name="title"
-                          formControlName="{{this.marca_montura}}"   />
-                        
-                      </div>
-                    </div>
-                  </div>
-        
-                  <div class="row">
-                    <div class="col-4">
-                      <div class="mb-3">
-                        <label class="control-label">Código</label>
-                        <input class="form-control" placeholder="Código" type="text" name="title"
-                          formControlName="{{this.codigo_montura}}"   />
-                        
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="mb-3">
-                        <label class="control-label">Código Interno</label>
-                        <input class="form-control" placeholder="Código" type="text" name="title"
-                          formControlName="{{this.codigo_interno_montura}}"   />
-                        
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="mb-3">
-                        <label class="control-label">Talla</label>
-                        <input class="form-control" placeholder="Talla de la montura" type="text" name="title"
-                          formControlName="{{this.talla_montura}}"   />
-                        
-                      </div>
-                    </div>
-                  </div>
-        
-                  <div class="row">
-                    <div class="col-4">
-                      <div class="mb-3">
-                        <label class="control-label">Cantidad</label>
-                        <input class="form-control" placeholder="Cantidad" type="text" name="title"
-                          formControlName="{{this.cantidad_montura}}"   />
-                        
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="mb-3">
-                        <label class="control-label">Precio de Compra</label>
-                        <input class="form-control" placeholder="Precio" type="text" name="title"
-                          formControlName="{{this.precio_compra_montura}}"   />
-                        
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="mb-3">
-                        <label class="control-label">Precio de Venta</label>
-                        <input class="form-control" placeholder="Precio" type="text" name="title"
-                          formControlName="{{this.precio_venta_montura}}"   />
-                        
-                      </div>
-                    </div>
-                  </div>
-          
-                  <div class="text-end mt-2">
-                    <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="guardarMonturas()">
-                      Registrar
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </ng-template>
-  
-        <ng-template #TabContentTasks>
-          <div class="tab-content p-4">
-            <div class="tab-pane active">
-              <div>
-                <form (ngSubmit)="saveEvent()" [formGroup]="formLunas">
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="mb-3">
-                        <label class="control-label">Fecha</label>
-                        <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
-                          formControlName="{{this.fecha_registro_luna}}"   />
-                        
-                      </div>
-                    </div>
-                  </div>
-            
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="mb-3">
-                        <label class="control-label">Material</label>
-                        <input class="form-control" placeholder="Material de la luna" type="text" name="title"
-                          formControlName="{{this.material_luna}}"   />
-                      </div>
-                    </div>
-                  </div>
-            
-                  <div class="row">
-                    <div class="col-4">
-                      <div class="mb-3">
-                        <label class="control-label">Cantidad</label>
-                        <input class="form-control" placeholder="Cantidad" type="text" name="title"
-                          formControlName="{{this.cantidad_luna}}"   />
-                        
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="mb-3">
-                        <label class="control-label">Precio de Compra</label>
-                        <input class="form-control" placeholder="Precio" type="text" name="title"
-                          formControlName="{{this.precio_compra_luna}}"   />
-                        
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="mb-3">
-                        <label class="control-label">Precio de Venta</label>
-                        <input class="form-control" placeholder="Precio" type="text" name="title"
-                          formControlName="{{this.precio_venta_luna}}"   />
-                        
-                      </div>
-                    </div>
-                  </div>
-          
-                  <div class="text-end mt-2">
-                    <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="guardarLunas()">
-                      Registrar
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </ng-template>
-  
-        <ng-template #TabContentMessages>
-          <div class="tab-content p-4">
-            <div class="tab-pane active">
-              <div>
-                <form (ngSubmit)="saveEvent()" [formGroup]="formAccesorios">
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="mb-3">
-                        <label class="control-label">Fecha</label>
-                        <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
-                          formControlName="{{this.fecha_registro_accesorio}}" />
-  
-                      </div>
-                    </div>
-                  </div>
-            
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="mb-3">
-                        <label class="control-label">Nombre del Accesorio</label>
-                        <input class="form-control" placeholder="Accesorio" type="text" name="accesorio"
-                          formControlName="{{this.nombre_accesorio}}" />
-                        
-                      </div>
-                    </div>
-                  </div>
-            
-                  <div class="row">
-                    <div class="col-4">
-                      <div class="mb-3">
-                        <label class="control-label">Cantidad</label>
-                        <input class="form-control" placeholder="Cantidad" type="text" name="cantidad"
-                          formControlName="{{this.cantidad_accesorio}}" />
-                        
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="mb-3">
-                        <label class="control-label">Precio de Compra</label>
-                        <input class="form-control" placeholder="Precio" type="text" name="accesorio_compra"
-                          formControlName="{{this.precio_compra_accesorio}}"  />
-                        
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="mb-3">
-                        <label class="control-label">Precio de Venta</label>
-                        <input class="form-control" placeholder="Precio" type="text" name="accesorio_venta"
-                          formControlName="{{this.precio_venta_accesorio}}" />
-                        
-                      </div>
-                    </div>
-                  </div>
+  <app-page-title title="Registrar un Producto" [breadcrumbItems]="breadCrumbItems"></app-page-title>
 
-                  <div class="text-end mt-2">
-                    <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="guardarAccesorios()">
-                      Registrar
-                    </button>
+  <div class="row mb-4">
+    <div class="col-xl-12">
+      <div class="card mb-0">
+        <!-- Nav tabs -->
+        <ul ngbNav #justifiednav="ngbNav" [activeId]="1" class="nav nav-tabs nav-justified nav-tabs-custom">
+          <li [ngbNavItem]="1" class="nav-item">
+            <a ngbNavLink class="nav-link">
+              <i class="uil uil-nerd font-size-20"></i>
+              <span class="d-none d-sm-block">Montura</span>
+            </a>
+            <ng-template ngbNavContent>
+              <ng-template [ngTemplateOutlet]="TabContentAbout"></ng-template>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2" class="nav-item">
+            <a ngbNavLink class="nav-link">
+              <i class="uil uil-panorama-h-alt font-size-20"></i>
+              <span class="d-none d-sm-block">Luna</span>
+            </a>
+            <ng-template ngbNavContent>
+              <ng-template [ngTemplateOutlet]="TabContentTasks"></ng-template>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="3" class="nav-item">
+            <a ngbNavLink class="nav-link">
+              <i class="uil uil-box font-size-20"></i>
+              <span class="d-none d-sm-block">Accesorio</span>
+            </a>
+            <ng-template ngbNavContent>
+              <ng-template [ngTemplateOutlet]="TabContentMessages"></ng-template>
+            </ng-template>
+          </li>
+        </ul>
+        <div [ngbNavOutlet]="justifiednav"></div>
+      </div>
+
+      <!-- Tab content -->
+      <ng-template #TabContentAbout>
+        <div class="tab-content p-4">
+          <div class="tab-pane active">
+            <div>
+              <form (ngSubmit)="saveEvent()" [formGroup]="formMonturas">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="mb-3">
+                      <label class="control-label">Fecha</label>
+                      <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
+                        formControlName="{{this.fecha_registro_montura}}" />
+                    </div>
                   </div>
-                </form>
-              </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <div class="mb-3">
+                      <label class="control-label">Material</label>
+                      <input class="form-control" placeholder="Material de la montura" type="text" name="title"
+                        formControlName="{{this.material_montura}}" />
+                      <div class="text-danger"
+                        *ngIf="formMonturas.controls['campoMaterialMontura'].invalid && (formMonturas.controls['campoMaterialMontura'].dirty || formMonturas.controls['campoMaterialMontura'].touched)">
+                        <div class="text-danger" *ngIf="formMonturas.controls['campoMaterialMontura'].errors.required">
+                          Campo requerido
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="mb-3">
+                      <label class="control-label">Marca</label>
+                      <input class="form-control" placeholder="Marca de la montura" type="text" name="title"
+                        formControlName="{{this.marca_montura}}" />
+                      <div class="text-danger"
+                        *ngIf="formMonturas.controls['campoMarcaMontura'].invalid && (formMonturas.controls['campoMarcaMontura'].dirty || formMonturas.controls['campoMarcaMontura'].touched)">
+                        <div class="text-danger" *ngIf="formMonturas.controls['campoMarcaMontura'].errors.required">
+                          Campo requerido
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Código</label>
+                      <input class="form-control" placeholder="Código" type="text" name="title"
+                        formControlName="{{this.codigo_montura}}" />
+                      <div class="text-danger"
+                        *ngIf="formMonturas.controls['campoCodigoMontura'].invalid && (formMonturas.controls['campoCodigoMontura'].dirty || formMonturas.controls['campoCodigoMontura'].touched)">
+                        <div class="text-danger" *ngIf="formMonturas.controls['campoCodigoMontura'].errors.required">
+                          Campo requerido
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Código Interno</label>
+                      <input class="form-control" placeholder="Código" type="text" name="title"
+                        formControlName="{{this.codigo_interno_montura}}" />
+                      <div class="text-danger"
+                        *ngIf="formMonturas.controls['campoInternoMontura'].invalid && (formMonturas.controls['campoInternoMontura'].dirty || formMonturas.controls['campoInternoMontura'].touched)">
+                        <div class="text-danger" *ngIf="formMonturas.controls['campoInternoMontura'].errors.required">
+                          Campo requerido
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Talla</label>
+                      <input class="form-control" placeholder="Talla de la montura" type="text" name="title"
+                        formControlName="{{this.talla_montura}}" />
+                      <div class="text-danger"
+                        *ngIf="formMonturas.controls['campoTallaMontura'].invalid && (formMonturas.controls['campoTallaMontura'].dirty || formMonturas.controls['campoTallaMontura'].touched)">
+                        <div class="text-danger" *ngIf="formMonturas.controls['campoTallaMontura'].errors.required">
+                          Campo requerido
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Cantidad</label>
+                      <input class="form-control" placeholder="Cantidad" type="text" name="title"
+                        formControlName="{{this.cantidad_montura}}" />
+                      <div class="text-danger"
+                        *ngIf="formMonturas.controls['campoCantidadMontura'].invalid && (formMonturas.controls['campoCantidadMontura'].dirty || formMonturas.controls['campoCantidadMontura'].touched)">
+                        <div class="text-danger" *ngIf="formMonturas.controls['campoCantidadMontura'].errors.required">
+                          Campo requerido
+                        </div>
+                        <div class="text-danger" *ngIf="formMonturas.controls['campoCantidadMontura'].errors.pattern">
+                          Ingrese solo números enteros
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Precio de Compra</label>
+                      <input class="form-control" placeholder="Precio" type="text" name="title"
+                        formControlName="{{this.precio_compra_montura}}" />
+                      <div class="text-danger"
+                        *ngIf="formMonturas.controls['campoCompraMontura'].invalid && (formMonturas.controls['campoCompraMontura'].dirty || formMonturas.controls['campoCompraMontura'].touched)">
+                        <div class="text-danger" *ngIf="formMonturas.controls['campoCompraMontura'].errors.required">
+                          Campo requerido
+                        </div>
+                        <div class="text-danger" *ngIf="formMonturas.controls['campoCompraMontura'].errors.pattern">
+                          Ingrese solo números y opcional hasta 2 decimales
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Precio de Venta</label>
+                      <input class="form-control" placeholder="Precio" type="text" name="title"
+                        formControlName="{{this.precio_venta_montura}}" />
+                      <div class="text-danger"
+                        *ngIf="formMonturas.controls['campoVentaMontura'].invalid && (formMonturas.controls['campoVentaMontura'].dirty || formMonturas.controls['campoVentaMontura'].touched)">
+                        <div class="text-danger" *ngIf="formMonturas.controls['campoVentaMontura'].errors.required">
+                          Campo requerido
+                        </div>
+                        <div class="text-danger" *ngIf="formMonturas.controls['campoVentaMontura'].errors.pattern">
+                          Ingrese solo números y opcional hasta 2 decimales
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-end mt-2">
+                  <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="guardarMonturas()"
+                    [disabled]="!formMonturas.valid">
+                    Registrar
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
-        </ng-template>
-      </div>
+        </div>
+      </ng-template>
+
+      <ng-template #TabContentTasks>
+        <div class="tab-content p-4">
+          <div class="tab-pane active">
+            <div>
+              <form (ngSubmit)="saveEvent()" [formGroup]="formLunas">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="mb-3">
+                      <label class="control-label">Fecha</label>
+                      <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
+                        formControlName="{{this.fecha_registro_luna}}" />
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <div class="mb-3">
+                      <label class="control-label">Material</label>
+                      <input class="form-control" placeholder="Material de la luna" type="text" name="title"
+                        formControlName="{{this.material_luna}}" />
+                      <div class="text-danger"
+                        *ngIf="formLunas.controls['campoMaterialLuna'].invalid && (formLunas.controls['campoMaterialLuna'].dirty || formLunas.controls['campoMaterialLuna'].touched)">
+                        <div class="text-danger" *ngIf="formLunas.controls['campoMaterialLuna'].errors.required">
+                          Campo requerido
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Cantidad</label>
+                      <input class="form-control" placeholder="Cantidad" type="text" name="title"
+                        formControlName="{{this.cantidad_luna}}" />
+                      <div class="text-danger"
+                        *ngIf="formLunas.controls['campoCantidadLuna'].invalid && (formLunas.controls['campoCantidadLuna'].dirty || formLunas.controls['campoCantidadLuna'].touched)">
+                        <div class="text-danger" *ngIf="formLunas.controls['campoCantidadLuna'].errors.required">
+                          Campo requerido
+                        </div>
+                        <div class="text-danger" *ngIf="formLunas.controls['campoCantidadLuna'].errors.pattern">
+                          Ingrese solo números enteros
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Precio de Compra</label>
+                      <input class="form-control" placeholder="Precio" type="text" name="title"
+                        formControlName="{{this.precio_compra_luna}}" />
+                      <div class="text-danger"
+                        *ngIf="formLunas.controls['campoCompraLuna'].invalid && (formLunas.controls['campoCompraLuna'].dirty || formLunas.controls['campoCompraLuna'].touched)">
+                        <div class="text-danger" *ngIf="formLunas.controls['campoCompraLuna'].errors.required">
+                          Campo requerido
+                        </div>
+                        <div class="text-danger" *ngIf="formLunas.controls['campoCompraLuna'].errors.pattern">
+                          Ingrese solo números y opcional hasta 2 decimales
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Precio de Venta</label>
+                      <input class="form-control" placeholder="Precio" type="text" name="title"
+                        formControlName="{{this.precio_venta_luna}}" />
+                      <div class="text-danger"
+                        *ngIf="formLunas.controls['campoVentaLuna'].invalid && (formLunas.controls['campoVentaLuna'].dirty || formLunas.controls['campoVentaLuna'].touched)">
+                        <div class="text-danger" *ngIf="formLunas.controls['campoVentaLuna'].errors.required">
+                          Campo requerido
+                        </div>
+                        <div class="text-danger" *ngIf="formLunas.controls['campoVentaLuna'].errors.pattern">
+                          Ingrese solo números y opcional hasta 2 decimales
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-end mt-2">
+                  <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="guardarLunas()"
+                    [disabled]="!formLunas.valid">
+                    Registrar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #TabContentMessages>
+        <div class="tab-content p-4">
+          <div class="tab-pane active">
+            <div>
+              <form (ngSubmit)="saveEvent()" [formGroup]="formAccesorios">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="mb-3">
+                      <label class="control-label">Fecha</label>
+                      <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
+                        formControlName="{{this.fecha_registro_accesorio}}" />
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <div class="mb-3">
+                      <label class="control-label">Nombre del Accesorio</label>
+                      <input class="form-control" placeholder="Accesorio" type="text" name="accesorio"
+                        formControlName="{{this.nombre_accesorio}}" />
+                      <div class="text-danger"
+                        *ngIf="formAccesorios.controls['campoNombreAccesorio'].invalid && (formAccesorios.controls['campoNombreAccesorio'].dirty || formAccesorios.controls['campoNombreAccesorio'].touched)">
+                        <div class="text-danger" *ngIf="formAccesorios.controls['campoNombreAccesorio'].errors.required">
+                          Campo requerido
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Cantidad</label>
+                      <input class="form-control" placeholder="Cantidad" type="text" name="cantidad"
+                        formControlName="{{this.cantidad_accesorio}}" />
+                      <div class="text-danger"
+                        *ngIf="formAccesorios.controls['campoCantidadAccesorio'].invalid && (formAccesorios.controls['campoCantidadAccesorio'].dirty || formAccesorios.controls['campoCantidadAccesorio'].touched)">
+                        <div class="text-danger" *ngIf="formAccesorios.controls['campoCantidadAccesorio'].errors.required">
+                          Campo requerido
+                        </div>
+                        <div class="text-danger" *ngIf="formAccesorios.controls['campoCantidadAccesorio'].errors.pattern">
+                          Ingrese solo números enteros
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Precio de Compra</label>
+                      <input class="form-control" placeholder="Precio" type="text" name="accesorio_compra"
+                        formControlName="{{this.precio_compra_accesorio}}" />
+                      <div class="text-danger"
+                        *ngIf="formAccesorios.controls['campoCompraAccesorio'].invalid && (formAccesorios.controls['campoCompraAccesorio'].dirty || formAccesorios.controls['campoCompraAccesorio'].touched)">
+                        <div class="text-danger" *ngIf="formAccesorios.controls['campoCompraAccesorio'].errors.required">
+                          Campo requerido
+                        </div>
+                        <div class="text-danger" *ngIf="formAccesorios.controls['campoCompraAccesorio'].errors.pattern">
+                          Ingrese solo números y opcional hasta 2 decimales
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Precio de Venta</label>
+                      <input class="form-control" placeholder="Precio" type="text" name="accesorio_venta"
+                        formControlName="{{this.precio_venta_accesorio}}" />
+                      <div class="text-danger"
+                        *ngIf="formAccesorios.controls['campoVentaAccesorio'].invalid && (formAccesorios.controls['campoVentaAccesorio'].dirty || formAccesorios.controls['campoVentaAccesorio'].touched)">
+                        <div class="text-danger" *ngIf="formAccesorios.controls['campoVentaAccesorio'].errors.required">
+                          Campo requerido
+                        </div>
+                        <div class="text-danger" *ngIf="formAccesorios.controls['campoVentaAccesorio'].errors.pattern">
+                          Ingrese solo números y opcional hasta 2 decimales
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-end mt-2">
+                  <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="guardarAccesorios()" [disabled]="!formAccesorios.valid">
+                    Registrar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </ng-template>
     </div>
-    <!-- end row -->
   </div>
+  <!-- end row -->
+</div>

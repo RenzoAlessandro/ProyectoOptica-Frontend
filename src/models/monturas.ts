@@ -1,4 +1,5 @@
 export class MonturasModel {
+    id_montura?: string;
     material: string;
     marca: string;
     talla: string;
