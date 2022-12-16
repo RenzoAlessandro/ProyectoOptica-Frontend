@@ -99,8 +99,8 @@
                         [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
                     </td> -->
                   <td>
-                    <a (click)="centerModal(centerDataModalMeasurementsCustomer,data)"class="px-2 text-info" placement="top" ngbTooltip="Receta"><i
-                        class="uil uil-file-info-alt font-size-18"></i></a>
+                    <a (click)="centerModal(centerDataModalMeasurementsCustomer,data)" class="px-2 text-info"
+                      placement="top" ngbTooltip="Receta"><i class="uil uil-file-info-alt font-size-18"></i></a>
                     <a (click)="centerModal(centerDataModalEditCustomer,data)" class="px-2 text-primary" placement="top"
                       ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
                     <a href="javascript:void(0);" class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
@@ -138,123 +138,128 @@
   <div class="modal-body">
     <div class="row">
       <div class="col-lg-12">
-          <div class="card">
-              <div class="card-body">
-                  <div class="invoice-title">
-                      <div class="float-end mt-4">
-                        <h5 class="font-size-16 mb-1">Fecha de la Receta:</h5>
-                        <p>13 Dic, 2022</p>
-                      </div>
-                      <div class="mb-4">
-                          <img src="assets/images/logo-dark.png" alt="logo" height="80"/>
-                      </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="invoice-title">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="mb-4">
+                    <img src="assets/images/logo-dark.png" alt="logo" height="100" />
                   </div>
-  
-                  <hr class="my-2">
-  
-                  <div class="row">
-                      <div class="col-sm-6">
-                        <div class="text-muted">
-                          <p class="mb-1"><i class="uil uil-map-marker me-1"></i> Calle Santa Marta 2018, Arequipa</p>
-                          <p class="mb-1"><i class="uil uil-envelope-alt me-1"></i> raulcg1234@hotmail.com</p>
-                          <p><i class="uil uil-phone me-1"></i> +51 955 739 464</p>
-                      </div>
-                      </div>
-                      <div class="col-sm-6">
-                          <div class="text-muted text-sm-end">
-                              <h5 class="font-size-16 mb-3">Paciente:</h5>
-                              <h5 class="font-size-15 mb-2">Renzo Alessandro Sucari Velasquez</h5>
-                              <li class="list-inline-item"><span class="fw-medium">Fecha de Nacimiento : </span>14 Feb, 1996</li>
-                              <li class="list-inline-item"><span class="fw-medium">Telf. : </span>983 720 159</li>
-                          </div>
-                          
-                      </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="text-muted text-sm-end">
+                    <div>
+                      <h5 class="font-size-16 mb-1">Nº de Receta:</h5>
+                      <p>#MN0131</p>
+                    </div>
+                    <div class="mt-4">
+                      <h5 class="font-size-16 mb-1">Fecha de la Receta:</h5>
+                      <p>15 Dic, 2022</p>
+                    </div>
                   </div>
-
-                  <hr class="my-4">
-  
-                  <div class="py-2">
-                      <h5 class="font-size-16">VISIÓN DE LEJOS</h5>
-                      <div class="table-responsive">
-                          <table class="table table-nowrap table-centered mb-0">
-                              <thead>
-                                  <tr>
-                                      <th style="width: 70px;">REF.</th>
-                                      <th>ESF.</th>
-                                      <th>CIL.</th>
-                                      <th>EJE.</th>
-                                      <th class="text-end" style="width: 120px;">DIP</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  <tr>
-                                      <th scope="row">O.D.</th>
-                                      <td>60.00</td>
-                                      <td>30.00</td>
-                                      <td>59.00</td>
-                                      <td class="text-end">30.00</td>
-                                  </tr>
-                                  
-                                  <tr>
-                                      <th scope="row">O.I.</th>
-                                      <td>60.00</td>
-                                      <td>30.00</td>
-                                      <td>59.00</td>
-                                      <td class="text-end">30.00</td>
-                                  </tr>
-
-                              </tbody>
-                          </table>
-                      </div>
-
-                      <hr class="my-2">
-
-                      <h5 class="font-size-16">VISIÓN DE CERCA</h5>
-                      <div class="table-responsive">
-                          <table class="table table-nowrap table-centered mb-0">
-                              <thead>
-                                  <tr>
-                                      <th style="width: 70px;">REF.</th>
-                                      <th>ESF.</th>
-                                      <th>CIL.</th>
-                                      <th>EJE.</th>
-                                      <th class="text-end" style="width: 120px;">DIP</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  <tr>
-                                      <th scope="row">O.D.</th>
-                                      <td>60.00</td>
-                                      <td>30.00</td>
-                                      <td>59.00</td>
-                                      <td class="text-end">30.00</td>
-                                  </tr>
-                                  
-                                  <tr>
-                                      <th scope="row">O.I.</th>
-                                      <td>60.00</td>
-                                      <td>30.00</td>
-                                      <td>59.00</td>
-                                      <td class="text-end">30.00</td>
-                                  </tr>
-
-                              </tbody>
-                          </table>
-                      </div>
-
-
-                      <div class="d-print-none mt-4">
-                          <div class="float-end">
-                              <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light me-1"><i class="fa fa-print"></i></a>
-                              <a href="javascript:void(0);" class="btn btn-primary w-md waves-effect waves-light">Send</a>
-                          </div>
-                      </div>
-                  </div>
+                </div>
               </div>
+            </div>
+
+
+            <hr class="my-1">
+
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="text-muted">
+                  <h5 class="font-size-16 mb-3">Paciente:</h5>
+                  <h5 class="font-size-15 mb-2">Renzo Alessandro Sucari Velasquez</h5>
+                  <li class="list-inline-item"><span class="fw-medium">Fecha de Nacimiento : </span>14 Feb, 1996</li>
+                  <li class="list-inline-item"><span class="fw-medium">Telefono: </span>983 720 159</li>
+                </div>
+
+              </div>
+            </div>
+            <hr class="my-4">
+            <div class="py-2">
+              <hr class="my-2">
+              <div class="row">
+                <div class="col-sm-9">
+                  <h5 class="card-title text-center">Visión de Lejos</h5>
+                  <div class="table-responsive">
+                    <table class="table table-nowrap table-centered mb-0">
+                      <thead>
+                        <tr>
+                          <th style="width: 70px;">REF.</th>
+                          <th>ESF.</th>
+                          <th>CIL.</th>
+                          <th>EJE.</th>
+                          <th>DIP.</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">O.D.</th>
+                          <td>60.00</td>
+                          <td>30.00</td>
+                          <td>59.00</td>
+                          <td>30.00</td>
+                        </tr>
+
+                        <tr>
+                          <th scope="row">O.I.</th>
+                          <td>60.00</td>
+                          <td>30.00</td>
+                          <td>59.00</td>
+                          <td>30.00</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <h5 class="card-title text-center">Visión de Cerca</h5>
+                  <div class="table-responsive">
+                    <table class="table table-nowrap table-centered mb-0">
+                      <thead>
+                        <tr>
+                          <th class="text-center">ADD.</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="text-center">5.00</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="text-muted">
+                    <div class="mt-4">
+                      <h4 class="card-title">Observaciones:</h4>
+                      <p class="card-title-desc">Lorem Ipsum es simplemente el texto de relleno de las imprentas y
+                        archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el
+                        año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una
+                        galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-print-none mt-4">
+                <div class="float-end">
+                  <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light me-1"><i
+                      class="fa fa-print"></i></a>
+                  <a href="javascript:void(0);" class="btn btn-primary waves-effect waves-light me-1"><i
+                      class="fa fa-download"></i></a>
+                  <a (click)="closeEventModal()" class="btn btn-danger w-md waves-effect waves-light">Cerrar</a>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
       </div>
     </div>
-
   </div>
 </ng-template>
 
