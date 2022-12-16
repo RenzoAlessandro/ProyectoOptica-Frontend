@@ -16,6 +16,7 @@ import { Options } from 'ng5-slider';
 import { ClienteService } from 'src/app/services/cliente.service';
 
 import Swal from 'sweetalert2';
+import { Sweetalert } from 'src/utils/sweetalert';
 //import { MessageService } from 'primeng';
 
 @Component({
@@ -452,9 +453,11 @@ export class AddSaleComponent implements OnInit {
       this.tipoPago.fecha_pago = new Date();
       this.venta.tipo_venta.push(this.tipoPago);
       this.venta.id_sede = '1234234';
+      this.venta.habilitado = true;
 
 
       console.log("venta", this.venta);
+      Sweetalert("loading", "Cargando...");
       this.cancel();
 
     } else {
@@ -479,23 +482,22 @@ export class AddSaleComponent implements OnInit {
         cancelButtonText: 'No, cancelar!',
         confirmButtonText: 'Si, vender!',
         showCancelButton: true,
-        reverseButtons: true
       })
       .then(result => {
         if (result.value) {
-          swalWithBootstrapButtons.fire(
-            'vendido!',
-            'Realizando venta.',
-            'success'
-          );
+          
           this.productosService.createVenta(this.venta).subscribe(res => {
             console.log("Guardando venta");
+            Sweetalert("close", null);
+            Sweetalert("success", "Venta realizada");
             this.modalService.dismissAll();
-            this.position()
+            
           },
             (error) => {
+              Sweetalert("close", null);
               if (error.status !== 404) {
-
+                
+                Sweetalert("error", "Error en la conexión");
               }
             });
         } else if (
@@ -504,7 +506,7 @@ export class AddSaleComponent implements OnInit {
         ) {
           swalWithBootstrapButtons.fire(
             'Cancelado',
-            'La venta ha sido cancelada',
+            'La venta no se ha realizado',
             'error'
           );
           
@@ -512,13 +514,5 @@ export class AddSaleComponent implements OnInit {
       });
   }
 
-  position() {
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'Venta guardada con éxito',
-      showConfirmButton: false,
-      timer: 1500
-    });
-  }
+  
 }

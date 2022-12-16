@@ -10,6 +10,8 @@ import Spanish from 'flatpickr/dist/l10n/es.js';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { VentaService } from 'src/app/services/venta.service';
+import Swal from 'sweetalert2';
+import { Sweetalert } from 'src/utils/sweetalert';
 
 @Component({
   selector: 'app-list-sales',
@@ -87,7 +89,44 @@ export class ListSalesComponent implements OnInit {
         this.service.updateTable(res);
       }) 
     } else {
-      
+      return;
     }
+  }
+
+  eliminar(data: VentasModel) {
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar la venta?',
+      text: 'No se podrá revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: 'Si, eliminar!'
+    }).then(result => {
+      if (result.value) {
+        Sweetalert("loading", "Cargando...");
+        this.ventasService.darBajaVenta(data.id_ventas).subscribe(res => {
+          Sweetalert("close", null);
+          Sweetalert("success", "Venta eliminada");
+          console.log("venta borrado");
+
+        }, error => {
+          Sweetalert("close", null);
+          Sweetalert("error", "Error en la conexión");
+        },
+        );
+      }
+      else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire(
+          'Cancelado',
+          'Venta no eliminada',
+          'error'
+        );
+      }
+    }
+    );
   }
 }
