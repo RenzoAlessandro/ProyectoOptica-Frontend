@@ -3,11 +3,21 @@ import Swal from 'sweetalert2';
 export function Sweetalert(type: string, text: string) {
     switch (type) {
         case "error":
-            Swal.fire({
+            const Toast1 = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              Toast1.fire({
                 icon: 'error',
-                title: 'Error',
-                text: text
-            })
+                title: text
+              })
             break;
         case "success":
             const Toast = Swal.mixin({
@@ -23,7 +33,7 @@ export function Sweetalert(type: string, text: string) {
               })
               Toast.fire({
                 icon: 'success',
-                title: 'Registrado'
+                title: text
               })
               break;
         case "loading":

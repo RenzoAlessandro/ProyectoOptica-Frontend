@@ -17,4 +17,8 @@ export class VentaService {
   getVentasByDate(fechaIni:any,fechaFin:any): Observable<any> {
     return this.http.get<any>(environment.urlBackend+'getAllVentasByDate/'+fechaIni+'/'+fechaFin)
   }
+
+  darBajaVenta(idVenta: string): Observable<any> {
+    return this.http.put<any>(environment.urlBackend+'unsubscribeVentasById/'+idVenta,idVenta);
+  }
 }

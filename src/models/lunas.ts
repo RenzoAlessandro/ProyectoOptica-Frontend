@@ -1,4 +1,5 @@
 export class LunasModel {
+    id_luna?: string;
     material: string;
     precio_luna_c: number;
     precio_luna_v: number;

@@ -119,6 +119,7 @@ export class ListCustomersComponent implements OnInit {
       this.f(this.antecedentes).setValue(data.antecedentes);
       this.customer.id_cliente = data.id_cliente;
       this.customer.id_persona = data.id_persona;
+      //por revisar
       this.customer.antecedentes = data.antecedentes;
       this.modalService.open(centerDataModal, { centered: true, size: 'lg'});
     }

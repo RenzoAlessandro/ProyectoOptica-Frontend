@@ -34,15 +34,31 @@ export class ProductosService {
     return this.http.post<any>(environment.urlBackend+'createNewLuna',luna);
   }
 
-  updateUsers(idUser:any): Observable<any> {
-    return this.http.put<any>(environment.urlBackend+'editClientById/', idUser);
-  }
-
   createVenta(venta:VentasModel): Observable<any> {
     return this.http.post<any>(environment.urlBackend+'createNewVenta',venta);
   }
 
   darBajaMontura(idMontura: string): Observable<any> {
     return this.http.put<any>(environment.urlBackend+'unsubscribeMonturasById/'+idMontura,idMontura);
+  }
+
+  darBajaLuna(idLuna: string): Observable<any> {
+    return this.http.put<any>(environment.urlBackend+'unsubscribeLunasById/'+idLuna,idLuna);
+  }
+
+  darBajaAccesorio(idAccesorio: string): Observable<any> {
+    return this.http.put<any>(environment.urlBackend+'unsubscribeAccesoriosById/'+idAccesorio,idAccesorio);
+  }
+
+  updateMontura(idMontura: string, montura:MonturasModel): Observable<any> {
+    return this.http.put<any>(environment.urlBackend+'editMonturaById/'+idMontura,montura);
+  }
+
+  updateLuna(idLuna: string, luna:LunasModel): Observable<any> {
+    return this.http.put<any>(environment.urlBackend+'editLunaById/'+idLuna,luna);
+  }
+
+  updateAccesorio(idAccesorio: string, accesorio:AccesorioModel): Observable<any> {
+    return this.http.put<any>(environment.urlBackend+'editAccesorioById/'+idAccesorio,accesorio);
   }
 }
