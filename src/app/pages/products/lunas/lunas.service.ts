@@ -64,6 +64,10 @@ export class CustomerService {
     this.getListLunas();
   }
 
+  updateTable (data) {
+    this._customers$.next(data);
+  }
+  
   get customers$() { return this._customers$.asObservable(); }
   get total$() { return this._total$.asObservable(); }
   get loading$() { return this._loading$.asObservable(); }

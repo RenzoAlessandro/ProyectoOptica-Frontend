@@ -165,6 +165,7 @@ export class MonturasComponent implements OnInit {
         this.modalService.dismissAll();
         Sweetalert("close",null);
         Sweetalert("success","Montura guardada");
+        this.updateListMonturas();
       })
 
     } else {
@@ -176,7 +177,13 @@ export class MonturasComponent implements OnInit {
     console.log(data)
     this.monturaService.darBajaMontura(data.id_montura).subscribe(res => {
       console.log("montura borrado");
-
+      this.updateListMonturas();
     });
+  }
+
+  updateListMonturas() {
+    this.monturaService.getLunas().subscribe( res=>{
+      this.service.updateTable(res);
+    })
   }
 }

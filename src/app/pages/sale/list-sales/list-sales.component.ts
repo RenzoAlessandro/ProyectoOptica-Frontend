@@ -109,7 +109,7 @@ export class ListSalesComponent implements OnInit {
           Sweetalert("close", null);
           Sweetalert("success", "Venta eliminada");
           console.log("venta borrado");
-
+          this.updateListVentas();
         }, error => {
           Sweetalert("close", null);
           Sweetalert("error", "Error en la conexión");
@@ -128,5 +128,11 @@ export class ListSalesComponent implements OnInit {
       }
     }
     );
+  }
+
+  updateListVentas() {
+    this.ventasService.getVentas().subscribe( res=>{
+      this.service.updateTable(res);
+    })
   }
 }

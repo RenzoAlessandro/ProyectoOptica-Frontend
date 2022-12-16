@@ -148,6 +148,7 @@ export class LunasComponent implements OnInit {
         this.modalService.dismissAll();
         Sweetalert("close",null);
         Sweetalert("success",null);
+        this.updateListLunas();
       })
     } else {
       
@@ -158,7 +159,13 @@ export class LunasComponent implements OnInit {
     console.log(data)
     this.lunaService.darBajaLuna(data.id_luna).subscribe(res => {
       console.log("montura borrado");
-
+      this.updateListLunas();
     });
+  }
+
+  updateListLunas() {
+    this.lunaService.getLunas().subscribe( res=>{
+      this.service.updateTable(res);
+    })
   }
 }

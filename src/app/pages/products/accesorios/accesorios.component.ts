@@ -150,7 +150,7 @@ export class AccesoriosComponent implements OnInit {
           Sweetalert("close", null);
           Sweetalert("success", "Accesorio eliminado");
           console.log("montura borrado");
-
+          this.updateListAccesorios();
         }, error => {
           Sweetalert("close", null);
           Sweetalert("error", "Error en la conexión");
@@ -187,6 +187,7 @@ export class AccesoriosComponent implements OnInit {
         this.modalService.dismissAll();
         Sweetalert("close", null);
         Sweetalert("success", "Accesorio actualizado");
+        this.updateListAccesorios();
       }, error => {
         Sweetalert("close", null);
         Sweetalert("error", "Error en la conexión");
@@ -196,5 +197,11 @@ export class AccesoriosComponent implements OnInit {
     } else {
       return;
     }
+  }
+
+  updateListAccesorios() {
+    this.accesorioService.getAccesorios().subscribe( res=>{
+      this.service.updateTable(res);
+    })
   }
 }

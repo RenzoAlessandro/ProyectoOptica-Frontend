@@ -217,7 +217,7 @@ closeEventModal() {
     console.log(data.id_usuario)
     this.usuarioService.darBajaUser(data.id_usuario).subscribe(res => {
       console.log("usuario borrado");
-
+      this.updateListUsers();
     });
   }
 
@@ -240,9 +240,16 @@ closeEventModal() {
       this.usuarioService.updateUsers(this.user.id_usuario,this.user.id_persona,this.user).subscribe(res=>{
         console.log(res);
         console.log('actualizado');
+        this.updateListUsers();
       }); 
     } else {
       
     }
+  }
+
+  updateListUsers() {
+    this.usuarioService.getUsers().subscribe( res=>{
+      this.service.updateTable(res);
+    })
   }
 }
