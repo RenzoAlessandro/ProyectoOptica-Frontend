@@ -61,4 +61,12 @@ export class ProductosService {
   updateAccesorio(idAccesorio: string, accesorio:AccesorioModel): Observable<any> {
     return this.http.put<any>(environment.urlBackend+'editAccesorioById/'+idAccesorio,accesorio);
   }
+
+  getProductosbySede(idSede:string, productName: string): Observable<any> {
+    return this.http.get<any>(environment.urlBackend+'getProductBySede/'+idSede +'/'+productName);
+  }
+
+  updateProductsbyExcel(product:Array<LunasModel>): Observable<any> {
+    return this.http.post<any>(environment.urlBackend+'updateListOfProducts',product);
+  }
 }

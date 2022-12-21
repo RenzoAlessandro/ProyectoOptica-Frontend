@@ -9,7 +9,6 @@ import {NgbdSortableHeader, SortEvent} from './sortable.directive';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UsersModel } from 'src/models/user';
-import { SedeService } from 'src/app/services/sede.service';
 import { SedesModel } from 'src/models/sedes';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
@@ -240,6 +239,8 @@ closeEventModal() {
       this.usuarioService.updateUsers(this.user.id_usuario,this.user.id_persona,this.user).subscribe(res=>{
         console.log(res);
         console.log('actualizado');
+        this.modalService.dismissAll();
+        this.formUser.reset;
         this.updateListUsers();
       }); 
     } else {

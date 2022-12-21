@@ -1,4 +1,4 @@
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe,formatDate } from '@angular/common';
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -60,7 +60,7 @@ export class ListCustomersComponent implements OnInit {
   total$: Observable<number>;
   
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
-  fch_nac: Date;
+  fecha_actual: Date;
 
   constructor(
     public service: CustomerService, 
@@ -98,13 +98,12 @@ export class ListCustomersComponent implements OnInit {
    * @param centerDataModal center modal data
    */
      centerModal(centerDataModal: any, data: CustomersModel) {
-      const date = new Date(Date.now());
+      this.fecha_actual = new Date(Date.now());
       this.f(this.dni).setValue(data.dni);
-      this.f(this.fecha_modificacion).setValue(date.toLocaleDateString());
+      this.f(this.fecha_modificacion).setValue(formatDate(this.fecha_actual,'yyyy-MM-dd','en'));
       this.f(this.nombres).setValue(data.nombres);
       this.f(this.apellidos).setValue(data.apellidos);
-      this.fch_nac = data.fecha_nacimiento;
-      this.f(this.fecha_nacimiento).setValue(new Date(this.fch_nac).toLocaleDateString());
+      this.f(this.fecha_nacimiento).setValue(formatDate(data.fecha_nacimiento,'yyyy-MM-dd','en'));
       this.f(this.telefono).setValue(data.telefono);
       this.f(this.email).setValue(data.email);
       this.f(this.od_cilindrico).setValue(data.medidas[0].od_cilindrico);
@@ -119,8 +118,6 @@ export class ListCustomersComponent implements OnInit {
       this.f(this.antecedentes).setValue(data.antecedentes);
       this.customer.id_cliente = data.id_cliente;
       this.customer.id_persona = data.id_persona;
-      //por revisar
-      this.customer.antecedentes = data.antecedentes;
       this.modalService.open(centerDataModal, { centered: true, size: 'lg'});
     }
 
@@ -156,7 +153,8 @@ export class ListCustomersComponent implements OnInit {
       this.customer.apellidos = this.f(this.apellidos).value;
       this.customer.dni = this.f(this.dni).value;
       this.customer.fecha_modificacion = new Date(Date.now());
-      this.customer.fecha_nacimiento = this.fch_nac;
+      const fch_nac = new Date(this.f(this.fecha_nacimiento).value);
+      this.customer.fecha_nacimiento = fch_nac;
       this.customer.nombres = this.f(this.nombres).value;
       this.customer.telefono = this.f(this.telefono).value;
       this.customer.email = this.f(this.email).value;

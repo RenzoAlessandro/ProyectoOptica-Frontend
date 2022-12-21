@@ -182,7 +182,7 @@ export class MonturasComponent implements OnInit {
   }
 
   updateListMonturas() {
-    this.monturaService.getLunas().subscribe( res=>{
+    this.monturaService.getMonturas().subscribe( res=>{
       this.service.updateTable(res);
     })
   }
