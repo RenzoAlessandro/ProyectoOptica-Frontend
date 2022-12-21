@@ -144,20 +144,16 @@
           <div class="mb-3">
             <label class="control-label">DNI</label>
             <input class="form-control" placeholder="DNI del cliente" type="text" name="title"
-              formControlName="{{this.dni}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
+              formControlName="{{this.dni}}" />
+            
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Fecha de Registro</label>
             <input class="form-control" placeholder="Seleccione la fecha" type="date" name="title"
-              formControlName="{{this.fechaModificacion}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
+              formControlName="{{this.fechaModificacion}}" />
+            
           </div>
         </div>
       </div>
@@ -167,20 +163,16 @@
           <div class="mb-3">
             <label class="control-label">Nombres</label>
             <input class="form-control" placeholder="Nombres del cliente" type="text" name="title"
-              formControlName="{{this.nombres}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
+              formControlName="{{this.nombres}}"/>
+            
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Apellidos</label>
             <input class="form-control" placeholder="Apellidos del cliente" type="text" name="title"
-              formControlName="{{this.apellidos}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
+              formControlName="{{this.apellidos}}" />
+            
           </div>
         </div>
       </div>
@@ -190,30 +182,24 @@
           <div class="mb-3">
             <label class="control-label">Fecha de Nacimiento</label>
             <input class="form-control" placeholder="Seleccione la fecha" type="date" name="title"
-              formControlName="{{this.fechaNacimiento}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
+              formControlName="{{this.fechaNacimiento}}"  />
+            
           </div>
         </div>
         <div class="col-3">
           <div class="mb-3">
             <label class="control-label">Telefono</label>
             <input class="form-control" placeholder="Telefono del cliente" type="text" name="title"
-              formControlName="{{this.telefono}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
+              formControlName="{{this.telefono}}" />
+            
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Correo Electrónico</label>
             <input class="form-control" placeholder="Correo electrónico" type="email" formControlName="{{this.email}}"
-              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
+               />
+            
           </div>
         </div>
       </div>
@@ -223,20 +209,16 @@
           <div class="mb-3">
             <label class="control-label">Contraseña</label>
             <input class="form-control" placeholder="Contraseña" type="password" name="password"
-              formControlName="{{this.password}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
+              formControlName="{{this.password}}" />
+            
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Repita Contraseña</label>
             <input class="form-control" placeholder="Contraseña" type="password" name="repeatpassword"
-              formControlName="{{this.repeatPassword}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
+              formControlName="{{this.repeatPassword}}" />
+            
           </div>
         </div>
       </div>
@@ -255,9 +237,7 @@
               <ng-select [items]="listRoles" formControlName="rol" placeholder="Seleccione" bindValue="tNombre"
                 bindLabel="tNombre">
               </ng-select>
-              <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                <span *ngIf="form.title.errors.required">This value is required.</span>
-              </div>
+              
             </div>
           </div>
           <div class="col-6">
@@ -266,9 +246,7 @@
               <ng-select [items]="listSedes" formControlName="sede" placeholder="Seleccione" bindValue="id_sede"
                 bindLabel="nombre_sede">
               </ng-select>
-              <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                <span *ngIf="form.title.errors.required">This value is required.</span>
-              </div>
+              
             </div>
           </div>
         </div>

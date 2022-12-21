@@ -17,6 +17,7 @@ import { UpdateExcelComponent } from './update-excel/update-excel.component';
 
 import { DropzoneModule, DROPZONE_CONFIG } from "ngx-dropzone-wrapper";
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+import { NgxDropzoneModule } from "ngx-dropzone";
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -43,7 +44,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       NgbTypeaheadModule,
       NgbCollapseModule,
       NgbNavModule,
-      NgbModule
+      NgbModule,
+      NgxDropzoneModule
     ],
     providers: [
       {

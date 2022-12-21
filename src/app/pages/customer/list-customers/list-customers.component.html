@@ -287,7 +287,7 @@
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Fecha de Registro</label>
-            <input class="form-control" placeholder="Seleccione la fecha" type="text"
+            <input class="form-control" placeholder="Seleccione la fecha" type="date"
               formControlName="{{this.fecha_modificacion}}"
               [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <!-- <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
@@ -324,7 +324,7 @@
         <div class="col-3">
           <div class="mb-3">
             <label class="control-label">Fecha de Nacimiento</label>
-            <input class="form-control" placeholder="Seleccione la fecha" type="text"
+            <input class="form-control" placeholder="Seleccione la fecha" type="date"
               formControlName="{{this.fecha_nacimiento}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
             <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
               <span *ngIf="form.title.errors.required">This value is required.</span>

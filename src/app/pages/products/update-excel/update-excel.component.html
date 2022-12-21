@@ -1,81 +1,107 @@
 <div class="container-fluid">
-    <app-page-title title="Actualición de Stock por Archivo Excel" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <app-page-title title="Actualición de Stock por Archivo Excel" [breadcrumbItems]="breadCrumbItems"></app-page-title>
 
-    <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body">
-              <div class="card-title">Exportar</div>
-              <p class="card-title-desc">Seleccione la <strong>sede</strong> y <strong>tipo de producto</strong> para generar la tabla Excel a modificar.
-              </p>
-              <div>
-                <form>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">Exportar</div>
+          <p class="card-title-desc">Seleccione la <strong>sede</strong> y <strong>tipo de producto</strong> para
+            generar la tabla Excel a modificar.
+          </p>
+          <div>
+            <form [formGroup]="formExportar">
 
-                  <div class="mb-3">
-                    <!-- Default dropup button -->
-                    <div class="btn-group mt-2 me-1" ngbDropdown>
-                      <button type="button" class="btn btn-primary dropdown-toggle" ngbDropdownToggle>Seleccione la Sede <i
-                          class="mdi mdi-chevron-down"></i></button>
-                      <div class="dropdown-menu" ngbDropdownMenu>
-                        <a class="dropdown-item" href="javascript: void(0);">Arequipa</a>
-                        <a class="dropdown-item" href="javascript: void(0);">Moquegua</a>
-                        <a class="dropdown-item" href="javascript: void(0);">Puno</a>
-                      </div>
-                    </div>
-
-                    <!-- Default dropup button -->
-                    <div class="btn-group mt-2 me-1" ngbDropdown>
-                      <button type="button" class="btn btn-primary dropdown-toggle" ngbDropdownToggle>Seleccione el Producto <i
-                        class="mdi mdi-chevron-down"></i></button>
-                      <div class="dropdown-menu" ngbDropdownMenu>
-                        <a class="dropdown-item" href="javascript: void(0);">Monturas</a>
-                        <a class="dropdown-item" href="javascript: void(0);">Lunas</a>
-                        <a class="dropdown-item" href="javascript: void(0);">Accesorios</a>
-                      </div>
-                    </div>
-                    
-                    <!-- Default button -->
-                    <div class="btn-group mt-2 me-1">
-                      <input type="button" class="btn btn-primary btn-block" value="Descargar Archivo" (click)="0">
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-body">
-            <div class="card-title">Importar</div>
-            <p class="card-title-desc">Cargué el archivo mofificado, seleccione el <strong>tipo de producto</strong>.
-            </p>
-            <div>
-              <form>
-                <div class="mb-3">
-                  <!-- Default dropup button -->
-                  <div class="btn-group mt-2 me-1" ngbDropdown>
-                    <button type="button" class="btn btn-primary dropdown-toggle" ngbDropdownToggle>Seleccione el Producto <i
+              <div class="mb-3">
+                <!-- Default dropup button -->
+                <div class="btn-group mt-2 me-1" ngbDropdown>
+                  <!-- <button type="button" class="btn btn-primary dropdown-toggle" ngbDropdownToggle>Seleccione la Sede <i
                       class="mdi mdi-chevron-down"></i></button>
-                    <div class="dropdown-menu" ngbDropdownMenu>
-                      <a class="dropdown-item" href="javascript: void(0);">Monturas</a>
-                      <a class="dropdown-item" href="javascript: void(0);">Lunas</a>
-                      <a class="dropdown-item" href="javascript: void(0);">Accesorios</a>
-                    </div>
-                  </div>
+                  <div class="dropdown-menu" ngbDropdownMenu>
+                    <a class="dropdown-item" href="javascript: void(0);">Arequipa</a>
+                    <a class="dropdown-item" href="javascript: void(0);">Moquegua</a>
+                    <a class="dropdown-item" href="javascript: void(0);">Puno</a>
+                  </div> -->
+                  <ng-select [items]="listSedes" formControlName="sede" placeholder="Seleccione la sede" bindValue="id_sede"
+                    bindLabel="nombre_sede">
+                  </ng-select>
                 </div>
-                <dropzone class="dropzone" [message]="message"></dropzone>
-              </form>
-            </div>
-            <div class="text-center mt-4">
-              <button type="button" class="btn btn-primary">Subir Archivo</button>
-            </div>
+
+                <!-- Default dropup button -->
+                <div class="btn-group mt-2 me-1" ngbDropdown>
+                  <!-- <button type="button" class="btn btn-primary dropdown-toggle" ngbDropdownToggle>Seleccione el Producto
+                    <i class="mdi mdi-chevron-down"></i></button>
+                  <div class="dropdown-menu" ngbDropdownMenu>
+                    <a class="dropdown-item" href="javascript: void(0);">Monturas</a>
+                    <a class="dropdown-item" href="javascript: void(0);">Lunas</a>
+                    <a class="dropdown-item" href="javascript: void(0);">Accesorios</a>
+                  </div> -->
+                  <ng-select [items]="listProductos" formControlName="producto" placeholder="Seleccione el producto" bindValue="id"
+                    bindLabel="nombre">
+                  </ng-select>
+                </div>
+
+                <!-- Default button -->
+                <div class="btn-group mt-2 me-1">
+                  <input type="button" class="btn btn-primary btn-block" value="Descargar Archivo" (click)="exportarProductos()" [disabled]="!formExportar.valid">
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">Importar</div>
+          <p class="card-title-desc">Cargue el archivo mofificado.
+          </p>
+          <div>
+            <form [formGroup]="formImportar">
+              <!-- <div class="mb-3"> -->
+                <!-- Default dropup button -->
+                <!-- <div class="btn-group mt-2 me-1" ngbDropdown> -->
+                  <!-- <button type="button" class="btn btn-primary dropdown-toggle" ngbDropdownToggle>Seleccione el Producto
+                    <i class="mdi mdi-chevron-down"></i></button>
+                  <div class="dropdown-menu" ngbDropdownMenu>
+                    <a class="dropdown-item" href="javascript: void(0);">Monturas</a>
+                    <a class="dropdown-item" href="javascript: void(0);">Lunas</a>
+                    <a class="dropdown-item" href="javascript: void(0);">Accesorios</a>
+                  </div> -->
+                  <!-- <ng-select [items]="listProductos" formControlName="productos" placeholder="Seleccione el producto" bindValue="id"
+                    bindLabel="nombre">
+                  </ng-select> -->
+                <!-- </div>
+              </div> -->
+              <!-- <dropzone class="dropzone" [message]="message" (success)="fileUpload($event)"></dropzone> -->
+              <div 
+                class="custom-dropzone" 
+                ngx-dropzone 
+                [accept]="'text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'"
+                (change)="onSelect($event)"
+              >
+                <ngx-dropzone-label>
+                  <div>
+                    <img src="../../../../assets/images/users/upload-image.jpg" class="icon">
+                    <h2>Inserte Archivo</h2>
+                  </div>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                   <ngx-dropzone-label>{{ f.name }} </ngx-dropzone-label>
+                </ngx-dropzone-preview>
+                
+              </div>
+            </form>
+          </div>
+          <div class="text-center mt-4">
+            <button type="button" class="btn btn-primary" (click)="uploadFile()">Subir Archivo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

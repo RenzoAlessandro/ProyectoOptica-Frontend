@@ -120,9 +120,9 @@
     "PRODUCTS": {
       "TEXT": "Productos",
       "LIST": {
-        "ACCESORIOS": "Accesorios",
-        "LENTES": "Lunas",
-        "MONTURAS": "Monturas",
+        "ACCESORIOS": "Lista de Accesorios",
+        "LENTES": "Lista de Lunas",
+        "MONTURAS": "Lista de Monturas",
         "ADDPRODUCTS": "Añadir Productos",
         "UPDATEEXCEL": "Actualización por Excel"
       }
@@ -130,7 +130,7 @@
     "STORES": {
       "TEXT": "Tiendas",
       "LIST": {
-        "STORES": "Tiendas",
+        "STORES": "Lista de Tiendas",
         "ADDSTORES": "Añadir Tienda"
       }
     },
