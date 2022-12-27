@@ -55,7 +55,7 @@
                   <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th>
                   <th scope="col" sortable="email" (sort)="onSort($event)">Email</th>
                   <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de Ingreso</th>
-                  <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th>
+<!--                   <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
                   <th>Action</th>
                 </tr>
               </thead>
@@ -97,10 +97,10 @@
                     <ngb-highlight [result]="data.fecha_creacion| date: 'dd/MM/yyyy'"
                       [term]="service.searchTerm"></ngb-highlight>
                   </td>
-                  <td>
+<!--                   <td>
                     <span class="badge bg-pill bg-soft-success font-size-12"
                       [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
-                  </td>
+                  </td> -->
                   <td>
                     <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top"
                       ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>

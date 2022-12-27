@@ -54,7 +54,7 @@
                   <th scope="col" sortable="dni" (sort)="onSort($event)">DNI</th>
                   <th scope="col" sortable="Telefono" (sort)="onSort($event)">Teléfono</th>
                   <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de Nacimiento</th>
-                  <th scope="col" sortable="Encarg. Medición" (sort)="onSort($event)">Encargado Medicion</th>
+                  <!-- <th scope="col" sortable="Encarg. Medición" (sort)="onSort($event)">Encargado Medicion</th> -->
                   <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
                   <th>Action</th>
                 </tr>
@@ -91,9 +91,9 @@
                     <ngb-highlight [result]="data.fecha_creacion| date: 'dd/MM/yyyy'" [term]="service.searchTerm">
                     </ngb-highlight>
                   </td>
-                  <td>
+<!--                   <td>
                     <ngb-highlight [result]="data.medidas[0].encargado" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
+                  </td> -->
                   <!-- <td>
                       <span class="badge bg-pill bg-soft-success font-size-12"
                         [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
@@ -236,6 +236,8 @@
                 <div class="col-sm-12">
                   <div class="text-muted">
                     <div class="mt-4">
+                      <h4 class="card-title">Encargado Medición:</h4>
+                      <p class="card-title-desc">Dr. Jose Luis Valencia Rodrigues</p>
                       <h4 class="card-title">Observaciones:</h4>
                       <p class="card-title-desc">Lorem Ipsum es simplemente el texto de relleno de las imprentas y
                         archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el

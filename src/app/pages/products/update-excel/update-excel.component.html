@@ -86,8 +86,8 @@
               >
                 <ngx-dropzone-label>
                   <div>
-                    <img src="../../../../assets/images/users/upload-image.jpg" class="icon">
-                    <h2>Inserte Archivo</h2>
+                    <i class="display-4 text-muted uil uil-cloud-upload"></i>
+                    <h3>Suelte los archivos aquí o haga clic para cargar.</h3>
                   </div>
                 </ngx-dropzone-label>
                 <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
