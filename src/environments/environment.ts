@@ -16,7 +16,7 @@ export const environment = {
     measurementId: ''
   },
   //urlBackend:'http://localhost:5000/' 
-  urlBackend:'35.173.191.188:5000/'
+  urlBackend:'http://35.173.191.188:5000/'
 };
 
 /*
