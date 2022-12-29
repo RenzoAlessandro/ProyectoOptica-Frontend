@@ -230,5 +230,27 @@ export class AddProductComponent implements OnInit {
   }
 
 
+  /**
+   * Returns form Monturas
+   */
+  get formM() {
+    return this.formMonturas.controls;
+  }
+  /**
+   * Returns form Lunas
+   */
+  get formL() {
+    return this.formLunas.controls;
+  }
+  /**
+   * Returns form Lunas
+   */
+  get formA() {
+    return this.formAccesorios.controls;
+  }
+      
+    
+
+
   
 }

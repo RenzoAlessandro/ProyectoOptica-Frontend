@@ -13,9 +13,6 @@ export class AdduserComponent implements OnInit {
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
-  selectValue = [];
-  selectedValue = '';
-  stateValue = [];
   formRegister: FormGroup;
   nombres: string = "campoNombres";
   apellidos: string = "campoApellidos";
@@ -47,15 +44,6 @@ export class AdduserComponent implements OnInit {
 
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Usuarios' }, { label: 'Añadir Usuarios', active: true }];
-
-    this.selectValue = ['Afghanistan', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola',
-      'Anguilla', 'Antarctica', 'Argentina', 'Hawaii', 'California', 'Colombia', 'Congo', 'Dominica', 'Denmark', 'Nevada', 'Oregon',
-      'Washington', 'Ecuador', 'Idaho', 'Montana', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'Nicaragua', 'New Caledonia', 'North Dakota',
-      'Tonga', 'Tunisia', 'Thailand', 'Turkey', 'Illinois', 'Tuvalu', 'Uganda', 'Uruguay', 'United Arab Emirates', 'United Kingdom', 'Venezuela', 'Zimbabwe',
-      'Uruguay'];
-    this.selectedValue = this.selectValue[0];
-
-    this.stateValue = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Montana', 'Nevada', 'New Mexico', 'New York', 'North Dakota', 'Texas', 'Virginia', 'Wisconsin', 'Wyoming']
     this.crearFormulario();
     this.getListSedes();
   }
@@ -162,5 +150,12 @@ export class AdduserComponent implements OnInit {
       console.log(res);
       this.listSedes = res;
     })
+  }
+
+  /**
+   * Returns form Usuarios
+   */
+  get formU() {
+    return this.formRegister.controls;
   }
 }

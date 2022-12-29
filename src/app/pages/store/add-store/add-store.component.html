@@ -18,12 +18,12 @@
                   <div class="mb-3">
                     <label for="validationCustom01">Nombre</label>
                       <input class="form-control" placeholder="Nombre de la tienda" type="text" name="title"
-                          formControlName="{{this.nombre_tienda}}" />
-                        <!-- <input class="form-control" placeholder="Marca de la montura" type="text" name="title"
-                          formControlName="{{this.nombre_tienda}}" [ngClass]="{'is-invalid': submitted && form.nombre_tienda.errors}" /> -->
-                        <!-- <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                          <span *ngIf="form.title.errors.required">This value is required.</span>
-                        </div> -->
+                          formControlName="{{this.nombre_tienda}}" [ngClass]="{'is-invalid': formT.campoNombreTienda.invalid && (formT.campoNombreTienda.dirty || formT.campoNombreTienda.touched)}"/>
+                      <div class="invalid-feedback">
+                        <div *ngIf="formT.campoNombreTienda.errors.required">
+                          Campo requerido
+                        </div>
+                      </div>
                   </div>
                 </div>
 
@@ -41,16 +41,15 @@
                   <div class="mb-3">
                     <label for="validationCustom01">Dirección</label>
                       <input class="form-control" placeholder="Dirección de la tienda" type="text" name="title"
-                          formControlName="{{this.direccion_tienda}}" />
-                        <!-- <input class="form-control" placeholder="Marca de la montura" type="text" name="title"
-                          formControlName="{{this.nombre_tienda}}" [ngClass]="{'is-invalid': submitted && form.nombre_tienda.errors}" /> -->
-                        <!-- <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                          <span *ngIf="form.title.errors.required">This value is required.</span>
-                        </div> -->
+                          formControlName="{{this.direccion_tienda}}" [ngClass]="{'is-invalid': formT.campoDireccionTienda.invalid && (formT.campoDireccionTienda.dirty || formT.campoDireccionTienda.touched)}"/>
+                      <div class="invalid-feedback">
+                        <div *ngIf="formT.campoDireccionTienda.errors.required">
+                          Campo requerido
+                        </div>
+                      </div>
                   </div>
                 </div>
               </div>
-
 
               <button class="btn btn-primary" type="submit" (click)="guardarSede()">Registrar</button>
             </form>

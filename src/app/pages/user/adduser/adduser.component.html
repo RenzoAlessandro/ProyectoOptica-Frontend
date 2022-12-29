@@ -1,278 +1,5 @@
 <div class="container-fluid">
   <app-page-title title="Registrar Nuevo Usuario" [breadcrumbItems]="breadCrumbItems"></app-page-title>
-  <!--   <div class="checkout-tabs">
-    <div class="row">
-      <div class="col-xl-12">
-        <div class="">
-          <div class="checkout-acco">
-            <form [formGroup]="formRegister">
-              <ngb-accordion [closeOthers]="true" activeIds="static-1">
-                <ngb-panel id="static-1">
-                  <ng-template ngbPanelTitle>
-                    <a class="text-dark p-0" style="text-align: left;">
-                      <div class="d-flex align-items-start align-items-center">
-                        <div class="me-3">
-                          <i class="uil uil-file-bookmark-alt text-primary h2"></i>
-                        </div>
-                        <div class="flex-1 overflow-hidden">
-                          <h5 class="font-size-16 mb-1">Información del Usuario</h5>
-                          <p class="text-muted text-truncate mb-0">
-                            Datos básicos del nuevo usuario.
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </ng-template>
-                  <ng-template ngbPanelContent>
-                    <div id="checkout-billinginfo-collapse">
-                      <div class="border-top py-4">
-                        <div>
-                          <div class="row">
-                            <div class="col-lg-4">
-                              <div class="mb-4">
-                                <label class="form-label" for="billing-dni">DNI</label>
-                                <input type="text" class="form-control" id="billing-dni" placeholder="Ingrese el DNI"
-                                  formControlName="{{this.dni}}" />
-                              </div>
-                            </div>
-                            <div class="col-lg-4">
-                              <div class="mb-4">
-                                <label class="form-label" for="billing-firstnames">Nombres</label>
-                                <input type="text" class="form-control" id="billing-firstnames"
-                                  placeholder="Ingrese los nombres" formControlName="{{this.nombres}}" />
-                              </div>
-                            </div>
-                            <div class="col-lg-4">
-                              <div class="mb-4">
-                                <label class="form-label" for="billing-lastnames">Apellidos</label>
-                                <input type="text" class="form-control" id="billing-lastnames"
-                                  placeholder="Ingrese los apellidos" formControlName="{{this.apellidos}}" />
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row">
-                            <div class="col-lg-3">
-                              <div class="mb-4">
-                                <label class="form-label" for="billing-fecharegistro">Fecha de Registro</label>
-                                <input type="text" class="form-control" id="billing-fecharegistro"
-                                  placeholder="Seleccione la fecha" formControlName="{{this.fechaCreacion}}" />
-                              </div>
-                            </div>
-                            <div class="col-lg-3">
-                              <div class="mb-4">
-                                <label class="form-label" for="billing-fechanacimiento">Fecha de Nacimiento</label>
-                                <input type="date" class="form-control" id="billing-fechanacimiento"
-                                  placeholder="Seleccione la fecha" formControlName="{{this.fechaNacimiento}}" />
-                              </div>
-                            </div>
-                            <div class="col-lg-3">
-                              <div class="mb-4">
-                                <label class="form-label" for="billing-phone">Teléfono</label>
-                                <input type="text" class="form-control" id="billing-phone"
-                                  placeholder="Teléfono del Cliente" formControlName="{{this.telefono}}" />
-                              </div>
-                            </div>
-                            <div class="col-lg-3">
-                              <div class="mb-4">
-                                <label class="form-label" for="billing-email-address">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="billing-email-address"
-                                  placeholder="Correo electrónico" formControlName="{{this.email}}" />
-                              </div>
-                            </div>
-                          </div>
-
-
-                          <div class="row">
-                            <div class="col-lg-4">
-                              <div class="mb-4">
-                                <label class="form-label" for="billing-password">Contraseña</label>
-                                <input type="password" class="form-control" id="billing-password"
-                                  placeholder="Ingrese la contraseña" formControlName="{{this.password}}" />
-                                <div class="text-danger"
-                                  *ngIf="formRegister.controls['campoPassword'].invalid && (formRegister.controls['campoPassword'].dirty || formRegister.controls['campoPassword'].touched)">
-                                  <div class="text-danger"
-                                    *ngIf="formRegister.controls['campoPassword'].errors.required">
-                                    Campo requerido
-                                  </div>
-                                  <div class="text-danger"
-                                    *ngIf="formRegister.controls['campoPassword'].errors.minlength">
-                                    Su contraseña debe ser mayor a 6 caracteres
-                                  </div>
-                                  <div class="text-danger"
-                                    *ngIf="formRegister.controls['campoPassword'].errors.maxlength">
-                                    Su contraseña debe ser menor a 20 caracteres
-                                  </div>
-                                  <div class="text-danger"
-                                    *ngIf="formRegister.controls['campoPassword'].errors.pattern">
-                                    Ingrese solo números
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-lg-4">
-                              <div class="mb-4">
-                                <label class="form-label" for="billing-repet-password">Repita la contraseña</label>
-                                <input type="password" class="form-control" id="billing-repet-password"
-                                  placeholder="Repita la contraseña" formControlName="{{this.repeatPassword}}" />
-                                <div class="text-danger"
-                                  *ngIf="formRegister.controls['campoRepeatPassword'].invalid && (formRegister.controls['campoRepeatPassword'].dirty || formRegister.controls['campoRepeatPassword'].touched)">
-                                  <div class="text-danger"
-                                    *ngIf="formRegister.controls['campoRepeatPassword'].errors.required">
-                                    Campo requerido
-                                  </div>
-                                  <div class="text-danger"
-                                    *ngIf="formRegister.controls['campoRepeatPassword'].errors.minlength">
-                                    Su contraseña debe ser mayor a 6 caracteres
-                                  </div>
-                                  <div class="text-danger"
-                                    *ngIf="formRegister.controls['campoRepeatPassword'].errors.maxlength">
-                                    Su contraseña debe ser menor a 20 caracteres
-                                  </div>
-                                  <div class="text-danger"
-                                    *ngIf="formRegister.controls['campoRepeatPassword'].errors.pattern">
-                                    Ingrese solo números
-                                  </div>
-                                  <div *ngIf="formRegister.controls['campoRepeatPassword'].errors.confirmedValidator">
-                                    Passwords did not match
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-
-                          <div class="row">
-                            <div class="col-lg-12">
-                              <div class="mb-4">
-                                <label class="form-label" for="billing-observaciones">Observaciones</label>
-                                <textarea class="form-control" id="billing-observaciones" rows="3"
-                                  placeholder="Ingrese las observaciones"
-                                  formControlName="{{this.observaciones}}"></textarea>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </ng-template>
-                </ngb-panel>
-
-
-                <ngb-panel id="static-2">
-                  <ng-template ngbPanelTitle>
-
-                    <a class="text-dark" style="text-align: left;">
-                      <div class="d-flex align-items-start align-items-center">
-                        <div class="me-3">
-                          <i class="uil uil-award-alt text-primary h2"></i>
-                        </div>
-                        <div class="flex-1 overflow-hidden">
-                          <h5 class="font-size-16 mb-1">Rol del Usuario</h5>
-                          <p class="text-muted text-truncate mb-0">
-                            Rol que desempeñará el nuevo usuario.
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </ng-template>
-                  <ng-template ngbPanelContent>
-                    <div id="checkout-paymentinfo-collapse">
-                      <div class="border-top py-4">
-                        <div>
-                          <h5 class="font-size-14 mb-3">Roles :</h5>
-
-                          <div class="row">
-                            <div class="col-lg-3 col-sm-6" *ngFor='let rol of listRoles;let i = index'>
-                              <div data-toggle="collapse">
-                                <label class="card-radio-label">
-                                  <input type="radio" id="{{rol.cNombre}}" name="rol" class="card-radio-input"
-                                    formControlName="rol" value="{{rol.tNombre}}" />
-                                  <span class="card-radio text-center text-truncate">
-                                    <i class="uil uil-user d-block h2 mb-3"></i>
-                                    {{rol.tNombre}}
-                                  </span>
-                                </label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </ng-template>
-                </ngb-panel>
-
-
-                <ngb-panel id="static-3">
-                  <ng-template ngbPanelTitle>
-                    <a class="text-dark" style="text-align: left;">
-                      <div class="d-flex align-items-start align-items-center">
-                        <div class="me-3">
-                          <i class="uil uil-location-pin-alt text-primary h2"></i>
-                        </div>
-                        <div class="flex-1 overflow-hidden">
-                          <h5 class="font-size-16 mb-1">Sede del Usuario</h5>
-                          <p class="text-muted text-truncate mb-0">
-                            Sede donde laborará el nuevo usuario.
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </ng-template>
-                  <ng-template ngbPanelContent>
-                    <div id="checkout-shippinginfo-collapse">
-                      <div class="border-top py-4">
-                        <h5 class="font-size-14 mb-3">Sedes :</h5>
-                        <div class="row">
-                          <div class="col-lg-3 col-sm-6" *ngFor='let sede of listSedes;let i = index'>
-                            <div data-toggle="collapse">
-                              <label class="card-radio-label">
-                                <input type="radio" id="{{sede.id_sede}}" name="sede" class="card-radio-input"
-                                  formControlName="sede" value="{{sede.id_sede}}" />
-                                <span class="card-radio text-center text-truncate">
-                                  <i class="uil uil-user d-block h2 mb-3"></i>
-                                  {{sede.nombre_sede}}<br>
-                                  {{sede.direccion}}
-                                </span>
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </ng-template>
-                </ngb-panel>
-              </ngb-accordion>
-            </form>
-          </div>
-        </div>
-
-        <div class="row my-4">
-          <div class="col">
-            <div class="text-sm-end mt-2 mt-sm-0">
-              <button class="btn btn-success" (click)="guardarUsuario()" [disabled]="!formRegister.valid">
-                <i class="uil uil-user-plus me-1"></i> Registrar Usuario
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
- -->
-
-
-
-
-
-
-
-
-
-
-
-
-
   <form [formGroup]="formRegister">
     <div class="row">
       <div class="col-xl-6 mb-4">
@@ -302,7 +29,12 @@
                     <div class="mb-4">
                       <label class="form-label" for="billing-dni">DNI</label>
                       <input type="text" class="form-control" id="billing-dni" placeholder="Ingrese el DNI"
-                        formControlName="{{this.dni}}" />
+                        formControlName="{{this.dni}}" [ngClass]="{'is-invalid': formU.campoDNI.invalid && (formU.campoDNI.dirty || formU.campoDNI.touched)}"/>
+                      <div class="invalid-feedback">
+                        <div *ngIf="formU.campoDNI.errors.required">
+                          Campo requerido
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-lg-6">
@@ -318,14 +50,24 @@
                     <div class="mb-4">
                       <label class="form-label" for="billing-firstnames">Nombres</label>
                       <input type="text" class="form-control" id="billing-firstnames" placeholder="Ingrese los nombres"
-                        formControlName="{{this.nombres}}" />
+                        formControlName="{{this.nombres}}" [ngClass]="{'is-invalid': formU.campoNombres.invalid && (formU.campoNombres.dirty || formU.campoNombres.touched)}"/>
+                      <div class="invalid-feedback">
+                        <div *ngIf="formU.campoNombres.errors.required">
+                          Campo requerido
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-lg-6">
                     <div class="mb-4">
                       <label class="form-label" for="billing-lastnames">Apellidos</label>
                       <input type="text" class="form-control" id="billing-lastnames" placeholder="Ingrese los apellidos"
-                        formControlName="{{this.apellidos}}" />
+                        formControlName="{{this.apellidos}}" [ngClass]="{'is-invalid': formU.campoApellidos.invalid && (formU.campoApellidos.dirty || formU.campoApellidos.touched)}"/>
+                      <div class="invalid-feedback">
+                        <div *ngIf="formU.campoApellidos.errors.required">
+                          Campo requerido
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -357,19 +99,18 @@
                     <div class="mb-4">
                       <label class="form-label" for="billing-password">Contraseña</label>
                       <input type="password" class="form-control" id="billing-password"
-                        placeholder="Ingrese la contraseña" formControlName="{{this.password}}" />
-                      <div class="text-danger"
-                        *ngIf="formRegister.controls['campoPassword'].invalid && (formRegister.controls['campoPassword'].dirty || formRegister.controls['campoPassword'].touched)">
-                        <div class="text-danger" *ngIf="formRegister.controls['campoPassword'].errors.required">
+                        placeholder="Ingrese la contraseña" formControlName="{{this.password}}" [ngClass]="{'is-invalid': formU.campoPassword.invalid && (formU.campoPassword.dirty || formU.campoPassword.touched)}"/>
+                      <div class="invalid-feedback">
+                        <div *ngIf="formU.campoPassword.errors.required">
                           Campo requerido
                         </div>
-                        <div class="text-danger" *ngIf="formRegister.controls['campoPassword'].errors.minlength">
+                        <div *ngIf="formU.campoPassword.errors.minlength">
                           Su contraseña debe ser mayor a 6 caracteres
                         </div>
-                        <div class="text-danger" *ngIf="formRegister.controls['campoPassword'].errors.maxlength">
+                        <div  *ngIf="formU.campoPassword.errors.maxlength">
                           Su contraseña debe ser menor a 20 caracteres
                         </div>
-                        <div class="text-danger" *ngIf="formRegister.controls['campoPassword'].errors.pattern">
+                        <div *ngIf="formU.campoPassword.errors.pattern">
                           Ingrese solo números
                         </div>
                       </div>
@@ -379,22 +120,21 @@
                     <div class="mb-4">
                       <label class="form-label" for="billing-repet-password">Repita la contraseña</label>
                       <input type="password" class="form-control" id="billing-repet-password"
-                        placeholder="Repita la contraseña" formControlName="{{this.repeatPassword}}" />
-                      <div class="text-danger"
-                        *ngIf="formRegister.controls['campoRepeatPassword'].invalid && (formRegister.controls['campoRepeatPassword'].dirty || formRegister.controls['campoRepeatPassword'].touched)">
-                        <div class="text-danger" *ngIf="formRegister.controls['campoRepeatPassword'].errors.required">
+                        placeholder="Repita la contraseña" formControlName="{{this.repeatPassword}}" [ngClass]="{'is-invalid': formU.campoRepeatPassword.invalid && (formU.campoRepeatPassword.dirty || formU.campoRepeatPassword.touched)}"/>
+                      <div class="invalid-feedback">
+                        <div *ngIf="formU.campoRepeatPassword.errors.required">
                           Campo requerido
                         </div>
-                        <div class="text-danger" *ngIf="formRegister.controls['campoRepeatPassword'].errors.minlength">
+                        <div *ngIf="formU.campoRepeatPassword.errors.minlength">
                           Su contraseña debe ser mayor a 6 caracteres
                         </div>
-                        <div class="text-danger" *ngIf="formRegister.controls['campoRepeatPassword'].errors.maxlength">
+                        <div *ngIf="formU.campoRepeatPassword.errors.maxlength">
                           Su contraseña debe ser menor a 20 caracteres
                         </div>
-                        <div class="text-danger" *ngIf="formRegister.controls['campoRepeatPassword'].errors.pattern">
+                        <div *ngIf="formU.campoRepeatPassword.errors.pattern">
                           Ingrese solo números
                         </div>
-                        <div *ngIf="formRegister.controls['campoRepeatPassword'].errors.confirmedValidator">
+                        <div *ngIf="formU.campoRepeatPassword.errors.confirmedValidator">
                           Passwords did not match
                         </div>
                       </div>

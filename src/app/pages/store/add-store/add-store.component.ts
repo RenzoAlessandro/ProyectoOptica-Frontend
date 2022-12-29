@@ -34,13 +34,17 @@ export class AddStoreComponent implements OnInit {
 
     this.crearFormulario();
 
-    this.selectValue = ['Disponible', 'Cerrado', 'Pendiente'];
+    this.selectValue = ['Abierto', 'Cerrado'];
   }
 
   crearFormulario() {
     this.formTiendas = this.fb.group({
-      [this.nombre_tienda]:[],
-      [this.direccion_tienda]:[],
+      [this.nombre_tienda]:[null, [
+        Validators.required
+      ]],
+      [this.direccion_tienda]:[null, [
+        Validators.required
+      ]],
       [this.estado_tienda]:[],
     })
   }
@@ -81,4 +85,12 @@ export class AddStoreComponent implements OnInit {
       
     }
   }
+
+  /**
+   * Returns form Tienda
+   */
+  get formT() {
+    return this.formTiendas.controls;
+  }
+        
 }
