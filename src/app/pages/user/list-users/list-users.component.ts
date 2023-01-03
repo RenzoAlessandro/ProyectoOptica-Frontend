@@ -172,15 +172,15 @@ closeEventModal() {
       sede:[],
       [this.password]:[null,[
         Validators.required,
-        //Validators.minLength(6),
-        //Validators.minLength(20),
-        //Validators.pattern(this.passwordPattern)
+        Validators.minLength(6),
+        Validators.maxLength(20),
+        Validators.pattern(this.passwordPattern)
       ]],
       [this.repeatPassword]:[null,[
         Validators.required,
-        //Validators.minLength(6),
-        //Validators.minLength(20),
-        //Validators.pattern(this.passwordPattern)
+        Validators.minLength(6),
+        Validators.maxLength(20),
+        Validators.pattern(this.passwordPattern)
       ]]
     },
     {
@@ -252,5 +252,12 @@ closeEventModal() {
     this.usuarioService.getUsers().subscribe( res=>{
       this.service.updateTable(res);
     })
+  }
+
+  /**
+   * Returns form Editar Usuarios
+   */
+    get formEU() {
+      return this.formUser.controls;
   }
 }
