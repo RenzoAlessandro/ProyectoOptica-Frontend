@@ -36,7 +36,6 @@ function matches(customer: MonturasModel, term: string, pipe: PipeTransform) {
   return customer.material.toLowerCase().includes(term.toLowerCase())
   || customer.marca.toLowerCase().includes(term.toLowerCase())
   || customer.codigo.toLowerCase().includes(term.toLowerCase())
-  || customer.codigo_interno.toLowerCase().includes(term.toLowerCase())
   || customer.talla.toLowerCase().includes(term.toLowerCase())
   || String(customer.cantidad).toLowerCase().includes(term.toLowerCase())
   || String(customer.precio_montura_c).toLowerCase().includes(term.toLowerCase())

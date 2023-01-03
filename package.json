@@ -35,6 +35,7 @@
     "@ng-select/ng-select": "^5.0.8",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
+    "@syncfusion/ej2-angular-barcode-generator": "^20.4.40",
     "@types/chartist": "^0.11.0",
     "angular-archwizard": "^7.0.0",
     "angular-ng-autocomplete": "^2.0.12",

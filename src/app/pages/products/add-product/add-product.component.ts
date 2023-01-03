@@ -20,7 +20,6 @@ export class AddProductComponent implements OnInit {
   marca_montura: string = "campoMarcaMontura";
   talla_montura: string = "campoTallaMontura";
   codigo_montura: string = "campoCodigoMontura";
-  codigo_interno_montura: string = "campoInternoMontura";
   cantidad_montura: string = "campoCantidadMontura";
   precio_compra_montura: string = "campoCompraMontura";
   precio_venta_montura: string = "campoVentaMontura";
@@ -78,9 +77,6 @@ export class AddProductComponent implements OnInit {
         Validators.required
       ]],
       [this.codigo_montura]:[null, [
-        Validators.required
-      ]],
-      [this.codigo_interno_montura]:[null, [
         Validators.required
       ]],
       [this.cantidad_montura]:[null, [
@@ -205,7 +201,6 @@ export class AddProductComponent implements OnInit {
       this.monturas.material = this.fM(this.material_montura).value;
       this.monturas.marca = this.fM(this.marca_montura).value;
       this.monturas.talla = this.fM(this.talla_montura).value;
-      this.monturas.codigo_interno = this.fM(this.codigo_interno_montura).value;
       this.monturas.codigo = this.fM(this.codigo_montura).value;
       this.monturas.precio_montura_c = Number(this.fM(this.precio_compra_montura).value);
       this.monturas.precio_montura_v = Number(this.fM(this.precio_venta_montura).value);
@@ -220,7 +215,8 @@ export class AddProductComponent implements OnInit {
       this.productosService.createMonturas(this.monturas).subscribe(res=>{
         Sweetalert("close",null);
         Sweetalert("success",null);
-        this.formMonturas.reset;
+        this.formMonturas.reset();
+        this.fM(this.fecha_registro_montura).setValue(this.fecha_actual.toLocaleDateString());
         //this.fecha_registro_montura.
         console.log("monturas guardado")
       })
