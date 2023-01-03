@@ -13,9 +13,6 @@ export class AddCustomerComponent implements OnInit {
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
-  selectValue = [];
-  selectedValue = '';
-  stateValue = [];
   formCustomer: FormGroup;
   nombres: string = "campoNombres";
   apellidos: string = "campoApellidos";
@@ -39,6 +36,10 @@ export class AddCustomerComponent implements OnInit {
   medidas = new MedidasModel;
   submitted = false;
   fecha_actual: Date;
+
+  lettersPattern = '[a-zA-Z ]*';
+  numberPattern = '^[0-9]+$|^\S*$';
+
   constructor(
     private fb: FormBuilder,
     private customerService: ClienteService
@@ -46,16 +47,6 @@ export class AddCustomerComponent implements OnInit {
 
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Clientes' }, { label: 'Añadir Clientes', active: true }];
-
-    this.selectValue = ['Afghanistan', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola',
-      'Anguilla', 'Antarctica', 'Argentina', 'Hawaii', 'California', 'Colombia', 'Congo', 'Dominica', 'Denmark', 'Nevada', 'Oregon',
-      'Washington', 'Ecuador', 'Idaho', 'Montana', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'Nicaragua', 'New Caledonia', 'North Dakota',
-      'Tonga', 'Tunisia', 'Thailand', 'Turkey', 'Illinois', 'Tuvalu', 'Uganda', 'Uruguay', 'United Arab Emirates', 'United Kingdom', 'Venezuela', 'Zimbabwe',
-      'Uruguay'];
-    this.selectedValue = this.selectValue[0];
-
-    this.stateValue = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Montana', 'Nevada', 'New Mexico', 'New York', 'North Dakota', 'Texas', 'Virginia', 'Wisconsin', 'Wyoming']
-
     this.crearFormulario();
   }
 
@@ -63,10 +54,16 @@ export class AddCustomerComponent implements OnInit {
     this.fecha_actual = new Date();
     this.formCustomer = this.fb.group({
       [this.nombres]:[null,[
-        Validators.required
+        Validators.required,
+        Validators.pattern(this.lettersPattern),
+        Validators.minLength(3),
+        Validators.maxLength(40)
       ]],
       [this.apellidos]:[null,[
-        Validators.required
+        Validators.required,
+        Validators.pattern(this.lettersPattern),
+        Validators.minLength(3),
+        Validators.maxLength(40)
       ]],
       [this.email]: [null,[
         Validators.email
@@ -74,9 +71,16 @@ export class AddCustomerComponent implements OnInit {
       [this.antecedentes]: [],
       [this.direccion]: [],
       [this.dni]:[null,[
-        
+        Validators.required,
+        Validators.pattern(this.numberPattern),
+        Validators.min(11111111),
+        Validators.max(99999999)
       ]],
-      [this.telefono]:[],
+      [this.telefono]:[null,[
+        Validators.pattern(this.numberPattern),
+        Validators.min(111111111),
+        Validators.max(999999999)
+      ]],
       [this.fecha_nacimiento]:[],
       [this.fecha_creacion]:[{value: this.fecha_actual.toLocaleString(), disabled: true}],
       [this.od_cilindrico]:[],
@@ -87,7 +91,11 @@ export class AddCustomerComponent implements OnInit {
       [this.oi_eje]:[],
       [this.dip]:[],
       [this.add]:[],
-      [this.encargado]:[],
+      [this.encargado]:[null,[
+        Validators.pattern(this.lettersPattern),
+        Validators.minLength(3),
+        Validators.maxLength(40)
+      ]],
       [this.antecedentes]:[]
     })
   }
@@ -129,6 +137,12 @@ export class AddCustomerComponent implements OnInit {
         console.log("registrado ok");
       });
     }
-    
   } 
+  /**
+   * Returns form Cliente
+   */
+  get formC() {
+    return this.formCustomer.controls;
+  }
+  
 }

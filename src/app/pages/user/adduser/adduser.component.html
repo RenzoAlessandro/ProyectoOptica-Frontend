@@ -31,8 +31,17 @@
                       <input type="text" class="form-control" id="billing-dni" placeholder="Ingrese el DNI"
                         formControlName="{{this.dni}}" [ngClass]="{'is-invalid': formU.campoDNI.invalid && (formU.campoDNI.dirty || formU.campoDNI.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formU.campoDNI.errors.required">
+                        <div *ngIf="formU.campoDNI.errors?.required">
                           Campo requerido
+                        </div>
+                        <div *ngIf="formU.campoDNI.errors?.pattern">
+                          Ingrese solo números
+                        </div>
+                        <div *ngIf="formU.campoDNI.errors?.min">
+                          Número de dígitos menor
+                        </div>
+                        <div *ngIf="formU.campoDNI.errors?.max">
+                          Número de dígitos mayor
                         </div>
                       </div>
                     </div>
