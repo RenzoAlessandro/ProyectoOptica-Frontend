@@ -60,7 +60,7 @@
                       <input class="form-control" placeholder="Material de la montura" type="text" name="title"
                         formControlName="{{this.material_montura}}" [ngClass]="{'is-invalid': formM.campoMaterialMontura.invalid && (formM.campoMaterialMontura.dirty || formM.campoMaterialMontura.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formM.campoMaterialMontura.errors.required">
+                        <div *ngIf="formM.campoMaterialMontura.errors?.required">
                           Campo requerido
                         </div>
                       </div>
@@ -72,7 +72,7 @@
                       <input class="form-control" placeholder="Marca de la montura" type="text" name="title"
                         formControlName="{{this.marca_montura}}" [ngClass]="{'is-invalid': formM.campoMarcaMontura.invalid && (formM.campoMarcaMontura.dirty || formM.campoMarcaMontura.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formM.campoMarcaMontura.errors.required">
+                        <div *ngIf="formM.campoMarcaMontura.errors?.required">
                           Campo requerido
                         </div>
                       </div>
@@ -87,31 +87,31 @@
                       <input class="form-control" placeholder="Código" type="text" name="title"
                         formControlName="{{this.codigo_montura}}" [ngClass]="{'is-invalid': formM.campoCodigoMontura.invalid && (formM.campoCodigoMontura.dirty || formM.campoCodigoMontura.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formM.campoCodigoMontura.errors.required">
+                        <div *ngIf="formM.campoCodigoMontura.errors?.required">
                           Campo requerido
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <!-- <div class="col-4">
                     <div class="mb-3">
                       <label class="control-label">Código Interno</label>
                       <input class="form-control" placeholder="Código" type="text" name="title"
                         formControlName="{{this.codigo_interno_montura}}" [ngClass]="{'is-invalid': formM.campoInternoMontura.invalid && (formM.campoInternoMontura.dirty || formM.campoInternoMontura.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formM.campoInternoMontura.errors.required">
+                        <div *ngIf="formM.campoInternoMontura.errors?.required">
                           Campo requerido
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="col-4">
                     <div class="mb-3">
                       <label class="control-label">Talla</label>
                       <input class="form-control" placeholder="Talla de la montura" type="text" name="title"
                         formControlName="{{this.talla_montura}}" [ngClass]="{'is-invalid': formM.campoTallaMontura.invalid && (formM.campoTallaMontura.dirty || formM.campoTallaMontura.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formM.campoTallaMontura.errors.required">
+                        <div *ngIf="formM.campoTallaMontura.errors?.required">
                           Campo requerido
                         </div>
                       </div>
@@ -126,10 +126,10 @@
                       <input class="form-control" placeholder="Cantidad" type="text" name="title"
                         formControlName="{{this.cantidad_montura}}" [ngClass]="{'is-invalid': formM.campoCantidadMontura.invalid && (formM.campoCantidadMontura.dirty || formM.campoCantidadMontura.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formM.campoCantidadMontura.errors.required">
+                        <div *ngIf="formM.campoCantidadMontura.errors?.required">
                           Campo requerido
                         </div>
-                        <div *ngIf="formM.campoCantidadMontura.errors.pattern">
+                        <div *ngIf="formM.campoCantidadMontura.errors?.pattern">
                           Ingrese solo números enteros
                         </div>
                       </div>
@@ -141,10 +141,10 @@
                       <input class="form-control" placeholder="Precio" type="text" name="title"
                         formControlName="{{this.precio_compra_montura}}" [ngClass]="{'is-invalid': formM.campoCompraMontura.invalid && (formM.campoCompraMontura.dirty || formM.campoCompraMontura.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formM.campoCompraMontura.errors.required">
+                        <div *ngIf="formM.campoCompraMontura.errors?.required">
                           Campo requerido
                         </div>
-                        <div *ngIf="formM.campoCompraMontura.errors.pattern">
+                        <div *ngIf="formM.campoCompraMontura.errors?.pattern">
                           Ingrese solo números y opcional hasta 2 decimales
                         </div>
                       </div>
@@ -156,10 +156,10 @@
                       <input class="form-control" placeholder="Precio" type="text" name="title"
                         formControlName="{{this.precio_venta_montura}}" [ngClass]="{'is-invalid': formM.campoVentaMontura.invalid && (formM.campoVentaMontura.dirty || formM.campoVentaMontura.touched)}"/>
                       <div class="invalid-feedback">
-                        <span *ngIf="formM.campoVentaMontura.errors.required">
+                        <span *ngIf="formM.campoVentaMontura.errors?.required">
                           Campo requerido
                         </span>
-                        <span *ngIf="formM.campoVentaMontura.errors.pattern">
+                        <span *ngIf="formM.campoVentaMontura.errors?.pattern">
                           Ingrese solo números y opcional hasta 2 decimales
                         </span>
                       </div>
@@ -202,7 +202,7 @@
                       <input class="form-control" placeholder="Material de la luna" type="text" name="title"
                         formControlName="{{this.material_luna}}" [ngClass]="{'is-invalid': formL.campoMaterialLuna.invalid && (formL.campoMaterialLuna.dirty || formL.campoMaterialLuna.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formL.campoMaterialLuna.errors.required">
+                        <div *ngIf="formL.campoMaterialLuna.errors?.required">
                           Campo requerido
                         </div>
                       </div>
@@ -217,10 +217,10 @@
                       <input class="form-control" placeholder="Cantidad" type="text" name="title"
                         formControlName="{{this.cantidad_luna}}" [ngClass]="{'is-invalid': formL.campoCantidadLuna.invalid && (formL.campoCantidadLuna.dirty || formL.campoCantidadLuna.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formL.campoCantidadLuna.errors.required">
+                        <div *ngIf="formL.campoCantidadLuna.errors?.required">
                           Campo requerido
                         </div>
-                        <div *ngIf="formL.campoCantidadLuna.errors.pattern">
+                        <div *ngIf="formL.campoCantidadLuna.errors?.pattern">
                           Ingrese solo números enteros
                         </div>
                       </div>
@@ -232,10 +232,10 @@
                       <input class="form-control" placeholder="Precio" type="text" name="title"
                         formControlName="{{this.precio_compra_luna}}" [ngClass]="{'is-invalid': formL.campoCompraLuna.invalid && (formL.campoCompraLuna.dirty || formL.campoCompraLuna.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formL.campoCompraLuna.errors.required">
+                        <div *ngIf="formL.campoCompraLuna.errors?.required">
                           Campo requerido
                         </div>
-                        <div *ngIf="formL.campoCompraLuna.errors.pattern">
+                        <div *ngIf="formL.campoCompraLuna.errors?.pattern">
                           Ingrese solo números y opcional hasta 2 decimales
                         </div>
                       </div>
@@ -247,10 +247,10 @@
                       <input class="form-control" placeholder="Precio" type="text" name="title"
                         formControlName="{{this.precio_venta_luna}}" [ngClass]="{'is-invalid': formL.campoVentaLuna.invalid && (formL.campoVentaLuna.dirty || formL.campoVentaLuna.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formL.campoVentaLuna.errors.required">
+                        <div *ngIf="formL.campoVentaLuna.errors?.required">
                           Campo requerido
                         </div>
-                        <div *ngIf="formL.campoVentaLuna.errors.pattern">
+                        <div *ngIf="formL.campoVentaLuna.errors?.pattern">
                           Ingrese solo números y opcional hasta 2 decimales
                         </div>
                       </div>
@@ -293,7 +293,7 @@
                       <input class="form-control" placeholder="Accesorio" type="text" name="accesorio"
                         formControlName="{{this.nombre_accesorio}}" [ngClass]="{'is-invalid': formA.campoNombreAccesorio.invalid && (formA.campoNombreAccesorio.dirty || formA.campoNombreAccesorio.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formA.campoNombreAccesorio.errors.required">
+                        <div *ngIf="formA.campoNombreAccesorio.errors?.required">
                           Campo requerido
                         </div>
                       </div>
@@ -308,10 +308,10 @@
                       <input class="form-control" placeholder="Cantidad" type="text" name="cantidad"
                         formControlName="{{this.cantidad_accesorio}}" [ngClass]="{'is-invalid': formA.campoCantidadAccesorio.invalid && (formA.campoCantidadAccesorio.dirty || formA.campoCantidadAccesorio.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formA.campoCantidadAccesorio.errors.required">
+                        <div *ngIf="formA.campoCantidadAccesorio.errors?.required">
                           Campo requerido
                         </div>
-                        <div *ngIf="formA.campoCantidadAccesorio.errors.pattern">
+                        <div *ngIf="formA.campoCantidadAccesorio.errors?.pattern">
                           Ingrese solo números enteros
                         </div>
                       </div>
@@ -323,10 +323,10 @@
                       <input class="form-control" placeholder="Precio" type="text" name="accesorio_compra"
                         formControlName="{{this.precio_compra_accesorio}}" [ngClass]="{'is-invalid': formA.campoCompraAccesorio.invalid && (formA.campoCompraAccesorio.dirty || formA.campoCompraAccesorio.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formA.campoCompraAccesorio.errors.required">
+                        <div *ngIf="formA.campoCompraAccesorio.errors?.required">
                           Campo requerido
                         </div>
-                        <div *ngIf="formA.campoCompraAccesorio.errors.pattern">
+                        <div *ngIf="formA.campoCompraAccesorio.errors?.pattern">
                           Ingrese solo números y opcional hasta 2 decimales
                         </div>
                       </div>
@@ -338,10 +338,10 @@
                       <input class="form-control" placeholder="Precio" type="text" name="accesorio_venta"
                         formControlName="{{this.precio_venta_accesorio}}" [ngClass]="{'is-invalid': formA.campoVentaAccesorio.invalid && (formA.campoVentaAccesorio.dirty || formA.campoVentaAccesorio.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formA.campoVentaAccesorio.errors.required">
+                        <div *ngIf="formA.campoVentaAccesorio.errors?.required">
                           Campo requerido
                         </div>
-                        <div *ngIf="formA.campoVentaAccesorio.errors.pattern">
+                        <div *ngIf="formA.campoVentaAccesorio.errors?.pattern">
                           Ingrese solo números y opcional hasta 2 decimales
                         </div>
                       </div>

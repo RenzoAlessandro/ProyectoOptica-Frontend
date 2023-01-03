@@ -18,6 +18,7 @@ import { UpdateExcelComponent } from './update-excel/update-excel.component';
 import { DropzoneModule, DROPZONE_CONFIG } from "ngx-dropzone-wrapper";
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { NgxDropzoneModule } from "ngx-dropzone";
+import { BarcodeGeneratorAllModule } from "@syncfusion/ej2-angular-barcode-generator";
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -45,7 +46,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       NgbCollapseModule,
       NgbNavModule,
       NgbModule,
-      NgxDropzoneModule
+      NgxDropzoneModule,
+      BarcodeGeneratorAllModule
     ],
     providers: [
       {
