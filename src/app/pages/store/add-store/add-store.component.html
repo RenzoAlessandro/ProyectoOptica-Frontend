@@ -20,8 +20,14 @@
                       <input class="form-control" placeholder="Nombre de la tienda" type="text" name="title"
                           formControlName="{{this.nombre_tienda}}" [ngClass]="{'is-invalid': formT.campoNombreTienda.invalid && (formT.campoNombreTienda.dirty || formT.campoNombreTienda.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formT.campoNombreTienda.errors.required">
+                        <div *ngIf="formT.campoNombreTienda.errors?.required">
                           Campo requerido
+                        </div>
+                        <div *ngIf="formT.campoNombreTienda.errors?.minlength">
+                          El campo debe ser mayor a 3 caracteres
+                        </div>
+                        <div  *ngIf="formT.campoNombreTienda.errors?.maxlength">
+                          El campo debe ser menor a 40 caracteres
                         </div>
                       </div>
                   </div>
@@ -43,8 +49,14 @@
                       <input class="form-control" placeholder="Dirección de la tienda" type="text" name="title"
                           formControlName="{{this.direccion_tienda}}" [ngClass]="{'is-invalid': formT.campoDireccionTienda.invalid && (formT.campoDireccionTienda.dirty || formT.campoDireccionTienda.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formT.campoDireccionTienda.errors.required">
+                        <div *ngIf="formT.campoDireccionTienda.errors?.required">
                           Campo requerido
+                        </div>
+                        <div *ngIf="formT.campoDireccionTienda.errors?.minlength">
+                          El campo debe ser mayor a 3 caracteres
+                        </div>
+                        <div  *ngIf="formT.campoDireccionTienda.errors?.maxlength">
+                          El campo debe ser menor a 60 caracteres
                         </div>
                       </div>
                   </div>

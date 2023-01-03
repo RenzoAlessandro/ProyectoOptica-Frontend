@@ -61,8 +61,17 @@
                       <input type="text" class="form-control" id="billing-firstnames" placeholder="Ingrese los nombres"
                         formControlName="{{this.nombres}}" [ngClass]="{'is-invalid': formU.campoNombres.invalid && (formU.campoNombres.dirty || formU.campoNombres.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formU.campoNombres.errors.required">
+                        <div *ngIf="formU.campoNombres.errors?.required">
                           Campo requerido
+                        </div>
+                        <div *ngIf="formU.campoNombres.errors?.pattern">
+                          Ingrese solo letras
+                        </div>
+                        <div *ngIf="formU.campoNombres.errors?.minlength">
+                          Los nombres debe ser mayor a 3 caracteres
+                        </div>
+                        <div  *ngIf="formU.campoNombres.errors?.maxlength">
+                          Los nombres debe ser menor a 40 caracteres
                         </div>
                       </div>
                     </div>
@@ -73,8 +82,17 @@
                       <input type="text" class="form-control" id="billing-lastnames" placeholder="Ingrese los apellidos"
                         formControlName="{{this.apellidos}}" [ngClass]="{'is-invalid': formU.campoApellidos.invalid && (formU.campoApellidos.dirty || formU.campoApellidos.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formU.campoApellidos.errors.required">
+                        <div *ngIf="formU.campoApellidos.errors?.required">
                           Campo requerido
+                        </div>
+                        <div *ngIf="formU.campoApellidos.errors?.pattern">
+                          Ingrese solo letras
+                        </div>
+                        <div *ngIf="formU.campoApellidos.errors?.minlength">
+                          Los apellidos debe ser mayor a 3 caracteres
+                        </div>
+                        <div  *ngIf="formU.campoApellidos.errors?.maxlength">
+                          Los apellidos debe ser menor a 40 caracteres
                         </div>
                       </div>
                     </div>
@@ -92,14 +110,30 @@
                     <div class="mb-4">
                       <label class="form-label" for="billing-phone">Teléfono</label>
                       <input type="text" class="form-control" id="billing-phone" placeholder="Teléfono del Cliente"
-                        formControlName="{{this.telefono}}" />
+                        formControlName="{{this.telefono}}" [ngClass]="{'is-invalid': formU.campoTelefono.invalid && (formU.campoTelefono.dirty || formU.campoTelefono.touched)}"/>
+                        <div class="invalid-feedback">
+                      <div *ngIf="formU.campoTelefono.errors?.email">
+                        Ingrese solo números
+                      </div>
+                      <div *ngIf="formU.campoTelefono.errors?.min">
+                        Número de dígitos menor
+                      </div>
+                      <div *ngIf="formU.campoTelefono.errors?.max">
+                        Número de dígitos mayor
+                      </div>
+                    </div>
                     </div>
                   </div>
                   <div class="col-lg-6">
                     <div class="mb-4">
                       <label class="form-label" for="billing-email-address">Correo Electrónico</label>
                       <input type="email" class="form-control" id="billing-email-address"
-                        placeholder="Correo electrónico" formControlName="{{this.email}}" />
+                        placeholder="Correo electrónico" formControlName="{{this.email}}" [ngClass]="{'is-invalid': formU.campoEmail.invalid && (formU.campoEmail.dirty || formU.campoEmail.touched)}"/>
+                      <div class="invalid-feedback">
+                        <div *ngIf="formU.campoEmail.errors?.pattern">
+                          Email invalido
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

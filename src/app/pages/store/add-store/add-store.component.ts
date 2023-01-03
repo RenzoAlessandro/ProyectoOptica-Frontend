@@ -40,10 +40,14 @@ export class AddStoreComponent implements OnInit {
   crearFormulario() {
     this.formTiendas = this.fb.group({
       [this.nombre_tienda]:[null, [
-        Validators.required
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(40)
       ]],
       [this.direccion_tienda]:[null, [
-        Validators.required
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(60)
       ]],
       [this.estado_tienda]:[],
     })
