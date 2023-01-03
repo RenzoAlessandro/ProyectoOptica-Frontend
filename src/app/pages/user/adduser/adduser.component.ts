@@ -12,6 +12,7 @@ import { UsersModel } from 'src/models/user';
 export class AdduserComponent implements OnInit {
 
   // bread crumb items
+  // Hola
   breadCrumbItems: Array<{}>;
   formRegister: FormGroup;
   nombres: string = "campoNombres";
