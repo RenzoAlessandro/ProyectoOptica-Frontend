@@ -91,7 +91,7 @@
                     <ngb-highlight [result]="data.fecha_creacion| date: 'dd/MM/yyyy'" [term]="service.searchTerm">
                     </ngb-highlight>
                   </td>
-<!--                   <td>
+                  <!--                   <td>
                     <ngb-highlight [result]="data.medidas[0].encargado" [term]="service.searchTerm"></ngb-highlight>
                   </td> -->
                   <!-- <td>
@@ -121,8 +121,6 @@
           </form>
         </div>
       </div>
-
-
     </div>
   </div>
   <!-- end row -->
@@ -162,7 +160,6 @@
               </div>
             </div>
 
-
             <hr class="my-1">
 
             <div class="row">
@@ -173,7 +170,6 @@
                   <li class="list-inline-item"><span class="fw-medium">Fecha de Nacimiento : </span>14 Feb, 1996</li>
                   <li class="list-inline-item"><span class="fw-medium">Telefono: </span>983 720 159</li>
                 </div>
-
               </div>
             </div>
             <hr class="my-4">
@@ -231,7 +227,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="row">
                 <div class="col-sm-12">
                   <div class="text-muted">
@@ -247,7 +242,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="d-print-none mt-4">
                 <div class="float-end">
                   <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light me-1"><i
@@ -269,7 +263,7 @@
 <!-- Edit Customer - Center Modal -->
 <ng-template #centerDataModalEditCustomer let-modal>
   <div class="modal-header">
-    <h5 class="modal-title" id="modal-title">Registrar Nuevo Cliente</h5>
+    <h5 class="modal-title" id="modal-title">Editar Cliente</h5>
     <button type="button" class="btn-close" (click)="closeEventModal()">
     </button>
   </div>
@@ -280,66 +274,100 @@
           <div class="mb-3">
             <label class="control-label">DNI</label>
             <input class="form-control" placeholder="DNI del cliente" type="text" formControlName="{{this.dni}}"
-              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <!-- <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div> -->
+              [ngClass]="{'is-invalid': formEC.campoDNI.invalid && (formEC.campoDNI.dirty || formEC.campoDNI.touched)}" />
+            <div class="invalid-feedback">
+              <div *ngIf="formEC.campoDNI.errors?.required">
+                Campo requerido
+              </div>
+              <div *ngIf="formEC.campoDNI.errors?.pattern">
+                Ingrese solo números
+              </div>
+              <div *ngIf="formEC.campoDNI.errors?.min">
+                Número de dígitos menor
+              </div>
+              <div *ngIf="formEC.campoDNI.errors?.max">
+                Número de dígitos mayor
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Fecha de Registro</label>
             <input class="form-control" placeholder="Seleccione la fecha" type="date"
-              formControlName="{{this.fecha_modificacion}}"
-              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <!-- <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div> -->
+              formControlName="{{this.fecha_modificacion}}" />
           </div>
         </div>
       </div>
-
       <div class="row">
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Nombres</label>
             <input class="form-control" placeholder="Nombres del cliente" type="text" formControlName="{{this.nombres}}"
-              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <!-- <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div> -->
+              [ngClass]="{'is-invalid': formEC.campoNombres.invalid && (formEC.campoNombres.dirty || formEC.campoNombres.touched)}" />
+            <div class="invalid-feedback">
+              <div *ngIf="formEC.campoNombres.errors?.required">
+                Campo requerido
+              </div>
+              <div *ngIf="formEC.campoNombres.errors?.pattern">
+                Ingrese solo letras
+              </div>
+              <div *ngIf="formEC.campoNombres.errors?.minlength">
+                Los nombres debe ser mayor a 3 caracteres
+              </div>
+              <div *ngIf="formEC.campoNombres.errors?.maxlength">
+                Los nombres debe ser menor a 40 caracteres
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Apellidos</label>
             <input class="form-control" placeholder="Apellidos del cliente" type="text"
-              formControlName="{{this.apellidos}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
+              formControlName="{{this.apellidos}}"
+              [ngClass]="{'is-invalid': formEC.campoApellidos.invalid && (formEC.campoApellidos.dirty || formEC.campoApellidos.touched)}" />
+            <div class="invalid-feedback">
+              <div *ngIf="formEC.campoApellidos.errors?.required">
+                Campo requerido
+              </div>
+              <div *ngIf="formEC.campoApellidos.errors?.pattern">
+                Ingrese solo letras
+              </div>
+              <div *ngIf="formEC.campoApellidos.errors?.minlength">
+                Los apellidos debe ser mayor a 3 caracteres
+              </div>
+              <div *ngIf="formEC.campoApellidos.errors?.maxlength">
+                Los apellidos debe ser menor a 40 caracteres
+              </div>
             </div>
           </div>
         </div>
       </div>
-
       <div class="row">
         <div class="col-3">
           <div class="mb-3">
             <label class="control-label">Fecha de Nacimiento</label>
             <input class="form-control" placeholder="Seleccione la fecha" type="date"
-              formControlName="{{this.fecha_nacimiento}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
+              formControlName="{{this.fecha_nacimiento}}" />
           </div>
         </div>
         <div class="col-3">
           <div class="mb-3">
             <label class="control-label">Teléfono</label>
             <input class="form-control" placeholder="Teléfono del cliente" type="text"
-              formControlName="{{this.telefono}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
+              formControlName="{{this.telefono}}"
+              [ngClass]="{'is-invalid': formEC.campoTelefono.invalid && (formEC.campoTelefono.dirty || formEC.campoTelefono.touched)}" />
+            <div class="invalid-feedback">
+              <div *ngIf="formEC.campoTelefono.errors?.pattern">
+                Ingrese solo números
+              </div>
+              <div *ngIf="formEC.campoTelefono.errors?.min">
+                Número de dígitos menor
+              </div>
+              <div *ngIf="formEC.campoTelefono.errors?.max">
+                Número de dígitos mayor
+              </div>
             </div>
           </div>
         </div>
@@ -347,136 +375,108 @@
           <div class="mb-3">
             <label class="control-label">Correo Electrónico</label>
             <input class="form-control" placeholder="Correo electrónico" type="email" formControlName="{{this.email}}"
-              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
+              [ngClass]="{'is-invalid': formEC.campoEmail.invalid && (formEC.campoEmail.dirty || formEC.campoEmail.touched)}" />
+            <div class="invalid-feedback">
+              <div *ngIf="formEC.campoEmail.errors?.email">
+                Email invalido
+              </div>
             </div>
           </div>
         </div>
       </div>
-
       <div class="border-top py-2">
         <div class="d-flex justify-content-center">
           <h6>Especificaciones de la Medida</h6>
         </div>
-
         <div class="row">
           <div class="col-6">
             <div class="d-flex justify-content-start">
               <h6>Ojo Derecho</h6>
             </div>
-
             <div class="row">
               <div class="col-4">
                 <div class="mb-3">
                   <label class="control-label">ESF</label>
-                  <input class="form-control" placeholder="Esfera" type="text" formControlName="{{this.od_esferico}}"
-                    [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                  <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                    <span *ngIf="form.title.errors.required">This value is required.</span>
-                  </div>
+                  <input class="form-control" placeholder="Esfera" type="text" formControlName="{{this.od_esferico}}" />
                 </div>
               </div>
               <div class="col-4">
                 <div class="mb-3">
                   <label class="control-label">CYL</label>
                   <input class="form-control" placeholder="Cilindro" type="text"
-                    formControlName="{{this.od_cilindrico}}"
-                    [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                  <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                    <span *ngIf="form.title.errors.required">This value is required.</span>
-                  </div>
+                    formControlName="{{this.od_cilindrico}}" />
                 </div>
               </div>
               <div class="col-4">
                 <div class="mb-3">
                   <label class="control-label">EJE</label>
-                  <input class="form-control" placeholder="Eje" type="text" formControlName="{{this.od_eje}}"
-                    [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                  <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                    <span *ngIf="form.title.errors.required">This value is required.</span>
-                  </div>
+                  <input class="form-control" placeholder="Eje" type="text" formControlName="{{this.od_eje}}" />
                 </div>
               </div>
             </div>
           </div>
-
           <div class="col-6">
             <div class="d-flex justify-content-start">
               <h6>Ojo Izquierdo</h6>
             </div>
-
             <div class="row">
               <div class="col-4">
                 <div class="mb-3">
                   <label class="control-label">ESF</label>
-                  <input class="form-control" placeholder="Esfera" type="text" formControlName="{{this.oi_esferico}}"
-                    [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                  <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                    <span *ngIf="form.title.errors.required">This value is required.</span>
-                  </div>
+                  <input class="form-control" placeholder="Esfera" type="text" formControlName="{{this.oi_esferico}}" />
                 </div>
               </div>
               <div class="col-4">
                 <div class="mb-3">
                   <label class="control-label">CYL</label>
                   <input class="form-control" placeholder="Cilindro" type="text"
-                    formControlName="{{this.oi_cilindrico}}"
-                    [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                  <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                    <span *ngIf="form.title.errors.required">This value is required.</span>
-                  </div>
+                    formControlName="{{this.oi_cilindrico}}" />
                 </div>
               </div>
               <div class="col-4">
                 <div class="mb-3">
                   <label class="control-label">EJE</label>
-                  <input class="form-control" placeholder="Eje" type="text" formControlName="{{this.oi_eje}}"
-                    [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                  <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                    <span *ngIf="form.title.errors.required">This value is required.</span>
-                  </div>
+                  <input class="form-control" placeholder="Eje" type="text" formControlName="{{this.oi_eje}}" />
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
-
       <div class="row">
         <div class="col-3">
           <div class="mb-3">
             <label class="control-label">DIP</label>
-            <input class="form-control" placeholder="Distancia Interpupilar" type="text" formControlName="{{this.dip}}"
-              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
+            <input class="form-control" placeholder="Distancia Interpupilar" type="text"
+              formControlName="{{this.dip}}" />
           </div>
         </div>
         <div class="col-3">
           <div class="mb-3">
             <label class="control-label">ADD</label>
-            <input class="form-control" placeholder="Adición" type="text" formControlName="{{this.add}}"
-              [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
+            <input class="form-control" placeholder="Adición" type="text" formControlName="{{this.add}}" />
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Encargado de la Medición</label>
             <input class="form-control" placeholder="Nombres y apellidos del Oftometra" type="text"
-              formControlName="{{this.encargado}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
+              formControlName="{{this.encargado}}"
+              [ngClass]="{'is-invalid': formEC.campoEncargado.invalid && (formEC.campoEncargado.dirty || formEC.campoEncargado.touched)}" />
+            <div class="invalid-feedback">
+              <div *ngIf="formEC.campoEncargado.errors?.pattern">
+                Ingrese solo letras
+              </div>
+              <div *ngIf="formEC.campoEncargado.errors?.minlength">
+                El campo debe ser mayor a 3 caracteres
+              </div>
+              <div *ngIf="formEC.campoEncargado.errors?.maxlength">
+                El campo debe ser menor a 40 caracteres
+              </div>
             </div>
           </div>
         </div>
       </div>
-
       <div class="border-top py-2">
         <div class="row">
           <div class="col-lg-12">
@@ -488,8 +488,6 @@
           </div>
         </div>
       </div>
-
-
       <div class="text-end mt-2">
         <button type="button" class="btn btn-danger" (click)="closeEventModal()">
           Cerrar

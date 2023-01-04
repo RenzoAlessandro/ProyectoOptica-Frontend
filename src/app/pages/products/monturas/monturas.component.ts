@@ -19,8 +19,16 @@ import { Sweetalert } from 'src/utils/sweetalert';
 export class MonturasComponent implements OnInit {
   // modal
   editEvent: any;
-  formMontura: FormGroup;
   submitted = false;
+
+  formMontura: FormGroup;
+  material_montura: string = "campoMaterialMontura";
+  marca_montura: string = "campoMarcaMontura";
+  codigo_montura: string = "campoCodigoMontura";
+  talla_montura: string = "campoTallaMontura";
+  cantidad_montura: string = "campoCantidadMontura";
+  precio_compra_montura: string = "campoCompraMontura";
+  precio_venta_montura: string = "campoVentaMontura";
   
 
   // bread crumb items
@@ -32,14 +40,6 @@ export class MonturasComponent implements OnInit {
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
-  //formulario
-  material: string = "campoMaterial";
-  marca: string = "campoMarca";
-  codigo: string = "campoCodigo";
-  talla: string = "campoTalla";
-  cantidad: string = "campoCantidad";
-  pCompra: string = "campoPCompra";
-  pVenta: string = "campoPVenta";
   numberPattern = '[0-9]+';
   decimalPattern = /^\d+(\.\d{2})?$/;
 
@@ -61,27 +61,27 @@ export class MonturasComponent implements OnInit {
 
   crearFormulario() {
     this.formMontura = this.fb.group({
-      [this.material]: [null, [
+      [this.material_montura]: [null, [
         Validators.required
       ]],
-      [this.marca]: [null, [
+      [this.marca_montura]: [null, [
         Validators.required
       ]],
-      [this.talla]: [null, [
+      [this.talla_montura]: [null, [
         Validators.required
       ]],
-      [this.codigo]: [null, [
+      [this.codigo_montura]: [null, [
         Validators.required
       ]],
-      [this.cantidad]: [null, [
+      [this.cantidad_montura]: [null, [
         Validators.required,
         Validators.pattern(this.numberPattern)
       ]],
-      [this.pCompra]: [null, [
+      [this.precio_compra_montura]: [null, [
         Validators.required,
         Validators.pattern(this.decimalPattern)
       ]],
-      [this.pVenta]: [null, [
+      [this.precio_venta_montura]: [null, [
         Validators.required,
         Validators.pattern(this.decimalPattern)
       ]]
@@ -109,13 +109,13 @@ export class MonturasComponent implements OnInit {
    * @param centerDataModal center modal data
    */
   centerModal(centerDataModal: any, data: MonturasModel) {
-    this.f(this.material).setValue(data.material);
-    this.f(this.marca).setValue(data.marca);
-    this.f(this.codigo).setValue(data.codigo);
-    this.f(this.talla).setValue(data.talla);
-    this.f(this.cantidad).setValue(data.cantidad);
-    this.f(this.pCompra).setValue(data.precio_montura_c);
-    this.f(this.pVenta).setValue(data.precio_montura_v);
+    this.f(this.material_montura).setValue(data.material);
+    this.f(this.marca_montura).setValue(data.marca);
+    this.f(this.codigo_montura).setValue(data.codigo);
+    this.f(this.talla_montura).setValue(data.talla);
+    this.f(this.cantidad_montura).setValue(data.cantidad);
+    this.f(this.precio_compra_montura).setValue(data.precio_montura_c);
+    this.f(this.precio_venta_montura).setValue(data.precio_montura_v);
 
     this.montura.id_montura = data.id_montura;
     this.modalService.open(centerDataModal, { centered: true, windowClass: 'modal-holder' });
@@ -152,13 +152,13 @@ export class MonturasComponent implements OnInit {
 
   guardarMontura() {
     if (this.formMontura.valid) {
-      this.montura.material = this.f(this.material).value;
-      this.montura.marca = this.f(this.marca).value;
-      this.montura.codigo = this.f(this.codigo).value;
-      this.montura.talla = this.f(this.talla).value;
-      this.montura.cantidad = Number(this.f(this.cantidad).value);
-      this.montura.precio_montura_c = Number(this.f(this.pCompra).value);
-      this.montura.precio_montura_v = Number(this.f(this.pVenta).value);
+      this.montura.material = this.f(this.material_montura).value;
+      this.montura.marca = this.f(this.marca_montura).value;
+      this.montura.codigo = this.f(this.codigo_montura).value;
+      this.montura.talla = this.f(this.talla_montura).value;
+      this.montura.cantidad = Number(this.f(this.cantidad_montura).value);
+      this.montura.precio_montura_c = Number(this.f(this.precio_compra_montura).value);
+      this.montura.precio_montura_v = Number(this.f(this.precio_venta_montura).value);
       this.montura.fecha_modificacion_monturas = new Date(Date.now());
       console.log(this.montura);
       Sweetalert("loading", "Cargando...");
@@ -186,5 +186,12 @@ export class MonturasComponent implements OnInit {
     this.monturaService.getMonturas().subscribe( res=>{
       this.service.updateTable(res);
     })
+  }
+
+  /**
+ * Returns form Editar Monturas
+ */
+  get formEM() {
+    return this.formMontura.controls;
   }
 }

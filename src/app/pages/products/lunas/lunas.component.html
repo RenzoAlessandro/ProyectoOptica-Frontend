@@ -139,10 +139,9 @@
               <div class="mb-3">
                 <label class="control-label">Material</label>
                 <input class="form-control" placeholder="Material de la luna" type="text" name="title"
-                  formControlName="{{this.material}}" />
-                  <div class="text-danger"
-                  *ngIf="formLuna.controls['campoMaterial'].invalid && (formLuna.controls['campoMaterial'].dirty || formLuna.controls['campoMaterial'].touched)">
-                  <div class="text-danger" *ngIf="formLuna.controls['campoMaterial'].errors.required">
+                  formControlName="{{this.material_luna}}" [ngClass]="{'is-invalid': formEL.campoMaterialLuna.invalid && (formEL.campoMaterialLuna.dirty || formEL.campoMaterialLuna.touched)}"/>
+                <div class="invalid-feedback">
+                  <div *ngIf="formEL.campoMaterialLuna.errors?.required">
                     Campo requerido
                   </div>
                 </div>
@@ -155,13 +154,12 @@
               <div class="mb-3">
                 <label class="control-label">Cantidad</label>
                 <input class="form-control" placeholder="Cantidad" type="text" name="title"
-                  formControlName="{{this.cantidad}}" />
-                  <div class="text-danger"
-                  *ngIf="formLuna.controls['campoCantidad'].invalid && (formLuna.controls['campoCantidad'].dirty || formLuna.controls['campoCantidad'].touched)">
-                  <div class="text-danger" *ngIf="formLuna.controls['campoCantidad'].errors.required">
+                  formControlName="{{this.cantidad_luna}}" [ngClass]="{'is-invalid': formEL.campoCantidadLuna.invalid && (formEL.campoCantidadLuna.dirty || formEL.campoCantidadLuna.touched)}"/>
+                <div class="invalid-feedback">
+                  <div *ngIf="formEL.campoCantidadLuna.errors?.required">
                     Campo requerido
                   </div>
-                  <div class="text-danger" *ngIf="formLuna.controls['campoCantidad'].errors.pattern">
+                  <div *ngIf="formEL.campoCantidadLuna.errors?.pattern">
                     Ingrese solo números enteros
                   </div>
                 </div>
@@ -171,13 +169,12 @@
               <div class="mb-3">
                 <label class="control-label">Precio de Compra</label>
                 <input class="form-control" placeholder="Precio" type="text" name="title"
-                  formControlName="{{this.pCompra}}"  />
-                  <div class="text-danger"
-                  *ngIf="formLuna.controls['campoPCompra'].invalid && (formLuna.controls['campoPCompra'].dirty || formLuna.controls['campoPCompra'].touched)">
-                  <div class="text-danger" *ngIf="formLuna.controls['campoPCompra'].errors.required">
+                  formControlName="{{this.precio_compra_luna}}" [ngClass]="{'is-invalid': formEL.campoCompraLuna.invalid && (formEL.campoCompraLuna.dirty || formEL.campoCompraLuna.touched)}"/>
+                <div class="invalid-feedback">
+                  <div *ngIf="formEL.campoCompraLuna.errors?.required">
                     Campo requerido
                   </div>
-                  <div class="text-danger" *ngIf="formLuna.controls['campoPCompra'].errors.pattern">
+                  <div *ngIf="formEL.campoCompraLuna.errors?.pattern">
                     Ingrese solo números y opcional hasta 2 decimales
                   </div>
                 </div>
@@ -187,13 +184,12 @@
               <div class="mb-3">
                 <label class="control-label">Precio de Venta</label>
                 <input class="form-control" placeholder="Precio" type="text" name="title"
-                  formControlName="{{this.pVenta}}"  />
-                  <div class="text-danger"
-                  *ngIf="formLuna.controls['campoPVenta'].invalid && (formLuna.controls['campoPVenta'].dirty || formLuna.controls['campoPVenta'].touched)">
-                  <div class="text-danger" *ngIf="formLuna.controls['campoPVenta'].errors.required">
+                  formControlName="{{this.precio_venta_luna}}" [ngClass]="{'is-invalid': formEL.campoVentaLuna.invalid && (formEL.campoVentaLuna.dirty || formEL.campoVentaLuna.touched)}"/>
+                <div class="invalid-feedback">
+                  <div *ngIf="formEL.campoVentaLuna.errors?.required">
                     Campo requerido
                   </div>
-                  <div class="text-danger" *ngIf="formLuna.controls['campoPVenta'].errors.pattern">
+                  <div *ngIf="formEL.campoVentaLuna.errors?.pattern">
                     Ingrese solo números y opcional hasta 2 decimales
                   </div>
                 </div>

@@ -111,17 +111,17 @@
                       <label class="form-label" for="billing-phone">Teléfono</label>
                       <input type="text" class="form-control" id="billing-phone" placeholder="Teléfono del Cliente"
                         formControlName="{{this.telefono}}" [ngClass]="{'is-invalid': formU.campoTelefono.invalid && (formU.campoTelefono.dirty || formU.campoTelefono.touched)}"/>
-                        <div class="invalid-feedback">
-                      <div *ngIf="formU.campoTelefono.errors?.email">
-                        Ingrese solo números
+                      <div class="invalid-feedback">
+                        <div *ngIf="formU.campoTelefono.errors?.pattern">
+                          Ingrese solo números
+                        </div>
+                        <div *ngIf="formU.campoTelefono.errors?.min">
+                          Número de dígitos menor
+                        </div>
+                        <div *ngIf="formU.campoTelefono.errors?.max">
+                          Número de dígitos mayor
+                        </div>
                       </div>
-                      <div *ngIf="formU.campoTelefono.errors?.min">
-                        Número de dígitos menor
-                      </div>
-                      <div *ngIf="formU.campoTelefono.errors?.max">
-                        Número de dígitos mayor
-                      </div>
-                    </div>
                     </div>
                   </div>
                   <div class="col-lg-6">
@@ -130,7 +130,7 @@
                       <input type="email" class="form-control" id="billing-email-address"
                         placeholder="Correo electrónico" formControlName="{{this.email}}" [ngClass]="{'is-invalid': formU.campoEmail.invalid && (formU.campoEmail.dirty || formU.campoEmail.touched)}"/>
                       <div class="invalid-feedback">
-                        <div *ngIf="formU.campoEmail.errors?.pattern">
+                        <div *ngIf="formU.campoEmail.errors?.email">
                           Email invalido
                         </div>
                       </div>

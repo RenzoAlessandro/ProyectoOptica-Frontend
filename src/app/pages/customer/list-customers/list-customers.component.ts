@@ -1,6 +1,6 @@
 import { DecimalPipe,formatDate } from '@angular/common';
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { ClienteService } from 'src/app/services/cliente.service';
@@ -40,6 +40,9 @@ export class ListCustomersComponent implements OnInit {
   customer = new CustomersModel;
   medidas = new MedidasModel;
   submitted = false;
+
+  lettersPattern = '[a-zA-Z ]*';
+  numberPattern = '^[0-9]+$|^\S*$';
 
   listRoles = [
     { cNombre:1, tNombre: "Admin" },
@@ -197,13 +200,34 @@ export class ListCustomersComponent implements OnInit {
   } */
   crearFormulario() {
     this.formCustomer = this.fb.group({
-      [this.nombres]:[],
-      [this.apellidos]:[],
-      [this.dni]:[],
-      [this.telefono]:[],
+      [this.nombres]:[null,[
+        Validators.required,
+        Validators.pattern(this.lettersPattern),
+        Validators.minLength(3),
+        Validators.maxLength(40)
+      ]],
+      [this.apellidos]:[null,[
+        Validators.required,
+        Validators.pattern(this.lettersPattern),
+        Validators.minLength(3),
+        Validators.maxLength(40)
+      ]],
+      [this.dni]:[null,[
+        Validators.required,
+        Validators.pattern(this.numberPattern),
+        Validators.min(11111111),
+        Validators.max(99999999)
+      ]],
+      [this.telefono]:[null,[
+        Validators.pattern(this.numberPattern),
+        Validators.min(111111111),
+        Validators.max(999999999)
+      ]],
       [this.fecha_nacimiento]:[],
       [this.fecha_modificacion]:[],
-      [this.email]:[],
+      [this.email]: [null,[
+        Validators.email
+      ]],
       [this.od_cilindrico]:[],
       [this.od_eje]:[],
       [this.od_esferico]:[],
@@ -212,9 +236,19 @@ export class ListCustomersComponent implements OnInit {
       [this.oi_eje]:[],
       [this.dip]:[],
       [this.add]:[],
-      [this.encargado]:[],
+      [this.encargado]:[null,[
+        Validators.pattern(this.lettersPattern),
+        Validators.minLength(3),
+        Validators.maxLength(40)
+      ]],
       [this.antecedentes]:[],
     })
   }
 
+  /**
+   * Returns form Editar Cliente
+   */
+  get formEC() {
+    return this.formCustomer.controls;
+  }
 }

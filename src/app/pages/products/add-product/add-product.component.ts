@@ -239,14 +239,9 @@ export class AddProductComponent implements OnInit {
     return this.formLunas.controls;
   }
   /**
-   * Returns form Lunas
+   * Returns form Accesorios
    */
   get formA() {
     return this.formAccesorios.controls;
   }
-      
-    
-
-
-  
 }

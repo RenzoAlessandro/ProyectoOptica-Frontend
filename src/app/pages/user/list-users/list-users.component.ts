@@ -161,7 +161,9 @@ closeEventModal() {
       [this.observaciones]:[null,[
       ]],
       [this.telefono]:[null,[
-        Validators.pattern(this.numberPattern)
+        Validators.pattern(this.numberPattern),
+        Validators.min(111111111),
+        Validators.max(999999999)
       ]],
       [this.fechaNacimiento]:[null,[
         //Validators.required

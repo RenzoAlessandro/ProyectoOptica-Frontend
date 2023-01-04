@@ -31,7 +31,8 @@
                     <div class="mb-4">
                       <label class="form-label" for="billing-dni">DNI</label>
                       <input type="text" class="form-control" id="billing-dni" placeholder="DNI del Cliente"
-                        formControlName="{{this.dni}}" [ngClass]="{'is-invalid': formC.campoDNI.invalid && (formC.campoDNI.dirty || formC.campoDNI.touched)}"/>
+                        formControlName="{{this.dni}}"
+                        [ngClass]="{'is-invalid': formC.campoDNI.invalid && (formC.campoDNI.dirty || formC.campoDNI.touched)}" />
                       <div class="invalid-feedback">
                         <div *ngIf="formC.campoDNI.errors?.required">
                           Campo requerido
@@ -48,7 +49,6 @@
                       </div>
                     </div>
                   </div>
-
                   <div class="col-6">
                     <div class="mb-4">
                       <label class="form-label" for="billing-fecharegistro">Fecha de Registro</label>
@@ -62,7 +62,8 @@
                     <div class="mb-4">
                       <label class="form-label" for="billing-firstnames">Nombres</label>
                       <input type="text" class="form-control" id="billing-firstnames" placeholder="Nombres del Cliente"
-                        formControlName="{{this.nombres}}" [ngClass]="{'is-invalid': formC.campoNombres.invalid && (formC.campoNombres.dirty || formC.campoNombres.touched)}"/>
+                        formControlName="{{this.nombres}}"
+                        [ngClass]="{'is-invalid': formC.campoNombres.invalid && (formC.campoNombres.dirty || formC.campoNombres.touched)}" />
                       <div class="invalid-feedback">
                         <div *ngIf="formC.campoNombres.errors?.required">
                           Campo requerido
@@ -73,7 +74,7 @@
                         <div *ngIf="formC.campoNombres.errors?.minlength">
                           Los nombres debe ser mayor a 3 caracteres
                         </div>
-                        <div  *ngIf="formC.campoNombres.errors?.maxlength">
+                        <div *ngIf="formC.campoNombres.errors?.maxlength">
                           Los nombres debe ser menor a 40 caracteres
                         </div>
                       </div>
@@ -83,7 +84,8 @@
                     <div class="mb-4">
                       <label class="form-label" for="billing-lastnames">Apellidos</label>
                       <input type="text" class="form-control" id="billing-lastnames" placeholder="Apellidos del Cliente"
-                        formControlName="{{this.apellidos}}" [ngClass]="{'is-invalid': formC.campoApellidos.invalid && (formC.campoApellidos.dirty || formC.campoApellidos.touched)}"/>
+                        formControlName="{{this.apellidos}}"
+                        [ngClass]="{'is-invalid': formC.campoApellidos.invalid && (formC.campoApellidos.dirty || formC.campoApellidos.touched)}" />
                       <div class="invalid-feedback">
                         <div *ngIf="formC.campoApellidos.errors?.required">
                           Campo requerido
@@ -94,7 +96,7 @@
                         <div *ngIf="formC.campoApellidos.errors?.minlength">
                           Los apellidos debe ser mayor a 3 caracteres
                         </div>
-                        <div  *ngIf="formC.campoApellidos.errors?.maxlength">
+                        <div *ngIf="formC.campoApellidos.errors?.maxlength">
                           Los apellidos debe ser menor a 40 caracteres
                         </div>
                       </div>
@@ -113,9 +115,10 @@
                     <div class="mb-4">
                       <label class="form-label" for="billing-phone">Teléfono</label>
                       <input type="text" class="form-control" id="billing-phone" placeholder="Teléfono del Cliente"
-                        formControlName="{{this.telefono}}" [ngClass]="{'is-invalid': formC.campoTelefono.invalid && (formC.campoTelefono.dirty || formC.campoTelefono.touched)}"/>
+                        formControlName="{{this.telefono}}"
+                        [ngClass]="{'is-invalid': formC.campoTelefono.invalid && (formC.campoTelefono.dirty || formC.campoTelefono.touched)}" />
                       <div class="invalid-feedback">
-                        <div *ngIf="formC.campoTelefono.errors?.email">
+                        <div *ngIf="formC.campoTelefono.errors?.pattern">
                           Ingrese solo números
                         </div>
                         <div *ngIf="formC.campoTelefono.errors?.min">
@@ -131,9 +134,10 @@
                     <div class="mb-4">
                       <label class="form-label" for="billing-email-address">Correo Electrónico</label>
                       <input type="email" class="form-control" id="billing-email-address"
-                        placeholder="Correo electrónico" formControlName="{{this.email}}" [ngClass]="{'is-invalid': formC.campoEmail.invalid && (formC.campoEmail.dirty || formC.campoEmail.touched)}"/>
+                        placeholder="Correo electrónico" formControlName="{{this.email}}"
+                        [ngClass]="{'is-invalid': formC.campoEmail.invalid && (formC.campoEmail.dirty || formC.campoEmail.touched)}" />
                       <div class="invalid-feedback">
-                        <div *ngIf="formC.campoEmail.errors?.pattern">
+                        <div *ngIf="formC.campoEmail.errors?.email">
                           Email invalido
                         </div>
                       </div>
@@ -260,7 +264,8 @@
                     <label class="form-label" for="billing-encargado-medicion">Encargado de la
                       Medición</label>
                     <input type="text" class="form-control" id="billing-encargado-medicion" placeholder="Encargado"
-                      formControlName="{{this.encargado}}" [ngClass]="{'is-invalid': formC.campoEncargado.invalid && (formC.campoEncargado.dirty || formC.campoEncargado.touched)}"/>
+                      formControlName="{{this.encargado}}"
+                      [ngClass]="{'is-invalid': formC.campoEncargado.invalid && (formC.campoEncargado.dirty || formC.campoEncargado.touched)}" />
                     <div class="invalid-feedback">
                       <div *ngIf="formC.campoEncargado.errors?.pattern">
                         Ingrese solo letras
@@ -268,11 +273,10 @@
                       <div *ngIf="formC.campoEncargado.errors?.minlength">
                         El campo debe ser mayor a 3 caracteres
                       </div>
-                      <div  *ngIf="formC.campoEncargado.errors?.maxlength">
+                      <div *ngIf="formC.campoEncargado.errors?.maxlength">
                         El campo debe ser menor a 40 caracteres
                       </div>
                     </div>
-
                   </div>
                 </div>
               </div>

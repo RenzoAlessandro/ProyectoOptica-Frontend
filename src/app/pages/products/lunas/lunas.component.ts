@@ -21,8 +21,13 @@ export class LunasComponent implements OnInit {
 
   // modal
   editEvent: any;
-  formLuna: FormGroup;
   submitted = false;
+
+  formLuna: FormGroup;
+  material_luna: string = "campoMaterialLuna";
+  cantidad_luna: string = "campoCantidadLuna";
+  precio_compra_luna: string = "campoCompraLuna";
+  precio_venta_luna: string = "campoVentaLuna";
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
@@ -37,12 +42,6 @@ export class LunasComponent implements OnInit {
   luna = new LunasModel;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
-
-  //formulario
-  material: string = "campoMaterial";
-  cantidad: string = "campoCantidad";
-  pCompra: string = "campoPCompra";
-  pVenta: string = "campoPVenta";
 
   constructor(
     public service: CustomerService,
@@ -61,18 +60,18 @@ export class LunasComponent implements OnInit {
 
   crearFormulario() {
     this.formLuna = this.fb.group({
-      [this.material]: [null, [
+      [this.material_luna]: [null, [
         Validators.required
       ]],
-      [this.cantidad]: [null, [
+      [this.cantidad_luna]: [null, [
         Validators.required,
         Validators.pattern(this.numberPattern)
       ]],
-      [this.pCompra]: [null, [
+      [this.precio_compra_luna]: [null, [
         Validators.required,
         Validators.pattern(this.decimalPattern)
       ]],
-      [this.pVenta]: [null, [
+      [this.precio_venta_luna]: [null, [
         Validators.required,
         Validators.pattern(this.decimalPattern)
       ]],
@@ -98,10 +97,10 @@ export class LunasComponent implements OnInit {
    * @param centerDataModal center modal data
    */
   centerModal(centerDataModal: any, data: LunasModel) {
-    this.f(this.material).setValue(data.material);
-    this.f(this.cantidad).setValue(data.cantidad);
-    this.f(this.pCompra).setValue(data.precio_luna_c);
-    this.f(this.pVenta).setValue(data.precio_luna_v);
+    this.f(this.material_luna).setValue(data.material);
+    this.f(this.cantidad_luna).setValue(data.cantidad);
+    this.f(this.precio_compra_luna).setValue(data.precio_luna_c);
+    this.f(this.precio_venta_luna).setValue(data.precio_luna_v);
 
     this.luna.id_luna = data.id_luna;
 
@@ -135,10 +134,10 @@ export class LunasComponent implements OnInit {
 
   guardarLuna() {
     if (this.formLuna.valid) {
-      this.luna.material = this.f(this.material).value;
-      this.luna.cantidad = Number(this.f(this.cantidad).value);
-      this.luna.precio_luna_c = Number(this.f(this.pCompra).value);
-      this.luna.precio_luna_v = Number(this.f(this.pVenta).value);
+      this.luna.material = this.f(this.material_luna).value;
+      this.luna.cantidad = Number(this.f(this.cantidad_luna).value);
+      this.luna.precio_luna_c = Number(this.f(this.precio_compra_luna).value);
+      this.luna.precio_luna_v = Number(this.f(this.precio_venta_luna).value);
       this.luna.fecha_modificacion_luna = new Date(Date.now());
 
       console.log(this.luna);
@@ -167,5 +166,12 @@ export class LunasComponent implements OnInit {
     this.lunaService.getLunas().subscribe( res=>{
       this.service.updateTable(res);
     })
+  }
+
+  /**
+  * Returns form Editar Lunas
+  */
+  get formEL() {
+    return this.formLuna.controls;
   }
 }

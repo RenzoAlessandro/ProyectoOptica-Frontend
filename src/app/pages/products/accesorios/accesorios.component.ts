@@ -23,23 +23,23 @@ export class AccesoriosComponent implements OnInit {
 
   // modal
   editEvent: any;
-  formAccesorios: FormGroup;
   submitted = false;
 
-  // bread crumb items
-  breadCrumbItems: Array<{}>;
-  term: any;
+  //formulario
+  formAccesorios: FormGroup;
+  nombre_accesorio: string = "campoNombreAccesorio";
+  cantidad_accesorio: string = "campoCantidadAccesorio";
+  precio_compra_accesorio: string = "campoCompraAccesorio";
+  precio_venta_accesorio: string = "campoVentaAccesorio";
 
   customers$: Observable<AccesorioModel[]>;
   total$: Observable<number>;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
-  //formulario
-  nombre: string = "campoNombre";
-  cantidad: string = "campoCantidad";
-  pCompra: string = "campoPCompra";
-  pVenta: string = "campoPVenta";
+  // bread crumb items
+  breadCrumbItems: Array<{}>;
+  term: any;
 
   numberPattern = '[0-9]+';
   decimalPattern = /^\d+(\.\d{2})?$/;
@@ -63,16 +63,18 @@ export class AccesoriosComponent implements OnInit {
 
   crearFormulario() {
     this.formAccesorios = this.fb.group({
-      [this.nombre]: [null, [Validators.required]],
-      [this.cantidad]: [null, [
+      [this.nombre_accesorio]: [null, [
+        Validators.required
+      ]],
+      [this.cantidad_accesorio]: [null, [
         Validators.required,
         Validators.pattern(this.numberPattern)
       ]],
-      [this.pCompra]: [null, [
+      [this.precio_compra_accesorio]: [null, [
         Validators.required,
         Validators.pattern(this.decimalPattern)
       ]],
-      [this.pVenta]: [null, [
+      [this.precio_venta_accesorio]: [null, [
         Validators.required,
         Validators.pattern(this.decimalPattern)
       ]]
@@ -99,10 +101,10 @@ export class AccesoriosComponent implements OnInit {
    * @param centerDataModal center modal data
    */
   centerModal(centerDataModal: any, data: AccesorioModel) {
-    this.f(this.nombre).setValue(data.nombre_accesorio);
-    this.f(this.cantidad).setValue(data.cantidad);
-    this.f(this.pCompra).setValue(data.precio_accesorio_c);
-    this.f(this.pVenta).setValue(data.precio_accesorio_v);
+    this.f(this.nombre_accesorio).setValue(data.nombre_accesorio);
+    this.f(this.cantidad_accesorio).setValue(data.cantidad);
+    this.f(this.precio_compra_accesorio).setValue(data.precio_accesorio_c);
+    this.f(this.precio_venta_accesorio).setValue(data.precio_accesorio_v);
 
     this.accesorio.id_accesorio = data.id_accesorio;
 
@@ -174,10 +176,10 @@ export class AccesoriosComponent implements OnInit {
 
   guardarAccesorio() {
     if (this.formAccesorios.valid) {
-      this.accesorio.nombre_accesorio = this.f(this.nombre).value;
-      this.accesorio.cantidad = Number(this.f(this.cantidad).value);
-      this.accesorio.precio_accesorio_c = Number(this.f(this.pCompra).value);
-      this.accesorio.precio_accesorio_v = Number(this.f(this.pVenta).value);
+      this.accesorio.nombre_accesorio = this.f(this.nombre_accesorio).value;
+      this.accesorio.cantidad = Number(this.f(this.cantidad_accesorio).value);
+      this.accesorio.precio_accesorio_c = Number(this.f(this.precio_compra_accesorio).value);
+      this.accesorio.precio_accesorio_v = Number(this.f(this.precio_venta_accesorio).value);
       this.accesorio.fecha_modificacion_accesorio = new Date(Date.now());
 
       console.log(this.accesorio);
@@ -203,5 +205,12 @@ export class AccesoriosComponent implements OnInit {
     this.accesorioService.getAccesorios().subscribe( res=>{
       this.service.updateTable(res);
     })
+  }
+
+  /**
+   * Returns form Accesorios
+   */
+  get formEA() {
+    return this.formAccesorios.controls;
   }
 }

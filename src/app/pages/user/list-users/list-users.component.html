@@ -110,7 +110,6 @@
                 </tr>
               </tbody>
             </table>
-
             <div class="float-end">
               <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
                 [pageSize]="service.pageSize">
@@ -118,12 +117,9 @@
                 <ng-template ngbPaginationNext>Next</ng-template>
               </ngb-pagination>
             </div>
-
           </form>
         </div>
       </div>
-
-
     </div>
   </div>
   <!-- end row -->
@@ -133,7 +129,7 @@
 <!-- Add New User - Center Modal -->
 <ng-template #centerDataModal let-modal>
   <div class="modal-header">
-    <h5 class="modal-title" id="modal-title">Registrar Nuevo Usuario</h5>
+    <h5 class="modal-title" id="modal-title">Editar Usuario</h5>
     <button type="button" class="btn-close" (click)="closeEventModal()">
     </button>
   </div>
@@ -144,8 +140,21 @@
           <div class="mb-3">
             <label class="control-label">DNI</label>
             <input class="form-control" placeholder="DNI del cliente" type="text" name="title"
-              formControlName="{{this.dni}}" />
-            
+              formControlName="{{this.dni}}" [ngClass]="{'is-invalid': formEU.campoDNI.invalid && (formEU.campoDNI.dirty || formEU.campoDNI.touched)}"/>
+            <div class="invalid-feedback">
+              <div *ngIf="formEU.campoDNI.errors?.required">
+                Campo requerido
+              </div>
+              <div *ngIf="formEU.campoDNI.errors?.pattern">
+                Ingrese solo números
+              </div>
+              <div *ngIf="formEU.campoDNI.errors?.min">
+                Número de dígitos menor
+              </div>
+              <div *ngIf="formEU.campoDNI.errors?.max">
+                Número de dígitos mayor
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-6">
@@ -153,83 +162,143 @@
             <label class="control-label">Fecha de Registro</label>
             <input class="form-control" placeholder="Seleccione la fecha" type="date" name="title"
               formControlName="{{this.fechaModificacion}}" />
-            
           </div>
         </div>
       </div>
-
       <div class="row">
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Nombres</label>
             <input class="form-control" placeholder="Nombres del cliente" type="text" name="title"
-              formControlName="{{this.nombres}}"/>
-            
+              formControlName="{{this.nombres}}" [ngClass]="{'is-invalid': formEU.campoNombres.invalid && (formEU.campoNombres.dirty || formEU.campoNombres.touched)}"/>
+            <div class="invalid-feedback">
+              <div *ngIf="formEU.campoNombres.errors?.required">
+                Campo requerido
+              </div>
+              <div *ngIf="formEU.campoNombres.errors?.pattern">
+                Ingrese solo letras
+              </div>
+              <div *ngIf="formEU.campoNombres.errors?.minlength">
+                Los nombres debe ser mayor a 3 caracteres
+              </div>
+              <div  *ngIf="formEU.campoNombres.errors?.maxlength">
+                Los nombres debe ser menor a 40 caracteres
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Apellidos</label>
             <input class="form-control" placeholder="Apellidos del cliente" type="text" name="title"
-              formControlName="{{this.apellidos}}" />
-            
+              formControlName="{{this.apellidos}}" [ngClass]="{'is-invalid': formEU.campoApellidos.invalid && (formEU.campoApellidos.dirty || formEU.campoApellidos.touched)}"/>
+            <div class="invalid-feedback">
+              <div *ngIf="formEU.campoApellidos.errors?.required">
+                Campo requerido
+              </div>
+              <div *ngIf="formEU.campoApellidos.errors?.pattern">
+                Ingrese solo letras
+              </div>
+              <div *ngIf="formEU.campoApellidos.errors?.minlength">
+                Los apellidos debe ser mayor a 3 caracteres
+              </div>
+              <div  *ngIf="formEU.campoApellidos.errors?.maxlength">
+                Los apellidos debe ser menor a 40 caracteres
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
       <div class="row">
         <div class="col-3">
           <div class="mb-3">
             <label class="control-label">Fecha de Nacimiento</label>
             <input class="form-control" placeholder="Seleccione la fecha" type="date" name="title"
               formControlName="{{this.fechaNacimiento}}"  />
-            
           </div>
         </div>
         <div class="col-3">
           <div class="mb-3">
             <label class="control-label">Telefono</label>
             <input class="form-control" placeholder="Telefono del cliente" type="text" name="title"
-              formControlName="{{this.telefono}}" />
-            
+              formControlName="{{this.telefono}}" [ngClass]="{'is-invalid': formEU.campoTelefono.invalid && (formEU.campoTelefono.dirty || formEU.campoTelefono.touched)}"/>
+            <div class="invalid-feedback">
+              <div *ngIf="formEU.campoTelefono.errors?.pattern">
+                Ingrese solo números
+              </div>
+              <div *ngIf="formEU.campoTelefono.errors?.min">
+                Número de dígitos menor
+              </div>
+              <div *ngIf="formEU.campoTelefono.errors?.max">
+                Número de dígitos mayor
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Correo Electrónico</label>
-            <input class="form-control" placeholder="Correo electrónico" type="email" formControlName="{{this.email}}"
-               />
-            
+            <input class="form-control" placeholder="Correo electrónico" type="email" 
+              formControlName="{{this.email}}" [ngClass]="{'is-invalid': formEU.campoEmail.invalid && (formEU.campoEmail.dirty || formEU.campoEmail.touched)}"/>
+            <div class="invalid-feedback">
+              <div *ngIf="formEU.campoEmail.errors?.email">
+                Email invalido
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
       <div class="row">
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Contraseña</label>
             <input class="form-control" placeholder="Contraseña" type="password" name="password"
-              formControlName="{{this.password}}" />
-            
+              formControlName="{{this.password}}" [ngClass]="{'is-invalid': formEU.campoPassword.invalid && (formEU.campoPassword.dirty || formEU.campoPassword.touched)}"/>
+            <div class="invalid-feedback">
+              <div *ngIf="formEU.campoPassword.errors.required">
+                Campo requerido
+              </div>
+              <div *ngIf="formEU.campoPassword.errors.minlength">
+                Su contraseña debe ser mayor a 6 caracteres
+              </div>
+              <div  *ngIf="formEU.campoPassword.errors.maxlength">
+                Su contraseña debe ser menor a 20 caracteres
+              </div>
+              <div *ngIf="formEU.campoPassword.errors.pattern">
+                Ingrese solo números
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Repita Contraseña</label>
             <input class="form-control" placeholder="Contraseña" type="password" name="repeatpassword"
-              formControlName="{{this.repeatPassword}}" />
-            
+              formControlName="{{this.repeatPassword}}" [ngClass]="{'is-invalid': formEU.campoRepeatPassword.invalid && (formEU.campoRepeatPassword.dirty || formEU.campoRepeatPassword.touched)}"/>
+            <div class="invalid-feedback">
+              <div *ngIf="formEU.campoRepeatPassword.errors.required">
+                Campo requerido
+              </div>
+              <div *ngIf="formEU.campoRepeatPassword.errors.minlength">
+                Su contraseña debe ser mayor a 6 caracteres
+              </div>
+              <div *ngIf="formEU.campoRepeatPassword.errors.maxlength">
+                Su contraseña debe ser menor a 20 caracteres
+              </div>
+              <div *ngIf="formEU.campoRepeatPassword.errors.pattern">
+                Ingrese solo números
+              </div>
+              <div *ngIf="formEU.campoRepeatPassword.errors.confirmedValidator">
+                Passwords did not match
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-
-
       <div class="border-top py-2">
         <div class="d-flex justify-content-center">
           <h6>Rol y Sede del Usuario</h6>
         </div>
-
         <div class="row">
           <div class="col-6">
             <div class="mb-3">
@@ -237,7 +306,6 @@
               <ng-select [items]="listRoles" formControlName="rol" placeholder="Seleccione" bindValue="tNombre"
                 bindLabel="tNombre">
               </ng-select>
-              
             </div>
           </div>
           <div class="col-6">
@@ -246,12 +314,10 @@
               <ng-select [items]="listSedes" formControlName="sede" placeholder="Seleccione" bindValue="id_sede"
                 bindLabel="nombre_sede">
               </ng-select>
-              
             </div>
           </div>
         </div>
       </div>
-
       <div class="border-top py-2">
         <div class="row">
           <div class="col-lg-12">
@@ -263,8 +329,6 @@
           </div>
         </div>
       </div>
-
-
       <div class="text-end mt-2">
         <button type="button" class="btn btn-danger" (click)="closeEventModal()">
           Cerrar
