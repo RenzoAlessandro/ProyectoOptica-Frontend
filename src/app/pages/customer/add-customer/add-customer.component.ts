@@ -39,6 +39,8 @@ export class AddCustomerComponent implements OnInit {
 
   lettersPattern = '[a-zA-Z ]*';
   numberPattern = '^[0-9]+$|^\S*$';
+  esf_cylPattern = '(^[\-+\+][0-9]{1,2})+([.][0-9]{1,2})?$'
+  addPattern = '(^[\+][0-9]{1,2})+([.][0-9]{1,2})?$';
 
   constructor(
     private fb: FormBuilder,
@@ -53,6 +55,13 @@ export class AddCustomerComponent implements OnInit {
   crearFormulario() {
     this.fecha_actual = new Date();
     this.formCustomer = this.fb.group({
+      [this.fecha_creacion]:[{value: this.fecha_actual.toLocaleString(), disabled: true}],
+      [this.dni]:[null,[
+        Validators.required,
+        Validators.pattern(this.numberPattern),
+        Validators.min(11111111),
+        Validators.max(99999999)
+      ]],
       [this.nombres]:[null,[
         Validators.required,
         Validators.pattern(this.lettersPattern),
@@ -65,38 +74,67 @@ export class AddCustomerComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(40)
       ]],
-      [this.email]: [null,[
-        Validators.email
-      ]],
-      [this.antecedentes]: [],
-      [this.direccion]: [],
-      [this.dni]:[null,[
-        Validators.required,
-        Validators.pattern(this.numberPattern),
-        Validators.min(11111111),
-        Validators.max(99999999)
-      ]],
+      [this.fecha_nacimiento]:[],
       [this.telefono]:[null,[
         Validators.pattern(this.numberPattern),
         Validators.min(111111111),
         Validators.max(999999999)
       ]],
-      [this.fecha_nacimiento]:[],
-      [this.fecha_creacion]:[{value: this.fecha_actual.toLocaleString(), disabled: true}],
-      [this.od_cilindrico]:[],
-      [this.od_eje]:[],
-      [this.od_esferico]:[],
-      [this.oi_cilindrico]:[],
-      [this.oi_esferico]:[],
-      [this.oi_eje]:[],
-      [this.dip]:[],
-      [this.add]:[],
+      [this.email]: [null,[
+        Validators.email
+      ]],
+      [this.direccion]: [],
+      [this.antecedentes]:[],
+      
+      [this.od_esferico]:[null,[
+        Validators.required,
+        Validators.pattern(this.esf_cylPattern),
+        Validators.max(+20),
+        Validators.min(-20)
+      ]],
+      [this.od_cilindrico]:[null,[
+        Validators.required,
+        Validators.pattern(this.esf_cylPattern),
+        Validators.max(+20),
+        Validators.min(-20)
+      ]],
+      [this.od_eje]:[null,[
+        Validators.required,
+        Validators.max(+180),
+        Validators.min(0)
+      ]],
+      [this.oi_esferico]:[null,[
+        Validators.required,
+        Validators.pattern(this.esf_cylPattern),
+        Validators.max(+20),
+        Validators.min(-20)
+      ]],
+      [this.oi_cilindrico]:[null,[
+        Validators.required,
+        Validators.pattern(this.esf_cylPattern),
+        Validators.max(+20),
+        Validators.min(-20)
+      ]],
+      [this.oi_eje]:[null,[
+        Validators.required,
+        Validators.max(+180),
+        Validators.min(0)
+      ]],
+      [this.dip]:[null,[
+        Validators.required,
+        Validators.max(+80),
+        Validators.min(0)
+      ]],
+      [this.add]:[null,[
+        Validators.pattern(this.addPattern), // Solo iniciara con un + (ejem. +0.00 - +10.00)
+        Validators.max(+10),
+        Validators.min(0)
+      ]],
       [this.encargado]:[null,[
         Validators.pattern(this.lettersPattern),
         Validators.minLength(3),
         Validators.maxLength(40)
-      ]],
-      [this.antecedentes]:[]
+      ]]
     })
   }
 

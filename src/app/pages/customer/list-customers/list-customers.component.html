@@ -397,20 +397,61 @@
               <div class="col-4">
                 <div class="mb-3">
                   <label class="control-label">ESF</label>
-                  <input class="form-control" placeholder="Esfera" type="text" formControlName="{{this.od_esferico}}" />
+                  <input class="form-control" placeholder="Esfera" type="text" 
+                  formControlName="{{this.od_esferico}}" [ngClass]="{'is-invalid': formEC.campoOdEsferico.invalid && (formEC.campoOdEsferico.dirty || formEC.campoOdEsferico.touched)}" />
+                  <div class="invalid-feedback">
+                    <div *ngIf="formEC.campoOdEsferico.errors?.required">
+                      Campo requerido
+                    </div>
+                    <div *ngIf="formEC.campoOdEsferico.errors?.pattern">
+                      Formato mal escrito
+                    </div>
+                    <div *ngIf="formEC.campoOdEsferico.errors?.min">
+                      Número menor
+                    </div>
+                    <div *ngIf="formEC.campoOdEsferico.errors?.max">
+                      Número mayor
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="col-4">
                 <div class="mb-3">
                   <label class="control-label">CYL</label>
                   <input class="form-control" placeholder="Cilindro" type="text"
-                    formControlName="{{this.od_cilindrico}}" />
+                    formControlName="{{this.od_cilindrico}}" [ngClass]="{'is-invalid': formEC.campoOd_Cilindrico.invalid && (formEC.campoOd_Cilindrico.dirty || formEC.campoOd_Cilindrico.touched)}" />
+                    <div class="invalid-feedback">
+                      <div *ngIf="formEC.campoOd_Cilindrico.errors?.required">
+                        Campo requerido
+                      </div>
+                      <div *ngIf="formEC.campoOd_Cilindrico.errors?.pattern">
+                        Formato mal escrito
+                      </div>
+                      <div *ngIf="formEC.campoOd_Cilindrico.errors?.min">
+                        Número menor
+                      </div>
+                      <div *ngIf="formEC.campoOd_Cilindrico.errors?.max">
+                        Número mayor
+                      </div>
+                    </div>
                 </div>
               </div>
               <div class="col-4">
                 <div class="mb-3">
                   <label class="control-label">EJE</label>
-                  <input class="form-control" placeholder="Eje" type="text" formControlName="{{this.od_eje}}" />
+                  <input class="form-control" placeholder="Eje" type="text" 
+                  formControlName="{{this.od_eje}}" [ngClass]="{'is-invalid': formEC.campoOdEje.invalid && (formEC.campoOdEje.dirty || formEC.campoOdEje.touched)}" />
+                  <div class="invalid-feedback">
+                    <div *ngIf="formEC.campoOdEje.errors?.required">
+                      Campo requerido
+                    </div>
+                    <div *ngIf="formEC.campoOdEje.errors?.min">
+                      Número menor
+                    </div>
+                    <div *ngIf="formEC.campoOdEje.errors?.max">
+                      Número mayor
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -423,20 +464,61 @@
               <div class="col-4">
                 <div class="mb-3">
                   <label class="control-label">ESF</label>
-                  <input class="form-control" placeholder="Esfera" type="text" formControlName="{{this.oi_esferico}}" />
+                  <input class="form-control" placeholder="Esfera" type="text" 
+                  formControlName="{{this.oi_esferico}}" [ngClass]="{'is-invalid': formEC.campoOiEsferico.invalid && (formEC.campoOiEsferico.dirty || formEC.campoOiEsferico.touched)}" />
+                  <div class="invalid-feedback">
+                    <div *ngIf="formEC.campoOiEsferico.errors?.required">
+                      Campo requerido
+                    </div>
+                    <div *ngIf="formEC.campoOiEsferico.errors?.pattern">
+                      Formato mal escrito
+                    </div>
+                    <div *ngIf="formEC.campoOiEsferico.errors?.min">
+                      Número menor
+                    </div>
+                    <div *ngIf="formEC.campoOiEsferico.errors?.max">
+                      Número mayor
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="col-4">
                 <div class="mb-3">
                   <label class="control-label">CYL</label>
                   <input class="form-control" placeholder="Cilindro" type="text"
-                    formControlName="{{this.oi_cilindrico}}" />
+                    formControlName="{{this.oi_cilindrico}}" [ngClass]="{'is-invalid': formEC.campoOiCilindrico.invalid && (formEC.campoOiCilindrico.dirty || formEC.campoOiCilindrico.touched)}" />
+                    <div class="invalid-feedback">
+                      <div *ngIf="formEC.campoOiCilindrico.errors?.required">
+                        Campo requerido
+                      </div>
+                      <div *ngIf="formEC.campoOiCilindrico.errors?.pattern">
+                        Formato mal escrito
+                      </div>
+                      <div *ngIf="formEC.campoOiCilindrico.errors?.min">
+                        Número menor
+                      </div>
+                      <div *ngIf="formEC.campoOiCilindrico.errors?.max">
+                        Número mayor
+                      </div>
+                    </div>
                 </div>
               </div>
               <div class="col-4">
                 <div class="mb-3">
                   <label class="control-label">EJE</label>
-                  <input class="form-control" placeholder="Eje" type="text" formControlName="{{this.oi_eje}}" />
+                  <input class="form-control" placeholder="Eje" type="text" 
+                  formControlName="{{this.oi_eje}}" [ngClass]="{'is-invalid': formEC.campoOiEje.invalid && (formEC.campoOiEje.dirty || formEC.campoOiEje.touched)}" />
+                  <div class="invalid-feedback">
+                    <div *ngIf="formEC.campoOiEje.errors?.required">
+                      Campo requerido
+                    </div>
+                    <div *ngIf="formEC.campoOiEje.errors?.min">
+                      Número menor
+                    </div>
+                    <div *ngIf="formEC.campoOiEje.errors?.max">
+                      Número mayor
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -448,13 +530,36 @@
           <div class="mb-3">
             <label class="control-label">DIP</label>
             <input class="form-control" placeholder="Distancia Interpupilar" type="text"
-              formControlName="{{this.dip}}" />
+              formControlName="{{this.dip}}" [ngClass]="{'is-invalid': formEC.campoDip.invalid && (formEC.campoDip.dirty || formEC.campoDip.touched)}" />
+              <div class="invalid-feedback">
+                <div *ngIf="formEC.campoDip.errors?.required">
+                  Campo requerido
+                </div>
+                <div *ngIf="formEC.campoDip.errors?.min">
+                  Número menor
+                </div>
+                <div *ngIf="formEC.campoDip.errors?.max">
+                  Número mayor
+                </div>
+              </div>
           </div>
         </div>
         <div class="col-3">
           <div class="mb-3">
             <label class="control-label">ADD</label>
-            <input class="form-control" placeholder="Adición" type="text" formControlName="{{this.add}}" />
+            <input class="form-control" placeholder="Adición" type="text" 
+            formControlName="{{this.add}}" [ngClass]="{'is-invalid': formEC.campoAdd.invalid && (formEC.campoAdd.dirty || formEC.campoAdd.touched)}" />
+            <div class="invalid-feedback">
+              <div *ngIf="formEC.campoAdd.errors?.pattern">
+                Formato mal escrito
+              </div>
+              <div *ngIf="formEC.campoAdd.errors?.min">
+                Número menor
+              </div>
+              <div *ngIf="formEC.campoAdd.errors?.max">
+                Número mayor
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-6">
@@ -479,11 +584,20 @@
       </div>
       <div class="border-top py-2">
         <div class="row">
-          <div class="col-lg-12">
-            <div class="mb-3">
-              <label class="form-label" for="billing-observaciones">Antecedentes</label>
-              <textarea class="form-control" id="billing-observaciones" rows="3"
-                placeholder="Ingrese los antecedentes del cliente" formControlName="{{this.antecedentes}}"></textarea>
+          <div class="col-6">
+            <div class="mb-4">
+              <label class="form-label" for="billing-direccion">Dirección</label>
+              <textarea class="form-control" id="billing-direccion" rows="3"
+                placeholder="Dirección completa del cliente"
+                formControlName="{{this.direccion}}"></textarea>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="mb-4">
+              <label class="form-label" for="billing-antecedentes">Antecedentes</label>
+              <textarea class="form-control" id="billing-antecedentes" rows="3"
+                placeholder="Antecedentes del cliente"
+                formControlName="{{this.antecedentes}}"></textarea>
             </div>
           </div>
         </div>
