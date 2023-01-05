@@ -133,10 +133,7 @@ export class MonturasComponent implements OnInit {
    * Close event modal
    */
   closeEventModal() {
-    this.formMontura = this.fb.group({
-      title: '',
-      category: '',
-    });
+  
     this.modalService.dismissAll();
   }
 

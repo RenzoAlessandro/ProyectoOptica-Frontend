@@ -12,6 +12,7 @@ import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UsersModel } from 'src/models/user';
+import { CajaModel } from 'src/models/caja';
 
 @Component({
   selector: 'app-cash-register',
@@ -53,6 +54,7 @@ export class CashRegisterComponent implements OnInit {
   invoices$: Observable<InvoiceList[]>;
   total$: Observable<number>;
 
+  caja = new CajaModel;
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   constructor(public service: InvoiceService,
@@ -128,20 +130,34 @@ export class CashRegisterComponent implements OnInit {
    * Close event modal
    */
   closeEventModal() {
-    this.formIngreso = this.formBuilder.group({
-      title: '',
-      category: '',
-    });
     this.modalService.dismissAll();
   }
 
+  fI(campo:string) {
+    return this.formIngreso.get(campo);
+  }
+
+  fE(campo:string) {
+    return this.formEgreso.get(campo);
+  }
   /**
    * Save the event
    */
-  saveEvent() {
+  guardarIngreso() {
     if (this.formIngreso.valid) {
+      this.caja.monto = Number(this.fI(this.monto_ingreso).value);
+      this.caja.fecha_ingreso = new Date(Date.now());
+    } else {
 
     }
-    this.submitted = true;
+    
+  }
+
+  guardarEgreso() {
+    if (this.formEgreso.valid) {
+      
+    } else {
+      
+    }
   }
 }
