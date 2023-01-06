@@ -152,7 +152,7 @@ export class AddCustomerComponent implements OnInit {
       this.customer.fecha_creacion = new Date(Date.now());
       this.customer.email = this.f(this.email).value;
       this.customer.fecha_modificacion = new Date(Date.now());
-      this.customer.fecha_nacimiento = new Date(Date.now());
+      this.customer.fecha_nacimiento = this.f(this.fecha_nacimiento).value;
       this.customer.nombres = this.f(this.nombres).value;
       this.customer.telefono = this.f(this.telefono).value;
       this.customer.habilitado = true;

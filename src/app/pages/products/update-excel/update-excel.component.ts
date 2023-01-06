@@ -6,6 +6,7 @@ import * as XLSX from 'xlsx';
 import saveFile from 'save-as-file';
 import { ProductosService } from 'src/app/services/productos.service';
 import { Sweetalert } from 'src/utils/sweetalert';
+import { MonturasModel } from 'src/models/monturas';
 
 @Component({
   selector: 'app-update-excel',
@@ -66,7 +67,7 @@ export class UpdateExcelComponent implements OnInit {
       sede: [null, [Validators.required]],
       producto: [null, [Validators.required]],
     });
-    
+
     this.formImportar = this.fb.group({
       productos: [null, [Validators.required]],
     })
@@ -136,29 +137,107 @@ export class UpdateExcelComponent implements OnInit {
   }
 
   uploadFile() {
-    Sweetalert("loading", "Cargando...");
+    //Sweetalert("loading", "Cargando...");
     const fileReader = new FileReader();
-      fileReader.readAsBinaryString(this.files[0]);
-      fileReader.onload = (event: any) => {
-        console.log(event);
-        let binaryData = event.target.result;
-        let workbook = XLSX.read(binaryData, { type: 'binary' });
-        let data;
-        workbook.SheetNames.forEach(sheet => {
-          data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
-        });
-        console.log(data);
+    fileReader.readAsBinaryString(this.files[0]);
+    fileReader.onload = (event: any) => {
+      console.log(event);
+      let binaryData = event.target.result;
+      let workbook = XLSX.read(binaryData, { type: 'binary' });
+      let data;
+      workbook.SheetNames.forEach(sheet => {
+        data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
+      });
+      //console.log(data);
 
-
-        this.productoService.updateProductsbyExcel(data).subscribe(res =>{
-          console.log("subido");
-          Sweetalert("close",null);
-          Sweetalert("success","Producto actualizado");
-        }, error => {
-          Sweetalert("close", null);
-          Sweetalert("error", "Error en al actualizar");
-        },
-        )
+      switch ((data[0].tipo).toLowerCase()) {
+        case 'montura':
+          if (data[0].hasOwnProperty('id_montura')) {
+            this.actualizarProducto();
+          } else {
+            this.crearProducto(data,data[0].tipo);
+            //console.log(this.objExceltodatabase(data,data[0].tipo));
+          }
+          break;
+        case 'luna':
+          if (data[0].hasOwnProperty('id_montura')) {
+            this.actualizarProducto();
+          } else {
+            //this.crearProducto();
+          }
+          break;
+        case 'accesorio':
+          if (data[0].hasOwnProperty('id_montura')) {
+            this.actualizarProducto();
+          } else {
+            //this.crearProducto();
+          }
+          break;
+        default:
+          break;
       }
+
+      /* this.productoService.updateProductsbyExcel(data).subscribe(res =>{
+        console.log("subido");
+        Sweetalert("close",null);
+        Sweetalert("success","Producto actualizado");
+      }, error => {
+        Sweetalert("close", null);
+        Sweetalert("error", "Error en al actualizar");
+      },
+      ) */
+    }
+  }
+
+  actualizarProducto() {
+
+  }
+
+  crearProducto(data: any, tipoProducto) {
+    let producto : Array<any>;
+    producto = this.objExceltodatabase(data, tipoProducto);
+    console.log(producto)
+    this.productoService.createProductsbyExcel(producto).subscribe(res=> {
+      console.log("subido");
+    })
+  }
+
+  objExceltodatabase(data:any, tipo: string): Array<MonturasModel> {
+    let listMontura :Array<MonturasModel>;
+    let array = ['MATERIAL','MARCA','CODIGO','TALLA','COLOR','precio compra','precio venta']
+    switch (tipo.toLowerCase()) {
+      case 'montura':
+        listMontura = data.map(element => {
+          return {
+            material : element.MATERIAL,
+            marca: element.MARCA,
+            codigo: element.CODIGO,
+            talla: element.TALLA,
+            color: element.COLOR,
+            precio_montura_c: element['precio compra'] == undefined? 0: element['precio compra'] ,
+            precio_montura_v: element['precio venta'] == undefined? 0: element['precio venta'],
+            tipo: element.tipo,
+            cantidad: Number(element.cantidad),
+            id_sede: '0477d92b-ea04-4225-8cbc-c77bdc13fe39Sed004',
+            habilitado: true,
+            fecha_creacion_monturas: new Date(Date.now()),
+            fecha_modificacion_monturas: new Date(Date.now()),
+          }
+        })
+        listMontura.forEach(element => {
+          element.tipo = 'montura'
+        });
+        return listMontura
+        case 'luna':
+        
+        break;
+        case 'accesorio':
+        
+        break;
+      default:
+        break;
+    }
   }
 }
+
+
