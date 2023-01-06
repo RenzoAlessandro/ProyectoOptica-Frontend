@@ -20,14 +20,13 @@
                 </div>
               </div>
             </h4>
-            <!--           <p class="card-title-desc">Provide valuable, actionable feedback to your users with HTML5 form
-            validation–available in all our supported browsers.</p> -->
+            <p class="card-title-desc text-danger">* Campo requerido</p> 
             <div class="border-top py-4">
               <div>
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="mb-4">
-                      <label class="form-label" for="billing-dni">DNI</label>
+                      <label class="form-label" for="billing-dni">DNI *</label>
                       <input type="text" class="form-control" id="billing-dni" placeholder="Ingrese el DNI"
                         formControlName="{{this.dni}}" [ngClass]="{'is-invalid': formU.campoDNI.invalid && (formU.campoDNI.dirty || formU.campoDNI.touched)}"/>
                       <div class="invalid-feedback">
@@ -57,7 +56,7 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="mb-4">
-                      <label class="form-label" for="billing-firstnames">Nombres</label>
+                      <label class="form-label" for="billing-firstnames">Nombres *</label>
                       <input type="text" class="form-control" id="billing-firstnames" placeholder="Ingrese los nombres"
                         formControlName="{{this.nombres}}" [ngClass]="{'is-invalid': formU.campoNombres.invalid && (formU.campoNombres.dirty || formU.campoNombres.touched)}"/>
                       <div class="invalid-feedback">
@@ -78,7 +77,7 @@
                   </div>
                   <div class="col-lg-6">
                     <div class="mb-4">
-                      <label class="form-label" for="billing-lastnames">Apellidos</label>
+                      <label class="form-label" for="billing-lastnames">Apellidos *</label>
                       <input type="text" class="form-control" id="billing-lastnames" placeholder="Ingrese los apellidos"
                         formControlName="{{this.apellidos}}" [ngClass]="{'is-invalid': formU.campoApellidos.invalid && (formU.campoApellidos.dirty || formU.campoApellidos.touched)}"/>
                       <div class="invalid-feedback">
@@ -140,7 +139,7 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="mb-4">
-                      <label class="form-label" for="billing-password">Contraseña</label>
+                      <label class="form-label" for="billing-password">Contraseña *</label>
                       <input type="password" class="form-control" id="billing-password"
                         placeholder="Ingrese la contraseña" formControlName="{{this.password}}" [ngClass]="{'is-invalid': formU.campoPassword.invalid && (formU.campoPassword.dirty || formU.campoPassword.touched)}"/>
                       <div class="invalid-feedback">
@@ -161,7 +160,7 @@
                   </div>
                   <div class="col-lg-6">
                     <div class="mb-4">
-                      <label class="form-label" for="billing-repet-password">Repita la contraseña</label>
+                      <label class="form-label" for="billing-repet-password">Repita la contraseña *</label>
                       <input type="password" class="form-control" id="billing-repet-password"
                         placeholder="Repita la contraseña" formControlName="{{this.repeatPassword}}" [ngClass]="{'is-invalid': formU.campoRepeatPassword.invalid && (formU.campoRepeatPassword.dirty || formU.campoRepeatPassword.touched)}"/>
                       <div class="invalid-feedback">
@@ -219,11 +218,10 @@
                   </div>
                 </div>
               </h4>
-              <!--             <p class="card-title-desc">Provide valuable, actionable feedback to your users with HTML5 form
-              validation–available in all our supported browsers.</p> -->
+              <p class="card-title-desc text-danger">* Campo requerido</p> 
               <div class="border-top py-4">
                 <div>
-                  <h5 class="font-size-14 mb-3">Roles :</h5>
+                  <h5 class="font-size-14 mb-3">Roles *</h5>
                   <div class="row">
                     <div class="col-lg-3 col-sm-6" *ngFor='let rol of listRoles;let i = index'>
                       <div data-toggle="collapse">
@@ -263,11 +261,10 @@
                   </div>
                 </div>
               </h4>
-              <!--             <p class="card-title-desc">Provide valuable, actionable feedback to your users with HTML5 form
-              validation–available in all our supported browsers.</p> -->
+              <p class="card-title-desc text-danger">* Campo requerido</p> 
               <div class="border-top py-4">
                 <div>
-                  <h5 class="font-size-14 mb-3">Sedes :</h5>
+                  <h5 class="font-size-14 mb-3">Sedes *</h5>
                   <div class="row">
                     <div class="col-lg-3 col-sm-6" *ngFor='let sede of listSedes;let i = index'>
                       <div data-toggle="collapse">

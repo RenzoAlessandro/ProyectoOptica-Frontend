@@ -102,7 +102,6 @@
                   </tr>
                 </tbody>
               </table>
-  
               <div class="float-end">
                 <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
                   [pageSize]="service.pageSize">
@@ -110,27 +109,25 @@
                   <ng-template ngbPaginationNext>Next</ng-template>
                 </ngb-pagination>
               </div>
-  
             </form>
           </div>
-        </div>
-  
-  
+        </div>  
       </div>
     </div>
     <!-- end row -->
   </div>
   
   
-    <!-- Add New User - Center Modal -->
+    <!-- Editar Luna - Center Modal -->
     <ng-template #centerDataModal let-modal>
       <div class="modal-header">
-        <h5 class="modal-title" id="modal-title">Registrar Nueva Luna</h5>
+        <h5 class="modal-title" id="modal-title">Editar Luna</h5>
         <button type="button" class="btn-close" (click)="closeEventModal()">
         </button>
       </div>
       <div class="modal-body p-4">
         <form (ngSubmit)="saveEvent()" [formGroup]="formLuna">
+          <p class="card-title-desc text-danger">* Campo requerido</p> 
           <!-- <div class="row">
             <div class="col-6">
               <div class="mb-3">
@@ -143,11 +140,10 @@
               </div>
             </div>
           </div> -->
-    
           <div class="row">
             <div class="col-12">
               <div class="mb-3">
-                <label class="control-label">Material</label>
+                <label class="control-label">Material *</label>
                 <input class="form-control" placeholder="Material de la luna" type="text" name="title"
                   formControlName="{{this.material_luna}}" [ngClass]="{'is-invalid': formEL.campoMaterialLuna.invalid && (formEL.campoMaterialLuna.dirty || formEL.campoMaterialLuna.touched)}"/>
                 <div class="invalid-feedback">
@@ -158,11 +154,10 @@
               </div>
             </div>
           </div>
-    
           <div class="row">
             <div class="col-4">
               <div class="mb-3">
-                <label class="control-label">Cantidad</label>
+                <label class="control-label">Cantidad *</label>
                 <input class="form-control" placeholder="Cantidad" type="text" name="title"
                   formControlName="{{this.cantidad_luna}}" [ngClass]="{'is-invalid': formEL.campoCantidadLuna.invalid && (formEL.campoCantidadLuna.dirty || formEL.campoCantidadLuna.touched)}"/>
                 <div class="invalid-feedback">
@@ -177,7 +172,7 @@
             </div>
             <div class="col-4">
               <div class="mb-3">
-                <label class="control-label">Precio de Compra</label>
+                <label class="control-label">Precio de Compra *</label>
                 <input class="form-control" placeholder="Precio" type="text" name="title"
                   formControlName="{{this.precio_compra_luna}}" [ngClass]="{'is-invalid': formEL.campoCompraLuna.invalid && (formEL.campoCompraLuna.dirty || formEL.campoCompraLuna.touched)}"/>
                 <div class="invalid-feedback">
@@ -192,7 +187,7 @@
             </div>
             <div class="col-4">
               <div class="mb-3">
-                <label class="control-label">Precio de Venta</label>
+                <label class="control-label">Precio de Venta *</label>
                 <input class="form-control" placeholder="Precio" type="text" name="title"
                   formControlName="{{this.precio_venta_luna}}" [ngClass]="{'is-invalid': formEL.campoVentaLuna.invalid && (formEL.campoVentaLuna.dirty || formEL.campoVentaLuna.touched)}"/>
                 <div class="invalid-feedback">
@@ -206,8 +201,6 @@
               </div>
             </div>
           </div>
-  
-    
           <div class="text-end mt-2">
             <button type="button" class="btn btn-danger" (click)="closeEventModal()">
               Cerrar

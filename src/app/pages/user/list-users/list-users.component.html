@@ -135,10 +135,11 @@
   </div>
   <div class="modal-body p-4">
     <form (ngSubmit)="saveEvent()" [formGroup]="formUser">
+      <p class="card-title-desc text-danger">* Campo requerido</p> 
       <div class="row">
         <div class="col-6">
           <div class="mb-3">
-            <label class="control-label">DNI</label>
+            <label class="control-label">DNI *</label>
             <input class="form-control" placeholder="DNI del cliente" type="text" name="title"
               formControlName="{{this.dni}}" [ngClass]="{'is-invalid': formEU.campoDNI.invalid && (formEU.campoDNI.dirty || formEU.campoDNI.touched)}"/>
             <div class="invalid-feedback">
@@ -168,7 +169,7 @@
       <div class="row">
         <div class="col-6">
           <div class="mb-3">
-            <label class="control-label">Nombres</label>
+            <label class="control-label">Nombres *</label>
             <input class="form-control" placeholder="Nombres del cliente" type="text" name="title"
               formControlName="{{this.nombres}}" [ngClass]="{'is-invalid': formEU.campoNombres.invalid && (formEU.campoNombres.dirty || formEU.campoNombres.touched)}"/>
             <div class="invalid-feedback">
@@ -189,7 +190,7 @@
         </div>
         <div class="col-6">
           <div class="mb-3">
-            <label class="control-label">Apellidos</label>
+            <label class="control-label">Apellidos *</label>
             <input class="form-control" placeholder="Apellidos del cliente" type="text" name="title"
               formControlName="{{this.apellidos}}" [ngClass]="{'is-invalid': formEU.campoApellidos.invalid && (formEU.campoApellidos.dirty || formEU.campoApellidos.touched)}"/>
             <div class="invalid-feedback">
@@ -251,7 +252,7 @@
       <div class="row">
         <div class="col-6">
           <div class="mb-3">
-            <label class="control-label">Contraseña</label>
+            <label class="control-label">Contraseña *</label>
             <input class="form-control" placeholder="Contraseña" type="password" name="password"
               formControlName="{{this.password}}" [ngClass]="{'is-invalid': formEU.campoPassword.invalid && (formEU.campoPassword.dirty || formEU.campoPassword.touched)}"/>
             <div class="invalid-feedback">
@@ -272,7 +273,7 @@
         </div>
         <div class="col-6">
           <div class="mb-3">
-            <label class="control-label">Repita Contraseña</label>
+            <label class="control-label">Repita Contraseña *</label>
             <input class="form-control" placeholder="Contraseña" type="password" name="repeatpassword"
               formControlName="{{this.repeatPassword}}" [ngClass]="{'is-invalid': formEU.campoRepeatPassword.invalid && (formEU.campoRepeatPassword.dirty || formEU.campoRepeatPassword.touched)}"/>
             <div class="invalid-feedback">
@@ -302,7 +303,7 @@
         <div class="row">
           <div class="col-6">
             <div class="mb-3">
-              <label class="control-label">Rol</label>
+              <label class="control-label">Rol *</label>
               <ng-select [items]="listRoles" formControlName="rol" placeholder="Seleccione" bindValue="tNombre"
                 bindLabel="tNombre">
               </ng-select>
@@ -310,7 +311,7 @@
           </div>
           <div class="col-6">
             <div class="mb-3">
-              <label class="control-label">Sede</label>
+              <label class="control-label">Sede *</label>
               <ng-select [items]="listSedes" formControlName="sede" placeholder="Seleccione" bindValue="id_sede"
                 bindLabel="nombre_sede">
               </ng-select>
