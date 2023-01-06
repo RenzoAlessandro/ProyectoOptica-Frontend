@@ -19,6 +19,7 @@ export class AddProductComponent implements OnInit {
   material_montura: string = "campoMaterialMontura";
   marca_montura: string = "campoMarcaMontura";
   talla_montura: string = "campoTallaMontura";
+  color_montura: string = "campoColorMontura";
   codigo_montura: string = "campoCodigoMontura";
   cantidad_montura: string = "campoCantidadMontura";
   precio_compra_montura: string = "campoCompraMontura";
@@ -53,6 +54,7 @@ export class AddProductComponent implements OnInit {
 
   numberPattern = '[0-9]+';
   decimalPattern = /^\d+(\.\d{2})?$/;
+  lettersPattern = '[a-zA-Z ]*';
 
   constructor(
     private fb: FormBuilder,
@@ -75,6 +77,10 @@ export class AddProductComponent implements OnInit {
       ]],
       [this.talla_montura]:[null,[
         Validators.required
+      ]],
+      [this.color_montura]:[null,[
+        Validators.required,
+        Validators.pattern(this.lettersPattern)
       ]],
       [this.codigo_montura]:[null, [
         Validators.required
@@ -201,6 +207,7 @@ export class AddProductComponent implements OnInit {
       this.monturas.material = this.fM(this.material_montura).value;
       this.monturas.marca = this.fM(this.marca_montura).value;
       this.monturas.talla = this.fM(this.talla_montura).value;
+      this.monturas.color = this.fM(this.color_montura).value;
       this.monturas.codigo = this.fM(this.codigo_montura).value;
       this.monturas.precio_montura_c = Number(this.fM(this.precio_compra_montura).value);
       this.monturas.precio_montura_v = Number(this.fM(this.precio_venta_montura).value);

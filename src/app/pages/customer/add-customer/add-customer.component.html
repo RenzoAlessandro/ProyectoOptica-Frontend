@@ -22,14 +22,13 @@
                 </div>
               </div>
             </h4>
-            <!--             <p class="card-title-desc">Provide valuable, actionable feedback to your users with HTML5 form
-              validation–available in all our supported browsers.</p> -->
+           <p class="card-title-desc text-danger">* Campo requerido</p> 
             <div class="border-top py-4">
               <div>
                 <div class="row">
                   <div class="col-6">
                     <div class="mb-4">
-                      <label class="form-label" for="billing-dni">DNI</label>
+                      <label class="form-label" for="billing-dni">DNI *</label>
                       <input type="text" class="form-control" id="billing-dni" placeholder="DNI del Cliente"
                         formControlName="{{this.dni}}"
                         [ngClass]="{'is-invalid': formC.campoDNI.invalid && (formC.campoDNI.dirty || formC.campoDNI.touched)}" />
@@ -60,7 +59,7 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="mb-4">
-                      <label class="form-label" for="billing-firstnames">Nombres</label>
+                      <label class="form-label" for="billing-firstnames">Nombres *</label>
                       <input type="text" class="form-control" id="billing-firstnames" placeholder="Nombres del Cliente"
                         formControlName="{{this.nombres}}"
                         [ngClass]="{'is-invalid': formC.campoNombres.invalid && (formC.campoNombres.dirty || formC.campoNombres.touched)}" />
@@ -82,7 +81,7 @@
                   </div>
                   <div class="col-6">
                     <div class="mb-4">
-                      <label class="form-label" for="billing-lastnames">Apellidos</label>
+                      <label class="form-label" for="billing-lastnames">Apellidos *</label>
                       <input type="text" class="form-control" id="billing-lastnames" placeholder="Apellidos del Cliente"
                         formControlName="{{this.apellidos}}"
                         [ngClass]="{'is-invalid': formC.campoApellidos.invalid && (formC.campoApellidos.dirty || formC.campoApellidos.touched)}" />
@@ -186,8 +185,7 @@
                 </div>
               </div>
             </h4>
-            <!--             <p class="card-title-desc">Provide valuable, actionable feedback to your users with HTML5 form
-              validation–available in all our supported browsers.</p> -->
+            <p class="card-title-desc text-danger">* Campo requerido</p> 
             <div class="border-top py-4">
               <div class="row">
                 <div class="col-6">
@@ -195,7 +193,7 @@
                   <div class="row">
                     <div class="col-4">
                       <div class="mb-4">
-                        <label class="form-label" for="billing-OD-ESF">ESF</label>
+                        <label class="form-label" for="billing-OD-ESF">ESF *</label>
                         <input type="text" class="form-control" id="billing-OD-ESF" placeholder="Esfera"
                           formControlName="{{this.od_esferico}}" [ngClass]="{'is-invalid': formC.campoOdEsferico.invalid && (formC.campoOdEsferico.dirty || formC.campoOdEsferico.touched)}" />
                         <div class="invalid-feedback">
@@ -216,7 +214,7 @@
                     </div>
                     <div class="col-4">
                       <div class="mb-4">
-                        <label class="form-label" for="billing-OD-CYL">CYL</label>
+                        <label class="form-label" for="billing-OD-CYL">CYL *</label>
                         <input type="text" class="form-control" id="billing-OD-CYL" placeholder="Cilindro"
                           formControlName="{{this.od_cilindrico}}" [ngClass]="{'is-invalid': formC.campoOd_Cilindrico.invalid && (formC.campoOd_Cilindrico.dirty || formC.campoOd_Cilindrico.touched)}" />
                         <div class="invalid-feedback">
@@ -237,7 +235,7 @@
                     </div>
                     <div class="col-4">
                       <div class="mb-4">
-                        <label class="form-label" for="billing-OD-EJE">EJE</label>
+                        <label class="form-label" for="billing-OD-EJE">EJE *</label>
                         <input type="text" class="form-control" id="billing-OD-EJE" placeholder="Eje"
                           formControlName="{{this.od_eje}}" [ngClass]="{'is-invalid': formC.campoOdEje.invalid && (formC.campoOdEje.dirty || formC.campoOdEje.touched)}" />
                         <div class="invalid-feedback">
@@ -260,7 +258,7 @@
                   <div class="row">
                     <div class="col-4">
                       <div class="mb-4">
-                        <label class="form-label" for="billing-OI-ESF">ESF</label>
+                        <label class="form-label" for="billing-OI-ESF">ESF *</label>
                         <input type="text" class="form-control" id="billing-phone" placeholder="Esfera"
                           formControlName="{{this.oi_esferico}}" [ngClass]="{'is-invalid': formC.campoOiEsferico.invalid && (formC.campoOiEsferico.dirty || formC.campoOiEsferico.touched)}" />
                         <div class="invalid-feedback">
@@ -281,7 +279,7 @@
                     </div>
                     <div class="col-4">
                       <div class="mb-4">
-                        <label class="form-label" for="billing-OI-CYL">CYL</label>
+                        <label class="form-label" for="billing-OI-CYL">CYL *</label>
                         <input type="text" class="form-control" id="billing-OI-CYL" placeholder="Cilindro"
                           formControlName="{{this.oi_cilindrico}}" [ngClass]="{'is-invalid': formC.campoOiCilindrico.invalid && (formC.campoOiCilindrico.dirty || formC.campoOiCilindrico.touched)}" />
                         <div class="invalid-feedback">
@@ -302,7 +300,7 @@
                     </div>
                     <div class="col-4">
                       <div class="mb-4">
-                        <label class="form-label" for="billing-OI-EJE">EJE</label>
+                        <label class="form-label" for="billing-OI-EJE">EJE *</label>
                         <input type="text" class="form-control" id="billing-OI-EJE" placeholder="Eje"
                           formControlName="{{this.oi_eje}}" [ngClass]="{'is-invalid': formC.campoOiEje.invalid && (formC.campoOiEje.dirty || formC.campoOiEje.touched)}" />
                         <div class="invalid-feedback">
@@ -325,7 +323,7 @@
               <div class="row">
                 <div class="col-2">
                   <div class="mb-4">
-                    <label class="form-label" for="billing-DIP">DIP</label>
+                    <label class="form-label" for="billing-DIP">DIP *</label>
                     <input type="text" class="form-control" id="billing-DIP" placeholder="Distancia Interpupilar"
                       formControlName="{{this.dip}}" [ngClass]="{'is-invalid': formC.campoDip.invalid && (formC.campoDip.dirty || formC.campoDip.touched)}" />
                     <div class="invalid-feedback">

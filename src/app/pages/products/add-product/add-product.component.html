@@ -117,6 +117,21 @@
                       </div>
                     </div>
                   </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="control-label">Color</label>
+                      <input class="form-control" placeholder="Color de la montura" type="text" name="title"
+                        formControlName="{{this.color_montura}}" [ngClass]="{'is-invalid': formM.campoColorMontura.invalid && (formM.campoColorMontura.dirty || formM.campoColorMontura.touched)}"/>
+                      <div class="invalid-feedback">
+                        <div *ngIf="formM.campoColorMontura.errors?.required">
+                          Campo requerido
+                        </div>
+                        <div *ngIf="formM.campoColorMontura.errors?.pattern">
+                          Ingrese solo letras
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="row">

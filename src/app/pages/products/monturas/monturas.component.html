@@ -41,35 +41,36 @@
               style="border-spacing: 0 12px; width: 100%;">
               <thead>
                 <tr class="bg-transparent">
-                  <!--                     <th style="width: 20px;">
-                      <div class="form-check text-center">
-                        <input type="checkbox" class="form-check-input" id="customercheck">
-                        <label class="form-check-label" for="customercheck"></label>
-                      </div>
-                    </th> -->
+                  <th style="width: 20px;">
+                    <div class="form-check text-center">
+                      <input type="checkbox" class="form-check-input" id="monturascheck">
+                      <label class="form-check-label" for="monturascheck"></label>
+                    </div>
+                  </th>
                   <th scope="col" sortable="id" (sort)="onSort($event)">#</th>
                   <th scope="col" sortable="material" (sort)="onSort($event)">Material</th>
                   <th scope="col" sortable="marca" (sort)="onSort($event)">Marca</th>
                   <th scope="col" sortable="codigo_1" (sort)="onSort($event)">Cód. 1</th>
                   <th scope="col" sortable="codigo_2_interno" (sort)="onSort($event)">Cód. 2</th>
                   <th scope="col" sortable="talla" (sort)="onSort($event)">Talla</th>
-                  <th scope="col" sortable="cantidad" (sort)="onSort($event)">Cantidad</th>
+                  <th scope="col" sortable="color" (sort)="onSort($event)">Color</th>
+                  <th scope="col" sortable="cantidad" (sort)="onSort($event)">Stock</th>
                   <th scope="col" sortable="precio_compra" (sort)="onSort($event)">P. Compra</th>
                   <th scope="col" sortable="precio_venta" (sort)="onSort($event)">P. Venta</th>
                   <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th>
-                  <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de Ingreso</th>
+                  <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de ing.</th>
                   <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
-                  <th>Acción</th>
+                  <th style="width: 170px;">Acción</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let data of customers$ | async; let i = index">
-                  <!--                     <td>
-                      <div class="form-check text-center">
-                        <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input" />
-                        <label class="form-check-label" for="ordercheck{{data.index}}">&nbsp;</label>
-                      </div>
-                    </td> -->
+                  <td>
+                    <div class="form-check text-center">
+                      <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input" />
+                      <label class="form-check-label" for="ordercheck{{data.index}}">&nbsp;</label>
+                    </div>
+                  </td>
                   <td>
                     <ngb-highlight [result]=i+1 [term]="service.searchTerm"></ngb-highlight>
                   </td>
@@ -89,6 +90,9 @@
                     <ngb-highlight [result]="data.talla" [term]="service.searchTerm"></ngb-highlight>
                   </td>
                   <td>
+                    <ngb-highlight [result]="data.color" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
                     <ngb-highlight [result]="data.cantidad" [term]="service.searchTerm"></ngb-highlight>
                   </td>
                   <td>
@@ -104,15 +108,13 @@
                     <ngb-highlight [result]="data.fecha_creacion_monturas | date: 'dd/MM/yyyy'"
                       [term]="service.searchTerm"></ngb-highlight>
                   </td>
-                  <td>
+<!--                   <td>
                     <span class="badge bg-pill bg-soft-success font-size-12"
                       [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
-                  </td>
+                  </td> -->
                   <td>
-                    <a href="javascript:void(0);" class="px-2 text-warning" placement="top" ngbTooltip="Disminuir"><i
-                        class="uil uil-minus-circle font-size-18"></i></a>
-                    <a href="javascript:void(0);" class="px-2 text-success" placement="top" ngbTooltip="Agregar"><i
-                        class="uil uil-plus-circle font-size-18"></i></a>
+                    <a href="javascript:void(0);" class="px-2 text-success" placement="top" ngbTooltip="Etiqueta"><i
+                      class="uil-tag-alt font-size-18"></i></a>
                     <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top"
                       ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
                     <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar" (click)="eliminar(data)"><i
@@ -143,7 +145,7 @@
 </div>
 
 
-<!-- Add New User - Center Modal -->
+<!-- Edit Monturas - Center Modal -->
 <ng-template #centerDataModal let-modal>
   <div class="modal-header">
     <h5 class="modal-title" id="modal-title">Editar Montura</h5>
@@ -222,6 +224,21 @@
             <div class="invalid-feedback">
               <div *ngIf="formEM.campoTallaMontura.errors?.required">
                 Campo requerido
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label class="control-label">Color</label>
+            <input class="form-control" placeholder="Color de la montura" type="text" name="title"
+              formControlName="{{this.color_montura}}" [ngClass]="{'is-invalid': formEM.campoColorMontura.invalid && (formEM.campoColorMontura.dirty || formEM.campoColorMontura.touched)}"/>
+            <div class="invalid-feedback">
+              <div *ngIf="formEM.campoColorMontura.errors?.required">
+                Campo requerido
+              </div>
+              <div *ngIf="formEM.campoColorMontura.errors?.pattern">
+                Ingrese solo letras
               </div>
             </div>
           </div>

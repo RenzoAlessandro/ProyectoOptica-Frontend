@@ -269,10 +269,11 @@
   </div>
   <div class="modal-body p-4">
     <form [formGroup]="formCustomer">
+      <p class="card-title-desc text-danger">* Campo requerido</p>
       <div class="row">
         <div class="col-6">
           <div class="mb-3">
-            <label class="control-label">DNI</label>
+            <label class="control-label">DNI *</label>
             <input class="form-control" placeholder="DNI del cliente" type="text" formControlName="{{this.dni}}"
               [ngClass]="{'is-invalid': formEC.campoDNI.invalid && (formEC.campoDNI.dirty || formEC.campoDNI.touched)}" />
             <div class="invalid-feedback">
@@ -302,7 +303,7 @@
       <div class="row">
         <div class="col-6">
           <div class="mb-3">
-            <label class="control-label">Nombres</label>
+            <label class="control-label">Nombres *</label>
             <input class="form-control" placeholder="Nombres del cliente" type="text" formControlName="{{this.nombres}}"
               [ngClass]="{'is-invalid': formEC.campoNombres.invalid && (formEC.campoNombres.dirty || formEC.campoNombres.touched)}" />
             <div class="invalid-feedback">
@@ -323,7 +324,7 @@
         </div>
         <div class="col-6">
           <div class="mb-3">
-            <label class="control-label">Apellidos</label>
+            <label class="control-label">Apellidos *</label>
             <input class="form-control" placeholder="Apellidos del cliente" type="text"
               formControlName="{{this.apellidos}}"
               [ngClass]="{'is-invalid': formEC.campoApellidos.invalid && (formEC.campoApellidos.dirty || formEC.campoApellidos.touched)}" />
@@ -396,7 +397,7 @@
             <div class="row">
               <div class="col-4">
                 <div class="mb-3">
-                  <label class="control-label">ESF</label>
+                  <label class="control-label">ESF *</label>
                   <input class="form-control" placeholder="Esfera" type="text" 
                   formControlName="{{this.od_esferico}}" [ngClass]="{'is-invalid': formEC.campoOdEsferico.invalid && (formEC.campoOdEsferico.dirty || formEC.campoOdEsferico.touched)}" />
                   <div class="invalid-feedback">
@@ -417,7 +418,7 @@
               </div>
               <div class="col-4">
                 <div class="mb-3">
-                  <label class="control-label">CYL</label>
+                  <label class="control-label">CYL *</label>
                   <input class="form-control" placeholder="Cilindro" type="text"
                     formControlName="{{this.od_cilindrico}}" [ngClass]="{'is-invalid': formEC.campoOd_Cilindrico.invalid && (formEC.campoOd_Cilindrico.dirty || formEC.campoOd_Cilindrico.touched)}" />
                     <div class="invalid-feedback">
@@ -438,7 +439,7 @@
               </div>
               <div class="col-4">
                 <div class="mb-3">
-                  <label class="control-label">EJE</label>
+                  <label class="control-label">EJE *</label>
                   <input class="form-control" placeholder="Eje" type="text" 
                   formControlName="{{this.od_eje}}" [ngClass]="{'is-invalid': formEC.campoOdEje.invalid && (formEC.campoOdEje.dirty || formEC.campoOdEje.touched)}" />
                   <div class="invalid-feedback">
@@ -463,7 +464,7 @@
             <div class="row">
               <div class="col-4">
                 <div class="mb-3">
-                  <label class="control-label">ESF</label>
+                  <label class="control-label">ESF *</label>
                   <input class="form-control" placeholder="Esfera" type="text" 
                   formControlName="{{this.oi_esferico}}" [ngClass]="{'is-invalid': formEC.campoOiEsferico.invalid && (formEC.campoOiEsferico.dirty || formEC.campoOiEsferico.touched)}" />
                   <div class="invalid-feedback">
@@ -484,7 +485,7 @@
               </div>
               <div class="col-4">
                 <div class="mb-3">
-                  <label class="control-label">CYL</label>
+                  <label class="control-label">CYL *</label>
                   <input class="form-control" placeholder="Cilindro" type="text"
                     formControlName="{{this.oi_cilindrico}}" [ngClass]="{'is-invalid': formEC.campoOiCilindrico.invalid && (formEC.campoOiCilindrico.dirty || formEC.campoOiCilindrico.touched)}" />
                     <div class="invalid-feedback">
@@ -505,7 +506,7 @@
               </div>
               <div class="col-4">
                 <div class="mb-3">
-                  <label class="control-label">EJE</label>
+                  <label class="control-label">EJE *</label>
                   <input class="form-control" placeholder="Eje" type="text" 
                   formControlName="{{this.oi_eje}}" [ngClass]="{'is-invalid': formEC.campoOiEje.invalid && (formEC.campoOiEje.dirty || formEC.campoOiEje.touched)}" />
                   <div class="invalid-feedback">
@@ -528,7 +529,7 @@
       <div class="row">
         <div class="col-3">
           <div class="mb-3">
-            <label class="control-label">DIP</label>
+            <label class="control-label">DIP *</label>
             <input class="form-control" placeholder="Distancia Interpupilar" type="text"
               formControlName="{{this.dip}}" [ngClass]="{'is-invalid': formEC.campoDip.invalid && (formEC.campoDip.dirty || formEC.campoDip.touched)}" />
               <div class="invalid-feedback">

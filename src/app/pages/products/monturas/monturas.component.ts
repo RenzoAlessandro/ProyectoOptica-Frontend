@@ -26,6 +26,7 @@ export class MonturasComponent implements OnInit {
   marca_montura: string = "campoMarcaMontura";
   codigo_montura: string = "campoCodigoMontura";
   talla_montura: string = "campoTallaMontura";
+  color_montura: string = "campoColorMontura";
   cantidad_montura: string = "campoCantidadMontura";
   precio_compra_montura: string = "campoCompraMontura";
   precio_venta_montura: string = "campoVentaMontura";
@@ -42,6 +43,7 @@ export class MonturasComponent implements OnInit {
 
   numberPattern = '[0-9]+';
   decimalPattern = /^\d+(\.\d{2})?$/;
+  lettersPattern = '[a-zA-Z ]*';
 
   montura = new MonturasModel;
 
@@ -69,6 +71,10 @@ export class MonturasComponent implements OnInit {
       ]],
       [this.talla_montura]: [null, [
         Validators.required
+      ]],
+      [this.color_montura]: [null, [
+        Validators.required,
+        Validators.pattern(this.lettersPattern)
       ]],
       [this.codigo_montura]: [null, [
         Validators.required
@@ -113,6 +119,7 @@ export class MonturasComponent implements OnInit {
     this.f(this.marca_montura).setValue(data.marca);
     this.f(this.codigo_montura).setValue(data.codigo);
     this.f(this.talla_montura).setValue(data.talla);
+    this.f(this.color_montura).setValue(data.color);
     this.f(this.cantidad_montura).setValue(data.cantidad);
     this.f(this.precio_compra_montura).setValue(data.precio_montura_c);
     this.f(this.precio_venta_montura).setValue(data.precio_montura_v);
@@ -153,6 +160,7 @@ export class MonturasComponent implements OnInit {
       this.montura.marca = this.f(this.marca_montura).value;
       this.montura.codigo = this.f(this.codigo_montura).value;
       this.montura.talla = this.f(this.talla_montura).value;
+      this.montura.color = this.f(this.color_montura).value;
       this.montura.cantidad = Number(this.f(this.cantidad_montura).value);
       this.montura.precio_montura_c = Number(this.f(this.precio_compra_montura).value);
       this.montura.precio_montura_v = Number(this.f(this.precio_venta_montura).value);
