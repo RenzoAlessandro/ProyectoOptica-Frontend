@@ -69,4 +69,9 @@ export class ProductosService {
   updateProductsbyExcel(product:Array<any>): Observable<any> {
     return this.http.put<any>(environment.urlBackend+'updateListOfProducts',product);
   }
+
+  createProductsbyExcel(product:Array<any>): Observable<any> {
+    return this.http.post<any>(environment.urlBackend+'createListOfProducts',product);
+  }
+
 }
