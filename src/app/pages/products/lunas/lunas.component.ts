@@ -11,6 +11,9 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { LunasModel } from 'src/models/lunas';
 import { ProductosService } from 'src/app/services/productos.service';
 import { Sweetalert } from 'src/utils/sweetalert';
+
+import { Options } from 'ng5-slider';
+
 @Component({
   selector: 'app-lunas',
   templateUrl: './lunas.component.html',
@@ -18,6 +21,15 @@ import { Sweetalert } from 'src/utils/sweetalert';
   providers: [CustomerService, DecimalPipe]
 })
 export class LunasComponent implements OnInit {
+
+  logscale = 1;
+  logscaleoptions: Options = {
+    floor: 1,
+    ceil: 100,
+    logScale: true,
+    showTicks: true
+  };
+
 
   // modal
   editEvent: any;
@@ -105,6 +117,14 @@ export class LunasComponent implements OnInit {
     this.luna.id_luna = data.id_luna;
 
     this.modalService.open(centerDataModal, { centered: true, windowClass: 'modal-holder' });
+  }
+
+  /**
+   * Open Large modal
+   * @param openDataModal large modal data
+   */
+  openModalEtiqueta(openDataModal: any) {
+    this.modalService.open(openDataModal, { windowClass:'modal-holder', centered: true });
   }
 
   /**

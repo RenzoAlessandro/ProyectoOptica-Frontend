@@ -13,6 +13,8 @@ import { ProductosService } from 'src/app/services/productos.service';
 import { Sweetalert } from 'src/utils/sweetalert';
 import Swal from 'sweetalert2';
 
+import { Options } from 'ng5-slider';
+
 @Component({
   selector: 'app-accesorios',
   templateUrl: './accesorios.component.html',
@@ -20,6 +22,14 @@ import Swal from 'sweetalert2';
   providers: [CustomerService, DecimalPipe]
 })
 export class AccesoriosComponent implements OnInit {
+
+  logscale = 1;
+  logscaleoptions: Options = {
+    floor: 1,
+    ceil: 100,
+    logScale: true,
+    showTicks: true
+  };
 
   // modal
   editEvent: any;
@@ -109,6 +119,14 @@ export class AccesoriosComponent implements OnInit {
     this.accesorio.id_accesorio = data.id_accesorio;
 
     this.modalService.open(centerDataModal, { centered: true, windowClass: 'modal-holder' });
+  }
+
+  /**
+   * Open Large modal
+   * @param openDataModal large modal data
+   */
+  openModalEtiqueta(openDataModal: any) {
+    this.modalService.open(openDataModal, { windowClass:'modal-holder', centered: true });
   }
 
   /**

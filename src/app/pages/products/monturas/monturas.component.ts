@@ -10,6 +10,8 @@ import { MonturasModel } from 'src/models/monturas';
 import { ProductosService } from 'src/app/services/productos.service';
 import { Sweetalert } from 'src/utils/sweetalert';
 
+import { Options } from 'ng5-slider';
+
 @Component({
   selector: 'app-monturas',
   templateUrl: './monturas.component.html',
@@ -17,6 +19,15 @@ import { Sweetalert } from 'src/utils/sweetalert';
   providers: [CustomerService, DecimalPipe]
 })
 export class MonturasComponent implements OnInit {
+
+  logscale = 1;
+  logscaleoptions: Options = {
+    floor: 1,
+    ceil: 100,
+    logScale: true,
+    showTicks: true
+  };
+  
   // modal
   editEvent: any;
   submitted = false;
@@ -126,6 +137,14 @@ export class MonturasComponent implements OnInit {
 
     this.montura.id_montura = data.id_montura;
     this.modalService.open(centerDataModal, { centered: true, windowClass: 'modal-holder' });
+  }
+
+  /**
+   * Open Large modal
+   * @param openDataModal large modal data
+   */
+  openModalEtiqueta(openDataModal: any) {
+    this.modalService.open(openDataModal, { windowClass:'modal-holder', centered: true });
   }
 
   /**

@@ -13,10 +13,12 @@
             </div>
           </div>
           <div class="col-4">
-            <div class="btn-group text-md-start">
+<!--             <div class="btn-group text-md-start">
               <button type="button" class="btn btn-primary"><i class="uil uil-import" ngbTooltip="Exportar"></i></button>
               <button type="button" class="btn btn-primary"><i class="uil uil-export" ngbTooltip="Importar"></i></button>
-            </div>
+            </div> -->
+            <button type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="uil-tag-alt me-1"></i>
+              Etiquetas</button>
           </div>
         </div>
       </div>
@@ -92,7 +94,7 @@
                         [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
                     </td> -->
                     <td>
-                      <a href="javascript:void(0);" class="px-2 text-success" placement="top" ngbTooltip="Etiqueta"><i
+                      <a (click)="openModalEtiqueta(centerModalEIL)" class="px-2 text-success" placement="top" ngbTooltip="Etiqueta"><i
                         class="uil-tag-alt font-size-18"></i></a>
                       <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top" ngbTooltip="Editar"><i
                           class="uil uil-pen font-size-18"></i></a>
@@ -214,3 +216,27 @@
       <!-- end modal dialog-->
     </ng-template>
     <!-- end modal-->
+
+<!-- Imprimir Etiqueta Individual Lunas - Center Modal -->
+<ng-template #centerModalEIL let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Imprimir Etiqueta</h5>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')">×</button>
+  </div>
+  <form (ngSubmit)="saveEvent()" [formGroup]="formMontura">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="mb-3">
+            <label class="control-label">Cantidad</label>
+            <ng5-slider [(value)]="logscale" [options]="logscaleoptions"></ng5-slider>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+      <button type="button" class="btn btn-primary"><i class="uil-tag-alt me-1"></i>Imprimir</button>
+    </div>
+  </form>
+</ng-template>
