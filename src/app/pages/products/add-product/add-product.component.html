@@ -45,7 +45,7 @@
               <form (ngSubmit)="saveEvent()" [formGroup]="formMonturas">
                 <p class="card-title-desc text-danger">* Campo requerido</p> 
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-12 col-sm-6">
                     <div class="mb-3">
                       <label class="control-label">Fecha</label>
                       <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
@@ -54,7 +54,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-12 col-sm-6">
                     <div class="mb-3">
                       <label class="control-label">Material *</label>
                       <input class="form-control" placeholder="Material de la montura" type="text" name="title"
@@ -66,7 +66,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-6">
+                  <div class="col-12 col-sm-6">
                     <div class="mb-3">
                       <label class="control-label">Marca *</label>
                       <input class="form-control" placeholder="Marca de la montura" type="text" name="title"
@@ -80,9 +80,9 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="mb-3">
-                      <label class="control-label">Código *</label>
+                      <label class="control-label">Código Interno*</label>
                       <input class="form-control" placeholder="Código" type="text" name="title"
                         formControlName="{{this.codigo_montura}}" [ngClass]="{'is-invalid': formM.campoCodigoMontura.invalid && (formM.campoCodigoMontura.dirty || formM.campoCodigoMontura.touched)}"/>
                       <div class="invalid-feedback">
@@ -92,19 +92,7 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <div class="col-4">
-                    <div class="mb-3">
-                      <label class="control-label">Código Interno</label>
-                      <input class="form-control" placeholder="Código" type="text" name="title"
-                        formControlName="{{this.codigo_interno_montura}}" [ngClass]="{'is-invalid': formM.campoInternoMontura.invalid && (formM.campoInternoMontura.dirty || formM.campoInternoMontura.touched)}"/>
-                      <div class="invalid-feedback">
-                        <div *ngIf="formM.campoInternoMontura.errors?.required">
-                          Campo requerido
-                        </div>
-                      </div>
-                    </div>
-                  </div> -->
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="mb-3">
                       <label class="control-label">Talla *</label>
                       <input class="form-control" placeholder="Talla de la montura" type="text" name="title"
@@ -116,7 +104,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="mb-3">
                       <label class="control-label">Color *</label>
                       <input class="form-control" placeholder="Color de la montura" type="text" name="title"
@@ -133,7 +121,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="mb-3">
                       <label class="control-label">Cantidad *</label>
                       <input class="form-control" placeholder="Cantidad" type="text" name="title"
@@ -148,7 +136,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="mb-3">
                       <label class="control-label">Precio de Compra *</label>
                       <input class="form-control" placeholder="Precio" type="text" name="title"
@@ -163,7 +151,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="mb-3">
                       <label class="control-label">Precio de Venta *</label>
                       <input class="form-control" placeholder="Precio" type="text" name="title"
@@ -198,7 +186,7 @@
               <form (ngSubmit)="saveEvent()" [formGroup]="formLunas">
                 <p class="card-title-desc text-danger">* Campo requerido</p> 
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-12 col-sm-6">
                     <div class="mb-3">
                       <label class="control-label">Fecha</label>
                       <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
@@ -207,7 +195,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-12">
+                  <div class="col-12 col-sm-8">
                     <div class="mb-3">
                       <label class="control-label">Material *</label>
                       <input class="form-control" placeholder="Material de la luna" type="text" name="title"
@@ -219,9 +207,21 @@
                       </div>
                     </div>
                   </div>
+                  <div class="col-12 col-sm-4">
+                    <div class="mb-3">
+                      <label class="control-label">Código Interno *</label>
+                      <input class="form-control" placeholder="Material de la luna" type="text" name="title"
+                        formControlName="{{this.codigo_luna}}" [ngClass]="{'is-invalid': formL.campoCodigoLuna.invalid && (formL.campoCodigoLuna.dirty || formL.campoCodigoLuna.touched)}"/>
+                      <div class="invalid-feedback">
+                        <div *ngIf="formL.campoCodigoLuna.errors?.required">
+                          Campo requerido
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="mb-3">
                       <label class="control-label">Cantidad *</label>
                       <input class="form-control" placeholder="Cantidad" type="text" name="title"
@@ -236,7 +236,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="mb-3">
                       <label class="control-label">Precio de Compra *</label>
                       <input class="form-control" placeholder="Precio" type="text" name="title"
@@ -251,7 +251,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="mb-3">
                       <label class="control-label">Precio de Venta *</label>
                       <input class="form-control" placeholder="Precio" type="text" name="title"
@@ -286,7 +286,7 @@
               <form (ngSubmit)="saveEvent()" [formGroup]="formAccesorios">
                 <p class="card-title-desc text-danger">* Campo requerido</p> 
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-12 col-sm-6">
                     <div class="mb-3">
                       <label class="control-label">Fecha</label>
                       <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
@@ -295,7 +295,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-12">
+                  <div class="col-12 col-sm-8">
                     <div class="mb-3">
                       <label class="control-label">Nombre del Accesorio *</label>
                       <input class="form-control" placeholder="Accesorio" type="text" name="accesorio"
@@ -307,9 +307,21 @@
                       </div>
                     </div>
                   </div>
+                  <div class="col-12 col-sm-4">
+                    <div class="mb-3">
+                      <label class="control-label">Código Interno *</label>
+                      <input class="form-control" placeholder="Material de la luna" type="text" name="title"
+                        formControlName="{{this.codigo_accesorio}}" [ngClass]="{'is-invalid': formA.campoCodigoAccesorio.invalid && (formA.campoCodigoAccesorio.dirty || formA.campoCodigoAccesorio.touched)}"/>
+                      <div class="invalid-feedback">
+                        <div *ngIf="formA.campoCodigoAccesorio.errors?.required">
+                          Campo requerido
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="mb-3">
                       <label class="control-label">Cantidad *</label>
                       <input class="form-control" placeholder="Cantidad" type="text" name="cantidad"
@@ -324,7 +336,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="mb-3">
                       <label class="control-label">Precio de Compra *</label>
                       <input class="form-control" placeholder="Precio" type="text" name="accesorio_compra"
@@ -339,7 +351,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-4">
                     <div class="mb-3">
                       <label class="control-label">Precio de Venta *</label>
                       <input class="form-control" placeholder="Precio" type="text" name="accesorio_venta"

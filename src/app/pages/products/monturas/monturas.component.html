@@ -52,8 +52,8 @@
                   <th scope="col" sortable="id" (sort)="onSort($event)">#</th>
                   <th scope="col" sortable="material" (sort)="onSort($event)">Material</th>
                   <th scope="col" sortable="marca" (sort)="onSort($event)">Marca</th>
-                  <th scope="col" sortable="codigo_1" (sort)="onSort($event)">Cód. 1</th>
-                  <th scope="col" sortable="codigo_2_interno" (sort)="onSort($event)">Cód. 2</th>
+                  <th scope="col" sortable="codigo_1" (sort)="onSort($event)">Cód.</th>
+                  <th scope="col" sortable="codigo_2_interno" (sort)="onSort($event)">Cód. int.</th>
                   <th scope="col" sortable="talla" (sort)="onSort($event)">Talla</th>
                   <th scope="col" sortable="color" (sort)="onSort($event)">Color</th>
                   <th scope="col" sortable="cantidad" (sort)="onSort($event)">Stock</th>
@@ -199,7 +199,7 @@
       <div class="row">
         <div class="col-4">
           <div class="mb-3">
-            <label class="control-label">Código *</label>
+            <label class="control-label">Código int. *</label>
             <input class="form-control" placeholder="Código" type="text" name="title"
               formControlName="{{this.codigo_montura}}" [ngClass]="{'is-invalid': formEM.campoCodigoMontura.invalid && (formEM.campoCodigoMontura.dirty || formEM.campoCodigoMontura.touched)}"/>
             <div class="invalid-feedback">

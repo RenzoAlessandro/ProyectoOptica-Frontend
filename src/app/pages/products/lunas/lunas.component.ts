@@ -37,6 +37,7 @@ export class LunasComponent implements OnInit {
 
   formLuna: FormGroup;
   material_luna: string = "campoMaterialLuna";
+  codigo_luna: string = "campoCodigoLuna";
   cantidad_luna: string = "campoCantidadLuna";
   precio_compra_luna: string = "campoCompraLuna";
   precio_venta_luna: string = "campoVentaLuna";
@@ -75,6 +76,9 @@ export class LunasComponent implements OnInit {
       [this.material_luna]: [null, [
         Validators.required
       ]],
+      [this.codigo_luna]: [null, [
+        Validators.required
+      ]],
       [this.cantidad_luna]: [null, [
         Validators.required,
         Validators.pattern(this.numberPattern)
@@ -110,6 +114,7 @@ export class LunasComponent implements OnInit {
    */
   centerModal(centerDataModal: any, data: LunasModel) {
     this.f(this.material_luna).setValue(data.material);
+    this.f(this.codigo_luna).setValue(data.codigo);
     this.f(this.cantidad_luna).setValue(data.cantidad);
     this.f(this.precio_compra_luna).setValue(data.precio_luna_c);
     this.f(this.precio_venta_luna).setValue(data.precio_luna_v);
@@ -155,6 +160,7 @@ export class LunasComponent implements OnInit {
   guardarLuna() {
     if (this.formLuna.valid) {
       this.luna.material = this.f(this.material_luna).value;
+      this.luna.codigo = this.f(this.codigo_luna).value;
       this.luna.cantidad = Number(this.f(this.cantidad_luna).value);
       this.luna.precio_luna_c = Number(this.f(this.precio_compra_luna).value);
       this.luna.precio_luna_v = Number(this.f(this.precio_venta_luna).value);

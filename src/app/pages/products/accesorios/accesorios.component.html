@@ -51,9 +51,10 @@
                   </th>
                   <th scope="col" sortable="id" (sort)="onSort($event)">#</th>
                   <th scope="col" sortable="nombre_accesorio" (sort)="onSort($event)">Nombre</th>
+                  <th scope="col" sortable="codigo_interno" (sort)="onSort($event)">Cód. int.</th>
                   <th scope="col" sortable="precio_compra" (sort)="onSort($event)">Precio Compra</th>
                   <th scope="col" sortable="precio_venta" (sort)="onSort($event)">Precio Venta</th>
-                  <th scope="col" sortable="cantidad" (sort)="onSort($event)">Cantidad</th>
+                  <th scope="col" sortable="cantidad" (sort)="onSort($event)">Stock</th>
                   <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th>
                   <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de Ingreso</th>
                   <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
@@ -73,6 +74,9 @@
                   </td>
                   <td>
                     <ngb-highlight [result]="data.nombre_accesorio" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.codigo" [term]="service.searchTerm"></ngb-highlight>
                   </td>
                   <td>
                     <ngb-highlight [result]="data.precio_accesorio_c" [term]="service.searchTerm"></ngb-highlight>
@@ -148,13 +152,25 @@
             </div>
           </div> -->
       <div class="row">
-        <div class="col-12">
+        <div class="col-8">
           <div class="mb-3">
             <label class="control-label">Nombre del Accesorio *</label>
             <input class="form-control" placeholder="Accesorio" type="text" name="title"
               formControlName="{{this.nombre_accesorio}}" [ngClass]="{'is-invalid': formEA.campoNombreAccesorio.invalid && (formEA.campoNombreAccesorio.dirty || formEA.campoNombreAccesorio.touched)}"/>
             <div class="invalid-feedback">
               <div *ngIf="formEA.campoNombreAccesorio.errors?.required">
+                Campo requerido
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label class="control-label">Código int. *</label>
+            <input class="form-control" placeholder="Código" type="text" name="title"
+              formControlName="{{this.codigo_accesorio}}" [ngClass]="{'is-invalid': formEA.campoCodigoAccesorio.invalid && (formEA.campoCodigoAccesorio.dirty || formEA.campoCodigoAccesorio.touched)}"/>
+            <div class="invalid-feedback">
+              <div *ngIf="formEA.campoCodigoAccesorio.errors?.required">
                 Campo requerido
               </div>
             </div>

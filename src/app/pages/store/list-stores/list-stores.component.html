@@ -1,70 +1,68 @@
 <div class="container-fluid">
 
-    <app-page-title title="Tiendas" [breadcrumbItems]="breadCrumbItems"></app-page-title>
-  
-    <div class="row mb-2">
-      <div class="col-md-4">
-          <div class="form-inline mb-3">
-              <div class="search-box ml-2">
-                  <div class="position-relative">
-                      <input type="text" class="form-control rounded border-0" placeholder="Buscar tienda">
-                      <i class="mdi mdi-magnify search-icon"></i>
-                  </div>
-              </div>
-              
+  <app-page-title title="Tiendas" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row mb-2">
+    <div class="col-md-4">
+      <div class="form-inline mb-3">
+        <div class="search-box ml-2">
+          <div class="position-relative">
+            <input type="text" class="form-control rounded border-0" placeholder="Buscar tienda">
+            <i class="mdi mdi-magnify search-icon"></i>
           </div>
+        </div>
+
       </div>
     </div>
-  
-    <div class="row">
-      <div class="col-xl-4 col-sm-6" *ngFor="let data of listSedes">
-        <div class="card">
-  
-          <div class="card-body">
-            <div class="d-flex align-items-start">
-                <div class="avatar-sm me-4">
-                    <span class="avatar-title bg-soft-{{data.color}} text-{{data.color}} font-size-16 rounded-circle">
-                      {{data.nombre_sede.charAt(0)}}
-                    </span>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-4 col-sm-6" *ngFor="let data of listSedes">
+
+      <div class="card">
+        <div class="card-body">
+          <div class="dropdown float-end" ngbDropdown>
+            <a class="text-body dropdown-toggle font-size-16" href="javascript:void(0)" role="button" ngbDropdownToggle>
+              <i class="uil uil-ellipsis-h"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                <a class="dropdown-item" href="javascript:void(0)">Editar</a>
+                <a class="dropdown-item" href="javascript:void(0)">Eliminar</a>
+            </div>
+        </div>
+          <div class="d-flex align-items-start">
+            <div class="avatar-sm me-4">
+              <div class="avatar-title bg-soft-primary rounded-circle text-primary">
+                <i class="mdi mdi-store display-6 m-0 text-primary"></i>
+            </div>
+            </div>
+            <div class="flex-1 align-self-center">
+              <div class="border-bottom pb-1">
+                <h5 class="text-truncate font-size-16 mb-1"><a class="text-dark">{{data.nombre_sede}}</a></h5>
+                <p class="text-muted">
+                  <!-- <i class="mdi mdi-map-marker me-1"></i> {{data.direccion}} -->
+                  <i class="mdi mdi-map-marker me-1"></i><span class="fw-medium">{{data.direccion}}</span>
+                </p>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="mt-3">
+                    <p class="text-muted mb-2">Productos</p>
+                    <h5 class="font-size-16 mb-0">1512</h5>
+                  </div>
                 </div>
-                <div class="flex-1 align-self-center">
-                    <div class="border-bottom pb-1">
-                        <h5 class="text-truncate font-size-16 mb-1"><a class="text-dark">{{data.nombre_sede}}</a></h5>
-                        <p class="text-muted">
-                            <i class="mdi mdi-account me-1"></i> {{data.direccion}}
-                        </p>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="mt-3">
-                                <p class="text-muted mb-2">Products</p>
-                                <h5 class="font-size-16 mb-0">{{data.poducts}}</h5>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="mt-3">
-                                <p class="text-muted mb-2">Wallet Balance</p>
-                                <h5 class="font-size-16 mb-0">{{data.balance}}</h5>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-6">
+                  <div class="mt-3">
+                    <p class="text-muted mb-2">Balance</p>
+                    <h5 class="font-size-16 mb-0">S/. 15,000</h5>
+                  </div>
                 </div>
+              </div>
             </div>
           </div>
-          
         </div>
       </div>
     </div>
-    <!--  end row -->
-  
-<!--     <div class="row">
-      <div class="col-12">
-        <div class="text-center my-3">
-          <a href="javascript:void(0);" class="text-primary"><i
-              class="mdi mdi-loading mdi-spin font-size-20 align-middle me-2"></i> Load more </a>
-        </div>
-      </div>
-    </div> -->
-    <!-- end row -->
-  </div> <!-- container-fluid -->
-  
+  </div>
+  <!--  end row -->
+</div> <!-- container-fluid -->
