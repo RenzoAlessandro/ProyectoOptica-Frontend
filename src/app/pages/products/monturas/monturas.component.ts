@@ -20,6 +20,7 @@ export class MonturasComponent implements OnInit {
   // modal
   editEvent: any;
   submitted = false;
+  isMasterSel:boolean;
 
   formMontura: FormGroup;
   material_montura: string = "campoMaterialMontura";
@@ -36,7 +37,7 @@ export class MonturasComponent implements OnInit {
   breadCrumbItems: Array<{}>;
   term: any;
 
-  customers$: Observable<MonturasModel[]>;
+  monturas$: Observable<MonturasModel[]>;
   total$: Observable<number>;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
@@ -46,13 +47,14 @@ export class MonturasComponent implements OnInit {
   lettersPattern = '[a-zA-Z ]*';
 
   montura = new MonturasModel;
+  checkedMonturasList: any[];
 
   constructor(public service: CustomerService,
     private monturaService: ProductosService,
     private modalService: NgbModal,
     private fb: FormBuilder,
     ) {
-    this.customers$ = service.customers$;
+    this.monturas$ = service.customers$;
     this.total$ = service.total$;
   }
 
@@ -199,4 +201,17 @@ export class MonturasComponent implements OnInit {
   get formEM() {
     return this.formMontura.controls;
   }
+
+  checkUncheckAll() {
+
+  }
+
+  /* getCheckedItemList(){
+    this.checkedMonturasList = [];
+    for (var i = 0; i < this.monturas$.length; i++) {
+      if(this.categoryList[i].isSelected)
+      this.checkedCategoryList.push(this.categoryList[i]);
+    }
+    this.checkedCategoryList = JSON.stringify(this.checkedCategoryList);
+  } */
 }

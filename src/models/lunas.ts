@@ -1,5 +1,6 @@
 export class LunasModel {
     id_luna?: string;
+    isSelected?:boolean;
     material: string;
     precio_luna_c: number;
     precio_luna_v: number;
@@ -9,4 +10,5 @@ export class LunasModel {
     id_sede: string;
     habilitado: true;
     tipo:string;
+    
 }

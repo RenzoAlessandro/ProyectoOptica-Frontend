@@ -47,7 +47,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       NgbNavModule,
       NgbModule,
       NgxDropzoneModule,
-      BarcodeGeneratorAllModule
+      BarcodeGeneratorAllModule,
     ],
     providers: [
       {

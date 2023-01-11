@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -11,6 +11,14 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { LunasModel } from 'src/models/lunas';
 import { ProductosService } from 'src/app/services/productos.service';
 import { Sweetalert } from 'src/utils/sweetalert';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import { DataMatrixGenerator } from '@syncfusion/ej2-angular-barcode-generator';
+import pdfMake from 'pdfmake/build/pdfMake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { parse } from 'node-html-parser';
+
 @Component({
   selector: 'app-lunas',
   templateUrl: './lunas.component.html',
@@ -19,9 +27,12 @@ import { Sweetalert } from 'src/utils/sweetalert';
 })
 export class LunasComponent implements OnInit {
 
+  @ViewChild('barcode')
+   public barcode: DataMatrixGenerator;
   // modal
   editEvent: any;
   submitted = false;
+  isMasterSel: boolean = false;
 
   formLuna: FormGroup;
   material_luna: string = "campoMaterialLuna";
@@ -33,7 +44,7 @@ export class LunasComponent implements OnInit {
   breadCrumbItems: Array<{}>;
   term: any;
 
-  customers$: Observable<LunasModel[]>;
+  lunas$: Observable<LunasModel[]>;
   total$: Observable<number>;
 
   numberPattern = '[0-9]+';
@@ -42,6 +53,8 @@ export class LunasComponent implements OnInit {
   luna = new LunasModel;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
+  checkedLunasList: any;
+
 
   constructor(
     public service: CustomerService,
@@ -49,7 +62,7 @@ export class LunasComponent implements OnInit {
     private fb: FormBuilder,
     private lunaService: ProductosService
   ) {
-    this.customers$ = service.customers$;
+    this.lunas$ = service.customers$;
     this.total$ = service.total$;
   }
 
@@ -174,4 +187,121 @@ export class LunasComponent implements OnInit {
   get formEL() {
     return this.formLuna.controls;
   }
+
+  checkUncheckAll(){
+    console.log(this.isMasterSel)
+    this.lunas$.forEach(element => {
+      element.forEach(elem => {
+        elem.isSelected = this.isMasterSel;
+      })
+    }); 
+    this.getCheckedItemList();  
+  }
+
+  getCheckedItemList(){
+    this.checkedLunasList = [];
+    this.lunas$.forEach(element => {
+      element.forEach(elem => {
+        if (elem.isSelected) {
+          this.checkedLunasList.push(elem);
+        }
+      })
+     
+    }); 
+    console.log(this.checkedLunasList)
+    //this.checkedLunasList = JSON.stringify(this.checkedLunasList); 
+    
+  }
+
+  isAllSelected() {
+    
+    this.lunas$.forEach(element =>{
+      this.isMasterSel = element.every(function(item:any) {
+        return item.isSelected == true;
+      })
+    })
+
+
+    this.getCheckedItemList(); 
+  } 
+
+  generarPDF(): void{
+    
+    let DATA: any = document.getElementById('htmlData');
+    //var HTML_Width = document.getElementById("htmlData").offsetWidth 
+		//var HTML_Height = document.getElementById("htmlData").offsetHeight
+    var HTML_Width = 150
+    var HTML_Height = 29
+		var top_left_margin = 0;
+		//var PDF_Width = HTML_Width+(top_left_margin*2);
+		//var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
+    var PDF_Width = 106
+    var PDF_Height = 29
+		var canvas_image_width = HTML_Width;
+		var canvas_image_height = HTML_Height;
+		
+    console.log(HTML_Width, HTML_Height)
+		//var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
+    var totalPDFPages = Math.ceil(HTML_Height/150)-1
+    console.log(totalPDFPages)
+    html2canvas(DATA).then((canvas) => {
+
+      var imgData = canvas.toDataURL("image/jpeg", 1.0);
+			var pdf = new jsPDF('l', 'mm',  [PDF_Width, PDF_Height]);
+		    pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+			
+			
+			for (var i = 0; i < totalPDFPages; i++) { 
+				pdf.addPage([PDF_Width, PDF_Height]);
+				pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+			}
+			
+		    pdf.save("HTML-Document.pdf");
+      /* console.log(canvas)
+      let fileWidth = 300;
+      let pageHeight = 82;
+      let fileHeight = (canvas.height * fileWidth) / canvas.width;
+      let heighLeft = fileHeight;
+      const FILEURI = canvas.toDataURL('image/svg');
+      
+      let PDF = new jsPDF('p', 'mm', [fileWidth,pageHeight]);
+      
+      let position = 0;
+      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight+15);
+      
+      while (heighLeft >= 0) {
+        position = heighLeft - fileHeight;
+        console.log(position)
+        PDF.addPage();
+        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight + 15);
+        heighLeft -= pageHeight;
+      } 
+      PDF.save('angular-demo.pdf'); */
+    }); 
+    
+  }
+  
+  async createPDF() {
+    let data = this.barcode.exportAsBase64Image('PNG') ;
+    data.then(res=>{
+      const pdfDefinition: any = {
+        content: [
+          {
+            text: 'PDF Generated with Image from external URL',
+            fontSize : 20
+          },
+          {
+            image: res
+          }
+        ]
+      }
+      const pdf = pdfMake.createPdf(pdfDefinition);
+      pdf.download();
+    }
+     
+    );
+    
+  }
+
+  
 }

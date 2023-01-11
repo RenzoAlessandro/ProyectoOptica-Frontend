@@ -106,8 +106,15 @@ export class CustomerService {
    */
    getListLunas() {
     this.lunasService.getLunas().subscribe( res=>{
-      console.log(res)
+      
       this.lunasList = res;
+      const propiedad = {
+        isSelected: false
+      }
+      this.lunasList.forEach(elem => {
+        Object.assign(elem,propiedad)
+      })
+      console.log(this.lunasList)
       this._search$.pipe(
         tap(() => this._loading$.next(true)),
         debounceTime(200),
