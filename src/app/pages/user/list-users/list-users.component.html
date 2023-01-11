@@ -34,7 +34,7 @@
 
   <div class="row">
     <div class="col-12">
-      <div class="table-responsive mb-4">
+      <div class="table-responsive">
         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
           <form>
             <table class="table table-centered datatables dt-responsive nowrap table-card-list"
@@ -110,15 +110,22 @@
                 </tr>
               </tbody>
             </table>
-            <div class="float-end">
-              <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
-                [pageSize]="service.pageSize">
-                <ng-template ngbPaginationPrevious>Previous</ng-template>
-                <ng-template ngbPaginationNext>Next</ng-template>
-              </ngb-pagination>
-            </div>
           </form>
         </div>
+      </div>
+      <!-- End table -->
+      <div class="row justify-content-md-between align-items-md-center">
+        <!-- <div class="col-sm-12 col-md-5">
+          <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">Page 2 of 84</div>
+        </div> -->
+        <!-- Pagination -->
+        <div class="col-12">
+          <div class="text-md-end float-md-end pagination-rounded">
+            <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+            </ngb-pagination>
+          </div>
+        </div>
+        <!-- End Pagination -->
       </div>
     </div>
   </div>

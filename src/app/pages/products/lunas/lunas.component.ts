@@ -22,14 +22,12 @@ import { Options } from 'ng5-slider';
 })
 export class LunasComponent implements OnInit {
 
-  logscale = 1;
-  logscaleoptions: Options = {
-    floor: 1,
-    ceil: 100,
-    logScale: true,
-    showTicks: true
+  visibleSelection = 5;
+  visibleBarOptions: Options = {
+    floor: 0,
+    ceil: 10,
+    showSelectionBar: true
   };
-
 
   // modal
   editEvent: any;
