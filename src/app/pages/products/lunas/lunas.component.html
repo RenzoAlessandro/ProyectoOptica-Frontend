@@ -13,10 +13,12 @@
             </div>
           </div>
           <div class="col-4">
-            <div class="btn-group text-md-start">
+<!--             <div class="btn-group text-md-start">
               <button type="button" class="btn btn-primary"><i class="uil uil-import" ngbTooltip="Exportar"></i></button>
               <button type="button" class="btn btn-primary"><i class="uil uil-export" ngbTooltip="Importar"></i></button>
-            </div>
+            </div> -->
+            <button type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="uil-tag-alt me-1"></i>
+              Etiquetas</button>
           </div>
         </div>
       </div>
@@ -34,7 +36,7 @@
   
     <div class="row">
       <div class="col-12">
-        <div class="table-responsive mb-4">
+        <div class="table-responsive">
           <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <form>
               <table class="table table-centered datatables dt-responsive nowrap table-card-list"
@@ -49,9 +51,10 @@
                     </th>
                     <th scope="col" sortable="id" (sort)="onSort($event)">#</th>
                     <th scope="col" sortable="material" (sort)="onSort($event)">Material</th>
+                    <th scope="col" sortable="codigo_interno" (sort)="onSort($event)">Cód. int.</th>
                     <th scope="col" sortable="precio_compra" (sort)="onSort($event)">Precio Compra</th>
                     <th scope="col" sortable="precio_venta" (sort)="onSort($event)">Precio Venta</th>
-                    <th scope="col" sortable="cantidad" (sort)="onSort($event)">Cantidad</th>
+                    <th scope="col" sortable="cantidad" (sort)="onSort($event)">Stock</th>
                     <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th>
                     <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de Ingreso</th>
                     <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
@@ -73,6 +76,9 @@
                       <ngb-highlight [result]="data.material" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
+                      <ngb-highlight [result]="data.codigo" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
                       <ngb-highlight [result]="data.precio_luna_c" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
@@ -92,7 +98,7 @@
                         [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
                     </td> -->
                     <td>
-                      <a href="javascript:void(0);" class="px-2 text-success" placement="top" ngbTooltip="Etiqueta"><i
+                      <a (click)="openModalEtiqueta(centerModalEIL)" class="px-2 text-success" placement="top" ngbTooltip="Etiqueta"><i
                         class="uil-tag-alt font-size-18"></i></a>
                       <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top" ngbTooltip="Editar"><i
                           class="uil uil-pen font-size-18"></i></a>
@@ -102,15 +108,6 @@
                   </tr>
                 </tbody>
               </table>
-  
-              <div class="float-end">
-                <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
-                  [pageSize]="service.pageSize">
-                  <ng-template ngbPaginationPrevious>Previous</ng-template>
-                  <ng-template ngbPaginationNext>Next</ng-template>
-                </ngb-pagination>
-              </div>
-  
             </form>
           </div>
         </div>
@@ -132,15 +129,16 @@
   </div>
   
   
-    <!-- Add New User - Center Modal -->
+    <!-- Editar Luna - Center Modal -->
     <ng-template #centerDataModal let-modal>
       <div class="modal-header">
-        <h5 class="modal-title" id="modal-title">Registrar Nueva Luna</h5>
+        <h5 class="modal-title" id="modal-title">Editar Luna</h5>
         <button type="button" class="btn-close" (click)="closeEventModal()">
         </button>
       </div>
       <div class="modal-body p-4">
         <form (ngSubmit)="saveEvent()" [formGroup]="formLuna">
+          <p class="card-title-desc text-danger">* Campo requerido</p> 
           <!-- <div class="row">
             <div class="col-6">
               <div class="mb-3">
@@ -153,11 +151,10 @@
               </div>
             </div>
           </div> -->
-    
           <div class="row">
-            <div class="col-12">
+            <div class="col-8">
               <div class="mb-3">
-                <label class="control-label">Material</label>
+                <label class="control-label">Material *</label>
                 <input class="form-control" placeholder="Material de la luna" type="text" name="title"
                   formControlName="{{this.material_luna}}" [ngClass]="{'is-invalid': formEL.campoMaterialLuna.invalid && (formEL.campoMaterialLuna.dirty || formEL.campoMaterialLuna.touched)}"/>
                 <div class="invalid-feedback">
@@ -167,12 +164,23 @@
                 </div>
               </div>
             </div>
+            <div class="col-4">
+              <div class="mb-3">
+                <label class="control-label">Código int. *</label>
+                <input class="form-control" placeholder="Código" type="text" name="title"
+                  formControlName="{{this.codigo_luna}}" [ngClass]="{'is-invalid': formEL.campoCodigoLuna.invalid && (formEL.campoCodigoLuna.dirty || formEL.campoCodigoLuna.touched)}"/>
+                <div class="invalid-feedback">
+                  <div *ngIf="formEL.campoCodigoLuna.errors?.required">
+                    Campo requerido
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-    
           <div class="row">
             <div class="col-4">
               <div class="mb-3">
-                <label class="control-label">Cantidad</label>
+                <label class="control-label">Cantidad *</label>
                 <input class="form-control" placeholder="Cantidad" type="text" name="title"
                   formControlName="{{this.cantidad_luna}}" [ngClass]="{'is-invalid': formEL.campoCantidadLuna.invalid && (formEL.campoCantidadLuna.dirty || formEL.campoCantidadLuna.touched)}"/>
                 <div class="invalid-feedback">
@@ -187,7 +195,7 @@
             </div>
             <div class="col-4">
               <div class="mb-3">
-                <label class="control-label">Precio de Compra</label>
+                <label class="control-label">Precio de Compra *</label>
                 <input class="form-control" placeholder="Precio" type="text" name="title"
                   formControlName="{{this.precio_compra_luna}}" [ngClass]="{'is-invalid': formEL.campoCompraLuna.invalid && (formEL.campoCompraLuna.dirty || formEL.campoCompraLuna.touched)}"/>
                 <div class="invalid-feedback">
@@ -202,7 +210,7 @@
             </div>
             <div class="col-4">
               <div class="mb-3">
-                <label class="control-label">Precio de Venta</label>
+                <label class="control-label">Precio de Venta *</label>
                 <input class="form-control" placeholder="Precio" type="text" name="title"
                   formControlName="{{this.precio_venta_luna}}" [ngClass]="{'is-invalid': formEL.campoVentaLuna.invalid && (formEL.campoVentaLuna.dirty || formEL.campoVentaLuna.touched)}"/>
                 <div class="invalid-feedback">
@@ -216,8 +224,6 @@
               </div>
             </div>
           </div>
-  
-    
           <div class="text-end mt-2">
             <button type="button" class="btn btn-danger" (click)="closeEventModal()">
               Cerrar
@@ -232,4 +238,26 @@
     </ng-template>
     <!-- end modal-->
 
-    
+<!-- Imprimir Etiqueta Individual Lunas - Center Modal -->
+<ng-template #centerModalEIL let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Imprimir Etiqueta</h5>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')">×</button>
+  </div>
+  <form (ngSubmit)="saveEvent()" [formGroup]="formMontura">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="mb-3">
+            <label class="control-label">Cantidad</label>
+            <ng5-slider [(value)]="visibleSelection" [options]="visibleBarOptions"></ng5-slider>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Cerrar</button>
+      <button type="button" class="btn btn-primary"><i class="uil-print me-1"></i>Imprimir</button>
+    </div>
+  </form>
+</ng-template>

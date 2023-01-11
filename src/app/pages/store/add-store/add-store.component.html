@@ -13,10 +13,11 @@
               validation–available in all our supported browsers.</p> -->
 
               <form (ngSubmit)="saveEvent()" [formGroup]="formTiendas">
+              <p class="card-title-desc text-danger">* Campo requerido</p> 
               <div class="row">
-                <div class="col-md-8">
+                <div class="col-12 col-sm-8">
                   <div class="mb-3">
-                    <label for="validationCustom01">Nombre</label>
+                    <label for="validationCustom01">Nombre *</label>
                       <input class="form-control" placeholder="Nombre de la tienda" type="text" name="title"
                           formControlName="{{this.nombre_tienda}}" [ngClass]="{'is-invalid': formT.campoNombreTienda.invalid && (formT.campoNombreTienda.dirty || formT.campoNombreTienda.touched)}"/>
                       <div class="invalid-feedback">
@@ -33,9 +34,9 @@
                   </div>
                 </div>
 
-                <div class="col-lg-4">
+                <div class="col-12 col-sm-4">
                     <div class="mb-3">
-                        <label class="form-label">Estado</label>
+                        <label class="form-label">Estado *</label>
                         <ng-select name="selectCountry" [items]="selectValue" >
                         </ng-select>
                     </div>
@@ -43,9 +44,9 @@
               </div>
 
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-12 col-sm-12">
                   <div class="mb-3">
-                    <label for="validationCustom01">Dirección</label>
+                    <label for="validationCustom01">Dirección *</label>
                       <input class="form-control" placeholder="Dirección de la tienda" type="text" name="title"
                           formControlName="{{this.direccion_tienda}}" [ngClass]="{'is-invalid': formT.campoDireccionTienda.invalid && (formT.campoDireccionTienda.dirty || formT.campoDireccionTienda.touched)}"/>
                       <div class="invalid-feedback">
@@ -62,9 +63,16 @@
                   </div>
                 </div>
               </div>
-
-              <button class="btn btn-primary" type="submit" (click)="guardarSede()">Registrar</button>
             </form>
+            <div class="row my-2">
+              <div class="col">
+                <div class="text-sm-end mt-2 mt-sm-0">
+                  <button class="btn btn-success" (click)="guardarSede()">
+                    <i class="uil uil-store-alt me-1"></i> Registar Tienda
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <!-- end card -->

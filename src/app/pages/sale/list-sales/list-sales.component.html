@@ -64,16 +64,12 @@
                     <option [ngValue]="50">50</option>
                     <option [ngValue]="100">100</option>
                   </select> entradas</label></div>
-
             </div>
           </div>
-
         </div>
       </div>
     </div>
   </div>
-
-
   <div class="row">
     <div class="col-12">
       <div>
@@ -177,7 +173,8 @@
               <div class="text-muted text-sm-end">
                 <div class="mt-4">
                   <div class="text-danger font-size-16">Deuda &nbsp;</div>
-                  <div class="badge rounded-pill bg-soft-success font-size-16" [ngClass]=" { 'bg-soft-danger': 1 > 0}"> S/. 100.00 </div>
+                  <div class="badge rounded-pill bg-soft-success font-size-16" [ngClass]=" { 'bg-soft-danger': 1 > 0}">
+                    S/. 100.00 </div>
                 </div>
               </div>
             </div>
@@ -185,157 +182,157 @@
 
           <div class="border-top pt-4">
 
-          <div class="row">
-            <div class="col-4">
-              <div class="mb-3">
-                <label class="control-label">Cantidad Recibida</label>
-                <input class="form-control" placeholder="Cantidad en soles" type="text"
-                  name="nameCantidadRecibidaCredito" (change)="updatePago($event)"
-                  formControlName="{{this.cantidadRecibida_CreditoActualizacion}}" />
-                <div class="text-danger"
-                  *ngIf="formCreditoActualizacion.controls['campoCantidadRecibidaCreditoActualizacion'].invalid && (formCreditoActualizacion.controls['campoCantidadRecibidaCreditoActualizacion'].dirty || formCreditoActualizacion.controls['campoCantidadRecibidaCreditoActualizacion'].touched)">
+            <div class="row">
+              <div class="col-4">
+                <div class="mb-3">
+                  <label class="control-label">Cantidad Recibida</label>
+                  <input class="form-control" placeholder="Cantidad en soles" type="text"
+                    name="nameCantidadRecibidaCredito" (change)="updatePago($event)"
+                    formControlName="{{this.cantidadRecibida_CreditoActualizacion}}" />
                   <div class="text-danger"
-                    *ngIf="formCreditoActualizacion.controls['campoCantidadRecibidaCreditoActualizacion'].errors.required">
-                    Campo requerido
-                  </div>
-                  <div class="text-danger"
-                    *ngIf="formCredito.controls['campoCantidadRecibidaCreditoActualizacion'].errors.pattern">
-                    Ingrese solo números
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="mb-3">
-                <label class="form-label">Método</label>
-                <ng-select name="selectMetodo" [items]="listMetodosPagos"
-                  formControlName="{{this.metodoPagoCreditoActualizacion}}" placeholder="Seleccione">
-                </ng-select>
-                <div class="text-danger"
-                  *ngIf="formCreditoActualizacion.controls['campoMetodoPagoCreditoActualizacion'].invalid && (formCreditoActualizacion.controls['campoMetodoPagoCreditoActualizacion'].dirty || formCreditoActualizacion.controls['campoMetodoPagoCreditoActualizacion'].touched)">
-                  <div class="text-danger"
-                    *ngIf="formCreditoActualizacion.controls['campoMetodoPagoCreditoActualizacion'].errors.required">
-                    Campo requerido
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="mb-3">
-                <label class="control-label">Fecha</label>
-                <input class="form-control" placeholder="Seleccione la fecha" type="text"
-                  name="nameFechaRegistroCredito" formControlName="{{this.fechaVenta_CreditoActualizacion}}"
-                  [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                  <span *ngIf="form.title.errors.required">This value is required.</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-12">
-              <div class="mb-3">
-                <label class="control-label">Información de Pagos</label>
-
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div class="table-responsive">
-                      <table class="table table-sm m-0 table-centered">
-                        <thead>
-                          <tr>
-                            <th style="width: 70px;">Nº Cuotas</th>
-                            <th>Monto</th>
-                            <th>Método</th>
-                            <th>Fecha</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>S/. 60.00</td>
-                            <td>Plin</td>
-                            <td>09 Ago, 2022</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>S/. 30.00</td>
-                            <td>Interbancario</td>
-                            <td>14 Set, 2022</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>S/. 59.00</td>
-                            <td>Físico</td>
-                            <td>18 Oct, 2022</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">4</th>
-                            <td>S/. 30.00</td>
-                            <td>Yape</td>
-                            <td>29 Nov, 2022</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">5</th>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                    *ngIf="formCreditoActualizacion.controls['campoCantidadRecibidaCreditoActualizacion'].invalid && (formCreditoActualizacion.controls['campoCantidadRecibidaCreditoActualizacion'].dirty || formCreditoActualizacion.controls['campoCantidadRecibidaCreditoActualizacion'].touched)">
+                    <div class="text-danger"
+                      *ngIf="formCreditoActualizacion.controls['campoCantidadRecibidaCreditoActualizacion'].errors.required">
+                      Campo requerido
+                    </div>
+                    <div class="text-danger"
+                      *ngIf="formCredito.controls['campoCantidadRecibidaCreditoActualizacion'].errors.pattern">
+                      Ingrese solo números
                     </div>
                   </div>
                 </div>
-
+              </div>
+              <div class="col-4">
+                <div class="mb-3">
+                  <label class="form-label">Método</label>
+                  <ng-select name="selectMetodo" [items]="listMetodosPagos"
+                    formControlName="{{this.metodoPagoCreditoActualizacion}}" placeholder="Seleccione">
+                  </ng-select>
+                  <div class="text-danger"
+                    *ngIf="formCreditoActualizacion.controls['campoMetodoPagoCreditoActualizacion'].invalid && (formCreditoActualizacion.controls['campoMetodoPagoCreditoActualizacion'].dirty || formCreditoActualizacion.controls['campoMetodoPagoCreditoActualizacion'].touched)">
+                    <div class="text-danger"
+                      *ngIf="formCreditoActualizacion.controls['campoMetodoPagoCreditoActualizacion'].errors.required">
+                      Campo requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="mb-3">
+                  <label class="control-label">Fecha</label>
+                  <input class="form-control" placeholder="Seleccione la fecha" type="text"
+                    name="nameFechaRegistroCredito" formControlName="{{this.fechaVenta_CreditoActualizacion}}"
+                    [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                  <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
+                    <span *ngIf="form.title.errors.required">This value is required.</span>
+                  </div>
+                </div>
               </div>
             </div>
+
+            <div class="row">
+              <div class="col-12">
+                <div class="mb-3">
+                  <label class="control-label">Información de Pagos</label>
+
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="table-responsive">
+                        <table class="table table-sm m-0 table-centered">
+                          <thead>
+                            <tr>
+                              <th style="width: 70px;">Nº Cuotas</th>
+                              <th>Monto</th>
+                              <th>Método</th>
+                              <th>Fecha</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">1</th>
+                              <td>S/. 60.00</td>
+                              <td>Plin</td>
+                              <td>09 Ago, 2022</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">2</th>
+                              <td>S/. 30.00</td>
+                              <td>Interbancario</td>
+                              <td>14 Set, 2022</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">3</th>
+                              <td>S/. 59.00</td>
+                              <td>Físico</td>
+                              <td>18 Oct, 2022</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">4</th>
+                              <td>S/. 30.00</td>
+                              <td>Yape</td>
+                              <td>29 Nov, 2022</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">5</th>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>-</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <label class="control-label" style="text-align: left;">Montos:</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-4">
+                <div class="mb-3">
+                  <label class="control-label">Total</label>
+                  <input class="form-control" placeholder="S/ 000.00" type="text" name="nameTotalCredito"
+                    formControlName="{{this.precioTotal_CreditoActualizacion}}"
+                    [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="mb-3">
+                  <label class="control-label">Pago</label>
+                  <input class="form-control" placeholder="S/ 000.00" type="text" name="namePagoCredito"
+                    formControlName="{{this.pago_CreditoActualizacion}}"
+                    [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="mb-3">
+                  <label class="control-label">Cambio</label>
+                  <input class="form-control" placeholder="S/ 000.00" type="text" name="nameCambioCredito"
+                    formControlName="{{this.cambio_CreditoActualizacion}}"
+                    [ngClass]="{'is-invalid': submitted && form.title.errors}" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="mb-4">
+                  <label class="form-label" for="billing-observaciones">Observaciones</label>
+                  <textarea class="form-control" id="billing-observaciones" rows="3"
+                    placeholder="Ingrese las observaciones"
+                    formControlName="{{this.observaciones_CreditoActualizacion}}"></textarea>
+                </div>
+              </div>
+            </div>
+
           </div>
-
-          <div class="row">
-            <div class="col-12">
-              <label class="control-label" style="text-align: left;">Montos:</label>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-4">
-              <div class="mb-3">
-                <label class="control-label">Total</label>
-                <input class="form-control" placeholder="S/ 000.00" type="text" name="nameTotalCredito"
-                  formControlName="{{this.precioTotal_CreditoActualizacion}}"
-                  [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="mb-3">
-                <label class="control-label">Pago</label>
-                <input class="form-control" placeholder="S/ 000.00" type="text" name="namePagoCredito"
-                  formControlName="{{this.pago_CreditoActualizacion}}"
-                  [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="mb-3">
-                <label class="control-label">Cambio</label>
-                <input class="form-control" placeholder="S/ 000.00" type="text" name="nameCambioCredito"
-                  formControlName="{{this.cambio_CreditoActualizacion}}"
-                  [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="mb-4">
-                <label class="form-label" for="billing-observaciones">Observaciones</label>
-                <textarea class="form-control" id="billing-observaciones" rows="3"
-                  placeholder="Ingrese las observaciones"
-                  formControlName="{{this.observaciones_CreditoActualizacion}}"></textarea>
-              </div>
-            </div>
-          </div>
-
-        </div>
 
           <div class="text-end mt-2">
             <button type="button" class="btn btn-danger" (click)="closeEventModal()">

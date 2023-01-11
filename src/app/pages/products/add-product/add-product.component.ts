@@ -29,6 +29,7 @@ export class AddProductComponent implements OnInit {
 
   formLunas: FormGroup;
   material_luna: string = "campoMaterialLuna";
+  codigo_luna: string = "campoCodigoLuna";
   cantidad_luna: string = "campoCantidadLuna";
   precio_compra_luna: string = "campoCompraLuna";
   precio_venta_luna: string = "campoVentaLuna";
@@ -37,6 +38,7 @@ export class AddProductComponent implements OnInit {
 
   formAccesorios: FormGroup;
   nombre_accesorio: string = "campoNombreAccesorio";
+  codigo_accesorio: string = "campoCodigoAccesorio";
   cantidad_accesorio: string = "campoCantidadAccesorio";
   precio_compra_accesorio: string = "campoCompraAccesorio";
   precio_venta_accesorio: string = "campoVentaAccesorio";
@@ -105,6 +107,9 @@ export class AddProductComponent implements OnInit {
       [this.material_luna]:[null, [
         Validators.required
       ]],
+      [this.codigo_luna]:[null, [
+        Validators.required
+      ]],
       [this.cantidad_luna]:[null, [
         Validators.required,
         Validators.pattern(this.numberPattern)
@@ -122,7 +127,12 @@ export class AddProductComponent implements OnInit {
     })
 
     this.formAccesorios = this.fb.group({
-      [this.nombre_accesorio]:[null, [Validators.required]],
+      [this.nombre_accesorio]:[null, [
+        Validators.required
+      ]],
+      [this.codigo_accesorio]:[null, [
+        Validators.required
+      ]],
       [this.cantidad_accesorio]:[null, [
         Validators.required,
         Validators.pattern(this.numberPattern)
@@ -165,6 +175,7 @@ export class AddProductComponent implements OnInit {
   guardarAccesorios() {
     if (this.formAccesorios.valid) {
       this.accesorios.nombre_accesorio = this.fA(this.nombre_accesorio).value;
+      this.accesorios.codigo = this.fM(this.codigo_accesorio).value;
       this.accesorios.cantidad = Number(this.fA(this.cantidad_accesorio).value);
       this.accesorios.fecha_creacion_accesorio = new Date(Date.now());
       this.accesorios.precio_accesorio_v = Number(this.fA(this.precio_venta_accesorio).value);
@@ -185,6 +196,7 @@ export class AddProductComponent implements OnInit {
   guardarLunas() {
     if (this.formLunas.valid) {
       this.lunas.material = this.fL(this.material_luna).value;
+      this.lunas.codigo = this.fM(this.codigo_luna).value;
       this.lunas.precio_luna_c = Number(this.fL(this.precio_compra_luna).value);
       this.lunas.precio_luna_v = Number(this.fL(this.precio_venta_luna).value);
       this.lunas.fecha_creacion_luna = new Date(Date.now());

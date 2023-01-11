@@ -13,6 +13,8 @@ import { ProductosService } from 'src/app/services/productos.service';
 import { Sweetalert } from 'src/utils/sweetalert';
 import Swal from 'sweetalert2';
 
+import { Options } from 'ng5-slider';
+
 @Component({
   selector: 'app-accesorios',
   templateUrl: './accesorios.component.html',
@@ -21,6 +23,13 @@ import Swal from 'sweetalert2';
 })
 export class AccesoriosComponent implements OnInit {
 
+  visibleSelection = 5;
+  visibleBarOptions: Options = {
+    floor: 0,
+    ceil: 10,
+    showSelectionBar: true
+  };
+
   // modal
   editEvent: any;
   submitted = false;
@@ -28,6 +37,7 @@ export class AccesoriosComponent implements OnInit {
   //formulario
   formAccesorios: FormGroup;
   nombre_accesorio: string = "campoNombreAccesorio";
+  codigo_accesorio: string = "campoCodigoAccesorio";
   cantidad_accesorio: string = "campoCantidadAccesorio";
   precio_compra_accesorio: string = "campoCompraAccesorio";
   precio_venta_accesorio: string = "campoVentaAccesorio";
@@ -66,6 +76,9 @@ export class AccesoriosComponent implements OnInit {
       [this.nombre_accesorio]: [null, [
         Validators.required
       ]],
+      [this.codigo_accesorio]: [null, [
+        Validators.required
+      ]],
       [this.cantidad_accesorio]: [null, [
         Validators.required,
         Validators.pattern(this.numberPattern)
@@ -102,6 +115,7 @@ export class AccesoriosComponent implements OnInit {
    */
   centerModal(centerDataModal: any, data: AccesorioModel) {
     this.f(this.nombre_accesorio).setValue(data.nombre_accesorio);
+    this.f(this.codigo_accesorio).setValue(data.codigo);
     this.f(this.cantidad_accesorio).setValue(data.cantidad);
     this.f(this.precio_compra_accesorio).setValue(data.precio_accesorio_c);
     this.f(this.precio_venta_accesorio).setValue(data.precio_accesorio_v);
@@ -109,6 +123,14 @@ export class AccesoriosComponent implements OnInit {
     this.accesorio.id_accesorio = data.id_accesorio;
 
     this.modalService.open(centerDataModal, { centered: true, windowClass: 'modal-holder' });
+  }
+
+  /**
+   * Open Large modal
+   * @param openDataModal large modal data
+   */
+  openModalEtiqueta(openDataModal: any) {
+    this.modalService.open(openDataModal, { windowClass:'modal-holder', centered: true });
   }
 
   /**
@@ -177,6 +199,7 @@ export class AccesoriosComponent implements OnInit {
   guardarAccesorio() {
     if (this.formAccesorios.valid) {
       this.accesorio.nombre_accesorio = this.f(this.nombre_accesorio).value;
+      this.accesorio.codigo = this.f(this.codigo_accesorio).value;
       this.accesorio.cantidad = Number(this.f(this.cantidad_accesorio).value);
       this.accesorio.precio_accesorio_c = Number(this.f(this.precio_compra_accesorio).value);
       this.accesorio.precio_accesorio_v = Number(this.f(this.precio_venta_accesorio).value);
