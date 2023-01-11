@@ -17,7 +17,6 @@ import { DataMatrixGenerator } from '@syncfusion/ej2-angular-barcode-generator';
 import pdfMake from 'pdfmake/build/pdfMake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
-import { parse } from 'node-html-parser';
 import { Options } from 'ng5-slider';
 
 @Component({
