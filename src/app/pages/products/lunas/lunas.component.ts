@@ -17,7 +17,6 @@ import { DataMatrixGenerator } from '@syncfusion/ej2-angular-barcode-generator';
 import pdfMake from 'pdfmake/build/pdfMake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
-import { parse } from 'node-html-parser';
 import { Options } from 'ng5-slider';
 
 @Component({
@@ -248,30 +247,33 @@ export class LunasComponent implements OnInit {
   } 
 
   generarPDF(): void{
-    
+    let cant = this.checkedLunasList.reduce((accumulator, obj)=>{
+      return accumulator + obj.cantidad;
+    },0)
     let DATA: any = document.getElementById('htmlData');
+    console.log(DATA.children.length)
     //var HTML_Width = document.getElementById("htmlData").offsetWidth 
 		//var HTML_Height = document.getElementById("htmlData").offsetHeight
     var HTML_Width = 150
-    var HTML_Height = 29
+    var HTML_Height = 29 * cant
 		var top_left_margin = 0;
 		//var PDF_Width = HTML_Width+(top_left_margin*2);
 		//var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
     var PDF_Width = 106
-    var PDF_Height = 29
+    var PDF_Height = 29 
 		var canvas_image_width = HTML_Width;
 		var canvas_image_height = HTML_Height;
 		
     console.log(HTML_Width, HTML_Height)
 		//var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
-    var totalPDFPages = Math.ceil(HTML_Height/150)-1
+    var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)
     console.log(totalPDFPages)
     html2canvas(DATA).then((canvas) => {
 
       var imgData = canvas.toDataURL("image/jpeg", 1.0);
 			var pdf = new jsPDF('l', 'mm',  [PDF_Width, PDF_Height]);
-		    pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
-			
+		  pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+			pdf.deletePage(1)
 			
 			for (var i = 0; i < totalPDFPages; i++) { 
 				pdf.addPage([PDF_Width, PDF_Height]);
