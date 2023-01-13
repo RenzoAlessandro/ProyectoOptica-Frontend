@@ -41,12 +41,17 @@ export class LunasComponent implements OnInit {
   submitted = false;
   isMasterSel: boolean = false;
 
+  //formulario lunas
   formLuna: FormGroup;
   material_luna: string = "campoMaterialLuna";
   codigo_luna: string = "campoCodigoLuna";
   cantidad_luna: string = "campoCantidadLuna";
   precio_compra_luna: string = "campoCompraLuna";
   precio_venta_luna: string = "campoVentaLuna";
+
+  //formulario etiquetas
+  formEtiquetaLunas: FormGroup;
+  nEtiquetasLunas: string = "campoNEtiquetasLunas";
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
@@ -100,6 +105,12 @@ export class LunasComponent implements OnInit {
         Validators.pattern(this.decimalPattern)
       ]],
     })
+
+    this.formEtiquetaLunas = this.fb.group({
+      [this.nEtiquetasLunas]: [null, [
+        Validators.required
+      ]]
+    })
   }
   onSort({ column, direction }: SortEvent) {
     // resetting other headers
@@ -138,6 +149,14 @@ export class LunasComponent implements OnInit {
    */
   openModalEtiqueta(openDataModal: any) {
     this.modalService.open(openDataModal, { windowClass:'modal-holder', centered: true });
+  }
+
+  /**
+   * Open scroll modal
+   * @param scrollDataModal scroll modal data
+   */
+  openScrollModal(scrollDataModal: any) {
+    this.modalService.open(scrollDataModal, { scrollable: true });
   }
 
   /**

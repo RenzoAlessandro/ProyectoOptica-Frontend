@@ -32,6 +32,7 @@ export class MonturasComponent implements OnInit {
   submitted = false;
   isMasterSel:boolean;
 
+  //formulario monturas
   formMontura: FormGroup;
   material_montura: string = "campoMaterialMontura";
   marca_montura: string = "campoMarcaMontura";
@@ -41,7 +42,10 @@ export class MonturasComponent implements OnInit {
   cantidad_montura: string = "campoCantidadMontura";
   precio_compra_montura: string = "campoCompraMontura";
   precio_venta_montura: string = "campoVentaMontura";
-  
+
+  //formulario etiquetas
+  formEtiquetaMonturas: FormGroup;
+  nEtiquetasMonturas: string = "campoNEtiquetasMonturas";
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
@@ -104,6 +108,12 @@ export class MonturasComponent implements OnInit {
         Validators.pattern(this.decimalPattern)
       ]]
     })
+
+    this.formEtiquetaMonturas = this.fb.group({
+      [this.nEtiquetasMonturas]: [null, [
+        Validators.required
+      ]]
+    })
   }
 
   onSort({ column, direction }: SortEvent) {
@@ -146,6 +156,14 @@ export class MonturasComponent implements OnInit {
    */
   openModalEtiqueta(openDataModal: any) {
     this.modalService.open(openDataModal, { windowClass:'modal-holder', centered: true });
+  }
+
+  /**
+   * Open scroll modal
+   * @param scrollDataModal scroll modal data
+   */
+  openScrollModal(scrollDataModal: any) {
+    this.modalService.open(scrollDataModal, { scrollable: true });
   }
 
   /**

@@ -17,7 +17,7 @@
               <button type="button" class="btn btn-primary"><i class="uil uil-import" ngbTooltip="Exportar"></i></button>
               <button type="button" class="btn btn-primary"><i class="uil uil-export" ngbTooltip="Importar"></i></button>
             </div> -->
-            <button type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="uil-tag-alt me-1"></i>
+            <button type="button" class="btn btn-success waves-effect waves-light mb-3" (click)="openScrollModal(scrollDataModalEGL)"><i class="uil-tag-alt me-1"></i>
               Etiquetas</button>
           </div>
         </div>
@@ -244,7 +244,7 @@
     <h5 class="modal-title mt-0">Imprimir Etiqueta</h5>
     <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')">×</button>
   </div>
-  <form (ngSubmit)="saveEvent()" [formGroup]="formMontura">
+  <form (ngSubmit)="saveEvent()" [formGroup]="formEtiquetaLunas">
     <div class="modal-body">
       <div class="row">
         <div class="col-12">
@@ -257,7 +257,30 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Cerrar</button>
-      <button type="button" class="btn btn-primary"><i class="uil-print me-1"></i>Imprimir</button>
+      <button type="button" class="btn btn-primary"><i class="uil-file-download me-1"></i>Descargar códigos</button>
     </div>
   </form>
+</ng-template>
+
+<!-- Imprimir Etiqueta General Lunas - Scrollable Modal -->
+<ng-template #scrollDataModalEGL let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Código de Barras</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="col-md-8" id="htmlData">
+      <div *ngFor="let item of checkedLunasList">
+        <div *ngFor="let cant of [].constructor(item.cantidad)"> 
+        <ejs-barcodegenerator style="display: block;"  #barcode id="barcode" width="200px" height="150px" mode="SVG" type="Code39Extension" value={{item.codigo_interno}} ></ejs-barcodegenerator>
+        </div> 
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Cerrar</button>
+    <button type="button" class="btn btn-primary" (click)="generarPDF()"><i class="uil-file-download me-1"></i>Descargar códigos</button>
+  </div>
 </ng-template>
