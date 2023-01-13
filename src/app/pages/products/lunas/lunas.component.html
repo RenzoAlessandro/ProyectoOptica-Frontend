@@ -17,9 +17,9 @@
               <button type="button" class="btn btn-primary"><i class="uil uil-import" ngbTooltip="Exportar"></i></button>
               <button type="button" class="btn btn-primary"><i class="uil uil-export" ngbTooltip="Importar"></i></button>
             </div> -->
-            <button type="button" class="btn btn-success waves-effect waves-light mb-3" (click)="openScrollModal(scrollDataModalEGL)"><i class="uil-tag-alt me-1"></i>
-              Etiquetas</button>
-          </div>
+          <button type="button" class="btn btn-success waves-effect waves-light mb-3"
+            (click)="openScrollModal(scrollDataModalEGL)"><i class="uil-tag-alt me-1"></i>
+            Etiquetas</button>
         </div>
       </div>
     </div>
@@ -31,8 +31,7 @@
             <option [ngValue]="25">25</option>
             <option [ngValue]="50">50</option>
             <option [ngValue]="100">100</option>
-          </select> entradas</label>
-      </div>
+          </select> entradas</label></div>
     </div>
   </div>
 
@@ -118,33 +117,21 @@
         </div>
       </div>
 
-      <!-- <div class="btn-group mt-2 me-1">
+      <div class="btn-group mt-2 me-1">
         <input type="button" class="btn btn-primary btn-block" value="Descargar código de barras"
           (click)="generarPDF()">
-      </div> -->
-      <!-- <div class="col-md-8" id="htmlData">
+      </div>
+      <div class="col-md-8" id="htmlData">
         <div *ngFor="let item of checkedLunasList">
           <div *ngFor="let cant of [].constructor(item.cantidad)">
-            <div class="row align-items-center">
-              <div class="col-3">
-                <ejs-barcodegenerator style="display: block;" #barcode id="barcode" width="200px" height="150px"
-                  mode="SVG" type="Code128" value={{item.codigo_interno}}></ejs-barcodegenerator>
-              </div>
-              <div class="col-3 ml-0">
-                <span>
-                  {{item.material}}
-                </span>
-                <span>
-                  {{item.material}}
-                </span>
-              </div>
-            </div>
-
+            <ejs-barcodegenerator style="display: block;" #barcode id="barcode" width="200px" height="150px" mode="SVG"
+              type="Code39Extension" value={{item.codigo_interno}}></ejs-barcodegenerator>
           </div>
         </div>
-      </div> -->
+      </div>
 
     </div>
+  </div>
   <!-- end row -->
 </div>
 
@@ -299,14 +286,16 @@
   <div class="modal-body">
     <div class="col-md-8" id="htmlData">
       <div *ngFor="let item of checkedLunasList">
-        <div *ngFor="let cant of [].constructor(item.cantidad)"> 
-        <ejs-barcodegenerator style="display: block;"  #barcode id="barcode" width="200px" height="150px" mode="SVG" type="Code39Extension" value={{item.codigo_interno}} ></ejs-barcodegenerator>
-        </div> 
+        <div *ngFor="let cant of [].constructor(item.cantidad)">
+          <ejs-barcodegenerator style="display: block;" #barcode id="barcode" width="200px" height="150px" mode="SVG"
+            type="Code39Extension" value={{item.codigo_interno}}></ejs-barcodegenerator>
+        </div>
       </div>
     </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Cerrar</button>
-    <button type="button" class="btn btn-primary" (click)="generarPDF()"><i class="uil-file-download me-1"></i>Descargar códigos</button>
+    <button type="button" class="btn btn-primary" (click)="generarPDF()"><i class="uil-file-download me-1"></i>Descargar
+      códigos</button>
   </div>
 </ng-template>
