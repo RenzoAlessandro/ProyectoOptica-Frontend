@@ -95,8 +95,22 @@ export class UpdateExcelComponent implements OnInit {
       this.productoService.getProductosbySede(this.f('sede').value, productName).subscribe(res => {
         const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
         const EXCEL_EXTENSION = '.xlsx';
-
-        const worksheet = XLSX.utils.json_to_sheet(res);
+        let data = res.map(productos => {
+          return {
+            "ID MONTURA" : productos.id_montura,
+            "PRECIO COMPRA": productos.precio_montura_c,
+            "PRECIO VENTA": productos.precio_montura_v,
+            "TALLA": productos.talla,
+            "CODIGO INTERNO": productos.codigo_interno,
+            "CODIGO": productos.codigo,
+            "MARCA": productos.marca,
+            "CANTIDAD":productos.cantidad,
+            "COLOR":productos.color,
+            "MATERIAL":productos.material,
+            "TIPO":productos.tipo
+          }
+        })
+        const worksheet = XLSX.utils.json_to_sheet(data);
         const workbook = {
           Sheets: {
             'hoja': worksheet
@@ -214,10 +228,10 @@ export class UpdateExcelComponent implements OnInit {
             codigo: element.CODIGO,
             talla: element.TALLA,
             color: element.COLOR,
-            precio_montura_c: element['precio compra'] == undefined? 0: element['precio compra'] ,
-            precio_montura_v: element['precio venta'] == undefined? 0: element['precio venta'],
+            precio_montura_c: isNaN(Number(element['precio compra'])) ? 0: Number(element['precio compra']) ,
+            precio_montura_v: isNaN(Number(element['precio venta'])) ? 0: Number(element['precio venta']),
             tipo: element.tipo,
-            cantidad: Number(element.cantidad),
+            cantidad: isNaN(Number(element.cantidad)) ? 0 : Number(element.cantidad),
             id_sede: '0477d92b-ea04-4225-8cbc-c77bdc13fe39Sed004',
             habilitado: true,
             fecha_creacion_monturas: new Date(Date.now()),

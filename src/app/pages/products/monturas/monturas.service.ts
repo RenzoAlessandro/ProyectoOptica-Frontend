@@ -110,6 +110,12 @@ export class CustomerService {
     this.monturasService.getMonturas().subscribe( res=>{
       console.log(res)
       this.monturasList = res;
+      const propiedad = {
+        isSelected: false
+      }
+      this.monturasList.forEach(elem => {
+        Object.assign(elem,propiedad)
+      })
       this._search$.pipe(
         tap(() => this._loading$.next(true)),
         debounceTime(200),

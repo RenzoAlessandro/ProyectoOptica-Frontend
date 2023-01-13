@@ -14,9 +14,6 @@ import { Sweetalert } from 'src/utils/sweetalert';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { DataMatrixGenerator } from '@syncfusion/ej2-angular-barcode-generator';
-import pdfMake from 'pdfmake/build/pdfMake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import { Options } from 'ng5-slider';
 
 @Component({
@@ -254,13 +251,13 @@ export class LunasComponent implements OnInit {
     console.log(DATA.children.length)
     //var HTML_Width = document.getElementById("htmlData").offsetWidth 
 		//var HTML_Height = document.getElementById("htmlData").offsetHeight
-    var HTML_Width = 150
-    var HTML_Height = 29 * cant
+    var HTML_Width = 7
+    var HTML_Height = 0.57 * cant
 		var top_left_margin = 0;
 		//var PDF_Width = HTML_Width+(top_left_margin*2);
 		//var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
-    var PDF_Width = 106
-    var PDF_Height = 29 
+    var PDF_Width = 4
+    var PDF_Height = 0.57 
 		var canvas_image_width = HTML_Width;
 		var canvas_image_height = HTML_Height;
 		
@@ -271,7 +268,7 @@ export class LunasComponent implements OnInit {
     html2canvas(DATA).then((canvas) => {
 
       var imgData = canvas.toDataURL("image/jpeg", 1.0);
-			var pdf = new jsPDF('l', 'mm',  [PDF_Width, PDF_Height]);
+			var pdf = new jsPDF('l', 'in',  [PDF_Width, PDF_Height]);
 		  pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
 			pdf.deletePage(1)
 			
@@ -281,51 +278,10 @@ export class LunasComponent implements OnInit {
 			}
 			
 		    pdf.save("HTML-Document.pdf");
-      /* console.log(canvas)
-      let fileWidth = 300;
-      let pageHeight = 82;
-      let fileHeight = (canvas.height * fileWidth) / canvas.width;
-      let heighLeft = fileHeight;
-      const FILEURI = canvas.toDataURL('image/svg');
-      
-      let PDF = new jsPDF('p', 'mm', [fileWidth,pageHeight]);
-      
-      let position = 0;
-      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight+15);
-      
-      while (heighLeft >= 0) {
-        position = heighLeft - fileHeight;
-        console.log(position)
-        PDF.addPage();
-        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight + 15);
-        heighLeft -= pageHeight;
-      } 
-      PDF.save('angular-demo.pdf'); */
     }); 
     
   }
-  
-  async createPDF() {
-    let data = this.barcode.exportAsBase64Image('PNG') ;
-    data.then(res=>{
-      const pdfDefinition: any = {
-        content: [
-          {
-            text: 'PDF Generated with Image from external URL',
-            fontSize : 20
-          },
-          {
-            image: res
-          }
-        ]
-      }
-      const pdf = pdfMake.createPdf(pdfDefinition);
-      pdf.download();
-    }
-     
-    );
-    
-  }
+
 
   
 }

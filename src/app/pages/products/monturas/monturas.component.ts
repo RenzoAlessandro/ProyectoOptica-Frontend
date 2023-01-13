@@ -9,7 +9,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MonturasModel } from 'src/models/monturas';
 import { ProductosService } from 'src/app/services/productos.service';
 import { Sweetalert } from 'src/utils/sweetalert';
-
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import { Options } from 'ng5-slider';
 
 @Component({
@@ -30,7 +31,7 @@ export class MonturasComponent implements OnInit {
   // modal
   editEvent: any;
   submitted = false;
-  isMasterSel:boolean;
+  isMasterSel:boolean = false;
 
   formMontura: FormGroup;
   material_montura: string = "campoMaterialMontura";
@@ -57,7 +58,8 @@ export class MonturasComponent implements OnInit {
   lettersPattern = '[a-zA-Z ]*';
 
   montura = new MonturasModel;
-  checkedMonturasList: any[];
+  checkedMonturasList: any;
+  checkedLunasList: any;
 
   constructor(public service: CustomerService,
     private monturaService: ProductosService,
@@ -220,16 +222,80 @@ export class MonturasComponent implements OnInit {
     return this.formMontura.controls;
   }
 
-  checkUncheckAll() {
-
+  checkUncheckAll(){
+    console.log(this.isMasterSel)
+    this.monturas$.forEach(element => {
+      element.forEach(elem => {
+        elem.isSelected = this.isMasterSel;
+      })
+    }); 
+    this.getCheckedItemList();  
   }
 
-  /* getCheckedItemList(){
-    this.checkedMonturasList = [];
-    for (var i = 0; i < this.monturas$.length; i++) {
-      if(this.categoryList[i].isSelected)
-      this.checkedCategoryList.push(this.categoryList[i]);
-    }
-    this.checkedCategoryList = JSON.stringify(this.checkedCategoryList);
-  } */
+  getCheckedItemList(){
+    this.checkedLunasList = [];
+    this.monturas$.forEach(element => {
+      console.log(element);
+      element.forEach(elem => {
+        if (elem.isSelected) {
+          this.checkedLunasList.push(elem);
+        }
+      })
+     
+    }); 
+    console.log(this.checkedLunasList)
+    //this.checkedLunasList = JSON.stringify(this.checkedLunasList); 
+    
+  }
+
+  isAllSelected() {
+    
+    this.monturas$.forEach(element =>{
+      this.isMasterSel = element.every(function(item:any) {
+        return item.isSelected == true;
+      })
+    })
+
+
+    this.getCheckedItemList(); 
+  } 
+
+  generarPDF(): void{
+    let cant = this.checkedLunasList.reduce((accumulator, obj)=>{
+      return accumulator + obj.cantidad;
+    },0)
+    let DATA: any = document.getElementById('htmlData');
+    console.log(DATA.children.length)
+    //var HTML_Width = document.getElementById("htmlData").offsetWidth 
+		//var HTML_Height = document.getElementById("htmlData").offsetHeight
+    var HTML_Width = 7
+    var HTML_Height = 0.57 * cant
+		var top_left_margin = 0;
+		//var PDF_Width = HTML_Width+(top_left_margin*2);
+		//var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
+    var PDF_Width = 4
+    var PDF_Height = 0.57 
+		var canvas_image_width = HTML_Width;
+		var canvas_image_height = HTML_Height;
+		
+    console.log(HTML_Width, HTML_Height)
+		//var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
+    var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)
+    console.log(totalPDFPages)
+    html2canvas(DATA).then((canvas) => {
+
+      var imgData = canvas.toDataURL("image/jpeg", 1.0);
+			var pdf = new jsPDF('l', 'in',  [PDF_Width, PDF_Height]);
+		  pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+			pdf.deletePage(1)
+			
+			for (var i = 0; i < totalPDFPages; i++) { 
+				pdf.addPage([PDF_Width, PDF_Height]);
+				pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+			}
+			
+		    pdf.save("HTML-Document.pdf");
+    }); 
+    
+  }
 }

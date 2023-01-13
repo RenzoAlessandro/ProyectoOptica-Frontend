@@ -1,5 +1,6 @@
 export class MonturasModel {
     id_montura?: string;
+    isSelected: boolean;
     material: string;
     marca: string;
     talla: string;
