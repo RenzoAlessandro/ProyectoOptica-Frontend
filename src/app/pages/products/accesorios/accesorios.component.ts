@@ -34,13 +34,17 @@ export class AccesoriosComponent implements OnInit {
   editEvent: any;
   submitted = false;
 
-  //formulario
+  //formulario accesorios
   formAccesorios: FormGroup;
   nombre_accesorio: string = "campoNombreAccesorio";
   codigo_accesorio: string = "campoCodigoAccesorio";
   cantidad_accesorio: string = "campoCantidadAccesorio";
   precio_compra_accesorio: string = "campoCompraAccesorio";
   precio_venta_accesorio: string = "campoVentaAccesorio";
+
+  //formulario etiquetas
+  formEtiquetaAccesorios: FormGroup;
+  nEtiquetasAccesorio: string = "campoNEtiquetasAccesorio";
 
   customers$: Observable<AccesorioModel[]>;
   total$: Observable<number>;
@@ -92,6 +96,13 @@ export class AccesoriosComponent implements OnInit {
         Validators.pattern(this.decimalPattern)
       ]]
     })
+
+    this.formEtiquetaAccesorios = this.fb.group({
+      [this.nEtiquetasAccesorio]: [null, [
+        Validators.required
+      ]]
+    })
+
   }
 
   onSort({ column, direction }: SortEvent) {
@@ -132,6 +143,15 @@ export class AccesoriosComponent implements OnInit {
   openModalEtiqueta(openDataModal: any) {
     this.modalService.open(openDataModal, { windowClass:'modal-holder', centered: true });
   }
+
+  /**
+   * Open scroll modal
+   * @param scrollDataModal scroll modal data
+   */
+  openScrollModal(scrollDataModal: any) {
+    this.modalService.open(scrollDataModal, { scrollable: true });
+  }
+  
 
   /**
    * Delete event

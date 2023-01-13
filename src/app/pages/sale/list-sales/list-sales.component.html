@@ -2,9 +2,10 @@
 
   <app-page-title title="Ventas" [breadcrumbItems]="breadCrumbItems"></app-page-title>
 
+
   <div class="row mt-2 mb-2">
-    <div class="col-12 col-md-6 justify-content-start">
-      <div class="row mb-3">
+    <div class="col-sm-12 col-md-8 justify-content-start">
+      <div class="row mb-2">
         <div class="col-8 search-box chat-search-box">
           <div class="position-relative">
             <input type="text" class="form-control border-light rounded" placeholder="Buscar venta" name="searchTerm"
@@ -13,63 +14,71 @@
           </div>
         </div>
         <div class="col-4">
-          <div class="btn-group text-md-start">
+          <!--           <div class="btn-group text-md-start">
             <button type="button" class="btn btn-primary"><i class="uil uil-import" ngbTooltip="Exportar"></i></button>
             <button type="button" class="btn btn-primary"><i class="uil uil-export" ngbTooltip="Importar"></i></button>
-          </div>
+          </div> -->
+          <button type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="uil-tag-alt me-1"></i>
+            Etiquetas</button>
         </div>
       </div>
     </div>
-    <div class="col-sm-12 col-md-6 text-md-end">
-      <div class="float-end">
-        <div class="mb-3">
-          <form [formGroup]="formDateRange">
-            <div class="input-daterange input-group" id="datepicker6" data-date-format="dd M, yyyy"
-              data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker6'>
-              <ng2-flatpickr mode="range" class="text-start" [config]="exampleOptions" placeholder="Desde"
-                formControlName="{{this.fechaDesde}}">
-              </ng2-flatpickr>
-              <ng2-flatpickr class="text-start" [config]="exampleOptions" placeholder="Hasta"
-                formControlName="{{this.fechaHasta}}"></ng2-flatpickr>
-              <button type="button" class="btn btn-primary" (click)="filterDateRange()"><i
-                  class="mdi mdi-filter-variant"></i></button>
-            </div>
-          </form>
-        </div>
+    <div class="col-sm-12 col-md-4 text-md-end">
+      <div class="dataTables_length">
+        <label class="d-inline-flex align-items-center">Mostrar<select name="pageSize" [(ngModel)]="service.pageSize"
+            class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+            <option [ngValue]="10">10</option>
+            <option [ngValue]="25">25</option>
+            <option [ngValue]="50">50</option>
+            <option [ngValue]="100">100</option>
+          </select> entradas
+        </label>
       </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col text-md-end">
-      <div class="float-end">
-        <div class="mb-3">
-          <div class="row">
-            <div class="col">
-              <form class="d-inline-flex mb-3">
-                <label class="form-check-label my-2 me-2" for="order-selectinput">Ventas</label>
-                <select class="form-select" id="order-selectinput">
-                  <option selected>Todo</option>
-                  <option value="1">Activos</option>
-                  <option value="2">Sin pagar</option>
-                </select>
-              </form>
-            </div>
-            <div class="col">
-              <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select
-                    name="pageSize" [(ngModel)]="service.pageSize"
-                    class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
-                    <option [ngValue]="10">10</option>
-                    <option [ngValue]="25">25</option>
-                    <option [ngValue]="50">50</option>
-                    <option [ngValue]="100">100</option>
-                  </select> entradas</label></div>
-            </div>
+
+  <div class="row mt-2 mb-2">
+    <div class="col-sm-12 col-md-8 justify-content-start">
+      <div class="row mb-2">
+        <div class="col-8 search-box chat-search-box">
+          <div class="position-relative">
+            <form [formGroup]="formDateRange">
+              <div class="input-daterange input-group" id="datepicker6" data-date-format="dd M, yyyy"
+                data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker6'>
+                <ng2-flatpickr mode="range" class="text-start" [config]="exampleOptions" placeholder="Desde"
+                  formControlName="{{this.fechaDesde}}">
+                </ng2-flatpickr>
+                <ng2-flatpickr class="text-start" [config]="exampleOptions" placeholder="Hasta"
+                  formControlName="{{this.fechaHasta}}"></ng2-flatpickr>
+                <button type="button" class="btn btn-primary" (click)="filterDateRange()"><i
+                    class="mdi mdi-filter-variant"></i></button>
+              </div>
+            </form>
           </div>
+        </div>
+        <div class="col-4">
+          <!--           <div class="btn-group text-md-start">
+            <button type="button" class="btn btn-primary"><i class="uil uil-import" ngbTooltip="Exportar"></i></button>
+            <button type="button" class="btn btn-primary"><i class="uil uil-export" ngbTooltip="Importar"></i></button>
+          </div> -->
+          <!--           <button type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="uil-tag-alt me-1"></i>
+          Etiquetas</button> -->
         </div>
       </div>
     </div>
+    <div class="col-sm-12 col-md-4 text-md-end">
+      <div class="dataTables_length">
+        <label class="d-inline-flex align-items-center">Ventas<select name="sales"
+            class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+            <option [ngValue]="1">pagados</option>
+            <option [ngValue]="2">deudas</option>
+          </select> entradas
+        </label>
+      </div>
+    </div>
   </div>
+
   <div class="row">
     <div class="col-12">
       <div>
