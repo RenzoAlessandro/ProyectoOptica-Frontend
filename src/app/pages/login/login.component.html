@@ -6,14 +6,14 @@
         <div class="col-md-6 bg-light">
             <div class="login d-flex align-items-center py-5">
 
-                <div class="container" [formGroup] = "formLogin">
+                <div class="container">
                     <div class="row">
                         <div class="col-lg-10 col-xl-7 mx-auto">
                             <img src="assets/images/logo-dark.png" alt="" height="100" class="logo logo-dark mb-3">
 
                             <h3 class="display-4">Bienvenido de nuevo!</h3>
                             <p class="text-muted mb-4">Inicia sesión para continuar con Contacto Visual</p>
-                            <form>
+                            <form  [formGroup] = "formLogin">
                                 <div class="form-group mb-3">
                                     <input id="username" type="email" placeholder="Nombre de usuario" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" formControlName="{{this.user}}">
                                 </div>
@@ -25,14 +25,14 @@
                                 <div class="form-group mb-3">
                                     <!-- <label class="control-label">Sede:</label> -->
                                     <ng-select [items]="listSedes" formControlName="sede" placeholder="Seleccione la sede" bindValue="id_sede"
-                                    bindLabel="nombre_sede">
+                                    bindLabel="nombre_sede" class="">
                                     </ng-select>
                                 </div>
                                 
                                 <div class="custom-control custom-checkbox mb-3">
                                     <a routerLink="/pages/recoverpwd-1" class="text-muted">¿Olvidaste tu contraseña?</a>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm" (click)="conectar()">Ir a mi cuenta</button>
+                                <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm" (click)="login()">Ir a mi cuenta</button>
                                 <div class="text-center d-flex justify-content-between mt-4"><p>© {{year}} Todos los derechos reservados.</p></div>
                             </form>
                         </div>

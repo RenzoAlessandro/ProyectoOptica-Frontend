@@ -6,13 +6,18 @@ import { AuthenticationService } from '../services/auth.service';
 import { AuthfakeauthenticationService } from '../services/authfake.service';
 
 import { environment } from '../../../environments/environment';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-    constructor(private authenticationService: AuthenticationService, private authfackservice: AuthfakeauthenticationService) { }
+    constructor(
+        private authenticationService: AuthenticationService, 
+        private authfackservice: AuthfakeauthenticationService,
+        private usuarioService: UsuarioService
+        ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (environment.defaultauth === 'firebase') {
+        /* if (environment.defaultauth === 'firebase') {
             const currentUser = this.authenticationService.currentUser();
             if (currentUser && currentUser.token) {
                 request = request.clone({
@@ -31,7 +36,13 @@ export class JwtInterceptor implements HttpInterceptor {
                     }
                 });
             }
-        }
+        } */
+        const authToken = this.usuarioService.getToken();
+        request = request.clone({
+            setHeaders: {
+                Authorization: "Bearer " + authToken
+            }
+        });
         return next.handle(request);
     }
 }

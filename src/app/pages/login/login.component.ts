@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/services/usuario.service';
 import { SedesModel } from 'src/models/sedes';
 
 @Component({
@@ -16,12 +18,16 @@ export class LoginComponent implements OnInit {
   user: string = "campoUser";
   password: string = "campoPassword";
   sede: string = "campoSede";
+  
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private usuarioService: UsuarioService,
+    private router: Router,
   ) { }
 
 
   ngOnInit(): void {
+    this.getListSedes();
     document.body.classList.add('authentication-bg')
     document.body.removeAttribute('data-topbar');
     this.crearFormulario();
@@ -33,21 +39,36 @@ export class LoginComponent implements OnInit {
   crearFormulario() {
     this.formLogin = this.fb.group({
       [this.user] :[],
-      [this.password]: []
+      [this.password]: [],
+      sede:[]
     })
   }
 
-  conectar() {
+  login() {
     if (this.formLogin.valid) {
       const  vendedor = {
-        usuario: this.f(this.user).value,
-        pass: this.f(this.password).value,
-        sede: this.f('sede').value
+        email: this.f(this.user).value,
+        password: this.f(this.password).value,
+        //sede: this.f('sede').value
       }
+      
+      console.log(vendedor);
+      this.usuarioService.signIn(vendedor).subscribe(res=> {
+        console.log('entre',res);
+        localStorage.setItem('access_token', res.token);
+        this.router.navigate(['/dashboard']);
+      })
+
     } else {
       
     }
   }
 
+  getListSedes() {
+    this.usuarioService.getSedes().subscribe(res=>{
+      console.log(res);
+      this.listSedes = res;
+    })
+  }
 
 }
