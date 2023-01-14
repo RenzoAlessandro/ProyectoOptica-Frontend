@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { SedesModel } from 'src/models/sedes';
 
 @Component({
   selector: 'app-login',
@@ -7,6 +8,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
+  listSedes: Array<SedesModel>;
 
   year: number = new Date().getFullYear();
   formLogin: FormGroup;
@@ -45,4 +48,6 @@ export class LoginComponent implements OnInit {
       
     }
   }
+
+
 }
