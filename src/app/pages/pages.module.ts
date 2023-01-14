@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SimplebarAngularModule } from 'simplebar-angular';
 
-import { NgbNavModule, NgbDropdownModule, NgbModalModule, NgbTooltipModule, NgbPaginationModule, NgbAccordionModule, NgbTypeaheadModule, NgbCollapseModule  } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNavModule, NgbDropdownModule, NgbModalModule, NgbTooltipModule, NgbPaginationModule, NgbAccordionModule, NgbTypeaheadModule, NgbCollapseModule, NgbCarouselModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgApexchartsModule } from 'ng-apexcharts';
 
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -30,6 +30,7 @@ import { ChatComponent } from './chat/chat.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
+
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   interactionPlugin,
@@ -46,6 +47,7 @@ FullCalendarModule.registerPlugins([
     FormsModule,
     NgbDropdownModule,
     NgbModalModule,
+    NgbCarouselModule,
     UIModule,
     PagesRoutingModule,
     NgApexchartsModule,
