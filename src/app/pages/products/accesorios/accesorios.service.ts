@@ -107,8 +107,16 @@ export class CustomerService {
    */
    getListAccesorios() {
     this.accesorioService.getAccesorios().subscribe( res=>{
+
       this.accesorioList = res;
-      console.log(res);
+      const propiedad = {
+        isSelected: false
+      }
+      this.accesorioList.forEach(elem => {
+        Object.assign(elem,propiedad)
+      })
+
+      console.log(this.accesorioList);
       this._search$.pipe(
         tap(() => this._loading$.next(true)),
         debounceTime(200),

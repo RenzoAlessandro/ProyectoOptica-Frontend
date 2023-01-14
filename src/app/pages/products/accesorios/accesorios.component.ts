@@ -3,7 +3,7 @@ import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 
-import { CustomerService } from './accesorios';
+import { CustomerService } from './accesorios.service';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -12,7 +12,8 @@ import { AccesorioModel } from 'src/models/accesorio';
 import { ProductosService } from 'src/app/services/productos.service';
 import { Sweetalert } from 'src/utils/sweetalert';
 import Swal from 'sweetalert2';
-
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import { Options } from 'ng5-slider';
 
 @Component({
@@ -59,6 +60,10 @@ export class AccesoriosComponent implements OnInit {
   decimalPattern = /^\d+(\.\d{2})?$/;
 
   accesorio = new AccesorioModel;
+
+  checkedAccesoriosList: any;
+  accesorios$: Observable<AccesorioModel[]>;
+  isMasterSel:boolean = false;
 
   constructor(
     public service: CustomerService,
@@ -254,6 +259,78 @@ export class AccesoriosComponent implements OnInit {
    * Returns form Accesorios
    */
   get formEA() {
-    return this.formAccesorios.controls;
+    return
+     this.formAccesorios.controls;
+  }
+
+  checkUncheckAll(){
+    console.log(this.isMasterSel)
+    this.accesorios$.forEach(element => {
+      element.forEach(elem => {
+        elem.isSelected = this.isMasterSel;
+      })
+    }); 
+    this.getCheckedItemList();  
+  }
+
+  getCheckedItemList(){
+    this.checkedAccesoriosList = [];
+    this.accesorios$.forEach(element => {
+      console.log(element);
+      element.forEach(elem => {
+        if (elem.isSelected) {
+          this.checkedAccesoriosList.push(elem);
+        }
+      })
+    }); 
+    console.log(this.checkedAccesoriosList)
+    //this.checkedLunasList = JSON.stringify(this.checkedLunasList); 
+    
+  }
+
+  isAllSelected() {
+    this.accesorios$.forEach(element =>{
+      this.isMasterSel = element.every(function(item:any) {
+        return item.isSelected == true;
+      })
+    })
+    this.getCheckedItemList(); 
+  } 
+
+  generarPDF(): void{
+    let cant = this.checkedAccesoriosList.reduce((accumulator, obj)=>{
+      return accumulator + obj.cantidad;
+    },0)
+    let DATA: any = document.getElementById('htmlData');
+    console.log(DATA.children.length)
+    //var HTML_Width = document.getElementById("htmlData").offsetWidth 
+		//var HTML_Height = document.getElementById("htmlData").offsetHeight
+    var HTML_Width = 3
+    var HTML_Height = 0.57 * cant
+		var top_left_margin = 0;
+		//var PDF_Width = HTML_Width+(top_left_margin*2);
+		//var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
+    var PDF_Width = 4
+    var PDF_Height = 0.57 
+		var canvas_image_width = HTML_Width;
+		var canvas_image_height = HTML_Height;
+		
+    console.log(HTML_Width, HTML_Height)
+		//var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
+    var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)
+    console.log(totalPDFPages)
+    html2canvas(DATA).then((canvas) => {
+
+      var imgData = canvas.toDataURL("image/jpeg", 1.0);
+			var pdf = new jsPDF('l', 'in',  [PDF_Width, PDF_Height]);
+		  pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+			pdf.deletePage(1)
+			
+			for (var i = 0; i < totalPDFPages; i++) { 
+				pdf.addPage([PDF_Width, PDF_Height]);
+				pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+			}
+			pdf.save("HTML-Document.pdf");
+    }); 
   }
 }
