@@ -82,7 +82,7 @@
                 <div class="row">
                   <div class="col-12 col-sm-4">
                     <div class="mb-3">
-                      <label class="control-label">Código Interno*</label>
+                      <label class="control-label">Código *</label>
                       <input class="form-control" placeholder="Código" type="text" name="title"
                         formControlName="{{this.codigo_montura}}" [ngClass]="{'is-invalid': formM.campoCodigoMontura.invalid && (formM.campoCodigoMontura.dirty || formM.campoCodigoMontura.touched)}"/>
                       <div class="invalid-feedback">
@@ -195,25 +195,13 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-12 col-sm-8">
+                  <div class="col-12">
                     <div class="mb-3">
                       <label class="control-label">Material *</label>
                       <input class="form-control" placeholder="Material de la luna" type="text" name="title"
                         formControlName="{{this.material_luna}}" [ngClass]="{'is-invalid': formL.campoMaterialLuna.invalid && (formL.campoMaterialLuna.dirty || formL.campoMaterialLuna.touched)}"/>
                       <div class="invalid-feedback">
                         <div *ngIf="formL.campoMaterialLuna.errors?.required">
-                          Campo requerido
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-sm-4">
-                    <div class="mb-3">
-                      <label class="control-label">Código Interno *</label>
-                      <input class="form-control" placeholder="Material de la luna" type="text" name="title"
-                        formControlName="{{this.codigo_luna}}" [ngClass]="{'is-invalid': formL.campoCodigoLuna.invalid && (formL.campoCodigoLuna.dirty || formL.campoCodigoLuna.touched)}"/>
-                      <div class="invalid-feedback">
-                        <div *ngIf="formL.campoCodigoLuna.errors?.required">
                           Campo requerido
                         </div>
                       </div>
@@ -295,25 +283,13 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-12 col-sm-8">
+                  <div class="col-12">
                     <div class="mb-3">
                       <label class="control-label">Nombre del Accesorio *</label>
                       <input class="form-control" placeholder="Accesorio" type="text" name="accesorio"
                         formControlName="{{this.nombre_accesorio}}" [ngClass]="{'is-invalid': formA.campoNombreAccesorio.invalid && (formA.campoNombreAccesorio.dirty || formA.campoNombreAccesorio.touched)}"/>
                       <div class="invalid-feedback">
                         <div *ngIf="formA.campoNombreAccesorio.errors?.required">
-                          Campo requerido
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-sm-4">
-                    <div class="mb-3">
-                      <label class="control-label">Código Interno *</label>
-                      <input class="form-control" placeholder="Material de la luna" type="text" name="title"
-                        formControlName="{{this.codigo_accesorio}}" [ngClass]="{'is-invalid': formA.campoCodigoAccesorio.invalid && (formA.campoCodigoAccesorio.dirty || formA.campoCodigoAccesorio.touched)}"/>
-                      <div class="invalid-feedback">
-                        <div *ngIf="formA.campoCodigoAccesorio.errors?.required">
                           Campo requerido
                         </div>
                       </div>
