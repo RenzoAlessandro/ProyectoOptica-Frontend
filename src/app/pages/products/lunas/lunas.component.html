@@ -117,18 +117,18 @@
         </div>
       </div>
 
-      <div class="btn-group mt-2 me-1">
+      <!-- <div class="btn-group mt-2 me-1">
         <input type="button" class="btn btn-primary btn-block" value="Descargar código de barras"
           (click)="generarPDF()">
-      </div>
-      <div class="col-md-8" id="htmlData">
+      </div> -->
+      <!-- <div class="col-md-8" id="htmlData">
         <div *ngFor="let item of checkedLunasList">
           <div *ngFor="let cant of [].constructor(item.cantidad)">
             <ejs-barcodegenerator style="display: block;" #barcode id="barcode" width="200px" height="150px" mode="SVG"
               type="Code39Extension" value={{item.codigo_interno}}></ejs-barcodegenerator>
           </div>
         </div>
-      </div>
+      </div> -->
 
     </div>
   </div>
