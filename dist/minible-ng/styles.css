@@ -11214,6 +11214,10 @@ progress {
   max-width: 100%;
   height: auto;
 }
+.bgfull-image {
+  background-size: cover;
+  background-position: center center;
+}
 .img-thumbnail {
   padding: 0.25rem;
   background-color: #f5f6f8;

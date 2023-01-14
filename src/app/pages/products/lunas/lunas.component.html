@@ -284,11 +284,23 @@
     </button>
   </div>
   <div class="modal-body">
-    <div class="col-md-8" id="htmlData">
+    <div id="htmlData">
       <div *ngFor="let item of checkedLunasList">
         <div *ngFor="let cant of [].constructor(item.cantidad)">
-          <ejs-barcodegenerator style="display: block;" #barcode id="barcode" width="200px" height="150px" mode="SVG"
-            type="Code39Extension" value={{item.codigo_interno}}></ejs-barcodegenerator>
+          <div class="row align-items-center">
+            <div class="col-6">
+              <ejs-barcodegenerator style="display: block;" #barcode id="barcode" width="225px" height="100px"
+                mode="SVG" type="Code128" value={{item.codigo_interno}}></ejs-barcodegenerator>
+            </div>
+            <div class="col-6 ml-0">
+              <span>
+                {{item.codigo}}<br>
+              </span>
+              <span>
+                {{item.material}}<br>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

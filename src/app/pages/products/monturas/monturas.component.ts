@@ -63,7 +63,6 @@ export class MonturasComponent implements OnInit {
 
   montura = new MonturasModel;
   checkedMonturasList: any;
-  checkedLunasList: any;
 
   constructor(public service: CustomerService,
     private monturaService: ProductosService,
@@ -251,18 +250,18 @@ export class MonturasComponent implements OnInit {
   }
 
   getCheckedItemList(){
-    this.checkedLunasList = [];
+    this.checkedMonturasList = [];
     this.monturas$.forEach(element => {
       console.log(element);
       element.forEach(elem => {
         if (elem.isSelected) {
-          this.checkedLunasList.push(elem);
+          this.checkedMonturasList.push(elem);
         }
       })
      
     }); 
-    console.log(this.checkedLunasList)
-    //this.checkedLunasList = JSON.stringify(this.checkedLunasList); 
+    console.log(this.checkedMonturasList)
+    //this.checkedMonturasList = JSON.stringify(this.checkedMonturasList); 
     
   }
 
@@ -279,7 +278,7 @@ export class MonturasComponent implements OnInit {
   } 
 
   generarPDF(): void{
-    let cant = this.checkedLunasList.reduce((accumulator, obj)=>{
+    let cant = this.checkedMonturasList.reduce((accumulator, obj)=>{
       return accumulator + obj.cantidad;
     },0)
     let DATA: any = document.getElementById('htmlData');
@@ -311,9 +310,7 @@ export class MonturasComponent implements OnInit {
 				pdf.addPage([PDF_Width, PDF_Height]);
 				pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
 			}
-			
-		    pdf.save("HTML-Document.pdf");
+			pdf.save("HTML-Document.pdf");
     }); 
-    
   }
 }

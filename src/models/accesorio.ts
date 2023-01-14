@@ -1,5 +1,6 @@
 export class AccesorioModel {
     id_accesorio?: string;
+    isSelected: boolean;
     nombre_accesorio: string;
     codigo: string;
     precio_accesorio_c: number;
