@@ -286,7 +286,7 @@ export class MonturasComponent implements OnInit {
     console.log(DATA.children.length)
     //var HTML_Width = document.getElementById("htmlData").offsetWidth 
 		//var HTML_Height = document.getElementById("htmlData").offsetHeight
-    var HTML_Width = 7
+    var HTML_Width = 3
     var HTML_Height = 0.57 * cant
 		var top_left_margin = 0;
 		//var PDF_Width = HTML_Width+(top_left_margin*2);

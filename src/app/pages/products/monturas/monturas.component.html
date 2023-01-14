@@ -145,7 +145,7 @@
         </div>
         <!-- End Pagination -->
       </div>
-      <div class="btn-group mt-2 me-1">
+<!--       <div class="btn-group mt-2 me-1">
         <input type="button" class="btn btn-primary btn-block" value="Descargar código de barras"
           (click)="generarPDF()">
       </div>
@@ -175,7 +175,7 @@
 
           </div>
         </div>
-      </div>
+      </div> -->
 
     </div>
   </div>
@@ -373,51 +373,42 @@
 <!-- Imprimir Etiqueta General Monturas - Scrollable Modal -->
 <ng-template #scrollDataModalEGM let-modal>
   <div class="modal-header">
-    <h5 class="modal-title mt-0">Scrollable Modal</h5>
+    <h5 class="modal-title mt-0">Lista de Códigos de Barras</h5>
     <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-label="Close">
 
     </button>
   </div>
   <div class="modal-body">
-    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-      eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-      laoreet rutrum faucibus dolor auctor.</p>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-      consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-      eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-      laoreet rutrum faucibus dolor auctor.</p>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-      consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-      eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-      laoreet rutrum faucibus dolor auctor.</p>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-      consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-      eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-      laoreet rutrum faucibus dolor auctor.</p>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-      consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-      eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-      laoreet rutrum faucibus dolor auctor.</p>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-      consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-      eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-      laoreet rutrum faucibus dolor auctor.</p>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-      consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+    <div id="htmlData">
+      <div *ngFor="let item of checkedLunasList">
+        <div *ngFor="let cant of [].constructor(item.cantidad)">
+          <div class="row align-items-center">
+            <div class="col-6">
+              <ejs-barcodegenerator style="display: block;" #barcode id="barcode" width="225px" height="100px"
+                mode="SVG" type="Code128" value={{item.codigo_interno}}></ejs-barcodegenerator>
+            </div>
+            <div class="col-6 ml-0">
+              <span>
+                {{item.codigo}}<br>
+              </span>
+              <span>
+                {{item.marca}}<br>
+              </span>
+              <span>
+                {{item.talla}}<br>
+              </span>
+              <span>
+                {{item.color}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Cerrar</button>
-    <button type="button" class="btn btn-primary"><i class="uil-print me-1"></i>Imprimir</button>
+    <button type="button" class="btn btn-primary" (click)="generarPDF()"><i class="uil-print me-1"></i>Descargar
+      códigos</button>
   </div>
 </ng-template>
