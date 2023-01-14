@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SedesModel } from 'src/models/sedes';
 
 @Component({
   selector: 'app-login',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
+  listSedes: Array<SedesModel>;
 
   year: number = new Date().getFullYear();
 
@@ -15,4 +18,6 @@ export class LoginComponent implements OnInit {
     document.body.classList.add('authentication-bg')
     document.body.removeAttribute('data-topbar');
   }
+
+
 }

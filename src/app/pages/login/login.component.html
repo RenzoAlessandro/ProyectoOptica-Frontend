@@ -17,9 +17,18 @@
                                 <div class="form-group mb-3">
                                     <input id="username" type="email" placeholder="Nombre de usuario" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
                                 </div>
+                                
                                 <div class="form-group mb-3">
                                     <input id="userpassword" type="password" placeholder="Contraseña" required="" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
                                 </div>
+
+                                <div class="form-group mb-3">
+                                    <!-- <label class="control-label">Sede:</label> -->
+                                    <ng-select [items]="listSedes" formControlName="sede" placeholder="Seleccione la sede" bindValue="id_sede"
+                                    bindLabel="nombre_sede">
+                                    </ng-select>
+                                </div>
+                                
                                 <div class="custom-control custom-checkbox mb-3">
                                     <a routerLink="/pages/recoverpwd-1" class="text-muted">¿Olvidaste tu contraseña?</a>
                                 </div>
