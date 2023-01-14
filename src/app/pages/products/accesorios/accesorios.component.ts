@@ -47,7 +47,6 @@ export class AccesoriosComponent implements OnInit {
   formEtiquetaAccesorios: FormGroup;
   nEtiquetasAccesorio: string = "campoNEtiquetasAccesorio";
 
-  customers$: Observable<AccesorioModel[]>;
   total$: Observable<number>;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
@@ -71,7 +70,7 @@ export class AccesoriosComponent implements OnInit {
     private fb: FormBuilder,
     private accesorioService: ProductosService
   ) {
-    this.customers$ = service.customers$;
+    this.accesorios$ = service.customers$;
     this.total$ = service.total$;
   }
 
