@@ -5,17 +5,19 @@ import { AuthenticationService } from '../services/auth.service';
 import { AuthfakeauthenticationService } from '../services/authfake.service';
 
 import { environment } from '../../../environments/environment';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
     constructor(
         private router: Router,
         private authenticationService: AuthenticationService,
-        private authFackservice: AuthfakeauthenticationService
+        private authFackservice: AuthfakeauthenticationService,
+        private usuarioService: UsuarioService
     ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (environment.defaultauth === 'firebase') {
+        /* if (environment.defaultauth === 'firebase') {
             const currentUser = this.authenticationService.currentUser();
             if (currentUser) {
                 // logged in so return true
@@ -27,10 +29,13 @@ export class AuthGuard implements CanActivate {
                 // logged in so return true
                 return true;
             }
-        }
+        } */
         // not logged in so redirect to login page with the return url
         //this.router.navigate(['/account/login'], { queryParams: { returnUrl: state.url } });
-        this.router.navigate(['/login']);
-        return false;
+        if (this.usuarioService.isLoggedIn !== true) {
+            window.alert("Access not allowed!");
+            this.router.navigate(['login'])
+          }
+          return true;
     }
 }

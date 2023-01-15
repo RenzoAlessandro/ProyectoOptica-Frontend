@@ -58,8 +58,10 @@ export class LoginComponent implements OnInit {
       console.log(vendedor);
       this.usuarioService.signIn(vendedor).subscribe(res=> {
         console.log('entre',res);
-        localStorage.setItem('access_token', res.token);
-        this.router.navigate(['/dashboard']);
+        this.usuarioService.storeUserData(res.token, res.user)
+
+        //localStorage.setItem('access_token', res.token);
+        //this.router.navigate(['/dashboard']);
       })
 
     } else {

@@ -7,6 +7,8 @@ import { listData } from './data';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
+import { CajaService } from 'src/app/services/caja.service';
+import { CajaModel } from 'src/models/caja';
 
 interface SearchResult {
   invoices: InvoiceList[];
@@ -52,7 +54,7 @@ export class InvoiceService {
   private _search$ = new Subject<void>();
   private _invoices$ = new BehaviorSubject<InvoiceList[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
-
+  ingresoList: CajaModel[] = [];
   private _state: State = {
     page: 1,
     pageSize: 5,
@@ -61,21 +63,11 @@ export class InvoiceService {
     sortDirection: '',
   };
 
-  constructor(private pipe: DecimalPipe) {
-    this._search$
-      .pipe(
-        tap(() => this._loading$.next(true)),
-        debounceTime(200),
-        switchMap(() => this._search()),
-        delay(200),
-        tap(() => this._loading$.next(false))
-      )
-      .subscribe((result) => {
-        this._invoices$.next(result.invoices);
-        this._total$.next(result.total);
-      });
-
-    this._search$.next();
+  constructor(
+    private pipe: DecimalPipe,
+    private cajaService: CajaService
+    ) {
+    this.getListIngresos();
   }
 
   get invoices$() {
@@ -142,5 +134,28 @@ export class InvoiceService {
       (page - 1) * pageSize + pageSize
     );
     return of({ invoices, total });
+  }
+
+  getListIngresos() {
+    this.cajaService.getIngresos().subscribe( res=> {
+      console.log("entre..");
+      this.ingresoList = res;
+      this._search$
+      .pipe(
+        tap(() => this._loading$.next(true)),
+        debounceTime(200),
+        switchMap(() => this._search()),
+        delay(200),
+        tap(() => this._loading$.next(false))
+      )
+      .subscribe((result) => {
+        this._invoices$.next(result.invoices);
+        this._total$.next(result.total);
+      });
+
+    this._search$.next();
+    }
+
+    );
   }
 }

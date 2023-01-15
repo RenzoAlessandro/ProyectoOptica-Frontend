@@ -1,19 +1,27 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { SedesModel } from 'src/models/sedes';
 import { UsersModel } from 'src/models/user';
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-  headers = new HttpHeaders().set('Access-Control-Allow-Origin', environment.urlBackend);
+  timeout: number;
+  authToken: any;
+  user: any;
+  emit: any;
+  tokenSubscription = new Subscription()
+  private jwtHelper: JwtHelperService
   constructor(
     private http: HttpClient,
     private router: Router,
+    
   ) { }
 
   getUsers(): Observable<any> {
@@ -45,6 +53,7 @@ export class UsuarioService {
   }
 
   logOut(): void {
+    this.tokenSubscription.unsubscribe();
     let removeToken = localStorage.removeItem('access_token');
     if (removeToken == null) {
       this.router.navigate(['login']);
@@ -58,5 +67,26 @@ export class UsuarioService {
   get isLoggedIn(): boolean {
     let authToken = localStorage.getItem('access_token');
     return authToken !== null ? true : false;
+  }
+
+  storeUserData(token, user) {
+    //this.timeout = this.jwtHelper.getTokenExpirationDate(token).valueOf() - new Date().valueOf();
+    localStorage.setItem("access_token", token);
+    //localStorage.setItem("user", JSON.stringify(user))
+    this.authToken = token;
+    this.user = user;
+    //this.emit({ username: this.user.username });
+    this.expirationCounter(this.timeout);
+    this.router.navigate(['dashboard']);
+  }
+
+  expirationCounter(timeout) {
+    this.tokenSubscription.unsubscribe();
+    this.tokenSubscription = of(null).pipe(delay(timeout)).subscribe((expired) => {
+      console.log('EXPIRED!!');
+
+      this.logOut();
+      //this.router.navigate(["/login"]);
+    });
   }
 }
