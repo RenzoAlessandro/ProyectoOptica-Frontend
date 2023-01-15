@@ -13,6 +13,7 @@ import { ProductosService } from 'src/app/services/productos.service';
 import { Sweetalert } from 'src/utils/sweetalert';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import Swal from 'sweetalert2';
 import { DataMatrixGenerator } from '@syncfusion/ej2-angular-barcode-generator';
 import { Options } from 'ng5-slider';
 
@@ -204,11 +205,40 @@ export class LunasComponent implements OnInit {
   }
 
   eliminar(data: LunasModel) {
-    console.log(data)
-    this.lunaService.darBajaLuna(data.id_luna).subscribe(res => {
-      console.log("montura borrado");
-      this.updateListLunas();
-    });
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar la luna?',
+      text: 'No se podrá revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: 'Si, eliminar!'
+    }).then(result => {
+      if (result.value) {
+        Sweetalert("loading", "Cargando...");
+        this.lunaService.darBajaLuna(data.id_luna).subscribe(res => {
+          Sweetalert("close", null);
+          Sweetalert("success", "Luna eliminada");
+          console.log("Luna borrado");
+          this.updateListLunas();
+        }, error => {
+          Sweetalert("close", null);
+          Sweetalert("error", "Error en la conexión");
+        },
+        );
+      }
+      else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire(
+          'Cancelado',
+          'Luna no eliminada',
+          'error'
+        );
+      }
+    }
+    );
   }
 
   updateListLunas() {

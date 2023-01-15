@@ -9,6 +9,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MonturasModel } from 'src/models/monturas';
 import { ProductosService } from 'src/app/services/productos.service';
 import { Sweetalert } from 'src/utils/sweetalert';
+import Swal from 'sweetalert2';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Options } from 'ng5-slider';
@@ -219,11 +220,40 @@ export class MonturasComponent implements OnInit {
   }
 
   eliminar(data: MonturasModel) {
-    console.log(data)
-    this.monturaService.darBajaMontura(data.id_montura).subscribe(res => {
-      console.log("montura borrado");
-      this.updateListMonturas();
-    });
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar la montura?',
+      text: 'No se podrá revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: 'Si, eliminar!'
+    }).then(result => {
+      if (result.value) {
+        Sweetalert("loading", "Cargando...");
+        this.monturaService.darBajaMontura(data.id_montura).subscribe(res => {
+          Sweetalert("close", null);
+          Sweetalert("success", "Montura eliminada");
+          console.log("Montura borrado");
+          this.updateListMonturas();
+        }, error => {
+          Sweetalert("close", null);
+          Sweetalert("error", "Error en la conexión");
+        },
+        );
+      }
+      else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire(
+          'Cancelado',
+          'Montura no eliminada',
+          'error'
+        );
+      }
+    }
+    );
   }
 
   updateListMonturas() {
