@@ -34,7 +34,7 @@ export class AuthGuard implements CanActivate {
         //this.router.navigate(['/account/login'], { queryParams: { returnUrl: state.url } });
         if (this.usuarioService.isLoggedIn !== true) {
             window.alert("Access not allowed!");
-            this.router.navigate(['login'])
+            this.router.navigate(['pages/404'])
           }
           return true;
     }

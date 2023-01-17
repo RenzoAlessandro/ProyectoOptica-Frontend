@@ -11,7 +11,7 @@ import { CajaService } from 'src/app/services/caja.service';
 import { CajaModel } from 'src/models/caja';
 
 interface SearchResult {
-  invoices: InvoiceList[];
+  invoices: CajaModel[];
   total: number;
 }
 
@@ -23,14 +23,14 @@ interface State {
   sortDirection: SortDirection;
 }
 
-const compare = (v1: string | number, v2: string | number) =>
+const compare = (v1: string | number | CajaModel[], v2: string | number | CajaModel[]) =>
   v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
 function sort(
-  invoices: InvoiceList[],
+  invoices: CajaModel[],
   column: SortColumn,
   direction: string
-): InvoiceList[] {
+): CajaModel[] {
   if (direction === '' || column === '') {
     return invoices;
   } else {
@@ -41,10 +41,11 @@ function sort(
   }
 }
 
-function matches(invoice: InvoiceList, term: string, pipe: PipeTransform) {
-  return invoice.date.toLowerCase().includes(term) ||
-    invoice.name.toLowerCase().includes(term.toLowerCase()) ||
-    invoice.amount.toLowerCase().includes(term.toLowerCase())
+function matches(invoice: CajaModel, term: string, pipe: PipeTransform) {
+  console.log(invoice)
+  return String(invoice.monto).toLowerCase().includes(term) ||
+    invoice.descripcion.toLowerCase().includes(term.toLowerCase()) ||
+    String(invoice.encargado).toLowerCase().includes(term.toLowerCase())
     ;
 }
 
@@ -52,9 +53,13 @@ function matches(invoice: InvoiceList, term: string, pipe: PipeTransform) {
 export class InvoiceService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _invoices$ = new BehaviorSubject<InvoiceList[]>([]);
+  private _searchE$ = new Subject<void>();
+  private _invoices$ = new BehaviorSubject<CajaModel[]>([]);
+  private _egresos$ = new BehaviorSubject<CajaModel[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
+  private _totalE$ = new BehaviorSubject<number>(0);
   ingresoList: CajaModel[] = [];
+  egresoList: CajaModel[] = [];
   private _state: State = {
     page: 1,
     pageSize: 5,
@@ -68,10 +73,14 @@ export class InvoiceService {
     private cajaService: CajaService
     ) {
     this.getListIngresos();
+    this.getListEgresos();
   }
 
   get invoices$() {
     return this._invoices$.asObservable();
+  }
+  get egresos$() {
+    return this._egresos$.asObservable();
   }
   get total$() {
     return this._total$.asObservable();
@@ -89,6 +98,10 @@ export class InvoiceService {
     return this._state.searchTerm;
   }
 
+  get searchTermE() {
+    return this._state.searchTerm;
+  }
+
   set page(page: number) {
     this._set({ page });
   }
@@ -97,6 +110,9 @@ export class InvoiceService {
   }
   set searchTerm(searchTerm: string) {
     this._set({ searchTerm });
+  }
+  set searchTermE(searchTerm: string) {
+    this._setE({ searchTerm });
   }
   set sortColumn(sortColumn: SortColumn) {
     this._set({ sortColumn });
@@ -110,6 +126,11 @@ export class InvoiceService {
     this._search$.next();
   }
 
+  private _setE(patch: Partial<State>) {
+    Object.assign(this._state, patch);
+    this._searchE$.next();
+  }
+
   private _search(): Observable<SearchResult> {
     const {
       sortColumn,
@@ -120,7 +141,33 @@ export class InvoiceService {
     } = this._state;
 
     // 1. sort
-    let invoices = sort(listData, sortColumn, sortDirection);
+    let invoices = sort(this.ingresoList, sortColumn, sortDirection);
+
+    // 2. filter
+    invoices = invoices.filter((customer) =>
+      matches(customer, searchTerm, this.pipe)
+    );
+    const total = invoices.length;
+
+    // 3. paginate
+    invoices = invoices.slice(
+      (page - 1) * pageSize,
+      (page - 1) * pageSize + pageSize
+    );
+    return of({ invoices, total });
+  }
+
+  private _searchE(): Observable<SearchResult> {
+    const {
+      sortColumn,
+      sortDirection,
+      pageSize,
+      page,
+      searchTerm,
+    } = this._state;
+
+    // 1. sort
+    let invoices = sort(this.egresoList, sortColumn, sortDirection);
 
     // 2. filter
     invoices = invoices.filter((customer) =>
@@ -138,7 +185,7 @@ export class InvoiceService {
 
   getListIngresos() {
     this.cajaService.getIngresos().subscribe( res=> {
-      console.log("entre..");
+      console.log("entre..",res);
       this.ingresoList = res;
       this._search$
       .pipe(
@@ -154,6 +201,28 @@ export class InvoiceService {
       });
 
     this._search$.next();
+    }
+
+    );
+  }
+  getListEgresos() {
+    this.cajaService.getEgresos().subscribe( res=> {
+      console.log("entre..",res);
+      this.egresoList = res;
+      this._searchE$
+      .pipe(
+        tap(() => this._loading$.next(true)),
+        debounceTime(200),
+        switchMap(() => this._searchE()),
+        delay(200),
+        tap(() => this._loading$.next(false))
+      )
+      .subscribe((result) => {
+        this._egresos$.next(result.invoices);
+        this._totalE$.next(result.total);
+      });
+
+    this._searchE$.next();
     }
 
     );

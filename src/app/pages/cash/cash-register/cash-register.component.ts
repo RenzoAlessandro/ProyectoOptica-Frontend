@@ -14,6 +14,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UsersModel } from 'src/models/user';
 import { CajaModel } from 'src/models/caja';
 
+
 @Component({
   selector: 'app-cash-register',
   templateUrl: './cash-register.component.html',
@@ -51,17 +52,22 @@ export class CashRegisterComponent implements OnInit {
   listData:InvoiceList[];
 
   selectedDate;
-  invoices$: Observable<InvoiceList[]>;
+  ingresos$: Observable<CajaModel[]>;
+  egresos$: Observable<CajaModel[]>;
   total$: Observable<number>;
+  totalE$: Observable<number>;
 
   caja = new CajaModel;
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
-  constructor(public service: InvoiceService,
+  constructor(public serviceI: InvoiceService,
+    public serviceE: InvoiceService,
     private modalService: NgbModal, 
     private formBuilder: FormBuilder) {
-    this.invoices$ = service.invoices$;
-    this.total$ = service.total$;
+    this.ingresos$ = serviceI.invoices$;
+    this.total$ = serviceI.total$;
+    this.egresos$ = serviceE.egresos$;
+    this.totalE$ = serviceE.total$;
   }
 
   ngOnInit(): void {
@@ -106,8 +112,19 @@ export class CashRegisterComponent implements OnInit {
         header.direction = '';
       }
     });
-    this.service.sortColumn = column;
-    this.service.sortDirection = direction;
+    this.serviceI.sortColumn = column;
+    this.serviceI.sortDirection = direction;
+  }
+
+  onSortE({ column, direction }: SortEvent) {
+    // resetting other headers
+    this.headers.forEach(header => {
+      if (header.sortable !== column) {
+        header.direction = '';
+      }
+    });
+    //this.serviceE.sortColumn = column;
+    //this.serviceE.sortDirection = direction;
   }
 
   /**
