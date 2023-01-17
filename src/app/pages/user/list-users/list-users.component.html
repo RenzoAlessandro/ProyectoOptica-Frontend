@@ -133,7 +133,7 @@
 </div>
 
 
-<!-- Add New User - Center Modal -->
+<!-- Editar User - Center Modal -->
 <ng-template #centerDataModal let-modal>
   <div class="modal-header">
     <h5 class="modal-title" id="modal-title">Editar Usuario</h5>
@@ -251,53 +251,6 @@
             <div class="invalid-feedback">
               <div *ngIf="formEU.campoEmail.errors?.email">
                 Email invalido
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-6">
-          <div class="mb-3">
-            <label class="control-label">Contraseña *</label>
-            <input class="form-control" placeholder="Contraseña" type="password" name="password"
-              formControlName="{{this.password}}" [ngClass]="{'is-invalid': formEU.campoPassword.invalid && (formEU.campoPassword.dirty || formEU.campoPassword.touched)}"/>
-            <div class="invalid-feedback">
-              <div *ngIf="formEU.campoPassword.errors.required">
-                Campo requerido
-              </div>
-              <div *ngIf="formEU.campoPassword.errors.minlength">
-                Su contraseña debe ser mayor a 6 caracteres
-              </div>
-              <div  *ngIf="formEU.campoPassword.errors.maxlength">
-                Su contraseña debe ser menor a 20 caracteres
-              </div>
-              <div *ngIf="formEU.campoPassword.errors.pattern">
-                Ingrese solo números
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="mb-3">
-            <label class="control-label">Repita Contraseña *</label>
-            <input class="form-control" placeholder="Contraseña" type="password" name="repeatpassword"
-              formControlName="{{this.repeatPassword}}" [ngClass]="{'is-invalid': formEU.campoRepeatPassword.invalid && (formEU.campoRepeatPassword.dirty || formEU.campoRepeatPassword.touched)}"/>
-            <div class="invalid-feedback">
-              <div *ngIf="formEU.campoRepeatPassword.errors.required">
-                Campo requerido
-              </div>
-              <div *ngIf="formEU.campoRepeatPassword.errors.minlength">
-                Su contraseña debe ser mayor a 6 caracteres
-              </div>
-              <div *ngIf="formEU.campoRepeatPassword.errors.maxlength">
-                Su contraseña debe ser menor a 20 caracteres
-              </div>
-              <div *ngIf="formEU.campoRepeatPassword.errors.pattern">
-                Ingrese solo números
-              </div>
-              <div *ngIf="formEU.campoRepeatPassword.errors.confirmedValidator">
-                Passwords did not match
               </div>
             </div>
           </div>
