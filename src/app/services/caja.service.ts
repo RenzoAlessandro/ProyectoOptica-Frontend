@@ -15,4 +15,7 @@ export class CajaService {
   getIngresos(): Observable<any> {
     return this.http.get<any>(environment.urlBackend+'getAllIngresos');
   }
+  getEgresos(): Observable<any> {
+    return this.http.get<any>(environment.urlBackend+'getAllEgresos');
+  }
 }

@@ -17,7 +17,7 @@ export class UsuarioService {
   user: any;
   emit: any;
   tokenSubscription = new Subscription()
-  private jwtHelper: JwtHelperService
+  
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -71,17 +71,22 @@ export class UsuarioService {
 
   storeUserData(token, user) {
     //this.timeout = this.jwtHelper.getTokenExpirationDate(token).valueOf() - new Date().valueOf();
+    //console.log(this.jwtHelper.getTokenExpirationDate(token).valueOf())
+    const jwtToken = (JSON.parse(atob(token.split('.')[1]))).exp;
+    const expires = new Date(jwtToken * 1000);
+    console.log(expires)
     localStorage.setItem("access_token", token);
     //localStorage.setItem("user", JSON.stringify(user))
-    this.authToken = token;
-    this.user = user;
+    //this.authToken = token;
+    //this.user = user;
     //this.emit({ username: this.user.username });
-    this.expirationCounter(this.timeout);
+    this.expirationCounter(expires);
     this.router.navigate(['dashboard']);
   }
 
   expirationCounter(timeout) {
     this.tokenSubscription.unsubscribe();
+    console.log("entre")
     this.tokenSubscription = of(null).pipe(delay(timeout)).subscribe((expired) => {
       console.log('EXPIRED!!');
 

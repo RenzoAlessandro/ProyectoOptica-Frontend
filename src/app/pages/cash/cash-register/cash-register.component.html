@@ -28,14 +28,14 @@
             <div class="col-sm-12 col-md-4 search-box chat-search-box">
               <div class="position-relative">
                 <input type="text" class="form-control border-light rounded" placeholder="Buscar ingreso" name="searchTerm"
-                  aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
+                  aria-controls="tickets-table" [(ngModel)]="serviceI.searchTerm">
                 <i class="uil uil-search search-icon"></i>
               </div>
             </div>
             <!-- End search -->
             <div class="col-sm-12 col-md-8 text-md-end">
               <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
-                    [(ngModel)]="service.pageSize"
+                    [(ngModel)]="serviceI.pageSize"
                     class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
                     <option [ngValue]="5">5</option>
                     <option [ngValue]="10">10</option>
@@ -60,12 +60,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let data of invoices$ | async">
+                    <tr *ngFor="let data of ingresos$ | async">
                       <td>
-                        <ngb-highlight [result]="data.amount" [term]="service.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="data.monto" [term]="service.searchTerm"></ngb-highlight>
                       </td>
                       <td>
-                        <ngb-highlight [result]="data.description" [term]="service.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="data.descripcion" [term]="service.searchTerm"></ngb-highlight>
                       </td>
                       <td>
                         <ngb-highlight [result]="data.date" [term]="service.searchTerm"></ngb-highlight>
@@ -113,14 +113,14 @@
             <div class="col-sm-12 col-md-4 search-box chat-search-box">
               <div class="position-relative">
                 <input type="text" class="form-control border-light rounded" placeholder="Buscar egreso" name="searchTerm"
-                  aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
+                  aria-controls="tickets-table" [(ngModel)]="serviceI.searchTerm">
                 <i class="uil uil-search search-icon"></i>
               </div>
             </div>
             <!-- End search -->
             <div class="col-sm-12 col-md-8 text-md-end">
               <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
-                    [(ngModel)]="service.pageSize"
+                    [(ngModel)]="serviceI.pageSize"
                     class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
                     <option [ngValue]="5">5</option>
                     <option [ngValue]="10">10</option>
@@ -137,26 +137,26 @@
                   style="border-spacing: 0 12px; width: 100%;">
                   <thead class="table-light">
                     <tr class="bg-transparent">
-                      <th scope="col" sortable="amount" (sort)="onSort($event)">Monto</th>
-                      <th scope="col" sortable="description" (sort)="onSort($event)">Descripción</th>
-                      <th scope="col" sortable="date" (sort)="onSort($event)">Fecha</th>
-                      <th scope="col" sortable="name" (sort)="onSort($event)">Usuario</th>
+                      <th scope="col" sortable="amount" (sort)="onSortE($event)">Monto</th>
+                      <th scope="col" sortable="description" (sort)="onSortE($event)">Descripción</th>
+                      <th scope="col" sortable="date" (sort)="onSortE($event)">Fecha</th>
+                      <th scope="col" sortable="name" (sort)="onSortE($event)">Usuario</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let data of invoices$ | async">
+                    <tr *ngFor="let data of egresos$ | async">
                       <td>
-                        <ngb-highlight [result]="data.amount" [term]="service.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="data.monto" [term]="serviceE.searchTerm"></ngb-highlight>
                       </td>
                       <td>
-                        <ngb-highlight [result]="data.description" [term]="service.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="data.descripcion" [term]="serviceE.searchTerm"></ngb-highlight>
                       </td>
                       <td>
-                        <ngb-highlight [result]="data.date" [term]="service.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="data.date" [term]="serviceE.searchTerm"></ngb-highlight>
                       </td>
                       <td>
-                        <ngb-highlight [result]="data.name" [term]="service.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="data.encargado" [term]="serviceE.searchTerm"></ngb-highlight>
                       </td>
                       <td>
                         <!-- <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i
