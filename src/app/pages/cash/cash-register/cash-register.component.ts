@@ -3,9 +3,7 @@ import { FlatpickrOptions } from 'ng2-flatpickr';
 
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
-import { listData } from './data';
 
-import { InvoiceList } from './list.model';
 import { InvoiceService } from './list.service';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 
@@ -13,6 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UsersModel } from 'src/models/user';
 import { CajaModel } from 'src/models/caja';
+import { CajaService } from 'src/app/services/caja.service';
 
 
 @Component({
@@ -49,7 +48,7 @@ export class CashRegisterComponent implements OnInit {
 
   term: any;
   hideme: boolean[] = [];
-  listData:InvoiceList[];
+  listData:CajaModel[];
 
   selectedDate;
   ingresos$: Observable<CajaModel[]>;
@@ -63,11 +62,12 @@ export class CashRegisterComponent implements OnInit {
   constructor(public serviceI: InvoiceService,
     public serviceE: InvoiceService,
     private modalService: NgbModal, 
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private cajaService: CajaService) {
     this.ingresos$ = serviceI.invoices$;
     this.total$ = serviceI.total$;
     this.egresos$ = serviceE.egresos$;
-    this.totalE$ = serviceE.total$;
+    this.totalE$ = serviceE.totalE$;
   }
 
   ngOnInit(): void {
@@ -89,7 +89,7 @@ export class CashRegisterComponent implements OnInit {
       [this.monto_egreso]:[],
       [this.fecha_egreso]:[],
       [this.encargado_egreso]:[],
-      [this.monto_egreso]:[]
+      [this.descripcion_egreso]:[]
     })
   }
 
@@ -97,7 +97,7 @@ export class CashRegisterComponent implements OnInit {
    * fetches the table value
    */
   _fetchData() {
-    this.listData = listData;
+    //this.listData = listData;
   }
 
   /**
@@ -164,6 +164,15 @@ export class CashRegisterComponent implements OnInit {
     if (this.formIngreso.valid) {
       this.caja.monto = Number(this.fI(this.monto_ingreso).value);
       this.caja.fecha_ingreso = new Date(Date.now());
+      this.caja.encargado = this.fI(this.encargado_ingreso).value;
+      this.caja.descripcion = this.fI(this.descripcion_ingreso).value;
+      this.caja.id_sede = '5abc73dc-c1ff-4e21-8ab8-570d29d876e2Sed004';
+      this.caja.habilitado = true;
+      this.caja.egreso = false;
+      console.log(this.caja);
+      this.cajaService.createIngresoEgreso(this.caja).subscribe(res=>{
+        console.log("guardado ingreso")
+      })
     } else {
 
     }
@@ -172,7 +181,17 @@ export class CashRegisterComponent implements OnInit {
 
   guardarEgreso() {
     if (this.formEgreso.valid) {
-      
+      this.caja.monto = Number(this.fE(this.monto_egreso).value);
+      this.caja.fecha_ingreso = new Date(Date.now());
+      this.caja.encargado = this.fE(this.encargado_egreso).value;
+      this.caja.descripcion = this.fE(this.descripcion_egreso).value;
+      this.caja.id_sede = '5abc73dc-c1ff-4e21-8ab8-570d29d876e2Sed004';
+      this.caja.habilitado = true;
+      this.caja.egreso = true;
+      console.log(this.caja);
+      this.cajaService.createIngresoEgreso(this.caja).subscribe(res=>{
+        console.log("guardado egreso")
+      })
     } else {
       
     }

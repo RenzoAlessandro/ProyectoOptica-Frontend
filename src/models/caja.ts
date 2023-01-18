@@ -6,5 +6,5 @@ export class CajaModel {
     egreso: boolean;
     habilitado: boolean;
     monto: number;
-    id_sede;
+    id_sede: string;
 }

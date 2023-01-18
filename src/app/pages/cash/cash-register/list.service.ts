@@ -2,8 +2,7 @@ import { Injectable, PipeTransform } from '@angular/core';
 
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 
-import { InvoiceList } from './list.model';
-import { listData } from './data';
+
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
@@ -23,7 +22,7 @@ interface State {
   sortDirection: SortDirection;
 }
 
-const compare = (v1: string | number | CajaModel[], v2: string | number | CajaModel[]) =>
+const compare = (v1: string | number | Date | boolean | CajaModel[], v2: string | number | Date | boolean | CajaModel[]) =>
   v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
 function sort(
@@ -84,6 +83,9 @@ export class InvoiceService {
   }
   get total$() {
     return this._total$.asObservable();
+  }
+  get totalE$() {
+    return this._totalE$.asObservable();
   }
   get loading$() {
     return this._loading$.asObservable();

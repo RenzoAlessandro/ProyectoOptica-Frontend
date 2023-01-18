@@ -113,14 +113,14 @@
             <div class="col-sm-12 col-md-4 search-box chat-search-box">
               <div class="position-relative">
                 <input type="text" class="form-control border-light rounded" placeholder="Buscar egreso" name="searchTerm"
-                  aria-controls="tickets-table" [(ngModel)]="serviceI.searchTerm">
+                  aria-controls="tickets-table" [(ngModel)]="serviceE.searchTerm">
                 <i class="uil uil-search search-icon"></i>
               </div>
             </div>
             <!-- End search -->
             <div class="col-sm-12 col-md-8 text-md-end">
               <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
-                    [(ngModel)]="serviceI.pageSize"
+                    [(ngModel)]="serviceE.pageSize"
                     class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
                     <option [ngValue]="5">5</option>
                     <option [ngValue]="10">10</option>
@@ -175,7 +175,7 @@
                   <!-- Pagination -->
                   <div class="col-12">
                     <div class="text-md-end float-md-end pagination-rounded">
-                      <ngb-pagination [collectionSize]="total$ | async" [(page)]="serviceE.page" [pageSize]="serviceE.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                      <ngb-pagination [collectionSize]="totalE$ | async" [(page)]="serviceE.page" [pageSize]="serviceE.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
                       </ngb-pagination>
                     </div>
                   </div>
@@ -199,7 +199,7 @@
     </button>
   </div>
   <div class="modal-body p-4">
-    <form (ngSubmit)="saveEvent()" [formGroup]="formIngreso">
+    <form [formGroup]="formIngreso">
       <div class="row">
         <div class="col-6">
           <div class="mb-3">
@@ -261,7 +261,7 @@
     </button>
   </div>
   <div class="modal-body p-4">
-    <form (ngSubmit)="saveEvent()" [formGroup]="formIngreso">
+    <form [formGroup]="formEgreso">
       <div class="row">
         <div class="col-6">
           <div class="mb-3">
