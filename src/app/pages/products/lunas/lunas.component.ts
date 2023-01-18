@@ -10,12 +10,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { LunasModel } from 'src/models/lunas';
 import { ProductosService } from 'src/app/services/productos.service';
-import { Sweetalert } from 'src/utils/sweetalert';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import Swal from 'sweetalert2';
 import { DataMatrixGenerator } from '@syncfusion/ej2-angular-barcode-generator';
 import { Options } from 'ng5-slider';
+
+import { Sweetalert } from 'src/utils/sweetalert';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lunas',

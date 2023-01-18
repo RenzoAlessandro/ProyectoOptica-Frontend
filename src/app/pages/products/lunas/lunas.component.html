@@ -117,19 +117,29 @@
         </div>
       </div>
 
-<!--       <div class="btn-group mt-2 me-1">
-        <input type="button" class="btn btn-primary btn-block" value="Descargar código de barras"
-          (click)="generarPDF()">
-      </div> -->
-      <!-- <div class="col-md-8" id="htmlData">
-        <div *ngFor="let item of checkedLunasList">
-          <div *ngFor="let cant of [].constructor(item.cantidad)">
-            <ejs-barcodegenerator style="display: block;" #barcode id="barcode" width="200px" height="150px" mode="SVG"
-              type="Code39Extension" value={{item.codigo_interno}}></ejs-barcodegenerator>
+      <div class="row">
+        <div class="col-12">
+          <div class="text-center my-3">
+            <a href="javascript:void(0);" class="text-primary"><i
+                class="mdi mdi-loading mdi-spin font-size-20 align-middle me-2"></i> Cargando </a>
+          </div>
+        </div> <!-- end col-->
+      </div>
+
+      <!-- End table -->
+      <div class="row justify-content-md-between align-items-md-center">
+        <!-- <div class="col-sm-12 col-md-5">
+          <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">Page 2 of 84</div>
+        </div> -->
+        <!-- Pagination -->
+        <div class="col-12">
+          <div class="text-md-end float-md-end pagination-rounded">
+            <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+            </ngb-pagination>
           </div>
         </div>
-      </div> -->
-
+        <!-- End Pagination -->
+      </div>
     </div>
   </div>
   <!-- end row -->

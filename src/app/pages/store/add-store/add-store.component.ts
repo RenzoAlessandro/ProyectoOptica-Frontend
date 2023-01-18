@@ -19,7 +19,7 @@ export class AddStoreComponent implements OnInit {
   formTiendas: FormGroup;
   nombre_tienda: string = "campoNombreTienda";
   direccion_tienda: string = "campoDireccionTienda";
-  estado_tienda: string = "campoEstadoTienda";
+  /* estado_tienda: string = "campoEstadoTienda"; */
 
   sede= new SedesModel;
   // bread crumb items
@@ -49,7 +49,7 @@ export class AddStoreComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(60)
       ]],
-      [this.estado_tienda]:[],
+      /* [this.estado_tienda]:[], */
     })
   }
 

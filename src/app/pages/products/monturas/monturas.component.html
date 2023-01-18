@@ -131,6 +131,16 @@
           </form>
         </div>
       </div>
+      
+      <div class="row">
+        <div class="col-12">
+          <div class="text-center my-3">
+            <a href="javascript:void(0);" class="text-primary"><i
+                class="mdi mdi-loading mdi-spin font-size-20 align-middle me-2"></i> Cargando </a>
+          </div>
+        </div> <!-- end col-->
+      </div>
+
       <!-- End table -->
       <div class="row justify-content-md-between align-items-md-center">
         <!-- <div class="col-sm-12 col-md-5">
@@ -145,38 +155,6 @@
         </div>
         <!-- End Pagination -->
       </div>
-<!--       <div class="btn-group mt-2 me-1">
-        <input type="button" class="btn btn-primary btn-block" value="Descargar código de barras"
-          (click)="generarPDF()">
-      </div>
-      <div class="col-md-8" id="htmlData">
-        <div *ngFor="let item of checkedLunasList">
-          <div *ngFor="let cant of [].constructor(item.cantidad)">
-            <div class="row align-items-center">
-              <div class="col-3">
-                <ejs-barcodegenerator style="display: block;" #barcode id="barcode" width="200px" height="150px"
-                  mode="SVG" type="Code128" value={{item.codigo_interno}}></ejs-barcodegenerator>
-              </div>
-              <div class="col-3 ml-0">
-                <span>
-                  {{item.codigo}}<br>
-                </span>
-                <span>
-                  {{item.marca}}<br>
-                </span>
-                <span>
-                  {{item.talla}}<br>
-                </span>
-                <span>
-                  {{item.color}}
-                </span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div> -->
-
     </div>
   </div>
   <!-- end row -->

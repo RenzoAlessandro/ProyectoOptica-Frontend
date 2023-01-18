@@ -103,7 +103,7 @@
                       placement="top" ngbTooltip="Receta"><i class="uil uil-file-info-alt font-size-18"></i></a>
                     <a (click)="centerModal(centerDataModalEditCustomer,data)" class="px-2 text-primary" placement="top"
                       ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
-                    <a href="javascript:void(0);" class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
+                    <a (click)="eliminar(data)" class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
                         class="uil uil-trash-alt font-size-18"></i></a>
                   </td>
                 </tr>
@@ -112,6 +112,16 @@
           </form>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="text-center my-3">
+            <a href="javascript:void(0);" class="text-primary"><i
+                class="mdi mdi-loading mdi-spin font-size-20 align-middle me-2"></i> Cargando </a>
+          </div>
+        </div> <!-- end col-->
+      </div>
+
       <!-- End table -->
       <div class="row justify-content-md-between align-items-md-center">
         <!-- <div class="col-sm-12 col-md-5">

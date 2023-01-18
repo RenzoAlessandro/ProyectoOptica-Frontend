@@ -27,4 +27,8 @@ export class ClienteService {
   updateClient(idClient:string, idPersona:string, customer:CustomersModel): Observable<any> {
     return this.http.put<any>(environment.urlBackend+'editClientById/'+idClient+'/'+idPersona, customer);
   }
+
+  darBajaClient(idClient:string): Observable<any> {
+    return this.http.put<any>(environment.urlBackend+'darBajaClienteById/'+idClient,idClient);
+  }
 }

@@ -9,6 +9,9 @@ import { MedidasModel } from 'src/models/medidas';
 import { CustomerService } from './customer.service';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 
+import { Sweetalert } from 'src/utils/sweetalert';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-list-customers',
   templateUrl: './list-customers.component.html',
@@ -286,6 +289,51 @@ export class ListCustomersComponent implements OnInit {
       ]]
     })
   }
+
+  eliminar(data: CustomersModel) {
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar al cliente?',
+      text: 'No se podrá revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: 'Si, eliminar!'
+    }).then(result => {
+      if (result.value) {
+        Sweetalert("loading", "Cargando...");
+        this.customerService.darBajaClient(data.id_cliente).subscribe(res => {
+          Sweetalert("close", null);
+          Sweetalert("success", "Cliente eliminada");
+          console.log("Cliente borrado");
+          this.updateListCustomers();
+        }, error => {
+          Sweetalert("close", null);
+          Sweetalert("error", "Error en la conexión");
+        },
+        );
+      }
+      else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire(
+          'Cancelado',
+          'Cliente no eliminado',
+          'error'
+        );
+      }
+    }
+    );
+  }
+
+  updateListCustomers() {
+    this.customerService.getAllClients().subscribe( res=>{
+      this.service.updateTable(res);
+    })
+  }
+
+
 
   /**
    * Returns form Editar Cliente

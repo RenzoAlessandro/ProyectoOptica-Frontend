@@ -12,6 +12,9 @@ import { UsersModel } from 'src/models/user';
 import { SedesModel } from 'src/models/sedes';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
+import { Sweetalert } from 'src/utils/sweetalert';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-list-users',
   templateUrl: './list-users.component.html',
@@ -214,12 +217,41 @@ closeEventModal() {
     })
   }
 
-  eliminar(data:UsersModel) {
-    console.log(data.id_usuario)
-    this.usuarioService.darBajaUser(data.id_usuario).subscribe(res => {
-      console.log("usuario borrado");
-      this.updateListUsers();
-    });
+  eliminar(data: UsersModel) {
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar al Usuario?',
+      text: 'No se podrá revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: 'Si, eliminar!'
+    }).then(result => {
+      if (result.value) {
+        Sweetalert("loading", "Cargando...");
+        this.usuarioService.darBajaUser(data.id_usuario).subscribe(res => {
+          Sweetalert("close", null);
+          Sweetalert("success", "Usuario eliminado");
+          console.log("Usuario borrado");
+          this.updateListUsers();
+        }, error => {
+          Sweetalert("close", null);
+          Sweetalert("error", "Error en la conexión");
+        },
+        );
+      }
+      else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire(
+          'Cancelado',
+          'Usuario no eliminado',
+          'error'
+        );
+      }
+    }
+    );
   }
 
   updateUser() {
