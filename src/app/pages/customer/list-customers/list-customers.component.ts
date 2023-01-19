@@ -388,6 +388,7 @@ export class ListCustomersComponent implements OnInit {
       },
       
     };
+    var fecha_nacimiento = new Date (this.userPrint.fecha_nacimiento).toLocaleDateString('en-GB')
     
 
     const pdfDefinition: any = {
@@ -415,14 +416,14 @@ export class ListCustomersComponent implements OnInit {
         {
           text: [,
             { text: 'Fecha de Nacimiento:', style: 'textBold'},
-            ' 14 Feb, 1996',
+            ' ' + fecha_nacimiento,
           ]
         },
 
         {
           text: [,
             { text: 'Telefono:', style: 'textBold'},
-            ' 983 720 159',
+            ' ' + this.userPrint.telefono,
           ]
         },
 
@@ -437,15 +438,15 @@ export class ListCustomersComponent implements OnInit {
             body: [
               [{ text: 'Visión de Lejos', style: 'tableHeader', colSpan: 5, alignment: 'center' }, {} , {} , {} , {}, { text: 'Visión de Cerca', style: 'tableHeader', alignment: 'center' }],
               [{ text: 'REF.', style: 'tableHeader', alignment: 'center' }, { text: 'ESF.', style: 'tableHeader', alignment: 'center' }, { text: 'CIL.', style: 'tableHeader', alignment: 'center' }, { text: 'EJE.', style: 'tableHeader', alignment: 'center' }, { text: 'DIP.', style: 'tableHeader', alignment: 'center' }, { text: 'ADD.', style: 'tableHeader', alignment: 'center' }],
-              [{ text: 'O.D.', style: 'tableHeader', alignment: 'center' }, { text: '+19.00', alignment: 'center' }, { text: '-10.00', alignment: 'center' }, { text: '180', alignment: 'center' }, { text: '75', alignment: 'center' }, { text: '+10.00', rowSpan: 2, alignment: 'center' }],
-              [{ text: 'O.I.', style: 'tableHeader', alignment: 'center' }, { text: '+14.00', alignment: 'center' }, { text: '-15.00', alignment: 'center' }, { text: '145', alignment: 'center' }, { text: '65', alignment: 'center' }, {}],
+              [{ text: 'O.D.', style: 'tableHeader', alignment: 'center' }, { text: this.userPrint.medidas[0].od_esferico, alignment: 'center' }, { text: this.userPrint.medidas[0].od_cilindrico, alignment: 'center' }, { text: this.userPrint.medidas[0].od_eje, alignment: 'center' }, { text: this.userPrint.medidas[0].dip, alignment: 'center' }, { text: this.userPrint.medidas[0].add, rowSpan: 2, alignment: 'center' }],
+              [{ text: 'O.I.', style: 'tableHeader', alignment: 'center' }, { text: this.userPrint.medidas[0].oi_esferico, alignment: 'center' }, { text: this.userPrint.medidas[0].oi_cilindrico, alignment: 'center' }, { text: this.userPrint.medidas[0].oi_eje, alignment: 'center' }, { text: this.userPrint.medidas[0].dip, alignment: 'center' }, {}],
             ]
           }
         },
         { text: 'Encargado Medición:', style: 'subtitle' },
-        'Dr. Jose Luis Valencia Rodrigues',
-        { text: 'Observaciones:', style: 'subtitle' },
-        { text: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.', alignment: 'justify'},
+        this.userPrint.medidas[0].encargado,
+        { text: 'Antecedentes:', style: 'subtitle' },
+        { text: this.userPrint.antecedentes, alignment: 'justify'},
       ],
       styles: {
         header: {
