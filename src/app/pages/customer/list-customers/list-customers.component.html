@@ -99,7 +99,7 @@
                         [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
                     </td> -->
                   <td>
-                    <a (click)="centerModal(centerDataModalMeasurementsCustomer,data)" class="px-2 text-info"
+                    <a (click)="centerModalPrint(centerDataModalMeasurementsCustomer,data)" class="px-2 text-info"
                       placement="top" ngbTooltip="Receta"><i class="uil uil-file-info-alt font-size-18"></i></a>
                     <a (click)="centerModal(centerDataModalEditCustomer,data)" class="px-2 text-primary" placement="top"
                       ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
@@ -181,7 +181,7 @@
               <div class="col-sm-6">
                 <div class="text-muted">
                   <h5 class="font-size-16 mb-3">Paciente:</h5>
-                  <h5 class="font-size-15 mb-2">Renzo Alessandro Sucari Velasquez</h5>
+                  <h5 class="font-size-15 mb-2">{{userPrint.nombres}} {{userPrint.apellidos}}</h5>
                   <li class="list-inline-item"><span class="fw-medium">Fecha de Nacimiento : </span>14 Feb, 1996</li>
                   <li class="list-inline-item"><span class="fw-medium">Telefono: </span>983 720 159</li>
                 </div>
