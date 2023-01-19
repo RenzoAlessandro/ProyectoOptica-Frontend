@@ -16,8 +16,9 @@ export class UsuarioService {
   authToken: any;
   user: any;
   emit: any;
-  tokenSubscription = new Subscription()
-  
+  tokenSubscription = new Subscription();
+  roleAs: string;
+  usuario: UsersModel;
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -58,7 +59,6 @@ export class UsuarioService {
     if (removeToken == null) {
       this.router.navigate(['login']);
     }
-    //return this.http.post<any>(environment.urlBackend+'LogOut', user);
   }
   getToken() {
     return localStorage.getItem('access_token');
@@ -76,12 +76,13 @@ export class UsuarioService {
     const expires = new Date(jwtToken * 1000);
     console.log(expires)
     localStorage.setItem("access_token", token);
-    //localStorage.setItem("user", JSON.stringify(user))
+    localStorage.setItem("user", JSON.stringify(user))
     //this.authToken = token;
     //this.user = user;
     //this.emit({ username: this.user.username });
     this.expirationCounter(expires);
     this.router.navigate(['dashboard']);
+    this.getRole();
   }
 
   expirationCounter(timeout) {
@@ -93,5 +94,19 @@ export class UsuarioService {
       this.logOut();
       //this.router.navigate(["/login"]);
     });
+  }
+
+  getRole() {
+    const user = localStorage.getItem('user');
+    this.roleAs = JSON.parse(user).rol;
+    console.log(this.roleAs)
+    return this.roleAs;
+  }
+
+  getUser() {
+    const user = localStorage.getItem('user');
+    this.usuario = JSON.parse(user);
+    console.log(this.usuario)
+    return this.usuario;
   }
 }

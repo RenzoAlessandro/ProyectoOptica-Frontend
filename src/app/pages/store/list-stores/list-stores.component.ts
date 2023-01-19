@@ -16,6 +16,7 @@ export class ListStoresComponent implements OnInit {
   nombre_tienda: string = "campoNombreTienda";
   direccion_tienda: string = "campoDireccionTienda";
 
+  mostrar = false;
   // bread crumb items
   breadCrumbItems: Array<{}>;
 
@@ -37,6 +38,7 @@ export class ListStoresComponent implements OnInit {
     this.sedeService.getSedes().subscribe(res => {
       console.log(res)
       this.listSedes = res;
+      this.mostrar = true;
     })
   }
 

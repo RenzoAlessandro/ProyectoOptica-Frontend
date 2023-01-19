@@ -16,12 +16,20 @@ const routes: Routes = [
   { path: 'dashboard', component: DefaultComponent, canActivate: [AuthGuard]  },
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]  },
   { path: 'chat', component: ChatComponent, canActivate: [AuthGuard]  },
-  { path: 'customer', loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule), canActivate: [AuthGuard]  },
-  { path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule), canActivate: [AuthGuard]  },
+  { path: 'customer', loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule), canActivate: [AuthGuard], data: {
+    role: 'Admin'
+  }  },
+  { path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule), canActivate: [AuthGuard], data: {
+    role: ['Vendedor','Admin'],
+  }  },
   { path: 'store', loadChildren: () => import('./store/store.module').then(m => m.StoreModule), canActivate: [AuthGuard]  },
-  { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule), canActivate: [AuthGuard]  },
+  { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule), canActivate: [AuthGuard], data: {
+    role: 'Admin'
+  }  },
   { path: 'sale', loadChildren: () => import('./sale/sale.module').then(m => m.SaleModule), canActivate: [AuthGuard]  },
-  { path: 'cash-register', component: CashRegisterComponent, canActivate: [AuthGuard]  },
+  { path: 'cash-register', component: CashRegisterComponent, canActivate: [AuthGuard],data: {
+    role: ['Vendedor','Admin'],
+  }  },
 
   { path: 'dashboards', loadChildren: () => import('./dashboards/dashboards.module').then(m => m.DashboardsModule), canActivate: [AuthGuard]  },
   { path: 'ecommerce', loadChildren: () => import('./ecommerce/ecommerce.module').then(m => m.EcommerceModule), canActivate: [AuthGuard]  },

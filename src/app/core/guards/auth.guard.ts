@@ -32,10 +32,29 @@ export class AuthGuard implements CanActivate {
         } */
         // not logged in so redirect to login page with the return url
         //this.router.navigate(['/account/login'], { queryParams: { returnUrl: state.url } });
-        if (this.usuarioService.isLoggedIn !== true) {
+        /* if (this.usuarioService.isLoggedIn !== true) {
             window.alert("Access not allowed!");
             this.router.navigate(['pages/404'])
           }
-          return true;
+          return true; */
+          let url: string = state.url;
+          return this.checkUserLogin(route, url);
     }
+
+    checkUserLogin(route: ActivatedRouteSnapshot, url: any): boolean {
+        if (this.usuarioService.isLoggedIn) {
+          const userRole = this.usuarioService.getRole();
+          if (route.data.role && route.data.role.indexOf(userRole) === -1) {
+            this.router.navigate(['pages/404']);
+            return false;
+          }
+          return true;
+        } else {
+            window.alert("Access not allowed!");
+            this.router.navigate(['pages/404'])
+        return false;
+        }
+    
+        
+      }
 }

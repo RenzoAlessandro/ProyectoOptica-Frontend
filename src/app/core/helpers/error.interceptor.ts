@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Sweetalert } from 'src/utils/sweetalert';
 
 import { AuthenticationService } from '../services/auth.service';
 
@@ -12,9 +13,12 @@ export class ErrorInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
             if (err.status === 401) {
+                Sweetalert("close", null);
+                Sweetalert("error", err.error);
+                console.log(err);
                 // auto logout if 401 response returned from api
-                this.authenticationService.logout();
-                location.reload();
+                //this.authenticationService.logout();
+                //location.reload();
             }
 
             const error = err.error.message || err.statusText;
