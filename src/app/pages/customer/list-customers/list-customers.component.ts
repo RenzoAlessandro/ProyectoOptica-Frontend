@@ -12,6 +12,10 @@ import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 import { Sweetalert } from 'src/utils/sweetalert';
 import Swal from 'sweetalert2';
 
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 @Component({
   selector: 'app-list-customers',
   templateUrl: './list-customers.component.html',
@@ -333,12 +337,146 @@ export class ListCustomersComponent implements OnInit {
     })
   }
 
-
-
   /**
    * Returns form Editar Cliente
    */
   get formEC() {
     return this.formCustomer.controls;
+  }
+
+  getBase64ImageFromURL(url) {
+    return new Promise((resolve, reject) => {
+      var img = new Image();
+      img.setAttribute("crossOrigin", "anonymous");
+
+      img.onload = () => {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+
+        var dataURL = canvas.toDataURL("image/png");
+
+        resolve(dataURL);
+      };
+
+      img.onerror = error => {
+        reject(error);
+      };
+
+      img.src = url;
+    });
+  }
+
+  async createPDF(){
+    var fonts = {
+      Roboto: {
+        normal: 'fonts/Roboto-Regular.ttf',
+        bold: 'fonts/Roboto-Medium.ttf',
+        italics: 'fonts/Roboto-Italic.ttf',
+        bolditalics: 'fonts/Roboto-MediumItalic.ttf'
+      },
+      
+    };
+    
+
+    const pdfDefinition: any = {
+      content: [
+        {
+          style: 'tableExample',
+          table: {
+            widths: ['*', '*'],
+            body: [
+              [{ image: await this.getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150, rowSpan: 4 }, { text: 'Nº de Receta:', style: 'tableHeader', alignment: 'right' }],
+              [{ }, { text: '#MN0131', alignment: 'right' }],
+              [{ }, { text: 'Fecha de la Receta:', style: 'tableHeader', alignment: 'right' }],
+              [{ }, { text: '15 Dic, 2022', alignment: 'right' }],
+            ]
+          },
+          layout: 'noBorders'
+        },
+
+        { 
+          text: 'Paciente:', style: 'subtitle'
+        },
+
+        'Renzo Alessandro Sucari Velasquez',
+
+        {
+          text: [,
+            { text: 'Fecha de Nacimiento:', style: 'textBold'},
+            ' 14 Feb, 1996',
+          ]
+        },
+
+        {
+          text: [,
+            { text: 'Telefono:', style: 'textBold'},
+            ' 983 720 159',
+          ]
+        },
+
+        {
+          style: 'tableExample',
+          color: '#444',
+          table: {
+            widths: ['*', '*', '*', '*', '*', 100],
+            heights: [20, 20 , 20, 20],
+            headerRows: 2,
+            // keepWithHeaderRows: 1,
+            body: [
+              [{ text: 'Visión de Lejos', style: 'tableHeader', colSpan: 5, alignment: 'center' }, {} , {} , {} , {}, { text: 'Visión de Cerca', style: 'tableHeader', alignment: 'center' }],
+              [{ text: 'REF.', style: 'tableHeader', alignment: 'center' }, { text: 'ESF.', style: 'tableHeader', alignment: 'center' }, { text: 'CIL.', style: 'tableHeader', alignment: 'center' }, { text: 'EJE.', style: 'tableHeader', alignment: 'center' }, { text: 'DIP.', style: 'tableHeader', alignment: 'center' }, { text: 'ADD.', style: 'tableHeader', alignment: 'center' }],
+              [{ text: 'O.D.', style: 'tableHeader', alignment: 'center' }, { text: '+19.00', alignment: 'center' }, { text: '-10.00', alignment: 'center' }, { text: '180', alignment: 'center' }, { text: '75', alignment: 'center' }, { text: '+10.00', rowSpan: 2, alignment: 'center' }],
+              [{ text: 'O.I.', style: 'tableHeader', alignment: 'center' }, { text: '+14.00', alignment: 'center' }, { text: '-15.00', alignment: 'center' }, { text: '145', alignment: 'center' }, { text: '65', alignment: 'center' }, {}],
+            ]
+          }
+        },
+        { text: 'Encargado Medición:', style: 'subtitle' },
+        'Dr. Jose Luis Valencia Rodrigues',
+        { text: 'Observaciones:', style: 'subtitle' },
+        { text: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.', alignment: 'justify'},
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          margin: [0, 0, 0, 10]
+        },
+        subheader: {
+          fontSize: 16,
+          bold: true,
+          margin: [0, 10, 0, 5]
+        },
+        subtitle: {
+          fontSize: 14,
+          bold: true,
+          margin: [0, 10, 0, 5]
+        },
+        tableExample: {
+          margin: [0, 15, 0, 15]
+        },
+        tableOpacityExample: {
+          margin: [0, 5, 0, 15],
+          fillColor: 'blue',
+          fillOpacity: 0.3
+        },
+        tableHeader: {
+          bold: true,
+          fontSize: 13,
+          color: 'black'
+        },
+        textBold: {
+          bold: true,
+        }
+      },
+
+    }
+
+    const pdf = pdfMake.createPdf(pdfDefinition);
+    pdf.open();
+ 
   }
 }
