@@ -10,6 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { LanguageService } from '../../core/services/language.service';
 import { TranslateService } from '@ngx-translate/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { UsersModel } from 'src/models/user';
 
 @Component({
   selector: 'app-topbar',
@@ -28,7 +29,7 @@ export class TopbarComponent implements OnInit {
   flagvalue: any;
   countryName: any;
   valueset;
-
+  usuario : UsersModel;
   constructor(@Inject(DOCUMENT) private document: any,
     private router: Router,
     private authService: AuthenticationService,
@@ -53,6 +54,7 @@ export class TopbarComponent implements OnInit {
   @Output() mobileMenuButtonClicked = new EventEmitter();
 
   ngOnInit() {
+    this.usuario = this.usuarioService.getUser();
     this.openMobileMenu = false;
     this.element = document.documentElement;
 
@@ -99,17 +101,12 @@ export class TopbarComponent implements OnInit {
     this.mobileMenuButtonClicked.emit();
   }
 
+  
+
   /**
    * Logout the user
    */
   logout() {
-    //user logout
-    /* if (environment.defaultauth === 'firebase') {
-      this.authService.logout();
-    } else {
-      this.authFackservice.logout();
-    }
-    this.router.navigate(['/account/login']); */
     this.usuarioService.logOut();
   }
 

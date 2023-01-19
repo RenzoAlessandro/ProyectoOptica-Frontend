@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { SedesModel } from 'src/models/sedes';
+import { Sweetalert } from 'src/utils/sweetalert';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,6 @@ export class LoginComponent implements OnInit {
   showNavigationArrows: any;
   showNavigationIndicators: any;
 
-  listSedes: Array<SedesModel>;
 
   year: number = new Date().getFullYear();
   formLogin: FormGroup;
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getListSedes();
+    //this.getListSedes();
     document.body.classList.add('authentication-bg')
     document.body.removeAttribute('data-topbar');
     this.crearFormulario();
@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    Sweetalert("loading", "Cargando...");
     if (this.formLogin.valid) {
       const  vendedor = {
         email: this.f(this.user).value,
@@ -56,28 +57,21 @@ export class LoginComponent implements OnInit {
       }
       
       console.log(vendedor);
+      
+
+
       this.usuarioService.signIn(vendedor).subscribe(res=> {
         console.log('entre',res);
-        this.usuarioService.storeUserData(res.token, res.user)
-
-        //localStorage.setItem('access_token', res.token);
-        //this.router.navigate(['/dashboard']);
-      })
+        this.usuarioService.storeUserData(res.token, res.onlyDataUser)
+        Sweetalert("close", null);
+      }) 
 
     } else {
       
     }
   }
 
-  getListSedes() {
-    this.usuarioService.getSedes().subscribe(res=>{
-      console.log(res);
-      this.listSedes = res;
-    })
-  }
 
 }
 
-export class NgbdCarouselBasic {
-	images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
-}
+

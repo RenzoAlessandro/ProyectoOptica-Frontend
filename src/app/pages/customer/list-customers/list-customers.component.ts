@@ -71,6 +71,7 @@ export class ListCustomersComponent implements OnInit {
   
   customers$: Observable<CustomersModel[]>;
   total$: Observable<number>;
+  userPrint: CustomersModel;
   
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
   fecha_actual: Date;
@@ -131,6 +132,13 @@ export class ListCustomersComponent implements OnInit {
       this.f(this.antecedentes).setValue(data.antecedentes);
       this.customer.id_cliente = data.id_cliente;
       this.customer.id_persona = data.id_persona;
+      this.modalService.open(centerDataModal, { centered: true, size: 'lg'});
+    }
+
+    centerModalPrint(centerDataModal: any, data: CustomersModel) {
+      //console.log(data)
+      this.userPrint = data;
+      console.log(this.userPrint)
       this.modalService.open(centerDataModal, { centered: true, size: 'lg'});
     }
 
@@ -402,7 +410,7 @@ export class ListCustomersComponent implements OnInit {
           text: 'Paciente:', style: 'subtitle'
         },
 
-        'Renzo Alessandro Sucari Velasquez',
+        this.userPrint.nombres + ' ' + this.userPrint.apellidos,
 
         {
           text: [,

@@ -49,13 +49,6 @@
                                     <input id="userpassword" type="password" placeholder="Contraseña" required="" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" formControlName="{{this.password}}">
                                 </div>
 
-                                <div class="form-group mb-3">
-                                    <!-- <label class="control-label">Sede:</label> -->
-                                    <ng-select [items]="listSedes" formControlName="sede" placeholder="Seleccione la sede" bindValue="id_sede"
-                                    bindLabel="nombre_sede" class="">
-                                    </ng-select>
-                                </div>
-
                                 <div class="custom-control custom-checkbox mb-3">
                                     <a routerLink="/pages/recoverpwd-1" class="text-muted">¿Olvidaste tu contraseña?</a>
                                 </div>
