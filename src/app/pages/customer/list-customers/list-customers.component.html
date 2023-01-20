@@ -178,12 +178,12 @@
             <hr class="my-1">
 
             <div class="row">
-              <div class="col-sm-6">
+              <div class="col-12">
                 <div class="text-muted">
                   <h5 class="font-size-16 mb-3">Paciente:</h5>
                   <h5 class="font-size-15 mb-2">{{userPrint.nombres}} {{userPrint.apellidos}}</h5>
-                  <li class="list-inline-item"><span class="fw-medium">Fecha de Nacimiento : </span>14 Feb, 1996</li>
-                  <li class="list-inline-item"><span class="fw-medium">Telefono: </span>983 720 159</li>
+                  <li class="list-inline-item"><span class="fw-medium">Fecha de Nacimiento : </span>{{userPrint.fecha_nacimiento | date: 'dd/MM/yyyy'}}</li><br>
+                  <li class="list-inline-item"><span class="fw-medium">Telefono: </span>{{userPrint.telefono}}</li>
                 </div>
               </div>
             </div>
@@ -207,18 +207,18 @@
                       <tbody>
                         <tr>
                           <th scope="row">O.D.</th>
-                          <td>60.00</td>
-                          <td>30.00</td>
-                          <td>59.00</td>
-                          <td>30.00</td>
+                          <td>{{userPrint.medidas[0].od_esferico}}</td>
+                          <td>{{userPrint.medidas[0].od_cilindrico}}</td>
+                          <td>{{userPrint.medidas[0].od_eje}}</td>
+                          <td>{{userPrint.medidas[0].dip}}</td>
                         </tr>
 
                         <tr>
                           <th scope="row">O.I.</th>
-                          <td>60.00</td>
-                          <td>30.00</td>
-                          <td>59.00</td>
-                          <td>30.00</td>
+                          <td>{{userPrint.medidas[0].oi_esferico}}</td>
+                          <td>{{userPrint.medidas[0].oi_cilindrico}}</td>
+                          <td>{{userPrint.medidas[0].oi_eje}}</td>
+                          <td>{{userPrint.medidas[0].dip}}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -235,7 +235,7 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <td class="text-center">5.00</td>
+                          <td class="text-center">{{userPrint.medidas[0].add}}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -247,12 +247,9 @@
                   <div class="text-muted">
                     <div class="mt-4">
                       <h4 class="card-title">Encargado Medición:</h4>
-                      <p class="card-title-desc">Dr. Jose Luis Valencia Rodrigues</p>
-                      <h4 class="card-title">Observaciones:</h4>
-                      <p class="card-title-desc">Lorem Ipsum es simplemente el texto de relleno de las imprentas y
-                        archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el
-                        año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una
-                        galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. </p>
+                      <p class="card-title-desc">{{userPrint.medidas[0].encargado}}</p>
+                      <h4 class="card-title">Antecedentes:</h4>
+                      <p class="card-title-desc">{{userPrint.antecedentes}}</p>
                     </div>
                   </div>
                 </div>

@@ -90,11 +90,12 @@
                 style="border-spacing: 0 12px; width: 100%;">
                 <thead>
                   <tr class="bg-transparent">
-                    <th scope="col" sortable="observaciones" (sort)="onSort($event)">ID Orden</th>
+                    <th scope="col" sortable="observaciones" (sort)="onSort($event)">#</th>
                     <th scope="col" sortable="id_sede" (sort)="onSort($event)">Fecha</th>
                     <th scope="col" sortable="" (sort)="onSort($event)">Nombre del Cliente</th>
                     <th scope="col" sortable="" (sort)="onSort($event)">Total</th>
                     <th scope="col" sortable="" (sort)="onSort($event)">Estado de Pago</th>
+                    <th scope="col" sortable="pdf" (sort)="onSort($event)">Descargar Pdf</th>
                     <th style="width: 170px;">Action</th>
                   </tr>
                 </thead>
@@ -130,6 +131,11 @@
                     </td>
                     <td *ngIf="data.tipo_venta[0].deuda == 0">
                       <span class="text-success">Pagado</span>
+                    </td>
+                    <td>
+                      <div>
+                        <button class="btn btn-light btn-sm w-xs">Pdf <i class="uil uil-download-alt ms-2"></i></button>
+                      </div>
                     </td>
                     <td>
                       <a (click)="centerModalActualizar(centerDataModalActualizarVenta)" class="px-3 text-primary"
