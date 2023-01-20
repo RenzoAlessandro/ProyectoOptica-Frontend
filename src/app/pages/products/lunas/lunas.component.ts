@@ -22,7 +22,7 @@ import Swal from 'sweetalert2';
   selector: 'app-lunas',
   templateUrl: './lunas.component.html',
   styleUrls: ['./lunas.component.scss'],
-  providers: [CustomerService, DecimalPipe]
+  providers: [CustomerService, DecimalPipe],
 })
 export class LunasComponent implements OnInit {
 
@@ -55,6 +55,8 @@ export class LunasComponent implements OnInit {
   // bread crumb items
   breadCrumbItems: Array<{}>;
   term: any;
+
+  role = "Admin"; 
 
   lunas$: Observable<LunasModel[]>;
   total$: Observable<number>;

@@ -214,9 +214,13 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
    * Initialize
    */
   initialize(): void {
-    this.menuItems = MENU;
+    //this.menuItems = MENU;
+    this.menuItems = this.filterMenubyRole(MENU, 'Admin');
   }
 
+  filterMenubyRole( menus: MenuItem[], role: string): MenuItem[] {
+    return menus.filter(res => (res.role == role))
+  }
   /**
    * Returns true or false if given menu item has child or not
    * @param item menuItem
