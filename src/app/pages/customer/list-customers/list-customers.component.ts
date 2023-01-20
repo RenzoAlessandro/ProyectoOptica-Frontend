@@ -160,6 +160,8 @@ export class ListCustomersComponent implements OnInit {
   }
 
   closeEventModal() {
+    this.userPrint = {} as CustomersModel;
+    console.log(this.userPrint)
     this.modalService.dismissAll();
   }
   /**

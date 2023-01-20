@@ -19,6 +19,7 @@ import { DropzoneModule, DROPZONE_CONFIG } from "ngx-dropzone-wrapper";
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { NgxDropzoneModule } from "ngx-dropzone";
 import { BarcodeGeneratorAllModule } from "@syncfusion/ej2-angular-barcode-generator";
+import { RoleDirective } from "src/app/directives/role.directive";
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -27,7 +28,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
 @NgModule({
     // tslint:disable-next-line: max-line-length
-    declarations: [AddProductComponent, LunasComponent, MonturasComponent, AccesoriosComponent, NgbdSortableHeader, UpdateExcelComponent],
+    declarations: [AddProductComponent, LunasComponent, MonturasComponent, AccesoriosComponent, NgbdSortableHeader, UpdateExcelComponent, RoleDirective],
     imports: [
       ProductsRoutingModule,
       CommonModule,

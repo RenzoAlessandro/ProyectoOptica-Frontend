@@ -60,7 +60,7 @@
                   <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th>
                   <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de Ingreso</th>
                   <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
-                  <th>Acción</th>
+                  <th *appRole="role">Acción</th>
                 </tr>
               </thead>
               <tbody>
@@ -104,10 +104,10 @@
                     </td> -->
                   <td>
                     <a (click)="openModalEtiqueta(centerModalEIL)" class="px-2 text-success" placement="top"
-                      ngbTooltip="Etiqueta"><i class="uil-tag-alt font-size-18"></i></a>
+                      ngbTooltip="Etiqueta"><i class="uil-tag-alt font-size-18" *appRole="role" ></i></a>
                     <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top"
-                      ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
-                    <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar" (click)="eliminar(data)"><i
+                      ngbTooltip="Editar"><i class="uil uil-pen font-size-18" *appRole="role"></i></a>
+                    <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar" (click)="eliminar(data)" *appRole="role"><i
                         class="uil uil-trash-alt font-size-18"></i></a>
                   </td>
                 </tr>

@@ -54,11 +54,13 @@ export const MENU: MenuItem[] = [
             }, 
         ],
         link: '/users',
+        role: 'Admin'
     },
     {
         id: 9,
         label: 'MENUITEMS.PRODUCTS.TEXT',
         icon: 'uil-box',
+        role: 'Admin',
         subItems: [
             {
                 id: 10,
@@ -138,6 +140,7 @@ export const MENU: MenuItem[] = [
         label: 'MENUITEMS.CASHREGISTER.TEXT',
         icon: 'uil-money-bill-stack',
         link: '/cash-register',
+        role: 'Admin'
     },
     /* {
         id: 3,
