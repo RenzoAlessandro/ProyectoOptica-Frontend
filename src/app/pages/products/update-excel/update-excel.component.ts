@@ -28,6 +28,7 @@ export class UpdateExcelComponent implements OnInit {
 
   files: File[] = [];
   errorImagen = "";
+  message: string;
 
   listProductos = [
     {
@@ -47,7 +48,7 @@ export class UpdateExcelComponent implements OnInit {
     private productoService: ProductosService
   ) { }
 
-  message: string
+  
 
   ngOnInit() {
     this.getListSedes();
@@ -77,6 +78,7 @@ export class UpdateExcelComponent implements OnInit {
   }
 
   exportarProductos() {
+    Sweetalert("loading", "Cargando...");
     if (this.formExportar.valid) {
       let productName = '';
       switch (this.f('producto').value) {
@@ -93,34 +95,42 @@ export class UpdateExcelComponent implements OnInit {
           break;
       }
       this.productoService.getProductosbySede(this.f('sede').value, productName).subscribe(res => {
+        Sweetalert("close",null);
         const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
         const EXCEL_EXTENSION = '.xlsx';
-        let data = res.map(productos => {
-          return {
-            "ID MONTURA" : productos.id_montura,
-            "PRECIO COMPRA": productos.precio_montura_c,
-            "PRECIO VENTA": productos.precio_montura_v,
-            "TALLA": productos.talla,
-            "CODIGO INTERNO": productos.codigo_interno,
-            "CODIGO": productos.codigo,
-            "MARCA": productos.marca,
-            "CANTIDAD":productos.cantidad,
-            "COLOR":productos.color,
-            "MATERIAL":productos.material,
-            "TIPO":productos.tipo
+        if(res.length == 0) {
+          Sweetalert("success","No existen productos");
+        } else {
+          let data = res.map(productos => {
+            return {
+              "ID MONTURA" : productos.id_montura,
+              "PRECIO COMPRA": productos.precio_montura_c,
+              "PRECIO VENTA": productos.precio_montura_v,
+              "TALLA": productos.talla,
+              "CODIGO INTERNO": productos.codigo_interno,
+              "CODIGO": productos.codigo,
+              "MARCA": productos.marca,
+              "CANTIDAD":productos.cantidad,
+              "COLOR":productos.color,
+              "MATERIAL":productos.material,
+              "TIPO":productos.tipo
+            }
+          })
+          const worksheet = XLSX.utils.json_to_sheet(data);
+          const workbook = {
+            Sheets: {
+              'hoja': worksheet
+            },
+            SheetNames: ['hoja']
           }
-        })
-        const worksheet = XLSX.utils.json_to_sheet(data);
-        const workbook = {
-          Sheets: {
-            'hoja': worksheet
-          },
-          SheetNames: ['hoja']
+  
+          const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+          const blobData = new Blob([excelBuffer], { type: EXCEL_TYPE });
+          const nombreSede = this.listSedes.find(res=> (res.id_sede==this.f('sede').value));
+          console.log(nombreSede);
+          saveFile(blobData, productName);
         }
-
-        const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-        const blobData = new Blob([excelBuffer], { type: EXCEL_TYPE });
-        saveFile(blobData, productName);
+        
       })
 
 

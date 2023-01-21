@@ -7,6 +7,7 @@ import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { TranslateService } from '@ngx-translate/core';
 import { EventService } from '../../core/services/event.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -23,12 +24,14 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   @Output() mobileMenuButtonClicked = new EventEmitter();
 
   menu: any;
-
+  role: string;
   menuItems = [];
   @ViewChild('sideMenu') sideMenu: ElementRef;
   @ViewChild('componentRef') scrollRef;
 
-  constructor(private eventService: EventService, private router: Router, public translate: TranslateService) {
+  constructor(
+    private eventService: EventService, private router: Router, public translate: TranslateService,
+    private usuarioService: UsuarioService) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
         this._activateMenuDropdown();
@@ -39,9 +42,11 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
 
 
   ngOnInit() {
+    this.role = this.usuarioService.getRole();
     this.initialize();
     this._scrollElement();
     document.body.setAttribute('data-sidebar', 'light');
+    
   }
   /**
    * Change the layout onclick
@@ -215,11 +220,17 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
    */
   initialize(): void {
     //this.menuItems = MENU;
-    this.menuItems = this.filterMenubyRole(MENU, 'Admin');
+    this.menuItems = this.filterMenubyRole(MENU, this.role);
   }
 
   filterMenubyRole( menus: MenuItem[], role: string): MenuItem[] {
-    return menus.filter(res => (res.role == role))
+    let menuTmp = []
+    for (const menu of menus) {
+      if (menu.role.some(el =>(el == role))) {
+        menuTmp.push(menu)
+      }
+    }
+   return menuTmp
   }
   /**
    * Returns true or false if given menu item has child or not

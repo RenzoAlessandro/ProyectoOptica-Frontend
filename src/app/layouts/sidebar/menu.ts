@@ -4,7 +4,8 @@ export const MENU: MenuItem[] = [
     {
         id: 1,
         label: 'MENUITEMS.MENU.TEXT',
-        isTitle: true
+        isTitle: true,
+        role: ['Admin','Vendedor']
     },
     {
         id: 2,
@@ -15,7 +16,7 @@ export const MENU: MenuItem[] = [
             text: '01', //'MENUITEMS.DASHBOARDS.BADGE',
         },
         link: '/dashboard',
-        role: 'Admin'
+        role: ['Admin']
     },
     {
         id: 3,
@@ -35,7 +36,7 @@ export const MENU: MenuItem[] = [
                 parentId: 3
             }, 
         ],
-        role: 'Admin'
+        role: ['Admin']
     },
     {
         id: 6,
@@ -56,13 +57,13 @@ export const MENU: MenuItem[] = [
             }, 
         ],
         link: '/users',
-        role: 'Admin'
+        role: ['Admin']
     },
     {
         id: 9,
         label: 'MENUITEMS.PRODUCTS.TEXT',
         icon: 'uil-box',
-        role: 'Admin',
+        role: ['Admin','Vendedor'],
         subItems: [
             {
                 id: 10,
@@ -116,7 +117,7 @@ export const MENU: MenuItem[] = [
             },
         ],
         link: '/store',
-        role: 'Admin'
+        role: ['Admin']
     },
     {
         id: 18,
@@ -137,14 +138,14 @@ export const MENU: MenuItem[] = [
             },
         ],
         link: '/sale',
-        role: 'Admin'
+        role: ['Admin','Vendedor']
     },
     {
         id: 21,
         label: 'MENUITEMS.CASHREGISTER.TEXT',
         icon: 'uil-money-bill-stack',
         link: '/cash-register',
-        role: 'Admin'
+        role: ['Admin','Vendedor']
     },
     /* {
         id: 3,
