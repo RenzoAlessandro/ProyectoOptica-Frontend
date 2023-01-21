@@ -29,130 +29,6 @@
     </div>
   </div>
 
-<!--   <div class="row mb-4">
-    <div class="col-xl-12">
-      <div class="card mb-0">
-        <ul ngbNav #justifiednav="ngbNav" [activeId]="active" class="nav nav-tabs nav-justified nav-tabs-custom"
-          (navChange)="selectorProducts($event)">
-          <li [ngbNavItem]="1" class="nav-item">
-            <a ngbNavLink class="nav-link">
-              <i class="uil uil-nerd font-size-20"></i>
-              <span class="d-none d-sm-block">Montura</span>
-            </a>
-            <ng-template ngbNavContent>
-              <ng-template [ngTemplateOutlet]="TabContentAbout"></ng-template>
-            </ng-template>
-          </li>
-          <li [ngbNavItem]="2" class="nav-item">
-            <a ngbNavLink class="nav-link">
-              <i class="uil uil-panorama-h-alt font-size-20"></i>
-              <span class="d-none d-sm-block">Luna</span>
-            </a>
-            <ng-template ngbNavContent>
-              <ng-template [ngTemplateOutlet]="TabContentTasks"></ng-template>
-            </ng-template>
-          </li>
-          <li [ngbNavItem]="3" class="nav-item">
-            <a ngbNavLink class="nav-link">
-              <i class="uil uil-box font-size-20"></i>
-              <span class="d-none d-sm-block">Accesorio</span>
-            </a>
-            <ng-template ngbNavContent>
-              <ng-template [ngTemplateOutlet]="TabContentMessages"></ng-template>
-            </ng-template>
-          </li>
-        </ul>
-        <div [ngbNavOutlet]="justifiednav"></div>
-      </div>
-
-      <ng-template #TabContentAbout>
-        <div class="tab-content p-4">
-          <div class="tab-pane active">
-            <div>
-              <div class="row">
-                <div class="col-sm-12 col-md-12 search-box chat-search-box">
-                  <div class="position-relative">
-                    <ng-autocomplete [data]="listMonturas" [searchKeyword]="keyword" placeholder="Buscar Montura"
-                      (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)'
-                      (inputFocused)='onFocused($event)' historyIdentifier="" [itemTemplate]="itemTemplate"
-                      [notFoundTemplate]="notFoundTemplate">
-                    </ng-autocomplete>
-
-                    <ng-template #itemTemplate let-item>
-                      <a [innerHTML]="item.marca"></a>
-                    </ng-template>
-
-                    <ng-template #notFoundTemplate let-notFound>
-                      <div [innerHTML]="notFound"></div>
-                    </ng-template>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-template>
-
-      <ng-template #TabContentTasks>
-        <div class="tab-content p-4">
-          <div class="tab-pane active">
-            <div>
-              <div class="row">
-
-                <div class="col-sm-12 col-md-12 search-box chat-search-box">
-                  <div class="position-relative">
-                    <ng-autocomplete [data]="listLunas" [searchKeyword]="keyword" placeholder="Buscar Lunas"
-                      (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
-                      (inputFocused)='onFocused($event)' historyIdentifier="" [itemTemplate]="itemTemplate"
-                      [notFoundTemplate]="notFoundTemplate">
-                    </ng-autocomplete>
-
-                    <ng-template #itemTemplate let-item>
-                      <a [innerHTML]="item.material"></a>
-                    </ng-template>
-
-                    <ng-template #notFoundTemplate let-notFound>
-                      <div [innerHTML]="notFound"></div>
-                    </ng-template>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-template>
-
-      <ng-template #TabContentMessages>
-        <div class="tab-content p-4">
-          <div class="tab-pane active">
-            <div>
-              <div class="row">
-                <div class="col-sm-12 col-md-12 search-box chat-search-box">
-                  <div class="position-relative">
-                    <ng-autocomplete [data]="listAccesorios" [searchKeyword]="keyword" placeholder="Buscar Accesorios"
-                      (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
-                      (inputFocused)='onFocused($event)' historyIdentifier="" [itemTemplate]="itemTemplate"
-                      [notFoundTemplate]="notFoundTemplate">
-                    </ng-autocomplete>
-
-                    <ng-template #itemTemplate let-item>
-                      <a [innerHTML]="item.nombre_accesorio"></a>
-                    </ng-template>
-
-                    <ng-template #notFoundTemplate let-notFound>
-                      <div [innerHTML]="notFound"></div>
-                    </ng-template>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-template>
-    </div>
-  </div> -->
-
-
   <div class="row mb-4">
     <h4>Total de la Venta: PEN {{getTotalCost()|currency:'S/.'}}</h4>
   </div>
@@ -236,6 +112,10 @@
     <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="centerModal(centerDataModalGuardar2,products)" [disabled]="!btnGuardar"> 
       <i class="uil uil-shopping-cart-alt mt-2 me-1"></i>
       Guardar
+    </button>
+    <button type="submit" class="btn btn-primary ms-1" id="btn-save-event" (click)="createPDF()"> 
+      <i class="uil uil-shopping-cart-alt mt-2 me-1"></i>
+      PDF
     </button>
   </div>
 </div>

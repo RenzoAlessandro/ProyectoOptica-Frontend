@@ -16,6 +16,8 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
+import { getBase64ImageFromURL } from 'src/utils/functions';
+
 @Component({
   selector: 'app-list-customers',
   templateUrl: './list-customers.component.html',
@@ -356,32 +358,6 @@ export class ListCustomersComponent implements OnInit {
     return this.formCustomer.controls;
   }
 
-  getBase64ImageFromURL(url) {
-    return new Promise((resolve, reject) => {
-      var img = new Image();
-      img.setAttribute("crossOrigin", "anonymous");
-
-      img.onload = () => {
-        var canvas = document.createElement("canvas");
-        canvas.width = img.width;
-        canvas.height = img.height;
-
-        var ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0);
-
-        var dataURL = canvas.toDataURL("image/png");
-
-        resolve(dataURL);
-      };
-
-      img.onerror = error => {
-        reject(error);
-      };
-
-      img.src = url;
-    });
-  }
-
   async createPDF(){
     var fonts = {
       Roboto: {
@@ -405,7 +381,7 @@ export class ListCustomersComponent implements OnInit {
           table: {
             widths: ['*', '*'],
             body: [
-              [{ image: await this.getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 130, rowSpan: 4 }, { text: 'Nº de Receta:', style: 'tableHeader', alignment: 'right' }],
+              [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 130, rowSpan: 4 }, { text: 'Nº de Receta:', style: 'tableHeader', alignment: 'right' }],
               [{ }, { text: '#MN0131', alignment: 'right' }],
               [{ }, { text: 'Fecha de la Receta:', style: 'tableHeader', alignment: 'right' }],
               [{ }, { text: fecha_hoy, alignment: 'right' }],

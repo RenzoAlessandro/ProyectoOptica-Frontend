@@ -17,7 +17,12 @@ import { ClienteService } from 'src/app/services/cliente.service';
 
 import Swal from 'sweetalert2';
 import { Sweetalert } from 'src/utils/sweetalert';
-//import { MessageService } from 'primeng';
+
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+import { getBase64ImageFromURL } from 'src/utils/functions';
 
 @Component({
   selector: 'app-add-sale',
@@ -488,10 +493,10 @@ export class AddSaleComponent implements OnInit {
           
           this.productosService.createVenta(this.venta).subscribe(res => {
             console.log("Guardando venta");
+            this.createPDF();
             Sweetalert("close", null);
             Sweetalert("success", "Venta realizada");
             this.modalService.dismissAll();
-            
           },
             (error) => {
               Sweetalert("close", null);
@@ -512,6 +517,168 @@ export class AddSaleComponent implements OnInit {
           
         }
       });
+  }
+
+
+  async createPDF(){
+    var fonts = {
+      Roboto: {
+        normal: 'fonts/Roboto-Regular.ttf',
+        bold: 'fonts/Roboto-Medium.ttf',
+        italics: 'fonts/Roboto-Italic.ttf',
+        bolditalics: 'fonts/Roboto-MediumItalic.ttf'
+      },
+    };
+
+    var fecha_hoy = new Date (Date.now()).toLocaleDateString('en-GB');
+    var simboloNuevoSol = 'S/. ';
+    var numeroBoleta = '#MN0131';
+
+    var direccionEmpresa = 'Calle Santa Marta 218, Arequipa';
+    var correoEmpresa = 'raulcg1234@hotmail.com ';
+    var felefonoEmpresa = '955 739 464';
+
+    var nombresCliente = 'Renzo Alessando';
+    var apellidosCliente = 'Sucari Velasques';
+    var fnacimientoCliente = '14/02/96';
+    var direccionCliente = 'Calle Leticia 104, Carmen Alto Cayma, Arequipa';
+    var correoCliente = 'renzo.sucari@gmail.com';
+    var telefonoCliente = '983 720 150';
+    
+    const pdfDefinition: any = {
+      pageSize: 'A4',
+      //pageOrientation: 'landscape',
+      pageMargins: [ 40, 60, 40, 60 ],
+      content: [
+        {
+          style: 'tableMargin',
+          table: {
+            widths: ['*', '*'],
+            body: [
+              [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150 }, { text: 'Nº de Boleta: #MN0131', style: 'tableHeader', rowSpan: 4, alignment: 'right' }],
+              [{ text: direccionEmpresa  }, {}],
+              [{ text: correoEmpresa  }, {}],
+              [{ text: felefonoEmpresa  }, {}],
+            ]
+          },
+          layout: 'noBorders'
+        },
+
+        {
+          style: 'tableMargin',
+          table: {
+            widths: ['*', '*'],
+            body: [
+              [{ text: 'Facturado a:', style: 'tableHeader' }, { text: 'Nº de Boleta:', style: 'tableHeader', alignment: 'right' }],
+              [{ text: nombresCliente + ' ' + apellidosCliente, style: 'subtitulo' }, {text: numeroBoleta, style: 'contenido', alignment: 'right'}],
+              [{ text: 'Fecha de Nacimiento: '+fnacimientoCliente, style: 'contenido'  }, {text: 'Fecha de la Boleta:', style: 'tableHeader', alignment: 'right'}],
+              [{ text: 'Correo: '+correoCliente, style: 'contenido' }, {text: fecha_hoy, style: 'contenido', alignment: 'right'}],
+              [{ text: 'Telefono: '+telefonoCliente, style: 'contenido'  }, { }],
+            ]
+          },
+          layout: 'noBorders'
+        },
+
+        { text: 'Resumen del pedido:', style: 'subtitulo' },
+
+        {
+          style: 'tableMargin',
+          color: '#444',
+          table: {
+            widths: [25, '*', 63, 60, 63],
+            heights: [20, 20 , 20, 20],
+            headerRows: 1,
+            // keepWithHeaderRows: 1,
+            body: [
+              [{ text: 'No.', style: 'tableHeader', alignment: 'center' }, { text: 'Detalle', style: 'tableHeader', alignment: 'center' }, { text: 'Precio', style: 'tableHeader', alignment: 'center' }, { text: 'Cantidad', style: 'tableHeader', alignment: 'center' }, { text: 'Total', style: 'tableHeader', alignment: 'center' }],
+              [{ text: '01', style: 'tableHeader', alignment: 'center' }, { text: 'Nike N012 Running Shoes', style: 'contenido', alignment: 'left' }, { text: simboloNuevoSol+'140.00', style: 'contenido', alignment: 'right' }, { text: '1', style: 'contenido', alignment: 'center' }, { text: simboloNuevoSol+'140.54', style: 'contenido', alignment: 'right' }],
+              [{ text: '02', style: 'tableHeader', alignment: 'center' }, { text: 'Adidas Running Shoes', style: 'contenido', alignment: 'left' }, { text: simboloNuevoSol+'260.54', style: 'contenido', alignment: 'right' }, { text: '1', style: 'contenido', alignment: 'center' }, { text: simboloNuevoSol+'260.56', style: 'contenido', alignment: 'right' }],
+              [{ text: '03', style: 'tableHeader', alignment: 'center' }, { text: 'Nike N012 Running Shoes', style: 'contenido', alignment: 'left' }, { text: simboloNuevoSol+'140.23', style: 'contenido', alignment: 'right' }, { text: '1', style: 'contenido', alignment: 'center' }, { text: simboloNuevoSol+'140.67', style: 'contenido', alignment: 'right' }],
+              [{ text: '04', style: 'tableHeader', alignment: 'center' }, { text: 'Adidas Running Shoes', style: 'contenido', alignment: 'left' }, { text: simboloNuevoSol+'260.00', style: 'contenido', alignment: 'right' }, { text: '1', style: 'contenido', alignment: 'center' }, { text: simboloNuevoSol+'260.12', style: 'contenido', alignment: 'right' }],
+
+              [{ text: ' ', rowSpan: 3, colSpan: 2}, { }, {text: 'Sub. Total:', style: 'tableHeader', alignment: 'right', colSpan: 2 }, { }, { text: simboloNuevoSol+'510.00', style: 'contenido', alignment: 'right' }],
+              [{ }, { }, { text: 'IGV (18%) :', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol+'13.00', style: 'contenido', alignment: 'right' }],
+              [{ }, { }, { text: 'Total:', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol+'498.00', style: 'contenido', alignment: 'right' }],
+            ]
+          }
+        },
+
+        {
+          text: [,
+            { text: 'Fecha de Entrega: ', style: 'textBold'},
+            '12/12/21', 
+            '   ', 
+            { text: 'Hora: ', style: 'textBold'},
+            '12:15 AM',
+          ]
+        },
+
+
+
+        { text: 'Nota:', style: 'subtitulo2' },
+        { text: 'Todo trabajo se efectuara con un adelanto del 50%.', style: 'contenido2', alignment: 'justify'},
+        { text: 'La empresa no se responsabiliza de los pedidos no recogidos después de un mes.', style: 'contenido2', alignment: 'justify'},
+      ],
+      styles: {
+        subtitulo: {
+          bold: true,
+          fontSize: 13,
+          color: 'black',
+          margin: [0, 10, 0, 5]
+        },
+        subtitulo2: {
+          bold: true,
+          fontSize: 10,
+          color: 'black',
+          margin: [0, 10, 0, 5]
+        },
+        contenido: {
+          fontSize: 12,
+        },
+        contenido2: {
+          fontSize: 8,
+        },
+        textBold: {
+          fontSize: 12,
+          bold: true,
+        },
+
+        header: {
+          fontSize: 17,
+          bold: true,
+          margin: [0, 0, 0, 10]
+        },
+        subheader: {
+          fontSize: 13,
+          bold: true,
+          margin: [0, 10, 0, 5]
+        },
+        subtitle: {
+          fontSize: 12,
+          bold: true,
+          margin: [0, 10, 0, 5]
+        },
+        tableMargin: {
+          margin: [0, 15, 0, 15]
+        },
+        tableOpacityExample: {
+          margin: [0, 5, 0, 15],
+          fillColor: 'blue',
+          fillOpacity: 0.3
+        },
+        tableHeader: {
+          bold: true,
+          fontSize: 13,
+          color: 'black'
+        },
+
+      },
+
+    }
+
+    const pdf = pdfMake.createPdf(pdfDefinition);
+    pdf.open();
+ 
   }
 
   
