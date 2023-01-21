@@ -23,6 +23,8 @@ import { NgbModal, NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap'
 
 export class ListSalesComponent implements OnInit {
 
+  mostrarSpinner = false;
+
   formCreditoActualizacion: FormGroup;
   submitted_CreditoActualizacion = false;
   cantidadRecibida_CreditoActualizacion: string = "campoCantidadRecibidaCreditoActualizacion";
@@ -71,6 +73,9 @@ export class ListSalesComponent implements OnInit {
     this.transactions$ = service.transactions$;
     console.log(this.transactions$)
     this.total$ = service.total$;
+    service.mostrar.subscribe(res=>{
+      this.mostrarSpinner = res;
+    })
   }
 
   ngOnInit() {

@@ -51,7 +51,7 @@ export class TransactionService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
   private _total$ = new BehaviorSubject<number>(0);
-
+  private _mostrar$ = new BehaviorSubject<boolean>(false);
   private _ventas$ = new BehaviorSubject<VentasModel[]>([]);
 
   ventaList: VentasModel[] = [];
@@ -76,6 +76,7 @@ export class TransactionService {
   get page() { return this._state.page; }
   get pageSize() { return this._state.pageSize; }
   get searchTerm() { return this._state.searchTerm; }
+  get mostrar() { return this._mostrar$.asObservable();}
 
   set page(page: number) { this._set({ page }); }
   set pageSize(pageSize: number) { this._set({ pageSize }); }
@@ -111,6 +112,7 @@ export class TransactionService {
     this.ventaService.getVentas().subscribe( res=>{
       this.ventaList = res;
       console.log(res);
+      this._mostrar$.next(true);
       this._search$.pipe(
         tap(() => this._loading$.next(true)),
         debounceTime(200),

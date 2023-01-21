@@ -26,6 +26,8 @@ import Swal from 'sweetalert2';
 })
 export class LunasComponent implements OnInit {
 
+  mostrarSpinner = false;
+
   @ViewChild('barcode')
    public barcode: DataMatrixGenerator;
   visibleSelection = 5;
@@ -77,6 +79,9 @@ export class LunasComponent implements OnInit {
   ) {
     this.lunas$ = service.customers$;
     this.total$ = service.total$;
+    service.mostrar.subscribe(res=>{
+      this.mostrarSpinner = res;
+    })
   }
 
   ngOnInit() {

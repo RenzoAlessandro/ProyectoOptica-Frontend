@@ -48,6 +48,7 @@ export class CustomerService {
   private _search$ = new Subject<void>();
   private _customers$ = new BehaviorSubject<LunasModel[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
+  private _mostrar$ = new BehaviorSubject<boolean>(false);
   lunasList: LunasModel[] = [];
   private _state: State = {
     page: 1,
@@ -74,6 +75,7 @@ export class CustomerService {
   get page() { return this._state.page; }
   get pageSize() { return this._state.pageSize; }
   get searchTerm() { return this._state.searchTerm; }
+  get mostrar() { return this._mostrar$.asObservable();}
 
   set page(page: number) { this._set({ page }); }
   set pageSize(pageSize: number) { this._set({ pageSize }); }
@@ -114,6 +116,7 @@ export class CustomerService {
       this.lunasList.forEach(elem => {
         Object.assign(elem,propiedad)
       })
+      this._mostrar$.next(true);
       console.log(this.lunasList)
       this._search$.pipe(
         tap(() => this._loading$.next(true)),

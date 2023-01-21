@@ -21,6 +21,8 @@ import { Options } from 'ng5-slider';
   providers: [CustomerService, DecimalPipe]
 })
 export class MonturasComponent implements OnInit {
+  
+  mostrarSpinner = false;
 
   visibleSelection = 5;
   visibleBarOptions: Options = {
@@ -72,6 +74,9 @@ export class MonturasComponent implements OnInit {
     ) {
     this.monturas$ = service.customers$;
     this.total$ = service.total$;
+    service.mostrar.subscribe(res=>{
+      this.mostrarSpinner = res;
+    })
   }
 
   ngOnInit() {
