@@ -24,6 +24,8 @@ import { Options } from 'ng5-slider';
 })
 export class AccesoriosComponent implements OnInit {
 
+  mostrar = false;
+
   visibleSelection = 5;
   visibleBarOptions: Options = {
     floor: 0,
