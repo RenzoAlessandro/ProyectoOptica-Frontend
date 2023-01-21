@@ -104,6 +104,11 @@ export class UsuarioService {
     return this.roleAs;
   }
 
+  getSedebyUser() {
+    const user = localStorage.getItem('user');
+    return JSON.parse(user).id_sede;
+  }
+
   getUser() {
     const user = localStorage.getItem('user');
     this.usuario = JSON.parse(user);
