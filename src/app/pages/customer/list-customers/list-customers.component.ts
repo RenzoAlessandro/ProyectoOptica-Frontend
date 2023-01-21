@@ -1,5 +1,5 @@
 import { DecimalPipe,formatDate } from '@angular/common';
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnChanges, OnInit, QueryList, SimpleChanges, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
@@ -87,6 +87,10 @@ export class ListCustomersComponent implements OnInit {
     private customerService: ClienteService) {
     this.customers$ = service.customers$;
     this.total$ = service.total$;
+    service.mostrar.subscribe(res=>{
+      this.mostrar = res;
+    })
+    console.log(this.mostrar)
   }
 
   ngOnInit() {

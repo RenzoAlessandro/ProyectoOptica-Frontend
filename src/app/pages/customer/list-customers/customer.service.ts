@@ -50,6 +50,7 @@ export class CustomerService {
   private _search$ = new Subject<void>();
   private _customers$ = new BehaviorSubject<CustomersModel[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
+  private _mostrar$ = new BehaviorSubject<boolean>(false);
   customerList: CustomersModel[] = [];
   private _state: State = {
     page: 1,
@@ -77,6 +78,7 @@ export class CustomerService {
   get page() { return this._state.page; }
   get pageSize() { return this._state.pageSize; }
   get searchTerm() { return this._state.searchTerm; }
+  get mostrar() { return this._mostrar$.asObservable();}
 
   set page(page: number) { this._set({ page }); }
   set pageSize(pageSize: number) { this._set({ pageSize }); }
@@ -111,6 +113,7 @@ export class CustomerService {
     this.customerService.getAllClients().subscribe( res=>{
       console.log("entre..")
       this.customerList = res;
+      this._mostrar$.next(true);
       this._search$.pipe(
         tap(() => this._loading$.next(true)),
         debounceTime(200),
