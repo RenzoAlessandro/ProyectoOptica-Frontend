@@ -22,6 +22,8 @@ import Swal from 'sweetalert2';
   providers: [CustomerService, DecimalPipe]
 })
 export class ListUsersComponent implements OnInit {
+    mostrar = false;
+
     // modal
     editEvent: any;
     formUser: FormGroup;

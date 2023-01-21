@@ -24,6 +24,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class ListCustomersComponent implements OnInit {
 
+  mostrar = false;
+
   // modal
   editEvent: any;
   formCustomer: FormGroup;
