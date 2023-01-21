@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ProductosService } from 'src/app/services/productos.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 import { AccesorioModel } from 'src/models/accesorio';
 import { LunasModel } from 'src/models/lunas';
 import { MonturasModel } from 'src/models/monturas';
 import { Sweetalert } from '../../../../utils/sweetalert';
+
 
 @Component({
   selector: 'app-add-product',
@@ -58,7 +60,8 @@ export class AddProductComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private productosService: ProductosService) { }
+    private productosService: ProductosService,
+    private userService: UsuarioService) { }
 
   ngOnInit(): void {
     this.breadCrumbItems = [{ label: 'Productos' }, { label: 'Añadir Productos', active: true }];
@@ -172,7 +175,7 @@ export class AddProductComponent implements OnInit {
       this.accesorios.precio_accesorio_v = Number(this.fA(this.precio_venta_accesorio).value);
       this.accesorios.precio_accesorio_c = Number(this.fA(this.precio_compra_accesorio).value);
       this.accesorios.fecha_modificacion_accesorio = new Date(Date.now());
-      this.accesorios.id_sede = "por confirmar";
+      this.accesorios.id_sede = this.userService.getSedebyUser();
       this.accesorios.habilitado = true;
       this.accesorios.tipo = "accesorio";
       console.log(this.accesorios);
@@ -192,7 +195,7 @@ export class AddProductComponent implements OnInit {
       this.lunas.fecha_creacion_luna = new Date(Date.now());
       this.lunas.fecha_modificacion_luna = new Date(Date.now())
       this.lunas.cantidad = Number(this.fL(this.cantidad_luna).value);
-      this.lunas.id_sede = "por confirmar";
+      this.lunas.id_sede = this.userService.getSedebyUser();
       this.lunas.habilitado = true;
       this.lunas.tipo = "luna";
       console.log(this.lunas);
@@ -216,7 +219,7 @@ export class AddProductComponent implements OnInit {
       this.monturas.fecha_creacion_monturas = new Date(Date.now());
       this.monturas.fecha_modificacion_monturas = new Date(Date.now())
       this.monturas.cantidad = Number(this.fM(this.cantidad_montura).value);
-      this.monturas.id_sede = "por confirmar";
+      this.monturas.id_sede = this.userService.getSedebyUser();
       this.monturas.habilitado = true;
       this.monturas.tipo = "montura";
       console.log(this.monturas);
