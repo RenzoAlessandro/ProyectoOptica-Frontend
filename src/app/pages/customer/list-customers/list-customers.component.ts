@@ -139,7 +139,7 @@ export class ListCustomersComponent implements OnInit {
       //console.log(data)
       this.userPrint = data;
       console.log(this.userPrint)
-      this.modalService.open(centerDataModal, { centered: true, size: 'lg'});
+      this.modalService.open(centerDataModal, { scrollable: true, centered: true, size: 'lg'});
     }
 
     /**
@@ -390,30 +390,33 @@ export class ListCustomersComponent implements OnInit {
       },
       
     };
-    var fecha_nacimiento = new Date (this.userPrint.fecha_nacimiento).toLocaleDateString('en-GB')
+    var fecha_nacimiento = new Date (this.userPrint.fecha_nacimiento).toLocaleDateString('en-GB');
+    var fecha_hoy = new Date (Date.now()).toLocaleDateString('en-GB');
     
-
     const pdfDefinition: any = {
+      pageSize: 'A5',
+      //pageOrientation: 'landscape',
+      pageMargins: [ 40, 60, 40, 60 ],
       content: [
         {
           style: 'tableExample',
           table: {
             widths: ['*', '*'],
             body: [
-              [{ image: await this.getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150, rowSpan: 4 }, { text: 'Nº de Receta:', style: 'tableHeader', alignment: 'right' }],
+              [{ image: await this.getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 130, rowSpan: 4 }, { text: 'Nº de Receta:', style: 'tableHeader', alignment: 'right' }],
               [{ }, { text: '#MN0131', alignment: 'right' }],
               [{ }, { text: 'Fecha de la Receta:', style: 'tableHeader', alignment: 'right' }],
-              [{ }, { text: '15 Dic, 2022', alignment: 'right' }],
+              [{ }, { text: fecha_hoy, alignment: 'right' }],
             ]
           },
           layout: 'noBorders'
         },
 
         { 
-          text: 'Paciente:', style: 'subtitle'
+          text: 'Paciente:', style: 'subtitulo'
         },
 
-        this.userPrint.nombres + ' ' + this.userPrint.apellidos,
+        { text: this.userPrint.nombres + ' ' + this.userPrint.apellidos, style: 'contenido' },
 
         {
           text: [,
@@ -430,7 +433,7 @@ export class ListCustomersComponent implements OnInit {
         },
 
         {
-          style: 'tableExample',
+          style: 'tableMargin',
           color: '#444',
           table: {
             widths: ['*', '*', '*', '*', '*', 100],
@@ -445,28 +448,54 @@ export class ListCustomersComponent implements OnInit {
             ]
           }
         },
-        { text: 'Encargado Medición:', style: 'subtitle' },
-        this.userPrint.medidas[0].encargado,
-        { text: 'Antecedentes:', style: 'subtitle' },
-        { text: this.userPrint.antecedentes, alignment: 'justify'},
+        { text: 'Encargado Medición:', style: 'subtitulo' },
+        { text: this.userPrint.medidas[0].encargado, style: 'contenido'},
+        { text: 'Antecedentes:', style: 'subtitulo' },
+        { text: this.userPrint.antecedentes, style: 'contenido', alignment: 'justify'},
+        { text: 'Recomendaciones:', style: 'subtitulo2' },
+        { text: 'Al empezar a usar los nuevos lentes, es de esperar ciertas incomodidades; ejemplo enturbamiento en la visión a distancia, elevación o inclinacion del nivel del piso, ligera sensación de mareo, que luego desaparece.', style: 'contenido2', alignment: 'justify'},
+        { text: 'Acuda personalmente donde el óptico, para un correcto montaje de sus lentes. Vuelva al optómetra para verificar la correcta preparación de sus lentes.', style: 'contenido2', alignment: 'justify'},
       ],
       styles: {
+        subtitulo: {
+          bold: true,
+          fontSize: 13,
+          color: 'black',
+          margin: [0, 10, 0, 5]
+        },
+        subtitulo2: {
+          bold: true,
+          fontSize: 10,
+          color: 'black',
+          margin: [0, 10, 0, 5]
+        },
+        contenido: {
+          fontSize: 12,
+        },
+        contenido2: {
+          fontSize: 8,
+        },
+        textBold: {
+          fontSize: 12,
+          bold: true,
+        },
+
         header: {
-          fontSize: 18,
+          fontSize: 17,
           bold: true,
           margin: [0, 0, 0, 10]
         },
         subheader: {
-          fontSize: 16,
+          fontSize: 13,
           bold: true,
           margin: [0, 10, 0, 5]
         },
         subtitle: {
-          fontSize: 14,
+          fontSize: 12,
           bold: true,
           margin: [0, 10, 0, 5]
         },
-        tableExample: {
+        tableMargin: {
           margin: [0, 15, 0, 15]
         },
         tableOpacityExample: {
@@ -479,9 +508,7 @@ export class ListCustomersComponent implements OnInit {
           fontSize: 13,
           color: 'black'
         },
-        textBold: {
-          bold: true,
-        }
+
       },
 
     }
