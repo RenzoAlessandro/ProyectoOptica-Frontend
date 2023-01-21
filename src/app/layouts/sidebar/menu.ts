@@ -15,6 +15,7 @@ export const MENU: MenuItem[] = [
             text: '01', //'MENUITEMS.DASHBOARDS.BADGE',
         },
         link: '/dashboard',
+        role: 'Admin'
     },
     {
         id: 3,
@@ -34,6 +35,7 @@ export const MENU: MenuItem[] = [
                 parentId: 3
             }, 
         ],
+        role: 'Admin'
     },
     {
         id: 6,
@@ -114,6 +116,7 @@ export const MENU: MenuItem[] = [
             },
         ],
         link: '/store',
+        role: 'Admin'
     },
     {
         id: 18,
@@ -134,6 +137,7 @@ export const MENU: MenuItem[] = [
             },
         ],
         link: '/sale',
+        role: 'Admin'
     },
     {
         id: 21,
