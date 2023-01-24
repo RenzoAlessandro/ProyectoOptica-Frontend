@@ -22,14 +22,12 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { DashboardsModule } from './dashboards/dashboards.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CashRegisterModule } from './cash/cash-register.module';
-
-import { LoaderService } from '../core/services/loader.service';
+import { HomeModule } from './home/home.module';
 
 import { CalendarComponent } from './calendar/calendar.component';
 import { ChatComponent } from './chat/chat.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -54,6 +52,7 @@ FullCalendarModule.registerPlugins([
     ReactiveFormsModule,
     DashboardsModule,
     CashRegisterModule,
+    HomeModule,
     HttpClientModule,
     FullCalendarModule,
     NgbNavModule,
