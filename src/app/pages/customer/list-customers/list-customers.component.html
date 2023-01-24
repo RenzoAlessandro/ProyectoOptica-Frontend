@@ -5,19 +5,19 @@
   <div class="row mt-2 mb-2">
     <div class="col-sm-12 col-md-8 justify-content-start">
       <div class="row mb-2">
-        <div class="col-8 search-box chat-search-box">
+        <div class="col-md-8 search-box chat-search-box">
           <div class="position-relative">
             <input type="text" class="form-control border-light rounded" placeholder="Buscar cliente" name="searchTerm"
               aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
             <i class="uil uil-search search-icon"></i>
           </div>
         </div>
-        <div class="col-4">
+<!--         <div class="col-4">
           <div class="btn-group text-md-start">
             <button type="button" class="btn btn-primary"><i class="uil uil-import" ngbTooltip="Exportar"></i></button>
             <button type="button" class="btn btn-primary"><i class="uil uil-export" ngbTooltip="Importar"></i></button>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="col-sm-12 col-md-4 text-md-end">
@@ -48,7 +48,7 @@
                         <label class="form-check-label" for="customercheck"></label>
                       </div>
                     </th> -->
-                  <th scope="col" sortable="id" (sort)="onSort($event)">#</th>
+                  <th scope="col" sortable="id" (sort)="onSort($event)">Ord.</th>
                   <th scope="col" sortable="nombres" (sort)="onSort($event)">Nombres</th>
                   <th scope="col" sortable="apellidos" (sort)="onSort($event)">Apellidos</th>
                   <th scope="col" sortable="dni" (sort)="onSort($event)">DNI</th>

@@ -45,7 +45,14 @@
               <form (ngSubmit)="saveEvent()" [formGroup]="formMonturas">
                 <p class="card-title-desc text-danger">* Campo requerido</p> 
                 <div class="row">
-                  <div class="col-12 col-sm-6">
+                  <div class="col-12 col-sm-3">
+                    <div class="mb-3">
+                      <label class="control-label">Orden</label>
+                      <input class="form-control" placeholder="N. Orden" type="text" name="title"
+                        formControlName="{{this.orden_montura}}" />
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-3">
                     <div class="mb-3">
                       <label class="control-label">Fecha</label>
                       <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
@@ -123,7 +130,7 @@
                 <div class="row">
                   <div class="col-12 col-sm-4">
                     <div class="mb-3">
-                      <label class="control-label">Cantidad *</label>
+                      <label class="control-label">Stock *</label>
                       <input class="form-control" placeholder="Cantidad" type="text" name="title"
                         formControlName="{{this.cantidad_montura}}" [ngClass]="{'is-invalid': formM.campoCantidadMontura.invalid && (formM.campoCantidadMontura.dirty || formM.campoCantidadMontura.touched)}"/>
                       <div class="invalid-feedback">
@@ -186,7 +193,14 @@
               <form (ngSubmit)="saveEvent()" [formGroup]="formLunas">
                 <p class="card-title-desc text-danger">* Campo requerido</p> 
                 <div class="row">
-                  <div class="col-12 col-sm-6">
+                  <div class="col-12 col-sm-3">
+                    <div class="mb-3">
+                      <label class="control-label">Orden</label>
+                      <input class="form-control" placeholder="N. Orden" type="text" name="title"
+                        formControlName="{{this.orden_luna}}" />
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-3">
                     <div class="mb-3">
                       <label class="control-label">Fecha</label>
                       <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
@@ -211,7 +225,7 @@
                 <div class="row">
                   <div class="col-12 col-sm-4">
                     <div class="mb-3">
-                      <label class="control-label">Cantidad *</label>
+                      <label class="control-label">Stock *</label>
                       <input class="form-control" placeholder="Cantidad" type="text" name="title"
                         formControlName="{{this.cantidad_luna}}" [ngClass]="{'is-invalid': formL.campoCantidadLuna.invalid && (formL.campoCantidadLuna.dirty || formL.campoCantidadLuna.touched)}"/>
                       <div class="invalid-feedback">
@@ -274,7 +288,14 @@
               <form (ngSubmit)="saveEvent()" [formGroup]="formAccesorios">
                 <p class="card-title-desc text-danger">* Campo requerido</p> 
                 <div class="row">
-                  <div class="col-12 col-sm-6">
+                  <div class="col-12 col-sm-3">
+                    <div class="mb-3">
+                      <label class="control-label">Orden</label>
+                      <input class="form-control" placeholder="N. Orden" type="text" name="title"
+                        formControlName="{{this.orden_accesorio}}" />
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-3">
                     <div class="mb-3">
                       <label class="control-label">Fecha</label>
                       <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
@@ -299,7 +320,7 @@
                 <div class="row">
                   <div class="col-12 col-sm-4">
                     <div class="mb-3">
-                      <label class="control-label">Cantidad *</label>
+                      <label class="control-label">Stock *</label>
                       <input class="form-control" placeholder="Cantidad" type="text" name="cantidad"
                         formControlName="{{this.cantidad_accesorio}}" [ngClass]="{'is-invalid': formA.campoCantidadAccesorio.invalid && (formA.campoCantidadAccesorio.dirty || formA.campoCantidadAccesorio.touched)}"/>
                       <div class="invalid-feedback">

@@ -167,10 +167,18 @@ export class MonturasComponent implements OnInit {
 
   /**
    * Open scroll modal
-   * @param scrollDataModal scroll modal data
+   * @param openScrollDataModalEtiquetas scroll modal data
    */
-  openScrollModal(scrollDataModal: any) {
-    this.modalService.open(scrollDataModal, { scrollable: true });
+  openScrollModalEtiquetas(openScrollDataModalEtiquetas: any) {
+    this.modalService.open(openScrollDataModalEtiquetas, { windowClass:'modal-holder', centered: true, scrollable: true });
+  }
+
+  /**
+   * Open scroll modal
+   * @param openScrollDataModalInventario scroll modal data
+   */
+  openScrollModalInventario(openScrollDataModalInventario: any) {
+    this.modalService.open(openScrollDataModalInventario, { size: 'xl', windowClass:'modal-holder', centered: true, scrollable: true });
   }
 
   /**
