@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import { DecimalPipe } from '@angular/common';
@@ -72,11 +72,10 @@ export class AddSaleComponent implements OnInit {
   total$: Observable<number>;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
-  listMonturas: any;
-  listAccesorios: any;
-  listLunas: any;
+  @ViewChild('autocomplete') autocomplete;
+  listAllProducts: Array<any>;
   active = 1;
-  keyword = "marca";
+  keyword = "codigo_interno";
   keywordCliente = "nombres_apellidos";
   products: any = [];
   precioTotalVenta: number;
@@ -186,23 +185,25 @@ export class AddSaleComponent implements OnInit {
     ]
   };
   getListMonturas() {
-    this.productosService.getMonturas().subscribe(res => {
-      this.listMonturas = res;
-      console.log("monturas", this.listMonturas);
+    this.productosService.getMonturasforSale().subscribe(res => {
+      this.listAllProducts = res;
+      console.log("monturas", this.listAllProducts);
+      this.getListAccesorios()
     });
   }
 
   getListAccesorios() {
-    this.productosService.getAccesorios().subscribe(res => {
-      this.listAccesorios = res;
-      console.log("accesorios", this.listAccesorios);
+    this.productosService.getAccesoriosforSale().subscribe(res => {
+      this.listAllProducts = [...res,...this.listAllProducts];
+      console.log("accesorios", this.listAllProducts);
+      this.getListLunas()
     });
   }
 
   getListLunas() {
-    this.productosService.getLunas().subscribe(res => {
-      this.listLunas = res;
-      console.log("lunas", this.listLunas);
+    this.productosService.getLunasforSale().subscribe(res => {
+      this.listAllProducts = [...res,...this.listAllProducts];
+      console.log("lunas", this.listAllProducts);
     });
   }
 
@@ -249,12 +250,15 @@ export class AddSaleComponent implements OnInit {
     switch (item.tipo) {
       case 'montura':
         this.products.push({ ...item, num: 1, precio: item.precio_montura_v });
+        this.autocomplete.clear();
         break;
       case 'luna':
         this.products.push({ ...item, num: 1, precio: item.precio_luna_v });
+        this.autocomplete.clear();
         break;
       case 'accesorio':
         this.products.push({ ...item, num: 1, precio: item.precio_accesorio_v });
+        this.autocomplete.clear();
         break;
       default:
         break;
@@ -292,20 +296,27 @@ export class AddSaleComponent implements OnInit {
   /** actualiza el precio por cantidad */
   addQuantityProduct(product, i) {
     console.log(this.products)
-    this.products[i].num += 1;
-    switch (this.products[i].tipo) {
-      case 'montura':
-        this.products[i].precio = this.products[i].precio_montura_v * this.products[i].num;
-        break;
-      case 'luna':
-        this.products[i].precio = this.products[i].precio_luna_v * this.products[i].num;
-        break;
-      case 'accesorio':
-        this.products[i].precio = this.products[i].precio_accesorio_v * this.products[i].num;
-        break;
-      default:
-        break;
+   
+    if (this.products[i].num < this.products[i].cantidad) {
+      Sweetalert("error", "No se puede agregar más productos del stock");
+      return;
+    } else {
+      this.products[i].num += 1;
+      switch (this.products[i].tipo) {
+        case 'montura':
+          this.products[i].precio = this.products[i].precio_montura_v * this.products[i].num;
+          break;
+        case 'luna':
+          this.products[i].precio = this.products[i].precio_luna_v * this.products[i].num;
+          break;
+        case 'accesorio':
+          this.products[i].precio = this.products[i].precio_accesorio_v * this.products[i].num;
+          break;
+        default:
+          break;
+      }
     }
+    
 
   }
 

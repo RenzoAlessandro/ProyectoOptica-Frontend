@@ -8,14 +8,14 @@
           <!-- Search -->
           <div class="col-sm-12 col-md-12 search-box chat-search-box">
             <div class="position-relative">
-              <ng-autocomplete [data]="listMonturas" [searchKeyword]="keyword" placeholder="Buscar Montura"
+              <ng-autocomplete #autocomplete [data]="listAllProducts" [searchKeyword]="keyword" placeholder="Buscar productos"
                 (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)'
                 (inputFocused)='onFocused($event)' historyIdentifier="" [itemTemplate]="itemTemplate"
-                [notFoundTemplate]="notFoundTemplate">
+                [notFoundTemplate]="notFoundTemplate" (keyup.enter)="selectEvent($event)" focusFirst="true">
               </ng-autocomplete>
 
               <ng-template #itemTemplate let-item>
-                <a [innerHTML]="item.marca"></a>
+                <a [innerHTML]="item.codigo_interno"></a>
               </ng-template>
 
               <ng-template #notFoundTemplate let-notFound>
