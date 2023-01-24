@@ -7,6 +7,7 @@ import { ChatComponent } from './chat/chat.component';
 import { CashRegisterComponent } from './cash/cash-register/cash-register.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from '../core/guards/auth.guard';
+import { DefaultHomeComponent } from './home/default-home/default-home.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,9 @@ const routes: Routes = [
   }  },
   { path: 'sale', loadChildren: () => import('./sale/sale.module').then(m => m.SaleModule), canActivate: [AuthGuard]  },
   { path: 'cash-register', component: CashRegisterComponent, canActivate: [AuthGuard],data: {
+    role: ['Vendedor','Admin'],
+  }  },
+  { path: 'home', component: DefaultHomeComponent, canActivate: [AuthGuard],data: {
     role: ['Vendedor','Admin'],
   }  },
 

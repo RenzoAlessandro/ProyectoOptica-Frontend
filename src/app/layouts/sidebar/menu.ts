@@ -147,6 +147,15 @@ export const MENU: MenuItem[] = [
         link: '/cash-register',
         role: ['Admin','Vendedor']
     },
+
+    {
+        id: 22,
+        label: 'MENUITEMS.HOME.TEXT',
+        icon: 'uil-home-alt',
+        link: '/home',
+        role: ['Admin','Vendedor']
+    },
+
     /* {
         id: 3,
         isLayout: true

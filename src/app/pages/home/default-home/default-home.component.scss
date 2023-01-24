@@ -1,0 +1,72 @@
+.direct-access-box{
+    border: 1px solid;
+    border-color:gray;
+    transition: all 0.4s;
+    overflow: hidden;
+    margin-top: 20px;
+    background-color: white;
+    cursor: pointer;
+    
+    &:hover{
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+        .direct-access-content{
+            transform: translateY(-10px);
+        }
+    }
+}
+
+.direct-access-img{
+    width: 50%;
+    height: auto;
+    /* position: relative; */
+    margin: 0px auto;
+    
+    .direct-access-ribbon{
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        padding: 6px 8px;
+    }
+        
+}
+
+$theme-colors-2: ();
+// stylelint-disable-next-line scss/dollar-variable-default
+$theme-colors-2: map-merge(
+  (
+    "uno":    #5b73e8,
+    "dos":  #564ab1,
+    "tres":    #6f42c1,
+    "cuatro":       #e83e8c,
+    "cinco":    #f46a6a,
+    "seis":     #f1734f,
+    "siete":       #f1b44c,
+    "ocho":      #34c38f,
+    "nueve":       #050505,
+    "dies":     #50a5f1,
+  ),
+  $theme-colors-2
+);
+
+@each $color,
+$value in $theme-colors-2 {
+    .icon-color-access-#{$color} {
+        color: $value !important;
+    }
+}
+
+@each $color,
+$value in $theme-colors-2 {
+    .bg-soft-access-#{$color} {
+        background-color: rgba(($value), 0.25) !important;
+    }
+}
+
+@each $color,
+$value in $theme-colors-2 {
+    .bg-gradient-access-#{$color} {
+        background: linear-gradient( to bottom, ($value), rgba(($value), 0.5))!important;
+
+    }
+}
