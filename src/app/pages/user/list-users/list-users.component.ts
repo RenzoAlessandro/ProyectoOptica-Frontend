@@ -22,7 +22,8 @@ import Swal from 'sweetalert2';
   providers: [CustomerService, DecimalPipe]
 })
 export class ListUsersComponent implements OnInit {
-    mostrar = false;
+
+    mostrarSpinner = false;
 
     // modal
     editEvent: any;
@@ -70,6 +71,10 @@ export class ListUsersComponent implements OnInit {
     ) {
     this.customers$ = service.customers$;
     this.total$ = service.total$;
+    service.mostrar.subscribe(res=>{
+      this.mostrarSpinner = res;
+    })
+    console.log(this.mostrarSpinner)
   }
 
   ngOnInit() {

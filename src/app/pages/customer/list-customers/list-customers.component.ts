@@ -26,7 +26,7 @@ import { getBase64ImageFromURL } from 'src/utils/functions';
 })
 export class ListCustomersComponent implements OnInit {
 
-  mostrar = false;
+  mostrarSpinner = false;
 
   // modal
   editEvent: any;
@@ -88,9 +88,9 @@ export class ListCustomersComponent implements OnInit {
     this.customers$ = service.customers$;
     this.total$ = service.total$;
     service.mostrar.subscribe(res=>{
-      this.mostrar = res;
+      this.mostrarSpinner = res;
     })
-    console.log(this.mostrar)
+    console.log(this.mostrarSpinner)
   }
 
   ngOnInit() {

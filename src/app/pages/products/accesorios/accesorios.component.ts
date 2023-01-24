@@ -24,7 +24,7 @@ import { Options } from 'ng5-slider';
 })
 export class AccesoriosComponent implements OnInit {
 
-  mostrar = false;
+  mostrarSpinner = false;
 
   visibleSelection = 5;
   visibleBarOptions: Options = {
@@ -74,6 +74,9 @@ export class AccesoriosComponent implements OnInit {
   ) {
     this.accesorios$ = service.customers$;
     this.total$ = service.total$;
+    service.mostrar.subscribe(res=>{
+      this.mostrarSpinner = res;
+    })
   }
 
   ngOnInit() {
