@@ -1,4 +1,5 @@
 export class MonturasModel {
+    num_orden: number;
     id_montura?: string;
     isSelected: boolean;
     material: string;

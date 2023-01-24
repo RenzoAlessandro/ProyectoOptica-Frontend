@@ -1,3 +1,4 @@
+import * as moment from "moment";
 
 export function getBase64ImageFromURL(url) {
     return new Promise((resolve, reject) => {
@@ -24,3 +25,11 @@ export function getBase64ImageFromURL(url) {
       img.src = url;
     });
   }
+
+export function stringToDate(fecha: string):Date {
+  const [day, month, year] = fecha.split('/');
+  const date = new Date(+year, +month - 1, +day);
+  console.log(date)
+  //const date = moment("DD/MM/YYYY").toDate();
+  return date
+}
