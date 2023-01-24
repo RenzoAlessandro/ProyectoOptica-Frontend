@@ -98,7 +98,7 @@
             </form>
           </div>
           <div class="text-center mt-4">
-            <button type="button" class="btn btn-primary" (click)="uploadFile()">Subir Archivo</button>
+            <button type="button" class="btn btn-primary" (click)="uploadFile()" [disabled]="!filebutton">Subir Archivo</button>
           </div>
         </div>
       </div>

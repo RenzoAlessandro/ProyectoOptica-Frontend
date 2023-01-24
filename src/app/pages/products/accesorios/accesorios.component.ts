@@ -135,7 +135,7 @@ export class AccesoriosComponent implements OnInit {
    */
   centerModal(centerDataModal: any, data: AccesorioModel) {
     this.f(this.nombre_accesorio).setValue(data.nombre_accesorio);
-    this.f(this.codigo_accesorio).setValue(data.codigo);
+    //this.f(this.codigo_accesorio).setValue(data.codigo);
     this.f(this.cantidad_accesorio).setValue(data.cantidad);
     this.f(this.precio_compra_accesorio).setValue(data.precio_accesorio_c);
     this.f(this.precio_venta_accesorio).setValue(data.precio_accesorio_v);
@@ -228,7 +228,7 @@ export class AccesoriosComponent implements OnInit {
   guardarAccesorio() {
     if (this.formAccesorios.valid) {
       this.accesorio.nombre_accesorio = this.f(this.nombre_accesorio).value;
-      this.accesorio.codigo = this.f(this.codigo_accesorio).value;
+      //this.accesorio.codigo = this.f(this.codigo_accesorio).value;
       this.accesorio.cantidad = Number(this.f(this.cantidad_accesorio).value);
       this.accesorio.precio_accesorio_c = Number(this.f(this.precio_compra_accesorio).value);
       this.accesorio.precio_accesorio_v = Number(this.f(this.precio_venta_accesorio).value);
