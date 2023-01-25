@@ -66,7 +66,8 @@ export class MonturasComponent implements OnInit {
 
   montura = new MonturasModel;
   checkedMonturasList = [];
-
+  keyword = "codigo_interno";
+  listMonturas: Array<MonturasModel>;
   constructor(public service: CustomerService,
     private monturaService: ProductosService,
     private modalService: NgbModal,
@@ -83,6 +84,9 @@ export class MonturasComponent implements OnInit {
   ngOnInit() {
     this.crearFormulario();
     this.breadCrumbItems = [{ label: 'Productos' }, { label: 'Lista de Monturas', active: true }];
+    this.service.customers$.subscribe(res=> {
+      this.listMonturas = res;
+    })
   }
 
   crearFormulario() {
@@ -359,4 +363,14 @@ export class MonturasComponent implements OnInit {
     }); 
   }
 
+
+  selectEvent(item: any) { }
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e) {
+    // do something
+  }
 }

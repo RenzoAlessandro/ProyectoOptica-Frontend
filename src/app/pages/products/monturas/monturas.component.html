@@ -435,11 +435,11 @@
                 <ng-autocomplete [data]="listMonturas" [searchKeyword]="keyword" placeholder="Buscar Montura"
                   (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)'
                   (inputFocused)='onFocused($event)' historyIdentifier="" [itemTemplate]="itemTemplate"
-                  [notFoundTemplate]="notFoundTemplate">
+                  [notFoundTemplate]="notFoundTemplate" (keyup.enter)="selectEvent($event)" focusFirst="true">
                 </ng-autocomplete>
   
                 <ng-template #itemTemplate let-item>
-                  <a [innerHTML]="item.marca"></a>
+                  <a [innerHTML]="item.codigo_interno"></a>
                 </ng-template>
   
                 <ng-template #notFoundTemplate let-notFound>
