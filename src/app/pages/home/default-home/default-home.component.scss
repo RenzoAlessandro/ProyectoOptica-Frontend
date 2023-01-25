@@ -18,9 +18,11 @@
     
     &:hover{
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        transition: box-shadow 0.4s ease-in-out;
 
         .direct-access-content-2{
             transform: translateY(-10px);
+            transition: transform 0.4s ease-in-out;
         }
     }
 }
