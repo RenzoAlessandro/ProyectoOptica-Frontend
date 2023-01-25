@@ -13,6 +13,9 @@ import Swal from 'sweetalert2';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Options } from 'ng5-slider';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { SedeService } from 'src/app/services/sede.service';
+import { SedesModel } from 'src/models/sedes';
 
 @Component({
   selector: 'app-monturas',
@@ -68,11 +71,13 @@ export class MonturasComponent implements OnInit {
   checkedMonturasList = [];
   keyword = "codigo_interno";
   listMonturas: Array<MonturasModel>;
+  listSedes: Array<SedesModel>;
   constructor(public service: CustomerService,
     private monturaService: ProductosService,
     private modalService: NgbModal,
     private fb: FormBuilder,
-    private productosService: ProductosService,
+    private usuarioService: UsuarioService,
+    private sedeService: SedeService,
     ) {
     this.monturas$ = service.customers$;
     this.total$ = service.total$;
@@ -87,6 +92,7 @@ export class MonturasComponent implements OnInit {
     this.service.customers$.subscribe(res=> {
       this.listMonturas = res;
     })
+    this.getListSedes();
   }
 
   crearFormulario() {
@@ -162,6 +168,11 @@ export class MonturasComponent implements OnInit {
     this.modalService.open(centerDataModal, { centered: true, windowClass: 'modal-holder' });
   }
 
+  getListSedes() {
+    this.sedeService.getSedes().subscribe(res => {
+      this.listSedes = res;
+    });
+  }
   /**
    * Open Large modal
    * @param openDataModal large modal data
@@ -348,8 +359,10 @@ export class MonturasComponent implements OnInit {
 		//var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
     var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)
     console.log(totalPDFPages)
+    
     html2canvas(DATA).then((canvas) => {
-
+      const nombreSede = this.listSedes.find(res => (res.id_sede == this.usuarioService.getSedebyUser()));
+      console.log(nombreSede)
       var imgData = canvas.toDataURL("image/jpeg", 1.0);
 			var pdf = new jsPDF('l', 'in',  [PDF_Width, PDF_Height]);
 		  pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
@@ -359,7 +372,7 @@ export class MonturasComponent implements OnInit {
 				pdf.addPage([PDF_Width, PDF_Height]);
 				pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
 			}
-			pdf.save("HTML-Document.pdf");
+			pdf.save("Monturas_"+nombreSede.nombre_sede+".pdf");
     }); 
   }
 
