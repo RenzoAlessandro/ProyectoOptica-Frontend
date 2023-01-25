@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { accesosModel , accesosList} from './product.model';
+import { accesosModel , accesosList} from './accesos.model';
 
 @Component({
   selector: 'app-default-home',

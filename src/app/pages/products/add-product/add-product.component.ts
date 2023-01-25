@@ -18,6 +18,7 @@ export class AddProductComponent implements OnInit {
   submitted = false;
 
   formMonturas: FormGroup;
+  orden_montura: string = "campoOrdenMontura";
   material_montura: string = "campoMaterialMontura";
   marca_montura: string = "campoMarcaMontura";
   talla_montura: string = "campoTallaMontura";
@@ -30,6 +31,7 @@ export class AddProductComponent implements OnInit {
   fecha_modificacion_montura: string = "campoFechaModificacionMontura";
 
   formLunas: FormGroup;
+  orden_luna: string = "campoOrdenLuna";
   material_luna: string = "campoMaterialLuna";;
   cantidad_luna: string = "campoCantidadLuna";
   precio_compra_luna: string = "campoCompraLuna";
@@ -38,6 +40,7 @@ export class AddProductComponent implements OnInit {
   fecha_modificacion_luna: string = "campoFechaModificacionLuna";
 
   formAccesorios: FormGroup;
+  orden_accesorio: string = "campoOrdenAccesorio";
   nombre_accesorio: string = "campoNombreAccesorio";
   cantidad_accesorio: string = "campoCantidadAccesorio";
   precio_compra_accesorio: string = "campoCompraAccesorio";
@@ -72,6 +75,9 @@ export class AddProductComponent implements OnInit {
   crearFormulario() {
     this.fecha_actual = new Date(Date.now());
     this.formMonturas = this.fb.group({
+
+      [this.orden_montura]:[{value:'123456789', disabled:true}],
+
       [this.material_montura]:[null, [
         Validators.required
       ]],
@@ -86,7 +92,7 @@ export class AddProductComponent implements OnInit {
         Validators.pattern(this.lettersPattern)
       ]],
       [this.codigo_montura]:[null, [
-        Validators.required
+        Validators.required,
       ]],
       [this.cantidad_montura]:[null, [
         Validators.required,
@@ -105,6 +111,9 @@ export class AddProductComponent implements OnInit {
     })
 
     this.formLunas = this.fb.group({
+
+      [this.orden_luna]:[{value:'123456789', disabled:true}],
+
       [this.material_luna]:[null, [
         Validators.required
       ]],
@@ -125,6 +134,9 @@ export class AddProductComponent implements OnInit {
     })
 
     this.formAccesorios = this.fb.group({
+
+      [this.orden_accesorio]:[{value:'123456789', disabled:true}],
+
       [this.nombre_accesorio]:[null, [
         Validators.required
       ]],
