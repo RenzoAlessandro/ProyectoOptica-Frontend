@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-xl-3 col-sm-6" *ngFor="let accesos of accesosDirectos">
           <div class="card text-center direct-access-box-2">
-            <div class="card-body" [routerLink]="['/ecommerce/product-detail', accesos.id]">
+            <div class="card-body" [routerLink]="[accesos.link]">
                 <div class="mb-4">
                     <i class="uil {{accesos.icono[0]}} me-1 icon-color-access-{{accesos.icono[1]}}" style="font-size: 6em;"></i>
                 </div>   
