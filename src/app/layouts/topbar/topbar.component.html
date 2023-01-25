@@ -243,7 +243,14 @@
 
       <div class="dropdown d-inline-block" ngbDropdown>
         <button type="button" class="btn header-item waves-effect" ngbDropdownToggle id="page-header-user-dropdown">
-          <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-2.jpg" alt="Header Avatar">
+<!--           <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-2.jpg" alt="Header Avatar">
+ -->
+          <div class="avatar-xs d-inline-block me-2">
+            <span class="avatar-title rounded-circle bg-light text-body">
+              {{usuario.nombres.charAt(0)}}
+            </span>
+          </div> 
+          
           <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">{{usuario.nombres}} {{usuario.apellidos}}</span>
           <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
         </button>
@@ -253,11 +260,11 @@
             <i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i>
             <span class="align-middle">{{ 'HEADER.LOGIN.PROFILE' | translate}}</span>
           </a>
-          <a class="dropdown-item d-block" href="javascript: void(0);">
+<!--           <a class="dropdown-item d-block" href="javascript: void(0);">
             <i class="uil uil-cog font-size-18 align-middle me-1 text-muted"></i>
             <span class="align-middle">{{ 'HEADER.LOGIN.SETTINGS' | translate}}</span>
             <span class="badge badge-soft-success badge-pill mt-1 ms-2">03</span>
-          </a>
+          </a> -->
           <a class="dropdown-item" (click)="logout()">
             <i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i>
             <span class="align-middle">{{ 'HEADER.LOGIN.LOGOUT' | translate}}</span>

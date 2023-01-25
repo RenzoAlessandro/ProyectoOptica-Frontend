@@ -76,8 +76,10 @@ export class AddProductComponent implements OnInit {
     this.fecha_actual = new Date(Date.now());
     this.formMonturas = this.fb.group({
 
-      [this.orden_montura]:[{value:'123456789', disabled:true}],
-
+      [this.orden_montura]:[null,[
+        Validators.required,
+        Validators.pattern(this.numberPattern)
+      ]],
       [this.material_montura]:[null, [
         Validators.required
       ]],
@@ -112,8 +114,10 @@ export class AddProductComponent implements OnInit {
 
     this.formLunas = this.fb.group({
 
-      [this.orden_luna]:[{value:'123456789', disabled:true}],
-
+      [this.orden_luna]:[null,[
+        Validators.required,
+        Validators.pattern(this.numberPattern)
+      ]],
       [this.material_luna]:[null, [
         Validators.required
       ]],
@@ -135,8 +139,10 @@ export class AddProductComponent implements OnInit {
 
     this.formAccesorios = this.fb.group({
 
-      [this.orden_accesorio]:[{value:'123456789', disabled:true}],
-
+      [this.orden_accesorio]:[null,[
+        Validators.required,
+        Validators.pattern(this.numberPattern)
+      ]],
       [this.nombre_accesorio]:[null, [
         Validators.required
       ]],
