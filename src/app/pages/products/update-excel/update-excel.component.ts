@@ -284,9 +284,9 @@ export class UpdateExcelComponent implements OnInit {
             precio_montura_c: isNaN(Number(element['PRECIO COMPRA'])) ? 0: Number(element['PRECIO COMPRA']) ,
             precio_montura_v: isNaN(Number(element['PRECIO VENTA'])) ? 0: Number(element['PRECIO VENTA']),
             cantidad: isNaN(Number(element.CANTIDAD)) ? 0 : Number(element.CANTIDAD),
-            id_sede: this.usuarioService.getSedebyUser(),
+            id_sede: element.SEDE,
             habilitado: true,
-            fecha_creacion_monturas: stringToDate(element['FECHA CREACION']),
+            fecha_creacion_monturas: stringToDate(element['FECHA INGRESO']),
             fecha_modificacion_monturas: new Date(Date.now()),
           }
         })
@@ -302,9 +302,9 @@ export class UpdateExcelComponent implements OnInit {
               precio_luna_c: isNaN(Number(element['PRECIO COMPRA'])) ? 0: Number(element['PRECIO COMPRA']) ,
               precio_luna_v: isNaN(Number(element['PRECIO VENTA'])) ? 0: Number(element['PRECIO VENTA']),
               cantidad: isNaN(Number(element.CANTIDAD)) ? 0 : Number(element.CANTIDAD),
-              id_sede: this.usuarioService.getSedebyUser(),
+              id_sede: element.SEDE,
               habilitado: true,
-              fecha_creacion_luna: stringToDate(element['FECHA CREACION']),
+              fecha_creacion_luna: stringToDate(element['FECHA INGRESO']),
               fecha_modificacion_luna: new Date(Date.now()),
             }
           })
@@ -319,10 +319,10 @@ export class UpdateExcelComponent implements OnInit {
               nombre_accesorio: element['NOMBRE ACCESORIO'],
               precio_accesorio_c: isNaN(Number(element['PRECIO COMPRA'])) ? 0: Number(element['PRECIO COMPRA']) ,
               precio_accesorio_v: isNaN(Number(element['PRECIO VENTA'])) ? 0: Number(element['PRECIO VENTA']),
-              fecha_creacion_accesorio: stringToDate(element['FECHA CREACION']),
+              fecha_creacion_accesorio: stringToDate(element['FECHA INGRESO']),
               fecha_modificacion_accesorio: new Date(Date.now()),
               cantidad: isNaN(Number(element.CANTIDAD)) ? 0 : Number(element.CANTIDAD),
-              id_sede: this.usuarioService.getSedebyUser(),
+              id_sede: element.SEDE,
               habilitado: true,
             }
           })

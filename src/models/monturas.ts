@@ -7,6 +7,7 @@ export class MonturasModel {
     talla: string;
     color: string;
     codigo: string;
+    codigo_interno: string;
     precio_montura_c: number;
     precio_montura_v: number;
     fecha_creacion_monturas: Date;
