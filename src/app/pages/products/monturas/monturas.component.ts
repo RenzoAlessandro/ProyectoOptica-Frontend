@@ -65,7 +65,7 @@ export class MonturasComponent implements OnInit {
   lettersPattern = '[a-zA-Z ]*';
 
   montura = new MonturasModel;
-  checkedMonturasList: any;
+  checkedMonturasList = [];
 
   constructor(public service: CustomerService,
     private monturaService: ProductosService,
@@ -282,6 +282,10 @@ export class MonturasComponent implements OnInit {
     return this.formMontura.controls;
   }
 
+  loadPage(event:any) {
+    this.isMasterSel = false;
+  }
+
   checkUncheckAll(){
     console.log(this.isMasterSel)
     this.monturas$.forEach(element => {
@@ -304,12 +308,9 @@ export class MonturasComponent implements OnInit {
      
     }); 
     console.log(this.checkedMonturasList)
-    //this.checkedMonturasList = JSON.stringify(this.checkedMonturasList); 
-    
   }
 
   isAllSelected() {
-    
     this.monturas$.forEach(element =>{
       this.isMasterSel = element.every(function(item:any) {
         return item.isSelected == true;
