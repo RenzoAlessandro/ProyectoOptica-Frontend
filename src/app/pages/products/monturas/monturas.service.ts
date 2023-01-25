@@ -113,9 +113,7 @@ export class CustomerService {
    getListMonturas() {
     this.monturasService.getMonturas().subscribe( res=>{
       console.log(res)
-      this.monturasList = res.filter(el => {
-        el.id_sede = this.usuarioService.getSedebyUser();
-      });
+      this.monturasList = res.filter(el => (el.id_sede == this.usuarioService.getSedebyUser()));
       const propiedad = {
         isSelected: false
       }
