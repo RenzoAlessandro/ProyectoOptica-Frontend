@@ -19,7 +19,7 @@
         <div>
           <div class="btn-toolbar" role="toolbar">
             <div class="col-6 d-grid">
-              <button type="button" class="btn btn-success btn-block me-1" (click)="openScrollModalEtiquetas(scrollDataModalEGM)">
+              <button type="button" class="btn btn-success btn-block me-1" (click)="openScrollModalEtiquetas(scrollDataModalEGM)" [disabled]="this.checkedMonturasList.length==0">
                   <i class="uil uil-tag-alt me-2"></i> Etiquetas
               </button>
             </div>
@@ -169,7 +169,7 @@
         <!-- Pagination -->
         <div class="col-12">
           <div class="text-md-end float-md-end pagination-rounded">
-            <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+            <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
             </ngb-pagination>
           </div>
         </div>
@@ -432,11 +432,11 @@
                 <ng-autocomplete [data]="listMonturas" [searchKeyword]="keyword" placeholder="Buscar Montura"
                   (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)'
                   (inputFocused)='onFocused($event)' historyIdentifier="" [itemTemplate]="itemTemplate"
-                  [notFoundTemplate]="notFoundTemplate">
+                  [notFoundTemplate]="notFoundTemplate" (keyup.enter)="selectEvent($event)" focusFirst="true">
                 </ng-autocomplete>
   
                 <ng-template #itemTemplate let-item>
-                  <a [innerHTML]="item.marca"></a>
+                  <a [innerHTML]="item.codigo_interno"></a>
                 </ng-template>
   
                 <ng-template #notFoundTemplate let-notFound>

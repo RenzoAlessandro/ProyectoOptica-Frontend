@@ -5,6 +5,7 @@ import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
 import { MonturasModel } from 'src/models/monturas';
 import { ProductosService } from 'src/app/services/productos.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 interface SearchResult {
   customers: MonturasModel[];
@@ -62,7 +63,8 @@ export class CustomerService {
 
   constructor(
     private pipe: DecimalPipe,
-    private monturasService: ProductosService
+    private monturasService: ProductosService,
+    private usuarioService: UsuarioService
     ) {
     this.getListMonturas();
   }
@@ -111,7 +113,9 @@ export class CustomerService {
    getListMonturas() {
     this.monturasService.getMonturas().subscribe( res=>{
       console.log(res)
-      this.monturasList = res;
+      this.monturasList = res.filter(el => {
+        el.id_sede = this.usuarioService.getSedebyUser();
+      });
       const propiedad = {
         isSelected: false
       }

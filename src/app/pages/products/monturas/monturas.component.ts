@@ -65,8 +65,9 @@ export class MonturasComponent implements OnInit {
   lettersPattern = '[a-zA-Z ]*';
 
   montura = new MonturasModel;
-  checkedMonturasList: any;
-
+  checkedMonturasList = [];
+  keyword = "codigo_interno";
+  listMonturas: Array<MonturasModel>;
   constructor(public service: CustomerService,
     private monturaService: ProductosService,
     private modalService: NgbModal,
@@ -83,6 +84,9 @@ export class MonturasComponent implements OnInit {
   ngOnInit() {
     this.crearFormulario();
     this.breadCrumbItems = [{ label: 'Productos' }, { label: 'Lista de Monturas', active: true }];
+    this.service.customers$.subscribe(res=> {
+      this.listMonturas = res;
+    })
   }
 
   crearFormulario() {
@@ -283,6 +287,10 @@ export class MonturasComponent implements OnInit {
     return this.formMontura.controls;
   }
 
+  loadPage(event:any) {
+    this.isMasterSel = false;
+  }
+
   checkUncheckAll(){
     console.log(this.isMasterSel)
     this.monturas$.forEach(element => {
@@ -305,12 +313,9 @@ export class MonturasComponent implements OnInit {
      
     }); 
     console.log(this.checkedMonturasList)
-    //this.checkedMonturasList = JSON.stringify(this.checkedMonturasList); 
-    
   }
 
   isAllSelected() {
-    
     this.monturas$.forEach(element =>{
       this.isMasterSel = element.every(function(item:any) {
         return item.isSelected == true;
@@ -358,4 +363,14 @@ export class MonturasComponent implements OnInit {
     }); 
   }
 
+
+  selectEvent(item: any) { }
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e) {
+    // do something
+  }
 }
