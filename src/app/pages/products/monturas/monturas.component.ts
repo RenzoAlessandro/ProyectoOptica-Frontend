@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { CustomerService } from './monturas.service';
@@ -71,6 +71,7 @@ export class MonturasComponent implements OnInit {
     private monturaService: ProductosService,
     private modalService: NgbModal,
     private fb: FormBuilder,
+    private productosService: ProductosService,
     ) {
     this.monturas$ = service.customers$;
     this.total$ = service.total$;
@@ -356,4 +357,5 @@ export class MonturasComponent implements OnInit {
 			pdf.save("HTML-Document.pdf");
     }); 
   }
+
 }
