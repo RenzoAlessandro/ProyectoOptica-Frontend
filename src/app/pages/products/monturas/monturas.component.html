@@ -29,24 +29,25 @@
                   <i class="uil uil-list-ul me-2"></i> Inventario
               </button>
             </div>
-
-            <!--             <div class="btn-group me-2 mb-2 mb-sm-0" ngbDropdown>
-              <button type="button" class="btn btn-success waves-effect waves-light mb-3" (click)="openScrollModal(scrollDataModalEGM)"><i class="uil-tag-alt me-1"></i>
-                Etiquetas</button>
-            </div>
-        
-            <div class="btn-group me-2 mb-2 mb-sm-0" ngbDropdown>
-              <button type="button" class="btn btn-success waves-effect waves-light mb-3" (click)="openScrollModal(scrollDataModalEGM)"><i class="uil-tag-alt me-1"></i>
-                Inventario</button>
-            </div> -->
-            
           </div>
         </div>
     </div>
 </div>
 
 <div class="row md-2">
-  <div class="col-sm-12 col-md-12">
+  <div class="col-sm-6 col-md-6">
+    <form [formGroup]="formExportar">
+      <div class="mb-3">
+        <!-- Default dropup button -->
+        <div class="btn-group" ngbDropdown>
+          <ng-select [items]="listSedes" formControlName="sede" placeholder="Seleccione la sede" bindValue="id_sede"
+            bindLabel="nombre_sede">
+          </ng-select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-sm-6 col-md-6">
     <div class="dataTables_length text-md-end"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
           [(ngModel)]="service.pageSize"
           class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">

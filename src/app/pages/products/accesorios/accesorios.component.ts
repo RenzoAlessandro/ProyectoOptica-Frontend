@@ -16,6 +16,9 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Options } from 'ng5-slider';
 
+import { SedesModel } from 'src/models/sedes';
+import { SedeService } from 'src/app/services/sede.service';
+
 @Component({
   selector: 'app-accesorios',
   templateUrl: './accesorios.component.html',
@@ -53,6 +56,10 @@ export class AccesoriosComponent implements OnInit {
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
+  //formulario - seleccionar sede
+  formExportar: FormGroup;
+  listSedes: Array<SedesModel>;
+
   // bread crumb items
   breadCrumbItems: Array<{}>;
   term: any;
@@ -70,7 +77,8 @@ export class AccesoriosComponent implements OnInit {
     public service: CustomerService,
     private modalService: NgbModal,
     private fb: FormBuilder,
-    private accesorioService: ProductosService
+    private accesorioService: ProductosService,
+    private sedeService: SedeService
   ) {
     this.accesorios$ = service.customers$;
     this.total$ = service.total$;
@@ -80,8 +88,15 @@ export class AccesoriosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getListSedes();
     this.crearFormulario();
     this.breadCrumbItems = [{ label: 'Productos' }, { label: 'Lista de Accesorios', active: true }];
+  }
+
+  getListSedes() {
+    this.sedeService.getSedes().subscribe(res => {
+      this.listSedes = res;
+    });
   }
 
   crearFormulario() {

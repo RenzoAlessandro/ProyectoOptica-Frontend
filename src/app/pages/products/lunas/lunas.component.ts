@@ -18,6 +18,9 @@ import { Options } from 'ng5-slider';
 import { Sweetalert } from 'src/utils/sweetalert';
 import Swal from 'sweetalert2';
 
+import { SedesModel } from 'src/models/sedes';
+import { SedeService } from 'src/app/services/sede.service';
+
 @Component({
   selector: 'app-lunas',
   templateUrl: './lunas.component.html',
@@ -25,6 +28,10 @@ import Swal from 'sweetalert2';
   providers: [CustomerService, DecimalPipe],
 })
 export class LunasComponent implements OnInit {
+
+  //formulario - seleccionar sede
+  formExportar: FormGroup;
+  listSedes: Array<SedesModel>;
 
   mostrarSpinner = false;
 
@@ -75,7 +82,8 @@ export class LunasComponent implements OnInit {
     public service: CustomerService,
     private modalService: NgbModal,
     private fb: FormBuilder,
-    private lunaService: ProductosService
+    private lunaService: ProductosService,
+    private sedeService: SedeService,
   ) {
     this.lunas$ = service.customers$;
     this.total$ = service.total$;
@@ -85,8 +93,15 @@ export class LunasComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getListSedes();
     this.crearFormulario();
     this.breadCrumbItems = [{ label: 'Productos' }, { label: 'Lista de Lunas', active: true }];
+  }
+
+  getListSedes() {
+    this.sedeService.getSedes().subscribe(res => {
+      this.listSedes = res;
+    });
   }
 
   crearFormulario() {

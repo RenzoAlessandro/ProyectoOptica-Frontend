@@ -24,6 +24,9 @@ import { SedesModel } from 'src/models/sedes';
   providers: [CustomerService, DecimalPipe]
 })
 export class MonturasComponent implements OnInit {
+
+  //formulario - seleccionar sede
+  formExportar: FormGroup;
   
   mostrarSpinner = false;
 
