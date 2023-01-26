@@ -19,7 +19,7 @@
         <div>
           <div class="btn-toolbar" role="toolbar">
             <div class="col-6 d-grid">
-              <button type="button" class="btn btn-success btn-block me-1" (click)="openScrollModal(scrollDataModalEGL)">
+              <button type="button" class="btn btn-success btn-block me-1" (click)="openScrollModal(scrollDataModalEGL)" [disabled]="this.checkedLunasList.length==0">
                   <i class="uil uil-tag-alt me-2"></i> Etiquetas
               </button>
             </div>
@@ -37,17 +37,15 @@
 
 <div class="row md-2">
   <div class="col-sm-6 col-md-6">
-    <form [formGroup]="formExportar">
       <div class="mb-3">
         <!-- Default dropup button -->
         <div class="btn-group" ngbDropdown>
-          <ng-select [items]="listSedes" formControlName="sede" placeholder="Seleccione la sede" bindValue="id_sede"
+          <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
             bindLabel="nombre_sede">
           </ng-select>
         </div>
       </div>
-    </form>
-  </div>
+    </div>
   <div class="col-sm-6 col-md-6">
     <div class="dataTables_length text-md-end"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
           [(ngModel)]="service.pageSize"
@@ -156,7 +154,7 @@
         <!-- Pagination -->
         <div class="col-12">
           <div class="text-md-end float-md-end pagination-rounded">
-            <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+            <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
             </ngb-pagination>
           </div>
         </div>

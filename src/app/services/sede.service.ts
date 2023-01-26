@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { SedesModel } from 'src/models/sedes';
 
@@ -9,9 +9,12 @@ import { SedesModel } from 'src/models/sedes';
 })
 export class SedeService {
 
+  _listSedes$ = new BehaviorSubject<Array<SedesModel>>([]);
   constructor(
     private http: HttpClient
   ) { }
+
+  get listSedes$() { return this._listSedes$.asObservable();}
 
   getSedes(): Observable<any> {
     return this.http.get<any>(environment.urlBackend+'getAllSedes');

@@ -21,6 +21,7 @@ import { NgxDropzoneModule } from "ngx-dropzone";
 import { BarcodeGeneratorAllModule } from "@syncfusion/ej2-angular-barcode-generator";
 import { RoleDirective } from "src/app/directives/role.directive";
 import { AutocompleteLibModule } from "angular-ng-autocomplete";
+import { Labels } from "src/utils/labels";
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -53,6 +54,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       AutocompleteLibModule
     ],
     providers: [
+      Labels,
       {
         provide: DROPZONE_CONFIG,
         useValue: DEFAULT_DROPZONE_CONFIG
