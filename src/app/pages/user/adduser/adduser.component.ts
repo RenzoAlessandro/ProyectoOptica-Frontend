@@ -34,9 +34,18 @@ export class AdduserComponent implements OnInit {
   ];
   listSedes: SedesModel[] = [];
   user= new UsersModel;
-  lettersPattern = '[a-zA-Z ]*';
+  lettersPattern = '[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'; // Incluimos Ññ y tildes en cada vocal
   numberPattern = '^[0-9]+$|^\S*$';
-  passwordPattern = '/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/';
+
+  /* passwordPattern = '/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{6,}$/'; 
+  Una contraseña se considera válida si se cumplen todas las siguientes restricciones:
+    - Contiene al menos 6 caracteres y como máximo 20 caracteres.
+    - Contiene al menos un dígito.
+    - Contiene al menos un alfabeto en mayúsculas.
+    - Contiene al menos un alfabeto en minúsculas.
+    - Contiene al menos un carácter especial que incluye @$!%*#?&^_-  
+    - Si contiene espacio en blanco.
+  */
   fecha_actual: Date;
   constructor(
     private fb: FormBuilder,
@@ -88,15 +97,15 @@ export class AdduserComponent implements OnInit {
       sede:[],
       [this.password]:[null,[
         Validators.required,
+        Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{6,}$/),
         Validators.minLength(6),
-        Validators.maxLength(20),
-        //Validators.pattern(this.passwordPattern)
+        Validators.maxLength(20)
       ]],
       [this.repeatPassword]:[null,[
         Validators.required,
+        Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{6,}$/),
         Validators.minLength(6),
-        Validators.maxLength(20),
-        //Validators.pattern(this.passwordPattern)
+        Validators.maxLength(20)
       ]]
     },
     {

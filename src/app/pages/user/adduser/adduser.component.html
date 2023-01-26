@@ -152,9 +152,9 @@
                         <div  *ngIf="formU.campoPassword.errors?.maxlength">
                           Su contraseña debe ser menor a 20 caracteres
                         </div>
-                        <!-- <div *ngIf="formU.campoPassword.errors.pattern">
-                          Ingrese solo números
-                        </div> -->
+                        <div *ngIf="formU.campoPassword.errors?.pattern">
+                          Formato de contraseña incorrecta
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -173,9 +173,9 @@
                         <div *ngIf="formU.campoRepeatPassword.errors?.maxlength">
                           Su contraseña debe ser menor a 20 caracteres
                         </div>
-                        <!-- <div *ngIf="formU.campoRepeatPassword.errors.pattern">
-                          Ingrese solo números
-                        </div> -->
+                        <div *ngIf="formU.campoRepeatPassword.errors?.pattern">
+                          Formato de contraseña incorrecta
+                        </div>
                         <div *ngIf="formU.campoRepeatPassword.errors?.confirmedValidator">
                           Passwords did not match
                         </div>

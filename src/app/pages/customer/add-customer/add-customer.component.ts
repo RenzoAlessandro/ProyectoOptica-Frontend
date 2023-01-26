@@ -37,7 +37,7 @@ export class AddCustomerComponent implements OnInit {
   submitted = false;
   fecha_actual: Date;
 
-  lettersPattern = '[a-zA-Z ]*';
+  lettersPattern = '[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'; // Incluimos Ññ y tildes en cada vocal
   numberPattern = '^[0-9]+$|^\S*$';
   esf_cylPattern = '(^[\-+\+][0-9]{1,2})+([.][0-9]{1,2})?$'
   addPattern = '(^[\+][0-9]{1,2})+([.][0-9]{1,2})?$';

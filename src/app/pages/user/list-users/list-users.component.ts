@@ -49,7 +49,7 @@ export class ListUsersComponent implements OnInit {
     customers$: Observable<UsersModel[]>;
     total$: Observable<number>;
 
-    lettersPattern = '[a-zA-Z ]*';
+    lettersPattern = '[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'; // Incluimos Ññ y tildes en cada vocal
     numberPattern = '^[0-9]+$|^\S*$';
     passwordPattern = '/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/';
   

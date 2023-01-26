@@ -11,4 +11,5 @@ export class AccesorioModel {
     id_sede: string;
     habilitado: boolean;
     tipo: string;
+    num_orden: number;
 }
