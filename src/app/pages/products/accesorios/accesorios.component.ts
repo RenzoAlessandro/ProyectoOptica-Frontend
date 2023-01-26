@@ -69,7 +69,7 @@ export class AccesoriosComponent implements OnInit {
 
   accesorio = new AccesorioModel;
 
-  checkedAccesoriosList: any;
+  checkedAccesoriosList= [];
   accesorios$: Observable<AccesorioModel[]>;
   isMasterSel:boolean = false;
 
@@ -201,6 +201,11 @@ export class AccesoriosComponent implements OnInit {
     }
     this.submitted = true;
   }
+
+  loadPage(event:any) {
+    this.isMasterSel = false;
+  }
+
 
   eliminar(data: AccesorioModel) {
     Swal.fire({

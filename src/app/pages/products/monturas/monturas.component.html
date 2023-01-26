@@ -36,16 +36,14 @@
 
 <div class="row md-2">
   <div class="col-sm-6 col-md-6">
-    <form [formGroup]="formExportar">
       <div class="mb-3">
         <!-- Default dropup button -->
         <div class="btn-group" ngbDropdown>
-          <ng-select [items]="listSedes" formControlName="sede" placeholder="Seleccione la sede" bindValue="id_sede"
+          <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
             bindLabel="nombre_sede">
           </ng-select>
         </div>
       </div>
-    </form>
   </div>
   <div class="col-sm-6 col-md-6">
     <div class="dataTables_length text-md-end"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"

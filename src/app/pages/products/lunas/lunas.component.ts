@@ -74,7 +74,7 @@ export class LunasComponent implements OnInit {
   decimalPattern = /^\d+(\.\d{2})?$/;
 
   luna = new LunasModel;
-  checkedLunasList: any;
+  checkedLunasList= [];
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
@@ -99,9 +99,9 @@ export class LunasComponent implements OnInit {
   }
 
   getListSedes() {
-    this.sedeService.getSedes().subscribe(res => {
+    this.sedeService.listSedes$.subscribe( res => {
       this.listSedes = res;
-    });
+    })
   }
 
   crearFormulario() {
@@ -202,6 +202,10 @@ export class LunasComponent implements OnInit {
 
     }
     this.submitted = true;
+  }
+
+  loadPage(event:any) {
+    this.isMasterSel = false;
   }
 
   guardarLuna() {

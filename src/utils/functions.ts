@@ -1,5 +1,3 @@
-import * as moment from "moment";
-
 export function getBase64ImageFromURL(url) {
     return new Promise((resolve, reject) => {
       var img = new Image();

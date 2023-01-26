@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SedeService } from 'src/app/services/sede.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Sweetalert } from 'src/utils/sweetalert';
 import Swal from 'sweetalert2';
@@ -25,12 +26,12 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
-    private router: Router,
+    private sedeService: SedeService
   ) { }
 
 
   ngOnInit(): void {
-    //this.getListSedes();
+    
     document.body.classList.add('authentication-bg')
     document.body.removeAttribute('data-topbar');
     this.crearFormulario();
@@ -62,7 +63,9 @@ export class LoginComponent implements OnInit {
 
       this.usuarioService.signIn(vendedor).subscribe(res=> {
         console.log('entre',res);
-        this.usuarioService.storeUserData(res.token, res.onlyDataUser)
+        
+        this.usuarioService.storeUserData(res.token, res.onlyDataUser);
+        this.getListSedes();
         Sweetalert("close", null);
       }) 
 
@@ -71,6 +74,12 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  getListSedes() {
+    this.sedeService.getSedes().subscribe(res=> {
+      this.sedeService._listSedes$.next(res);
+      console.log(this.sedeService._listSedes$.value)
+    })
+  }
 
 }
 
