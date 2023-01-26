@@ -4,26 +4,26 @@
 
 
   <div class="row mt-2 mb-2">
-    <div class="col-sm-12 col-md-8 justify-content-start">
+    <div class="col-sm-12 col-md-6 justify-content-start">
       <div class="row mb-2">
-        <div class="col-8 search-box chat-search-box">
+        <div class="col-12 search-box chat-search-box">
           <div class="position-relative">
             <input type="text" class="form-control border-light rounded" placeholder="Buscar venta" name="searchTerm"
               aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
             <i class="uil uil-search search-icon"></i>
           </div>
         </div>
-        <div class="col-4">
-          <!--           <div class="btn-group text-md-start">
+<!--         <div class="col-4">
+          <div class="btn-group text-md-start">
             <button type="button" class="btn btn-primary"><i class="uil uil-import" ngbTooltip="Exportar"></i></button>
             <button type="button" class="btn btn-primary"><i class="uil uil-export" ngbTooltip="Importar"></i></button>
-          </div> -->
+          </div>
           <button type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="uil-tag-alt me-1"></i>
             Etiquetas</button>
-        </div>
+        </div> -->
       </div>
     </div>
-    <div class="col-sm-12 col-md-4 text-md-end">
+    <div class="col-sm-12 col-md-6 text-md-end">
       <div class="dataTables_length">
         <label class="d-inline-flex align-items-center">Mostrar<select name="pageSize" [(ngModel)]="service.pageSize"
             class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
@@ -44,6 +44,21 @@
         <div class="col-8 search-box chat-search-box">
           <div class="position-relative">
             <form [formGroup]="formDateRange">
+              <div class="input-daterange input-group">
+                <input type="date" class="form-control" id="billing-fechanacimiento"
+                placeholder="Seleccione la fecha" formControlName="{{this.fechaDesde}}" />
+                <input type="date" class="form-control" id="billing-fechanacimiento"
+                placeholder="Seleccione la fecha" formControlName="{{this.fechaHasta}}" />
+                <button type="button" class="btn btn-primary" (click)="filterDateRange()"><i
+                    class="mdi mdi-filter-variant"></i></button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+<!--         <div class="col-8 search-box chat-search-box">
+          <div class="position-relative">
+            <form [formGroup]="formDateRange">
               <div class="input-daterange input-group" id="datepicker6" data-date-format="dd M, yyyy"
                 data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker6'>
                 <ng2-flatpickr mode="range" class="text-start" [config]="exampleOptions" placeholder="Desde"
@@ -56,7 +71,8 @@
               </div>
             </form>
           </div>
-        </div>
+        </div> -->
+
         <div class="col-4">
           <!--           <div class="btn-group text-md-start">
             <button type="button" class="btn btn-primary"><i class="uil uil-import" ngbTooltip="Exportar"></i></button>

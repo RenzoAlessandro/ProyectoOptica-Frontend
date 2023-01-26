@@ -11,5 +11,5 @@ export class LunasModel {
     habilitado: true;
     tipo:string;
     codigo_interno: string;
-    num_orden: string;
+    num_orden: number;
 }

@@ -53,7 +53,7 @@ export class ListCustomersComponent implements OnInit {
   medidas = new MedidasModel;
   submitted = false;
 
-  lettersPattern = '[a-zA-Z ]*';
+  lettersPattern = '[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'; // Incluimos Ññ y tildes en cada vocal
   numberPattern = '^[0-9]+$|^\S*$';
   esf_cylPattern = '(^[\-+\+][0-9]{1,2})+([.][0-9]{1,2})?$'
   addPattern = '(^[\+][0-9]{1,2})+([.][0-9]{1,2})?$';
