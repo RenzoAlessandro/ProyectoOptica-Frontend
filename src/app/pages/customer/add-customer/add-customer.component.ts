@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { CustomersModel } from 'src/models/customer';
 import { MedidasModel } from 'src/models/medidas';
+import { Sweetalert } from '../../../../utils/sweetalert';
 
 @Component({
   selector: 'app-add-customer',
@@ -171,7 +172,11 @@ export class AddCustomerComponent implements OnInit {
       listaMedidas.push(this.medidas);
       this.customer.medidas = listaMedidas;
       console.log(this.customer); 
+      Sweetalert("loading", "Cargando...");
       this.customerService.createCustomers(this.customer).subscribe( res=>{
+        Sweetalert("close",null);
+        Sweetalert("success", "Cliente guardado");
+        this.formCustomer.reset();
         console.log("registrado ok");
       });
     }
