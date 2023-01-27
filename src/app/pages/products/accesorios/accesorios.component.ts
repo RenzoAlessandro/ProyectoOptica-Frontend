@@ -48,9 +48,9 @@ export class AccesoriosComponent implements OnInit {
   precio_compra_accesorio: string = "campoCompraAccesorio";
   precio_venta_accesorio: string = "campoVentaAccesorio";
 
-  //formulario etiquetas
-  formEtiquetaAccesorios: FormGroup;
-  nEtiquetasAccesorio: string = "campoNEtiquetasAccesorio";
+  //formulario Imprimir Etiquetas por cada Elemento
+  formPrintEtiquetaAccesorio: FormGroup;
+  nEtiquetasPorAccesorio: string = "campoNEtiquetasPorAccesorio";
 
   total$: Observable<number>;
 
@@ -121,9 +121,10 @@ export class AccesoriosComponent implements OnInit {
       ]]
     })
 
-    this.formEtiquetaAccesorios = this.fb.group({
-      [this.nEtiquetasAccesorio]: [null, [
-        Validators.required
+    this.formPrintEtiquetaAccesorio = this.fb.group({
+      [this.nEtiquetasPorAccesorio]: [null, [
+        Validators.required,
+        Validators.pattern(this.numberPattern)
       ]]
     })
 
@@ -285,6 +286,13 @@ export class AccesoriosComponent implements OnInit {
   get formEA() {
     return
      this.formAccesorios.controls;
+  }
+
+  /**
+  * Returns form Print cada Montura
+  */
+  get formPEA() {
+    return this.formPrintEtiquetaAccesorio.controls;
   }
 
   checkUncheckAll(){
