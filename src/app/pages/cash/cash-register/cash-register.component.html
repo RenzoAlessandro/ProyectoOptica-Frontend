@@ -62,21 +62,21 @@
                   <tbody>
                     <tr *ngFor="let data of ingresos$ | async">
                       <td>
-                        <ngb-highlight [result]="data.monto" [term]="service.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="data.monto|currency:'S/.'" [term]="serviceI.searchTerm"></ngb-highlight>
                       </td>
                       <td>
-                        <ngb-highlight [result]="data.descripcion" [term]="service.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="data.descripcion" [term]="serviceI.searchTerm"></ngb-highlight>
                       </td>
                       <td>
-                        <ngb-highlight [result]="data.date" [term]="service.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="data.fecha_creacion_caja| date: 'dd/MM/yyyy'" [term]="serviceI.searchTerm"></ngb-highlight>
                       </td>
                       <td>
-                        <ngb-highlight [result]="data.name" [term]="service.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="data.encargado" [term]="serviceI.searchTerm"></ngb-highlight>
                       </td>
                       <td>
                         <!-- <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i
                             class="uil uil-pen font-size-18"></i></a> -->
-                        <a href="javascript:void(0);" class="px-3 text-danger" placement="top" ngbTooltip="Delete"><i
+                        <a class="px-3 text-danger" placement="top" ngbTooltip="Delete" (click)="eliminarIngreso(data)"><i
                             class="uil uil-trash-alt font-size-18"></i></a>
                       </td>
                     </tr>
@@ -147,13 +147,13 @@
                   <tbody>
                     <tr *ngFor="let data of egresos$ | async">
                       <td>
-                        <ngb-highlight [result]="data.monto" [term]="serviceE.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="data.monto|currency:'S/.'" [term]="serviceE.searchTerm"></ngb-highlight>
                       </td>
                       <td>
                         <ngb-highlight [result]="data.descripcion" [term]="serviceE.searchTerm"></ngb-highlight>
                       </td>
                       <td>
-                        <ngb-highlight [result]="data.date" [term]="serviceE.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="data.fecha_creacion_caja| date: 'dd/MM/yyyy'" [term]="serviceE.searchTerm"></ngb-highlight>
                       </td>
                       <td>
                         <ngb-highlight [result]="data.encargado" [term]="serviceE.searchTerm"></ngb-highlight>
@@ -161,7 +161,7 @@
                       <td>
                         <!-- <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i
                             class="uil uil-pen font-size-18"></i></a> -->
-                        <a href="javascript:void(0);" class="px-3 text-danger" placement="top" ngbTooltip="Delete"><i
+                        <a class="px-3 text-danger" placement="top" ngbTooltip="Delete" (click)="eliminarIngreso(data)"><i
                             class="uil uil-trash-alt font-size-18"></i></a>
                       </td>
                     </tr>

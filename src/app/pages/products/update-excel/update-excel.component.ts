@@ -330,7 +330,7 @@ export class UpdateExcelComponent implements OnInit {
             fecha_modificacion_luna: new Date(Date.now()),
           }
         })
-        listMontura.forEach(element => {
+        listLuna.forEach(element => {
           element.tipo = tipo.toLowerCase()
         });
         return listLuna;
@@ -348,7 +348,7 @@ export class UpdateExcelComponent implements OnInit {
             habilitado: true,
           }
         })
-        listMontura.forEach(element => {
+        listAccesorio.forEach(element => {
           element.tipo = tipo.toLowerCase()
         });
         return listAccesorio;

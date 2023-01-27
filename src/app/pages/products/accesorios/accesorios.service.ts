@@ -1,5 +1,5 @@
 import { Injectable, PipeTransform } from '@angular/core';
-
+import { UsuarioService } from 'src/app/services/usuario.service';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 
 import { DecimalPipe } from '@angular/common';
@@ -61,7 +61,8 @@ export class CustomerService {
 
   constructor(
     private pipe: DecimalPipe,
-    private accesorioService: ProductosService
+    private accesorioService: ProductosService,
+    private usuarioService: UsuarioService
     ) {
     this.getListAccesorios();
   }
@@ -108,7 +109,7 @@ export class CustomerService {
    * Funcion para obtener el listado de accesorios del backend
    */
    getListAccesorios() {
-    this.accesorioService.getAccesorios().subscribe( res=>{
+    this.accesorioService.getProductosbySede(this.usuarioService.getSedebyUser(),'accesorio').subscribe( res=>{
 
       this.accesorioList = res;
       const propiedad = {

@@ -26,7 +26,7 @@
               <i class="uil uil-ellipsis-h"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                <a class="dropdown-item" (click)="OpenModalEditStore(DataModalEditStore)">Editar</a>
+                <a class="dropdown-item" (click)="OpenModalEditStore(DataModalEditStore,data)">Editar</a>
                 <a class="dropdown-item" href="javascript:void(0)">Eliminar</a>
             </div>
         </div>
@@ -129,7 +129,7 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-danger" (click)="closeEventModal()">Cerrar</button>
-      <button type="button" class="btn btn-success ms-1" id="btn-save-event">Guardar</button>
+      <button type="button" class="btn btn-success ms-1" id="btn-save-event" (click)="guardarTienda()">Guardar</button>
     </div>
   </form>
 </ng-template>

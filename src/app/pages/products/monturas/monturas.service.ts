@@ -111,9 +111,9 @@ export class CustomerService {
    * Funcion para obtener la lista de monturas desde el backend
    */
    getListMonturas() {
-    this.monturasService.getMonturas().subscribe( res=>{
+    this.monturasService.getProductosbySede(this.usuarioService.getSedebyUser(),'montura').subscribe( res=>{
       console.log(res)
-      this.monturasList = res.filter(el => (el.id_sede == this.usuarioService.getSedebyUser()));
+      this.monturasList = res;
       const propiedad = {
         isSelected: false
       }

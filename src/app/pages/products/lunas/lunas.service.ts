@@ -1,5 +1,5 @@
 import { Injectable, PipeTransform } from '@angular/core';
-
+import { UsuarioService } from 'src/app/services/usuario.service';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 
 import { DecimalPipe } from '@angular/common';
@@ -60,7 +60,8 @@ export class CustomerService {
 
   constructor(
     private pipe: DecimalPipe,
-    private lunasService: ProductosService
+    private lunasService: ProductosService,
+    private usuarioService: UsuarioService
     ) {
     this.getListLunas();
   }
@@ -107,7 +108,7 @@ export class CustomerService {
    * Funcion para obtener la lista de clientes desde el backend
    */
    getListLunas() {
-    this.lunasService.getLunas().subscribe( res=>{
+    this.lunasService.getProductosbySede(this.usuarioService.getSedebyUser(),'luna').subscribe( res=>{
       
       this.lunasList = res;
       const propiedad = {

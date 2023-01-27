@@ -1,6 +1,6 @@
 export class CajaModel {
     id_caja?: string;
-    fecha_ingreso: Date;
+    fecha_creacion_caja: Date;
     encargado: string;
     descripcion: string;
     egreso: boolean;

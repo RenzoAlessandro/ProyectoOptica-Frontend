@@ -72,7 +72,7 @@
                       <ngb-highlight [result]="item.nombre_accesorio"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="item.num"></ngb-highlight>
+                      <ngb-highlight [result]="item.cant_vendida"></ngb-highlight>
                     </td>
                     <td *ngIf="item.tipo == 'montura'">
                       <ngb-highlight [result]="item.precio_montura_v"></ngb-highlight>
@@ -206,7 +206,7 @@
                             Campo requerido
                           </div>
                           <div class="text-danger" *ngIf="formContado.controls['campoCantidadRecibidaContado'].errors.pattern">
-                            Ingrese solo números
+                            Ingrese como máximo 2 decimales
                           </div> 
                         </div>
                     </div>
@@ -238,7 +238,7 @@
                 <div class="row">
                   <div class="col-12">
                     <div class="mb-3">
-                      <label class="control-label">Buscar o Crear nuevo Cliente</label>
+                      <label class="control-label">Buscar Cliente</label>
                       <ng-autocomplete [data]="listClients" [searchKeyword]="keywordCliente" placeholder="Apellidos del cliente"
                       (selected)="selectEventCliente($event)"  historyIdentifier="" [itemTemplate]="itemTemplate3" formControlName="{{this.nombreContado}}"
                       [notFoundTemplate]="notFoundTemplate">
@@ -330,7 +330,7 @@
                             Campo requerido
                           </div>
                           <div class="text-danger" *ngIf="formCredito.controls['campoCantidadRecibidaCredito'].errors.pattern">
-                            Ingrese solo números
+                            Ingrese como máximo 2 decimales
                           </div> 
                         </div>
                     </div>

@@ -4,4 +4,5 @@ export class SedesModel {
     fecha_creacion_sede: Date;
     nombre_sede: string;
     habilitado: boolean;
+    fecha_modificacion_sede: Date;
 }

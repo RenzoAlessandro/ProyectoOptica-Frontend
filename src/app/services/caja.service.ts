@@ -22,4 +22,8 @@ export class CajaService {
   createIngresoEgreso(caja:CajaModel): Observable<any> {
     return this.http.post<any>(environment.urlBackend+'createNewIngreso', caja);
   }
+
+  deleteIngresoEgreso(caja: CajaModel): Observable<any> {
+    return this.http.put<any>(environment.urlBackend+'unsubscribeEgresoById/'+ caja.id_caja, caja);
+  }
 }

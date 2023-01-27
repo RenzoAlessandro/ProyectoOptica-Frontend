@@ -23,4 +23,8 @@ export class SedeService {
   createSede(sede:SedesModel): Observable<any> {
     return this.http.post<any>(environment.urlBackend+'createNewSede',sede);
   }
+
+  editSede(sede: SedesModel): Observable<any> {
+    return this.http.put<any>(environment.urlBackend+'editSedeById/'+ sede.id_sede,sede);
+  }
 }
