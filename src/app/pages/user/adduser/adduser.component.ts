@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { SedesModel } from 'src/models/sedes';
 import { UsersModel } from 'src/models/user';
+import { Sweetalert } from '../../../../utils/sweetalert';
 
 @Component({
   selector: 'app-adduser',
@@ -133,7 +134,11 @@ export class AdduserComponent implements OnInit {
       this.user.email = this.f(this.email).value;
       this.user.contrasenia = this.f(this.password).value;
       console.log(this.user);
+      Sweetalert("loading", "Cargando...");
       this.usuarioService.createUsers(this.user).subscribe( res=>{
+        Sweetalert("close",null);
+        Sweetalert("success", "Usuario guardado");
+        this.formRegister.reset();
         console.log("registrado ok")
       }) 
     }

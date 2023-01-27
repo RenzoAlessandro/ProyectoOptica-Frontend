@@ -28,6 +28,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { ChatComponent } from './chat/chat.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -38,7 +39,7 @@ FullCalendarModule.registerPlugins([
 ]);
 
 @NgModule({
-  declarations: [CalendarComponent, ChatComponent, LoginComponent, RegisterComponent],
+  declarations: [CalendarComponent, ChatComponent, LoginComponent, RegisterComponent, ProfileComponent],
   imports: [
     CommonModule,
     NgSelectModule,

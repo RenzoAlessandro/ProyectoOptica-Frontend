@@ -12,7 +12,6 @@ import { Sweetalert } from 'src/utils/sweetalert';
 import Swal from 'sweetalert2';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { Options } from 'ng5-slider';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { SedeService } from 'src/app/services/sede.service';
 import { SedesModel } from 'src/models/sedes';
@@ -30,13 +29,6 @@ export class MonturasComponent implements OnInit {
   
   mostrarSpinner = false;
 
-  visibleSelection = 5;
-  visibleBarOptions: Options = {
-    floor: 0,
-    ceil: 10,
-    showSelectionBar: true
-  };
-  
   // modal
   editEvent: any;
   submitted = false;
@@ -56,6 +48,10 @@ export class MonturasComponent implements OnInit {
   //formulario etiquetas
   formEtiquetaMonturas: FormGroup;
   nEtiquetasMonturas: string = "campoNEtiquetasMonturas";
+
+  //formulario Imprimir Etiquetas por cada Elemento
+  formPrintEtiquetaMontura: FormGroup;
+  nEtiquetasPorMontura: string = "campoNEtiquetasPorMontura";
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
@@ -133,6 +129,13 @@ export class MonturasComponent implements OnInit {
     this.formEtiquetaMonturas = this.fb.group({
       [this.nEtiquetasMonturas]: [null, [
         Validators.required
+      ]]
+    })
+
+    this.formPrintEtiquetaMontura = this.fb.group({
+      [this.nEtiquetasPorMontura]: [null, [
+        Validators.required,
+        Validators.pattern(this.numberPattern)
       ]]
     })
   }
@@ -294,12 +297,19 @@ export class MonturasComponent implements OnInit {
     })
   }
 
-  /**
+/**
  * Returns form Editar Monturas
  */
-  get formEM() {
-    return this.formMontura.controls;
-  }
+get formEM() {
+  return this.formMontura.controls;
+}
+  
+/**
+* Returns form Print cada Montura
+*/
+get formPEM() {
+  return this.formPrintEtiquetaMontura.controls;
+}
 
   loadPage(event:any) {
     this.isMasterSel = false;

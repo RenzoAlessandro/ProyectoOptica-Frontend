@@ -13,7 +13,6 @@ import { ProductosService } from 'src/app/services/productos.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { DataMatrixGenerator } from '@syncfusion/ej2-angular-barcode-generator';
-import { Options } from 'ng5-slider';
 
 import { Sweetalert } from 'src/utils/sweetalert';
 import Swal from 'sweetalert2';
@@ -35,15 +34,6 @@ export class LunasComponent implements OnInit {
 
   mostrarSpinner = false;
 
-  @ViewChild('barcode')
-   public barcode: DataMatrixGenerator;
-  visibleSelection = 5;
-  visibleBarOptions: Options = {
-    floor: 0,
-    ceil: 10,
-    showSelectionBar: true
-  };
-
   // modal
   editEvent: any;
   submitted = false;
@@ -57,9 +47,9 @@ export class LunasComponent implements OnInit {
   precio_compra_luna: string = "campoCompraLuna";
   precio_venta_luna: string = "campoVentaLuna";
 
-  //formulario etiquetas
-  formEtiquetaLunas: FormGroup;
-  nEtiquetasLunas: string = "campoNEtiquetasLunas";
+  //formulario Imprimir Etiquetas por cada Elemento
+  formPrintEtiquetaLuna: FormGroup;
+  nEtiquetasPorLuna: string = "campoNEtiquetasPorLuna";
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
@@ -126,9 +116,10 @@ export class LunasComponent implements OnInit {
       ]],
     })
 
-    this.formEtiquetaLunas = this.fb.group({
-      [this.nEtiquetasLunas]: [null, [
-        Validators.required
+    this.formPrintEtiquetaLuna = this.fb.group({
+      [this.nEtiquetasPorLuna]: [null, [
+        Validators.required,
+        Validators.pattern(this.numberPattern)
       ]]
     })
   }
@@ -279,6 +270,13 @@ export class LunasComponent implements OnInit {
   */
   get formEL() {
     return this.formLuna.controls;
+  }
+
+  /**
+  * Returns form Print cada Montura
+  */
+  get formPEL() {
+    return this.formPrintEtiquetaLuna.controls;
   }
 
   checkUncheckAll(){

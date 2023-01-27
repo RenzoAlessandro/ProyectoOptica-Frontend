@@ -143,7 +143,7 @@
 <ng-template #centerDataModalMeasurementsCustomer let-modal>
   <div class="modal-header">
     <h5 class="modal-title mt-0">Receta Oftalmológica</h5>
-    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+    <button type="button" class="btn-close" (click)="closeEventModalGeneral()" aria-hidden="true"></button>
   </div>
   <div class="modal-body">
     <div class="p-3">
@@ -253,11 +253,10 @@
         </div>
 
   <div class="modal-footer">
-    <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light me-1"><i
-      class="fa fa-print"></i></a>
-    <a (click)="createPDF()" class="btn btn-primary waves-effect waves-light me-1"><i
-        class="fa fa-download"></i></a>
-    <a (click)="closeEventModal()" class="btn btn-danger w-md waves-effect waves-light">Cerrar</a>
+<!--     <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light me-1"><i
+      class="fa fa-print"></i></a> -->
+    <button class="btn btn-primary" (click)="createPDF()"><i class="uil uil-download-alt me-1"></i> Pdf</button>
+    <a (click)="closeEventModalGeneral()" class="btn btn-danger w-md waves-effect waves-light">Cerrar</a>
   </div>
 </ng-template>
 

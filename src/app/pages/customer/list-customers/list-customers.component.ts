@@ -175,6 +175,9 @@ export class ListCustomersComponent implements OnInit {
   /**
    * Close event modal
    */
+  closeEventModalGeneral() {
+    this.modalService.dismissAll();
+  }
 
   /**
    * guarda cliente en la base de datos
@@ -497,6 +500,5 @@ export class ListCustomersComponent implements OnInit {
 
     const pdf = pdfMake.createPdf(pdfDefinition);
     pdf.open();
- 
   }
 }

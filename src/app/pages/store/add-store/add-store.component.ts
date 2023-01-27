@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { SedesModel } from 'src/models/sedes';
+import { Sweetalert } from '../../../../utils/sweetalert';
 
 @Component({
   selector: 'app-add-store',
@@ -83,7 +84,11 @@ export class AddStoreComponent implements OnInit {
       this.sede.habilitado = true;
       this.sede.fecha_modificacion_sede = new Date(Date.now());
       console.log(this.sede);
+      Sweetalert("loading", "Cargando...");
       this.sedeService.createSedes(this.sede).subscribe( res=>{
+        Sweetalert("close",null);
+        Sweetalert("success", "Tienda guardada");
+        this.formTiendas.reset();
         console.log("registrado ok");
       }); 
     } else {
