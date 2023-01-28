@@ -542,6 +542,19 @@ export class AddSaleComponent implements OnInit {
     };
 
     var fecha_hoy = new Date (Date.now()).toLocaleDateString('en-GB');
+    var fecha_entrega = new Date (Date.now()).toLocaleDateString("es-CL", {
+      weekday: "long", // narrow, short
+      year: "numeric", // 2-digit
+      month: "long", // numeric, 2-digit, narrow, long
+      day: "numeric" // 2-digit
+    });
+    var hora_entrega = new Date (Date.now()).toLocaleTimeString("es-CL", {
+      timeZone: "America/Santiago",
+      hour12: true, // false
+      hour: "numeric", // 2-digit
+      minute: "2-digit", // numeric
+      second: "2-digit" // numeric
+    });
     var simboloNuevoSol = 'S/. ';
     var numeroBoleta = '#MN0131';
 
@@ -555,6 +568,55 @@ export class AddSaleComponent implements OnInit {
     var direccionCliente = 'Calle Leticia 104, Carmen Alto Cayma, Arequipa';
     var correoCliente = 'renzo.sucari@gmail.com';
     var telefonoCliente = '983 720 150';
+
+    var externalDataRetrievedFromServer = [
+      { num_orden: 1, detalle: 'Nike N012 Running Shoes', precio: 140.45, cantidad: 1, total: 154.15 },
+      { num_orden: 2, detalle: 'Adidas Running Shoes'   , precio: 140.45, cantidad: 1, total: 154.15 },
+      { num_orden: 3, detalle: 'Nike N012 Running Shoes', precio: 140.45, cantidad: 1, total: 154.15 },
+      { num_orden: 4, detalle: 'Adidas Running Shoes'   , precio: 140.45, cantidad: 1, total: 154.15 },
+      { num_orden: 5, detalle: 'Nike N012 Running Shoes', precio: 140.45, cantidad: 1, total: 154.15 },
+      { num_orden: 6, detalle: 'Adidas Running Shoes'   , precio: 140.45, cantidad: 1, total: 154.15 },
+      { num_orden: 7, detalle: 'Nike N012 Running Shoes', precio: 140.45, cantidad: 1, total: 154.15 },
+      { num_orden: 8, detalle: 'Adidas Running Shoes'   , precio: 140.45, cantidad: 1, total: 154.15 },
+      { num_orden: 9, detalle: 'Nike N012 Running Shoes', precio: 140.45, cantidad: 1, total: 154.15 },
+    ];
+
+    function buildTableBody(data, columns) {
+      var body = [];
+  
+      body.push([{ text: 'No.', style: 'tableHeader', alignment: 'center' }, { text: 'Detalle', style: 'tableHeader', alignment: 'center' }, { text: 'Precio', style: 'tableHeader', alignment: 'center' }, { text: 'Cantidad', style: 'tableHeader', alignment: 'center' }, { text: 'Total', style: 'tableHeader', alignment: 'center' }]);
+  
+      data.forEach(function(row) {
+          var dataRow = [];
+  
+          columns.forEach(function(column) {
+            //dataRow.push({ text: row[column].toString(), style: 'cell', alignment: 'center' },);
+            dataRow.push(row[column].toString());
+          })
+        
+          body.push(dataRow);
+      });
+
+      body.push([{ text: ' ', rowSpan: 3, colSpan: 2}, { }, {text: 'Sub. Total:', style: 'tableHeader', alignment: 'right', colSpan: 2 }, { }, { text: simboloNuevoSol+'510.00', style: 'contenido', alignment: 'right' }]);
+      body.push([{ }, { }, { text: 'IGV (18%) :', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol+'13.00', style: 'contenido', alignment: 'right' }]);
+      body.push([{ }, { }, { text: 'Total:', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol+'498.00', style: 'contenido', alignment: 'right' }]);
+  
+      return body;
+    }
+
+    function table(data, columns) {
+      return {
+        style: 'tableMargin',
+        color: '#444',
+          table: {
+            widths: [25, '*', 63, 60, 63],
+            heights: [20, 20 , 20, 20],
+            headerRows: 1,
+            body: buildTableBody(data, columns)
+          }
+      };
+    }
+    
     
     const pdfDefinition: any = {
       pageSize: 'A4',
@@ -592,39 +654,17 @@ export class AddSaleComponent implements OnInit {
 
         { text: 'Resumen del pedido:', style: 'subtitulo' },
 
-        {
-          style: 'tableMargin',
-          color: '#444',
-          table: {
-            widths: [25, '*', 63, 60, 63],
-            heights: [20, 20 , 20, 20],
-            headerRows: 1,
-            // keepWithHeaderRows: 1,
-            body: [
-              [{ text: 'No.', style: 'tableHeader', alignment: 'center' }, { text: 'Detalle', style: 'tableHeader', alignment: 'center' }, { text: 'Precio', style: 'tableHeader', alignment: 'center' }, { text: 'Cantidad', style: 'tableHeader', alignment: 'center' }, { text: 'Total', style: 'tableHeader', alignment: 'center' }],
-              [{ text: '01', style: 'tableHeader', alignment: 'center' }, { text: 'Nike N012 Running Shoes', style: 'contenido', alignment: 'left' }, { text: simboloNuevoSol+'140.00', style: 'contenido', alignment: 'right' }, { text: '1', style: 'contenido', alignment: 'center' }, { text: simboloNuevoSol+'140.54', style: 'contenido', alignment: 'right' }],
-              [{ text: '02', style: 'tableHeader', alignment: 'center' }, { text: 'Adidas Running Shoes', style: 'contenido', alignment: 'left' }, { text: simboloNuevoSol+'260.54', style: 'contenido', alignment: 'right' }, { text: '1', style: 'contenido', alignment: 'center' }, { text: simboloNuevoSol+'260.56', style: 'contenido', alignment: 'right' }],
-              [{ text: '03', style: 'tableHeader', alignment: 'center' }, { text: 'Nike N012 Running Shoes', style: 'contenido', alignment: 'left' }, { text: simboloNuevoSol+'140.23', style: 'contenido', alignment: 'right' }, { text: '1', style: 'contenido', alignment: 'center' }, { text: simboloNuevoSol+'140.67', style: 'contenido', alignment: 'right' }],
-              [{ text: '04', style: 'tableHeader', alignment: 'center' }, { text: 'Adidas Running Shoes', style: 'contenido', alignment: 'left' }, { text: simboloNuevoSol+'260.00', style: 'contenido', alignment: 'right' }, { text: '1', style: 'contenido', alignment: 'center' }, { text: simboloNuevoSol+'260.12', style: 'contenido', alignment: 'right' }],
-
-              [{ text: ' ', rowSpan: 3, colSpan: 2}, { }, {text: 'Sub. Total:', style: 'tableHeader', alignment: 'right', colSpan: 2 }, { }, { text: simboloNuevoSol+'510.00', style: 'contenido', alignment: 'right' }],
-              [{ }, { }, { text: 'IGV (18%) :', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol+'13.00', style: 'contenido', alignment: 'right' }],
-              [{ }, { }, { text: 'Total:', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol+'498.00', style: 'contenido', alignment: 'right' }],
-            ]
-          }
-        },
+        table(externalDataRetrievedFromServer, ['num_orden', 'detalle', 'precio', 'cantidad', 'total']),
 
         {
           text: [,
             { text: 'Fecha de Entrega: ', style: 'textBold'},
-            '12/12/21', 
+            fecha_entrega, 
             '   ', 
             { text: 'Hora: ', style: 'textBold'},
-            '12:15 AM',
+            hora_entrega,
           ]
         },
-
-
 
         { text: 'Nota:', style: 'subtitulo2' },
         { text: 'Todo trabajo se efectuara con un adelanto del 50%.', style: 'contenido2', alignment: 'justify'},
@@ -691,6 +731,4 @@ export class AddSaleComponent implements OnInit {
     pdf.open();
  
   }
-
-  
 }

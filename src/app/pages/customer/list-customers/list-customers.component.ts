@@ -375,8 +375,34 @@ export class ListCustomersComponent implements OnInit {
       },
       
     };
-    var fecha_nacimiento = new Date (this.userPrint.fecha_nacimiento).toLocaleDateString('en-GB');
     var fecha_hoy = new Date (Date.now()).toLocaleDateString('en-GB');
+
+    var numeroReceta = '#MN0131';
+
+    var direccionEmpresa = 'Calle Santa Marta 218, Arequipa';
+    var correoEmpresa = 'raulcg1234@hotmail.com ';
+    var felefonoEmpresa = '955 739 464';
+
+    var nombresCliente = this.userPrint.nombres;
+    var apellidosCliente = this.userPrint.apellidos;
+    var fnacimientoCliente = new Date (this.userPrint.fecha_nacimiento).toLocaleDateString('en-GB');
+    var direccionCliente = 'Calle Leticia 104, Carmen Alto Cayma, Arequipa';
+    var correoCliente = 'renzo.sucari@gmail.com';
+    var telefonoCliente = this.userPrint.telefono;
+
+    var od_esf_Cliente = this.userPrint.medidas[0].od_esferico;
+    var od_cil_Cliente = this.userPrint.medidas[0].od_cilindrico;
+    var od_eje_Cliente = this.userPrint.medidas[0].od_eje;
+
+    var oi_esf_Cliente = this.userPrint.medidas[0].oi_esferico;
+    var oi_cil_Cliente = this.userPrint.medidas[0].oi_cilindrico;
+    var oi_eje_Cliente = this.userPrint.medidas[0].oi_eje;
+
+    var dip_Cliente = this.userPrint.medidas[0].dip;
+    var add_Cliente = this.userPrint.medidas[0].add
+
+    var encargadoCliente = this.userPrint.medidas[0].encargado;
+    var antecedentesCliente = this.userPrint.antecedentes
     
     const pdfDefinition: any = {
       pageSize: 'A5',
@@ -389,7 +415,7 @@ export class ListCustomersComponent implements OnInit {
             widths: ['*', '*'],
             body: [
               [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 130, rowSpan: 4 }, { text: 'Nº de Receta:', style: 'tableHeader', alignment: 'right' }],
-              [{ }, { text: '#MN0131', alignment: 'right' }],
+              [{ }, { text: numeroReceta, alignment: 'right' }],
               [{ }, { text: 'Fecha de la Receta:', style: 'tableHeader', alignment: 'right' }],
               [{ }, { text: fecha_hoy, alignment: 'right' }],
             ]
@@ -397,24 +423,18 @@ export class ListCustomersComponent implements OnInit {
           layout: 'noBorders'
         },
 
-        { 
-          text: 'Paciente:', style: 'subtitulo'
-        },
-
-        { text: this.userPrint.nombres + ' ' + this.userPrint.apellidos, style: 'contenido' },
-
         {
-          text: [,
-            { text: 'Fecha de Nacimiento:', style: 'textBold'},
-            ' ' + fecha_nacimiento,
-          ]
-        },
-
-        {
-          text: [,
-            { text: 'Telefono:', style: 'textBold'},
-            ' ' + this.userPrint.telefono,
-          ]
+          table: {
+            widths: ['*'],
+            body: [
+              [{ text: 'Paciente:', style: 'subtitulo2' }],
+              [{ text: nombresCliente + ' ' + apellidosCliente, style: 'subtitulo' }],
+              [{ text: 'Fecha de Nacimiento: '+fnacimientoCliente, style: 'contenido2'  }],
+              [{ text: 'Correo: '+correoCliente, style: 'contenido2' }],
+              [{ text: 'Telefono: '+telefonoCliente, style: 'contenido2'  }],
+            ]
+          },
+          layout: 'noBorders'
         },
 
         {
@@ -428,18 +448,18 @@ export class ListCustomersComponent implements OnInit {
             body: [
               [{ text: 'Visión de Lejos', style: 'tableHeader', colSpan: 5, alignment: 'center' }, {} , {} , {} , {}, { text: 'Visión de Cerca', style: 'tableHeader', alignment: 'center' }],
               [{ text: 'REF.', style: 'tableHeader', alignment: 'center' }, { text: 'ESF.', style: 'tableHeader', alignment: 'center' }, { text: 'CIL.', style: 'tableHeader', alignment: 'center' }, { text: 'EJE.', style: 'tableHeader', alignment: 'center' }, { text: 'DIP.', style: 'tableHeader', alignment: 'center' }, { text: 'ADD.', style: 'tableHeader', alignment: 'center' }],
-              [{ text: 'O.D.', style: 'tableHeader', alignment: 'center' }, { text: this.userPrint.medidas[0].od_esferico, alignment: 'center' }, { text: this.userPrint.medidas[0].od_cilindrico, alignment: 'center' }, { text: this.userPrint.medidas[0].od_eje, alignment: 'center' }, { text: this.userPrint.medidas[0].dip, alignment: 'center' }, { text: this.userPrint.medidas[0].add, rowSpan: 2, alignment: 'center' }],
-              [{ text: 'O.I.', style: 'tableHeader', alignment: 'center' }, { text: this.userPrint.medidas[0].oi_esferico, alignment: 'center' }, { text: this.userPrint.medidas[0].oi_cilindrico, alignment: 'center' }, { text: this.userPrint.medidas[0].oi_eje, alignment: 'center' }, { text: this.userPrint.medidas[0].dip, alignment: 'center' }, {}],
+              [{ text: 'O.D.', style: 'tableHeader', alignment: 'center' }, { text: od_esf_Cliente, style: 'contenido2', alignment: 'center' }, { text: od_cil_Cliente, style: 'contenido2', alignment: 'center' }, { text: od_eje_Cliente, style: 'contenido2', alignment: 'center' }, { text: dip_Cliente, style: 'contenido2', alignment: 'center' }, { text: add_Cliente, rowSpan: 2, style: 'contenido2', alignment: 'center' }],
+              [{ text: 'O.I.', style: 'tableHeader', alignment: 'center' }, { text: oi_esf_Cliente, style: 'contenido2', alignment: 'center' }, { text: oi_cil_Cliente, style: 'contenido2', alignment: 'center' }, { text: oi_eje_Cliente, style: 'contenido2', alignment: 'center' }, { text: dip_Cliente, style: 'contenido2', alignment: 'center' }, {}],
             ]
           }
         },
-        { text: 'Encargado Medición:', style: 'subtitulo' },
-        { text: this.userPrint.medidas[0].encargado, style: 'contenido'},
-        { text: 'Antecedentes:', style: 'subtitulo' },
-        { text: this.userPrint.antecedentes, style: 'contenido', alignment: 'justify'},
-        { text: 'Recomendaciones:', style: 'subtitulo2' },
-        { text: 'Al empezar a usar los nuevos lentes, es de esperar ciertas incomodidades; ejemplo enturbamiento en la visión a distancia, elevación o inclinacion del nivel del piso, ligera sensación de mareo, que luego desaparece.', style: 'contenido2', alignment: 'justify'},
-        { text: 'Acuda personalmente donde el óptico, para un correcto montaje de sus lentes. Vuelva al optómetra para verificar la correcta preparación de sus lentes.', style: 'contenido2', alignment: 'justify'},
+        { text: 'Encargado Medición:', style: 'subtitulo2' },
+        { text: encargadoCliente, style: 'contenido2'},
+        { text: 'Antecedentes:', style: 'subtitulo2' },
+        { text: antecedentesCliente, style: 'contenido2', alignment: 'justify'},
+        { text: 'Recomendaciones:', style: 'subtitulo3' },
+        { text: 'Al empezar a usar los nuevos lentes, es de esperar ciertas incomodidades; ejemplo enturbamiento en la visión a distancia, elevación o inclinacion del nivel del piso, ligera sensación de mareo, que luego desaparece.', style: 'contenido3', alignment: 'justify'},
+        { text: 'Acuda personalmente donde el óptico, para un correcto montaje de sus lentes. Vuelva al optómetra para verificar la correcta preparación de sus lentes.', style: 'contenido3', alignment: 'justify'},
       ],
       styles: {
         subtitulo: {
@@ -450,6 +470,12 @@ export class ListCustomersComponent implements OnInit {
         },
         subtitulo2: {
           bold: true,
+          fontSize: 11,
+          color: 'black',
+          margin: [0, 10, 0, 5]
+        },
+        subtitulo3: {
+          bold: true,
           fontSize: 10,
           color: 'black',
           margin: [0, 10, 0, 5]
@@ -458,6 +484,9 @@ export class ListCustomersComponent implements OnInit {
           fontSize: 12,
         },
         contenido2: {
+          fontSize: 10,
+        },
+        contenido3: {
           fontSize: 8,
         },
         textBold: {
@@ -490,7 +519,7 @@ export class ListCustomersComponent implements OnInit {
         },
         tableHeader: {
           bold: true,
-          fontSize: 13,
+          fontSize: 11,
           color: 'black'
         },
 
