@@ -14,6 +14,13 @@ import Swal from 'sweetalert2';
 import { Sweetalert } from 'src/utils/sweetalert';
 import { NgbModal, NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap'
 
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+import { getBase64ImageFromURL, round } from 'src/utils/functions';
+
+
 @Component({
   selector: 'app-list-sales',
   templateUrl: './list-sales.component.html',
@@ -238,5 +245,211 @@ export class ListSalesComponent implements OnInit {
     })
   }
 
+  async createPDF(){
+    var fonts = {
+      Roboto: {
+        normal: 'fonts/Roboto-Regular.ttf',
+        bold: 'fonts/Roboto-Medium.ttf',
+        italics: 'fonts/Roboto-Italic.ttf',
+        bolditalics: 'fonts/Roboto-MediumItalic.ttf'
+      },
+    };
+
+    var estadoBoleta = "Pagado"
+    var fecha_hoy = new Date (Date.now()).toLocaleDateString('en-GB');
+    var fecha_entrega = new Date (Date.now()).toLocaleDateString("es-CL", {
+      weekday: "long", // narrow, short
+      year: "numeric", // 2-digit
+      month: "long", // numeric, 2-digit, narrow, long
+      day: "numeric" // 2-digit
+    });
+    var hora_entrega = new Date (Date.now()).toLocaleTimeString("es-CL", {
+      timeZone: "America/Bogota",
+      hour12: true, // false
+      hour: "numeric", // 2-digit
+      minute: "2-digit", // numeric
+      second: "2-digit" // numeric
+    });
+    var simboloNuevoSol = 'S/. ';
+    var numeroBoleta = '#MN0131';
+
+    var direccionEmpresa = 'Calle Santa Marta 218, Arequipa';
+    var correoEmpresa = 'raulcg1234@hotmail.com ';
+    var felefonoEmpresa = '955 739 464';
+
+    var nombresCliente = 'Renzo Alessando';
+    var apellidosCliente = 'Sucari Velasques';
+    var fnacimientoCliente = '14/02/96';
+    var direccionCliente = 'Calle Leticia 104, Carmen Alto Cayma, Arequipa';
+    var correoCliente = 'renzo.sucari@gmail.com';
+    var telefonoCliente = '983 720 150';
+
+    var externalDataRetrievedFromServer = [
+      { num_orden: 1, detalle: 'Nike N012 Running Shoes', precio: 140.45, cantidad: 1, total: 154.15 },
+      { num_orden: 2, detalle: 'Adidas Running Shoes'   , precio: 140.45, cantidad: 1, total: 154.15 },
+      { num_orden: 3, detalle: 'Nike N012 Running Shoes', precio: 140.45, cantidad: 1, total: 154.15 },
+      { num_orden: 4, detalle: 'Adidas Running Shoes'   , precio: 140.45, cantidad: 1, total: 154.15 },
+      { num_orden: 5, detalle: 'Nike N012 Running Shoes', precio: 140.45, cantidad: 1, total: 154.15 },
+      { num_orden: 6, detalle: 'Adidas Running Shoes'   , precio: 140.45, cantidad: 1, total: 154.15 },
+      { num_orden: 7, detalle: 'Nike N012 Running Shoes', precio: 140.45, cantidad: 1, total: 154.15 },
+      { num_orden: 8, detalle: 'Adidas Running Shoes'   , precio: 140.45, cantidad: 1, total: 154.15 },
+      { num_orden: 9, detalle: 'Nike N012 Running Shoes', precio: 140.45, cantidad: 1, total: 154.15 },
+    ];
+
+    function buildTableBody(data, columns) {
+      var body = [];
+  
+      body.push([{ text: 'No.', style: 'tableHeader', alignment: 'center' }, { text: 'Detalle', style: 'tableHeader', alignment: 'center' }, { text: 'Precio', style: 'tableHeader', alignment: 'center' }, { text: 'Cantidad', style: 'tableHeader', alignment: 'center' }, { text: 'Total', style: 'tableHeader', alignment: 'center' }]);
+  
+      data.forEach(function(row) {
+          var dataRow = [];
+  
+          columns.forEach(function(column) {
+            //dataRow.push({ text: row[column].toString(), style: 'cell', alignment: 'center' },);
+            dataRow.push(row[column].toString());
+          })
+        
+          body.push(dataRow);
+      });
+
+      body.push([{ text: ' ', rowSpan: 3, colSpan: 2}, { }, {text: 'Sub. Total:', style: 'tableHeader', alignment: 'right', colSpan: 2 }, { }, { text: simboloNuevoSol+'510.00', style: 'contenido', alignment: 'right' }]);
+      body.push([{ }, { }, { text: 'IGV (18%) :', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol+'13.00', style: 'contenido', alignment: 'right' }]);
+      body.push([{ }, { }, { text: 'Total:', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol+'498.00', style: 'contenido', alignment: 'right' }]);
+  
+      return body;
+    }
+
+    function table(data, columns) {
+      return {
+        style: 'tableMargin',
+        color: '#444',
+          table: {
+            widths: [25, '*', 63, 60, 63],
+            heights: [20, 20 , 20, 20],
+            headerRows: 1,
+            body: buildTableBody(data, columns)
+          }
+      };
+    }
+
+    function estadoBoletaFunc(estado) {
+      return {
+        text: estado, background: 'yellow'
+      };
+    }
+    
+    
+    const pdfDefinition: any = {
+      pageSize: 'A4',
+      //pageOrientation: 'landscape',
+      pageMargins: [ 40, 60, 40, 60 ],
+      content: [
+        {
+          style: 'tableMargin',
+          table: {
+            widths: ['*', '*'],
+            body: [
+              [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150 }, { text: 'Nº de Boleta: ' + numeroBoleta, style: 'tableHeader', rowSpan: 4, alignment: 'right' }],
+              [{ text: direccionEmpresa  }, {}],
+              [{ text: correoEmpresa  }, {}],
+              [{ text: felefonoEmpresa  }, {}],
+            ]
+          },
+          layout: 'noBorders'
+        },
+
+        {
+          style: 'tableMargin',
+          table: {
+            widths: ['*', '*'],
+            body: [
+              [{ text: 'Facturado a:', style: 'tableHeader' }, { text: 'Nº de Boleta:', style: 'tableHeader', alignment: 'right' }],
+              [{ text: nombresCliente + ' ' + apellidosCliente, style: 'subtitulo' }, {text: numeroBoleta, style: 'contenido', alignment: 'right'}],
+              [{ text: 'Fecha de Nacimiento: '+fnacimientoCliente, style: 'contenido'  }, {text: 'Fecha de la Boleta:', style: 'tableHeader', alignment: 'right'}],
+              [{ text: 'Correo: '+correoCliente, style: 'contenido' }, {text: fecha_hoy, style: 'contenido', alignment: 'right'}],
+              [{ text: 'Telefono: '+telefonoCliente, style: 'contenido'  }, { }],
+            ]
+          },
+          layout: 'noBorders'
+        },
+
+        { text: 'Resumen del pedido:', style: 'subtitulo' },
+
+        table(externalDataRetrievedFromServer, ['num_orden', 'detalle', 'precio', 'cantidad', 'total']),
+
+        {
+          text: [,
+            { text: 'Fecha de Entrega: ', style: 'textBold'},
+            fecha_entrega, 
+            '   ', 
+            { text: 'Hora: ', style: 'textBold'},
+            hora_entrega,
+          ]
+        },
+
+        { text: 'Nota:', style: 'subtitulo2' },
+        { text: 'Todo trabajo se efectuara con un adelanto del 50%.', style: 'contenido2', alignment: 'justify'},
+        { text: 'La empresa no se responsabiliza de los pedidos no recogidos después de un mes.', style: 'contenido2', alignment: 'justify'},
+      ],
+      styles: {
+        subtitulo: {
+          bold: true,
+          fontSize: 13,
+          color: 'black',
+          margin: [0, 10, 0, 5]
+        },
+        subtitulo2: {
+          bold: true,
+          fontSize: 10,
+          color: 'black',
+          margin: [0, 10, 0, 5]
+        },
+        contenido: {
+          fontSize: 12,
+        },
+        contenido2: {
+          fontSize: 8,
+        },
+        textBold: {
+          fontSize: 12,
+          bold: true,
+        },
+
+        header: {
+          fontSize: 17,
+          bold: true,
+          margin: [0, 0, 0, 10]
+        },
+        subheader: {
+          fontSize: 13,
+          bold: true,
+          margin: [0, 10, 0, 5]
+        },
+        subtitle: {
+          fontSize: 12,
+          bold: true,
+          margin: [0, 10, 0, 5]
+        },
+        tableMargin: {
+          margin: [0, 15, 0, 15]
+        },
+        tableOpacityExample: {
+          margin: [0, 5, 0, 15],
+          fillColor: 'blue',
+          fillOpacity: 0.3
+        },
+        tableHeader: {
+          bold: true,
+          fontSize: 13,
+          color: 'black'
+        },
+
+      },
+
+    }
+
+    const pdf = pdfMake.createPdf(pdfDefinition);
+    pdf.open();
+  }
 
 }

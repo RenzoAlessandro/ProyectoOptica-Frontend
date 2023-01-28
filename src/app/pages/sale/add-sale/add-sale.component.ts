@@ -544,6 +544,7 @@ export class AddSaleComponent implements OnInit {
       },
     };
 
+    var estadoBoleta = "Pagado"
     var fecha_hoy = new Date (Date.now()).toLocaleDateString('en-GB');
     var fecha_entrega = new Date (Date.now()).toLocaleDateString("es-CL", {
       weekday: "long", // narrow, short
@@ -552,7 +553,7 @@ export class AddSaleComponent implements OnInit {
       day: "numeric" // 2-digit
     });
     var hora_entrega = new Date (Date.now()).toLocaleTimeString("es-CL", {
-      timeZone: "America/Santiago",
+      timeZone: "America/Bogota",
       hour12: true, // false
       hour: "numeric", // 2-digit
       minute: "2-digit", // numeric
@@ -619,6 +620,12 @@ export class AddSaleComponent implements OnInit {
           }
       };
     }
+
+    function estadoBoletaFunc(estado) {
+      return {
+        text: estado, background: 'yellow'
+      };
+    }
     
     
     const pdfDefinition: any = {
@@ -631,7 +638,7 @@ export class AddSaleComponent implements OnInit {
           table: {
             widths: ['*', '*'],
             body: [
-              [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150 }, { text: 'Nº de Boleta: #MN0131', style: 'tableHeader', rowSpan: 4, alignment: 'right' }],
+              [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150 }, { text: 'Nº de Boleta: ' + numeroBoleta, style: 'tableHeader', rowSpan: 4, alignment: 'right' }],
               [{ text: direccionEmpresa  }, {}],
               [{ text: correoEmpresa  }, {}],
               [{ text: felefonoEmpresa  }, {}],
@@ -732,6 +739,5 @@ export class AddSaleComponent implements OnInit {
 
     const pdf = pdfMake.createPdf(pdfDefinition);
     pdf.open();
- 
   }
 }
