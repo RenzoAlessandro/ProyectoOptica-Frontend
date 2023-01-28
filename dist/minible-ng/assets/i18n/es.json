@@ -45,6 +45,9 @@
     "CASHREGISTER": {
       "TEXT": "Caja"
     },
+    "HOME": {
+      "TEXT": "Inicio"
+    },
     "LAYOUTS": {
       "TEXT": "Diseños",
       "LIST": {

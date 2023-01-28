@@ -4,7 +4,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { NgbModal, NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap'
-
+import { UsuarioService } from 'src/app/services/usuario.service';
 import { Venta } from './addsale.model';
 import { AddsaleService } from './addsale.service';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
@@ -22,7 +22,7 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-import { getBase64ImageFromURL } from 'src/utils/functions';
+import { getBase64ImageFromURL, round } from 'src/utils/functions';
 
 @Component({
   selector: 'app-add-sale',
@@ -73,7 +73,7 @@ export class AddSaleComponent implements OnInit {
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
   @ViewChild('autocomplete') autocomplete;
-  listAllProducts: Array<any>;
+  listAllProducts: Array<any> = [];
   active = 1;
   keyword = "codigo_interno";
   keywordCliente = "nombres_apellidos";
@@ -89,7 +89,8 @@ export class AddSaleComponent implements OnInit {
   listClients: any = [];
 
   btnGuardar = false;
-  numberPattern = '[0-9]+';
+  numberPattern = '(^[0-9])+([.][0-9]{1,2})?$';
+  decimalPattern = /^\d+(\.\d{1,2})?$/;
   fechaVenta: Date;
 
 
@@ -98,6 +99,7 @@ export class AddSaleComponent implements OnInit {
     private modalService: NgbModal,
     private productosService: ProductosService,
     private customerService: ClienteService,
+    private usuarioService: UsuarioService
   ) {
     this.addsales$ = service.Addsales$;
     this.total$ = service.total$;
@@ -132,7 +134,7 @@ export class AddSaleComponent implements OnInit {
     this.modalService.open(centerDataModal, { centered: true, windowClass: 'modal-holder' });
     console.log("modal", products);
     this.f(this.fechaVenta_Contado).setValue(this.fechaVenta.toLocaleDateString());
-    this.f(this.precioTotal_Contado).setValue(this.precioTotalVenta);
+    this.f(this.precioTotal_Contado).setValue(this.precioTotalVenta.toFixed(2)  );
     this.g(this.fechaVenta_Credito).setValue(this.fechaVenta.toLocaleDateString());
     this.g(this.precioTotal_Credito).setValue(this.precioTotalVenta);
 
@@ -185,15 +187,15 @@ export class AddSaleComponent implements OnInit {
     ]
   };
   getListMonturas() {
-    this.productosService.getMonturasforSale().subscribe(res => {
+   /*  this.productosService.getMonturasforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
       this.listAllProducts = res;
-      console.log("monturas", this.listAllProducts);
+      console.log("monturas", this.listAllProducts); */
       this.getListAccesorios()
-    });
+    // });
   }
 
   getListAccesorios() {
-    this.productosService.getAccesoriosforSale().subscribe(res => {
+    this.productosService.getAccesoriosforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
       this.listAllProducts = [...res,...this.listAllProducts];
       console.log("accesorios", this.listAllProducts);
       this.getListLunas()
@@ -201,7 +203,7 @@ export class AddSaleComponent implements OnInit {
   }
 
   getListLunas() {
-    this.productosService.getLunasforSale().subscribe(res => {
+    this.productosService.getLunasforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
       this.listAllProducts = [...res,...this.listAllProducts];
       console.log("lunas", this.listAllProducts);
     });
@@ -249,15 +251,15 @@ export class AddSaleComponent implements OnInit {
 
     switch (item.tipo) {
       case 'montura':
-        this.products.push({ ...item, num: 1, precio: item.precio_montura_v });
+        this.products.push({ ...item, cant_vendida: 1, precio: item.precio_montura_v });
         this.autocomplete.clear();
         break;
       case 'luna':
-        this.products.push({ ...item, num: 1, precio: item.precio_luna_v });
+        this.products.push({ ...item, cant_vendida: 1, precio: item.precio_luna_v });
         this.autocomplete.clear();
         break;
       case 'accesorio':
-        this.products.push({ ...item, num: 1, precio: item.precio_accesorio_v });
+        this.products.push({ ...item, cant_vendida: 1, precio: item.precio_accesorio_v });
         this.autocomplete.clear();
         break;
       default:
@@ -290,27 +292,28 @@ export class AddSaleComponent implements OnInit {
   /** Gets the total cost of all products. */
   getTotalCost() {
     this.precioTotalVenta = this.products.map(t => t.precio).reduce((acc, value) => acc + value, 0);
+    this.precioTotalVenta = round(this.precioTotalVenta,1)
     return this.precioTotalVenta;
   }
 
   /** actualiza el precio por cantidad */
   addQuantityProduct(product, i) {
     console.log(this.products)
-   
-    if (this.products[i].num < this.products[i].cantidad) {
+    console.log(this.products[i].cant_vendida +1,this.products[i].cantidad)
+    if (this.products[i].cant_vendida +1 > this.products[i].cantidad) {
       Sweetalert("error", "No se puede agregar más productos del stock");
       return;
     } else {
-      this.products[i].num += 1;
+      this.products[i].cant_vendida += 1;
       switch (this.products[i].tipo) {
         case 'montura':
-          this.products[i].precio = this.products[i].precio_montura_v * this.products[i].num;
+          this.products[i].precio = this.products[i].precio_montura_v * this.products[i].cant_vendida;
           break;
         case 'luna':
-          this.products[i].precio = this.products[i].precio_luna_v * this.products[i].num;
+          this.products[i].precio = this.products[i].precio_luna_v * this.products[i].cant_vendida;
           break;
         case 'accesorio':
-          this.products[i].precio = this.products[i].precio_accesorio_v * this.products[i].num;
+          this.products[i].precio = this.products[i].precio_accesorio_v * this.products[i].cant_vendida;
           break;
         default:
           break;
@@ -323,22 +326,22 @@ export class AddSaleComponent implements OnInit {
   substractQuantityProduct(product, i) {
     console.log(this.products)
 
-    this.products[i].num -= 1;
+    this.products[i].cant_vendida -= 1;
     switch (this.products[i].tipo) {
       case 'montura':
-        this.products[i].precio = this.products[i].precio_montura_v * this.products[i].num;
+        this.products[i].precio = this.products[i].precio_montura_v * this.products[i].cant_vendida;
         break;
       case 'luna':
-        this.products[i].precio = this.products[i].precio_luna_v * this.products[i].num;
+        this.products[i].precio = this.products[i].precio_luna_v * this.products[i].cant_vendida;
         break;
       case 'accesorio':
-        this.products[i].precio = this.products[i].precio_accesorio_v * this.products[i].num;
+        this.products[i].precio = this.products[i].precio_accesorio_v * this.products[i].cant_vendida;
         break;
       default:
         break;
     }
 
-    if (this.products[i].num === 0) {
+    if (this.products[i].cant_vendida === 0) {
       this.removeProduct();
     }
   }
@@ -349,7 +352,7 @@ export class AddSaleComponent implements OnInit {
   removeProduct() {
     //console.log(this.cartProductList);
     this.products = this.products.filter(
-      (name) => name.num !== 0
+      (name) => name.cant_vendida !== 0
     );
   }
 
@@ -358,7 +361,7 @@ export class AddSaleComponent implements OnInit {
    */
   removeCartProduct(product, i) {
     console.log("eliminado", this.products)
-    this.products[i].num = 0;
+    this.products[i].cant_vendida = 0;
     this.removeProduct();
     this.estadoBotonGuardar();
   }
@@ -379,7 +382,7 @@ export class AddSaleComponent implements OnInit {
     this.formContado = this.fb.group({
       [this.cantidadRecibida_Contado]: [null, [
         Validators.required,
-        Validators.pattern(this.numberPattern),
+        Validators.pattern(this.decimalPattern),
       ]],
       [this.fechaVenta_Contado]: [{ value: null, disabled: true }],
       [this.usuario_Contado]: [null],
@@ -428,7 +431,7 @@ export class AddSaleComponent implements OnInit {
     console.log("entre")
     if (this.selectorPago == "contado") {
       this.f(this.pago_Contado).setValue(this.f(this.cantidadRecibida_Contado).value);
-      this.f(this.cambio_Contado).setValue(this.f(this.cantidadRecibida_Contado).value - this.precioTotalVenta);
+      this.f(this.cambio_Contado).setValue((this.f(this.cantidadRecibida_Contado).value - this.precioTotalVenta).toFixed(2));
     } else {
 
       this.g(this.pago_Credito).setValue(this.g(this.cantidadRecibida_Credito).value);

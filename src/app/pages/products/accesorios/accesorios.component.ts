@@ -94,7 +94,7 @@ export class AccesoriosComponent implements OnInit {
   }
 
   getListSedes() {
-    this.sedeService.getSedes().subscribe(res => {
+    this.sedeService.listSedes$.subscribe(res => {
       this.listSedes = res;
     });
   }
@@ -150,6 +150,7 @@ export class AccesoriosComponent implements OnInit {
    * @param centerDataModal center modal data
    */
   centerModal(centerDataModal: any, data: AccesorioModel) {
+    console.log(data)
     this.f(this.nombre_accesorio).setValue(data.nombre_accesorio);
     //this.f(this.codigo_accesorio).setValue(data.codigo);
     this.f(this.cantidad_accesorio).setValue(data.cantidad);
@@ -284,8 +285,7 @@ export class AccesoriosComponent implements OnInit {
    * Returns form Accesorios
    */
   get formEA() {
-    return
-     this.formAccesorios.controls;
+    return this.formAccesorios.controls;
   }
 
   /**

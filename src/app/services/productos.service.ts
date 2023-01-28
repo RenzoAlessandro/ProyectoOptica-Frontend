@@ -25,14 +25,14 @@ export class ProductosService {
     return this.http.get<any>(environment.urlBackend+'getAllLunas');
   }
 
-  getMonturasforSale(): Observable<any> {
-    return this.http.get<any>(environment.urlBackend+'getAllMonturasForVenta');
+  getMonturasforSale(idSede:string): Observable<any> {
+    return this.http.get<any>(environment.urlBackend+'getAllMonturasForVenta/'+idSede);
   }
-  getAccesoriosforSale(): Observable<any> {
-    return this.http.get<any>(environment.urlBackend+'getAllAccesoriosForVenta');
+  getAccesoriosforSale(idSede:string): Observable<any> {
+    return this.http.get<any>(environment.urlBackend+'getAllAccesoriosForVenta/'+idSede);
   }
-  getLunasforSale(): Observable<any> {
-    return this.http.get<any>(environment.urlBackend+'getAllLunasForVenta');
+  getLunasforSale(idSede:string): Observable<any> {
+    return this.http.get<any>(environment.urlBackend+'getAllLunasForVenta/'+idSede);
   }
 
   createAccesorios(accesorio:AccesorioModel): Observable<any> {

@@ -95,13 +95,13 @@
                     </div>
                   </td>
                   <td>
-                    <ngb-highlight [result]=i+1 [term]="service.searchTerm"></ngb-highlight>
+                    <ngb-highlight [result]="data.num_orden" [term]="service.searchTerm"></ngb-highlight>
                   </td>
                   <td>
                     <ngb-highlight [result]="data.material" [term]="service.searchTerm"></ngb-highlight>
                   </td>
                   <td>
-                    <ngb-highlight [result]="data.codigo" [term]="service.searchTerm"></ngb-highlight>
+                    <ngb-highlight [result]="data.codigo_interno" [term]="service.searchTerm"></ngb-highlight>
                   </td>
                   <td>
                     <ngb-highlight [result]="data.precio_luna_c" [term]="service.searchTerm"></ngb-highlight>
@@ -174,7 +174,7 @@
     </button>
   </div>
   <div class="modal-body p-4">
-    <form (ngSubmit)="saveEvent()" [formGroup]="formLuna">
+    <form [formGroup]="formLuna">
       <p class="card-title-desc text-danger">* Campo requerido</p>
       <!-- <div class="row">
             <div class="col-6">

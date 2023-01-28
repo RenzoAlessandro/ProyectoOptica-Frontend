@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SedeService } from 'src/app/services/sede.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { SedesModel } from 'src/models/sedes';
 
 @Component({
   selector: 'app-list-stores',
@@ -20,8 +21,8 @@ export class ListStoresComponent implements OnInit {
   // bread crumb items
   breadCrumbItems: Array<{}>;
 
-  listSedes: any;
-
+  listSedes = [];
+  sede = new SedesModel
   constructor(
     private modalService: NgbModal,
     private sedeService: SedeService,
@@ -31,7 +32,6 @@ export class ListStoresComponent implements OnInit {
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Tiendas' }, { label: 'Lista de Tiendas', active: true }];
     this.getListSedes();
-    this.crearFormulario();
   }
 
   getListSedes() {
@@ -66,7 +66,12 @@ export class ListStoresComponent implements OnInit {
    * Open center modal
    * @param DataModalEditStore center modal data
    */
-  OpenModalEditStore(DataModalEditStore: any) {
+  OpenModalEditStore(DataModalEditStore: any,data:SedesModel) {
+    this.crearFormulario();
+    console.log(data)
+    this.f(this.nombre_tienda).setValue(data.nombre_sede);
+    this.f(this.direccion_tienda).setValue(data.direccion);
+    this.sede.id_sede = data.id_sede;
     this.modalService.open(DataModalEditStore, { centered: true,windowClass:'modal-holder' });
   }
 
@@ -86,5 +91,30 @@ export class ListStoresComponent implements OnInit {
     }
     this.submitted = true;
   }
+
+  /**
+   * Funcion de ayuda para obtener los valores del formulario
+   * @param campo 
+   * @returns 
+   */
+  f(campo:any){
+    return this.formEditarTiendas.get(campo);
+  }
+
+  guardarTienda() {
+    if (this.formEditarTiendas.valid) {
+      
+      this.sede.direccion = this.f(this.direccion_tienda).value;
+      this.sede.nombre_sede = this.f(this.nombre_tienda).value;
+      this.sede.fecha_modificacion_sede = new Date(Date.now());
+      console.log(this.sede);
+      this.sedeService.editSede(this.sede).subscribe( res=>{
+        console.log("actualizado ok");
+      }); 
+    } else {
+      return;
+    }
+  }
+
   
 }

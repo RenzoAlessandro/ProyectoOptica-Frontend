@@ -163,7 +163,7 @@ export class CashRegisterComponent implements OnInit {
   guardarIngreso() {
     if (this.formIngreso.valid) {
       this.caja.monto = Number(this.fI(this.monto_ingreso).value);
-      this.caja.fecha_ingreso = new Date(Date.now());
+      this.caja.fecha_creacion_caja = new Date(Date.now());
       this.caja.encargado = this.fI(this.encargado_ingreso).value;
       this.caja.descripcion = this.fI(this.descripcion_ingreso).value;
       this.caja.id_sede = '5abc73dc-c1ff-4e21-8ab8-570d29d876e2Sed004';
@@ -182,7 +182,7 @@ export class CashRegisterComponent implements OnInit {
   guardarEgreso() {
     if (this.formEgreso.valid) {
       this.caja.monto = Number(this.fE(this.monto_egreso).value);
-      this.caja.fecha_ingreso = new Date(Date.now());
+      this.caja.fecha_creacion_caja = new Date(Date.now());
       this.caja.encargado = this.fE(this.encargado_egreso).value;
       this.caja.descripcion = this.fE(this.descripcion_egreso).value;
       this.caja.id_sede = '5abc73dc-c1ff-4e21-8ab8-570d29d876e2Sed004';
@@ -195,5 +195,12 @@ export class CashRegisterComponent implements OnInit {
     } else {
       
     }
+  }
+
+  eliminarIngreso(data:CajaModel) {
+    console.log(data)
+    this.cajaService.deleteIngresoEgreso(data).subscribe(res=>{
+      console.log("eliminado")
+    })
   }
 }
