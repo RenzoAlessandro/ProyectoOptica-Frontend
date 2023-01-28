@@ -569,24 +569,41 @@ export class AddSaleComponent implements OnInit {
     var correoEmpresa = 'raulcg1234@hotmail.com ';
     var felefonoEmpresa = '955 739 464';
 
-    var nombresCliente = 'Renzo Alessando';
-    var apellidosCliente = 'Sucari Velasques';
+    var nombresCliente = venta.nombre_cliente;
     var fnacimientoCliente = '14/02/96';
     var direccionCliente = 'Calle Leticia 104, Carmen Alto Cayma, Arequipa';
     var correoCliente = 'renzo.sucari@gmail.com';
     var telefonoCliente = '983 720 150';
 
-    var externalDataRetrievedFromServer = [
-      { num_orden: 1, detalle: 'Nike N012 Running Shoes', precio: 140.45, cantidad: 1, total: 154.15 },
-      { num_orden: 2, detalle: 'Adidas Running Shoes'   , precio: 140.45, cantidad: 1, total: 154.15 },
-      { num_orden: 3, detalle: 'Nike N012 Running Shoes', precio: 140.45, cantidad: 1, total: 154.15 },
-      { num_orden: 4, detalle: 'Adidas Running Shoes'   , precio: 140.45, cantidad: 1, total: 154.15 },
-      { num_orden: 5, detalle: 'Nike N012 Running Shoes', precio: 140.45, cantidad: 1, total: 154.15 },
-      { num_orden: 6, detalle: 'Adidas Running Shoes'   , precio: 140.45, cantidad: 1, total: 154.15 },
-      { num_orden: 7, detalle: 'Nike N012 Running Shoes', precio: 140.45, cantidad: 1, total: 154.15 },
-      { num_orden: 8, detalle: 'Adidas Running Shoes'   , precio: 140.45, cantidad: 1, total: 154.15 },
-      { num_orden: 9, detalle: 'Nike N012 Running Shoes', precio: 140.45, cantidad: 1, total: 154.15 },
-    ];
+    var externalDataRetrievedFromServer = [];
+
+    function buildData(){
+      var numOrdenItems = 1;
+
+      // Monturas
+      if (venta.list_monturas.length > 0){
+        for (var i = 0; i < venta.list_monturas.length; i++){
+          numOrdenItems += i;
+          externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_monturas[i].marca, precio: venta.list_monturas[i].precio_montura_v, cantidad: 154.15, total: 154.15 },) // Añade
+        }
+      }
+
+      // Lunas
+      if (venta.list_lunas.length > 0){
+        for (var i = 0; i < venta.list_lunas.length; i++){
+          numOrdenItems += i;
+          externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_lunas[i].material, precio: venta.list_lunas[i].precio_luna_v, cantidad: venta.list_lunas[i].cant_vendida, total: 154.15 },) // Añade
+        }
+      }
+
+      // Accesorios
+      if (venta.list_accesorios.length > 0){
+        for (var i = 0; i < venta.list_accesorios.length; i++){
+          numOrdenItems += i;
+          externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_accesorios[i].nombre_accesorio, precio: venta.list_accesorios[i].precio_accesorio_v, cantidad: 154.15, total: 154.15 },) // Añade
+        }
+      }
+    }
 
     function buildTableBody(data, columns) {
       var body = [];
@@ -612,6 +629,7 @@ export class AddSaleComponent implements OnInit {
     }
 
     function table(data, columns) {
+      buildData();
       return {
         style: 'tableMargin',
         color: '#444',
@@ -656,7 +674,7 @@ export class AddSaleComponent implements OnInit {
             widths: ['*', '*'],
             body: [
               [{ text: 'Facturado a:', style: 'tableHeader' }, { text: 'Nº de Boleta:', style: 'tableHeader', alignment: 'right' }],
-              [{ text: nombresCliente + ' ' + apellidosCliente, style: 'subtitulo' }, {text: numeroBoleta, style: 'contenido', alignment: 'right'}],
+              [{ text: nombresCliente, style: 'subtitulo' }, {text: numeroBoleta, style: 'contenido', alignment: 'right'}],
               [{ text: 'Fecha de Nacimiento: '+fnacimientoCliente, style: 'contenido'  }, {text: 'Fecha de la Boleta:', style: 'tableHeader', alignment: 'right'}],
               [{ text: 'Correo: '+correoCliente, style: 'contenido' }, {text: fecha_hoy, style: 'contenido', alignment: 'right'}],
               [{ text: 'Telefono: '+telefonoCliente, style: 'contenido'  }, { }],
@@ -740,7 +758,7 @@ export class AddSaleComponent implements OnInit {
 
     }
 
-    //const pdf = pdfMake.createPdf(pdfDefinition);
-    //pdf.open();
+    const pdf = pdfMake.createPdf(pdfDefinition);
+    pdf.open();
   }
 }

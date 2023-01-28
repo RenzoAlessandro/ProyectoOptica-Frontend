@@ -12,4 +12,5 @@ export class LunasModel {
     tipo:string;
     codigo_interno: string;
     num_orden: number;
+    cant_vendida: number;
 }

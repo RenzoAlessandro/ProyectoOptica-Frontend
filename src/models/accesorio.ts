@@ -12,4 +12,5 @@ export class AccesorioModel {
     habilitado: boolean;
     tipo: string;
     num_orden: number;
+    cant_vendida: number;
 }
