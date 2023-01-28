@@ -19,6 +19,8 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import { getBase64ImageFromURL, round } from 'src/utils/functions';
+import { ClienteService } from 'src/app/services/cliente.service';
+import { CustomersModel } from 'src/models/customer';
 
 
 @Component({
@@ -76,6 +78,7 @@ export class ListSalesComponent implements OnInit {
     private fbActualizar: FormBuilder,
     private ventasService: VentaService,
     private modalService: NgbModal,
+    private customerService: ClienteService
     ) {
     this.transactions$ = service.transactions$;
     console.log(this.transactions$)
@@ -245,7 +248,15 @@ export class ListSalesComponent implements OnInit {
     })
   }
 
-  async createPDF(){
+  createPDF(venta:VentasModel) {
+    this.customerService.getAllClientsbyId(venta.id_cliente).subscribe((res:CustomersModel) => {
+      console.log(res);
+      this.generatePDF(venta, res);
+    })
+  }
+
+  async generatePDF(venta:VentasModel, cliente: CustomersModel){
+    console.log(venta)
     var fonts = {
       Roboto: {
         normal: 'fonts/Roboto-Regular.ttf',
@@ -277,8 +288,7 @@ export class ListSalesComponent implements OnInit {
     var correoEmpresa = 'raulcg1234@hotmail.com ';
     var felefonoEmpresa = '955 739 464';
 
-    var nombresCliente = 'Renzo Alessando';
-    var apellidosCliente = 'Sucari Velasques';
+    var nombresCliente = venta.nombre_cliente ;
     var fnacimientoCliente = '14/02/96';
     var direccionCliente = 'Calle Leticia 104, Carmen Alto Cayma, Arequipa';
     var correoCliente = 'renzo.sucari@gmail.com';
@@ -364,7 +374,7 @@ export class ListSalesComponent implements OnInit {
             widths: ['*', '*'],
             body: [
               [{ text: 'Facturado a:', style: 'tableHeader' }, { text: 'Nº de Boleta:', style: 'tableHeader', alignment: 'right' }],
-              [{ text: nombresCliente + ' ' + apellidosCliente, style: 'subtitulo' }, {text: numeroBoleta, style: 'contenido', alignment: 'right'}],
+              [{ text: nombresCliente, style: 'subtitulo' }, {text: numeroBoleta, style: 'contenido', alignment: 'right'}],
               [{ text: 'Fecha de Nacimiento: '+fnacimientoCliente, style: 'contenido'  }, {text: 'Fecha de la Boleta:', style: 'tableHeader', alignment: 'right'}],
               [{ text: 'Correo: '+correoCliente, style: 'contenido' }, {text: fecha_hoy, style: 'contenido', alignment: 'right'}],
               [{ text: 'Telefono: '+telefonoCliente, style: 'contenido'  }, { }],

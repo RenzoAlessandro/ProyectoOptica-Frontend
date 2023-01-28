@@ -8,12 +8,14 @@ import { CashRegisterComponent } from './cash/cash-register/cash-register.compon
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { DefaultHomeComponent } from './home/default-home/default-home.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'login' },
   //{ path: '**', redirectTo: 'login' },
   { path: 'login',component: LoginComponent },
+  { path: 'profile',component: ProfileComponent },
   { path: 'dashboard', component: DefaultComponent, canActivate: [AuthGuard]  },
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]  },
   { path: 'chat', component: ChatComponent, canActivate: [AuthGuard]  },

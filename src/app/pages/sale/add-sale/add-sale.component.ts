@@ -92,6 +92,7 @@ export class AddSaleComponent implements OnInit {
   numberPattern = '(^[0-9])+([.][0-9]{1,2})?$';
   decimalPattern = /^\d+(\.\d{1,2})?$/;
   fechaVenta: Date;
+  customer: any;
 
 
   constructor(public service: AddsaleService,
@@ -271,7 +272,7 @@ export class AddSaleComponent implements OnInit {
 
   selectEventCliente(item: any) {
     console.log(item);
-
+    this.customer = item;
     if (this.selectorPago == "contado") {
       this.f(this.usuario_Contado).setValue(item.id_cliente);
     } else {
@@ -507,7 +508,7 @@ export class AddSaleComponent implements OnInit {
           
           this.productosService.createVenta(this.venta).subscribe(res => {
             console.log("Guardando venta");
-            this.createPDF();
+            this.createPDF(this.venta,this.customer);
             Sweetalert("close", null);
             Sweetalert("success", "Venta realizada");
             this.modalService.dismissAll();
@@ -534,7 +535,9 @@ export class AddSaleComponent implements OnInit {
   }
 
 
-  async createPDF(){
+  async createPDF(venta:VentasModel, cliente:any){
+
+    console.log(venta);
     var fonts = {
       Roboto: {
         normal: 'fonts/Roboto-Regular.ttf',
@@ -737,7 +740,7 @@ export class AddSaleComponent implements OnInit {
 
     }
 
-    const pdf = pdfMake.createPdf(pdfDefinition);
-    pdf.open();
+    //const pdf = pdfMake.createPdf(pdfDefinition);
+    //pdf.open();
   }
 }

@@ -147,11 +147,11 @@
                     </td>
                     <td>
                       <div>
-                        <button (click)="createPDF()" class="btn btn-light btn-sm w-xs">Pdf <i class="uil uil-download-alt ms-2"></i></button>
+                        <button (click)="createPDF(data)" class="btn btn-light btn-sm w-xs">Pdf <i class="uil uil-download-alt ms-2"></i></button>
                       </div>
                     </td>
                     <td>
-                      <a (click)="centerModalActualizar(centerDataModalActualizarVenta)" class="px-3 text-primary"
+                      <a *ngIf="data.tipo_venta[0].forma_pago == 'credito'" (click)="centerModalActualizar(centerDataModalActualizarVenta)" class="px-3 text-primary"
                         placement="top" ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
                       <a (click)="eliminar(data)" class="px-3 text-danger" placement="top" ngbTooltip="Eliminar"><i
                           class="uil uil-trash-alt font-size-18"></i></a>
