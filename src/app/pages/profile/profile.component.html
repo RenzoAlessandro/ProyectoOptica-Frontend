@@ -1,59 +1,107 @@
 <div class="container-fluid">
     <app-page-title title="Perfil" [breadcrumbItems]="breadCrumbItems"></app-page-title>
-  
+
     <div class="row mb-4">
-      <div class="col-xl-6">
-        <div class="card h-100">
-          <div class="card-body">
-            <div class="text-center">
-              <div class="clearfix"></div>
-              <div>
-                <img src="assets/images/users/avatar-0.png" alt="" class="avatar-lg rounded-circle img-thumbnail" />
-              </div>
-              <h5 class="mt-3 mb-1">Renzo Alessandro Sucari Velásquez</h5>
-              <p class="text-muted">Administrador</p>
-              <p>Sede</p>
-  
-              <div class="mt-4">
-                <button type="button" class="btn btn-light btn-sm">
-                  <i class="uil uil-lock-alt me-2"></i> Cambiar Contraseña
-                </button>
-              </div>
+        <div class="col-xl-12">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="text-center">
+                        <div class="clearfix"></div>
+                        <div>
+                            <img src="assets/images/users/avatar-0.png" alt=""
+                                class="avatar-lg rounded-circle img-thumbnail" />
+                        </div>
+                        <h5 class="mt-3 mb-1">Renzo Alessandro Sucari Velásquez</h5>
+                        <p class="text-muted">Administrador</p>
+                        <p>Sede</p>
+
+                        <div class="mt-4">
+                            <button (click)="centerModalChangePassword(centerDataModalChangePassword)" type="button" class="btn btn-light btn-sm">
+                                <i class="uil uil-lock-alt me-2"></i> Cambiar Contraseña
+                            </button>
+                        </div>
+                    </div>
+
+                    <hr class="my-4" />
+
+                    <div class="text-muted">
+                        <div class="table-responsive mt-4">
+                            <div>
+                                <p class="mb-1">Nombres :</p>
+                                <h5 class="font-size-16">Renzo Alessandro</h5>
+                            </div>
+                            <div>
+                                <p class="mb-1">Apellidos :</p>
+                                <h5 class="font-size-16">Sucari Velásquez</h5>
+                            </div>
+                            <div class="mt-4">
+                                <p class="mb-1">DNI :</p>
+                                <h5 class="font-size-16">74823410</h5>
+                            </div>
+                            <div class="mt-4">
+                                <p class="mb-1">Telefono :</p>
+                                <h5 class="font-size-16">983720150</h5>
+                            </div>
+                            <div class="mt-4">
+                                <p class="mb-1">E-mail :</p>
+                                <h5 class="font-size-16">renzusuv@gmail.com</h5>
+                            </div>
+                            <div class="mt-4">
+                                <p class="mb-1">Dirección :</p>
+                                <h5 class="font-size-16">Calle Leticia 104, Carmen Alto, Cayma, Arequipa</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-  
-            <hr class="my-4" />
-  
-            <div class="text-muted">
-              <div class="table-responsive mt-4">
-                <div>
-                  <p class="mb-1">Nombres :</p>
-                  <h5 class="font-size-16">Renzo Alessandro</h5>
-                </div>
-                <div>
-                    <p class="mb-1">Apellidos :</p>
-                    <h5 class="font-size-16">Sucari Velásquez</h5>
-                </div>
-                <div class="mt-4">
-                    <p class="mb-1">DNI :</p>
-                    <h5 class="font-size-16">74823410</h5>
-                </div>
-                <div class="mt-4">
-                  <p class="mb-1">Telefono :</p>
-                  <h5 class="font-size-16">983720150</h5>
-                </div>
-                <div class="mt-4">
-                  <p class="mb-1">E-mail :</p>
-                  <h5 class="font-size-16">renzusuv@gmail.com</h5>
-                </div>
-                <div class="mt-4">
-                  <p class="mb-1">Dirección :</p>
-                  <h5 class="font-size-16">Calle Leticia 104, Carmen Alto, Cayma, Arequipa</h5>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
     <!-- end row -->
-  </div>
+
+
+
+    <!-- Center Modal Change Password -->
+    <ng-template #centerDataModalChangePassword let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title mt-0">Center modal</h5>
+            <button type="button" class="btn-close" (click)="closeEventModal()" aria-hidden="true"></button>
+        </div>
+        <div class="modal-body">
+
+            <div class="text-center mt-2">
+                <h5 class="text-primary">Restablecer la contraseña</h5>
+                <p class="text-muted">Restablecer contraseña con Contacto Visual.</p>
+            </div>
+            <div class="p-2 mt-4">
+                <div class="alert alert-success text-center mb-4" role="alert">
+                    La contraseña es válida si se cumplen todas las siguientes restricciones:
+                    - Contiene al menos 6 a 20 caracteres.
+                    - Contiene al menos una mayúscula, minúscula y un dígito.
+                    - Contiene al menos un carácter especial.  
+                </div>
+                <form action="/">
+
+                    <div class="form-group mb-2">
+                        <label for="userPassword">Nueva Constraseña</label>
+                        <input type="password" class="form-control" id="userPassword" placeholder="Ingrese la contraseña">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userPasswordRepeat">Repita la Nueva Constraseña</label>
+                        <input type="password" class="form-control" id="userPasswordRepeat" placeholder="Ingrese la nueva contraseña">
+                    </div>
+                    
+<!--                     <div class="mt-4 text-center">
+                        <p class="mb-0">Remember It ? <a href="pages/login-1" class="fw-medium text-primary"> Signin </a></p>
+                    </div> -->
+                    
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="closeEventModal()">Cerrar</button>
+            <button type="button" class="btn btn-primary">Guardar cambios</button>
+          </div>
+        </ng-template>
+
+</div>
