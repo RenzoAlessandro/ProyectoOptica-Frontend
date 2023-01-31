@@ -580,11 +580,11 @@ export class AddSaleComponent implements OnInit {
     var correoEmpresa = 'raulcg1234@hotmail.com ';
     var felefonoEmpresa = '955 739 464';
 
-    var nombresCliente = venta.nombre_cliente;
-    var fnacimientoCliente = '14/02/96';
-    var direccionCliente = 'Calle Leticia 104, Carmen Alto Cayma, Arequipa';
-    var correoCliente = 'renzo.sucari@gmail.com';
-    var telefonoCliente = '983 720 150';
+    var nombresCliente = cliente.nombres + ' ' + cliente.apellidos;
+    var fnacimientoCliente = new Date (cliente.fecha_nacimiento).toLocaleDateString('en-GB');
+    //var direccionCliente = 'Calle';
+    var correoCliente = cliente.email;
+    var telefonoCliente = cliente.telefono;
 
     var externalDataRetrievedFromServer = [];
 
@@ -595,7 +595,7 @@ export class AddSaleComponent implements OnInit {
       if (venta.list_monturas.length > 0){
         for (var i = 0; i < venta.list_monturas.length; i++){
           numOrdenItems += i;
-          externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_monturas[i].marca, precio: venta.list_monturas[i].precio_montura_v, cantidad: 154.15, total: 154.15 },) // Añade
+          externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_monturas[i].marca, precio: venta.list_monturas[i].precio_montura_v, cantidad: venta.list_monturas[i].cant_vendida, total: venta.list_monturas[i].precio_montura_v * venta.list_monturas[i].cant_vendida},) // Añade
         }
       }
 
@@ -611,7 +611,7 @@ export class AddSaleComponent implements OnInit {
       if (venta.list_accesorios.length > 0){
         for (var i = 0; i < venta.list_accesorios.length; i++){
           numOrdenItems += i;
-          externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_accesorios[i].nombre_accesorio, precio: venta.list_accesorios[i].precio_accesorio_v, cantidad: 154.15, total: 154.15 },) // Añade
+          externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_accesorios[i].nombre_accesorio, precio: venta.list_accesorios[i].precio_accesorio_v, cantidad: venta.list_accesorios[i].cant_vendida, total: 154.15 },) // Añade
         }
       }
     }
