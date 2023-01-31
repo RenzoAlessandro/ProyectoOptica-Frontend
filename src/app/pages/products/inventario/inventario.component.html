@@ -1,0 +1,188 @@
+<div class="container-fluid">
+
+    <app-page-title title="Inventario de Monturas" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  
+    <div class="row">
+      <div class="col-md-6 mb-2">
+            <!-- Search -->
+            <div class="col-sm-12 col-md-12 search-box chat-search-box">
+              <div class="position-relative">
+                <ng-autocomplete #autocomplete [data]="listAllProducts" [searchKeyword]="keyword" placeholder="Buscar productos"
+                  (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)'
+                  (inputFocused)='onFocused($event)' historyIdentifier="" [itemTemplate]="itemTemplate"
+                  [notFoundTemplate]="notFoundTemplate" (keyup.enter)="selectEvent($event)" focusFirst="true">
+                </ng-autocomplete>
+  
+                <ng-template #itemTemplate let-item>
+                  <a [innerHTML]="item.codigo_interno"></a>
+                </ng-template>
+  
+                <ng-template #notFoundTemplate let-notFound>
+                  <div [innerHTML]="notFound"></div>
+                </ng-template>
+              </div>
+            </div>
+            <!-- End search -->
+      </div>
+  
+<!--       <div class="col-md-6 mb-2">
+          <div>
+            <div class="btn-toolbar" role="toolbar">
+              <div class="col-6 d-grid">
+                <button type="button" class="btn btn-success btn-block me-1" (click)="openScrollModalEtiquetas(scrollDataModalEGM)" [disabled]="this.checkedMonturasList.length==0">
+                    <i class="uil uil-tag-alt me-2"></i> Etiquetas
+                </button>
+              </div>
+  
+              <div class="col-6 d-grid">
+                <button type="button" class="btn btn-primary btn-block me-1" (click)="openScrollModalInventario(scrollDataModalListaInventario)">
+                    <i class="uil uil-list-ul me-2"></i> Inventario
+                </button>
+              </div>
+            </div>
+          </div>
+      </div> -->
+  </div>
+  
+  <div class="row md-2">
+    <div class="col-sm-6 col-md-6">
+        <div class="mb-3">
+          <!-- Default dropup button -->
+          <div class="btn-group" ngbDropdown>
+            <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
+              bindLabel="nombre_sede">
+            </ng-select>
+          </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-6">
+      <div class="dataTables_length text-md-end"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
+            [(ngModel)]="service.pageSize"
+            class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+            <option [ngValue]="10">10</option>
+            <option [ngValue]="25">25</option>
+            <option [ngValue]="50">50</option>
+            <option [ngValue]="100">100</option>
+            <option [ngValue]="200">200</option>
+          </select> entradas</label></div>
+    </div>
+  </div>
+  
+    <div class="row">
+      <div class="col-12">
+        <div class="table-responsive mb-4">
+            <form>
+              <table class="table datatables table-centered table-nowrap mb-0 align-middle table-card-list"style="border-spacing: 0 12px; width: 100%;">
+                <thead>
+                  <tr class="bg-transparent">
+                    <th style="width: 20px;">
+                      <div class="form-check text-center">
+                        <input type="checkbox" class="form-check-input" id="monturascheck" (change)="checkUncheckAll()" [(ngModel)]="isMasterSel" [ngModelOptions]="{standalone: true}">
+                        <label class="form-check-label" for="monturascheck"></label>
+                      </div>
+                    </th>
+                    <th scope="col" sortable="id" (sort)="onSort($event)">Ord.</th>
+                    <th scope="col" sortable="material" (sort)="onSort($event)">Material</th>
+                    <th scope="col" sortable="marca" (sort)="onSort($event)">Marca</th>
+                    <th scope="col" sortable="codigo_1" (sort)="onSort($event)">Cód.</th>
+                    <th scope="col" sortable="codigo_2_interno" (sort)="onSort($event)">Cód. int.</th>
+                    <th scope="col" sortable="talla" (sort)="onSort($event)">Talla</th>
+                    <th scope="col" sortable="color" (sort)="onSort($event)">Color</th>
+                    <th scope="col" sortable="cantidad" (sort)="onSort($event)">Stock</th>
+                    <th scope="col" sortable="precio_compra" (sort)="onSort($event)">P. Compra</th>
+                    <th scope="col" sortable="precio_venta" (sort)="onSort($event)">P. Venta</th>
+                    <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th>
+                    <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de ing.</th>
+                    <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th>
+                    <th style="width: 170px;">Acción</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of monturas$ | async; let i = index">
+                    <td>
+                      <div class="form-check text-center">
+                        <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input" 
+                        [(ngModel)]="data.isSelected" [ngModelOptions]="{standalone: true}"
+                          (change)="isAllSelected()"/>
+                        <label class="form-check-label" for="ordercheck{{data.index}}">&nbsp;</label>
+                      </div>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.num_orden" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.material" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.marca" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.codigo" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.codigo_interno" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.talla" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.color" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.cantidad" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.precio_montura_c" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.precio_montura_v" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.fecha_creacion_monturas | date: 'dd/MM/yyyy'"
+                        [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <span class="badge bg-pill bg-soft-success font-size-12"
+                        [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
+                    </td>
+                    <td>
+                      <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar" (click)="eliminar(data)"><i
+                          class="uil uil-trash-alt font-size-18"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+        </div>
+        
+        <div class="row" *ngIf="!mostrarSpinner">
+          <div class="col-12">
+            <div class="text-center my-3">
+              <a href="javascript:void(0);" class="text-primary"><i
+                  class="mdi mdi-loading mdi-spin font-size-20 align-middle me-2"></i> Cargando </a>
+            </div>
+          </div> <!-- end col-->
+        </div>
+  
+        <!-- End table -->
+        <div class="row justify-content-md-between align-items-md-center">
+          <!-- <div class="col-sm-12 col-md-5">
+            <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">Page 2 of 84</div>
+          </div> -->
+          <!-- Pagination -->
+          <div class="col-12">
+            <div class="text-md-end float-md-end pagination-rounded">
+              <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
+              </ngb-pagination>
+            </div>
+          </div>
+          <!-- End Pagination -->
+        </div>
+      </div>
+    </div>
+    <!-- end row -->
+  </div>
+  

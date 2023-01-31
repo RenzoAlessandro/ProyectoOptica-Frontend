@@ -67,10 +67,10 @@ export const MENU: MenuItem[] = [
         subItems: [
             {
                 id: 10,
-                label: 'MENUITEMS.PRODUCTS.LIST.ACCESORIOS',
-                link: '/products/accesorios',
+                label: 'MENUITEMS.PRODUCTS.LIST.MONTURAS',
+                link: '/products/monturas',
                 parentId: 9
-            }, 
+            },
             {
                 id: 11,
                 label: 'MENUITEMS.PRODUCTS.LIST.LENTES',
@@ -79,10 +79,10 @@ export const MENU: MenuItem[] = [
             }, 
             {
                 id: 12,
-                label: 'MENUITEMS.PRODUCTS.LIST.MONTURAS',
-                link: '/products/monturas',
+                label: 'MENUITEMS.PRODUCTS.LIST.ACCESORIOS',
+                link: '/products/accesorios',
                 parentId: 9
-            },
+            }, 
             {
                 id: 13,
                 label: 'MENUITEMS.PRODUCTS.LIST.ADDPRODUCTS',
@@ -95,22 +95,28 @@ export const MENU: MenuItem[] = [
                 link: '/products/updateexcel',
                 parentId: 9
             },
+            {
+                id: 15,
+                label: 'MENUITEMS.PRODUCTS.LIST.INVENTARIO',
+                link: '/products/inventario',
+                parentId: 9
+            },
         ],
         link: '/products',
     },
     {
-        id: 15,
+        id: 16,
         label: 'MENUITEMS.STORES.TEXT',
         icon: 'uil-shop',
         subItems: [
             {
-                id: 16,
+                id: 17,
                 label: 'MENUITEMS.STORES.LIST.STORES',
                 link: '/store/liststores',
                 parentId: 9
             }, 
             {
-                id: 17,
+                id: 18,
                 label: 'MENUITEMS.STORES.LIST.ADDSTORES',
                 link: '/store/addstore',
                 parentId: 9
@@ -120,18 +126,18 @@ export const MENU: MenuItem[] = [
         role: ['Admin']
     },
     {
-        id: 18,
+        id: 19,
         label: 'MENUITEMS.SALES.TEXT',
         icon: 'uil-invoice',
         subItems: [
             {
-                id: 19,
+                id: 20,
                 label: 'MENUITEMS.SALES.LIST.SALES',
                 link: '/sale/listsales',
                 parentId: 9
             }, 
             {
-                id: 20,
+                id: 21,
                 label: 'MENUITEMS.SALES.LIST.ADDSALES',
                 link: '/sale/addsale',
                 parentId: 9
@@ -141,7 +147,7 @@ export const MENU: MenuItem[] = [
         role: ['Admin','Vendedor']
     },
     {
-        id: 21,
+        id: 22,
         label: 'MENUITEMS.CASHREGISTER.TEXT',
         icon: 'uil-money-bill-stack',
         link: '/cash-register',
@@ -149,7 +155,7 @@ export const MENU: MenuItem[] = [
     },
 
     {
-        id: 22,
+        id: 23,
         label: 'MENUITEMS.HOME.TEXT',
         icon: 'uil-home-alt',
         link: '/home',

@@ -22,6 +22,7 @@ import { BarcodeGeneratorAllModule } from "@syncfusion/ej2-angular-barcode-gener
 import { RoleDirective } from "src/app/directives/role.directive";
 import { AutocompleteLibModule } from "angular-ng-autocomplete";
 import { Labels } from "src/utils/labels";
+import { InventarioComponent } from './inventario/inventario.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -30,7 +31,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
 @NgModule({
     // tslint:disable-next-line: max-line-length
-    declarations: [AddProductComponent, LunasComponent, MonturasComponent, AccesoriosComponent, NgbdSortableHeader, UpdateExcelComponent, RoleDirective],
+    declarations: [AddProductComponent, LunasComponent, MonturasComponent, AccesoriosComponent, NgbdSortableHeader, UpdateExcelComponent, RoleDirective, InventarioComponent],
     imports: [
       ProductsRoutingModule,
       CommonModule,
