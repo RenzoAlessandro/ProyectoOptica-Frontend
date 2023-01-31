@@ -202,7 +202,7 @@
     </div>
     <div class="modal-body p-4">
       <div class="col-lg-14">
-        <form (ngSubmit)="saveEvent()" [formGroup]="formCreditoActualizacion">
+        <form [formGroup]="formCreditoActualizacion">
 
           <div class="row">
             <div class="col-sm-6">
@@ -234,11 +234,11 @@
                   <div class="text-danger"
                     *ngIf="formCreditoActualizacion.controls['campoCantidadRecibidaCreditoActualizacion'].invalid && (formCreditoActualizacion.controls['campoCantidadRecibidaCreditoActualizacion'].dirty || formCreditoActualizacion.controls['campoCantidadRecibidaCreditoActualizacion'].touched)">
                     <div class="text-danger"
-                      *ngIf="formCreditoActualizacion.controls['campoCantidadRecibidaCreditoActualizacion'].errors.required">
+                      *ngIf="formCreditoActualizacion.controls['campoCantidadRecibidaCreditoActualizacion'].errors?.required">
                       Campo requerido
                     </div>
                     <div class="text-danger"
-                      *ngIf="formCredito.controls['campoCantidadRecibidaCreditoActualizacion'].errors.pattern">
+                      *ngIf="formCreditoActualizacion.controls['campoCantidadRecibidaCreditoActualizacion'].errors?.pattern">
                       Ingrese solo números
                     </div>
                   </div>
@@ -253,7 +253,7 @@
                   <div class="text-danger"
                     *ngIf="formCreditoActualizacion.controls['campoMetodoPagoCreditoActualizacion'].invalid && (formCreditoActualizacion.controls['campoMetodoPagoCreditoActualizacion'].dirty || formCreditoActualizacion.controls['campoMetodoPagoCreditoActualizacion'].touched)">
                     <div class="text-danger"
-                      *ngIf="formCreditoActualizacion.controls['campoMetodoPagoCreditoActualizacion'].errors.required">
+                      *ngIf="formCreditoActualizacion.controls['campoMetodoPagoCreditoActualizacion'].errors?.required">
                       Campo requerido
                     </div>
                   </div>
@@ -290,35 +290,11 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <th scope="row">1</th>
-                              <td>S/. 60.00</td>
-                              <td>Plin</td>
-                              <td>09 Ago, 2022</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">2</th>
-                              <td>S/. 30.00</td>
-                              <td>Interbancario</td>
-                              <td>14 Set, 2022</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">3</th>
-                              <td>S/. 59.00</td>
-                              <td>Físico</td>
-                              <td>18 Oct, 2022</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">4</th>
-                              <td>S/. 30.00</td>
-                              <td>Yape</td>
-                              <td>29 Nov, 2022</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">5</th>
-                              <td>-</td>
-                              <td>-</td>
-                              <td>-</td>
+                            <tr *ngFor="let pago of usuario.listDeudas; let i = index">
+                              <th scope="row">{{i+1}}</th>
+                              <td>{{pago.cantidad_recibida|currency:'S/.'}}</td>
+                              <td>{{pago.metodo_pago}}</td>
+                              <td>{{pago.fecha_pago}}</td>
                             </tr>
                           </tbody>
                         </table>

@@ -8,7 +8,6 @@ export class VentasModel {
     list_monturas: Array <MonturasModel> = [];
     list_lunas: Array <LunasModel> = [];
     list_accesorios: Array <AccesorioModel> = [];
-    observaciones: string;
     id_vendedor: string;
     fecha_creacion_venta: Date;
     tipo_venta: Array<TipoVentaModel> = [];
