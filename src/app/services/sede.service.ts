@@ -9,12 +9,9 @@ import { SedesModel } from 'src/models/sedes';
 })
 export class SedeService {
 
-  _listSedes$ = new BehaviorSubject<Array<SedesModel>>([]);
   constructor(
     private http: HttpClient
   ) { }
-
-  get listSedes$() { return this._listSedes$.asObservable();}
 
   getSedes(): Observable<any> {
     return this.http.get<any>(environment.urlBackend+'getAllSedes');
@@ -27,4 +24,8 @@ export class SedeService {
   editSede(sede: SedesModel): Observable<any> {
     return this.http.put<any>(environment.urlBackend+'editSedeById/'+ sede.id_sede,sede);
   }
+
+  getListSedes(): Array<SedesModel> {
+    return JSON.parse(localStorage.getItem('sedes'));
+}
 }

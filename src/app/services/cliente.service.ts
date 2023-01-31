@@ -20,8 +20,8 @@ export class ClienteService {
     return this.http.get<any>(environment.urlBackend+'getAllClients');
   }
 
-  getAllClientsbyId(idCustomer): Observable<any> {
-    return this.http.get<any>(environment.urlBackend+'getAllClientsById/' + idCustomer);
+  getAllClientbyId(idCustomer): Observable<any> {
+    return this.http.get<any>(environment.urlBackend+'getClientById/' + idCustomer);
   }
 
   getAllClientsforSale(): Observable<any> {

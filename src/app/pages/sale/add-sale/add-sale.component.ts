@@ -137,7 +137,7 @@ export class AddSaleComponent implements OnInit {
     this.f(this.fechaVenta_Contado).setValue(this.fechaVenta.toLocaleDateString());
     this.f(this.precioTotal_Contado).setValue(this.precioTotalVenta.toFixed(2)  );
     this.g(this.fechaVenta_Credito).setValue(this.fechaVenta.toLocaleDateString());
-    this.g(this.precioTotal_Credito).setValue(this.precioTotalVenta);
+    this.g(this.precioTotal_Credito).setValue(this.precioTotalVenta.toFixed(2));
 
   }
   /**
@@ -249,25 +249,36 @@ export class AddSaleComponent implements OnInit {
   }
   selectEvent(item: any) {
     console.log(item);
-
-    switch (item.tipo) {
-      case 'montura':
-        this.products.push({ ...item, cant_vendida: 1, precio: item.precio_montura_v });
-        this.autocomplete.clear();
-        break;
-      case 'luna':
-        this.products.push({ ...item, cant_vendida: 1, precio: item.precio_luna_v });
-        this.autocomplete.clear();
-        break;
-      case 'accesorio':
-        this.products.push({ ...item, cant_vendida: 1, precio: item.precio_accesorio_v });
-        this.autocomplete.clear();
-        break;
-      default:
-        break;
+    const productExistInCart = this.products.find((name) => name.codigo_interno === item.codigo_interno);
+    if (!productExistInCart) {
+      switch (item.tipo) {
+        case 'montura':
+          this.products.push({ ...item, cant_vendida: 1, precio: item.precio_montura_v });
+          this.autocomplete.clear();
+          break;
+        case 'luna':
+          this.products.push({ ...item, cant_vendida: 1, precio: item.precio_luna_v });
+          this.autocomplete.clear();
+          break;
+        case 'accesorio':
+          this.products.push({ ...item, cant_vendida: 1, precio: item.precio_accesorio_v });
+          this.autocomplete.clear();
+          break;
+        default:
+          break;
+      }
+      this.estadoBotonGuardar();
+      console.log("autocomplete", this.products);
+    } else {
+      console.log("entre al false",productExistInCart)
+      if (productExistInCart.cant_vendida +1 > productExistInCart.cantidad) {
+        Sweetalert("error", "No se puede agregar más productos del stock");
+        return;
+      } else {
+        productExistInCart.cant_vendida += 1;
+      }
+      
     }
-    this.estadoBotonGuardar();
-    console.log("autocomplete", this.products);
   }
 
   selectEventCliente(item: any) {
@@ -403,7 +414,7 @@ export class AddSaleComponent implements OnInit {
     this.formCredito = this.fb.group({
       [this.cantidadRecibida_Credito]: [null, [
         Validators.required,
-        Validators.pattern(this.numberPattern),
+        Validators.pattern(this.decimalPattern),
       ]],
       [this.fechaVenta_Credito]: [{ value: null, disabled: true }],
       [this.usuario_Credito]: [null],
@@ -436,7 +447,7 @@ export class AddSaleComponent implements OnInit {
     } else {
 
       this.g(this.pago_Credito).setValue(this.g(this.cantidadRecibida_Credito).value);
-      this.g(this.cambio_Credito).setValue(this.g(this.cantidadRecibida_Credito).value - this.precioTotalVenta);
+      this.g(this.cambio_Credito).setValue((this.g(this.cantidadRecibida_Credito).value - this.precioTotalVenta).toFixed(2));
     }
 
   }
@@ -453,7 +464,7 @@ export class AddSaleComponent implements OnInit {
       if (this.selectorPago == "contado") {
         this.venta.observaciones = this.f(this.observaciones_Contado).value;
         this.venta.fecha_creacion_venta = this.fechaVenta;
-        this.tipoPago.cantidad_recibida = this.f(this.cantidadRecibida_Contado).value;
+        this.tipoPago.cantidad_recibida = Number(this.f(this.cantidadRecibida_Contado).value);
         this.tipoPago.deuda = 0;
         this.tipoPago.metodo_pago = this.f(this.metodoPagoContado).value;
         this.tipoPago.cuotas = String(0);
@@ -461,7 +472,7 @@ export class AddSaleComponent implements OnInit {
       } else {
         this.venta.observaciones = this.g(this.observaciones_Credito).value;
         this.venta.fecha_creacion_venta = this.fechaVenta;
-        this.tipoPago.cantidad_recibida = this.g(this.cantidadRecibida_Credito).value;
+        this.tipoPago.cantidad_recibida = Number(this.g(this.cantidadRecibida_Credito).value);
         this.tipoPago.deuda = this.precioTotalVenta - this.g(this.cantidadRecibida_Credito).value;
         this.tipoPago.metodo_pago = this.g(this.metodoPagoCredito).value;
         this.tipoPago.cuotas = String(this.tickValue);

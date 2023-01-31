@@ -89,9 +89,7 @@ export class LunasComponent implements OnInit {
   }
 
   getListSedes() {
-    this.sedeService.listSedes$.subscribe( res => {
-      this.listSedes = res;
-    })
+      this.listSedes = JSON.parse(localStorage.getItem('sedes'));
   }
 
   crearFormulario() {

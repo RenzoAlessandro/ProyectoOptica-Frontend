@@ -70,6 +70,8 @@ export class ListSalesComponent implements OnInit {
   fechaDesde: string = 'campoFechaDesde';
   fechaHasta: string = 'campoFechaHasta';
 
+  usuario:any;
+
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   constructor(
@@ -109,9 +111,16 @@ export class ListSalesComponent implements OnInit {
    * Open center modal
    * @param centerDataModalActualizar center modal data
    */
-  centerModalActualizar(centerDataModalActualizar: any) {
+  centerModalActualizar(centerDataModalActualizar: any, venta: VentasModel) {
     this.crearFormularioActualizar();
     this.fechaVenta = new Date(Date.now());
+    console.log(venta)
+    const user = {
+      nombre : venta.nombre_cliente,
+      deuda : venta.tipo_venta[0].deuda,
+      listDeudas : venta.tipo_venta,
+    }
+    this.usuario = user;
     this.modalService.open(centerDataModalActualizar, { centered: true,windowClass:'modal-holder' });
     this.g(this.fechaVenta_CreditoActualizacion).setValue(this.fechaVenta.toLocaleDateString());
     this.g(this.precioTotal_CreditoActualizacion).setValue(this.precioTotalVenta);
@@ -249,7 +258,8 @@ export class ListSalesComponent implements OnInit {
   }
 
   createPDF(venta:VentasModel) {
-    this.customerService.getAllClientsbyId(venta.id_cliente).subscribe((res:CustomersModel) => {
+    console.log(venta)
+    this.customerService.getAllClientbyId(venta.id_cliente).subscribe((res:CustomersModel) => {
       console.log(res);
       this.generatePDF(venta, res);
     })
