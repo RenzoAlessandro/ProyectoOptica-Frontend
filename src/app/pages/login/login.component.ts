@@ -76,8 +76,7 @@ export class LoginComponent implements OnInit {
 
   getListSedes() {
     this.sedeService.getSedes().subscribe(res=> {
-      this.sedeService._listSedes$.next(res);
-      console.log(this.sedeService._listSedes$.value)
+      localStorage.setItem("sedes",JSON.stringify(res));
     })
   }
 

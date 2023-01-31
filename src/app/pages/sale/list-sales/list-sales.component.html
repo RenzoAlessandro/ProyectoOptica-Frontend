@@ -151,7 +151,7 @@
                       </div>
                     </td>
                     <td>
-                      <a *ngIf="data.tipo_venta[0].forma_pago == 'credito'" (click)="centerModalActualizar(centerDataModalActualizarVenta)" class="px-3 text-primary"
+                      <a *ngIf="data.tipo_venta[0].forma_pago == 'credito'" (click)="centerModalActualizar(centerDataModalActualizarVenta,data)" class="px-3 text-primary"
                         placement="top" ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
                       <a (click)="eliminar(data)" class="px-3 text-danger" placement="top" ngbTooltip="Eliminar"><i
                           class="uil uil-trash-alt font-size-18"></i></a>
@@ -208,7 +208,7 @@
             <div class="col-sm-6">
               <div class="mb-3">
                 <label class="control-label">Nombres y Apellidos del Cliente</label>
-                <h5>Renzo Alessandro Sucari Velasquez</h5>
+                <h5>{{usuario.nombre}}</h5>
               </div>
             </div>
             <div class="col-sm-6">
@@ -216,7 +216,7 @@
                 <div class="mt-4">
                   <div class="text-danger font-size-16">Deuda &nbsp;</div>
                   <div class="badge rounded-pill bg-soft-success font-size-16" [ngClass]=" { 'bg-soft-danger': 1 > 0}">
-                    S/. 100.00 </div>
+                    {{usuario.deuda|currency:'S/.'}} </div>
                 </div>
               </div>
             </div>

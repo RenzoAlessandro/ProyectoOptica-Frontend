@@ -57,6 +57,7 @@ export class UsuarioService {
     this.tokenSubscription.unsubscribe();
     let removeToken = localStorage.removeItem('access_token');
     localStorage.removeItem('user');
+    localStorage.removeItem('sedes');
     if (removeToken == null) {
       this.router.navigate(['login']);
     }
