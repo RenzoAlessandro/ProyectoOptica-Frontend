@@ -127,7 +127,8 @@
         "LENTES": "Lista de Lunas",
         "MONTURAS": "Lista de Monturas",
         "ADDPRODUCTS": "Añadir Productos",
-        "UPDATEEXCEL": "Actualización por Excel"
+        "UPDATEEXCEL": "Actualización por Excel",
+        "INVENTARIO": "Inventario de Productos"
       }
     },
     "STORES": {

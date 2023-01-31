@@ -5,6 +5,7 @@ import { AddProductComponent } from "./add-product/add-product.component";
 import { LunasComponent } from "./lunas/lunas.component";
 import { MonturasComponent } from "./monturas/monturas.component";
 import { UpdateExcelComponent } from "./update-excel/update-excel.component";
+import { InventarioComponent } from "./inventario/inventario.component";
 
 const routes: Routes = [
     {
@@ -26,6 +27,10 @@ const routes: Routes = [
     {
         path: 'updateexcel',
         component: UpdateExcelComponent
+    },
+    {
+        path: 'inventario',
+        component: InventarioComponent
     }
 ];
 
