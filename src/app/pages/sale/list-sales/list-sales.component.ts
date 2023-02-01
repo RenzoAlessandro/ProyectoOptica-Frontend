@@ -264,6 +264,8 @@ export class ListSalesComponent implements OnInit {
         this.venta.tipo_venta= listPago;
         console.log(this.venta);
         this.ventasService.updatePagoCuotas(this.venta.id_ventas,this.venta).subscribe(res =>{
+          this.modalService.dismissAll();
+          this.updateListVentas();
           console.log("actualizado");
         })
       }
