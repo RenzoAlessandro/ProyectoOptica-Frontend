@@ -18,11 +18,11 @@ export const accesosList: accesosModel[] = [
     },
     {
         id: 2,
-        name: 'Ver inventario',
+        name: 'Lista de Monturas',
         detail: 'Registrar, eliminar o actualizar detalles de productos',
         images: 'assets/images/product/img-2.png',
         icono: ['uil-box', 'dos'],
-        link: ''
+        link: '/products/monturas'
     },
     {
         id: 3,

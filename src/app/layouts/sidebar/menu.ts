@@ -9,14 +9,10 @@ export const MENU: MenuItem[] = [
     },
     {
         id: 2,
-        label: 'MENUITEMS.DASHBOARDS.TEXT',
+        label: 'MENUITEMS.HOME.TEXT',
         icon: 'uil-home-alt',
-        badge: {
-            variant: 'primary',
-            text: '01', //'MENUITEMS.DASHBOARDS.BADGE',
-        },
-        link: '/dashboard',
-        role: ['Admin']
+        link: '/home',
+        role: ['Admin','Vendedor']
     },
     {
         id: 3,
@@ -153,14 +149,17 @@ export const MENU: MenuItem[] = [
         link: '/cash-register',
         role: ['Admin','Vendedor']
     },
-
-    {
+/*     {
         id: 23,
-        label: 'MENUITEMS.HOME.TEXT',
+        label: 'MENUITEMS.DASHBOARDS.TEXT',
         icon: 'uil-home-alt',
-        link: '/home',
-        role: ['Admin','Vendedor']
-    },
+        badge: {
+            variant: 'primary',
+            text: '01', //'MENUITEMS.DASHBOARDS.BADGE',
+        },
+        link: '/dashboard',
+        role: ['Admin']
+    }, */
 
     /* {
         id: 3,

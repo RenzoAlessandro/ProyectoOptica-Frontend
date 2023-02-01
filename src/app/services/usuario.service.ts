@@ -83,7 +83,7 @@ export class UsuarioService {
     //this.user = user;
     //this.emit({ username: this.user.username });
     this.expirationCounter(expires);
-    this.router.navigate(['dashboard']);
+    this.router.navigate(['home']);
     this.getRole();
   }
 
