@@ -388,6 +388,7 @@ export class ListSalesComponent implements OnInit {
     var telefonoCliente = cliente.telefono;
 
     var externalDataRetrievedFromServer = [];
+    var peruIGV = 0.18;
 
     function buildData(){
       var numOrdenItems = 1;
@@ -442,7 +443,7 @@ export class ListSalesComponent implements OnInit {
           body.push(dataRow);
       });
       
-      var totalIGV = subtotal * 0.18;
+      var totalIGV = subtotal * peruIGV;
       var total = subtotal + totalIGV;
 
       body.push([{ text: ' ', rowSpan: 3, colSpan: 2}, { }, {text: 'Sub. Total:', style: 'tableHeader', alignment: 'right', colSpan: 2 }, { }, { text: simboloNuevoSol + subtotal, style: 'contenido', alignment: 'right' }]);

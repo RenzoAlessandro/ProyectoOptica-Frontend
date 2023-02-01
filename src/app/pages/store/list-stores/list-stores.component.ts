@@ -3,7 +3,8 @@ import { SedeService } from 'src/app/services/sede.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { SedesModel } from 'src/models/sedes';
-
+import { Sweetalert } from 'src/utils/sweetalert';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-list-stores',
   templateUrl: './list-stores.component.html',
@@ -108,13 +109,19 @@ export class ListStoresComponent implements OnInit {
       this.sede.nombre_sede = this.f(this.nombre_tienda).value;
       this.sede.fecha_modificacion_sede = new Date(Date.now());
       console.log(this.sede);
+      Sweetalert("loading", "Cargando...");
       this.sedeService.editSede(this.sede).subscribe( res=>{
         console.log("actualizado ok");
+        this.modalService.dismissAll();
+        Sweetalert("close",null);
+        Sweetalert("success",null);
+        this.getListSedes();
       }); 
     } else {
       return;
     }
   }
+
 
   
 }

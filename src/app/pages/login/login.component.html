@@ -3,7 +3,7 @@
 
         <div class="col-md-6 px-0">
             <!-- Carousel with caption -->
-            <ngb-carousel #carousel [interval]="3000" [showNavigationArrows]="true" [showNavigationIndicators]="true">
+            <ngb-carousel #carousel [interval]="5000" [showNavigationArrows]="false" [showNavigationIndicators]="false">
                 <ng-template ngbSlide>
                   <img src="assets/images/backgrounds/background-1.jpg" style="background-color: white; height:100vh;">
                   <div class="carousel-caption d-none d-md-block">
@@ -50,11 +50,17 @@
                                     <input id="userpassword" type="password" placeholder="Contraseña" required="" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" formControlName="{{this.password}}">
                                 </div>
 
+                                <div class="row text-center mb-3">
+                                    <div class="col-sm-12 d-grid">
+                                        <button type="submit" class="btn btn-primary rounded-pill btn-block me-1" (click)="login()">
+                                            <i class="umdi umdi-account-arrow-rightt me-2"></i> Iniciar sesión
+                                        </button>
+                                    </div>
+                                </div>
+
                                 <div class="custom-control custom-checkbox mb-3">
                                     <a routerLink="/pages/recoverpwd-1" class="text-muted">¿Olvidaste tu contraseña?</a>
                                 </div>
-
-                                <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm" (click)="login()">Ir a mi cuenta</button>
                                 
                                 <div class="text-center d-flex justify-content-between mt-4"><p>© {{year}} Todos los derechos reservados.</p></div>
                             
