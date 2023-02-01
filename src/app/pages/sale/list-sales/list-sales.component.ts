@@ -21,6 +21,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import { getBase64ImageFromURL, round } from 'src/utils/functions';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { CustomersModel } from 'src/models/customer';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { TipoVentaModel } from 'src/models/tipo_venta';
 
 
 @Component({
@@ -71,16 +73,19 @@ export class ListSalesComponent implements OnInit {
   fechaHasta: string = 'campoFechaHasta';
 
   usuario:any;
+  venta = new VentasModel;
+  tipoPago : Array<TipoVentaModel>=[];
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
+  decimalPattern = /^\d+(\.\d{1,2})?$/;
 
   constructor(
     public service: TransactionService,
     private fb: FormBuilder,
-    private fbActualizar: FormBuilder,
     private ventasService: VentaService,
     private modalService: NgbModal,
-    private customerService: ClienteService
+    private customerService: ClienteService,
+    private usuarioService: UsuarioService
     ) {
     this.transactions$ = service.transactions$;
     console.log(this.transactions$)
@@ -121,9 +126,12 @@ export class ListSalesComponent implements OnInit {
       listDeudas : venta.tipo_venta,
     }
     this.usuario = user;
+    this.venta.id_ventas = venta.id_ventas;
+    this.venta.id_cliente = venta.id_cliente;
+    this.tipoPago = venta.tipo_venta;
+    this.g(this.precioTotal_CreditoActualizacion).setValue((this.usuario.deuda).toFixed(2))
     this.modalService.open(centerDataModalActualizar, { centered: true,windowClass:'modal-holder' });
     this.g(this.fechaVenta_CreditoActualizacion).setValue(this.fechaVenta.toLocaleDateString());
-    this.g(this.precioTotal_CreditoActualizacion).setValue(this.precioTotalVenta);
    }
   /**
    * Close event modal
@@ -153,10 +161,10 @@ export class ListSalesComponent implements OnInit {
   }
 
   crearFormularioActualizar() {
-    this.formCreditoActualizacion = this.fbActualizar.group({
+    this.formCreditoActualizacion = this.fb.group({
       [this.cantidadRecibida_CreditoActualizacion]: [null, [
         Validators.required,
-        Validators.pattern(this.numberPattern),
+        Validators.pattern(this.decimalPattern),
       ]],
       [this.fechaVenta_CreditoActualizacion]: [{ value: null, disabled: true }],
       [this.usuario_CreditoActualizacion]: [null],
@@ -167,8 +175,7 @@ export class ListSalesComponent implements OnInit {
       [this.metodoPagoCreditoActualizacion]: [null, [
         Validators.required
       ]],
-      [this.nombreCreditoActualizacion]: [null, [
-        Validators.required]],
+      
     })
   }
 
@@ -180,15 +187,31 @@ export class ListSalesComponent implements OnInit {
   updatePago(event: any) {
     console.log("entre")
       this.g(this.pago_CreditoActualizacion).setValue(this.g(this.cantidadRecibida_CreditoActualizacion).value);
-      this.g(this.cambio_CreditoActualizacion).setValue(this.g(this.cantidadRecibida_CreditoActualizacion).value - this.precioTotalVenta);
+      this.g(this.cambio_CreditoActualizacion).setValue(this.g(this.cantidadRecibida_CreditoActualizacion).value - this.usuario.deuda);
   }
 
   guardarActualizacionDeuda() {
     if (this.formCreditoActualizacion.valid) {
-
-
+      this.venta.id_vendedor = this.usuarioService.getUser().id_usuario;
+      this.venta.id_sede = this.usuarioService.getSedebyUser();
+      const pago:TipoVentaModel = {
+        forma_pago: "credito",
+        cantidad_recibida: Number(this.g(this.cantidadRecibida_CreditoActualizacion).value),
+        deuda: this.tipoPago[0].deuda - this.g(this.cantidadRecibida_CreditoActualizacion).value,
+        cuotas: this.tipoPago[0].cuotas,
+        precio_total: this.tipoPago[0].precio_total,
+        metodo_pago: this.g(this.metodoPagoCreditoActualizacion).value,
+        fecha_pago : new Date(Date.now()),
+        observaciones: this.g(this.observaciones_CreditoActualizacion).value
+      }
+      this.tipoPago.push(pago);
+      this.venta.tipo_venta= this.tipoPago;
+      console.log(this.venta);
+      this.ventasService.updatePagoCuotas(this.venta.id_ventas,this.venta).subscribe(res =>{
+        console.log("actualizado");
+      })
     } else {
-
+      return;
     }
   }
   
@@ -267,6 +290,7 @@ export class ListSalesComponent implements OnInit {
 
   async generatePDF(venta:VentasModel, cliente: CustomersModel){
     console.log(venta)
+    console.log(cliente)
     var fonts = {
       Roboto: {
         normal: 'fonts/Roboto-Regular.ttf',

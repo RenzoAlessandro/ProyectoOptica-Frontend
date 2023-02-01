@@ -6,4 +6,5 @@ export class TipoVentaModel {
     precio_total: number;
     metodo_pago: string;
     fecha_pago: Date;
+    observaciones: string;
 }

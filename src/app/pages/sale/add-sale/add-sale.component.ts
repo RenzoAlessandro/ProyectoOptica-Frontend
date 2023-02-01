@@ -463,7 +463,7 @@ export class AddSaleComponent implements OnInit {
       this.venta.list_lunas = tempLunas;
       this.venta.list_accesorios = tempAccesorios;
       if (this.selectorPago == "contado") {
-        this.venta.observaciones = this.f(this.observaciones_Contado).value;
+        this.tipoPago.observaciones = this.f(this.observaciones_Contado).value;
         this.venta.fecha_creacion_venta = this.fechaVenta;
         this.tipoPago.cantidad_recibida = Number(this.f(this.cantidadRecibida_Contado).value);
         this.tipoPago.deuda = 0;
@@ -471,7 +471,7 @@ export class AddSaleComponent implements OnInit {
         this.tipoPago.cuotas = String(0);
         this.venta.id_cliente = this.f(this.usuario_Contado).value;
       } else {
-        this.venta.observaciones = this.g(this.observaciones_Credito).value;
+        this.tipoPago.observaciones = this.g(this.observaciones_Credito).value;
         this.venta.fecha_creacion_venta = this.fechaVenta;
         this.tipoPago.cantidad_recibida = Number(this.g(this.cantidadRecibida_Credito).value);
         this.tipoPago.deuda = this.precioTotalVenta - this.g(this.cantidadRecibida_Credito).value;
@@ -533,9 +533,11 @@ export class AddSaleComponent implements OnInit {
               }
             });
         } else if (
+          
           /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
         ) {
+          this.venta.tipo_venta = [];
           swalWithBootstrapButtons.fire(
             'Cancelado',
             'La venta no se ha realizado',
