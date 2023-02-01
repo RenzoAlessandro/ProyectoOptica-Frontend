@@ -23,6 +23,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import { getBase64ImageFromURL, round } from 'src/utils/functions';
+import { isNoSubstitutionTemplateLiteral } from 'typescript';
 
 @Component({
   selector: 'app-add-sale',
@@ -600,12 +601,16 @@ export class AddSaleComponent implements OnInit {
 
     function buildData(){
       var numOrdenItems = 1;
+      var totalMonturas, totallunas, totalAccesorios = 0
+      var subTotal = 0
 
       // Monturas
       if (venta.list_monturas.length > 0){
         for (var i = 0; i < venta.list_monturas.length; i++){
           numOrdenItems += i;
-          externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_monturas[i].marca, precio: venta.list_monturas[i].precio_montura_v, cantidad: venta.list_monturas[i].cant_vendida, total: venta.list_monturas[i].precio_montura_v * venta.list_monturas[i].cant_vendida},) // Añade
+          totalMonturas = venta.list_monturas[i].precio_montura_v * venta.list_monturas[i].cant_vendida;
+          subTotal += totalMonturas;
+          externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_monturas[i].marca, precio: venta.list_monturas[i].precio_montura_v, cantidad: venta.list_monturas[i].cant_vendida, total: totalMonturas},) // Añade
         }
       }
 
@@ -613,7 +618,9 @@ export class AddSaleComponent implements OnInit {
       if (venta.list_lunas.length > 0){
         for (var i = 0; i < venta.list_lunas.length; i++){
           numOrdenItems += i;
-          externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_lunas[i].material, precio: venta.list_lunas[i].precio_luna_v, cantidad: venta.list_lunas[i].cant_vendida, total: 154.15 },) // Añade
+          totallunas =  venta.list_lunas[i].precio_luna_v * venta.list_lunas[i].cant_vendida;
+          subTotal += totallunas;
+          externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_lunas[i].material, precio: venta.list_lunas[i].precio_luna_v, cantidad: venta.list_lunas[i].cant_vendida, total: totallunas },) // Añade
         }
       }
 
@@ -621,12 +628,15 @@ export class AddSaleComponent implements OnInit {
       if (venta.list_accesorios.length > 0){
         for (var i = 0; i < venta.list_accesorios.length; i++){
           numOrdenItems += i;
-          externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_accesorios[i].nombre_accesorio, precio: venta.list_accesorios[i].precio_accesorio_v, cantidad: venta.list_accesorios[i].cant_vendida, total: 154.15 },) // Añade
+          totalAccesorios = venta.list_accesorios[i].precio_accesorio_v * venta.list_accesorios[i].cant_vendida;
+          subTotal += totalAccesorios;
+          externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_accesorios[i].nombre_accesorio, precio: venta.list_accesorios[i].precio_accesorio_v, cantidad: venta.list_accesorios[i].cant_vendida, total: totalAccesorios },) // Añade
         }
       }
+      return subTotal;
     }
 
-    function buildTableBody(data, columns) {
+    function buildTableBody(data, columns, subtotal) {
       var body = [];
   
       body.push([{ text: 'No.', style: 'tableHeader', alignment: 'center' }, { text: 'Detalle', style: 'tableHeader', alignment: 'center' }, { text: 'Precio', style: 'tableHeader', alignment: 'center' }, { text: 'Cantidad', style: 'tableHeader', alignment: 'center' }, { text: 'Total', style: 'tableHeader', alignment: 'center' }]);
@@ -642,15 +652,18 @@ export class AddSaleComponent implements OnInit {
           body.push(dataRow);
       });
 
-      body.push([{ text: ' ', rowSpan: 3, colSpan: 2}, { }, {text: 'Sub. Total:', style: 'tableHeader', alignment: 'right', colSpan: 2 }, { }, { text: simboloNuevoSol+'510.00', style: 'contenido', alignment: 'right' }]);
-      body.push([{ }, { }, { text: 'IGV (18%) :', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol+'13.00', style: 'contenido', alignment: 'right' }]);
-      body.push([{ }, { }, { text: 'Total:', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol+'498.00', style: 'contenido', alignment: 'right' }]);
+      var totalIGV = subtotal * 0.18;
+      var total = subtotal + totalIGV;
+
+      body.push([{ text: ' ', rowSpan: 3, colSpan: 2}, { }, {text: 'Sub. Total:', style: 'tableHeader', alignment: 'right', colSpan: 2 }, { }, { text: simboloNuevoSol + subtotal, style: 'contenido', alignment: 'right' }]);
+      body.push([{ }, { }, { text: 'IGV (18%) :', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol + totalIGV, style: 'contenido', alignment: 'right' }]);
+      body.push([{ }, { }, { text: 'Total:', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol + total, style: 'contenido', alignment: 'right' }]);
   
       return body;
     }
 
     function table(data, columns) {
-      buildData();
+      var subtotal = buildData();
       return {
         style: 'tableMargin',
         color: '#444',
@@ -658,7 +671,7 @@ export class AddSaleComponent implements OnInit {
             widths: [25, '*', 63, 60, 63],
             heights: [20, 20 , 20, 20],
             headerRows: 1,
-            body: buildTableBody(data, columns)
+            body: buildTableBody(data, columns, subtotal)
           }
       };
     }
