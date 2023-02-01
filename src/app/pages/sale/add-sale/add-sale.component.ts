@@ -466,25 +466,31 @@ export class AddSaleComponent implements OnInit {
         this.tipoPago.observaciones = this.f(this.observaciones_Contado).value;
         this.venta.fecha_creacion_venta = this.fechaVenta;
         this.tipoPago.cantidad_recibida = Number(this.f(this.cantidadRecibida_Contado).value);
-        this.tipoPago.deuda = 0;
-        this.tipoPago.metodo_pago = this.f(this.metodoPagoContado).value;
-        this.tipoPago.cuotas = String(0);
-        this.venta.id_cliente = this.f(this.usuario_Contado).value;
+        if ( this.f(this.cantidadRecibida_Contado).value - this.precioTotalVenta  < 0) {
+          console.log("entre")
+          Sweetalert("error", "El pago no puede ser menor al valor de la compra, se sugiere compra al crédito");
+          return
+        } else {
+          this.tipoPago.deuda = 0;
+          this.tipoPago.metodo_pago = this.f(this.metodoPagoContado).value;
+          this.tipoPago.cuotas = String(0);
+          this.venta.id_cliente = this.f(this.usuario_Contado).value;
+        }
       } else {
         this.tipoPago.observaciones = this.g(this.observaciones_Credito).value;
         this.venta.fecha_creacion_venta = this.fechaVenta;
         this.tipoPago.cantidad_recibida = Number(this.g(this.cantidadRecibida_Credito).value);
-        this.tipoPago.deuda = this.precioTotalVenta - this.g(this.cantidadRecibida_Credito).value;
+        this.tipoPago.deuda = round(this.precioTotalVenta - this.g(this.cantidadRecibida_Credito).value,1);
         this.tipoPago.metodo_pago = this.g(this.metodoPagoCredito).value;
         this.tipoPago.cuotas = String(this.tickValue);
         this.venta.id_cliente = this.g(this.usuario_Credito).value;
       }
-      this.venta.id_vendedor = "1234456";
+      this.venta.id_vendedor = this.usuarioService.getUser().id_usuario;
       this.tipoPago.forma_pago = this.selectorPago;
       this.tipoPago.precio_total = this.precioTotalVenta;
       this.tipoPago.fecha_pago = new Date();
       this.venta.tipo_venta.push(this.tipoPago);
-      this.venta.id_sede = '1234234';
+      this.venta.id_sede = this.usuarioService.getSedebyUser();
       this.venta.habilitado = true;
 
 
@@ -524,6 +530,8 @@ export class AddSaleComponent implements OnInit {
             Sweetalert("close", null);
             Sweetalert("success", "Venta realizada");
             this.modalService.dismissAll();
+            this.products = [];
+            this.estadoBotonGuardar();
           },
             (error) => {
               Sweetalert("close", null);

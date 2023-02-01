@@ -151,7 +151,7 @@
                       </div>
                     </td>
                     <td>
-                      <a *ngIf="data.tipo_venta[0].forma_pago == 'credito'" (click)="centerModalActualizar(centerDataModalActualizarVenta,data)" class="px-3 text-primary"
+                      <a *ngIf="data.tipo_venta[0].deuda != 0" (click)="centerModalActualizar(centerDataModalActualizarVenta,data)" class="px-3 text-primary"
                         placement="top" ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
                       <a (click)="eliminar(data)" class="px-3 text-danger" placement="top" ngbTooltip="Eliminar"><i
                           class="uil uil-trash-alt font-size-18"></i></a>
@@ -294,7 +294,7 @@
                               <th scope="row">{{i+1}}</th>
                               <td>{{pago.cantidad_recibida|currency:'S/.'}}</td>
                               <td>{{pago.metodo_pago}}</td>
-                              <td>{{pago.fecha_pago}}</td>
+                              <td>{{pago.fecha_pago| date: 'dd/MM/yyyy hh:mm:ss'}}</td>
                             </tr>
                           </tbody>
                         </table>
