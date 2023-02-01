@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 
 import { SedesModel } from 'src/models/sedes';
 import { SedeService } from 'src/app/services/sede.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-lunas',
@@ -73,7 +74,7 @@ export class LunasComponent implements OnInit {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private lunaService: ProductosService,
-    private sedeService: SedeService,
+    private usuarioService: UsuarioService,
   ) {
     this.lunas$ = service.customers$;
     this.total$ = service.total$;
@@ -98,7 +99,7 @@ export class LunasComponent implements OnInit {
         Validators.required
       ]],
       [this.codigo_luna]: [null, [
-        Validators.required
+        //Validators.required
       ]],
       [this.cantidad_luna]: [null, [
         Validators.required,
@@ -258,7 +259,7 @@ export class LunasComponent implements OnInit {
   }
 
   updateListLunas() {
-    this.lunaService.getLunas().subscribe( res=>{
+    this.lunaService.getProductosbySede(this.usuarioService.getSedebyUser(),'luna').subscribe( res=>{
       this.service.updateTable(res);
     })
   }

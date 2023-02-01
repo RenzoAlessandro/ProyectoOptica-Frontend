@@ -120,10 +120,13 @@ export class ListSalesComponent implements OnInit {
     this.crearFormularioActualizar();
     this.fechaVenta = new Date(Date.now());
     console.log(venta)
+    /* venta.tipo_venta = venta.tipo_venta.sort((a,b)=> {
+      return  new Date(a.fecha_pago).getTime() - new Date(b.fecha_pago).getTime()
+    }); */
     const user = {
       nombre : venta.nombre_cliente,
       deuda : venta.tipo_venta[0].deuda,
-      listDeudas : venta.tipo_venta,
+      listDeudas : venta.tipo_venta
     }
     this.usuario = user;
     this.venta.id_ventas = venta.id_ventas;
@@ -187,29 +190,83 @@ export class ListSalesComponent implements OnInit {
   updatePago(event: any) {
     console.log("entre")
       this.g(this.pago_CreditoActualizacion).setValue(this.g(this.cantidadRecibida_CreditoActualizacion).value);
-      this.g(this.cambio_CreditoActualizacion).setValue(this.g(this.cantidadRecibida_CreditoActualizacion).value - this.usuario.deuda);
+      this.g(this.cambio_CreditoActualizacion).setValue(round(this.g(this.cantidadRecibida_CreditoActualizacion).value - this.usuario.deuda,1).toFixed(2));
   }
 
   guardarActualizacionDeuda() {
     if (this.formCreditoActualizacion.valid) {
       this.venta.id_vendedor = this.usuarioService.getUser().id_usuario;
       this.venta.id_sede = this.usuarioService.getSedebyUser();
+      let deuda = 0;
+      deuda = round(this.tipoPago[0].deuda - this.g(this.cantidadRecibida_CreditoActualizacion).value,1);
+      console.log(deuda)
       const pago:TipoVentaModel = {
         forma_pago: "credito",
         cantidad_recibida: Number(this.g(this.cantidadRecibida_CreditoActualizacion).value),
-        deuda: this.tipoPago[0].deuda - this.g(this.cantidadRecibida_CreditoActualizacion).value,
+        deuda: deuda,
         cuotas: this.tipoPago[0].cuotas,
         precio_total: this.tipoPago[0].precio_total,
         metodo_pago: this.g(this.metodoPagoCreditoActualizacion).value,
         fecha_pago : new Date(Date.now()),
         observaciones: this.g(this.observaciones_CreditoActualizacion).value
       }
-      this.tipoPago.push(pago);
-      this.venta.tipo_venta= this.tipoPago;
-      console.log(this.venta);
-      this.ventasService.updatePagoCuotas(this.venta.id_ventas,this.venta).subscribe(res =>{
-        console.log("actualizado");
-      })
+      console.log(pago)
+      let listPago: Array<TipoVentaModel> = [];
+      
+      if(this.tipoPago.length + 1 == Number(this.tipoPago[0].cuotas) && deuda > 0) {
+        Sweetalert("error", "Es su última cuota, tiene que canccelar la totalidad");
+        return
+      }
+      if (deuda <= 0 ) {
+        pago.deuda = 0;
+        listPago.push(pago);
+        listPago.push(...this.tipoPago)
+        this.venta.tipo_venta= listPago;
+        console.log(this.venta);
+        Swal.fire({
+          title: '¿Está seguro que desea cancelar la totalidad de la deuda?',
+          text: 'No se podrá revertir esto!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#34c38f',
+          cancelButtonColor: '#f46a6a',
+          confirmButtonText: 'Si, cancelar deuda!'
+        }).then(result => {
+          if (result.value) {
+            Sweetalert("loading", "Cargando...");
+            this.ventasService.updatePagoCuotas(this.venta.id_ventas,this.venta).subscribe(res => {
+              Sweetalert("close", null);
+              Sweetalert("success", "Venta completada");
+              console.log("venta pagada");
+              this.modalService.dismissAll();
+              this.updateListVentas();
+            }, error => {
+              Sweetalert("close", null);
+              Sweetalert("error", "Error en la conexión");
+            },
+            );
+          }
+          else if (
+           
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            Swal.fire(
+              'Cancelado',
+              'Venta no eliminada',
+              'error'
+            );
+          }
+        }
+        );
+      } else {
+        listPago.push(pago);
+        listPago.push(...this.tipoPago)
+        this.venta.tipo_venta= listPago;
+        console.log(this.venta);
+        this.ventasService.updatePagoCuotas(this.venta.id_ventas,this.venta).subscribe(res =>{
+          console.log("actualizado");
+        })
+      }
     } else {
       return;
     }
