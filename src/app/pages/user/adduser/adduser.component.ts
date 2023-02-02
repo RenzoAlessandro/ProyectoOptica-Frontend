@@ -125,7 +125,7 @@ export class AdduserComponent implements OnInit {
       this.user.habilitado = true;
       this.user.fecha_creacion = new Date(Date.now());
       this.user.fecha_modificacion = new Date(Date.now());
-      this.user.fecha_nacimiento = new Date(Date.now());
+      this.user.fecha_nacimiento = this.f(this.fechaNacimiento).value;
       this.user.nombres = this.f(this.nombres).value;
       this.user.rol = this.f('rol').value;
       this.user.telefono = this.f(this.telefono).value;
@@ -139,6 +139,7 @@ export class AdduserComponent implements OnInit {
         Sweetalert("close",null);
         Sweetalert("success", "Usuario guardado");
         this.formRegister.reset();
+        this.f(this.fechaCreacion).setValue(new Date(Date.now()).toLocaleDateString())
         console.log("registrado ok")
       }) 
     }
