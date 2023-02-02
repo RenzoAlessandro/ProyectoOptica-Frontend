@@ -2,7 +2,6 @@ import { MedidasModel } from "./medidas";
 
 export class CustomersModel {
     id_cliente?: string;
-    id_persona?:string;
     nombres: string;
     apellidos: string;
     dni: string;

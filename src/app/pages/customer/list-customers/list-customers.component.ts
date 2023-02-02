@@ -139,7 +139,6 @@ export class ListCustomersComponent implements OnInit {
       this.f(this.encargado).setValue(data.medidas[0].encargado);
       this.f(this.antecedentes).setValue(data.antecedentes);
       this.customer.id_cliente = data.id_cliente;
-      this.customer.id_persona = data.id_persona;
       this.modalService.open(centerDataModal, { centered: true, size: 'lg'});
     }
 
@@ -207,7 +206,7 @@ export class ListCustomersComponent implements OnInit {
       listaMedidas.push(this.medidas);
       this.customer.medidas = listaMedidas;
       console.log(this.customer);
-      this.customerService.updateClient(this.customer.id_cliente,this.customer.id_persona,this.customer).subscribe( res=>{
+      this.customerService.updateClient(this.customer.id_cliente,this.customer).subscribe( res=>{
         console.log("registrado ok");
         this.getListClients();
         this.modalService.dismissAll();
@@ -234,12 +233,8 @@ export class ListCustomersComponent implements OnInit {
   } */
   crearFormulario() {
     this.formCustomer = this.fb.group({
-      [this.dni]:[null,[
-        Validators.required,
-        Validators.pattern(this.numberPattern),
-        Validators.min(11111111),
-        Validators.max(99999999)
-      ]],
+      [this.dni]:[{value: null, disabled: true}],
+
       [this.nombres]:[null,[
         Validators.required,
         Validators.pattern(this.lettersPattern),
