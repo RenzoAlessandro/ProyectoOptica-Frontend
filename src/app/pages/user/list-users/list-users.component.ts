@@ -242,7 +242,7 @@ closeEventModal() {
 
   updateUser() {
     if (this.formUser.valid) {
-      this.user.fecha_modificacion = this.fecha_actual;
+      this.user.fecha_modificacion = new Date(Date.now());
       this.user.nombres = this.f(this.nombres).value;
       this.user.apellidos = this.f(this.apellidos).value;
       const fch_nac = new Date(this.f(this.fechaNacimiento).value);
@@ -255,7 +255,6 @@ closeEventModal() {
       console.log(this.user);
 
       this.usuarioService.updateUsers(this.user.id_usuario,this.user).subscribe(res=>{
-        console.log(res);
         console.log('actualizado');
         this.modalService.dismissAll();
         this.formUser.reset;
