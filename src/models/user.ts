@@ -1,6 +1,5 @@
 export class UsersModel {
     id_usuario?:string;
-    id_persona?:string;
     nombres: string;
     apellidos: string;
     dni: string;

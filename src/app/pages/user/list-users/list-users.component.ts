@@ -36,9 +36,7 @@ export class ListUsersComponent implements OnInit {
     rol: string = "campoRol";
     sede: string = "campoSede";
     telefono: string = "campoTelefono";
-    password: string = "campoPassword";
     fechaNacimiento: string = "campoFechaNacimiento";
-    repeatPassword: string = "campoRepeatPassword";
     fechaModificacion: string = "campoFechaModificacion";
     email: string = "campoEmail";
     observaciones: string = "campoObservaciones";
@@ -115,7 +113,6 @@ export class ListUsersComponent implements OnInit {
     this.f('sede').setValue(data.id_sede);
     this.f(this.observaciones).setValue(data.observaciones);
     this.user.id_usuario = data.id_usuario;
-    this.user.id_persona = data.id_persona;
     this.modalService.open(centerDataModal, { centered: true, size: 'lg', windowClass:'modal-holder' });
   }
   
@@ -158,12 +155,9 @@ closeEventModal() {
         Validators.minLength(3),
         Validators.maxLength(40)
       ]],
-      [this.dni]:[null,[
-        Validators.required,
-        Validators.pattern(this.numberPattern),
-        Validators.min(11111111),
-        Validators.max(99999999)
-      ]],
+
+      [this.dni]:[{value: null, disabled: true}],
+
       rol:[],
       [this.email]:[null,[
         Validators.email
@@ -182,22 +176,7 @@ closeEventModal() {
         //Validators.required
       ]],
       sede:[],
-      [this.password]:[null,[
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(20),
-        Validators.pattern(this.passwordPattern)
-      ]],
-      [this.repeatPassword]:[null,[
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(20),
-        Validators.pattern(this.passwordPattern)
-      ]]
-    },
-    {
-        validator: this.ConfirmedValidator(this.password, this.repeatPassword),
-    })
+    },)
   }
 
   ConfirmedValidator(controlName: string, matchingControlName: string) {
@@ -263,7 +242,6 @@ closeEventModal() {
 
   updateUser() {
     if (this.formUser.valid) {
-      this.user.dni = this.f(this.dni).value;
       this.user.fecha_modificacion = this.fecha_actual;
       this.user.nombres = this.f(this.nombres).value;
       this.user.apellidos = this.f(this.apellidos).value;
@@ -274,10 +252,9 @@ closeEventModal() {
       this.user.rol = this.f('rol').value;
       this.user.id_sede = this.f('sede').value;
       this.user.observaciones = this.f(this.observaciones).value;
-      this.user.contrasenia = this.f(this.password).value;
       console.log(this.user);
 
-      this.usuarioService.updateUsers(this.user.id_usuario,this.user.id_persona,this.user).subscribe(res=>{
+      this.usuarioService.updateUsers(this.user.id_usuario,this.user).subscribe(res=>{
         console.log(res);
         console.log('actualizado');
         this.modalService.dismissAll();

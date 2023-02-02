@@ -102,9 +102,8 @@ export class AccesoriosComponent implements OnInit {
       [this.nombre_accesorio]: [null, [
         Validators.required
       ]],
-      [this.codigo_accesorio]: [null, [
-        Validators.required
-      ]],
+      [this.codigo_accesorio]:[{value: null, disabled: true}],
+
       [this.cantidad_accesorio]: [null, [
         Validators.required,
         Validators.pattern(this.numberPattern)
@@ -150,7 +149,7 @@ export class AccesoriosComponent implements OnInit {
   centerModal(centerDataModal: any, data: AccesorioModel) {
     console.log(data)
     this.f(this.nombre_accesorio).setValue(data.nombre_accesorio);
-    //this.f(this.codigo_accesorio).setValue(data.codigo);
+    this.f(this.codigo_accesorio).setValue(data.codigo_interno);
     this.f(this.cantidad_accesorio).setValue(data.cantidad);
     this.f(this.precio_compra_accesorio).setValue(data.precio_accesorio_c);
     this.f(this.precio_venta_accesorio).setValue(data.precio_accesorio_v);

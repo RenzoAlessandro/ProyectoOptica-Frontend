@@ -33,8 +33,8 @@ export class UsuarioService {
     return this.http.post<any>(environment.urlBackend+'createNewUser', user);
   }
 
-  updateUsers(idUser:string,idPersona:string, user:UsersModel): Observable<any> {
-    return this.http.put<any>(environment.urlBackend+'editUserById/'+idUser+'/'+idPersona, user);
+  updateUsers(idUser:string, user:UsersModel): Observable<any> {
+    return this.http.put<any>(environment.urlBackend+'editUserById/'+idUser, user);
   }
 
   getSedes(): Observable<any> {
