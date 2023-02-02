@@ -60,6 +60,7 @@ export class ListUsersComponent implements OnInit {
     user= new UsersModel;
     fecha_actual: Date;
     listSedes: Array<SedesModel>;
+  fecha_nac: Date;
   
   constructor(
     public service: CustomerService,
@@ -101,12 +102,13 @@ export class ListUsersComponent implements OnInit {
    * @param centerDataModal center modal data
    */
    centerModal(centerDataModal: any, data: UsersModel) {
+    this.fecha_nac = data.fecha_nacimiento;
     this.fecha_actual = new Date(Date.now());
     this.f(this.dni).setValue(data.dni);
     this.f(this.fechaModificacion).setValue(formatDate(this.fecha_actual,'yyyy-MM-dd','en'));
     this.f(this.nombres).setValue(data.nombres);
     this.f(this.apellidos).setValue(data.apellidos);
-    this.f(this.fechaNacimiento).setValue(formatDate(data.fecha_nacimiento,'yyyy-MM-dd','en'));
+    this.f(this.fechaNacimiento).setValue(formatDate(data.fecha_nacimiento,'yyyy-MM-dd','en','GMT-0500'));
     this.f(this.telefono).setValue(data.telefono);
     this.f(this.email).setValue(data.email);
     this.f('rol').setValue(data.rol);
@@ -245,7 +247,7 @@ closeEventModal() {
       this.user.fecha_modificacion = new Date(Date.now());
       this.user.nombres = this.f(this.nombres).value;
       this.user.apellidos = this.f(this.apellidos).value;
-      const fch_nac = new Date(this.f(this.fechaNacimiento).value);
+      const fch_nac = new Date((this.f(this.fechaNacimiento).value+'T00:00'));
       this.user.fecha_nacimiento = fch_nac;
       this.user.telefono = this.f(this.telefono).value;
       this.user.email = this.f(this.email).value;

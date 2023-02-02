@@ -188,7 +188,7 @@ export class ListCustomersComponent implements OnInit {
       this.customer.apellidos = this.f(this.apellidos).value;
       this.customer.dni = this.f(this.dni).value;
       this.customer.fecha_modificacion = new Date(Date.now());
-      const fch_nac = new Date(this.f(this.fecha_nacimiento).value);
+      const fch_nac = new Date(this.f(this.fecha_nacimiento).value+'T00:00');
       this.customer.fecha_nacimiento = fch_nac;
       this.customer.nombres = this.f(this.nombres).value;
       this.customer.telefono = this.f(this.telefono).value;
