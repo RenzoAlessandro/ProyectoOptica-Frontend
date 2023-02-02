@@ -130,12 +130,12 @@ export class ListCustomersComponent implements OnInit {
       this.f(this.email).setValue(data.email);
       this.f(this.od_cilindrico).setValue(data.medidas[0].od_cilindrico > 0 ? '+'+data.medidas[0].od_cilindrico : data.medidas[0].od_cilindrico);
       this.f(this.od_eje).setValue(data.medidas[0].od_eje);
-      this.f(this.od_esferico).setValue(data.medidas[0].od_esferico > 0? '+'+data.medidas[0].od_esferico: data.medidas[0].od_esferico);
-      this.f(this.oi_cilindrico).setValue(data.medidas[0].oi_cilindrico > 0 ? '+'+data.medidas[0].oi_cilindrico: data.medidas[0].oi_cilindrico);
-      this.f(this.oi_esferico).setValue(data.medidas[0].oi_esferico > 0? '+'+data.medidas[0].oi_esferico : data.medidas[0].oi_esferico );
+      this.f(this.od_esferico).setValue(data.medidas[0].od_esferico > 0? '+'+data.medidas[0].od_esferico.toFixed(2): data.medidas[0].od_esferico.toFixed(2));
+      this.f(this.oi_cilindrico).setValue(data.medidas[0].oi_cilindrico > 0 ? '+'+data.medidas[0].oi_cilindrico.toFixed(2): data.medidas[0].oi_cilindrico.toFixed(2));
+      this.f(this.oi_esferico).setValue(data.medidas[0].oi_esferico > 0? '+'+data.medidas[0].oi_esferico.toFixed(2) : data.medidas[0].oi_esferico.toFixed(2) );
       this.f(this.oi_eje).setValue(data.medidas[0].oi_eje);
       this.f(this.dip).setValue(data.medidas[0].dip);
-      this.f(this.add).setValue(data.medidas[0].add > 0 ? '+'+data.medidas[0].add: data.medidas[0].add);
+      this.f(this.add).setValue(data.medidas[0].add > 0 ? '+'+data.medidas[0].add.toFixed(2): data.medidas[0].add.toFixed(2));
       this.f(this.encargado).setValue(data.medidas[0].encargado);
       this.f(this.antecedentes).setValue(data.antecedentes);
       this.customer.id_cliente = data.id_cliente;
