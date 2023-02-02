@@ -5,10 +5,11 @@ import { catchError } from 'rxjs/operators';
 import { Sweetalert } from 'src/utils/sweetalert';
 
 import { AuthenticationService } from '../services/auth.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private authenticationService: AuthenticationService) { }
+    constructor(private usuarioService: UsuarioService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
@@ -16,6 +17,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 Sweetalert("close", null);
                 Sweetalert("error", err.error);
                 console.log(err);
+                this.usuarioService.logOut();
                 // auto logout if 401 response returned from api
                 //this.authenticationService.logout();
                 //location.reload();

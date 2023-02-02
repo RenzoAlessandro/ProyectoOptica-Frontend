@@ -7,7 +7,7 @@
             <!-- Search -->
             <div class="col-sm-12 col-md-12 search-box chat-search-box">
               <div class="position-relative">
-                <ng-autocomplete #autocomplete [data]="listAllProducts" [searchKeyword]="keyword" placeholder="Buscar productos"
+                <ng-autocomplete #autocomplete [data]="listMonturas" [searchKeyword]="keyword" placeholder="Buscar productos"
                   (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)'
                   (inputFocused)='onFocused($event)' historyIdentifier="" [itemTemplate]="itemTemplate"
                   [notFoundTemplate]="notFoundTemplate" (keyup.enter)="selectEvent($event)" focusFirst="true">
@@ -48,11 +48,16 @@
     <div class="col-sm-6 col-md-6">
         <div class="mb-3">
           <!-- Default dropup button -->
-          <div class="btn-group" ngbDropdown>
-            <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
-              bindLabel="nombre_sede">
-            </ng-select>
-          </div>
+          <form [formGroup]="formInventario">
+            <div class="btn-group" ngbDropdown>
+              <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede" (change)="actualizarTabla()"
+                bindLabel="nombre_sede" formControlName="sede">
+              </ng-select>
+            </div>
+          </form>
+        </div>
+        <div class="btn-group mt-2 me-1">
+          <input type="button" class="btn btn-primary btn-block" value="Descargar Archivo" (click)="exportarMonturas()" [disabled]="!(this.products.length > 0)">
         </div>
     </div>
     <div class="col-sm-6 col-md-6">
@@ -76,10 +81,10 @@
                 <thead>
                   <tr class="bg-transparent">
                     <th style="width: 20px;">
-                      <div class="form-check text-center">
+                      <!-- <div class="form-check text-center">
                         <input type="checkbox" class="form-check-input" id="monturascheck" (change)="checkUncheckAll()" [(ngModel)]="isMasterSel" [ngModelOptions]="{standalone: true}">
                         <label class="form-check-label" for="monturascheck"></label>
-                      </div>
+                      </div> -->
                     </th>
                     <th scope="col" sortable="id" (sort)="onSort($event)">Ord.</th>
                     <th scope="col" sortable="material" (sort)="onSort($event)">Material</th>
@@ -98,14 +103,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of monturas$ | async; let i = index">
+                  <tr *ngFor="let data of products; let i = index">
                     <td>
-                      <div class="form-check text-center">
+                      <!-- <div class="form-check text-center">
                         <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input" 
                         [(ngModel)]="data.isSelected" [ngModelOptions]="{standalone: true}"
                           (change)="isAllSelected()"/>
                         <label class="form-check-label" for="ordercheck{{data.index}}">&nbsp;</label>
-                      </div>
+                      </div> -->
                     </td>
                     <td>
                       <ngb-highlight [result]="data.num_orden" [term]="service.searchTerm"></ngb-highlight>
@@ -149,7 +154,7 @@
                         [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
                     </td>
                     <td>
-                      <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar" (click)="eliminar(data)"><i
+                      <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar" (click)="eliminar(data,i)"><i
                           class="uil uil-trash-alt font-size-18"></i></a>
                     </td>
                   </tr>
@@ -175,7 +180,7 @@
           <!-- Pagination -->
           <div class="col-12">
             <div class="text-md-end float-md-end pagination-rounded">
-              <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
+              <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
               </ngb-pagination>
             </div>
           </div>

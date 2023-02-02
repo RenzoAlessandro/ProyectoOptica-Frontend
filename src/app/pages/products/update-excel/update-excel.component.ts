@@ -102,7 +102,7 @@ export class UpdateExcelComponent implements OnInit {
         default:
           break;
       }
-      this.productoService.getProductosbySede(this.f(this.label.cabeceraExcelSede).value, productName).subscribe(res => {
+      this.productoService.getProductosbySede(this.f('sede').value, 'montura').subscribe(res => {
         Sweetalert("close", null);
         const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
         const EXCEL_EXTENSION = '.xlsx';
@@ -173,7 +173,7 @@ export class UpdateExcelComponent implements OnInit {
 
           const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
           const blobData = new Blob([excelBuffer], { type: EXCEL_TYPE });
-          const nombreSede = this.listSedes.find(res => (res.id_sede == this.f(this.label.cabeceraExcelSede).value));
+          const nombreSede = this.listSedes.find(res => (res.id_sede == this.f('sede').value));
           console.log(nombreSede);
           saveFile(blobData, productName + '_' + nombreSede.nombre_sede);
         }

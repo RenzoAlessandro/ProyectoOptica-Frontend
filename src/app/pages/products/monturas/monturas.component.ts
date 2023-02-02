@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { CustomerService } from './monturas.service';
@@ -22,7 +22,7 @@ import { SedesModel } from 'src/models/sedes';
   styleUrls: ['./monturas.component.scss'],
   providers: [CustomerService, DecimalPipe]
 })
-export class MonturasComponent implements OnInit,AfterViewInit {
+export class MonturasComponent implements OnInit {
 
   //formulario - seleccionar sede
   formExportar: FormGroup;
@@ -61,7 +61,6 @@ export class MonturasComponent implements OnInit,AfterViewInit {
   total$: Observable<number>;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
-  @ViewChild('autocomplete',{static:false}) autocomplete; 
 
   numberPattern = '[0-9]+';
   decimalPattern = /^\d+(\.\d{2})?$/;
@@ -97,9 +96,6 @@ export class MonturasComponent implements OnInit,AfterViewInit {
     this.getListSedes();
   }
 
-  ngAfterViewInit(): void {
-     console.log(this.autocomplete);
-}
 
   crearFormulario() {
     this.formMontura = this.fb.group({
@@ -182,9 +178,7 @@ export class MonturasComponent implements OnInit,AfterViewInit {
   }
 
   getListSedes() {
-    this.sedeService.getSedes().subscribe(res => {
-      this.listSedes = res;
-    });
+  this.listSedes = this.sedeService.getListSedes();
   }
   /**
    * Open Large modal
@@ -394,22 +388,5 @@ get formPEM() {
 			}
 			pdf.save("Monturas_"+nombreSede.nombre_sede+".pdf");
     }); 
-  }
-
-
-  selectEvent(item: any) {
-    this.inventarioMonturas.push({...item, estado:true});
-    this.autocomplete.clear();
-   }
-
-
-
-  onChangeSearch(search: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-  }
-
-  onFocused(e) {
-    // do something
   }
 }

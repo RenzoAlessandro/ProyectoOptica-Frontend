@@ -23,7 +23,6 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import { getBase64ImageFromURL, round } from 'src/utils/functions';
-import { isNoSubstitutionTemplateLiteral } from 'typescript';
 
 @Component({
   selector: 'app-add-sale',
@@ -189,11 +188,11 @@ export class AddSaleComponent implements OnInit {
     ]
   };
   getListMonturas() {
-   /*  this.productosService.getMonturasforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
+     /* this.productosService.getMonturasforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
       this.listAllProducts = res;
-      console.log("monturas", this.listAllProducts); */
+      console.log("monturas", this.listAllProducts);  */
       this.getListAccesorios()
-    // });
+   //});
   }
 
   getListAccesorios() {
@@ -274,6 +273,7 @@ export class AddSaleComponent implements OnInit {
       console.log("entre al false",productExistInCart)
       if (productExistInCart.cant_vendida +1 > productExistInCart.cantidad) {
         Sweetalert("error", "No se puede agregar más productos del stock");
+        this.autocomplete.clear();
         return;
       } else {
         productExistInCart.cant_vendida += 1;
