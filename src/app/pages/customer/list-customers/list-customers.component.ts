@@ -128,6 +128,7 @@ export class ListCustomersComponent implements OnInit {
       this.f(this.fecha_nacimiento).setValue(formatDate(data.fecha_nacimiento,'yyyy-MM-dd','en'));
       this.f(this.telefono).setValue(data.telefono);
       this.f(this.email).setValue(data.email);
+      this.f(this.direccion).setValue(data.direccion);
       this.f(this.od_cilindrico).setValue(data.medidas[0].od_cilindrico > 0 ? '+'+data.medidas[0].od_cilindrico.toFixed(2) : data.medidas[0].od_cilindrico.toFixed(2));
       this.f(this.od_eje).setValue(data.medidas[0].od_eje);
       this.f(this.od_esferico).setValue(data.medidas[0].od_esferico > 0? '+'+data.medidas[0].od_esferico.toFixed(2): data.medidas[0].od_esferico.toFixed(2));

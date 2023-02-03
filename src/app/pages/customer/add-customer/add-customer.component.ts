@@ -54,7 +54,7 @@ export class AddCustomerComponent implements OnInit {
   }
 
   crearFormulario() {
-    this.fecha_actual = new Date();
+    this.fecha_actual = new Date(Date.now());
     this.formCustomer = this.fb.group({
       [this.fecha_creacion]:[{value: this.fecha_actual.toLocaleString(), disabled: true}],
       [this.dni]:[null,[
@@ -176,6 +176,7 @@ export class AddCustomerComponent implements OnInit {
       this.customerService.createCustomers(this.customer).subscribe( res=>{
         Sweetalert("close",null);
         Sweetalert("success", "Cliente guardado");
+        this.f(this.fecha_creacion).setValue(new Date(Date.now()).toLocaleDateString())
         this.formCustomer.reset();
         console.log("registrado ok");
       });
