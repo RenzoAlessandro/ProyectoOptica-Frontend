@@ -7,4 +7,5 @@ export class CajaModel {
     habilitado: boolean;
     monto: number;
     id_sede: string;
+    tipo: string;
 }

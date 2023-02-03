@@ -111,7 +111,7 @@ export class CustomerService {
    * Funcion para obtener la lista de monturas desde el backend
    */
    getListMonturas() {
-    this.monturasService.getProductosbySede(this.usuarioService.getSedebyUser(),'luna').subscribe( res=>{
+    this.monturasService.getProductosbySede(this.usuarioService.getSedebyUser(),'montura').subscribe( res=>{
       console.log(res)
       this.monturasList = res;
       const propiedad = {
