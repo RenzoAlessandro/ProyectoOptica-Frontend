@@ -52,7 +52,7 @@
 
                                 <div class="row text-center mb-3">
                                     <div class="col-sm-12 d-grid">
-                                        <button type="submit" class="btn btn-primary rounded-pill btn-block me-1" (click)="login()">
+                                        <button type="submit" class="btn btn-primary rounded-pill btn-block me-1" (click)="login()" [disabled]="!this.formLogin.valid" >
                                             <i class="umdi umdi-account-arrow-rightt me-2"></i> Iniciar sesión
                                         </button>
                                     </div>

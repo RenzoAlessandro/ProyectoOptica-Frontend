@@ -1,5 +1,5 @@
 export class Labels {
-    cabeceraExcelOrden = "ORDEN";
+    //cabeceraExcelOrden = "ORDEN";
     cabeceraExcelIdMont = "ID MONTURA";
     cabeceraExcelMaterial = "MATERIAL";
     cabeceraExcelMarca = "MARCA";

@@ -76,10 +76,10 @@ export class AddProductComponent implements OnInit {
     this.fecha_actual = new Date(Date.now());
     this.formMonturas = this.fb.group({
 
-      [this.orden_montura]:[null,[
+      /* [this.orden_montura]:[null,[
         Validators.required,
         Validators.pattern(this.numberPattern)
-      ]],
+      ]], */
       [this.material_montura]:[null, [
         Validators.required
       ]],
@@ -114,10 +114,10 @@ export class AddProductComponent implements OnInit {
 
     this.formLunas = this.fb.group({
 
-      [this.orden_luna]:[null,[
+      /* [this.orden_luna]:[null,[
         Validators.required,
         Validators.pattern(this.numberPattern)
-      ]],
+      ]], */
       [this.material_luna]:[null, [
         Validators.required
       ]],
@@ -139,10 +139,10 @@ export class AddProductComponent implements OnInit {
 
     this.formAccesorios = this.fb.group({
 
-      [this.orden_accesorio]:[null,[
+      /* [this.orden_accesorio]:[null,[
         Validators.required,
         Validators.pattern(this.numberPattern)
-      ]],
+      ]], */
       [this.nombre_accesorio]:[null, [
         Validators.required
       ]],
@@ -187,7 +187,7 @@ export class AddProductComponent implements OnInit {
 
   guardarAccesorios() {
     if (this.formAccesorios.valid) {
-      this.accesorios.num_orden = Number(this.fA(this.orden_accesorio).value);
+      //this.accesorios.num_orden = Number(this.fA(this.orden_accesorio).value);
       this.accesorios.nombre_accesorio = this.fA(this.nombre_accesorio).value;
       this.accesorios.cantidad = Number(this.fA(this.cantidad_accesorio).value);
       this.accesorios.fecha_creacion_accesorio = new Date(Date.now());
@@ -200,6 +200,7 @@ export class AddProductComponent implements OnInit {
       console.log(this.accesorios);
       Sweetalert("loading", "Cargando...");
       this.productosService.createAccesorios(this.accesorios).subscribe(res=>{
+        console.log(res)
         Sweetalert("close",null);
         Sweetalert("success", "Accesorio guardado");
         this.formAccesorios.reset();
@@ -213,7 +214,7 @@ export class AddProductComponent implements OnInit {
 
   guardarLunas() {
     if (this.formLunas.valid) {
-      this.lunas.num_orden = Number(this.fL(this.orden_luna).value);
+      //this.lunas.num_orden = Number(this.fL(this.orden_luna).value);
       this.lunas.material = this.fL(this.material_luna).value;
       this.lunas.precio_luna_c = Number(this.fL(this.precio_compra_luna).value);
       this.lunas.precio_luna_v = Number(this.fL(this.precio_venta_luna).value);
@@ -239,7 +240,7 @@ export class AddProductComponent implements OnInit {
 
   guardarMonturas() {
     if (this.formMonturas.valid) {
-      this.monturas.num_orden = Number(this.fM(this.orden_montura).value);
+      //this.monturas.num_orden = Number(this.fM(this.orden_montura).value);
       this.monturas.material = this.fM(this.material_montura).value;
       this.monturas.marca = this.fM(this.marca_montura).value;
       this.monturas.talla = this.fM(this.talla_montura).value;

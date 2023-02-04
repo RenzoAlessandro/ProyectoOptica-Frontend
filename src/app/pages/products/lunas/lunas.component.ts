@@ -12,7 +12,7 @@ import { LunasModel } from 'src/models/lunas';
 import { ProductosService } from 'src/app/services/productos.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { DataMatrixGenerator } from '@syncfusion/ej2-angular-barcode-generator';
+
 
 import { Sweetalert } from 'src/utils/sweetalert';
 import Swal from 'sweetalert2';
@@ -20,6 +20,7 @@ import Swal from 'sweetalert2';
 import { SedesModel } from 'src/models/sedes';
 import { SedeService } from 'src/app/services/sede.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { DisplayTextModel } from '@syncfusion/ej2-angular-barcode-generator';
 
 @Component({
   selector: 'app-lunas',
@@ -148,7 +149,7 @@ export class LunasComponent implements OnInit {
     this.f(this.precio_compra_luna).setValue(data.precio_luna_c);
     this.f(this.precio_venta_luna).setValue(data.precio_luna_v);
 
-    this.luna.id_luna = data.id_luna;
+    this.luna.id_producto = data.id_producto;
 
     this.modalService.open(centerDataModal, { centered: true, windowClass: 'modal-holder' });
   }
@@ -209,7 +210,7 @@ export class LunasComponent implements OnInit {
 
       console.log(this.luna);
       Sweetalert("loading", "Cargando...");
-      this.lunaService.updateLuna(this.luna.id_luna,this.luna).subscribe(res =>{
+      this.lunaService.updateLuna(this.luna.id_producto,this.luna).subscribe(res =>{
         console.log("guardado");
         this.modalService.dismissAll();
         Sweetalert("close",null);
@@ -233,7 +234,7 @@ export class LunasComponent implements OnInit {
     }).then(result => {
       if (result.value) {
         Sweetalert("loading", "Cargando...");
-        this.lunaService.darBajaLuna(data.id_luna).subscribe(res => {
+        this.lunaService.darBajaLuna(data.id_producto).subscribe(res => {
           Sweetalert("close", null);
           Sweetalert("success", "Luna eliminada");
           console.log("Luna borrado");
@@ -351,4 +352,8 @@ export class LunasComponent implements OnInit {
 			pdf.save("HTML-Document.pdf");
     }); 
   }
+
+  public displayTextMethod: DisplayTextModel = {
+    visibility: false
+  };
 }

@@ -1,13 +1,11 @@
 export class MonturasModel {
-    num_orden: number;
-    id_montura?: string;
+    id_producto?: string;
     isSelected: boolean;
     material: string;
     marca: string;
     talla: string;
     color: string;
     codigo: string;
-    codigo_interno: string;
     precio_montura_c: number;
     precio_montura_v: number;
     fecha_creacion_monturas: Date;

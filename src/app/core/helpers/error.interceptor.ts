@@ -13,22 +13,32 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
-            if (err.status === 401) {
-                Sweetalert("close", null);
-                Sweetalert("error", err.error);
-                console.log(err);
-                this.usuarioService.logOut();
-                // auto logout if 401 response returned from api
-                //this.authenticationService.logout();
-                //location.reload();
-            } else if (err.status === 400) {
-                Sweetalert("close", null);
-                Sweetalert("error", err.error.message);
-                console.log(err);
+
+            switch (err.status) {
+
+                case 401:
+                    Sweetalert("close", null);
+                    Sweetalert("error", err.error);
+                    console.log(err);
+                    this.usuarioService.logOut();
+                    break;
+                case 400:
+                    Sweetalert("close", null);
+                    Sweetalert("error", err.error.message);
+                    console.log(err);
+                    break;
+                case 500:
+                    console.log(err);
+                    Sweetalert("close", null);
+                    Sweetalert("error", err.error.message);
+                    break;
+                default:
+                    break;
             }
 
             const error = err.error.message || err.statusText;
             return throwError(error);
+
         }));
     }
 }

@@ -136,10 +136,10 @@ export class InventarioComponent implements OnInit {
     let data: Array<MonturasModel> = [];
     data = this.products.map((monturas: MonturasModel) => {
       return {
-        "ID MONTURA": monturas.id_montura,
-        "ORDEN": monturas.num_orden,
+        "ID MONTURA": monturas.id_producto,
+        //"ORDEN": monturas.num_orden,
         "TALLA": monturas.talla,
-        "CODIGO INTERNO": monturas.codigo_interno,
+        //"CODIGO INTERNO": monturas.codigo_interno,
         "CODIGO": monturas.codigo,
         "MARCA": monturas.marca,
         "CANTIDAD": monturas.cantidad,
@@ -168,7 +168,7 @@ export class InventarioComponent implements OnInit {
     let res = [];
     res = arr1.filter(el => {
       return !arr2.find(element => {
-        return element.codigo_interno === el.codigo_interno;
+        return element.id_producto === el.id_producto;
       });
     });
     return res;

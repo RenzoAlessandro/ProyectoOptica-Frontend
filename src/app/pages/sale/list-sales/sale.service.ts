@@ -11,6 +11,7 @@ import { MonturasModel } from 'src/models/monturas';
 import { LunasModel } from 'src/models/lunas';
 import { AccesorioModel } from 'src/models/accesorio';
 import { TipoVentaModel } from 'src/models/tipo_venta';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 interface SearchResult {
   transactions: VentasModel[];
@@ -65,7 +66,8 @@ export class TransactionService {
   };
   constructor(
     private pipe: DecimalPipe,
-    private ventaService: VentaService
+    private ventaService: VentaService,
+    private usuarioService: UsuarioService
     ) {
     this.getAllVentas();
   }
@@ -109,7 +111,7 @@ export class TransactionService {
   }
   //Servicio 
   getAllVentas() {
-    this.ventaService.getVentas().subscribe( res=>{
+    this.ventaService.getVentasbySede(this.usuarioService.getSedebyUser()).subscribe( res=>{
       this.ventaList = res;
       console.log(res);
       this._mostrar$.next(true);

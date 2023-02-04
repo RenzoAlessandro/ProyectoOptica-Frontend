@@ -280,12 +280,18 @@ export class ListSalesComponent implements OnInit {
 
   filterDateRange() {
     if (this.formDateRange.valid) {
-      let fechaIni = new Date(this.f(this.fechaDesde).value);
-      let fechaFin = this.f(this.fechaHasta).value != null ? new Date(this.f(this.fechaHasta).value) : new Date(Date.now());
+      let fechaIni = new Date(this.f(this.fechaDesde).value+'T00:00');
+      let fechaFin:Date;
+      if(this.f(this.fechaHasta).value != null) {
+        fechaFin = new Date(this.f(this.fechaHasta).value+'T23:59');
+      } else {
+        fechaFin = new Date(Date.now());
+        fechaFin.setHours(23,59,0)
+      }
       //fechaIni.setDate(fechaIni.getDate() - 1)
-      fechaFin.setDate(fechaFin.getDate() + 1)
+      /* fechaFin.setDate(fechaFin.getDate() + 1)
       fechaIni.setHours(0,0,0);
-      fechaFin.setHours(23,59,0)
+      fechaFin.setHours(23,59,0) */
       console.log("fechas",fechaIni,fechaFin)
       this.ventasService.getVentasByDate(fechaIni,fechaFin).subscribe(res=>{
         console.log(res);
