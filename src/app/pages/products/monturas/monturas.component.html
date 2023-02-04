@@ -139,7 +139,7 @@
                       [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
                   </td> -->
                   <td>
-                    <a (click)="openModalEtiqueta(centerModalEIM)"  class="px-2 text-success" placement="top" ngbTooltip="Etiqueta"><i
+                    <a (click)="openModalEtiqueta(centerModalEIM,data)"  class="px-2 text-success" placement="top" ngbTooltip="Etiqueta"><i
                       class="uil-tag-alt font-size-18"></i></a>
                     <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top"
                       ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
@@ -349,24 +349,41 @@
     <h5 class="modal-title mt-0">Imprimir Etiqueta por Montura</h5>
     <button type="button" class="btn-close" aria-hidden="true" (click)="closeEventModal()"></button>
   </div>
-  <form (ngSubmit)="saveEvent()" [formGroup]="formPrintEtiquetaMontura">
+  <form [formGroup]="formPrintEtiquetaMontura">
     <div class="modal-body">
-
-
-
-
-
-
-
-
+      <div id="htmlData2">
+          <div *ngFor="let cant of [].constructor(nQR)">
+            <div class="row align-items-center">
+              <div class="col-6">
+                <ejs-qrcodegenerator style="display: block;"  #barcode id="barcode" width="225px" height="100px" mode="SVG" 
+                           value={{individualQR.id_producto}}  [displayText] = 'displayTextMethod'>
+                      </ejs-qrcodegenerator>
+              </div>
+              <div class="col-6 ml-0">
+                <span>
+                  {{individualQR.codigo}}<br>
+                </span>
+                <span>
+                  {{individualQR.marca}}<br>
+                </span>
+                <span>
+                  {{individualQR.talla}}<br>
+                </span>
+                <span>
+                  {{individualQR.color}}
+                </span>
+              </div>
+            </div>
+          </div>
+      </div>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-danger" (click)="closeEventModal()">Cerrar</button>
       <div style="width: 80px;" class="product-cart-touchspin">
         <div touch-spin ng-model="numberVariable" options="optionsVariable"></div>
-        <input class="form-control" type="number" value="{{ 4 }}">
+        <input class="form-control" type="number" min="0" step="1" oninput="this.value = Math.round(this.value);" formControlName="{{this.nEtiquetasPorMontura}}">
       </div>
-      <button type="button" class="btn btn-primary"><i class="bx bx-bolt-circle me-1"></i>Generar</button>
+      <button type="button" class="btn btn-primary"><i class="bx bx-bolt-circle me-1" (click)="generarEtiqueta()"></i>Generar</button>
     </div>
   </form>
 </ng-template>
@@ -386,8 +403,9 @@
         <div *ngFor="let cant of [].constructor(item.cantidad)">
           <div class="row align-items-center">
             <div class="col-6">
-              <ejs-barcodegenerator style="display: block;" #barcode id="barcode" width="225px" height="100px"
-                mode="SVG" type="Code128" value={{item.codigo_interno}}></ejs-barcodegenerator>
+              <ejs-qrcodegenerator style="display: block;"  #barcode id="barcode" width="225px" height="100px" mode="SVG" 
+                         value={{item.id_producto}}  [displayText] = 'displayTextMethod'>
+                    </ejs-qrcodegenerator>
             </div>
             <div class="col-6 ml-0">
               <span>

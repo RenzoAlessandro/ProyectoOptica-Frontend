@@ -18,6 +18,7 @@ import { Options } from 'ng5-slider';
 
 import { SedesModel } from 'src/models/sedes';
 import { SedeService } from 'src/app/services/sede.service';
+import { DisplayTextModel } from '@syncfusion/ej2-angular-barcode-generator';
 
 @Component({
   selector: 'app-accesorios',
@@ -362,4 +363,8 @@ export class AccesoriosComponent implements OnInit {
 			pdf.save("HTML-Document.pdf");
     }); 
   }
+
+  public displayTextMethod: DisplayTextModel = {
+    visibility: false
+  };
 }

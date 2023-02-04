@@ -15,6 +15,8 @@ import html2canvas from 'html2canvas';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { SedeService } from 'src/app/services/sede.service';
 import { SedesModel } from 'src/models/sedes';
+import { DisplayTextModel } from '@syncfusion/ej2-angular-barcode-generator';
+
 
 @Component({
   selector: 'app-monturas',
@@ -72,6 +74,8 @@ export class MonturasComponent implements OnInit {
   listMonturas: Array<MonturasModel>;
   listSedes: Array<SedesModel> = [];
   inventarioMonturas: Array<MonturasModel> = [];
+  individualQR = new  MonturasModel;
+  nQR = 0;
 
   constructor(public service: CustomerService,
     private monturaService: ProductosService,
@@ -136,7 +140,7 @@ export class MonturasComponent implements OnInit {
     })
 
     this.formPrintEtiquetaMontura = this.fb.group({
-      [this.nEtiquetasPorMontura]: [null, [
+      [this.nEtiquetasPorMontura]: [1, [
         Validators.required,
         Validators.pattern(this.numberPattern)
       ]]
@@ -157,6 +161,9 @@ export class MonturasComponent implements OnInit {
 
   f(campo:string) {
     return this.formMontura.get(campo);
+  }
+  fEM(campo:string) {
+    return this.formPrintEtiquetaMontura.get(campo);
   }
 
   /**
@@ -184,7 +191,10 @@ export class MonturasComponent implements OnInit {
    * Open Large modal
    * @param openDataModal large modal data
    */
-  openModalEtiqueta(openDataModal: any) {
+  openModalEtiqueta(openDataModal: any, data:MonturasModel) {
+    this.individualQR = data;
+    this.nQR = Number(this.fEM(this.nEtiquetasPorMontura).value);
+    console.log(this.nQR)
     this.modalService.open(openDataModal, { windowClass:'modal-holder', centered: true });
   }
 
@@ -388,5 +398,13 @@ get formPEM() {
 			}
 			pdf.save("Monturas_"+nombreSede.nombre_sede+".pdf");
     }); 
+  }
+
+  public displayTextMethod: DisplayTextModel = {
+    visibility: false
+  };
+
+  generarEtiqueta() {
+    this.nQR = Number(this.fEM(this.nEtiquetasPorMontura).value)
   }
 }
