@@ -15,6 +15,7 @@ import html2canvas from 'html2canvas';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { SedeService } from 'src/app/services/sede.service';
 import { SedesModel } from 'src/models/sedes';
+import { DisplayTextModel } from '@syncfusion/ej2-angular-barcode-generator';
 
 @Component({
   selector: 'app-monturas',
@@ -389,4 +390,8 @@ get formPEM() {
 			pdf.save("Monturas_"+nombreSede.nombre_sede+".pdf");
     }); 
   }
+
+  public displayTextMethod: DisplayTextModel = {
+    visibility: false
+  };
 }

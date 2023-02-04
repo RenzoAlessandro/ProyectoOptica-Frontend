@@ -391,8 +391,9 @@
         <div *ngFor="let cant of [].constructor(item.cantidad)">
           <div class="row align-items-center">
             <div class="col-6">
-              <ejs-barcodegenerator style="display: block;" #barcode id="barcode" width="225px" height="100px"
-                mode="SVG" type="Code128" value={{item.codigo_interno}}></ejs-barcodegenerator>
+              <ejs-qrcodegenerator style="display: block;"  #barcode id="barcode" width="225px" height="100px" mode="SVG" 
+                         value={{item.id_producto}}  [displayText] = 'displayTextMethod'>
+                    </ejs-qrcodegenerator>
             </div>
             <div class="col-6 ml-0">
               <span>

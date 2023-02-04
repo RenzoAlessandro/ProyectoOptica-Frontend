@@ -32,7 +32,7 @@ export class InventarioComponent implements OnInit {
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
   @ViewChild('autocomplete') autocomplete;
   listAllProducts: Array<any> = [];
-  keyword = "codigo_interno";
+  keyword = "id_producto";
   products: any = [];
   formInventario: FormGroup;
   sede: string = "campoSede";
@@ -100,7 +100,7 @@ export class InventarioComponent implements OnInit {
 
   selectEvent(item: any) {
     console.log(item);
-    const productExistInCart = this.products.find((name) => name.codigo_interno === item.codigo_interno);
+    const productExistInCart = this.products.find((name) => name.id_producto === item.id_producto);
 
     if (!productExistInCart) {
       this.products.push({ ...item, isSelected: true });
