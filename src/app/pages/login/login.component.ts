@@ -5,6 +5,7 @@ import { SedeService } from 'src/app/services/sede.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Sweetalert } from 'src/utils/sweetalert';
 import Swal from 'sweetalert2';
+import { backgroundModel, backgroundList } from './background.model';
 
 @Component({
   selector: 'app-login',
@@ -13,9 +14,10 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
 
+  public backgrounds: backgroundModel[] = [];
+
   showNavigationArrows: any;
   showNavigationIndicators: any;
-
 
   year: number = new Date().getFullYear();
   formLogin: FormGroup;
@@ -31,7 +33,7 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
-    
+    this.backgrounds = Object.assign([], backgroundList);
     document.body.classList.add('authentication-bg')
     document.body.removeAttribute('data-topbar');
     this.crearFormulario();
