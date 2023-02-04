@@ -43,7 +43,11 @@
       "TEXT": "Tableros"
     },
     "CASHREGISTER": {
-      "TEXT": "Caja"
+      "TEXT": "Caja",
+      "LIST": {
+        "CASHREGISTER": "Registro de Ingresos y Egresos",
+        "LISTCASH": "Lista de Ingresos y Egresos"
+      }
     },
     "HOME": {
       "TEXT": "Inicio"
