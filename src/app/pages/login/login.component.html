@@ -2,91 +2,14 @@
     <div class="row no-gutter">
 
         <div class="col-md-6 px-0">
-            <ngb-carousel #carousel [interval]="5000" [showNavigationArrows]="true" [showNavigationIndicators]="true" >
-                <ng-template ngbSlide>
-                  <img src="assets/images/backgrounds/background-1.jpg" style="background-color: white; height:100vh;">
+            <ngb-carousel #carousel [interval]="5000" [showNavigationArrows]="true" [showNavigationIndicators]="true">
+                <ng-template ngbSlide *ngFor="let background of backgrounds">
+                  <img src= {{background.imagen}} style="object-fit: cover; background-color: white; height:100vh;">
                   <div class="carousel-caption d-none d-md-block">
-                    <h5 class="text-white">1 slide label</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <h5 class="text-white">{{background.title}}</h5>
+                    <p>{{background.detail}}</p>
                   </div>
                 </ng-template>
-                <ng-template ngbSlide>
-                  <img src="assets/images/backgrounds/background-2.jpg" style="background-color: white; height:100vh;">
-                  <div class="carousel-caption d-none d-md-block">
-                    <h5 class="text-white">2 slide label</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                  </div>
-                </ng-template>
-                <ng-template ngbSlide>
-                    <img src="assets/images/backgrounds/background-3.jpg" style="background-color: white; height:100vh;">
-                    <div class="carousel-caption d-none d-md-block">
-                      <h5 class="text-white">1 slide label</h5>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                  </ng-template>
-                  <ng-template ngbSlide>
-                    <img src="assets/images/backgrounds/background-4.jpg" style="background-color: white; height:100vh;">
-                    <div class="carousel-caption d-none d-md-block">
-                      <h5 class="text-white">2 slide label</h5>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                  </ng-template>
-                  <ng-template ngbSlide>
-                    <img src="assets/images/backgrounds/background-5.jpg" style="background-color: white; height:100vh;">
-                    <div class="carousel-caption d-none d-md-block">
-                      <h5 class="text-white">1 slide label</h5>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                  </ng-template>
-                  <ng-template ngbSlide>
-                    <img src="assets/images/backgrounds/background-6.jpg" style="background-color: white; height:100vh;">
-                    <div class="carousel-caption d-none d-md-block">
-                      <h5 class="text-white">2 slide label</h5>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                  </ng-template>
-                  <ng-template ngbSlide>
-                    <img src="assets/images/backgrounds/background-7.jpg" style="background-color: white; height:100vh;">
-                    <div class="carousel-caption d-none d-md-block">
-                      <h5 class="text-white">1 slide label</h5>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                  </ng-template>
-                  <ng-template ngbSlide>
-                    <img src="assets/images/backgrounds/background-8.jpg" style="background-color: white; height:100vh;">
-                    <div class="carousel-caption d-none d-md-block">
-                      <h5 class="text-white">2 slide label</h5>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                  </ng-template>
-                  <ng-template ngbSlide>
-                    <img src="assets/images/backgrounds/background-9.jpg" style="background-color: white; height:100vh;">
-                    <div class="carousel-caption d-none d-md-block">
-                      <h5 class="text-white">1 slide label</h5>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                  </ng-template>
-                  <ng-template ngbSlide>
-                    <img src="assets/images/backgrounds/background-10.jpg" style="background-color: white; height:100vh;">
-                    <div class="carousel-caption d-none d-md-block">
-                      <h5 class="text-white">2 slide label</h5>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                  </ng-template>
-                  <ng-template ngbSlide>
-                    <img src="assets/images/backgrounds/background-11.jpg" style="background-color: white; height:100vh;">
-                    <div class="carousel-caption d-none d-md-block">
-                      <h5 class="text-white">2 slide label</h5>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                  </ng-template>
-                  <ng-template ngbSlide>
-                    <img src="assets/images/backgrounds/background-12.jpg" style="background-color: white; height:100vh;">
-                    <div class="carousel-caption d-none d-md-block">
-                      <h5 class="text-white">1 slide label</h5>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                  </ng-template>
               </ngb-carousel>
         </div>
 

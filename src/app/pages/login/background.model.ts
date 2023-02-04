@@ -60,4 +60,9 @@ export const backgroundList: backgroundModel[] = [
         detail: 'Compare ventas, vea los productos más vendidos y mucho más',
         imagen: 'assets/images/backgrounds/background-11.jpg',
     },
+    {
+        title: 'Gráficas',
+        detail: 'Compare ventas, vea los productos más vendidos y mucho más',
+        imagen: 'assets/images/backgrounds/background-12.jpg',
+    },
 ];
