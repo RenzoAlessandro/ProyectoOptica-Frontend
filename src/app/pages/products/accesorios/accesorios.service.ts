@@ -35,8 +35,7 @@ function sort(customers: AccesorioModel[], column: SortColumn, direction: string
 }
 
 function matches(customer: AccesorioModel, term: string, pipe: PipeTransform) {
-  return customer.id_accesorio.toLowerCase().includes(term)
-  || customer.nombre_accesorio.toLowerCase().includes(term.toLowerCase())
+  return customer.nombre_accesorio.toLowerCase().includes(term.toLowerCase())
   || String(customer.precio_accesorio_c).toLowerCase().includes(term.toLowerCase())
   || String(customer.precio_accesorio_v).toLowerCase().includes(term.toLowerCase())
   || (customer.fecha_creacion_accesorio).toLocaleString().includes(term.toLowerCase())

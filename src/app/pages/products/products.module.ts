@@ -18,7 +18,7 @@ import { UpdateExcelComponent } from './update-excel/update-excel.component';
 import { DropzoneModule, DROPZONE_CONFIG } from "ngx-dropzone-wrapper";
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { NgxDropzoneModule } from "ngx-dropzone";
-import { BarcodeGeneratorAllModule } from "@syncfusion/ej2-angular-barcode-generator";
+import { BarcodeGeneratorAllModule,QRCodeGeneratorAllModule } from "@syncfusion/ej2-angular-barcode-generator";
 import { RoleDirective } from "src/app/directives/role.directive";
 import { AutocompleteLibModule } from "angular-ng-autocomplete";
 import { Labels } from "src/utils/labels";
@@ -52,7 +52,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       NgbModule,
       NgxDropzoneModule,
       BarcodeGeneratorAllModule,
-      AutocompleteLibModule
+      AutocompleteLibModule,
+      QRCodeGeneratorAllModule
     ],
     providers: [
       Labels,

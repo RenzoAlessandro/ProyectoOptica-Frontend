@@ -1,5 +1,5 @@
 export class AccesorioModel {
-    id_accesorio?: string;
+    id_producto?: string;
     isSelected: boolean;
     nombre_accesorio: string;
     codigo_interno: string;
@@ -11,6 +11,5 @@ export class AccesorioModel {
     id_sede: string;
     habilitado: boolean;
     tipo: string;
-    num_orden: number;
     cant_vendida: number;
 }

@@ -75,7 +75,7 @@ export class AddSaleComponent implements OnInit {
   @ViewChild('autocomplete') autocomplete;
   listAllProducts: Array<any> = [];
   active = 1;
-  keyword = "codigo_interno";
+  keyword = "id_producto";
   keywordCliente = "nombres_apellidos";
   products: any = [];
   precioTotalVenta: number;
@@ -188,11 +188,11 @@ export class AddSaleComponent implements OnInit {
     ]
   };
   getListMonturas() {
-     /* this.productosService.getMonturasforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
+     this.productosService.getMonturasforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
       this.listAllProducts = res;
-      console.log("monturas", this.listAllProducts);  */
+      console.log("monturas", this.listAllProducts); 
       this.getListAccesorios()
-   //});
+   });
   }
 
   getListAccesorios() {
@@ -249,7 +249,7 @@ export class AddSaleComponent implements OnInit {
   }
   selectEvent(item: any) {
     console.log(item);
-    const productExistInCart = this.products.find((name) => name.codigo_interno === item.codigo_interno);
+    const productExistInCart = this.products.find((name) => name.id_producto === item.id_producto);
     if (!productExistInCart) {
       switch (item.tipo) {
         case 'montura':
@@ -277,6 +277,7 @@ export class AddSaleComponent implements OnInit {
         return;
       } else {
         productExistInCart.cant_vendida += 1;
+        this.autocomplete.clear();
       }
       
     }
@@ -539,7 +540,7 @@ export class AddSaleComponent implements OnInit {
                 
                 Sweetalert("error", "Error en la conexión");
               }
-            });
+            }); 
         } else if (
           
           /* Read more about handling dismissals below */

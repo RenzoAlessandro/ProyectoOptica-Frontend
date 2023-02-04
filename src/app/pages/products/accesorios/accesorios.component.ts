@@ -154,7 +154,7 @@ export class AccesoriosComponent implements OnInit {
     this.f(this.precio_compra_accesorio).setValue(data.precio_accesorio_c);
     this.f(this.precio_venta_accesorio).setValue(data.precio_accesorio_v);
 
-    this.accesorio.id_accesorio = data.id_accesorio;
+    this.accesorio.id_producto = data.id_producto;
 
     this.modalService.open(centerDataModal, { centered: true, windowClass: 'modal-holder' });
   }
@@ -218,7 +218,7 @@ export class AccesoriosComponent implements OnInit {
     }).then(result => {
       if (result.value) {
         Sweetalert("loading", "Cargando...");
-        this.accesorioService.darBajaAccesorio(data.id_accesorio).subscribe(res => {
+        this.accesorioService.darBajaAccesorio(data.id_producto).subscribe(res => {
           Sweetalert("close", null);
           Sweetalert("success", "Accesorio eliminado");
           console.log("montura borrado");
@@ -255,7 +255,7 @@ export class AccesoriosComponent implements OnInit {
 
       console.log(this.accesorio);
       Sweetalert("loading", "Cargando...");
-      this.accesorioService.updateAccesorio(this.accesorio.id_accesorio, this.accesorio).subscribe(res => {
+      this.accesorioService.updateAccesorio(this.accesorio.id_producto, this.accesorio).subscribe(res => {
         console.log("actualizado");
         this.modalService.dismissAll();
         Sweetalert("close", null);

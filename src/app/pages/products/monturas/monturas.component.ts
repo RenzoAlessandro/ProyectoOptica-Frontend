@@ -173,7 +173,7 @@ export class MonturasComponent implements OnInit {
     this.f(this.precio_compra_montura).setValue(data.precio_montura_c);
     this.f(this.precio_venta_montura).setValue(data.precio_montura_v);
 
-    this.montura.id_montura = data.id_montura;
+    this.montura.id_producto = data.id_producto;
     this.modalService.open(centerDataModal, { centered: true, windowClass: 'modal-holder' });
   }
 
@@ -243,7 +243,7 @@ export class MonturasComponent implements OnInit {
       this.montura.fecha_modificacion_monturas = new Date(Date.now());
       console.log(this.montura);
       Sweetalert("loading", "Cargando...");
-      this.monturaService.updateMontura(this.montura.id_montura,this.montura).subscribe(res => {
+      this.monturaService.updateMontura(this.montura.id_producto,this.montura).subscribe(res => {
         this.modalService.dismissAll();
         Sweetalert("close",null);
         Sweetalert("success","Montura guardada");
@@ -267,7 +267,7 @@ export class MonturasComponent implements OnInit {
     }).then(result => {
       if (result.value) {
         Sweetalert("loading", "Cargando...");
-        this.monturaService.darBajaMontura(data.id_montura).subscribe(res => {
+        this.monturaService.darBajaMontura(data.id_producto).subscribe(res => {
           Sweetalert("close", null);
           Sweetalert("success", "Montura eliminada");
           console.log("Montura borrado");

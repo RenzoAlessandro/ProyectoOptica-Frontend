@@ -91,18 +91,18 @@ export class UpdateExcelComponent implements OnInit {
       let productName = '';
       switch (this.f('producto').value) {
         case 1:
-          productName = 'Monturas';
+          productName = 'montura';
           break;
         case 2:
-          productName = 'Lunas';
+          productName = 'luna';
           break;
         case 3:
-          productName = 'Accesorios';
+          productName = 'accesorio';
           break;
         default:
           break;
       }
-      this.productoService.getProductosbySede(this.f('sede').value, 'montura').subscribe(res => {
+      this.productoService.getProductosbySede(this.f('sede').value, productName).subscribe(res => {
         Sweetalert("close", null);
         const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
         const EXCEL_EXTENSION = '.xlsx';
@@ -111,15 +111,15 @@ export class UpdateExcelComponent implements OnInit {
         } else {
           let data = [];
           switch (productName) {
-            case 'Monturas':
+            case 'montura':
               data = res.map(monturas => {
                 return {
-                  "ID MONTURA": monturas.id_montura,
-                  "ORDEN": monturas.num_orden,
+                  "ID MONTURA": monturas.id_producto,
+                  //"ORDEN": monturas.num_orden,
                   "PRECIO COMPRA": monturas.precio_montura_c,
                   "PRECIO VENTA": monturas.precio_montura_v,
                   "TALLA": monturas.talla,
-                  "CODIGO INTERNO": monturas.codigo_interno,
+                  //"CODIGO INTERNO": monturas.codigo_interno,
                   "CODIGO": monturas.codigo,
                   "MARCA": monturas.marca,
                   "CANTIDAD": monturas.cantidad,
@@ -131,31 +131,33 @@ export class UpdateExcelComponent implements OnInit {
                 }
               })
               break;
-            case 'Lunas':
-              data = res.map(lunas => {
+            case 'luna':
+              data = res.map((lunas:LunasModel) => {
                 return {
-                  "ID LUNA": lunas.id_luna,
+                  "ID LUNA": lunas.id_producto,
                   "PRECIO COMPRA": lunas.precio_luna_c,
                   "PRECIO VENTA": lunas.precio_luna_v,
-                  "CODIGO INTERNO": lunas.codigo_interno,
+                  //"CODIGO INTERNO": lunas.codigo_interno,
                   "CANTIDAD": lunas.cantidad,
                   "MATERIAL": lunas.material,
                   "TIPO": lunas.tipo,
                   "SEDE": lunas.id_sede,
+                  "FECHA INGRESO": new Date (lunas.fecha_creacion_luna).toLocaleDateString('en-GB')
                 }
               })
               break;
-            case 'Accesorios':
-              data = res.map(accesorios => {
+            case 'accesorio':
+              data = res.map((accesorios:AccesorioModel) => {
                 return {
-                  "ID ACCESORIO": accesorios.id_accesorio,
-                  "NOMBRE ACCESORIO": accesorios.nombre_accesorio,
+                  "ID ACCESORIO": accesorios.id_producto,
+                  "NOMBRE": accesorios.nombre_accesorio,
                   "PRECIO COMPRA": accesorios.precio_accesorio_c,
                   "PRECIO VENTA": accesorios.precio_accesorio_v,
-                  "CODIGO INTERNO": accesorios.codigo_interno,
+                  //"CODIGO INTERNO": accesorios.codigo_interno,
                   "CANTIDAD": accesorios.cantidad,
                   "TIPO": accesorios.tipo,
                   "SEDE": accesorios.id_sede,
+                  "FECHA INGRESO": new Date (accesorios.fecha_creacion_accesorio).toLocaleDateString('en-GB')
                 }
               })
               break;
@@ -265,6 +267,7 @@ export class UpdateExcelComponent implements OnInit {
       console.log(producto)
       this.productoService.updateProductsbyExcel(producto).subscribe(res => {
         console.log("ACTUALIZADO");
+        
       })
     } else {
       Sweetalert("error", "Excel con cabecera incorrecta");
@@ -295,9 +298,9 @@ export class UpdateExcelComponent implements OnInit {
     let listAccesorio: Array<AccesorioModel>;
     switch (tipo.toLowerCase()) {
       case 'montura':
-        listMontura = data.map(element => {
+        listMontura = data.map((element) => {
           return {
-            num_orden: Number(element.ORDEN),
+            //num_orden: Number(element.ORDEN),
             material: element.MATERIAL,
             marca: element.MARCA,
             codigo: element.CODIGO,
@@ -319,7 +322,7 @@ export class UpdateExcelComponent implements OnInit {
       case 'luna':
         listLuna = data.map(element => {
           return {
-            num_orden: Number(element.ORDEN),
+            //num_orden: Number(element.ORDEN),
             material: element.MATERIAL,
             precio_luna_c: isNaN(Number(element[this.label.cabeceraExcelPCompra])) ? 0 : Number(element[this.label.cabeceraExcelPCompra]),
             precio_luna_v: isNaN(Number(element[this.label.cabeceraExcelPVenta])) ? 0 : Number(element[this.label.cabeceraExcelPVenta]),
@@ -337,8 +340,8 @@ export class UpdateExcelComponent implements OnInit {
       case 'accesorio':
         listAccesorio = data.map(element => {
           return {
-            num_orden: Number(element.ORDEN),
-            nombre_accesorio: element['NOMBRE ACCESORIO'],
+            //num_orden: Number(element.ORDEN),
+            nombre_accesorio: element['NOMBRE'],
             precio_accesorio_c: isNaN(Number(element[this.label.cabeceraExcelPCompra])) ? 0 : Number(element[this.label.cabeceraExcelPCompra]),
             precio_accesorio_v: isNaN(Number(element[this.label.cabeceraExcelPVenta])) ? 0 : Number(element[this.label.cabeceraExcelPVenta]),
             fecha_creacion_accesorio: stringToDate(element[this.label.cabeceraExcelFIngreso]),
@@ -365,7 +368,7 @@ export class UpdateExcelComponent implements OnInit {
       case 'montura':
         listMontura = data.map(element => {
           return {
-            id_montura: element['ID MONTURA'],
+            id_producto: element['ID MONTURA'],
             precio_montura_c: isNaN(Number(element[this.label.cabeceraExcelPCompra])) ? 0 : Number(element[this.label.cabeceraExcelPCompra]),
             precio_montura_v: isNaN(Number(element[this.label.cabeceraExcelPVenta])) ? 0 : Number(element[this.label.cabeceraExcelPVenta]),
             cantidad: isNaN(Number(element.CANTIDAD)) ? 0 : Number(element.CANTIDAD),
@@ -378,7 +381,7 @@ export class UpdateExcelComponent implements OnInit {
       case 'luna':
         listLuna = data.map(element => {
           return {
-            id_luna: element['ID LUNA'],
+            id_producto: element['ID LUNA'],
             precio_luna_c: isNaN(Number(element[this.label.cabeceraExcelPCompra])) ? 0 : Number(element[this.label.cabeceraExcelPCompra]),
             precio_luna_v: isNaN(Number(element[this.label.cabeceraExcelPVenta])) ? 0 : Number(element[this.label.cabeceraExcelPVenta]),
             cantidad: isNaN(Number(element.CANTIDAD)) ? 0 : Number(element.CANTIDAD),
@@ -392,6 +395,7 @@ export class UpdateExcelComponent implements OnInit {
       case 'accesorio':
         listAccesorio = data.map(element => {
           return {
+            id_producto: element['ID ACCESORIO'],
             precio_accesorio_c: isNaN(Number(element[this.label.cabeceraExcelPCompra])) ? 0 : Number(element[this.label.cabeceraExcelPCompra]),
             precio_accesorio_v: isNaN(Number(element[this.label.cabeceraExcelPVenta])) ? 0 : Number(element[this.label.cabeceraExcelPVenta]),
             fecha_modificacion_accesorio: new Date(Date.now()),
@@ -410,14 +414,14 @@ export class UpdateExcelComponent implements OnInit {
   validarCabeceraExcelCreate(data: any, tipoProducto: string): boolean {
     switch (tipoProducto.toLowerCase()) {
       case 'montura':
-        return ((Object.keys(data[0]).length == 12) && data[0].hasOwnProperty(this.label.cabeceraExcelOrden) && data[0].hasOwnProperty(this.label.cabeceraExcelMaterial) && data[0].hasOwnProperty(this.label.cabeceraExcelMarca) && data[0].hasOwnProperty(this.label.cabeceraExcelCodigo) &&
+        return ((Object.keys(data[0]).length == 11) && data[0].hasOwnProperty(this.label.cabeceraExcelMaterial) && data[0].hasOwnProperty(this.label.cabeceraExcelMarca) && data[0].hasOwnProperty(this.label.cabeceraExcelCodigo) &&
           data[0].hasOwnProperty('TALLA') && data[0].hasOwnProperty('COLOR') && data[0].hasOwnProperty(this.label.cabeceraExcelCantidad) && data[0].hasOwnProperty(this.label.cabeceraExcelPCompra) &&
           data[0].hasOwnProperty(this.label.cabeceraExcelPVenta) && data[0].hasOwnProperty(this.label.cabeceraExcelFIngreso) && data[0].hasOwnProperty(this.label.cabeceraExcelTipo) && data[0].hasOwnProperty(this.label.cabeceraExcelSede))
       case 'luna':
-        return ((Object.keys(data[0]).length == 8) && data[0].hasOwnProperty(this.label.cabeceraExcelOrden) && data[0].hasOwnProperty(this.label.cabeceraExcelMaterial) && data[0].hasOwnProperty(this.label.cabeceraExcelCantidad) && data[0].hasOwnProperty(this.label.cabeceraExcelPCompra) &&
+        return ((Object.keys(data[0]).length == 7) && data[0].hasOwnProperty(this.label.cabeceraExcelMaterial) && data[0].hasOwnProperty(this.label.cabeceraExcelCantidad) && data[0].hasOwnProperty(this.label.cabeceraExcelPCompra) &&
           data[0].hasOwnProperty(this.label.cabeceraExcelPVenta) && data[0].hasOwnProperty(this.label.cabeceraExcelFIngreso) && data[0].hasOwnProperty(this.label.cabeceraExcelTipo) && data[0].hasOwnProperty(this.label.cabeceraExcelSede))
       case 'accesorio':
-        return ((Object.keys(data[0]).length == 8) && data[0].hasOwnProperty(this.label.cabeceraExcelOrden) && data[0].hasOwnProperty(this.label.cabeceraExcelNombre) && data[0].hasOwnProperty(this.label.cabeceraExcelCantidad) && data[0].hasOwnProperty(this.label.cabeceraExcelPCompra) &&
+        return ((Object.keys(data[0]).length == 7) && data[0].hasOwnProperty(this.label.cabeceraExcelNombre) && data[0].hasOwnProperty(this.label.cabeceraExcelCantidad) && data[0].hasOwnProperty(this.label.cabeceraExcelPCompra) &&
           data[0].hasOwnProperty(this.label.cabeceraExcelPVenta) && data[0].hasOwnProperty(this.label.cabeceraExcelFIngreso) && data[0].hasOwnProperty(this.label.cabeceraExcelTipo) && data[0].hasOwnProperty(this.label.cabeceraExcelSede))
       default:
         return false;
@@ -427,17 +431,17 @@ export class UpdateExcelComponent implements OnInit {
   validarCabeceraExcelUpdate(data: any, tipoProducto: string): boolean {
     switch (tipoProducto.toLowerCase()) {
       case 'montura':
-        return ((Object.keys(data[0]).length == 13) && data[0].hasOwnProperty(this.label.cabeceraExcelOrden) && data[0].hasOwnProperty(this.label.cabeceraExcelIdMont) && data[0].hasOwnProperty(this.label.cabeceraExcelMaterial) 
+        return ((Object.keys(data[0]).length == 12) && data[0].hasOwnProperty(this.label.cabeceraExcelIdMont) && data[0].hasOwnProperty(this.label.cabeceraExcelMaterial) 
                 && data[0].hasOwnProperty(this.label.cabeceraExcelMarca) && data[0].hasOwnProperty(this.label.cabeceraExcelCodigo) &&
           data[0].hasOwnProperty(this.label.cabeceraExcelTalla) && data[0].hasOwnProperty(this.label.cabeceraExcelColor) && data[0].hasOwnProperty(this.label.cabeceraExcelCantidad) 
           && data[0].hasOwnProperty(this.label.cabeceraExcelPCompra) && data[0].hasOwnProperty(this.label.cabeceraExcelPVenta) && data[0].hasOwnProperty(this.label.cabeceraExcelFIngreso) 
           && data[0].hasOwnProperty(this.label.cabeceraExcelTipo) && data[0].hasOwnProperty(this.label.cabeceraExcelSede))
       case 'luna':
-        return ((Object.keys(data[0]).length == 9) && data[0].hasOwnProperty(this.label.cabeceraExcelOrden) && data[0].hasOwnProperty(this.label.cabeceraExcelIdLun) && data[0].hasOwnProperty(this.label.cabeceraExcelMaterial) 
+        return ((Object.keys(data[0]).length == 8) && data[0].hasOwnProperty(this.label.cabeceraExcelIdLun) && data[0].hasOwnProperty(this.label.cabeceraExcelMaterial) 
         && data[0].hasOwnProperty(this.label.cabeceraExcelCantidad) && data[0].hasOwnProperty(this.label.cabeceraExcelPCompra) &&
           data[0].hasOwnProperty(this.label.cabeceraExcelPVenta) && data[0].hasOwnProperty(this.label.cabeceraExcelFIngreso) && data[0].hasOwnProperty(this.label.cabeceraExcelTipo) && data[0].hasOwnProperty(this.label.cabeceraExcelSede))
       case 'accesorio':
-        return ((Object.keys(data[0]).length == 9) && data[0].hasOwnProperty(this.label.cabeceraExcelOrden) && data[0].hasOwnProperty(this.label.cabeceraExcelIdAccesorio) && data[0].hasOwnProperty(this.label.cabeceraExcelNombre) && data[0].hasOwnProperty(this.label.cabeceraExcelCantidad) && data[0].hasOwnProperty(this.label.cabeceraExcelPCompra) &&
+        return ((Object.keys(data[0]).length == 8) && data[0].hasOwnProperty(this.label.cabeceraExcelIdAccesorio) && data[0].hasOwnProperty(this.label.cabeceraExcelNombre) && data[0].hasOwnProperty(this.label.cabeceraExcelCantidad) && data[0].hasOwnProperty(this.label.cabeceraExcelPCompra) &&
           data[0].hasOwnProperty(this.label.cabeceraExcelPVenta) && data[0].hasOwnProperty(this.label.cabeceraExcelFIngreso) && data[0].hasOwnProperty(this.label.cabeceraExcelTipo) && data[0].hasOwnProperty(this.label.cabeceraExcelSede))
       default:
         return false;
@@ -445,7 +449,7 @@ export class UpdateExcelComponent implements OnInit {
   }
 
   validarCampoFecha(data:any):boolean {
-    return data.every(elem => (elem[this.label.cabeceraExcelFIngreso].length == 10))
+    return data.every(elem => (elem[this.label.cabeceraExcelFIngreso].length == 10 && Date.parse(elem[this.label.cabeceraExcelFIngreso])))
   }
 }
 

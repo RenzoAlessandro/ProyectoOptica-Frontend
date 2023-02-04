@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SedeService } from 'src/app/services/sede.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -42,9 +42,12 @@ export class LoginComponent implements OnInit {
   }
   crearFormulario() {
     this.formLogin = this.fb.group({
-      [this.user] :[],
-      [this.password]: [],
-      sede:[]
+      [this.user] :[null,[
+        Validators.required
+      ]],
+      [this.password]: [null,[
+        Validators.required
+      ]]
     })
   }
 
