@@ -73,22 +73,53 @@
                 <p class="text-muted">Restablecer contraseña con Contacto Visual.</p>
             </div>
             <div class="p-2 mt-4">
-                <div class="alert alert-success text-center mb-4" role="alert">
+<!--                 <div class="alert alert-success text-center mb-4" role="alert">
                     La contraseña es válida si se cumplen todas las siguientes restricciones:
-                    - Contiene al menos 6 a 20 caracteres.
+                    - Contiene entre 6 a 20 caracteres.
                     - Contiene al menos una mayúscula, minúscula y un dígito.
                     - Contiene al menos un carácter especial.  
-                </div>
-                <form action="/">
+                </div> -->
+                <form [formGroup]="formCambioContrasenia">
 
                     <div class="form-group mb-2">
                         <label for="userPassword">Nueva Constraseña</label>
-                        <input type="password" class="form-control" id="userPassword" placeholder="Ingrese la contraseña">
+                        <input type="password" class="form-control" id="userPassword" placeholder="Ingrese la contraseña" formControlName="{{this.password}}" [ngClass]="{'is-invalid': formCP.campoPassword.invalid && (formCP.campoPassword.dirty || formCP.campoPassword.touched)}"/>
+                        <div class="invalid-feedback">
+                          <div *ngIf="formCP.campoPassword.errors?.required">
+                            Campo requerido.
+                          </div>
+                          <div *ngIf="formCP.campoPassword.errors?.minlength">
+                            Su contraseña debe ser mayor a 6 caracteres.
+                          </div>
+                          <div  *ngIf="formCP.campoPassword.errors?.maxlength">
+                            Su contraseña debe ser menor a 20 caracteres.
+                          </div>
+                          <div *ngIf="formCP.campoPassword.errors?.pattern">
+                            La contraseña debe tener entre 6 a 20 caracteres, al menos una mayúscula, minúscula, dígito y un carácter especial.  
+                          </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="userPasswordRepeat">Repita la Nueva Constraseña</label>
-                        <input type="password" class="form-control" id="userPasswordRepeat" placeholder="Ingrese la nueva contraseña">
+                        <input type="password" class="form-control" id="userPasswordRepeat" placeholder="Ingrese la contraseña" formControlName="{{this.repeatPassword}}" [ngClass]="{'is-invalid': formCP.campoRepeatPassword.invalid && (formCP.campoRepeatPassword.dirty || formCP.campoRepeatPassword.touched)}"/>
+                        <div class="invalid-feedback">
+                          <div *ngIf="formCP.campoRepeatPassword.errors?.required">
+                            Campo requerido.
+                          </div>
+                          <div *ngIf="formCP.campoRepeatPassword.errors?.minlength">
+                            Su contraseña debe ser mayor a 6 caracteres.
+                          </div>
+                          <div *ngIf="formCP.campoRepeatPassword.errors?.maxlength">
+                            Su contraseña debe ser menor a 20 caracteres.
+                          </div>
+                          <div *ngIf="formCP.campoRepeatPassword.errors?.pattern">
+                            La contraseña debe tener entre 6 a 20 caracteres, al menos una mayúscula, minúscula, dígito y un carácter especial.  
+                          </div> 
+                          <div *ngIf="formCP.campoRepeatPassword.errors?.confirmedValidator">
+                            Las contraseñas no coinciden.
+                          </div>
+                        </div>
                     </div>
                     
 <!--                     <div class="mt-4 text-center">

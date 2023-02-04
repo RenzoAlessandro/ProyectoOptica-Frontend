@@ -6,7 +6,7 @@
       <div class="row mb-2">
         <div class="col-md-8 search-box chat-search-box">
           <div class="position-relative">
-            <input type="text" class="form-control border-light rounded" placeholder="Buscar usuario" name="searchTerm"
+            <input type="text" class="form-control border-light rounded" placeholder="Buscar cliente" name="searchTerm"
               aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
             <i class="uil uil-search search-icon"></i>
           </div>
@@ -30,7 +30,6 @@
           </select> entradas</label></div>
     </div>
   </div>
-
 
   <div class="row">
     <div class="col-12">
@@ -58,7 +57,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let data of customers$ | async">
+                <tr *ngFor="let data of customers$ | async; let i = index">
                   <!--                     <td>
                       <div class="form-check text-center">
                         <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input" />
@@ -66,7 +65,7 @@
                       </div>
                     </td> -->
                   <td>
-                    <ngb-highlight [result]="data.index" [term]="service.searchTerm"></ngb-highlight>
+                    <ngb-highlight [result]="i+1" [term]="service.searchTerm"></ngb-highlight>
                   </td>
                   <td>
                     <div class="avatar-xs d-inline-block me-2">

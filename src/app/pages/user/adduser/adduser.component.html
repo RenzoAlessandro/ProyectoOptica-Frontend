@@ -144,16 +144,16 @@
                         placeholder="Ingrese la contraseña" formControlName="{{this.password}}" [ngClass]="{'is-invalid': formU.campoPassword.invalid && (formU.campoPassword.dirty || formU.campoPassword.touched)}"/>
                       <div class="invalid-feedback">
                         <div *ngIf="formU.campoPassword.errors?.required">
-                          Campo requerido
+                          Campo requerido.
                         </div>
                         <div *ngIf="formU.campoPassword.errors?.minlength">
-                          Su contraseña debe ser mayor a 6 caracteres
+                          Su contraseña debe ser mayor a 6 caracteres.
                         </div>
                         <div  *ngIf="formU.campoPassword.errors?.maxlength">
-                          Su contraseña debe ser menor a 20 caracteres
+                          Su contraseña debe ser menor a 20 caracteres.
                         </div>
                         <div *ngIf="formU.campoPassword.errors?.pattern">
-                          Formato de contraseña incorrecta
+                          La contraseña debe tener entre 6 a 20 caracteres, al menos una mayúscula, minúscula, dígito y un carácter especial.  
                         </div>
                       </div>
                     </div>
@@ -165,19 +165,19 @@
                         placeholder="Repita la contraseña" formControlName="{{this.repeatPassword}}" [ngClass]="{'is-invalid': formU.campoRepeatPassword.invalid && (formU.campoRepeatPassword.dirty || formU.campoRepeatPassword.touched)}"/>
                       <div class="invalid-feedback">
                         <div *ngIf="formU.campoRepeatPassword.errors?.required">
-                          Campo requerido
+                          Campo requerido.
                         </div>
                         <div *ngIf="formU.campoRepeatPassword.errors?.minlength">
-                          Su contraseña debe ser mayor a 6 caracteres
+                          Su contraseña debe ser mayor a 6 caracteres.
                         </div>
                         <div *ngIf="formU.campoRepeatPassword.errors?.maxlength">
-                          Su contraseña debe ser menor a 20 caracteres
+                          Su contraseña debe ser menor a 20 caracteres.
                         </div>
                         <div *ngIf="formU.campoRepeatPassword.errors?.pattern">
-                          Formato de contraseña incorrecta
-                        </div>
+                          La contraseña debe tener entre 6 a 20 caracteres, al menos una mayúscula, minúscula, dígito y un carácter especial.  
+                        </div> 
                         <div *ngIf="formU.campoRepeatPassword.errors?.confirmedValidator">
-                          Passwords did not match
+                          Las contraseñas no coinciden.
                         </div>
                       </div>
                     </div>

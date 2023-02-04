@@ -53,6 +53,7 @@
                   <thead class="table-light">
                     <tr class="bg-transparent">
                       <th scope="col" sortable="amount" (sort)="onSort($event)">Monto</th>
+                      <th scope="col" sortable="type" (sort)="onSort($event)">Tipo</th>
                       <th scope="col" sortable="description" (sort)="onSort($event)">Descripción</th>
                       <th scope="col" sortable="date" (sort)="onSort($event)">Fecha</th>
                       <th scope="col" sortable="name" (sort)="onSort($event)">Usuario</th>
@@ -138,6 +139,7 @@
                   <thead class="table-light">
                     <tr class="bg-transparent">
                       <th scope="col" sortable="amount" (sort)="onSortE($event)">Monto</th>
+                      <th scope="col" sortable="type" (sort)="onSort($event)">Tipo</th>
                       <th scope="col" sortable="description" (sort)="onSortE($event)">Descripción</th>
                       <th scope="col" sortable="date" (sort)="onSortE($event)">Fecha</th>
                       <th scope="col" sortable="name" (sort)="onSortE($event)">Usuario</th>

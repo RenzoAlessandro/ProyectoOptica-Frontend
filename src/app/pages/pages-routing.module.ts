@@ -30,9 +30,11 @@ const routes: Routes = [
     role: 'Admin'
   }  },
   { path: 'sale', loadChildren: () => import('./sale/sale.module').then(m => m.SaleModule), canActivate: [AuthGuard]  },
-  { path: 'cash-register', component: CashRegisterComponent, canActivate: [AuthGuard],data: {
+  { path: 'cash', loadChildren: () => import('./cash/cash-register.module').then(m => m.CashRegisterModule), canActivate: [AuthGuard], data: {
     role: ['Vendedor','Admin'],
   }  },
+
+
   { path: 'home', component: DefaultHomeComponent, canActivate: [AuthGuard],data: {
     role: ['Vendedor','Admin'],
   }  },

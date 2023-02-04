@@ -145,8 +145,22 @@ export const MENU: MenuItem[] = [
     {
         id: 22,
         label: 'MENUITEMS.CASHREGISTER.TEXT',
-        icon: 'uil-money-bill-stack',
-        link: '/cash-register',
+        icon: 'uil-invoice',
+        subItems: [
+            {
+                id: 23,
+                label: 'MENUITEMS.CASHREGISTER.LIST.CASHREGISTER',
+                link: '/cash/cashregister',
+                parentId: 9
+            }, 
+            {
+                id: 24,
+                label: 'MENUITEMS.CASHREGISTER.LIST.LISTCASH',
+                link: '/cash/listcash',
+                parentId: 9
+            },
+        ],
+        link: '/cash',
         role: ['Admin','Vendedor']
     },
 /*     {
