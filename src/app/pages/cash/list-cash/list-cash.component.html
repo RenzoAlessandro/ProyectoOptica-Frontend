@@ -118,48 +118,156 @@
     <!-- Scrollable Modal - Ver Detalle Caja por Día-->
     <ng-template #scrollDataModal let-modal>
       <div class="modal-header">
-        <h5 class="modal-title mt-0">Scrollable Modal</h5>
+        <h5 class="modal-title mt-0">Detalle de Caja: 25 Jul. 2023</h5>
         <button type="button" class="btn-close" (click)="closeEventModalGeneral()" aria-label="Close">
 
         </button>
       </div>
       <div class="modal-body">
-        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-          eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-          laoreet rutrum faucibus dolor auctor.</p>
-        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-          consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-          eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-          laoreet rutrum faucibus dolor auctor.</p>
-        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-          consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-          eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-          laoreet rutrum faucibus dolor auctor.</p>
-        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-          consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-          eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-          laoreet rutrum faucibus dolor auctor.</p>
-        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-          consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-          eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-          laoreet rutrum faucibus dolor auctor.</p>
-        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-          consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-          eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-          laoreet rutrum faucibus dolor auctor.</p>
-        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-          consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+
+        <div class="row mb-3">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-6">
+                <h5>Ingresos Físico: S/ 000.00</h5>
+              </div>
+              <div class="col-6">
+                <h5>Ingresos Virtual: S/ 000.00</h5>
+              </div>
+            </div>
+            <div class="table-responsive mb-4">
+              <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <form>
+                  <table class="table table-centered dt-responsive nowrap table-card-list"
+                    style="border-spacing: 0 12px; width: 100%;">
+                    <thead class="table-light">
+                      <tr class="bg-transparent">
+                        <th scope="col" sortable="amount" (sort)="onSort($event)">Monto</th>
+                        <th scope="col" sortable="type" (sort)="onSort($event)">Tipo</th>
+                        <th scope="col" sortable="description" (sort)="onSort($event)">Descripción</th>
+                        <th scope="col" sortable="date" (sort)="onSort($event)">Fecha</th>
+                        <th scope="col" sortable="name" (sort)="onSort($event)">Usuario</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of ingresos$ | async">
+                        <td>
+                          <ngb-highlight [result]="data.monto|currency:'S/.'" [term]="serviceI.searchTerm"></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="data.descripcion" [term]="serviceI.searchTerm"></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="data.fecha_creacion_caja| date: 'dd/MM/yyyy'" [term]="serviceI.searchTerm"></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="data.encargado" [term]="serviceI.searchTerm"></ngb-highlight>
+                        </td>
+                        <td>
+                          <!-- <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i
+                              class="uil uil-pen font-size-18"></i></a> -->
+                          <a class="px-3 text-danger" placement="top" ngbTooltip="Delete" (click)="eliminarIngreso(data)"><i
+                              class="uil uil-trash-alt font-size-18"></i></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- End table -->
+                  <div class="row justify-content-md-between align-items-md-center">
+                    <!-- <div class="col-sm-12 col-md-5">
+                      <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">Page 2 of 84</div>
+                    </div> -->
+                    <!-- Pagination -->
+                    <div class="col-12">
+                      <div class="text-md-end float-md-end pagination-rounded">
+                        <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                        </ngb-pagination>
+                      </div>
+                    </div>
+                    <!-- End Pagination -->
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="row mb-3">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-6">
+                <h5>Egresos Físico: S/ 000.00</h5>
+              </div>
+              <div class="col-6">
+                <h5>Egresos Virtual: S/ 000.00</h5>
+              </div>
+            </div>
+            <div class="table-responsive mb-4">
+              <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <form>
+                  <table class="table table-centered dt-responsive nowrap table-card-list"
+                    style="border-spacing: 0 12px; width: 100%;">
+                    <thead class="table-light">
+                      <tr class="bg-transparent">
+                        <th scope="col" sortable="amount" (sort)="onSortE($event)">Monto</th>
+                        <th scope="col" sortable="type" (sort)="onSort($event)">Tipo</th>
+                        <th scope="col" sortable="description" (sort)="onSortE($event)">Descripción</th>
+                        <th scope="col" sortable="date" (sort)="onSortE($event)">Fecha</th>
+                        <th scope="col" sortable="name" (sort)="onSortE($event)">Usuario</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of egresos$ | async">
+                        <td>
+                          <ngb-highlight [result]="data.monto|currency:'S/.'" [term]="serviceE.searchTerm"></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="data.descripcion" [term]="serviceE.searchTerm"></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="data.fecha_creacion_caja| date: 'dd/MM/yyyy'" [term]="serviceE.searchTerm"></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="data.encargado" [term]="serviceE.searchTerm"></ngb-highlight>
+                        </td>
+                        <td>
+                          <!-- <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i
+                              class="uil uil-pen font-size-18"></i></a> -->
+                          <a class="px-3 text-danger" placement="top" ngbTooltip="Delete" (click)="eliminarIngreso(data)"><i
+                              class="uil uil-trash-alt font-size-18"></i></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- End table -->
+                  <div class="row justify-content-md-between align-items-md-center">
+                    <!-- <div class="col-sm-12 col-md-5">
+                      <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">Page 2 of 84</div>
+                    </div> -->
+                    <!-- Pagination -->
+                    <div class="col-12">
+                      <div class="text-md-end float-md-end pagination-rounded">
+                        <ngb-pagination [collectionSize]="totalE$ | async" [(page)]="service.page" [pageSize]="service.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                        </ngb-pagination>
+                      </div>
+                    </div>
+                    <!-- End Pagination -->
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" (click)="closeEventModalGeneral()">Cerrar</button>

@@ -72,7 +72,7 @@ export class CashRegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.crearFormulario();
-    this.breadCrumbItems = [{ label: 'Caja' }, { label: 'Lista', active: true },];
+    this.breadCrumbItems = [{ label: 'Caja' }, { label: 'Registro de Ingreso y Egreso', active: true },];
     this.selectedDate = new Date().getDate();
     this._fetchData();
   }

@@ -2,9 +2,9 @@
     <div class="row no-gutter">
 
         <div class="col-md-6 px-0">
-            <ngb-carousel #carousel [interval]="5000" [showNavigationArrows]="true" [showNavigationIndicators]="true">
+            <ngb-carousel class="background-color-gray" #carousel [interval]="5000" [showNavigationArrows]="false" [showNavigationIndicators]="false" >
                 <ng-template ngbSlide *ngFor="let background of backgrounds">
-                  <img src= {{background.imagen}} style="object-fit: cover; background-color: white; height:100vh;">
+                  <img src= {{background.imagen}} style="background-color: rgb(255, 255, 255); height:100vh;">
                   <div class="carousel-caption d-none d-md-block">
                     <h5 class="text-white">{{background.title}}</h5>
                     <p>{{background.detail}}</p>

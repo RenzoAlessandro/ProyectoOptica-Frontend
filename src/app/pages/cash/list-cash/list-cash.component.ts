@@ -33,7 +33,7 @@ export class ListCashComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Ecommerce' }, { label: 'Orders', active: true }];
+    this.breadCrumbItems = [{ label: 'Caja' }, { label: 'Lista de Ingresos y Egresos', active: true }];
   }
 
   onSort({ column, direction }: SortEvent) {
@@ -53,7 +53,7 @@ export class ListCashComponent implements OnInit {
  * @param scrollDataModal scroll modal data
  */
   scrollModal(scrollDataModal: any) {
-    this.modalService.open(scrollDataModal, { size: 'xl', scrollable: true });
+    this.modalService.open(scrollDataModal, { size: 'lg', centered: true, scrollable: true });
   }
 
   /**
