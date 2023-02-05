@@ -15,7 +15,7 @@ export class DefaultHomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Contacto Visual' }, { label: 'Inicio', active: true }];
+    this.breadCrumbItems = [{ label: 'Orange Ópticas' }, { label: 'Inicio', active: true }];
     this.accesosDirectos = Object.assign([], accesosList);
   }
 }
