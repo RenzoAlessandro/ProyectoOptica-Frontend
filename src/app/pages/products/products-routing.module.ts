@@ -6,31 +6,49 @@ import { LunasComponent } from "./lunas/lunas.component";
 import { MonturasComponent } from "./monturas/monturas.component";
 import { UpdateExcelComponent } from "./update-excel/update-excel.component";
 import { InventarioComponent } from "./inventario/inventario.component";
+import { AuthGuard } from "src/app/core/guards/auth.guard";
 
 const routes: Routes = [
     {
         path: 'addproducts',
-        component: AddProductComponent
+        component: AddProductComponent, data: {
+            role: ['Admin'],
+          }, canActivate: [AuthGuard]
     }, 
     {
         path: 'accesorios',
-        component: AccesoriosComponent
+        component: AccesoriosComponent,
+        data: {
+            role: ['Vendedor','Admin'],
+          }, canActivate: [AuthGuard]
     },
     {
         path: 'lunas',
-        component: LunasComponent
+        component: LunasComponent,
+        data: {
+            role: ['Vendedor','Admin'],
+          }, canActivate: [AuthGuard]
     }, 
     {
         path: 'monturas',
-        component: MonturasComponent
+        component: MonturasComponent,
+        data: {
+            role: ['Vendedor','Admin'],
+          }, canActivate: [AuthGuard]
     },  
     {
         path: 'updateexcel',
-        component: UpdateExcelComponent
+        component: UpdateExcelComponent,
+        data: {
+            role: ['Admin'],
+          }, canActivate: [AuthGuard]
     },
     {
         path: 'inventario',
-        component: InventarioComponent
+        component: InventarioComponent,
+        data: {
+            role: ['Admin'],
+          }, canActivate: [AuthGuard]
     }
 ];
 
