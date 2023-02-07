@@ -71,8 +71,12 @@ export class InvoiceService {
     private pipe: DecimalPipe,
     private cajaService: CajaService
     ) {
-    this.getListIngresos();
-    this.getListEgresos();
+      let fIni: Date = new Date(Date.now());
+    fIni.setHours(0,0,1);
+    let fFin: Date = new Date(Date.now());
+    fFin.setHours(23,59,0);
+    this.getListIngresos(fIni,fFin);
+    this.getListEgresos(fIni,fFin);
   }
 
   get invoices$() {
@@ -185,8 +189,9 @@ export class InvoiceService {
     return of({ invoices, total });
   }
 
-  getListIngresos() {
-    this.cajaService.getIngresos().subscribe( res=> {
+  getListIngresos(fIni:Date, fFin:Date) {
+    
+    this.cajaService.getIngresosbyDate(fIni,fFin).subscribe( res=> {
       console.log("entre..",res);
       this.ingresoList = res;
       this._search$
@@ -207,8 +212,9 @@ export class InvoiceService {
 
     );
   }
-  getListEgresos() {
-    this.cajaService.getEgresos().subscribe( res=> {
+  getListEgresos(fIni:Date, fFin:Date) {
+
+    this.cajaService.getEgresosbyDate(fIni,fFin).subscribe( res=> {
       console.log("entre..",res);
       this.egresoList = res;
       this._searchE$

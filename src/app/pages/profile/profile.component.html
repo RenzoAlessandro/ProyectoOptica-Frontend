@@ -82,7 +82,7 @@
                 <form [formGroup]="formCambioContrasenia">
 
                     <div class="form-group mb-2">
-                        <label for="userPassword">Constraseña actual</label>
+                        <label for="userPassword">Contraseña actual</label>
                         <input type="password" class="form-control" id="userActualPassword" placeholder="Ingrese la constraseña actual" formControlName="{{this.actualPassword}}" [ngClass]="{'is-invalid': formCP.campoActualPassword.invalid && (formCP.campoActualPassword.dirty || formCP.campoActualPassword.touched)}"/>
                         <div class="invalid-feedback">
                           <div *ngIf="formCP.campoActualPassword.errors?.required">
@@ -101,7 +101,7 @@
                     </div>
 
                     <div class="form-group mb-2">
-                        <label for="userPassword">Nueva Constraseña</label>
+                        <label for="userPassword">Nueva Contraseña</label>
                         <input type="password" class="form-control" id="userPassword" placeholder="Ingrese la contraseña" formControlName="{{this.password}}" [ngClass]="{'is-invalid': formCP.campoPassword.invalid && (formCP.campoPassword.dirty || formCP.campoPassword.touched)}"/>
                         <div class="invalid-feedback">
                           <div *ngIf="formCP.campoPassword.errors?.required">
@@ -120,7 +120,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="userPasswordRepeat">Repita la Nueva Constraseña</label>
+                        <label for="userPasswordRepeat">Repita la Nueva Contraseña</label>
                         <input type="password" class="form-control" id="userPasswordRepeat" placeholder="Ingrese la contraseña" formControlName="{{this.repeatPassword}}" [ngClass]="{'is-invalid': formCP.campoRepeatPassword.invalid && (formCP.campoRepeatPassword.dirty || formCP.campoRepeatPassword.touched)}"/>
                         <div class="invalid-feedback">
                           <div *ngIf="formCP.campoRepeatPassword.errors?.required">
@@ -150,7 +150,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-danger" (click)="closeEventModal()">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar cambios</button>
+            <button type="button" class="btn btn-primary" (click)="cambiarPassword()">Guardar cambios</button>
           </div>
         </ng-template>
 

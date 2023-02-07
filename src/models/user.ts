@@ -14,4 +14,5 @@ export class UsersModel {
     email: string;
     observaciones:string
     prueba: string;
+    usuario?: string
 }
