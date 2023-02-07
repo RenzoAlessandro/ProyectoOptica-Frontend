@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
 
   menu: any;
   role: string;
-  menuItems = [];
+  menuItems :MenuItem[] = [];
   @ViewChild('sideMenu') sideMenu: ElementRef;
   @ViewChild('componentRef') scrollRef;
 
@@ -220,7 +220,22 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
    */
   initialize(): void {
     //this.menuItems = MENU;
+    
     this.menuItems = this.filterMenubyRole(MENU, this.role);
+    console.log(this.menuItems)
+    this.menuItems.forEach(menu =>{
+      console.log(menu)
+      let submenu = []
+      if(menu.subItems.length > 0) {
+        menu.subItems.forEach(sub => {
+          if (sub.role.some(el =>(el == this.role))) {
+            submenu.push(sub)
+            console.log(submenu)
+          }
+        });
+        menu.subItems = submenu;
+      }
+    })
   }
 
   filterMenubyRole( menus: MenuItem[], role: string): MenuItem[] {
@@ -232,6 +247,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
     }
    return menuTmp
   }
+
   /**
    * Returns true or false if given menu item has child or not
    * @param item menuItem
