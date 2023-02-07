@@ -82,6 +82,25 @@
                 <form [formGroup]="formCambioContrasenia">
 
                     <div class="form-group mb-2">
+                        <label for="userPassword">Constraseña actual</label>
+                        <input type="password" class="form-control" id="userActualPassword" placeholder="Ingrese la constraseña actual" formControlName="{{this.actualPassword}}" [ngClass]="{'is-invalid': formCP.campoActualPassword.invalid && (formCP.campoActualPassword.dirty || formCP.campoActualPassword.touched)}"/>
+                        <div class="invalid-feedback">
+                          <div *ngIf="formCP.campoActualPassword.errors?.required">
+                            Campo requerido.
+                          </div>
+                          <div *ngIf="formCP.campoActualPassword.errors?.minlength">
+                            Su contraseña debe ser mayor a 6 caracteres.
+                          </div>
+                          <div  *ngIf="formCP.campoActualPassword.errors?.maxlength">
+                            Su contraseña debe ser menor a 20 caracteres.
+                          </div>
+                          <div *ngIf="formCP.campoActualPassword.errors?.pattern">
+                            La contraseña debe tener entre 6 a 20 caracteres, al menos una mayúscula, minúscula, dígito y un carácter especial.  
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-2">
                         <label for="userPassword">Nueva Constraseña</label>
                         <input type="password" class="form-control" id="userPassword" placeholder="Ingrese la contraseña" formControlName="{{this.password}}" [ngClass]="{'is-invalid': formCP.campoPassword.invalid && (formCP.campoPassword.dirty || formCP.campoPassword.touched)}"/>
                         <div class="invalid-feedback">

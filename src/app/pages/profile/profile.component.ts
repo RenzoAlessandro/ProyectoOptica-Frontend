@@ -14,6 +14,7 @@ import { UsersModel } from 'src/models/user';
 export class ProfileComponent implements OnInit {
 
   formCambioContrasenia: FormGroup;
+  actualPassword: string = "campoActualPassword";
   password: string = "campoPassword";
   repeatPassword: string = "campoRepeatPassword";
 
@@ -38,6 +39,12 @@ export class ProfileComponent implements OnInit {
 
   crearFormulario(){
     this.formCambioContrasenia = this.fb.group({
+      [this.actualPassword]:[null,[
+        Validators.required,
+        Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{6,}$/),
+        Validators.minLength(6),
+        Validators.maxLength(20)
+      ]],
       [this.password]:[null,[
         Validators.required,
         Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{6,}$/),
