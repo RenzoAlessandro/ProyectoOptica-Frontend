@@ -187,7 +187,7 @@
                   <div class="col-12 col-sm-12">
                     <div class="mb-4">
                       <label class="form-label" for="billing-observaciones">Observaciones</label>
-                      <textarea class="form-control" id="billing-observaciones" rows="3"
+                      <textarea class="form-control" id="billing-observaciones" rows="4"
                         placeholder="Ingrese las observaciones" formControlName="{{this.observaciones}}"></textarea>
                     </div>
                   </div>
@@ -199,7 +199,7 @@
         <!-- end card -->
       </div> <!-- end col -->
 
-      <div class="col-xl-6 mb-4">
+      <div class="col-xl-6">
         <div class="row">
           <div class="card">
             <div class="card-body">
@@ -223,7 +223,7 @@
                 <div>
                   <h5 class="font-size-14 mb-3">Roles *</h5>
                   <div class="scrolling-wrapper row flex-row flex-nowrap mt-2 pb-4 pt-2">
-                    <div class="col-sm-6" *ngFor='let rol of listRoles;let i = index'>
+                    <div class="col-sm-3" *ngFor='let rol of listRoles;let i = index'>
                       <div data-toggle="collapse">
                         <label class="card-radio-label">
                           <input type="radio" id="{{rol.cNombre}}" name="rol" class="card-radio-input"
@@ -266,7 +266,7 @@
                 <div>
                   <h5 class="font-size-14 mb-3">Sedes *</h5>
                     <div class="scrolling-wrapper row flex-row flex-nowrap mt-2 pb-4 pt-2">
-                      <div class="col-sm-6" *ngFor='let sede of listSedes;let i = index'>
+                      <div class="col-sm-4" *ngFor='let sede of listSedes;let i = index'>
                         <div data-toggle="collapse">
                           <label class="card-radio-label">
                             <input type="radio" id="{{sede.id_sede}}" name="sede" class="card-radio-input"
@@ -289,9 +289,9 @@
     </div>
   </form>
 
-  <div class="row my-2">
+  <div class="row my-4">
     <div class="col">
-      <div class="text-sm-end mt-2 mt-sm-0">
+      <div class="text-sm-end mt-sm-0">
         <button class="btn btn-success" (click)="guardarUsuario()" [disabled]="!formRegister.valid">
           <i class="uil uil-user-plus me-1"></i> Registrar Usuario
         </button>
