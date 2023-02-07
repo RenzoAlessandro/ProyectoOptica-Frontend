@@ -120,10 +120,13 @@ export class ProfileComponent implements OnInit {
           newPassword: this.f(this.password).value
         }
         console.log(changePassword)
-          this.usuarioService.changePasswordUser(changePassword).subscribe(res=> {
-            console.log("cambiada!!!");
-            this.modalService.dismissAll();
-          })
+        Sweetalert("loading", "Cargando...");
+        this.usuarioService.changePasswordUser(changePassword).subscribe(res=> {
+          console.log("cambiada!!!");
+          this.modalService.dismissAll();
+          Sweetalert("close",null);
+          Sweetalert("success","Constraseña cambiada");
+        })
       } else {
         console.log("invalido")
         return;

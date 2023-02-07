@@ -150,7 +150,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-danger" (click)="closeEventModal()">Cerrar</button>
-            <button type="button" class="btn btn-primary" (click)="cambiarPassword()">Guardar cambios</button>
+            <button type="button" class="btn btn-primary" (click)="cambiarPassword()" [disabled]="!formCambioContrasenia.valid">Guardar cambios</button>
           </div>
         </ng-template>
 
