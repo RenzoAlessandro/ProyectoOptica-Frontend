@@ -82,8 +82,8 @@
                 <form [formGroup]="formCambioContrasenia">
 
                     <div class="form-group mb-2">
-                        <label for="userPassword">Constraseña actual</label>
-                        <input type="password" class="form-control" id="userActualPassword" placeholder="Constraseña actual" formControlName="{{this.actualPassword}}" [ngClass]="{'is-invalid': formCP.campoActualPassword.invalid && (formCP.campoActualPassword.dirty || formCP.campoActualPassword.touched)}"/>
+                        <label for="userPassword">Contraseña actual</label>
+                        <input type="password" class="form-control" id="userActualPassword" placeholder="Ingrese la constraseña actual" formControlName="{{this.actualPassword}}" [ngClass]="{'is-invalid': formCP.campoActualPassword.invalid && (formCP.campoActualPassword.dirty || formCP.campoActualPassword.touched)}"/>
                         <div class="invalid-feedback">
                           <div *ngIf="formCP.campoActualPassword.errors?.required">
                             Campo requerido.
@@ -101,8 +101,8 @@
                     </div>
 
                     <div class="form-group mb-2">
-                        <label for="userPassword">Nueva constraseña</label>
-                        <input type="password" class="form-control" id="userPassword" placeholder="Nueva constraseña" formControlName="{{this.password}}" [ngClass]="{'is-invalid': formCP.campoPassword.invalid && (formCP.campoPassword.dirty || formCP.campoPassword.touched)}"/>
+                        <label for="userPassword">Nueva Contraseña</label>
+                        <input type="password" class="form-control" id="userPassword" placeholder="Ingrese la contraseña" formControlName="{{this.password}}" [ngClass]="{'is-invalid': formCP.campoPassword.invalid && (formCP.campoPassword.dirty || formCP.campoPassword.touched)}"/>
                         <div class="invalid-feedback">
                           <div *ngIf="formCP.campoPassword.errors?.required">
                             Campo requerido.
@@ -150,7 +150,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-danger" (click)="closeEventModal()">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar cambios</button>
+            <button type="button" class="btn btn-primary" (click)="cambiarPassword()">Guardar cambios</button>
           </div>
         </ng-template>
 

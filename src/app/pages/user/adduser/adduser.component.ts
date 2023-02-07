@@ -114,7 +114,7 @@ export class AdduserComponent implements OnInit {
     })
   }
 
-  f(campo:any){
+  f(campo:string){
     return this.formRegister.get(campo);
   }
 

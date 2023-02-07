@@ -5,6 +5,7 @@ import { SedeService } from 'src/app/services/sede.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { SedesModel } from 'src/models/sedes';
 import { UsersModel } from 'src/models/user';
+import { Sweetalert } from 'src/utils/sweetalert';
 
 @Component({
   selector: 'app-profile',
@@ -81,6 +82,9 @@ export class ProfileComponent implements OnInit {
     };
   }
 
+  f(campo:string) {
+    return this.formCambioContrasenia.get(campo);
+  }
 
   /**
    * Returns form cambio de contraseña
@@ -100,7 +104,29 @@ export class ProfileComponent implements OnInit {
   /**
    * Close event modal
    */
-    closeEventModal() {
-      this.modalService.dismissAll();
+  closeEventModal() {
+    this.modalService.dismissAll();
+  }
+
+
+
+
+  cambiarPassword() {
+      if(this.formCambioContrasenia.valid) {
+        const user = this.usuarioService.getUser();
+        const changePassword = {
+          email: user.usuario,
+          password: user.contrasenia,
+          newPassword: this.f(this.password).value
+        }
+        console.log(changePassword)
+          this.usuarioService.changePasswordUser(changePassword).subscribe(res=> {
+            console.log("cambiada!!!");
+            this.modalService.dismissAll();
+          })
+      } else {
+        console.log("invalido")
+        return;
+      }
     }
 }

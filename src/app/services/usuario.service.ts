@@ -116,4 +116,8 @@ export class UsuarioService {
     console.log(this.usuario)
     return this.usuario;
   }
+
+  changePasswordUser(user:any): Observable<any> {
+    return this.http.post<any>(environment.urlBackend+'editContraseniaUserById', user);
+  }
 }
