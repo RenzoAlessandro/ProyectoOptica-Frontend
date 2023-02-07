@@ -105,6 +105,7 @@ export class ProfileComponent implements OnInit {
    * Close event modal
    */
   closeEventModal() {
+    this.formCambioContrasenia.reset();
     this.modalService.dismissAll();
   }
 
