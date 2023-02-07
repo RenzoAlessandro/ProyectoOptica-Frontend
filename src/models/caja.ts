@@ -8,4 +8,5 @@ export class CajaModel {
     monto: number;
     id_sede: string;
     tipo: string;
+    metodo_pago: string;
 }

@@ -463,9 +463,9 @@ export class AddSaleComponent implements OnInit {
       this.venta.list_monturas = tempMonturas;
       this.venta.list_lunas = tempLunas;
       this.venta.list_accesorios = tempAccesorios;
+      this.venta.fecha_creacion_venta = new Date(Date.now());
       if (this.selectorPago == "contado") {
         this.tipoPago.observaciones = this.f(this.observaciones_Contado).value;
-        this.venta.fecha_creacion_venta = this.fechaVenta;
         this.tipoPago.cantidad_recibida = Number(this.f(this.cantidadRecibida_Contado).value);
         if ( this.f(this.cantidadRecibida_Contado).value - this.precioTotalVenta  < 0) {
           console.log("entre")
@@ -479,7 +479,6 @@ export class AddSaleComponent implements OnInit {
         }
       } else {
         this.tipoPago.observaciones = this.g(this.observaciones_Credito).value;
-        this.venta.fecha_creacion_venta = this.fechaVenta;
         this.tipoPago.cantidad_recibida = Number(this.g(this.cantidadRecibida_Credito).value);
         this.tipoPago.deuda = round(this.precioTotalVenta - this.g(this.cantidadRecibida_Credito).value,1);
         this.tipoPago.metodo_pago = this.g(this.metodoPagoCredito).value;

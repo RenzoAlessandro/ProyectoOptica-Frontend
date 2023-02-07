@@ -12,6 +12,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UsersModel } from 'src/models/user';
 import { CajaModel } from 'src/models/caja';
 import { CajaService } from 'src/app/services/caja.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 
 @Component({
@@ -66,7 +67,8 @@ export class CashRegisterComponent implements OnInit {
     public serviceE: InvoiceService,
     private modalService: NgbModal, 
     private formBuilder: FormBuilder,
-    private cajaService: CajaService) {
+    private cajaService: CajaService,
+    private usuarioService: UsuarioService) {
     this.ingresos$ = serviceI.invoices$;
     this.total$ = serviceI.total$;
     this.egresos$ = serviceE.egresos$;
@@ -171,13 +173,16 @@ export class CashRegisterComponent implements OnInit {
       this.caja.fecha_creacion_caja = new Date(Date.now());
       this.caja.encargado = this.fI(this.encargado_ingreso).value;
       this.caja.descripcion = this.fI(this.descripcion_ingreso).value;
-      this.caja.id_sede = '5abc73dc-c1ff-4e21-8ab8-570d29d876e2Sed004';
+      this.caja.id_sede = this.usuarioService.getSedebyUser();
       this.caja.habilitado = true;
       this.caja.egreso = false;
+      this.caja.metodo_pago = this.fI(this.metodoPagoContado_ingreso).value;
       console.log(this.caja);
-      this.cajaService.createIngresoEgreso(this.caja).subscribe(res=>{
-        console.log("guardado ingreso")
-      })
+     this.cajaService.createIngresoEgreso(this.caja).subscribe(res=>{
+        console.log("guardado ingreso");
+        this.formIngreso.reset();
+        this.modalService.dismissAll();
+      }) 
     } else {
 
     }
@@ -190,13 +195,16 @@ export class CashRegisterComponent implements OnInit {
       this.caja.fecha_creacion_caja = new Date(Date.now());
       this.caja.encargado = this.fE(this.encargado_egreso).value;
       this.caja.descripcion = this.fE(this.descripcion_egreso).value;
-      this.caja.id_sede = '5abc73dc-c1ff-4e21-8ab8-570d29d876e2Sed004';
+      this.caja.id_sede = this.usuarioService.getSedebyUser();
       this.caja.habilitado = true;
       this.caja.egreso = true;
+      this.caja.metodo_pago = this.fI(this.metodoPagoContado_egreso).value;
       console.log(this.caja);
-      this.cajaService.createIngresoEgreso(this.caja).subscribe(res=>{
-        console.log("guardado egreso")
-      })
+     this.cajaService.createIngresoEgreso(this.caja).subscribe(res=>{
+        console.log("guardado egreso");
+        this.formEgreso.reset();
+        this.modalService.dismissAll();
+      }) 
     } else {
       
     }

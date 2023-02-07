@@ -116,14 +116,20 @@ export class ProfileComponent implements OnInit {
         const user = this.usuarioService.getUser();
         const changePassword = {
           email: user.usuario,
-          password: user.contrasenia,
+          password: this.f(this.actualPassword).value,
           newPassword: this.f(this.password).value
         }
         console.log(changePassword)
+        if(changePassword.password == changePassword.newPassword)
+        {
+          Sweetalert("error", "La contraseña nueva no puede ser igual a la antigua");
+        } else {
           this.usuarioService.changePasswordUser(changePassword).subscribe(res=> {
             console.log("cambiada!!!");
             this.modalService.dismissAll();
           })
+        }
+          
       } else {
         console.log("invalido")
         return;
