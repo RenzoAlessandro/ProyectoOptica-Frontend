@@ -22,9 +22,7 @@ const routes: Routes = [
   { path: 'customer', loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule), canActivate: [AuthGuard], data: {
     role: 'Admin'
   }  },
-  { path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule), canActivate: [AuthGuard], data: {
-    role: ['Vendedor','Admin'],
-  }  },
+  { path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)   },
   { path: 'store', loadChildren: () => import('./store/store.module').then(m => m.StoreModule), canActivate: [AuthGuard]  },
   { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule), canActivate: [AuthGuard], data: {
     role: 'Admin'
