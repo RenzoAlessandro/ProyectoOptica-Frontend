@@ -75,6 +75,7 @@ export class InvoiceService {
     fIni.setHours(0,0,1);
     let fFin: Date = new Date(Date.now());
     fFin.setHours(23,59,0);
+    console.log(fIni,fFin)
     this.getListIngresos(fIni,fFin);
     this.getListEgresos(fIni,fFin);
   }
