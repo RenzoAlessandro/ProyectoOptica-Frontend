@@ -83,7 +83,7 @@
 
                     <div class="form-group mb-2">
                         <label for="userPassword">Constraseña actual</label>
-                        <input type="password" class="form-control" id="userActualPassword" placeholder="Ingrese la constraseña actual" formControlName="{{this.actualPassword}}" [ngClass]="{'is-invalid': formCP.campoActualPassword.invalid && (formCP.campoActualPassword.dirty || formCP.campoActualPassword.touched)}"/>
+                        <input type="password" class="form-control" id="userActualPassword" placeholder="Constraseña actual" formControlName="{{this.actualPassword}}" [ngClass]="{'is-invalid': formCP.campoActualPassword.invalid && (formCP.campoActualPassword.dirty || formCP.campoActualPassword.touched)}"/>
                         <div class="invalid-feedback">
                           <div *ngIf="formCP.campoActualPassword.errors?.required">
                             Campo requerido.
@@ -101,8 +101,8 @@
                     </div>
 
                     <div class="form-group mb-2">
-                        <label for="userPassword">Nueva Constraseña</label>
-                        <input type="password" class="form-control" id="userPassword" placeholder="Ingrese la contraseña" formControlName="{{this.password}}" [ngClass]="{'is-invalid': formCP.campoPassword.invalid && (formCP.campoPassword.dirty || formCP.campoPassword.touched)}"/>
+                        <label for="userPassword">Nueva constraseña</label>
+                        <input type="password" class="form-control" id="userPassword" placeholder="Nueva constraseña" formControlName="{{this.password}}" [ngClass]="{'is-invalid': formCP.campoPassword.invalid && (formCP.campoPassword.dirty || formCP.campoPassword.touched)}"/>
                         <div class="invalid-feedback">
                           <div *ngIf="formCP.campoPassword.errors?.required">
                             Campo requerido.
@@ -120,8 +120,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="userPasswordRepeat">Repita la Nueva Constraseña</label>
-                        <input type="password" class="form-control" id="userPasswordRepeat" placeholder="Ingrese la contraseña" formControlName="{{this.repeatPassword}}" [ngClass]="{'is-invalid': formCP.campoRepeatPassword.invalid && (formCP.campoRepeatPassword.dirty || formCP.campoRepeatPassword.touched)}"/>
+                        <label for="userPasswordRepeat">Vuelve a escribir la constraseña</label>
+                        <input type="password" class="form-control" id="userPasswordRepeat" placeholder="Vuelve a escribir la constraseña" formControlName="{{this.repeatPassword}}" [ngClass]="{'is-invalid': formCP.campoRepeatPassword.invalid && (formCP.campoRepeatPassword.dirty || formCP.campoRepeatPassword.touched)}"/>
                         <div class="invalid-feedback">
                           <div *ngIf="formCP.campoRepeatPassword.errors?.required">
                             Campo requerido.

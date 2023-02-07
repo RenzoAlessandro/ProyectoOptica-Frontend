@@ -29,12 +29,15 @@ export class CashRegisterComponent implements OnInit {
   fecha_ingreso: string = "campoFechaIngreso";
   encargado_ingreso: string = "campoEncargadoIngreso";
   descripcion_ingreso: string = "campoDescripcionIngreso";
+  metodoPagoContado_ingreso: string = "campoMetodoPagoContadoIngreso";
   formEgreso: FormGroup;
   monto_egreso: string = "campoMontoEgreso";
   fecha_egreso: string = "campoFechaEgreso";
   encargado_egreso: string = "campoEncargadoEgreso";
   descripcion_egreso: string = "campoDescripcionEgreso";
-  
+  metodoPagoContado_egreso: string = "campoMetodoPagoContadoEgreso";
+
+  listMetodosPagos = ['Físico', 'Yape', 'Plin', 'Interbancario'];
 
   exampleOptions: FlatpickrOptions = {
     defaultDate: '',
@@ -82,14 +85,16 @@ export class CashRegisterComponent implements OnInit {
       [this.monto_ingreso]:[],
       [this.fecha_ingreso]:[],
       [this.encargado_ingreso]:[],
-      [this.descripcion_ingreso]:[]
+      [this.descripcion_ingreso]:[],
+      [this.metodoPagoContado_ingreso]:[]
     })
 
     this.formEgreso = this.formBuilder.group({
       [this.monto_egreso]:[],
       [this.fecha_egreso]:[],
       [this.encargado_egreso]:[],
-      [this.descripcion_egreso]:[]
+      [this.descripcion_egreso]:[],
+      [this.metodoPagoContado_egreso]:[]
     })
   }
 
