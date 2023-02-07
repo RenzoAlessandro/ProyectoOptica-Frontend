@@ -120,8 +120,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="userPasswordRepeat">Repita la Nueva Contraseña</label>
-                        <input type="password" class="form-control" id="userPasswordRepeat" placeholder="Ingrese la contraseña" formControlName="{{this.repeatPassword}}" [ngClass]="{'is-invalid': formCP.campoRepeatPassword.invalid && (formCP.campoRepeatPassword.dirty || formCP.campoRepeatPassword.touched)}"/>
+                        <label for="userPasswordRepeat">Vuelve a escribir la constraseña</label>
+                        <input type="password" class="form-control" id="userPasswordRepeat" placeholder="Vuelve a escribir la constraseña" formControlName="{{this.repeatPassword}}" [ngClass]="{'is-invalid': formCP.campoRepeatPassword.invalid && (formCP.campoRepeatPassword.dirty || formCP.campoRepeatPassword.touched)}"/>
                         <div class="invalid-feedback">
                           <div *ngIf="formCP.campoRepeatPassword.errors?.required">
                             Campo requerido.
