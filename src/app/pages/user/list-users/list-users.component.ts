@@ -255,12 +255,14 @@ closeEventModal() {
       this.user.id_sede = this.f('sede').value;
       this.user.observaciones = this.f(this.observaciones).value;
       console.log(this.user);
-
+      Sweetalert("loading", "Cargando...");
       this.usuarioService.updateUsers(this.user.id_usuario,this.user).subscribe(res=>{
         console.log('actualizado');
         this.modalService.dismissAll();
-        this.formUser.reset;
+        this.formUser.reset();
         this.updateListUsers();
+        Sweetalert("close",null);
+        Sweetalert("success","Datos del usuario actualizados");
       }); 
     } else {
       

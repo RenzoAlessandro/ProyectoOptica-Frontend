@@ -208,10 +208,14 @@ export class ListCustomersComponent implements OnInit {
       listaMedidas.push(this.medidas);
       this.customer.medidas = listaMedidas;
       console.log(this.customer);
+      Sweetalert("loading", "Cargando...");
       this.customerService.updateClient(this.customer.id_cliente,this.customer).subscribe( res=>{
         console.log("registrado ok");
-        this.getListClients();
         this.modalService.dismissAll();
+        this.getListClients();
+        this.formCustomer.reset();
+        Sweetalert("close",null);
+        Sweetalert("success","Datos del cliente actualizados");
       }) ; 
     } else {
       return

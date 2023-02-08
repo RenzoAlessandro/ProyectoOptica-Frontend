@@ -114,7 +114,7 @@ export class ListStoresComponent implements OnInit {
         console.log("actualizado ok");
         this.modalService.dismissAll();
         Sweetalert("close",null);
-        Sweetalert("success",null);
+        Sweetalert("success","Datos de la tienda actualizados");
         this.getListSedes();
       }); 
     } else {
