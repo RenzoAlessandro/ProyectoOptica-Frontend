@@ -38,8 +38,8 @@ function matches(customer: LunasModel, term: string, pipe: PipeTransform) {
   return customer.material.toLowerCase().includes(term.toLowerCase())
   || String(customer.precio_luna_c).toLowerCase().includes(term.toLowerCase())
   || String(customer.precio_luna_v).toLowerCase().includes(term.toLowerCase())
-  || (customer.fecha_creacion_luna).toLocaleString().includes(term.toLowerCase())
-  || String(customer.cantidad).toLowerCase().includes(term.toLowerCase())
+  || String(customer.cantidad).toLowerCase().includes(term)
+  || (customer.fecha_creacion_luna).toLocaleString().includes(term.toLowerCase());
 }
 
 @Injectable({ providedIn: 'root' })

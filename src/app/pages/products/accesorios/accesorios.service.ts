@@ -38,8 +38,8 @@ function matches(customer: AccesorioModel, term: string, pipe: PipeTransform) {
   return customer.nombre_accesorio.toLowerCase().includes(term.toLowerCase())
   || String(customer.precio_accesorio_c).toLowerCase().includes(term.toLowerCase())
   || String(customer.precio_accesorio_v).toLowerCase().includes(term.toLowerCase())
-  || (customer.fecha_creacion_accesorio).toLocaleString().includes(term.toLowerCase())
-  || String(customer.cantidad).toLowerCase().includes(term);
+  || String(customer.cantidad).toLowerCase().includes(term)
+  || (customer.fecha_creacion_accesorio).toLocaleString().includes(term.toLowerCase());
 }
 
 @Injectable({ providedIn: 'root' })

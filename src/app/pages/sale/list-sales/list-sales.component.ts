@@ -349,9 +349,11 @@ export class ListSalesComponent implements OnInit {
     console.log(venta)
     this.customerService.getAllClientbyId(venta.id_cliente).subscribe((res:CustomersModel) => {
       console.log(res);
-      this.generatePDF(venta, res);
+      this.generatePDF(venta, res[0]);
     })
   }
+
+  
 
   async generatePDF(venta:VentasModel, cliente: CustomersModel){
     console.log(venta)

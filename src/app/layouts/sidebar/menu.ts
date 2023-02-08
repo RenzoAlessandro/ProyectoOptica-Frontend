@@ -72,21 +72,21 @@ export const MENU: MenuItem[] = [
                 label: 'MENUITEMS.PRODUCTS.LIST.MONTURAS',
                 link: '/products/monturas',
                 parentId: 9,
-                role: ['Vendedor']
+                role: ['Admin','Vendedor']
             },
             {
                 id: 11,
                 label: 'MENUITEMS.PRODUCTS.LIST.LENTES',
                 link: '/products/lunas',
                 parentId: 9,
-                role: ['Vendedor']
+                role: ['Admin','Vendedor']
             }, 
             {
                 id: 12,
                 label: 'MENUITEMS.PRODUCTS.LIST.ACCESORIOS',
                 link: '/products/accesorios',
                 parentId: 9,
-                role: ['Vendedor']
+                role: ['Admin','Vendedor']
             }, 
             {
                 id: 13,
@@ -116,24 +116,24 @@ export const MENU: MenuItem[] = [
         id: 16,
         label: 'MENUITEMS.STORES.TEXT',
         icon: 'uil-shop',
+        role: ['Admin','Vendedor'],
         subItems: [
             {
                 id: 17,
                 label: 'MENUITEMS.STORES.LIST.STORES',
                 link: '/store/liststores',
                 parentId: 16,
-                role: ['Vendedor']
+                role: ['Admin', 'Vendedor']
             }, 
             {
                 id: 18,
                 label: 'MENUITEMS.STORES.LIST.ADDSTORES',
                 link: '/store/addstore',
                 parentId: 16,
-                role: ['Vendedor']
+                role: ['Admin', 'Vendedor']
             },
         ],
         link: '/store',
-        role: ['Admin']
     },
     {
         id: 19,

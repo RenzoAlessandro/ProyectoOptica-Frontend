@@ -42,7 +42,7 @@ function matches(customer: MonturasModel, term: string, pipe: PipeTransform) {
   || String(customer.cantidad).toLowerCase().includes(term.toLowerCase())
   || String(customer.precio_montura_c).toLowerCase().includes(term.toLowerCase())
   || String(customer.precio_montura_v).toLowerCase().includes(term.toLowerCase())
-  || String(customer.cantidad).toLowerCase().includes(term.toLowerCase())
+  || String(customer.fecha_creacion_monturas).toLowerCase().includes(term.toLowerCase())
 }
 
 @Injectable({ providedIn: 'root' })

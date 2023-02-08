@@ -188,6 +188,7 @@ export class AddSaleComponent implements OnInit {
     ]
   };
   getListMonturas() {
+     Sweetalert("loading", "Cargando...");
      this.productosService.getMonturasforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
       this.listAllProducts = res;
       console.log("monturas", this.listAllProducts); 
@@ -207,6 +208,7 @@ export class AddSaleComponent implements OnInit {
     this.productosService.getLunasforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
       this.listAllProducts = [...res,...this.listAllProducts];
       console.log("lunas", this.listAllProducts);
+      Sweetalert("close", null);
     });
   }
 
@@ -500,9 +502,7 @@ export class AddSaleComponent implements OnInit {
       this.venta.id_sede = this.usuarioService.getSedebyUser();
       this.venta.habilitado = true;
 
-
       console.log("venta", this.venta);
-      Sweetalert("loading", "Cargando...");
       this.cancel();
 
     } else {
@@ -530,7 +530,7 @@ export class AddSaleComponent implements OnInit {
       })
       .then(result => {
         if (result.value) {
-          
+          Sweetalert("loading", "Cargando...");
           this.productosService.createVenta(this.venta).subscribe(res => {
             console.log("Guardando venta");
             this.createPDF(this.venta,this.customer);
