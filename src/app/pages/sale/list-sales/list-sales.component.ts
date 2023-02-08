@@ -450,7 +450,7 @@ export class ListSalesComponent implements OnInit {
       });
       
       var totalIGV = subtotal * peruIGV;
-      var total = subtotal + totalIGV;
+      var total = subtotal - totalIGV;
 
       body.push([{ text: ' ', rowSpan: 3, colSpan: 2}, { }, {text: 'Sub. Total:', style: 'tableHeader', alignment: 'right', colSpan: 2 }, { }, { text: simboloNuevoSol + subtotal, style: 'contenido', alignment: 'right' }]);
       body.push([{ }, { }, { text: 'IGV (18%) :', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol + totalIGV, style: 'contenido', alignment: 'right' }]);
