@@ -74,15 +74,15 @@
                   <th scope="col" sortable="id" (sort)="onSort($event)">Ord.</th>
                   <th scope="col" sortable="material" (sort)="onSort($event)">Material</th>
                   <th scope="col" sortable="marca" (sort)="onSort($event)">Marca</th>
-                  <th scope="col" sortable="codigo_1" (sort)="onSort($event)">Cód.</th>
-                  <th scope="col" sortable="codigo_2_interno" (sort)="onSort($event)">Cód. int.</th>
+                  <th scope="col" sortable="codigo" (sort)="onSort($event)">Cód.</th>
+                  <!-- <th scope="col" sortable="codigo_2_interno" (sort)="onSort($event)">Cód. int.</th> -->
                   <th scope="col" sortable="talla" (sort)="onSort($event)">Talla</th>
                   <th scope="col" sortable="color" (sort)="onSort($event)">Color</th>
                   <th scope="col" sortable="cantidad" (sort)="onSort($event)">Stock</th>
-                  <th scope="col" sortable="precio_compra" (sort)="onSort($event)">P. Compra</th>
-                  <th scope="col" sortable="precio_venta" (sort)="onSort($event)">P. Venta</th>
-                  <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th>
-                  <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de ing.</th>
+                  <th scope="col" sortable="precio_montura_c" (sort)="onSort($event)">P. Compra</th>
+                  <th scope="col" sortable="precio_montura_v" (sort)="onSort($event)">P. Venta</th>
+                  <!-- <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th> -->
+                  <th scope="col" sortable="fecha_creacion_monturas" (sort)="onSort($event)">Fecha de ing.</th>
                   <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
                   <th style="width: 170px;">Acción</th>
                 </tr>
@@ -98,7 +98,7 @@
                     </div>
                   </td>
                   <td>
-                    <ngb-highlight [result]="data.num_orden" [term]="service.searchTerm"></ngb-highlight>
+                    <ngb-highlight [result]="i+1" [term]="service.searchTerm"></ngb-highlight>
                   </td>
                   <td>
                     <ngb-highlight [result]="data.material" [term]="service.searchTerm"></ngb-highlight>
@@ -109,9 +109,9 @@
                   <td>
                     <ngb-highlight [result]="data.codigo" [term]="service.searchTerm"></ngb-highlight>
                   </td>
-                  <td>
+<!--                   <td>
                     <ngb-highlight [result]="data.codigo_interno" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
+                  </td> -->
                   <td>
                     <ngb-highlight [result]="data.talla" [term]="service.searchTerm"></ngb-highlight>
                   </td>
@@ -127,9 +127,9 @@
                   <td>
                     <ngb-highlight [result]="data.precio_montura_v" [term]="service.searchTerm"></ngb-highlight>
                   </td>
-                  <td>
+<!--                   <td>
                     <ngb-highlight [result]="" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
+                  </td> -->
                   <td>
                     <ngb-highlight [result]="data.fecha_creacion_monturas | date: 'dd/MM/yyyy'"
                       [term]="service.searchTerm"></ngb-highlight>

@@ -389,7 +389,7 @@ export class ListCustomersComponent implements OnInit {
 
     var nombresCliente = this.userPrint.nombres;
     var apellidosCliente = this.userPrint.apellidos;
-    var fnacimientoCliente = new Date (this.userPrint.fecha_nacimiento + "T00:00").toLocaleDateString('en-GB');
+    var fnacimientoCliente = new Date (this.userPrint.fecha_nacimiento).toLocaleDateString('en-GB');
     var direccionCliente = 'Calle Leticia 104, Carmen Alto Cayma, Arequipa';
     var correoCliente = 'renzo.sucari@gmail.com';
     var telefonoCliente = this.userPrint.telefono;
@@ -407,6 +407,8 @@ export class ListCustomersComponent implements OnInit {
 
     var encargadoCliente = this.userPrint.medidas[0].encargado;
     var antecedentesCliente = this.userPrint.antecedentes
+
+    console.log(this.userPrint);
     
     const pdfDefinition: any = {
       pageSize: 'A5',

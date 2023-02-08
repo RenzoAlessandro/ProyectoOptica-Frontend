@@ -74,12 +74,12 @@
                   </th>
                   <th scope="col" sortable="id" (sort)="onSort($event)">Ord.</th>
                   <th scope="col" sortable="material" (sort)="onSort($event)">Material</th>
-                  <th scope="col" sortable="codigo_interno" (sort)="onSort($event)">Cód. int.</th>
-                  <th scope="col" sortable="precio_compra" (sort)="onSort($event)">Precio Compra</th>
-                  <th scope="col" sortable="precio_venta" (sort)="onSort($event)">Precio Venta</th>
+                  <!-- <th scope="col" sortable="codigo_interno" (sort)="onSort($event)">Cód. int.</th> -->
+                  <th scope="col" sortable="precio_luna_c" (sort)="onSort($event)">Precio Compra</th>
+                  <th scope="col" sortable="precio_luna_v" (sort)="onSort($event)">Precio Venta</th>
                   <th scope="col" sortable="cantidad" (sort)="onSort($event)">Stock</th>
-                  <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th>
-                  <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de Ingreso</th>
+                  <!-- <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th> -->
+                  <th scope="col" sortable="fecha_creacion_luna" (sort)="onSort($event)">Fecha de Ingreso</th>
                   <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
                   <th *appRole="role">Acción</th>
                 </tr>
@@ -95,14 +95,14 @@
                     </div>
                   </td>
                   <td>
-                    <ngb-highlight [result]="data.num_orden" [term]="service.searchTerm"></ngb-highlight>
+                    <ngb-highlight [result]="i+1" [term]="service.searchTerm"></ngb-highlight>
                   </td>
                   <td>
                     <ngb-highlight [result]="data.material" [term]="service.searchTerm"></ngb-highlight>
                   </td>
-                  <td>
+                  <!-- <td>
                     <ngb-highlight [result]="data.codigo_interno" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
+                  </td> -->
                   <td>
                     <ngb-highlight [result]="data.precio_luna_c" [term]="service.searchTerm"></ngb-highlight>
                   </td>
@@ -112,9 +112,9 @@
                   <td>
                     <ngb-highlight [result]="data.cantidad" [term]="service.searchTerm"></ngb-highlight>
                   </td>
-                  <td>
+                  <!-- <td>
                     <ngb-highlight [result]="" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
+                  </td> -->
                   <td>
                     <ngb-highlight [result]="data.fecha_creacion_luna | date: 'dd/MM/yyyy'"
                       [term]="service.searchTerm"></ngb-highlight>

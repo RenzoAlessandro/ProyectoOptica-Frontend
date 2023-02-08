@@ -43,7 +43,8 @@ function matches(customer: UsersModel, term: string, pipe: PipeTransform) {
   || customer.rol.toLowerCase().includes(term.toLowerCase())
   // || customer.sede.toLowerCase().includes(term.toLowerCase())
   || customer.telefono.toLowerCase().includes(term)
-  || (customer.fecha_creacion).toLocaleString().includes(term);
+  || customer.email.toLowerCase().includes(term)
+  || customer.fecha_creacion.toLocaleString().includes(term);
 }
 
 @Injectable({ providedIn: 'root' })
