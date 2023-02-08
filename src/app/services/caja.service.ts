@@ -16,10 +16,10 @@ export class CajaService {
   getIngresos(): Observable<any> {
     return this.http.get<any>(environment.urlBackend+'getAllIngresos');
   }
-  getIngresosbyDate(fIni:Date,fFin:Date): Observable<any> {
+  getIngresosbyDate(fIni:string,fFin:string): Observable<any> {
     return this.http.get<any>(environment.urlBackend+'getAllIngresosByDate/'+fIni +'/'+fFin);
   }
-  getEgresosbyDate(fIni:Date,fFin:Date): Observable<any> {
+  getEgresosbyDate(fIni:string,fFin:string): Observable<any> {
     return this.http.get<any>(environment.urlBackend+'getAllEgresosByDate/'+fIni +'/'+fFin);
   }
   getEgresos(): Observable<any> {

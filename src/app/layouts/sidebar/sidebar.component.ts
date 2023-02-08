@@ -222,15 +222,15 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
     //this.menuItems = MENU;
     
     this.menuItems = this.filterMenubyRole(MENU, this.role);
-    console.log(this.menuItems)
+    //console.log(this.menuItems)
     this.menuItems.forEach(menu =>{
-      console.log(menu)
+      //console.log(menu)
       let submenu = []
       if(menu.subItems.length > 0) {
         menu.subItems.forEach(sub => {
           if (sub.role.some(el =>(el == this.role))) {
             submenu.push(sub)
-            console.log(submenu)
+            //console.log(submenu)
           }
         });
         menu.subItems = submenu;

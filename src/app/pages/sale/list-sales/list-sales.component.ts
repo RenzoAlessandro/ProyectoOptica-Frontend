@@ -480,7 +480,7 @@ export class ListSalesComponent implements OnInit {
     }
     
     
-    const pdfDefinition: any = {
+     const pdfDefinition: any = {
       pageSize: 'A4',
       //pageOrientation: 'landscape',
       pageMargins: [ 40, 60, 40, 60 ],
@@ -592,5 +592,8 @@ export class ListSalesComponent implements OnInit {
     const pdf = pdfMake.createPdf(pdfDefinition);
     pdf.open();
   }
+
+
+
 
 }

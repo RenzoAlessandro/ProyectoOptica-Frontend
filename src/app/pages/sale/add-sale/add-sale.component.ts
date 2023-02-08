@@ -478,12 +478,19 @@ export class AddSaleComponent implements OnInit {
           this.venta.id_cliente = this.f(this.usuario_Contado).value;
         }
       } else {
-        this.tipoPago.observaciones = this.g(this.observaciones_Credito).value;
+        if ( this.precioTotalVenta - this.g(this.cantidadRecibida_Credito).value  < 0) {
+          console.log("entre")
+          Sweetalert("error", "El pago no puede ser mayor al valor de la compra, se sugiere compra al contado");
+          return
+        } else {
+          this.tipoPago.observaciones = this.g(this.observaciones_Credito).value;
         this.tipoPago.cantidad_recibida = Number(this.g(this.cantidadRecibida_Credito).value);
         this.tipoPago.deuda = round(this.precioTotalVenta - this.g(this.cantidadRecibida_Credito).value,1);
         this.tipoPago.metodo_pago = this.g(this.metodoPagoCredito).value;
         this.tipoPago.cuotas = String(this.tickValue);
         this.venta.id_cliente = this.g(this.usuario_Credito).value;
+        }
+        
       }
       this.venta.id_vendedor = this.usuarioService.getUser().id_usuario;
       this.tipoPago.forma_pago = this.selectorPago;

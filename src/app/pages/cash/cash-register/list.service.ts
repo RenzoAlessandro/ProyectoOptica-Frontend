@@ -75,9 +75,11 @@ export class InvoiceService {
     fIni.setHours(0,0,1);
     let fFin: Date = new Date(Date.now());
     fFin.setHours(23,59,0);
-    console.log(fIni,fFin)
-    this.getListIngresos(fIni,fFin);
-    this.getListEgresos(fIni,fFin);
+    fIni = new Date(fIni.getTime() - fIni.getTimezoneOffset()*60000)
+    fFin = new Date(fFin.getTime() - fFin.getTimezoneOffset()*60000)
+    console.log(fIni.toISOString(),'-',fFin.toISOString())
+    this.getListIngresos(fIni.toISOString(),fFin.toISOString());
+    this.getListEgresos(fIni.toISOString(),fFin.toISOString());
   }
 
   get invoices$() {
@@ -190,7 +192,7 @@ export class InvoiceService {
     return of({ invoices, total });
   }
 
-  getListIngresos(fIni:Date, fFin:Date) {
+  getListIngresos(fIni:string, fFin:string) {
     
     this.cajaService.getIngresosbyDate(fIni,fFin).subscribe( res=> {
       console.log("entre..",res);
@@ -213,7 +215,7 @@ export class InvoiceService {
 
     );
   }
-  getListEgresos(fIni:Date, fFin:Date) {
+  getListEgresos(fIni:string, fFin:string) {
 
     this.cajaService.getEgresosbyDate(fIni,fFin).subscribe( res=> {
       console.log("entre..",res);
