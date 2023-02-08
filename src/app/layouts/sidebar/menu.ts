@@ -5,14 +5,16 @@ export const MENU: MenuItem[] = [
         id: 1,
         label: 'MENUITEMS.MENU.TEXT',
         isTitle: true,
-        role: ['Admin','Vendedor']
+        role: ['Admin','Vendedor'],
+        subItems: []
     },
     {
         id: 2,
         label: 'MENUITEMS.HOME.TEXT',
         icon: 'uil-home-alt',
         link: '/home',
-        role: ['Admin','Vendedor']
+        role: ['Admin','Vendedor'],
+        subItems: []
     },
     {
         id: 3,
@@ -23,13 +25,15 @@ export const MENU: MenuItem[] = [
                 id: 4,
                 label: 'MENUITEMS.CLIENT.LIST.ADDCLIENT',
                 link: '/customer/addcustomer',
-                parentId: 3
+                parentId: 3,
+                role: ['Admin']
             }, 
             {
                 id: 5,
                 label: 'MENUITEMS.CLIENT.LIST.LISTCLIENTS',
                 link: '/customer/listcustomers',
-                parentId: 3
+                parentId: 3,
+                role: ['Admin']
             }, 
         ],
         role: ['Admin']
@@ -43,13 +47,15 @@ export const MENU: MenuItem[] = [
                 id: 7,
                 label: 'MENUITEMS.USER.LIST.ADDUSER',
                 link: '/user/adduser',
-                parentId: 4
+                parentId: 6,
+                role: ['Admin']
             }, 
             {
                 id: 8,
                 label: 'MENUITEMS.USER.LIST.LISTUSERS',
                 link: '/user/listusers',
-                parentId: 4
+                parentId: 6,
+                role: ['Admin']
             }, 
         ],
         link: '/users',
@@ -65,37 +71,43 @@ export const MENU: MenuItem[] = [
                 id: 10,
                 label: 'MENUITEMS.PRODUCTS.LIST.MONTURAS',
                 link: '/products/monturas',
-                parentId: 9
+                parentId: 9,
+                role: ['Vendedor']
             },
             {
                 id: 11,
                 label: 'MENUITEMS.PRODUCTS.LIST.LENTES',
                 link: '/products/lunas',
-                parentId: 9
+                parentId: 9,
+                role: ['Vendedor']
             }, 
             {
                 id: 12,
                 label: 'MENUITEMS.PRODUCTS.LIST.ACCESORIOS',
                 link: '/products/accesorios',
-                parentId: 9
+                parentId: 9,
+                role: ['Vendedor']
             }, 
             {
                 id: 13,
                 label: 'MENUITEMS.PRODUCTS.LIST.ADDPRODUCTS',
                 link: '/products/addproducts',
-                parentId: 9
+                parentId: 9,
+                role: ['Admin']
             },
             {
                 id: 14,
                 label: 'MENUITEMS.PRODUCTS.LIST.UPDATEEXCEL',
                 link: '/products/updateexcel',
-                parentId: 9
+                parentId: 9,
+                role: ['Admin']
             },
             {
                 id: 15,
                 label: 'MENUITEMS.PRODUCTS.LIST.INVENTARIO',
                 link: '/products/inventario',
-                parentId: 9
+                parentId: 9,
+                role: ['Admin']
             },
         ],
         link: '/products',
@@ -109,13 +121,15 @@ export const MENU: MenuItem[] = [
                 id: 17,
                 label: 'MENUITEMS.STORES.LIST.STORES',
                 link: '/store/liststores',
-                parentId: 9
+                parentId: 16,
+                role: ['Vendedor']
             }, 
             {
                 id: 18,
                 label: 'MENUITEMS.STORES.LIST.ADDSTORES',
                 link: '/store/addstore',
-                parentId: 9
+                parentId: 16,
+                role: ['Vendedor']
             },
         ],
         link: '/store',
@@ -130,13 +144,15 @@ export const MENU: MenuItem[] = [
                 id: 20,
                 label: 'MENUITEMS.SALES.LIST.SALES',
                 link: '/sale/listsales',
-                parentId: 9
+                parentId: 19,
+                role: ['Admin']
             }, 
             {
                 id: 21,
                 label: 'MENUITEMS.SALES.LIST.ADDSALES',
                 link: '/sale/addsale',
-                parentId: 9
+                parentId: 19,
+                role: ['Admin']
             },
         ],
         link: '/sale',
@@ -151,13 +167,15 @@ export const MENU: MenuItem[] = [
                 id: 23,
                 label: 'MENUITEMS.CASHREGISTER.LIST.CASHREGISTER',
                 link: '/cash/cashregister',
-                parentId: 9
+                parentId: 22,
+                role: ['Admin','Vendedor']
             }, 
             {
                 id: 24,
                 label: 'MENUITEMS.CASHREGISTER.LIST.LISTCASH',
                 link: '/cash/listcash',
-                parentId: 9
+                parentId: 22,
+                role: ['Admin']
             },
         ],
         link: '/cash',
