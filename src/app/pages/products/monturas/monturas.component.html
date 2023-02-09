@@ -39,10 +39,12 @@
     <div class="col-sm-6 col-md-6">
       <div class="mb-3">
         <!-- Default dropup button -->
-        <div class="btn-group" ngbDropdown>
-          <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede" bindLabel="nombre_sede">
-          </ng-select>
-        </div>
+        <form [formGroup]="formSedes">
+          <div class="btn-group" ngbDropdown>
+            <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede" bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+            </ng-select>
+          </div>
+        </form>
       </div>
     </div>
     <div class="col-sm-6 col-md-6">
@@ -396,8 +398,8 @@
           formControlName="{{this.nEtiquetasPorMontura}}" (change)="generarEtiqueta()" max = "100" maxlength="3">
       </form>
     </div>
-    <button type="button" class="btn btn-primary"><i class="bx bx-bolt-circle me-1"
-        (click)="printEtiquetaIndividual()"></i>Generar</button>
+    <button type="button" class="btn btn-primary" (click)="printEtiquetaIndividual()"><i class="uil-print me-1"></i>Descargar
+      códigos</button>
   </div>
 
 </ng-template>

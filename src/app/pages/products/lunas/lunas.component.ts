@@ -18,7 +18,6 @@ import { Sweetalert } from 'src/utils/sweetalert';
 import Swal from 'sweetalert2';
 
 import { SedesModel } from 'src/models/sedes';
-import { SedeService } from 'src/app/services/sede.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { DisplayTextModel } from '@syncfusion/ej2-angular-barcode-generator';
 
@@ -41,6 +40,9 @@ export class LunasComponent implements OnInit {
   submitted = false;
   isMasterSel: boolean = false;
 
+  //formulario sedes
+  formSedes: FormGroup;
+  nombre_sedes: string = 'campoSedes';
   //formulario lunas
   formLuna: FormGroup;
   material_luna: string = "campoMaterialLuna";
@@ -67,6 +69,10 @@ export class LunasComponent implements OnInit {
 
   luna = new LunasModel;
   checkedLunasList= [];
+  idSede = "";
+
+  individualQR = new  LunasModel;
+  nQR = 0;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
@@ -92,6 +98,7 @@ export class LunasComponent implements OnInit {
 
   getListSedes() {
       this.listSedes = JSON.parse(localStorage.getItem('sedes'));
+      this.idSede = this.usuarioService.getSedebyUser();
   }
 
   crearFormulario() {
@@ -117,10 +124,14 @@ export class LunasComponent implements OnInit {
     })
 
     this.formPrintEtiquetaLuna = this.fb.group({
-      [this.nEtiquetasPorLuna]: [null, [
+      [this.nEtiquetasPorLuna]: [1, [
         Validators.required,
         Validators.pattern(this.numberPattern)
       ]]
+    });
+
+    this.formSedes = this.fb.group({
+      [this.nombre_sedes]: [this.idSede]
     })
   }
   onSort({ column, direction }: SortEvent) {
@@ -138,6 +149,16 @@ export class LunasComponent implements OnInit {
   f(campo:string) {
     return this.formLuna.get(campo);
   }
+
+  fS(campo: string) {
+    return this.formSedes.get(campo);
+  }
+
+  changeSede() {
+    this.idSede = this.fS(this.nombre_sedes).value;
+    this.updateListLunas(this.idSede);
+  }
+
   /**
    * Open center modal
    * @param centerDataModal center modal data
@@ -155,13 +176,19 @@ export class LunasComponent implements OnInit {
   }
 
   /**
-   * Open Large modal
+   * Open modal etiquetas de la tabla
    * @param openDataModal large modal data
+   * @param data luna
    */
-  openModalEtiqueta(openDataModal: any) {
+  openModalEtiqueta(openDataModal: any, data:LunasModel) {
+    this.individualQR = data;
+    this.nQR = Number(this.fEL(this.nEtiquetasPorLuna).value);
     this.modalService.open(openDataModal, { windowClass:'modal-holder', centered: true });
   }
 
+  public displayTextMethod: DisplayTextModel = {
+    visibility: false
+  };
   /**
    * Open scroll modal
    * @param scrollDataModal scroll modal data
@@ -182,6 +209,7 @@ export class LunasComponent implements OnInit {
    * Close event modal
    */
   closeEventModal() {
+    this.fEL(this.nEtiquetasPorLuna).setValue(1);
     this.modalService.dismissAll();
   }
 
@@ -215,7 +243,7 @@ export class LunasComponent implements OnInit {
         this.modalService.dismissAll();
         Sweetalert("close",null);
         Sweetalert("success",null);
-        this.updateListLunas();
+        this.updateListLunas(this.idSede);
       })
     } else {
       
@@ -238,7 +266,7 @@ export class LunasComponent implements OnInit {
           Sweetalert("close", null);
           Sweetalert("success", "Luna eliminada");
           console.log("Luna borrado");
-          this.updateListLunas();
+          this.updateListLunas(this.idSede);
         }, error => {
           Sweetalert("close", null);
           Sweetalert("error", "Error en la conexión");
@@ -259,10 +287,18 @@ export class LunasComponent implements OnInit {
     );
   }
 
-  updateListLunas() {
-    this.lunaService.getProductosbySede(this.usuarioService.getSedebyUser(),'luna').subscribe( res=>{
+  updateListLunas(idSede:string) {
+    this.lunaService.getProductosbySede(idSede,'luna').subscribe( res=>{
       this.service.updateTable(res);
     })
+  }
+
+  fEL(campo:string) {
+    return this.formPrintEtiquetaLuna.get(campo);
+  }
+
+  generarEtiqueta() {
+    this.nQR = Number(this.fEL(this.nEtiquetasPorLuna).value)
   }
 
   /**
@@ -353,7 +389,40 @@ export class LunasComponent implements OnInit {
     }); 
   }
 
-  public displayTextMethod: DisplayTextModel = {
-    visibility: false
-  };
+  printEtiquetaIndividual() {
+    console.log("entre")
+    let DATA: any = document.getElementById('htmlData2');
+    console.log(DATA.children.length)
+    //var HTML_Width = document.getElementById("htmlData").offsetWidth 
+		//var HTML_Height = document.getElementById("htmlData").offsetHeight
+    var HTML_Width = 3
+    var HTML_Height = 0.57 * this.nQR
+		var top_left_margin = 0;
+		//var PDF_Width = HTML_Width+(top_left_margin*2);
+		//var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
+    var PDF_Width = 4
+    var PDF_Height = 0.57 
+		var canvas_image_width = HTML_Width;
+		var canvas_image_height = HTML_Height;
+		
+    console.log(HTML_Width, HTML_Height)
+		//var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
+    var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)
+    console.log(totalPDFPages)
+    
+    html2canvas(DATA).then((canvas) => {
+      const nombreSede = this.listSedes.find(res => (res.id_sede == this.usuarioService.getSedebyUser()));
+      console.log(nombreSede)
+      var imgData = canvas.toDataURL("image/jpeg", 1.0);
+			var pdf = new jsPDF('l', 'in',  [PDF_Width, PDF_Height]);
+		  pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+			pdf.deletePage(1)
+			
+			for (var i = 0; i < totalPDFPages; i++) { 
+				pdf.addPage([PDF_Width, PDF_Height]);
+				pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+			}
+			pdf.save("Monturas_"+nombreSede.nombre_sede+".pdf");
+    }); 
+  }
 }

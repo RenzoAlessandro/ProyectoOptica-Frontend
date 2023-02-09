@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { CustomerService } from './monturas.service';
@@ -13,7 +13,6 @@ import Swal from 'sweetalert2';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { SedeService } from 'src/app/services/sede.service';
 import { SedesModel } from 'src/models/sedes';
 import { DisplayTextModel } from '@syncfusion/ej2-angular-barcode-generator';
 
@@ -38,6 +37,8 @@ export class MonturasComponent implements OnInit {
 
   //formulario monturas
   formMontura: FormGroup;
+  formSedes: FormGroup;
+  nombre_sedes: string = "campoSedes";
   material_montura: string = "campoMaterialMontura";
   marca_montura: string = "campoMarcaMontura";
   codigo_montura: string = "campoCodigoMontura";
@@ -76,13 +77,13 @@ export class MonturasComponent implements OnInit {
   inventarioMonturas: Array<MonturasModel> = [];
   individualQR = new  MonturasModel;
   nQR = 0;
+  idSede: string  = "";
 
   constructor(public service: CustomerService,
     private monturaService: ProductosService,
     private modalService: NgbModal,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
-    private sedeService: SedeService,
     ) {
     this.monturas$ = service.customers$;
     this.total$ = service.total$;
@@ -92,12 +93,13 @@ export class MonturasComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getListSedes();
     this.crearFormulario();
     this.breadCrumbItems = [{ label: 'Productos' }, { label: 'Lista de Monturas', active: true }];
     this.service.customers$.subscribe(res=> {
       this.listMonturas = res;
     })
-    this.getListSedes();
+    
   }
 
 
@@ -144,6 +146,10 @@ export class MonturasComponent implements OnInit {
         Validators.required,
         Validators.pattern(this.numberPattern)
       ]]
+    });
+
+    this.formSedes = this.fb.group({
+      [this.nombre_sedes]: [this.idSede]
     })
   }
 
@@ -185,7 +191,8 @@ export class MonturasComponent implements OnInit {
   }
 
   getListSedes() {
-  this.listSedes = this.sedeService.getListSedes();
+  this.listSedes = JSON.parse(localStorage.getItem('sedes'));
+  this.idSede = this.usuarioService.getSedebyUser();
   }
   /**
    * Open Large modal
@@ -257,7 +264,7 @@ export class MonturasComponent implements OnInit {
         this.modalService.dismissAll();
         Sweetalert("close",null);
         Sweetalert("success","Montura guardada");
-        this.updateListMonturas();
+        this.updateListMonturas(this.idSede);
       })
 
     } else {
@@ -281,7 +288,7 @@ export class MonturasComponent implements OnInit {
           Sweetalert("close", null);
           Sweetalert("success", "Montura eliminada");
           console.log("Montura borrado");
-          this.updateListMonturas();
+          this.updateListMonturas(this.idSede);
         }, error => {
           Sweetalert("close", null);
           Sweetalert("error", "Error en la conexión");
@@ -302,8 +309,8 @@ export class MonturasComponent implements OnInit {
     );
   }
 
-  updateListMonturas() {
-    this.monturaService.getMonturas().subscribe( res=>{
+  updateListMonturas(idSede:string) {
+    this.monturaService.getProductosbySede(idSede,'montura').subscribe( res=>{
       this.service.updateTable(res);
     })
   }
@@ -403,6 +410,15 @@ get formPEM() {
   public displayTextMethod: DisplayTextModel = {
     visibility: false
   };
+
+  fS(campo: string) {
+    return this.formSedes.get(campo);
+  }
+
+  changeSede() {
+    this.idSede = this.fS(this.nombre_sedes).value;
+    this.updateListMonturas(this.idSede);
+  }
 
   generarEtiqueta() {
     this.nQR = Number(this.fEM(this.nEtiquetasPorMontura).value)

@@ -5,7 +5,6 @@ import { NgbAccordionModule, NgbCollapseModule, NgbDropdownModule, NgbPagination
 import { NgSelectModule } from "@ng-select/ng-select";
 import { Ng2SearchPipeModule } from "ng2-search-filter";
 import { Ng5SliderModule } from "ng5-slider";
-import { config } from "rxjs";
 import { UIModule } from "src/app/shared/ui/ui.module";
 import { AccesoriosComponent } from "./accesorios/accesorios.component";
 import { NgbdSortableHeader } from "./accesorios/sortable.directive";

@@ -5,136 +5,139 @@
   <div class="row">
     <div class="col-md-6 mb-2">
       <div class="form-inline">
-          <div class="search-box ml-2">
-            <div class="position-relative">
-              <input type="text" class="form-control border-light rounded" placeholder="Buscar luna"
-                name="searchTerm" aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
-              <i class="uil uil-search search-icon"></i>
-            </div>
+        <div class="search-box ml-2">
+          <div class="position-relative">
+            <input type="text" class="form-control border-light rounded" placeholder="Buscar luna" name="searchTerm"
+              aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
+            <i class="uil uil-search search-icon"></i>
           </div>
+        </div>
       </div>
     </div>
 
     <div class="col-md-6 mb-2">
-        <div>
-          <div class="btn-toolbar" role="toolbar">
-            <div class="col-12 col-md-4 d-grid">
-              <button type="button" class="btn btn-success btn-block me-1" (click)="openScrollModal(scrollDataModalEGL)" [disabled]="this.checkedLunasList.length==0">
-                  <i class="uil uil-tag-alt me-2"></i> Etiquetas
-              </button>
-            </div>
+      <div>
+        <div class="btn-toolbar" role="toolbar">
+          <div class="col-12 col-md-4 d-grid">
+            <button type="button" class="btn btn-success btn-block me-1" (click)="openScrollModal(scrollDataModalEGL)"
+              [disabled]="this.checkedLunasList.length==0">
+              <i class="uil uil-tag-alt me-2"></i> Etiquetas
+            </button>
+          </div>
 
-<!--             <div class="col-6 d-grid">
+          <!--             <div class="col-6 d-grid">
               <button type="button" class="btn btn-primary btn-block me-1" (click)="openScrollModal(scrollDataModalEGL)">
                   <i class="uil uil-list-ul me-2"></i> Inventario
               </button>
             </div> -->
-            
-          </div>
-        </div>
-    </div>
-</div>
 
-<div class="row md-2">
-  <div class="col-sm-6 col-md-6">
-      <div class="mb-3">
-        <!-- Default dropup button -->
-        <div class="btn-group" ngbDropdown>
-          <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
-            bindLabel="nombre_sede">
-          </ng-select>
         </div>
       </div>
     </div>
-  <div class="col-sm-6 col-md-6">
-    <div class="dataTables_length text-md-end"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
-          [(ngModel)]="service.pageSize"
-          class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
-          <option [ngValue]="10">10</option>
-          <option [ngValue]="25">25</option>
-          <option [ngValue]="50">50</option>
-          <option [ngValue]="100">100</option>
-        </select> entradas</label></div>
   </div>
-</div>
+
+  <div class="row md-2">
+    <div class="col-sm-6 col-md-6">
+      <div class="mb-3">
+        <!-- Default dropup button -->
+        <form [formGroup]="formSedes">
+          <div class="btn-group" ngbDropdown>
+            <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede" bindLabel="nombre_sede"
+              formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+            </ng-select>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-6">
+      <div class="dataTables_length text-md-end"><label class="d-inline-flex align-items-center">Mostrar<select
+            name="pageSize" [(ngModel)]="service.pageSize"
+            class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+            <option [ngValue]="10">10</option>
+            <option [ngValue]="25">25</option>
+            <option [ngValue]="50">50</option>
+            <option [ngValue]="100">100</option>
+          </select> entradas</label></div>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col-12">
       <div class="table-responsive mb-4">
-          <form>
-            <table class="table datatables table-centered table-nowrap mb-0 align-middle table-card-list"style="border-spacing: 0 12px; width: 100%;">
-              <thead>
-                <tr class="bg-transparent">
-                  <th style="width: 20px;">
-                    <div class="form-check text-center">
-                      <input type="checkbox" class="form-check-input" id="lunascheck" (change)="checkUncheckAll()"
-                        [(ngModel)]="isMasterSel" [ngModelOptions]="{standalone: true}">
-                      <label class="form-check-label" for="lunascheck"></label>
-                    </div>
-                  </th>
-                  <th scope="col" sortable="id" (sort)="onSort($event)">Ord.</th>
-                  <th scope="col" sortable="material" (sort)="onSort($event)">Material</th>
-                  <!-- <th scope="col" sortable="codigo_interno" (sort)="onSort($event)">Cód. int.</th> -->
-                  <th scope="col" sortable="precio_luna_c" (sort)="onSort($event)">Precio Compra</th>
-                  <th scope="col" sortable="precio_luna_v" (sort)="onSort($event)">Precio Venta</th>
-                  <th scope="col" sortable="cantidad" (sort)="onSort($event)">Stock</th>
-                  <!-- <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th> -->
-                  <th scope="col" sortable="fecha_creacion_luna" (sort)="onSort($event)">Fecha de Ingreso</th>
-                  <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
-                  <th *appRole="role">Acción</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let data of lunas$ | async; let i = index">
-                  <td>
-                    <div class="form-check text-center">
-                      <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input"
-                        [(ngModel)]="data.isSelected" [ngModelOptions]="{standalone: true}"
-                        (change)="isAllSelected()" />
-                      <label class="form-check-label" for="ordercheck{{data.index}}">&nbsp;</label>
-                    </div>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="i+1" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="data.material" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <!-- <td>
+        <form>
+          <table class="table datatables table-centered table-nowrap mb-0 align-middle table-card-list"
+            style="border-spacing: 0 12px; width: 100%;">
+            <thead>
+              <tr class="bg-transparent">
+                <th style="width: 20px;">
+                  <div class="form-check text-center">
+                    <input type="checkbox" class="form-check-input" id="lunascheck" (change)="checkUncheckAll()"
+                      [(ngModel)]="isMasterSel" [ngModelOptions]="{standalone: true}">
+                    <label class="form-check-label" for="lunascheck"></label>
+                  </div>
+                </th>
+                <th scope="col" sortable="id" (sort)="onSort($event)">Ord.</th>
+                <th scope="col" sortable="material" (sort)="onSort($event)">Material</th>
+                <!-- <th scope="col" sortable="codigo_interno" (sort)="onSort($event)">Cód. int.</th> -->
+                <th scope="col" sortable="precio_luna_c" (sort)="onSort($event)">Precio Compra</th>
+                <th scope="col" sortable="precio_luna_v" (sort)="onSort($event)">Precio Venta</th>
+                <th scope="col" sortable="cantidad" (sort)="onSort($event)">Stock</th>
+                <!-- <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th> -->
+                <th scope="col" sortable="fecha_creacion_luna" (sort)="onSort($event)">Fecha de Ingreso</th>
+                <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
+                <th *appRole="role">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of lunas$ | async; let i = index">
+                <td>
+                  <div class="form-check text-center">
+                    <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input"
+                      [(ngModel)]="data.isSelected" [ngModelOptions]="{standalone: true}" (change)="isAllSelected()" />
+                    <label class="form-check-label" for="ordercheck{{data.index}}">&nbsp;</label>
+                  </div>
+                </td>
+                <td>
+                  <ngb-highlight [result]="i+1" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.material" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <!-- <td>
                     <ngb-highlight [result]="data.codigo_interno" [term]="service.searchTerm"></ngb-highlight>
                   </td> -->
-                  <td>
-                    <ngb-highlight [result]="data.precio_luna_c" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="data.precio_luna_v" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="data.cantidad" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <!-- <td>
+                <td>
+                  <ngb-highlight [result]="data.precio_luna_c" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.precio_luna_v" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.cantidad" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <!-- <td>
                     <ngb-highlight [result]="" [term]="service.searchTerm"></ngb-highlight>
                   </td> -->
-                  <td>
-                    <ngb-highlight [result]="data.fecha_creacion_luna | date: 'dd/MM/yyyy'"
-                      [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <!-- <td>
+                <td>
+                  <ngb-highlight [result]="data.fecha_creacion_luna | date: 'dd/MM/yyyy'"
+                    [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <!-- <td>
                       <span class="badge bg-pill bg-soft-success font-size-12"
                         [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
                     </td> -->
-                  <td>
-                    <a (click)="openModalEtiqueta(centerModalEIL)" class="px-2 text-success" placement="top"
-                      ngbTooltip="Etiqueta"><i class="uil-tag-alt font-size-18" *appRole="role" ></i></a>
-                    <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top"
-                      ngbTooltip="Editar"><i class="uil uil-pen font-size-18" *appRole="role"></i></a>
-                    <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar" (click)="eliminar(data)" *appRole="role"><i
-                        class="uil uil-trash-alt font-size-18"></i></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </form>
+                <td>
+                  <a (click)="openModalEtiqueta(centerModalEIL,data)" class="px-2 text-success" placement="top"
+                    ngbTooltip="Etiqueta"><i class="uil-tag-alt font-size-18" *appRole="role"></i></a>
+                  <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top"
+                    ngbTooltip="Editar"><i class="uil uil-pen font-size-18" *appRole="role"></i></a>
+                  <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar" (click)="eliminar(data)"
+                    *appRole="role"><i class="uil uil-trash-alt font-size-18"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
       </div>
 
       <div class="row" *ngIf="!mostrarSpinner">
@@ -154,7 +157,8 @@
         <!-- Pagination -->
         <div class="col-12">
           <div class="text-md-end float-md-end pagination-rounded">
-            <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
+            <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize"
+              [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
             </ngb-pagination>
           </div>
         </div>
@@ -287,24 +291,41 @@
     <h5 class="modal-title mt-0">Imprimir Etiqueta por Luna</h5>
     <button type="button" class="btn-close" aria-hidden="true" (click)="closeEventModal()"></button>
   </div>
-  <form (ngSubmit)="saveEvent()" [formGroup]="formPrintEtiquetaLuna">
-    <div class="modal-body">
 
+  <div class="modal-body">
 
-
-
-
-
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-danger" (click)="closeEventModal()">Cerrar</button>
-      <div style="width: 80px;" class="product-cart-touchspin">
-        <div touch-spin ng-model="numberVariable" options="optionsVariable"></div>
-        <input class="form-control" type="number" value="{{ 4 }}">
+    <div id="htmlData2">
+      <div *ngFor="let cant of [].constructor(nQR)">
+        <div class="row align-items-center">
+          <div class="col-6">
+            <ejs-qrcodegenerator style="display: block;" #barcode id="barcode" width="225px" height="100px" mode="SVG"
+              value={{individualQR.id_producto}} [displayText]='displayTextMethod'>
+            </ejs-qrcodegenerator>
+          </div>
+          <div class="col-6 ml-0">
+            <span>
+              {{individualQR.material}}<br>
+            </span>
+          </div>
+        </div>
       </div>
-      <button type="button" class="btn btn-primary"><i class="bx bx-bolt-circle me-1"></i>Generar</button>
     </div>
-  </form>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="closeEventModal()">Cerrar</button>
+    <div style="width: 80px;" class="product-cart-touchspin">
+      <form [formGroup]="formPrintEtiquetaLuna">
+        <div touch-spin ng-model="numberVariable" options="optionsVariable"></div>
+        <input class="form-control" type="number" min="1" step="1"
+          oninput="this.value = Math.round(this.value); this.value > 100? this.value = 100 : this.value"
+          formControlName="{{this.nEtiquetasPorLuna}}" (change)="generarEtiqueta()" max="100" maxlength="3">
+      </form>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="printEtiquetaIndividual()"><i class="uil-print me-1"></i>Descargar
+      códigos</button>
+  </div>
+
 </ng-template>
 
 <!-- Imprimir Etiqueta General Lunas - Scrollable Modal -->
@@ -321,9 +342,9 @@
             <div class="col-6">
               <!-- <ejs-barcodegenerator style="display: block;" #barcode id="barcode" width="225px" height="100px"
                 mode="SVG" type="Code128" value={{item.codigo_interno}}></ejs-barcodegenerator> -->
-                <ejs-qrcodegenerator style="display: block;"  #barcode id="barcode" width="225px" height="100px" mode="SVG" 
-                         value={{item.id_producto}}  [displayText] = 'displayTextMethod'>
-                    </ejs-qrcodegenerator>
+              <ejs-qrcodegenerator style="display: block;" #barcode id="barcode" width="225px" height="100px" mode="SVG"
+                value={{item.id_producto}} [displayText]='displayTextMethod'>
+              </ejs-qrcodegenerator>
             </div>
             <div class="col-6 ml-0">
               <span>
