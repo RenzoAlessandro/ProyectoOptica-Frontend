@@ -3,61 +3,72 @@
   <app-page-title title="Ventas" [breadcrumbItems]="breadCrumbItems"></app-page-title>
 
 
-  <div class="row mt-2 mb-2">
-    <div class="col-sm-12 col-md-6 justify-content-start">
-      <div class="row mb-2">
-        <div class="col-12 search-box chat-search-box">
-          <div class="position-relative">
-            <input type="text" class="form-control border-light rounded" placeholder="Buscar venta" name="searchTerm"
+  <div class="row">
+    <div class="col-md-6 mb-2">
+      <div class="form-inline">
+          <div class="search-box ml-2">
+            <div class="position-relative">
+              <input type="text" class="form-control border-light rounded" placeholder="Buscar venta" name="searchTerm"
               aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
-            <i class="uil uil-search search-icon"></i>
+              <i class="uil uil-search search-icon"></i>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-2">
+        <div>
+          <div class="btn-toolbar" role="toolbar">
+            <div class="col-12 col-md-12 d-grid  chat-search-box">
+              <div class="position-relative">
+                <form [formGroup]="formDateRange">
+                  <div class="input-daterange input-group">
+                    <input type="date" class="form-control" id="billing-fechanacimiento"
+                    placeholder="Seleccione la fecha" formControlName="{{this.fechaDesde}}" />
+                    <input type="date" class="form-control" id="billing-fechanacimiento"
+                    placeholder="Seleccione la fecha" formControlName="{{this.fechaHasta}}" />
+                    <button type="button" class="btn btn-primary" (click)="filterDateRange()"><i
+                        class="mdi mdi-filter-variant"></i></button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+<!--             <div class="col-6 d-grid">
+              <button type="button" class="btn btn-primary btn-block me-1" (click)="openScrollModal(scrollDataModalEGA)">
+                  <i class="uil uil-list-ul me-2"></i> Inventario
+              </button>
+            </div> -->
+            
           </div>
         </div>
+    </div>
+</div>
 
-      </div>
+
+<div class="row md-2">
+<!--   <div class="col-sm-6 col-md-6">
+    <div class="dataTables_length">
+      <label class="d-inline-flex align-items-center">Ventas<select name="sales"
+          class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+          <option [ngValue]="1">pagados</option>
+          <option [ngValue]="2">deudas</option>
+        </select> entradas
+      </label>
     </div>
-    <div class="col-sm-12 col-md-6 text-md-end">
-      <div class="dataTables_length">
-        <label class="d-inline-flex align-items-center">Mostrar<select name="pageSize" [(ngModel)]="service.pageSize"
-            class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
-            <option [ngValue]="10">10</option>
-            <option [ngValue]="25">25</option>
-            <option [ngValue]="50">50</option>
-            <option [ngValue]="100">100</option>
-          </select> entradas
-        </label>
-      </div>
-    </div>
+  </div> -->
+  <div class="col-sm-12 col-md-12">
+    <div class="dataTables_length text-md-end"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
+          [(ngModel)]="service.pageSize"
+          class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+          <option [ngValue]="10">10</option>
+          <option [ngValue]="25">25</option>
+          <option [ngValue]="50">50</option>
+          <option [ngValue]="100">100</option>
+        </select> entradas</label></div>
   </div>
+</div>
 
-
-  <div class="row mt-2 mb-2">
-    <div class="col-12 col-md-4 justify-content-start search-box chat-search-box">
-          <div class="position-relative">
-            <form [formGroup]="formDateRange">
-              <div class="input-daterange input-group">
-                <input type="date" class="form-control" id="billing-fechanacimiento"
-                placeholder="Seleccione la fecha" formControlName="{{this.fechaDesde}}" />
-                <input type="date" class="form-control" id="billing-fechanacimiento"
-                placeholder="Seleccione la fecha" formControlName="{{this.fechaHasta}}" />
-                <button type="button" class="btn btn-primary" (click)="filterDateRange()"><i
-                    class="mdi mdi-filter-variant"></i></button>
-              </div>
-            </form>
-          </div>
-
-    </div>
-    <div class="col-sm-12 col-md-4 text-md-end">
-      <div class="dataTables_length">
-        <label class="d-inline-flex align-items-center">Ventas<select name="sales"
-            class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
-            <option [ngValue]="1">pagados</option>
-            <option [ngValue]="2">deudas</option>
-          </select> entradas
-        </label>
-      </div>
-    </div>
-  </div>
 
   <div class="row">
     <div class="col-12">
