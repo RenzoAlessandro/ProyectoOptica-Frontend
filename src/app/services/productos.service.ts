@@ -25,12 +25,23 @@ export class ProductosService {
     return this.http.get<any>(environment.urlBackend+'getAllLunas');
   }
 
+  /*
+  *Obtiene las monturas para las ventas (stock > 0) 
+  */
   getMonturasforSale(idSede:string): Observable<any> {
     return this.http.get<any>(environment.urlBackend+'getAllMonturasForVenta/'+idSede);
   }
+
+  /*
+  *Obtiene los accesorios para las ventas (stock > 0) 
+  */
   getAccesoriosforSale(idSede:string): Observable<any> {
     return this.http.get<any>(environment.urlBackend+'getAllAccesoriosForVenta/'+idSede);
   }
+
+  /*
+  *Obtiene lunas para las ventas (stock > 0) 
+  */
   getLunasforSale(idSede:string): Observable<any> {
     return this.http.get<any>(environment.urlBackend+'getAllLunasForVenta/'+idSede);
   }
@@ -73,6 +84,9 @@ export class ProductosService {
     return this.http.put<any>(environment.urlBackend+'editAccesorioById/'+idAccesorio,accesorio);
   }
 
+  /*
+  *Obtiene los productos sin importar el stock por id sede y nombre del producto 
+  */
   getProductosbySede(idSede:string, productName: string): Observable<any> {
     return this.http.get<any>(environment.urlBackend+'getProductBySede/'+idSede +'/'+productName);
   }

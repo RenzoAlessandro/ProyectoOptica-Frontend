@@ -73,13 +73,16 @@
                         <ngb-highlight [result]="data.monto|currency:'S/.'" [term]="serviceI.searchTerm"></ngb-highlight>
                       </td>
                       <td>
+                        <ngb-highlight [result]="data.metodo_pago" [term]="serviceI.searchTerm"></ngb-highlight>
+                      </td>
+                      <td>
                         <ngb-highlight [result]="data.descripcion" [term]="serviceI.searchTerm"></ngb-highlight>
                       </td>
                       <td>
-                        <ngb-highlight [result]="data.fecha_creacion_caja| date: 'dd/MM/yyyy'" [term]="serviceI.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="data.fecha_creacion_caja" [term]="serviceI.searchTerm"></ngb-highlight>
                       </td>
                       <td>
-                        <ngb-highlight [result]="data.encargado" [term]="serviceI.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="'-'" [term]="serviceI.searchTerm"></ngb-highlight>
                       </td>
                       <td>
                         <!-- <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i
@@ -166,10 +169,13 @@
                         <ngb-highlight [result]="data.monto|currency:'S/.'" [term]="serviceE.searchTerm"></ngb-highlight>
                       </td>
                       <td>
+                        <ngb-highlight [result]="data.metodo" [term]="serviceE.searchTerm"></ngb-highlight>
+                      </td>
+                      <td>
                         <ngb-highlight [result]="data.descripcion" [term]="serviceE.searchTerm"></ngb-highlight>
                       </td>
                       <td>
-                        <ngb-highlight [result]="data.fecha_creacion_caja| date: 'dd/MM/yyyy'" [term]="serviceE.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="data.fecha_creacion_caja" [term]="serviceE.searchTerm"></ngb-highlight>
                       </td>
                       <td>
                         <ngb-highlight [result]="data.encargado" [term]="serviceE.searchTerm"></ngb-highlight>

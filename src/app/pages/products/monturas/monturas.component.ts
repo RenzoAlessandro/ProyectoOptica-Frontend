@@ -140,7 +140,7 @@ export class MonturasComponent implements OnInit {
     })
 
     this.formPrintEtiquetaMontura = this.fb.group({
-      [this.nEtiquetasPorMontura]: [1, [
+      [this.nEtiquetasPorMontura]: [10, [
         Validators.required,
         Validators.pattern(this.numberPattern)
       ]]
@@ -195,7 +195,7 @@ export class MonturasComponent implements OnInit {
     this.individualQR = data;
     this.nQR = Number(this.fEM(this.nEtiquetasPorMontura).value);
     console.log(this.nQR)
-    this.modalService.open(openDataModal, { windowClass:'modal-holder', centered: true });
+    this.modalService.open(openDataModal, {  scrollable: true });
   }
 
   /**
@@ -226,7 +226,7 @@ export class MonturasComponent implements OnInit {
    * Close event modal
    */
   closeEventModal() {
-  
+    this.fEM(this.nEtiquetasPorMontura).setValue(1);
     this.modalService.dismissAll();
   }
 

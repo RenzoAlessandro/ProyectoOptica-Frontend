@@ -19,6 +19,7 @@ import { Options } from 'ng5-slider';
 import { SedesModel } from 'src/models/sedes';
 import { SedeService } from 'src/app/services/sede.service';
 import { DisplayTextModel } from '@syncfusion/ej2-angular-barcode-generator';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-accesorios',
@@ -42,7 +43,9 @@ export class AccesoriosComponent implements OnInit {
   submitted = false;
 
   //formulario accesorios
+  formSedes: FormGroup;
   formAccesorios: FormGroup;
+  nombre_sedes: string = "campoSede";
   nombre_accesorio: string = "campoNombreAccesorio";
   codigo_accesorio: string = "campoCodigoAccesorio";
   cantidad_accesorio: string = "campoCantidadAccesorio";
@@ -73,13 +76,14 @@ export class AccesoriosComponent implements OnInit {
   checkedAccesoriosList= [];
   accesorios$: Observable<AccesorioModel[]>;
   isMasterSel:boolean = false;
+  idSede:string = "";
 
   constructor(
     public service: CustomerService,
     private modalService: NgbModal,
     private fb: FormBuilder,
     private accesorioService: ProductosService,
-    private sedeService: SedeService
+    private usuarioService: UsuarioService
   ) {
     this.accesorios$ = service.customers$;
     this.total$ = service.total$;
@@ -96,6 +100,7 @@ export class AccesoriosComponent implements OnInit {
 
   getListSedes() {
     this.listSedes = JSON.parse(localStorage.getItem('sedes'));
+    this.idSede = this.usuarioService.getSedebyUser();
   }
 
   crearFormulario() {
@@ -117,15 +122,18 @@ export class AccesoriosComponent implements OnInit {
         Validators.required,
         Validators.pattern(this.decimalPattern)
       ]]
-    })
+    });
 
     this.formPrintEtiquetaAccesorio = this.fb.group({
       [this.nEtiquetasPorAccesorio]: [null, [
         Validators.required,
         Validators.pattern(this.numberPattern)
       ]]
-    })
+    });
 
+    this.formSedes = this.fb.group({
+      [this.nombre_sedes]: [this.idSede]
+    })
   }
 
   onSort({ column, direction }: SortEvent) {
@@ -142,6 +150,10 @@ export class AccesoriosComponent implements OnInit {
 
   f(campo: string) {
     return this.formAccesorios.get(campo);
+  }
+
+  fS(campo: string) {
+    return this.formSedes.get(campo);
   }
   /**
    * Open center modal
@@ -223,7 +235,7 @@ export class AccesoriosComponent implements OnInit {
           Sweetalert("close", null);
           Sweetalert("success", "Accesorio eliminado");
           console.log("montura borrado");
-          this.updateListAccesorios();
+          this.updateListAccesorios(this.idSede);
         }, error => {
           Sweetalert("close", null);
           Sweetalert("error", "Error en la conexión");
@@ -261,7 +273,7 @@ export class AccesoriosComponent implements OnInit {
         this.modalService.dismissAll();
         Sweetalert("close", null);
         Sweetalert("success", "Accesorio actualizado");
-        this.updateListAccesorios();
+        this.updateListAccesorios(this.idSede);
       }, error => {
         Sweetalert("close", null);
         Sweetalert("error", "Error en la conexión");
@@ -273,10 +285,15 @@ export class AccesoriosComponent implements OnInit {
     }
   }
 
-  updateListAccesorios() {
-    this.accesorioService.getAccesorios().subscribe( res=>{
+  updateListAccesorios(idSede:string) {
+    this.accesorioService.getProductosbySede(idSede,'accesorio').subscribe( res=>{
       this.service.updateTable(res);
     })
+  }
+
+  changeSede() {
+    this.idSede = this.fS(this.nombre_sedes).value;
+    this.updateListAccesorios(this.idSede);
   }
 
   /**
