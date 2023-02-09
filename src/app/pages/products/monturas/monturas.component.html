@@ -381,9 +381,9 @@
       <button type="button" class="btn btn-danger" (click)="closeEventModal()">Cerrar</button>
       <div style="width: 80px;" class="product-cart-touchspin">
         <div touch-spin ng-model="numberVariable" options="optionsVariable"></div>
-        <input class="form-control" type="number" min="0" step="1" oninput="this.value = Math.round(this.value);" formControlName="{{this.nEtiquetasPorMontura}}">
+        <input class="form-control" type="number" min="0" step="1" oninput="this.value = Math.round(this.value);" formControlName="{{this.nEtiquetasPorMontura}}" (change)="generarEtiqueta()">
       </div>
-      <button type="button" class="btn btn-primary"><i class="bx bx-bolt-circle me-1" (click)="generarEtiqueta()"></i>Generar</button>
+      <button type="button" class="btn btn-primary"><i class="bx bx-bolt-circle me-1" (click)="printEtiquetaIndividual()"></i>Generar</button>
     </div>
   </form>
 </ng-template>
