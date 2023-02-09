@@ -140,7 +140,7 @@ export class MonturasComponent implements OnInit {
     })
 
     this.formPrintEtiquetaMontura = this.fb.group({
-      [this.nEtiquetasPorMontura]: [10, [
+      [this.nEtiquetasPorMontura]: [1, [
         Validators.required,
         Validators.pattern(this.numberPattern)
       ]]
@@ -195,7 +195,7 @@ export class MonturasComponent implements OnInit {
     this.individualQR = data;
     this.nQR = Number(this.fEM(this.nEtiquetasPorMontura).value);
     console.log(this.nQR)
-    this.modalService.open(openDataModal, {  scrollable: true });
+    this.modalService.open(openDataModal, { windowClass:'modal-holder', centered: true, scrollable: true });
   }
 
   /**
@@ -407,4 +407,42 @@ get formPEM() {
   generarEtiqueta() {
     this.nQR = Number(this.fEM(this.nEtiquetasPorMontura).value)
   }
+
+  printEtiquetaIndividual() {
+    console.log("entre")
+    let DATA: any = document.getElementById('htmlData2');
+    console.log(DATA.children.length)
+    //var HTML_Width = document.getElementById("htmlData").offsetWidth 
+		//var HTML_Height = document.getElementById("htmlData").offsetHeight
+    var HTML_Width = 3
+    var HTML_Height = 0.57 * this.nQR
+		var top_left_margin = 0;
+		//var PDF_Width = HTML_Width+(top_left_margin*2);
+		//var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
+    var PDF_Width = 4
+    var PDF_Height = 0.57 
+		var canvas_image_width = HTML_Width;
+		var canvas_image_height = HTML_Height;
+		
+    console.log(HTML_Width, HTML_Height)
+		//var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
+    var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)
+    console.log(totalPDFPages)
+    
+    html2canvas(DATA).then((canvas) => {
+      const nombreSede = this.listSedes.find(res => (res.id_sede == this.usuarioService.getSedebyUser()));
+      console.log(nombreSede)
+      var imgData = canvas.toDataURL("image/jpeg", 1.0);
+			var pdf = new jsPDF('l', 'in',  [PDF_Width, PDF_Height]);
+		  pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+			pdf.deletePage(1)
+			
+			for (var i = 0; i < totalPDFPages; i++) { 
+				pdf.addPage([PDF_Width, PDF_Height]);
+				pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+			}
+			pdf.save("Monturas_"+nombreSede.nombre_sede+".pdf");
+    }); 
+  }
+  
 }
