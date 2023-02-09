@@ -18,17 +18,22 @@
     <div class="col-md-6 mb-2">
         <div>
           <div class="btn-toolbar" role="toolbar">
-            <div class="col-12 col-md-4 d-grid">
+
+            <div class="col-12 col-md-6 d-grid mb-2">
               <button type="button" class="btn btn-success btn-block me-1" (click)="openScrollModal(scrollDataModalEGL)" [disabled]="this.checkedLunasList.length==0">
                   <i class="uil uil-tag-alt me-2"></i> Etiquetas
               </button>
             </div>
 
-<!--             <div class="col-6 d-grid">
-              <button type="button" class="btn btn-primary btn-block me-1" (click)="openScrollModal(scrollDataModalEGL)">
-                  <i class="uil uil-list-ul me-2"></i> Inventario
-              </button>
-            </div> -->
+            <div class="col-12 col-md-6 d-grid">
+              
+                <div ngbDropdown>
+                  <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
+                  bindLabel="nombre_sede">
+                  </ng-select>
+                </div>
+              
+            </div>
             
           </div>
         </div>
@@ -36,17 +41,10 @@
 </div>
 
 <div class="row md-2">
-  <div class="col-sm-6 col-md-6">
-      <div class="mb-3">
-        <!-- Default dropup button -->
-        <div class="btn-group" ngbDropdown>
-          <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
-            bindLabel="nombre_sede">
-          </ng-select>
-        </div>
-      </div>
-    </div>
-  <div class="col-sm-6 col-md-6">
+<!--   <div class="col-sm-6 col-md-6">
+
+  </div> -->
+  <div class="col-sm-12 col-md-12">
     <div class="dataTables_length text-md-end"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
           [(ngModel)]="service.pageSize"
           class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
