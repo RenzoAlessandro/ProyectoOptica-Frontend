@@ -165,7 +165,7 @@ export class AccesoriosComponent implements OnInit {
    * @param openDataModal large modal data
    */
   openModalEtiqueta(openDataModal: any) {
-    this.modalService.open(openDataModal, { windowClass:'modal-holder', centered: true });
+    this.modalService.open(openDataModal, { windowClass:'modal-holder', centered: true, scrollable: true });
   }
 
   /**
