@@ -5,153 +5,154 @@
   <div class="row">
     <div class="col-md-6 mb-2">
       <div class="form-inline">
-          <div class="search-box ml-2">
-            <div class="position-relative">
-              <input type="text" class="form-control border-light rounded" placeholder="Buscar montura" name="searchTerm"
-                aria-controls="tickets-table" [(ngModel)]="service.searchTerm" >
-              <i class="uil uil-search search-icon"></i>
-            </div>
+        <div class="search-box ml-2">
+          <div class="position-relative">
+            <input type="text" class="form-control border-light rounded" placeholder="Buscar montura" name="searchTerm"
+              aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
+            <i class="uil uil-search search-icon"></i>
           </div>
+        </div>
       </div>
     </div>
 
     <div class="col-md-6 mb-2">
-        <div>
-          <div class="btn-toolbar" role="toolbar">
-            <div class="col-12 col-md-4 d-grid">
-              <button type="button" class="btn btn-success btn-block me-1" (click)="openScrollModalEtiquetas(scrollDataModalEGM)" [disabled]="this.checkedMonturasList.length==0">
-                  <i class="uil uil-tag-alt me-2"></i> Etiquetas
-              </button>
-            </div>
+      <div>
+        <div class="btn-toolbar" role="toolbar">
+          <div class="col-12 col-md-4 d-grid">
+            <button type="button" class="btn btn-success btn-block me-1"
+              (click)="openScrollModalEtiquetas(scrollDataModalEGM)" [disabled]="this.checkedMonturasList.length==0">
+              <i class="uil uil-tag-alt me-2"></i> Etiquetas
+            </button>
+          </div>
 
-<!--             <div class="col-6 d-grid">
+          <!--             <div class="col-6 d-grid">
               <button type="button" class="btn btn-primary btn-block me-1" (click)="openScrollModalInventario(scrollDataModalListaInventario)">
                   <i class="uil uil-list-ul me-2"></i> Inventario
               </button>
             </div> -->
-          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<div class="row md-2">
-  <div class="col-sm-6 col-md-6">
+  <div class="row md-2">
+    <div class="col-sm-6 col-md-6">
       <div class="mb-3">
         <!-- Default dropup button -->
         <div class="btn-group" ngbDropdown>
-          <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
-            bindLabel="nombre_sede">
+          <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede" bindLabel="nombre_sede">
           </ng-select>
         </div>
       </div>
+    </div>
+    <div class="col-sm-6 col-md-6">
+      <div class="dataTables_length text-md-end"><label class="d-inline-flex align-items-center">Mostrar<select
+            name="pageSize" [(ngModel)]="service.pageSize"
+            class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+            <option [ngValue]="10">10</option>
+            <option [ngValue]="25">25</option>
+            <option [ngValue]="50">50</option>
+            <option [ngValue]="100">100</option>
+            <option [ngValue]="200">200</option>
+          </select> entradas</label></div>
+    </div>
   </div>
-  <div class="col-sm-6 col-md-6">
-    <div class="dataTables_length text-md-end"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
-          [(ngModel)]="service.pageSize"
-          class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
-          <option [ngValue]="10">10</option>
-          <option [ngValue]="25">25</option>
-          <option [ngValue]="50">50</option>
-          <option [ngValue]="100">100</option>
-          <option [ngValue]="200">200</option>
-        </select> entradas</label></div>
-  </div>
-</div>
 
   <div class="row">
     <div class="col-12">
       <div class="table-responsive mb-4">
-          <form>
-            <table class="table datatables table-centered table-nowrap mb-0 align-middle table-card-list"style="border-spacing: 0 12px; width: 100%;">
-              <thead>
-                <tr class="bg-transparent">
-                  <th style="width: 20px;">
-                    <div class="form-check text-center">
-                      <input type="checkbox" class="form-check-input" id="monturascheck" (change)="checkUncheckAll()" [(ngModel)]="isMasterSel" [ngModelOptions]="{standalone: true}">
-                      <label class="form-check-label" for="monturascheck"></label>
-                    </div>
-                  </th>
-                  <th scope="col" sortable="id" (sort)="onSort($event)">Ord.</th>
-                  <th scope="col" sortable="material" (sort)="onSort($event)">Material</th>
-                  <th scope="col" sortable="marca" (sort)="onSort($event)">Marca</th>
-                  <th scope="col" sortable="codigo" (sort)="onSort($event)">Cód.</th>
-                  <!-- <th scope="col" sortable="codigo_2_interno" (sort)="onSort($event)">Cód. int.</th> -->
-                  <th scope="col" sortable="talla" (sort)="onSort($event)">Talla</th>
-                  <th scope="col" sortable="color" (sort)="onSort($event)">Color</th>
-                  <th scope="col" sortable="cantidad" (sort)="onSort($event)">Stock</th>
-                  <th scope="col" sortable="precio_montura_c" (sort)="onSort($event)">P. Compra</th>
-                  <th scope="col" sortable="precio_montura_v" (sort)="onSort($event)">P. Venta</th>
-                  <!-- <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th> -->
-                  <th scope="col" sortable="fecha_creacion_monturas" (sort)="onSort($event)">Fecha de ing.</th>
-                  <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
-                  <th style="width: 170px;">Acción</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let data of monturas$ | async; let i = index">
-                  <td>
-                    <div class="form-check text-center">
-                      <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input" 
-                      [(ngModel)]="data.isSelected" [ngModelOptions]="{standalone: true}"
-                        (change)="isAllSelected()"/>
-                      <label class="form-check-label" for="ordercheck{{data.index}}">&nbsp;</label>
-                    </div>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="i+1" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="data.material" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="data.marca" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="data.codigo" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-<!--                   <td>
+        <form>
+          <table class="table datatables table-centered table-nowrap mb-0 align-middle table-card-list"
+            style="border-spacing: 0 12px; width: 100%;">
+            <thead>
+              <tr class="bg-transparent">
+                <th style="width: 20px;">
+                  <div class="form-check text-center">
+                    <input type="checkbox" class="form-check-input" id="monturascheck" (change)="checkUncheckAll()"
+                      [(ngModel)]="isMasterSel" [ngModelOptions]="{standalone: true}">
+                    <label class="form-check-label" for="monturascheck"></label>
+                  </div>
+                </th>
+                <th scope="col" sortable="id" (sort)="onSort($event)">Ord.</th>
+                <th scope="col" sortable="material" (sort)="onSort($event)">Material</th>
+                <th scope="col" sortable="marca" (sort)="onSort($event)">Marca</th>
+                <th scope="col" sortable="codigo" (sort)="onSort($event)">Cód.</th>
+                <!-- <th scope="col" sortable="codigo_2_interno" (sort)="onSort($event)">Cód. int.</th> -->
+                <th scope="col" sortable="talla" (sort)="onSort($event)">Talla</th>
+                <th scope="col" sortable="color" (sort)="onSort($event)">Color</th>
+                <th scope="col" sortable="cantidad" (sort)="onSort($event)">Stock</th>
+                <th scope="col" sortable="precio_montura_c" (sort)="onSort($event)">P. Compra</th>
+                <th scope="col" sortable="precio_montura_v" (sort)="onSort($event)">P. Venta</th>
+                <!-- <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th> -->
+                <th scope="col" sortable="fecha_creacion_monturas" (sort)="onSort($event)">Fecha de ing.</th>
+                <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
+                <th style="width: 170px;">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of monturas$ | async; let i = index">
+                <td>
+                  <div class="form-check text-center">
+                    <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input"
+                      [(ngModel)]="data.isSelected" [ngModelOptions]="{standalone: true}" (change)="isAllSelected()" />
+                    <label class="form-check-label" for="ordercheck{{data.index}}">&nbsp;</label>
+                  </div>
+                </td>
+                <td>
+                  <ngb-highlight [result]="i+1" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.material" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.marca" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.codigo" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <!--                   <td>
                     <ngb-highlight [result]="data.codigo_interno" [term]="service.searchTerm"></ngb-highlight>
                   </td> -->
-                  <td>
-                    <ngb-highlight [result]="data.talla" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="data.color" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="data.cantidad" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="data.precio_montura_c" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="data.precio_montura_v" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-<!--                   <td>
+                <td>
+                  <ngb-highlight [result]="data.talla" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.color" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.cantidad" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.precio_montura_c" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.precio_montura_v" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <!--                   <td>
                     <ngb-highlight [result]="" [term]="service.searchTerm"></ngb-highlight>
                   </td> -->
-                  <td>
-                    <ngb-highlight [result]="data.fecha_creacion_monturas | date: 'dd/MM/yyyy'"
-                      [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-<!--                   <td>
+                <td>
+                  <ngb-highlight [result]="data.fecha_creacion_monturas | date: 'dd/MM/yyyy'"
+                    [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <!--                   <td>
                     <span class="badge bg-pill bg-soft-success font-size-12"
                       [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
                   </td> -->
-                  <td>
-                    <a (click)="openModalEtiqueta(centerModalEIM,data)"  class="px-2 text-success" placement="top" ngbTooltip="Etiqueta"><i
-                      class="uil-tag-alt font-size-18"></i></a>
-                    <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top"
-                      ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
-                    <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar" (click)="eliminar(data)"><i
-                        class="uil uil-trash-alt font-size-18"></i></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </form>
+                <td>
+                  <a (click)="openModalEtiqueta(centerModalEIM,data)" class="px-2 text-success" placement="top"
+                    ngbTooltip="Etiqueta"><i class="uil-tag-alt font-size-18"></i></a>
+                  <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top"
+                    ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
+                  <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar" (click)="eliminar(data)"><i
+                      class="uil uil-trash-alt font-size-18"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
       </div>
-      
+
       <div class="row" *ngIf="!mostrarSpinner">
         <div class="col-12">
           <div class="text-center my-3">
@@ -169,7 +170,8 @@
         <!-- Pagination -->
         <div class="col-12">
           <div class="text-md-end float-md-end pagination-rounded">
-            <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
+            <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize"
+              [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
             </ngb-pagination>
           </div>
         </div>
@@ -190,7 +192,7 @@
   </div>
   <div class="modal-body p-4">
     <form (ngSubmit)="saveEvent()" [formGroup]="formMontura">
-      <p class="card-title-desc text-danger">* Campo requerido</p> 
+      <p class="card-title-desc text-danger">* Campo requerido</p>
       <!-- <div class="row">
             <div class="col-6">
               <div class="mb-3">
@@ -208,7 +210,8 @@
           <div class="mb-3">
             <label class="control-label">Material *</label>
             <input class="form-control" placeholder="Material de la montura" type="text" name="title"
-              formControlName="{{this.material_montura}}" [ngClass]="{'is-invalid': formEM.campoMaterialMontura.invalid && (formEM.campoMaterialMontura.dirty || formEM.campoMaterialMontura.touched)}"/>
+              formControlName="{{this.material_montura}}"
+              [ngClass]="{'is-invalid': formEM.campoMaterialMontura.invalid && (formEM.campoMaterialMontura.dirty || formEM.campoMaterialMontura.touched)}" />
             <div class="invalid-feedback">
               <div *ngIf="formEM.campoMaterialMontura.errors?.required">
                 Campo requerido
@@ -220,7 +223,8 @@
           <div class="mb-3">
             <label class="control-label">Marca *</label>
             <input class="form-control" placeholder="Marca de la montura" type="text" name="title"
-              formControlName="{{this.marca_montura}}" [ngClass]="{'is-invalid': formEM.campoMarcaMontura.invalid && (formEM.campoMarcaMontura.dirty || formEM.campoMarcaMontura.touched)}"/>
+              formControlName="{{this.marca_montura}}"
+              [ngClass]="{'is-invalid': formEM.campoMarcaMontura.invalid && (formEM.campoMarcaMontura.dirty || formEM.campoMarcaMontura.touched)}" />
             <div class="invalid-feedback">
               <div *ngIf="formEM.campoMarcaMontura.errors?.required">
                 Campo requerido
@@ -235,7 +239,8 @@
           <div class="mb-3">
             <label class="control-label">Código int. *</label>
             <input class="form-control" placeholder="Código" type="text" name="title"
-              formControlName="{{this.codigo_montura}}" [ngClass]="{'is-invalid': formEM.campoCodigoMontura.invalid && (formEM.campoCodigoMontura.dirty || formEM.campoCodigoMontura.touched)}"/>
+              formControlName="{{this.codigo_montura}}"
+              [ngClass]="{'is-invalid': formEM.campoCodigoMontura.invalid && (formEM.campoCodigoMontura.dirty || formEM.campoCodigoMontura.touched)}" />
             <div class="invalid-feedback">
               <div *ngIf="formEM.campoCodigoMontura.errors?.required">
                 Campo requerido
@@ -257,7 +262,8 @@
           <div class="mb-3">
             <label class="control-label">Talla *</label>
             <input class="form-control" placeholder="Talla de la montura" type="text" name="title"
-              formControlName="{{this.talla_montura}}" [ngClass]="{'is-invalid': formEM.campoTallaMontura.invalid && (formEM.campoTallaMontura.dirty || formEM.campoTallaMontura.touched)}"/>
+              formControlName="{{this.talla_montura}}"
+              [ngClass]="{'is-invalid': formEM.campoTallaMontura.invalid && (formEM.campoTallaMontura.dirty || formEM.campoTallaMontura.touched)}" />
             <div class="invalid-feedback">
               <div *ngIf="formEM.campoTallaMontura.errors?.required">
                 Campo requerido
@@ -269,7 +275,8 @@
           <div class="mb-3">
             <label class="control-label">Color *</label>
             <input class="form-control" placeholder="Color de la montura" type="text" name="title"
-              formControlName="{{this.color_montura}}" [ngClass]="{'is-invalid': formEM.campoColorMontura.invalid && (formEM.campoColorMontura.dirty || formEM.campoColorMontura.touched)}"/>
+              formControlName="{{this.color_montura}}"
+              [ngClass]="{'is-invalid': formEM.campoColorMontura.invalid && (formEM.campoColorMontura.dirty || formEM.campoColorMontura.touched)}" />
             <div class="invalid-feedback">
               <div *ngIf="formEM.campoColorMontura.errors?.required">
                 Campo requerido
@@ -286,7 +293,8 @@
           <div class="mb-3">
             <label class="control-label">Stock *</label>
             <input class="form-control" placeholder="Cantidad" type="text" name="title"
-              formControlName="{{this.cantidad_montura}}" [ngClass]="{'is-invalid': formEM.campoCantidadMontura.invalid && (formEM.campoCantidadMontura.dirty || formEM.campoCantidadMontura.touched)}"/>
+              formControlName="{{this.cantidad_montura}}"
+              [ngClass]="{'is-invalid': formEM.campoCantidadMontura.invalid && (formEM.campoCantidadMontura.dirty || formEM.campoCantidadMontura.touched)}" />
             <div class="invalid-feedback">
               <div *ngIf="formEM.campoCantidadMontura.errors?.required">
                 Campo requerido
@@ -301,7 +309,8 @@
           <div class="mb-3">
             <label class="control-label">Precio de Compra *</label>
             <input class="form-control" placeholder="Precio" type="text" name="title"
-              formControlName="{{this.precio_compra_montura}}" [ngClass]="{'is-invalid': formEM.campoCompraMontura.invalid && (formEM.campoCompraMontura.dirty || formEM.campoCompraMontura.touched)}"/>
+              formControlName="{{this.precio_compra_montura}}"
+              [ngClass]="{'is-invalid': formEM.campoCompraMontura.invalid && (formEM.campoCompraMontura.dirty || formEM.campoCompraMontura.touched)}" />
             <div class="invalid-feedback">
               <div *ngIf="formEM.campoCompraMontura.errors?.required">
                 Campo requerido
@@ -316,7 +325,8 @@
           <div class="mb-3">
             <label class="control-label">Precio de Venta *</label>
             <input class="form-control" placeholder="Precio" type="text" name="title"
-              formControlName="{{this.precio_venta_montura}}" [ngClass]="{'is-invalid': formEM.campoVentaMontura.invalid && (formEM.campoVentaMontura.dirty || formEM.campoVentaMontura.touched)}"/>
+              formControlName="{{this.precio_venta_montura}}"
+              [ngClass]="{'is-invalid': formEM.campoVentaMontura.invalid && (formEM.campoVentaMontura.dirty || formEM.campoVentaMontura.touched)}" />
             <div class="invalid-feedback">
               <span *ngIf="formEM.campoVentaMontura.errors?.required">
                 Campo requerido
@@ -349,43 +359,47 @@
     <h5 class="modal-title mt-0">Imprimir Etiqueta por Montura</h5>
     <button type="button" class="btn-close" aria-hidden="true" (click)="closeEventModal()"></button>
   </div>
-  <form [formGroup]="formPrintEtiquetaMontura">
-    <div class="modal-body">
-      <div id="htmlData2">
-          <div *ngFor="let cant of [].constructor(nQR)">
-            <div class="row align-items-center">
-              <div class="col-6">
-                <ejs-qrcodegenerator style="display: block;"  #barcode id="barcode" width="225px" height="100px" mode="SVG" 
-                           value={{individualQR.id_producto}}  [displayText] = 'displayTextMethod'>
-                      </ejs-qrcodegenerator>
-              </div>
-              <div class="col-6 ml-0">
-                <span>
-                  {{individualQR.codigo}}<br>
-                </span>
-                <span>
-                  {{individualQR.marca}}<br>
-                </span>
-                <span>
-                  {{individualQR.talla}}<br>
-                </span>
-                <span>
-                  {{individualQR.color}}
-                </span>
-              </div>
-            </div>
+  <div class="modal-body">
+
+    <div id="htmlData2">
+      <div *ngFor="let cant of [].constructor(nQR)">
+        <div class="row align-items-center">
+          <div class="col-6">
+            <ejs-qrcodegenerator style="display: block;" #barcode id="barcode" width="225px" height="100px" mode="SVG"
+              value={{individualQR.id_producto}} [displayText]='displayTextMethod'>
+            </ejs-qrcodegenerator>
           </div>
+          <div class="col-6 ml-0">
+            <span>
+              {{individualQR.codigo}}<br>
+            </span>
+            <span>
+              {{individualQR.marca}}<br>
+            </span>
+            <span>
+              {{individualQR.talla}}<br>
+            </span>
+            <span>
+              {{individualQR.color}}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-danger" (click)="closeEventModal()">Cerrar</button>
-      <div style="width: 80px;" class="product-cart-touchspin">
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="closeEventModal()">Cerrar</button>
+    <div style="width: 80px;" class="product-cart-touchspin">
+      <form [formGroup]="formPrintEtiquetaMontura">
         <div touch-spin ng-model="numberVariable" options="optionsVariable"></div>
-        <input class="form-control" type="number" min="0" step="1" oninput="this.value = Math.round(this.value);" formControlName="{{this.nEtiquetasPorMontura}}" (change)="generarEtiqueta()">
-      </div>
-      <button type="button" class="btn btn-primary"><i class="bx bx-bolt-circle me-1" (click)="printEtiquetaIndividual()"></i>Generar</button>
+        <input class="form-control" type="number" min="1" step="1" oninput="this.value = Math.round(this.value); this.value > 100? this.value = 100 : this.value"
+          formControlName="{{this.nEtiquetasPorMontura}}" (change)="generarEtiqueta()" max = "100" maxlength="3">
+      </form>
     </div>
-  </form>
+    <button type="button" class="btn btn-primary"><i class="bx bx-bolt-circle me-1"
+        (click)="printEtiquetaIndividual()"></i>Generar</button>
+  </div>
+
 </ng-template>
 
 
@@ -403,9 +417,9 @@
         <div *ngFor="let cant of [].constructor(item.cantidad)">
           <div class="row align-items-center">
             <div class="col-6">
-              <ejs-qrcodegenerator style="display: block;"  #barcode id="barcode" width="225px" height="100px" mode="SVG" 
-                         value={{item.id_producto}}  [displayText] = 'displayTextMethod'>
-                    </ejs-qrcodegenerator>
+              <ejs-qrcodegenerator style="display: block;" #barcode id="barcode" width="225px" height="100px" mode="SVG"
+                value={{item.id_producto}} [displayText]='displayTextMethod'>
+              </ejs-qrcodegenerator>
             </div>
             <div class="col-6 ml-0">
               <span>
@@ -451,16 +465,16 @@
             <!-- Search -->
             <div class="col-sm-12 col-md-12 search-box chat-search-box">
               <div class="position-relative">
-                <ng-autocomplete #autocomplete [data]="listMonturas" [searchKeyword]="keyword" placeholder="Buscar Montura"
-                  (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)'
+                <ng-autocomplete #autocomplete [data]="listMonturas" [searchKeyword]="keyword"
+                  placeholder="Buscar Montura" (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)'
                   (inputFocused)='onFocused($event)' historyIdentifier="" [itemTemplate]="itemTemplate"
                   [notFoundTemplate]="notFoundTemplate" (keyup.enter)="selectEvent($event)" focusFirst="true">
                 </ng-autocomplete>
-  
+
                 <ng-template #itemTemplate let-item>
                   <a [innerHTML]="item.codigo_interno"></a>
                 </ng-template>
-  
+
                 <ng-template #notFoundTemplate let-notFound>
                   <div [innerHTML]="notFound"></div>
                 </ng-template>
@@ -475,35 +489,36 @@
     <div class="row">
       <div class="col-12">
         <div class="table-responsive mb-4">
-            <form>
-              <table class="table datatables table-centered table-nowrap mb-0 align-middle table-card-list"style="border-spacing: 0 12px; width: 100%;">
-                <thead>
-                  <tr class="bg-transparent">
-<!--                     <th style="width: 20px;">
+          <form>
+            <table class="table datatables table-centered table-nowrap mb-0 align-middle table-card-list"
+              style="border-spacing: 0 12px; width: 100%;">
+              <thead>
+                <tr class="bg-transparent">
+                  <!--                     <th style="width: 20px;">
                       <div class="form-check text-center">
                         <input type="checkbox" class="form-check-input" id="monturascheck" (change)="checkUncheckAll()" [(ngModel)]="isMasterSel" [ngModelOptions]="{standalone: true}">
                         <label class="form-check-label" for="monturascheck"></label>
                       </div>
                     </th> -->
-                    <th scope="col" sortable="id" (sort)="onSort($event)">Ord.</th>
-                    <th scope="col" sortable="material" (sort)="onSort($event)">Material</th>
-                    <th scope="col" sortable="marca" (sort)="onSort($event)">Marca</th>
-                    <th scope="col" sortable="codigo_1" (sort)="onSort($event)">Cód.</th>
-                    <th scope="col" sortable="codigo_2_interno" (sort)="onSort($event)">Cód. int.</th>
-                    <th scope="col" sortable="talla" (sort)="onSort($event)">Talla</th>
-                    <th scope="col" sortable="color" (sort)="onSort($event)">Color</th>
-                    <th scope="col" sortable="cantidad" (sort)="onSort($event)">Stock</th>
-                    <th scope="col" sortable="precio_compra" (sort)="onSort($event)">P. Compra</th>
-                    <th scope="col" sortable="precio_venta" (sort)="onSort($event)">P. Venta</th>
-                    <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th>
-                    <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de ing.</th>
-                    <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th>
-                    <th style="width: 170px;">Acción</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let data of inventarioMonturas ; let i = index">
-<!--                     <td>
+                  <th scope="col" sortable="id" (sort)="onSort($event)">Ord.</th>
+                  <th scope="col" sortable="material" (sort)="onSort($event)">Material</th>
+                  <th scope="col" sortable="marca" (sort)="onSort($event)">Marca</th>
+                  <th scope="col" sortable="codigo_1" (sort)="onSort($event)">Cód.</th>
+                  <th scope="col" sortable="codigo_2_interno" (sort)="onSort($event)">Cód. int.</th>
+                  <th scope="col" sortable="talla" (sort)="onSort($event)">Talla</th>
+                  <th scope="col" sortable="color" (sort)="onSort($event)">Color</th>
+                  <th scope="col" sortable="cantidad" (sort)="onSort($event)">Stock</th>
+                  <th scope="col" sortable="precio_compra" (sort)="onSort($event)">P. Compra</th>
+                  <th scope="col" sortable="precio_venta" (sort)="onSort($event)">P. Venta</th>
+                  <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th>
+                  <th scope="col" sortable="total" (sort)="onSort($event)">Fecha de ing.</th>
+                  <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th>
+                  <th style="width: 170px;">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of inventarioMonturas ; let i = index">
+                  <!--                     <td>
                       <div class="form-check text-center">
                         <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input" 
                         [(ngModel)]="data.isSelected" [ngModelOptions]="{standalone: true}"
@@ -511,63 +526,64 @@
                         <label class="form-check-label" for="ordercheck{{data.index}}">&nbsp;</label>
                       </div>
                     </td> -->
-                    <td>
-                      <ngb-highlight [result]=i+1 [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="data.material" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="data.marca" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="data.codigo" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="data.codigo_interno" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="data.talla" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="data.color" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="data.cantidad" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="data.precio_montura_c" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="data.precio_montura_v" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="" [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="data.fecha_creacion_monturas | date: 'dd/MM/yyyy'"
-                        [term]="service.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                      <span class="badge bg-pill bg-soft-success font-size-12"
-                        [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
-                    </td>
-                    <td>
-                      <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar" (click)="eliminar(data)"><i
-                          class="uil uil-trash-alt font-size-18"></i></a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </form>
+                  <td>
+                    <ngb-highlight [result]=i+1 [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.material" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.marca" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.codigo" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.codigo_interno" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.talla" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.color" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.cantidad" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.precio_montura_c" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.precio_montura_v" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="data.fecha_creacion_monturas | date: 'dd/MM/yyyy'"
+                      [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <span class="badge bg-pill bg-soft-success font-size-12"
+                      [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
+                  </td>
+                  <td>
+                    <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar" (click)="eliminar(data)"><i
+                        class="uil uil-trash-alt font-size-18"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
         </div>
-      
+
         <!-- End table -->
         <div class="row justify-content-md-between align-items-md-center">
           <!-- Pagination -->
           <div class="col-12">
             <div class="text-md-end float-md-end pagination-rounded">
-              <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+              <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize"
+                [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
               </ngb-pagination>
             </div>
           </div>
@@ -578,6 +594,6 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="closeEventModal()">Cerrar</button>
-    <button type="button" class="btn btn-primary" ><i class="uil-print me-1"></i>Imprimir</button>
+    <button type="button" class="btn btn-primary"><i class="uil-print me-1"></i>Imprimir</button>
   </div>
 </ng-template>
