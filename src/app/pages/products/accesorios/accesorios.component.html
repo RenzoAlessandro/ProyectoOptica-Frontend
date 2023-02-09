@@ -18,17 +18,22 @@
     <div class="col-md-6 mb-2">
         <div>
           <div class="btn-toolbar" role="toolbar">
-            <div class="col-12 col-md-4 d-grid">
+
+            <div class="col-12 col-md-6 d-grid mb-2">
               <button type="button" class="btn btn-success btn-block me-1" (click)="openScrollModal(scrollDataModalEGA)" [disabled]="this.checkedAccesoriosList.length==0">
                   <i class="uil uil-tag-alt me-2"></i> Etiquetas
               </button>
             </div>
 
-<!--             <div class="col-6 d-grid">
-              <button type="button" class="btn btn-primary btn-block me-1" (click)="openScrollModal(scrollDataModalEGA)">
-                  <i class="uil uil-list-ul me-2"></i> Inventario
-              </button>
-            </div> -->
+            <div class="col-12 col-md-6 d-grid">
+              <form [formGroup]="formSedes">
+                <div ngbDropdown>
+                  <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
+                    bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+                  </ng-select>
+                </div>
+              </form>
+            </div>
             
           </div>
         </div>
@@ -36,20 +41,10 @@
 </div>
 
 <div class="row md-2">
-  <div class="col-sm-6 col-md-6">
-      <div class="mb-3">
-        <!-- Default dropup button -->
-        <form [formGroup]="formSedes">
-          <div class="btn-group" ngbDropdown>
-            <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
-              bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
-            </ng-select>
-          </div>
-        </form>
-        
-      </div>
-  </div>
-  <div class="col-sm-6 col-md-6">
+<!--   <div class="col-sm-6 col-md-6">
+
+  </div> -->
+  <div class="col-sm-12 col-md-12">
     <div class="dataTables_length text-md-end"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
           [(ngModel)]="service.pageSize"
           class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
@@ -283,8 +278,7 @@
 
     </button>
   </div>
-  <form action="">
-    <div class="modal-body">
+  <div class="modal-body">
     <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
       eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
     <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
@@ -322,8 +316,6 @@
     <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
       consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
   </div>
-  </form>
-  
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="closeEventModal()">Close</button>
 
