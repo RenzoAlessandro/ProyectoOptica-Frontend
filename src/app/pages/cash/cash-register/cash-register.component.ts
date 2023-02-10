@@ -13,6 +13,7 @@ import { UsersModel } from 'src/models/user';
 import { CajaModel } from 'src/models/caja';
 import { CajaService } from 'src/app/services/caja.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { SedesModel } from 'src/models/sedes';
 
 
 @Component({
@@ -22,19 +23,24 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   providers: [InvoiceService, DecimalPipe],
 })
 export class CashRegisterComponent implements OnInit {
+
+  formSedes: FormGroup;
+  listSedes: Array<SedesModel>;
+  nombre_sedes: string = "campoSede";
+  idSede:string = "";
+
   // modal
   editEvent: any;
   submitted = false;
   formIngreso: FormGroup;
   monto_ingreso: string = "campoMontoIngreso";
   fecha_ingreso: string = "campoFechaIngreso";
-  encargado_ingreso: string = "campoEncargadoIngreso";
   descripcion_ingreso: string = "campoDescripcionIngreso";
   metodoPagoContado_ingreso: string = "campoMetodoPagoContadoIngreso";
+
   formEgreso: FormGroup;
   monto_egreso: string = "campoMontoEgreso";
   fecha_egreso: string = "campoFechaEgreso";
-  encargado_egreso: string = "campoEncargadoEgreso";
   descripcion_egreso: string = "campoDescripcionEgreso";
   metodoPagoContado_egreso: string = "campoMetodoPagoContadoEgreso";
 
@@ -76,27 +82,35 @@ export class CashRegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.crearFormulario();
     this.breadCrumbItems = [{ label: 'Caja' }, { label: 'Registro de Ingreso y Egreso', active: true },];
+    this.getListSedes();
+    this.crearFormulario();
     this.selectedDate = new Date().getDate();
     this._fetchData();
+  }
+
+  getListSedes() {
+    this.listSedes = JSON.parse(localStorage.getItem('sedes'));
+    this.idSede = this.usuarioService.getSedebyUser();
   }
 
   crearFormulario() {
     this.formIngreso = this.formBuilder.group({
       [this.monto_ingreso]:[],
       [this.fecha_ingreso]:[],
-      [this.encargado_ingreso]:[],
       [this.descripcion_ingreso]:[],
       [this.metodoPagoContado_ingreso]:[]
-    })
+    });
 
     this.formEgreso = this.formBuilder.group({
       [this.monto_egreso]:[],
       [this.fecha_egreso]:[],
-      [this.encargado_egreso]:[],
       [this.descripcion_egreso]:[],
       [this.metodoPagoContado_egreso]:[]
+    });
+
+    this.formSedes = this.formBuilder.group({
+      [this.nombre_sedes]: [this.idSede]
     })
   }
 
@@ -171,7 +185,7 @@ export class CashRegisterComponent implements OnInit {
     if (this.formIngreso.valid) {
       this.caja.monto = Number(this.fI(this.monto_ingreso).value);
       this.caja.fecha_creacion_caja = new Date(Date.now());
-      this.caja.encargado = this.fI(this.encargado_ingreso).value;
+      this.caja.encargado = this.usuarioService.getUser().id_usuario;
       this.caja.descripcion = this.fI(this.descripcion_ingreso).value;
       this.caja.id_sede = this.usuarioService.getSedebyUser();
       this.caja.habilitado = true;
@@ -193,7 +207,7 @@ export class CashRegisterComponent implements OnInit {
     if (this.formEgreso.valid) {
       this.caja.monto = Number(this.fE(this.monto_egreso).value);
       this.caja.fecha_creacion_caja = new Date(Date.now());
-      this.caja.encargado = this.fE(this.encargado_egreso).value;
+      this.caja.encargado = this.usuarioService.getUser().id_usuario;
       this.caja.descripcion = this.fE(this.descripcion_egreso).value;
       this.caja.id_sede = this.usuarioService.getSedebyUser();
       this.caja.habilitado = true;

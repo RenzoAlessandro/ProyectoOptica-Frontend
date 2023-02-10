@@ -5,133 +5,135 @@
   <div class="row">
     <div class="col-md-6 mb-2">
       <div class="form-inline">
-          <div class="search-box ml-2">
-            <div class="position-relative">
-              <input type="text" class="form-control border-light rounded" placeholder="Buscar accesorio"
-                name="searchTerm" aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
-              <i class="uil uil-search search-icon"></i>
-            </div>
+        <div class="search-box ml-2">
+          <div class="position-relative">
+            <input type="text" class="form-control border-light rounded" placeholder="Buscar accesorio"
+              name="searchTerm" aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
+            <i class="uil uil-search search-icon"></i>
           </div>
+        </div>
       </div>
     </div>
 
     <div class="col-md-6 mb-2">
-        <div>
-          <div class="btn-toolbar" role="toolbar">
+      <div>
+        <div class="btn-toolbar" role="toolbar">
 
-            <div class="col-12 col-md-6 d-grid mb-2">
-              <button type="button" class="btn btn-success btn-block me-1" (click)="openScrollModal(scrollDataModalEGA)" [disabled]="this.checkedAccesoriosList.length==0">
-                  <i class="uil uil-tag-alt me-2"></i> Etiquetas
-              </button>
-            </div>
-
-            <div class="col-12 col-md-6 d-grid">
-              <form [formGroup]="formSedes">
-                <div ngbDropdown>
-                  <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
-                    bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
-                  </ng-select>
-                </div>
-              </form>
-            </div>
-            
+          <div class="col-12 col-md-6 d-grid mb-2">
+            <button type="button" class="btn btn-success btn-block me-1" (click)="openScrollModal(scrollDataModalEGA)"
+              [disabled]="this.checkedAccesoriosList.length==0">
+              <i class="uil uil-tag-alt me-2"></i> Etiquetas
+            </button>
           </div>
-        </div>
-    </div>
-</div>
 
-<div class="row md-2">
-<!--   <div class="col-sm-6 col-md-6">
+          <div class="col-12 col-md-6 d-grid">
+            <form [formGroup]="formSedes">
+              <div ngbDropdown>
+                <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
+                  bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+                </ng-select>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row md-2">
+    <!--   <div class="col-sm-6 col-md-6">
 
   </div> -->
-  <div class="col-sm-12 col-md-12">
-    <div class="dataTables_length text-md-end"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
-          [(ngModel)]="service.pageSize"
-          class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
-          <option [ngValue]="10">10</option>
-          <option [ngValue]="25">25</option>
-          <option [ngValue]="50">50</option>
-          <option [ngValue]="100">100</option>
-        </select> entradas</label></div>
+    <div class="col-sm-12 col-md-12">
+      <div class="dataTables_length text-md-end"><label class="d-inline-flex align-items-center">Mostrar<select
+            name="pageSize" [(ngModel)]="service.pageSize"
+            class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+            <option [ngValue]="10">10</option>
+            <option [ngValue]="25">25</option>
+            <option [ngValue]="50">50</option>
+            <option [ngValue]="100">100</option>
+          </select> entradas</label></div>
+    </div>
   </div>
-</div>
 
   <div class="row">
     <div class="col-12">
       <div class="table-responsive mb-4">
-          <form>
-            <table class="table datatables table-centered table-nowrap mb-0 align-middle table-card-list"style="border-spacing: 0 12px; width: 100%;">
-              <thead>
-                <tr class="bg-transparent">
-                  <th style="width: 20px;">
-                    <div class="form-check text-center">
-                      <input type="checkbox" class="form-check-input" id="accesorioscheck" (change)="checkUncheckAll()" [(ngModel)]="isMasterSel" [ngModelOptions]="{standalone: true}">
-                      <label class="form-check-label" for="accesorioscheck"></label>
-                    </div>
-                  </th>
-                  <th scope="col" sortable="id" (sort)="onSort($event)">Ord.</th>
-                  <th scope="col" sortable="nombre_accesorio" (sort)="onSort($event)">Nombre</th>
-                  <!-- <th scope="col" sortable="codigo_interno" (sort)="onSort($event)">Cód. int.</th> -->
-                  <th scope="col" sortable="precio_accesorio_c" (sort)="onSort($event)">Precio Compra</th>
-                  <th scope="col" sortable="precio_accesorio_v" (sort)="onSort($event)">Precio Venta</th>
-                  <th scope="col" sortable="cantidad" (sort)="onSort($event)">Stock</th>
-                  <!-- <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th> -->
-                  <th scope="col" sortable="fecha_creacion_accesorio" (sort)="onSort($event)">Fecha de Ingreso</th>
-                  <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
-                  <th>Acción</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let data of accesorios$ | async; let i = index">
-                  <td>
-                    <div class="form-check text-center">
-                      <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input"
-                      [(ngModel)]="data.isSelected" [ngModelOptions]="{standalone: true}"
-                      (change)="isAllSelected()"/>
-                      <label class="form-check-label" for="ordercheck{{data.index}}">&nbsp;</label>
-                    </div>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="i+1" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="data.nombre_accesorio" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-<!--                   <td>
+        <form>
+          <table class="table datatables table-centered table-nowrap mb-0 align-middle table-card-list"
+            style="border-spacing: 0 12px; width: 100%;">
+            <thead>
+              <tr class="bg-transparent">
+                <th style="width: 20px;">
+                  <div class="form-check text-center">
+                    <input type="checkbox" class="form-check-input" id="accesorioscheck" (change)="checkUncheckAll()"
+                      [(ngModel)]="isMasterSel" [ngModelOptions]="{standalone: true}">
+                    <label class="form-check-label" for="accesorioscheck"></label>
+                  </div>
+                </th>
+                <th scope="col" sortable="id" (sort)="onSort($event)">Ord.</th>
+                <th scope="col" sortable="nombre_accesorio" (sort)="onSort($event)">Nombre</th>
+                <!-- <th scope="col" sortable="codigo_interno" (sort)="onSort($event)">Cód. int.</th> -->
+                <th scope="col" sortable="precio_accesorio_c" (sort)="onSort($event)">Precio Compra</th>
+                <th scope="col" sortable="precio_accesorio_v" (sort)="onSort($event)">Precio Venta</th>
+                <th scope="col" sortable="cantidad" (sort)="onSort($event)">Stock</th>
+                <!-- <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th> -->
+                <th scope="col" sortable="fecha_creacion_accesorio" (sort)="onSort($event)">Fecha de Ingreso</th>
+                <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of accesorios$ | async; let i = index">
+                <td>
+                  <div class="form-check text-center">
+                    <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input"
+                      [(ngModel)]="data.isSelected" [ngModelOptions]="{standalone: true}" (change)="isAllSelected()" />
+                    <label class="form-check-label" for="ordercheck{{data.index}}">&nbsp;</label>
+                  </div>
+                </td>
+                <td>
+                  <ngb-highlight [result]="i+1" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.nombre_accesorio" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <!--                   <td>
                     <ngb-highlight [result]="data.codigo_interno" [term]="service.searchTerm"></ngb-highlight>
                   </td> -->
-                  <td>
-                    <ngb-highlight [result]="data.precio_accesorio_c" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="data.precio_accesorio_v" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="data.cantidad" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-<!--                   <td>
+                <td>
+                  <ngb-highlight [result]="data.precio_accesorio_c" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.precio_accesorio_v" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.cantidad" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <!--                   <td>
                     <ngb-highlight [result]="" [term]="service.searchTerm"></ngb-highlight>
                   </td> -->
-                  <td>
-                    <ngb-highlight [result]="data.fecha_creacion_accesorio| date: 'dd/MM/yyyy'"
-                      [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-<!--                   <td>
+                <td>
+                  <ngb-highlight [result]="data.fecha_creacion_accesorio| date: 'dd/MM/yyyy'"
+                    [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <!--                   <td>
                     <span class="badge bg-pill bg-soft-success font-size-12"
                       [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
                   </td> -->
-                  <td>
-                    <a (click)="openModalEtiqueta(centerModalEIA)" class="px-2 text-success" placement="top" ngbTooltip="Etiqueta"><i
-                      class="uil-tag-alt font-size-18"></i></a>
-                    <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top"
-                      ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
-                    <a (click)="eliminar(data)" class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
-                        class="uil uil-trash-alt font-size-18"></i></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </form>
+                <td>
+                  <a (click)="openModalEtiqueta(centerModalEIA)" class="px-2 text-success" placement="top"
+                    ngbTooltip="Etiqueta"><i class="uil-tag-alt font-size-18"></i></a>
+                  <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top"
+                    ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
+                  <a (click)="eliminar(data)" class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
+                      class="uil uil-trash-alt font-size-18"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
       </div>
 
       <div class="row" *ngIf="!mostrarSpinner">
@@ -151,7 +153,8 @@
         <!-- Pagination -->
         <div class="col-12">
           <div class="text-md-end float-md-end pagination-rounded">
-            <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
+            <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize"
+              [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
             </ngb-pagination>
           </div>
         </div>
@@ -172,7 +175,7 @@
   </div>
   <div class="modal-body p-4">
     <form [formGroup]="formAccesorios">
-      <p class="card-title-desc text-danger">* Campo requerido</p> 
+      <p class="card-title-desc text-danger">* Campo requerido</p>
       <!-- <div class="row">
             <div class="col-6">
               <div class="mb-3">
@@ -190,7 +193,8 @@
           <div class="mb-3">
             <label class="control-label">Nombre del Accesorio *</label>
             <input class="form-control" placeholder="Accesorio" type="text" name="title"
-              formControlName="{{this.nombre_accesorio}}" [ngClass]="{'is-invalid': formEA.campoNombreAccesorio.invalid && (formEA.campoNombreAccesorio.dirty || formEA.campoNombreAccesorio.touched)}"/>
+              formControlName="{{this.nombre_accesorio}}"
+              [ngClass]="{'is-invalid': formEA.campoNombreAccesorio.invalid && (formEA.campoNombreAccesorio.dirty || formEA.campoNombreAccesorio.touched)}" />
             <div class="invalid-feedback">
               <div *ngIf="formEA.campoNombreAccesorio.errors?.required">
                 Campo requerido
@@ -212,7 +216,8 @@
           <div class="mb-3">
             <label class="control-label">Stock *</label>
             <input class="form-control" placeholder="Cantidad" type="text" name="title"
-              formControlName="{{this.cantidad_accesorio}}" [ngClass]="{'is-invalid': formEA.campoCantidadAccesorio.invalid && (formEA.campoCantidadAccesorio.dirty || formEA.campoCantidadAccesorio.touched)}"/>
+              formControlName="{{this.cantidad_accesorio}}"
+              [ngClass]="{'is-invalid': formEA.campoCantidadAccesorio.invalid && (formEA.campoCantidadAccesorio.dirty || formEA.campoCantidadAccesorio.touched)}" />
             <div class="invalid-feedback">
               <div *ngIf="formEA.campoCantidadAccesorio.errors?.required">
                 Campo requerido
@@ -227,7 +232,8 @@
           <div class="mb-3">
             <label class="control-label">Precio de Compra *</label>
             <input class="form-control" placeholder="Precio" type="text" name="title"
-              formControlName="{{this.precio_compra_accesorio}}" [ngClass]="{'is-invalid': formEA.campoCompraAccesorio.invalid && (formEA.campoCompraAccesorio.dirty || formEA.campoCompraAccesorio.touched)}"/>
+              formControlName="{{this.precio_compra_accesorio}}"
+              [ngClass]="{'is-invalid': formEA.campoCompraAccesorio.invalid && (formEA.campoCompraAccesorio.dirty || formEA.campoCompraAccesorio.touched)}" />
             <div class="invalid-feedback">
               <div *ngIf="formEA.campoCompraAccesorio.errors?.required">
                 Campo requerido
@@ -242,7 +248,8 @@
           <div class="mb-3">
             <label class="control-label">Precio de Venta *</label>
             <input class="form-control" placeholder="Precio" type="text" name="title"
-              formControlName="{{this.precio_venta_accesorio}}" [ngClass]="{'is-invalid': formEA.campoVentaAccesorio.invalid && (formEA.campoVentaAccesorio.dirty || formEA.campoVentaAccesorio.touched)}"/>
+              formControlName="{{this.precio_venta_accesorio}}"
+              [ngClass]="{'is-invalid': formEA.campoVentaAccesorio.invalid && (formEA.campoVentaAccesorio.dirty || formEA.campoVentaAccesorio.touched)}" />
             <div class="invalid-feedback">
               <div *ngIf="formEA.campoVentaAccesorio.errors?.required">
                 Campo requerido
@@ -323,7 +330,7 @@
       <div touch-spin ng-model="numberVariable" options="optionsVariable"></div>
       <input class="form-control" type="number" value="{{ 4 }}">
     </div>
-    
+
     <button type="button" class="btn btn-primary">Save changes</button>
   </div>
 </ng-template>
@@ -342,9 +349,9 @@
         <div *ngFor="let cant of [].constructor(item.cantidad)">
           <div class="row align-items-center">
             <div class="col-6">
-              <ejs-qrcodegenerator style="display: block;"  #barcode id="barcode" width="225px" height="100px" mode="SVG" 
-                         value={{item.id_producto}}  [displayText] = 'displayTextMethod'>
-                    </ejs-qrcodegenerator>
+              <ejs-qrcodegenerator style="display: block;" #barcode id="barcode" width="225px" height="100px" mode="SVG"
+                value={{item.id_producto}} [displayText]='displayTextMethod'>
+              </ejs-qrcodegenerator>
             </div>
             <div class="col-6 ml-0">
               <span>

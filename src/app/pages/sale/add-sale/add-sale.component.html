@@ -75,16 +75,16 @@
                       <ngb-highlight [result]="item.cant_vendida"></ngb-highlight>
                     </td>
                     <td *ngIf="item.tipo == 'montura'">
-                      <ngb-highlight [result]="item.precio_montura_v"></ngb-highlight>
+                      <ngb-highlight [result]="item.precio_montura_v |currency:'S/ '"></ngb-highlight>
                     </td>
                     <td *ngIf="item.tipo == 'luna'">
-                      <ngb-highlight [result]="item.precio_luna_v"></ngb-highlight>
+                      <ngb-highlight [result]="item.precio_luna_v |currency:'S/ '"></ngb-highlight>
                     </td>
                     <td *ngIf="item.tipo == 'accesorio'">
-                      <ngb-highlight [result]="item.precio_accesorio_v"></ngb-highlight>
+                      <ngb-highlight [result]="item.precio_accesorio_v |currency:'S/ '"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="item.precio"></ngb-highlight>
+                      <ngb-highlight [result]="item.precio |currency:'S/ '"></ngb-highlight>
                     </td>
                     <td>
                       <a class="px-2 text-warning" placement="top" ngbTooltip="Disminuir"><i
@@ -93,8 +93,8 @@
                           class="uil uil-plus-circle font-size-18" name="quantity" ngDefaultControl
                           [(ngModel)]="item.num" min="0"
                           (click)="addQuantityProduct($event,i)"></i></a>
-                      <a href="javascript:void(0);" class="px-2 text-primary" placement="top" ngbTooltip="Editar"><i
-                          class="uil uil-pen font-size-18"></i></a>
+                      <!-- <a href="javascript:void(0);" class="px-2 text-primary" placement="top" ngbTooltip="Editar"><i
+                          class="uil uil-pen font-size-18"></i></a> -->
                       <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
                           class="uil uil-trash-alt font-size-18" (click)="removeCartProduct($event,i)"></i></a>
                     </td>
@@ -413,7 +413,7 @@
                   </div>
                   <div class="col-4">
                     <div class="mb-3">
-                      <label class="control-label">Cambio</label>
+                      <label class="control-label">Deuda</label>
                       <input class="form-control" placeholder="S/ 000.00" type="text" name="nameCambioCredito"
                         formControlName="{{this.cambio_Credito}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
                     </div>
