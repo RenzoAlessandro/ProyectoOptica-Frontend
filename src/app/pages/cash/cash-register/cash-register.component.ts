@@ -130,8 +130,8 @@ export class CashRegisterComponent implements OnInit {
         header.direction = '';
       }
     });
-    //this.serviceE.sortColumn = column;
-    //this.serviceE.sortDirection = direction;
+    this.serviceE.sortColumn = column;
+    this.serviceE.sortDirection = direction;
   }
 
   /**

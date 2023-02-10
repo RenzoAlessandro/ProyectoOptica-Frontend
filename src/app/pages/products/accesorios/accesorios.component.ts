@@ -17,7 +17,6 @@ import html2canvas from 'html2canvas';
 import { Options } from 'ng5-slider';
 
 import { SedesModel } from 'src/models/sedes';
-import { SedeService } from 'src/app/services/sede.service';
 import { DisplayTextModel } from '@syncfusion/ej2-angular-barcode-generator';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
@@ -77,6 +76,8 @@ export class AccesoriosComponent implements OnInit {
   accesorios$: Observable<AccesorioModel[]>;
   isMasterSel:boolean = false;
   idSede:string = "";
+  individualQR = new  AccesorioModel;
+  nQR = 0;
 
   constructor(
     public service: CustomerService,
@@ -125,7 +126,7 @@ export class AccesoriosComponent implements OnInit {
     });
 
     this.formPrintEtiquetaAccesorio = this.fb.group({
-      [this.nEtiquetasPorAccesorio]: [null, [
+      [this.nEtiquetasPorAccesorio]: [1, [
         Validators.required,
         Validators.pattern(this.numberPattern)
       ]]
@@ -176,7 +177,9 @@ export class AccesoriosComponent implements OnInit {
    * Open Large modal
    * @param openDataModal large modal data
    */
-  openModalEtiqueta(openDataModal: any) {
+  openModalEtiqueta(openDataModal: any, data:AccesorioModel) {
+    this.individualQR = data;
+    this.nQR = Number(this.fEA(this.nEtiquetasPorAccesorio).value);
     this.modalService.open(openDataModal, { windowClass:'modal-holder', centered: true, scrollable: true });
   }
 
@@ -201,6 +204,7 @@ export class AccesoriosComponent implements OnInit {
    * Close event modal
    */
   closeEventModal() {
+    this.fEA(this.nEtiquetasPorAccesorio).setValue(1);
     this.modalService.dismissAll();
   }
 
@@ -213,6 +217,18 @@ export class AccesoriosComponent implements OnInit {
     }
     this.submitted = true;
   }
+
+  generarEtiqueta() {
+    this.nQR = Number(this.fEA(this.nEtiquetasPorAccesorio).value)
+  }
+
+  fEA(campo:string) {
+    return this.formPrintEtiquetaAccesorio.get(campo);
+  }
+
+  public displayTextMethod: DisplayTextModel = {
+    visibility: false
+  };
 
   loadPage(event:any) {
     this.isMasterSel = false;
@@ -345,6 +361,7 @@ export class AccesoriosComponent implements OnInit {
   } 
 
   generarPDF(): void{
+    Sweetalert("loading",null)
     let cant = this.checkedAccesoriosList.reduce((accumulator, obj)=>{
       return accumulator + obj.cantidad;
     },0)
@@ -367,7 +384,8 @@ export class AccesoriosComponent implements OnInit {
     var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)
     console.log(totalPDFPages)
     html2canvas(DATA).then((canvas) => {
-
+      const nombreSede = this.listSedes.find(res => (res.id_sede == this.usuarioService.getSedebyUser()));
+      console.log(nombreSede)
       var imgData = canvas.toDataURL("image/jpeg", 1.0);
 			var pdf = new jsPDF('l', 'in',  [PDF_Width, PDF_Height]);
 		  pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
@@ -377,11 +395,49 @@ export class AccesoriosComponent implements OnInit {
 				pdf.addPage([PDF_Width, PDF_Height]);
 				pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
 			}
-			pdf.save("HTML-Document.pdf");
+      Sweetalert("close",null)
+			pdf.save("Accesorios_"+nombreSede.nombre_sede+".pdf");
     }); 
+    this.closeEventModal();
   }
 
-  public displayTextMethod: DisplayTextModel = {
-    visibility: false
-  };
+  printEtiquetaIndividual() {
+    Sweetalert("loading",null)
+    console.log("entre")
+    let DATA: any = document.getElementById('htmlData2');
+    console.log(DATA.children.length)
+    //var HTML_Width = document.getElementById("htmlData").offsetWidth 
+		//var HTML_Height = document.getElementById("htmlData").offsetHeight
+    var HTML_Width = 3
+    var HTML_Height = 0.57 * this.nQR
+		var top_left_margin = 0;
+		//var PDF_Width = HTML_Width+(top_left_margin*2);
+		//var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
+    var PDF_Width = 4
+    var PDF_Height = 0.57 
+		var canvas_image_width = HTML_Width;
+		var canvas_image_height = HTML_Height;
+		
+    console.log(HTML_Width, HTML_Height)
+		//var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
+    var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)
+    console.log(totalPDFPages)
+    
+    html2canvas(DATA).then((canvas) => {
+      const nombreSede = this.listSedes.find(res => (res.id_sede == this.usuarioService.getSedebyUser()));
+      console.log(nombreSede)
+      var imgData = canvas.toDataURL("image/jpeg", 1.0);
+			var pdf = new jsPDF('l', 'in',  [PDF_Width, PDF_Height]);
+		  pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+			pdf.deletePage(1)
+			
+			for (var i = 0; i < totalPDFPages; i++) { 
+				pdf.addPage([PDF_Width, PDF_Height]);
+				pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+			}
+      Sweetalert("close",null)
+			pdf.save("Accesorios_"+nombreSede.nombre_sede+".pdf");
+    }); 
+    this.closeEventModal();
+  }
 }

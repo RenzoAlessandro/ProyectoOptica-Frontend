@@ -405,6 +405,7 @@ get formPEM() {
 			}
 			pdf.save("Monturas_"+nombreSede.nombre_sede+".pdf");
     }); 
+    this.closeEventModal();
   }
 
   public displayTextMethod: DisplayTextModel = {
@@ -459,6 +460,7 @@ get formPEM() {
 			}
 			pdf.save("Monturas_"+nombreSede.nombre_sede+".pdf");
     }); 
+    this.closeEventModal();
   }
   
 }

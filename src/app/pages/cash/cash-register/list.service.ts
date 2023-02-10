@@ -51,6 +51,7 @@ function matches(invoice: CajaModel, term: string, pipe: PipeTransform) {
 @Injectable({ providedIn: 'root' })
 export class InvoiceService {
   private _loading$ = new BehaviorSubject<boolean>(true);
+  private _loadingE$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
   private _searchE$ = new Subject<void>();
   private _invoices$ = new BehaviorSubject<CajaModel[]>([]);
@@ -222,11 +223,11 @@ export class InvoiceService {
       this.egresoList = res;
       this._searchE$
       .pipe(
-        tap(() => this._loading$.next(true)),
+        tap(() => this._loadingE$.next(true)),
         debounceTime(200),
         switchMap(() => this._searchE()),
         delay(200),
-        tap(() => this._loading$.next(false))
+        tap(() => this._loadingE$.next(false))
       )
       .subscribe((result) => {
         this._egresos$.next(result.invoices);

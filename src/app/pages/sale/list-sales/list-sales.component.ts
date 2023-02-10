@@ -190,7 +190,8 @@ export class ListSalesComponent implements OnInit {
   updatePago(event: any) {
     console.log("entre")
       this.g(this.pago_CreditoActualizacion).setValue(this.g(this.cantidadRecibida_CreditoActualizacion).value);
-      this.g(this.cambio_CreditoActualizacion).setValue(round(this.g(this.cantidadRecibida_CreditoActualizacion).value - this.usuario.deuda,1).toFixed(2));
+      const deuda = Number(round(this.g(this.cantidadRecibida_CreditoActualizacion).value - this.usuario.deuda,1).toFixed(2));
+      this.g(this.cambio_CreditoActualizacion).setValue(Math.abs(deuda));
   }
 
   guardarActualizacionDeuda() {
@@ -214,9 +215,15 @@ export class ListSalesComponent implements OnInit {
       let listPago: Array<TipoVentaModel> = [];
       
       if(this.tipoPago.length + 1 == Number(this.tipoPago[0].cuotas) && deuda > 0) {
-        Sweetalert("error", "Es su última cuota, tiene que canccelar la totalidad");
+        Sweetalert("error", "Es su última cuota, tiene que cancelar la totalidad");
         return
       }
+      //controla que la cantidad recibida sea menor a la deuda
+      if(Number(this.g(this.cambio_CreditoActualizacion).value)>0) {
+        Sweetalert("error", "El pago debe ser menor a la deuda");
+        return
+      }
+
       if (deuda <= 0 ) {
         pago.deuda = 0;
         listPago.push(pago);
@@ -340,7 +347,7 @@ export class ListSalesComponent implements OnInit {
   }
 
   updateListVentas() {
-    this.ventasService.getVentas().subscribe( res=>{
+    this.ventasService.getVentasbySede(this.usuarioService.getSedebyUser()).subscribe( res=>{
       this.service.updateTable(res);
     })
   }

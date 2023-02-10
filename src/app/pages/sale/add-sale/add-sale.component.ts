@@ -449,9 +449,9 @@ export class AddSaleComponent implements OnInit {
       this.f(this.pago_Contado).setValue(this.f(this.cantidadRecibida_Contado).value);
       this.f(this.cambio_Contado).setValue((this.f(this.cantidadRecibida_Contado).value - this.precioTotalVenta).toFixed(2));
     } else {
-
+      const deuda = Number((this.g(this.cantidadRecibida_Credito).value - this.precioTotalVenta).toFixed(2))
       this.g(this.pago_Credito).setValue(this.g(this.cantidadRecibida_Credito).value);
-      this.g(this.cambio_Credito).setValue((this.g(this.cantidadRecibida_Credito).value - this.precioTotalVenta).toFixed(2));
+      this.g(this.cambio_Credito).setValue(Math.abs(deuda));
     }
 
   }

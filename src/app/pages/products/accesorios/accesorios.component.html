@@ -121,7 +121,7 @@
                       [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
                   </td> -->
                   <td>
-                    <a (click)="openModalEtiqueta(centerModalEIA)" class="px-2 text-success" placement="top" ngbTooltip="Etiqueta"><i
+                    <a (click)="openModalEtiqueta(centerModalEIA,data)" class="px-2 text-success" placement="top" ngbTooltip="Etiqueta"><i
                       class="uil-tag-alt font-size-18"></i></a>
                     <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top"
                       ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
@@ -279,52 +279,34 @@
     </button>
   </div>
   <div class="modal-body">
-    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-      eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-      laoreet rutrum faucibus dolor auctor.</p>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-      consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-      eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-      laoreet rutrum faucibus dolor auctor.</p>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-      consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-      eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-      laoreet rutrum faucibus dolor auctor.</p>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-      consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-      eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-      laoreet rutrum faucibus dolor auctor.</p>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-      consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-      eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-      laoreet rutrum faucibus dolor auctor.</p>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-      consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
-      eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-      laoreet rutrum faucibus dolor auctor.</p>
-    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-      consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+    <div id="htmlData2">
+      <div *ngFor="let cant of [].constructor(nQR)">
+        <div class="row align-items-center">
+          <div class="col-6">
+            <ejs-qrcodegenerator style="display: block;" #barcode id="barcode" width="225px" height="100px" mode="SVG"
+              value={{individualQR.id_producto}} [displayText]='displayTextMethod'>
+            </ejs-qrcodegenerator>
+          </div>
+          <div class="col-6 ml-0">
+            <span>
+              {{individualQR.nombre_accesorio}}<br>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="closeEventModal()">Close</button>
-
     <div style="width: 80px;" class="product-cart-touchspin">
-      <div touch-spin ng-model="numberVariable" options="optionsVariable"></div>
-      <input class="form-control" type="number" value="{{ 4 }}">
+      <form [formGroup]="formPrintEtiquetaAccesorio">
+        <div touch-spin ng-model="numberVariable" options="optionsVariable"></div>
+        <input class="form-control" type="number" min="1" step="1"
+        oninput="this.value = Math.round(this.value); this.value > 100? this.value = 100 : this.value"
+        formControlName="{{this.nEtiquetasPorAccesorio}}" (change)="generarEtiqueta()" max="100" maxlength="3">
+      </form>
     </div>
-    
-    <button type="button" class="btn btn-primary">Save changes</button>
+    <button type="button" class="btn btn-primary"(click)="printEtiquetaIndividual()"><i class="uil-print me-1"></i>Descargar códigos</button>
   </div>
 </ng-template>
 

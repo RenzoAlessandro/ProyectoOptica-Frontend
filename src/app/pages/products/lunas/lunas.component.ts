@@ -375,7 +375,8 @@ export class LunasComponent implements OnInit {
     var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)
     console.log(totalPDFPages)
     html2canvas(DATA).then((canvas) => {
-
+      const nombreSede = this.listSedes.find(res => (res.id_sede == this.usuarioService.getSedebyUser()));
+      console.log(nombreSede)
       var imgData = canvas.toDataURL("image/jpeg", 1.0);
 			var pdf = new jsPDF('l', 'in',  [PDF_Width, PDF_Height]);
 		  pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
@@ -385,8 +386,9 @@ export class LunasComponent implements OnInit {
 				pdf.addPage([PDF_Width, PDF_Height]);
 				pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
 			}
-			pdf.save("HTML-Document.pdf");
+			pdf.save("Lunas_"+nombreSede.nombre_sede+".pdf");
     }); 
+    this.closeEventModal();
   }
 
   printEtiquetaIndividual() {
@@ -422,7 +424,8 @@ export class LunasComponent implements OnInit {
 				pdf.addPage([PDF_Width, PDF_Height]);
 				pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
 			}
-			pdf.save("Monturas_"+nombreSede.nombre_sede+".pdf");
+			pdf.save("Lunas_"+nombreSede.nombre_sede+".pdf");
     }); 
+    this.closeEventModal();
   }
 }
