@@ -420,9 +420,9 @@ export class ListCustomersComponent implements OnInit {
           table: {
             widths: ['*', '*'],
             body: [
-              [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 130, rowSpan: 4 }, { text: 'Nº de Receta:', style: 'tableHeader', alignment: 'right' }],
-              [{ }, { text: numeroReceta, alignment: 'right' }],
-              [{ }, { text: 'Fecha de la Receta:', style: 'tableHeader', alignment: 'right' }],
+/*               [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150, rowSpan: 4 }, { text: 'Nº de Receta:', style: 'tableHeader', alignment: 'right' }],
+              [{ }, { text: numeroReceta, alignment: 'right' }], */
+              [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150, rowSpan: 2 }, { text: 'Fecha de la Receta:', style: 'tableHeader', alignment: 'right' }],
               [{ }, { text: fecha_hoy, alignment: 'right' }],
             ]
           },

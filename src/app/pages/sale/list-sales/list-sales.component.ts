@@ -23,6 +23,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { CustomersModel } from 'src/models/customer';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { TipoVentaModel } from 'src/models/tipo_venta';
+import { SedesModel } from 'src/models/sedes';
 
 
 @Component({
@@ -33,6 +34,11 @@ import { TipoVentaModel } from 'src/models/tipo_venta';
 })
 
 export class ListSalesComponent implements OnInit {
+
+  formSedes: FormGroup;
+  listSedes: Array<SedesModel>;
+  nombre_sedes: string = "campoSede";
+  idSede:string = "";
 
   mostrarSpinner = false;
 
@@ -97,7 +103,13 @@ export class ListSalesComponent implements OnInit {
 
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Venta' }, { label: 'Lista de Ventas', active: true }];
+    this.getListSedes();
     this.crearFormulario();
+  }
+
+  getListSedes() {
+    this.listSedes = JSON.parse(localStorage.getItem('sedes'));
+    this.idSede = this.usuarioService.getSedebyUser();
   }
 
   onSort({ column, direction }: SortEvent) {
@@ -160,6 +172,10 @@ export class ListSalesComponent implements OnInit {
     this.formDateRange = this.fb.group({
       [this.fechaDesde]:[],
       [this.fechaHasta]:[]
+    });
+    
+    this.formSedes = this.fb.group({
+      [this.nombre_sedes]: [this.idSede]
     })
   }
 
@@ -389,7 +405,7 @@ export class ListSalesComponent implements OnInit {
       minute: "2-digit", // numeric
       second: "2-digit" // numeric
     });
-    var simboloNuevoSol = 'S/. ';
+    var simboloNuevoSol = 'S/ ';
     var numeroBoleta = '#MN0131';
 
     var direccionEmpresa = 'Calle Santa Marta 218, Arequipa';
@@ -459,7 +475,7 @@ export class ListSalesComponent implements OnInit {
       });
       
       var totalIGV = subtotal * peruIGV;
-      var total = subtotal - totalIGV;
+      var total = subtotal + totalIGV;
 
       body.push([{ text: ' ', rowSpan: 3, colSpan: 2}, { }, {text: 'Sub. Total:', style: 'tableHeader', alignment: 'right', colSpan: 2 }, { }, { text: simboloNuevoSol + subtotal, style: 'contenido', alignment: 'right' }]);
       body.push([{ }, { }, { text: 'IGV (18%) :', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol + totalIGV, style: 'contenido', alignment: 'right' }]);

@@ -3,20 +3,56 @@
   <!-- start page title -->
   <app-page-title title="Caja de Registro" [breadcrumbItems]="breadCrumbItems"></app-page-title>
   <!-- end page title -->
-  
 
-  <div class="row text-center mt-2 mb-4">
-    <div class="col-sm-6 col-lg-3 d-grid">
-        <button type="button" class="btn btn-primary btn-block mt-2 me-1" (click)="centerModal(centerDataModalIngreso)">
+  <div class="row mt-2 mb-2">
+    <div class=" col-12 col-md-3 d-grid text-center mb-2">
+        <button type="button" class="btn btn-primary btn-block" (click)="centerModal(centerDataModalIngreso)">
             <i class="uil uil-arrow-growth me-2"></i> Registar Ingreso
         </button>
     </div>
-    <div class="col-sm-6 col-lg-3 d-grid">
-        <button type="button" class="btn btn-danger btn-block mt-2" (click)="centerModal(centerDataModalEgreso)">
+
+    <div class="col-12 col-md-3 d-grid text-center mb-2">
+        <button type="button" class="btn btn-danger btn-block" (click)="centerModal(centerDataModalEgreso)">
             <i class="uil uil-chart-down me-2"></i>Registar Egreso
         </button>
     </div>
+
+    <div class="col-12 col-md-3 d-grid">
+    </div>
+
+    <div class="col-12 col-md-3 d-grid">
+      <form [formGroup]="formSedes">
+        <div ngbDropdown>
+          <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
+            bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}">
+          </ng-select>
+        </div>
+      </form>
+    </div>
+
   </div>
+
+
+  <div class="row mb-2">
+    <!--   <div class="col-sm-6 col-md-6">
+
+  </div> -->
+    <div class="col-sm-12 col-md-12 text-md-end">
+      <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
+        [(ngModel)]="serviceI.pageSize"
+        class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+        <option [ngValue]="5">5</option>
+        <option [ngValue]="10">10</option>
+        <option [ngValue]="25">25</option>
+        <option [ngValue]="50">50</option>
+        <option [ngValue]="100">100</option>
+      </select> entradas</label></div>
+    </div>
+  </div>
+
+
+
+
 
   <div class="row mb-3">
     <div class="col-lg-6">
@@ -30,28 +66,6 @@
       </div>
       <div class="card">
         <div class="card-body">
-          <div class="row mb-md-2">
-            <!-- Search -->
-            <div class="col-sm-12 col-md-4 search-box chat-search-box">
-              <div class="position-relative">
-                <input type="text" class="form-control border-light rounded" placeholder="Buscar ingreso" name="searchTerm"
-                  aria-controls="tickets-table" [(ngModel)]="serviceI.searchTerm">
-                <i class="uil uil-search search-icon"></i>
-              </div>
-            </div>
-            <!-- End search -->
-            <div class="col-sm-12 col-md-8 text-md-end">
-              <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
-                    [(ngModel)]="serviceI.pageSize"
-                    class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
-                    <option [ngValue]="5">5</option>
-                    <option [ngValue]="10">10</option>
-                    <option [ngValue]="25">25</option>
-                    <option [ngValue]="50">50</option>
-                    <option [ngValue]="100">100</option>
-                  </select> entradas</label></div>
-            </div>
-          </div>
           <div class="table-responsive mb-4">
             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
               <form>
@@ -70,7 +84,7 @@
                   <tbody>
                     <tr *ngFor="let data of ingresos$ | async">
                       <td>
-                        <ngb-highlight [result]="data.monto|currency:'S/.'" [term]="serviceI.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="data.monto|currency:'S/ '" [term]="serviceI.searchTerm"></ngb-highlight>
                       </td>
                       <td>
                         <ngb-highlight [result]="data.metodo_pago" [term]="serviceI.searchTerm"></ngb-highlight>
@@ -125,29 +139,6 @@
       </div>
       <div class="card">
         <div class="card-body">
-
-          <div class="row mb-md-2">
-            <!-- Search -->
-            <div class="col-sm-12 col-md-4 search-box chat-search-box">
-              <div class="position-relative">
-                <input type="text" class="form-control border-light rounded" placeholder="Buscar egreso" name="searchTerm"
-                  aria-controls="tickets-table" [(ngModel)]="serviceE.searchTerm">
-                <i class="uil uil-search search-icon"></i>
-              </div>
-            </div>
-            <!-- End search -->
-            <div class="col-sm-12 col-md-8 text-md-end">
-              <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
-                    [(ngModel)]="serviceE.pageSize"
-                    class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
-                    <option [ngValue]="5">5</option>
-                    <option [ngValue]="10">10</option>
-                    <option [ngValue]="25">25</option>
-                    <option [ngValue]="50">50</option>
-                    <option [ngValue]="100">100</option>
-                  </select> entradas</label></div>
-            </div>
-          </div>
           <div class="table-responsive mb-4">
             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
               <form>
@@ -166,7 +157,7 @@
                   <tbody>
                     <tr *ngFor="let data of egresos$ | async">
                       <td>
-                        <ngb-highlight [result]="data.monto|currency:'S/.'" [term]="serviceE.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="data.monto|currency:'S/ '" [term]="serviceE.searchTerm"></ngb-highlight>
                       </td>
                       <td>
                         <ngb-highlight [result]="data.metodo" [term]="serviceE.searchTerm"></ngb-highlight>
@@ -243,16 +234,6 @@
       <div class="row">
         <div class="col-12">
           <div class="mb-3">
-            <label class="control-label">Encargado</label>
-            <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
-              formControlName="{{this.encargado_ingreso}}"/>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12">
-          <div class="mb-3">
             <label class="control-label">Descripción</label>
             <textarea class="form-control" id="billing-observaciones" rows="3"
               placeholder="Ingrese la descripción" formControlName="{{this.descripcion_ingreso}}"></textarea>
@@ -298,16 +279,6 @@
             <label class="control-label">Método</label>
             <ng-select name="selectMetodo" [items]="listMetodosPagos" formControlName="{{this.metodoPagoContado_egreso}}" placeholder="Seleccione">
             </ng-select>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12">
-          <div class="mb-3">
-            <label class="control-label">Encargado</label>
-            <input class="form-control" placeholder="Seleccione la fecha" type="text" name="title"
-              formControlName="{{this.encargado_egreso}}"/>
           </div>
         </div>
       </div>

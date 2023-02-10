@@ -2,49 +2,52 @@
 
   <app-page-title title="Ventas" [breadcrumbItems]="breadCrumbItems"></app-page-title>
 
-
   <div class="row">
     <div class="col-md-6 mb-2">
       <div class="form-inline">
-          <div class="search-box ml-2">
-            <div class="position-relative">
-              <input type="text" class="form-control border-light rounded" placeholder="Buscar venta" name="searchTerm"
-              aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
-              <i class="uil uil-search search-icon"></i>
-            </div>
+        <div class="search-box ml-2">
+          <div class="position-relative">
+            <input type="text" class="form-control border-light rounded" placeholder="Buscar venta" name="searchTerm"
+            aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
+            <i class="uil uil-search search-icon"></i>
           </div>
+        </div>
       </div>
     </div>
 
     <div class="col-md-6 mb-2">
-        <div>
-          <div class="btn-toolbar" role="toolbar">
-            <div class="col-12 col-md-12 d-grid  chat-search-box">
-              <div class="position-relative">
-                <form [formGroup]="formDateRange">
-                  <div class="input-daterange input-group">
-                    <input type="date" class="form-control" id="billing-fechanacimiento"
-                    placeholder="Seleccione la fecha" formControlName="{{this.fechaDesde}}" />
-                    <input type="date" class="form-control" id="billing-fechanacimiento"
-                    placeholder="Seleccione la fecha" formControlName="{{this.fechaHasta}}" />
-                    <button type="button" class="btn btn-primary" (click)="filterDateRange()"><i
-                        class="mdi mdi-filter-variant"></i></button>
-                  </div>
-                </form>
-              </div>
+      <div>
+        <div class="btn-toolbar" role="toolbar">
+
+          <div class="col-12 col-md-6 d-grid mb-2 chat-search-box px-1">
+            <div class="position-relative">
+              <form [formGroup]="formDateRange">
+                <div class="input-daterange input-group">
+                  <input type="date" class="form-control" id="billing-fechanacimiento"
+                  placeholder="Seleccione la fecha" formControlName="{{this.fechaDesde}}" />
+                  <input type="date" class="form-control" id="billing-fechanacimiento"
+                  placeholder="Seleccione la fecha" formControlName="{{this.fechaHasta}}" />
+                  <button type="button" class="btn btn-primary" (click)="filterDateRange()"><i
+                      class="mdi mdi-filter-variant"></i></button>
+                </div>
+              </form>
             </div>
-
-<!--             <div class="col-6 d-grid">
-              <button type="button" class="btn btn-primary btn-block me-1" (click)="openScrollModal(scrollDataModalEGA)">
-                  <i class="uil uil-list-ul me-2"></i> Inventario
-              </button>
-            </div> -->
-            
           </div>
-        </div>
-    </div>
-</div>
 
+          <div class="col-12 col-md-6 d-grid">
+            <form [formGroup]="formSedes">
+              <div ngbDropdown>
+                <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
+                  bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}">
+                </ng-select>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 
 <div class="row md-2">
 <!--   <div class="col-sm-6 col-md-6">
@@ -107,7 +110,7 @@
                       <ngb-highlight [result]="data.nombre_cliente" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.tipo_venta[0].precio_total" [term]="service.searchTerm">
+                      <ngb-highlight [result]="data.tipo_venta[0].precio_total | currency:'S/ '" [term]="service.searchTerm">
                       </ngb-highlight>
                     </td>
                     <td *ngIf="data.tipo_venta[0].deuda>0">
@@ -191,7 +194,7 @@
                 <div class="mt-4">
                   <div class="text-danger font-size-16">Deuda &nbsp;</div>
                   <div class="badge rounded-pill bg-soft-success font-size-16" [ngClass]=" { 'bg-soft-danger': 1 > 0}">
-                    {{usuario.deuda|currency:'S/.'}} </div>
+                    {{usuario.deuda|currency:'S/ '}} </div>
                 </div>
               </div>
             </div>
@@ -267,7 +270,7 @@
                           <tbody>
                             <tr *ngFor="let pago of usuario.listDeudas; let i = index">
                               <th scope="row">{{i+1}}</th>
-                              <td>{{pago.cantidad_recibida|currency:'S/.'}}</td>
+                              <td>{{pago.cantidad_recibida|currency:'S/ '}}</td>
                               <td>{{pago.metodo_pago}}</td>
                               <td>{{pago.fecha_pago| date: 'dd/MM/yyyy hh:mm:ss'}}</td>
                             </tr>

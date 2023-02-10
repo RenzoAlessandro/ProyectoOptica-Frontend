@@ -591,7 +591,7 @@ export class AddSaleComponent implements OnInit {
       minute: "2-digit", // numeric
       second: "2-digit" // numeric
     });
-    var simboloNuevoSol = 'S/. ';
+    var simboloNuevoSol = 'S/ ';
     var numeroBoleta = '#MN0131';
 
     var direccionEmpresa = 'Calle Santa Marta 218, Arequipa';
@@ -702,9 +702,9 @@ export class AddSaleComponent implements OnInit {
             widths: ['*', '*'],
             body: [
               [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150 }, { text: 'Nº de Boleta: ' + numeroBoleta, style: 'tableHeader', rowSpan: 4, alignment: 'right' }],
-              [{ text: direccionEmpresa  }, {}],
-              [{ text: correoEmpresa  }, {}],
-              [{ text: felefonoEmpresa  }, {}],
+              [{ text: direccionEmpresa, style: 'datosempresa'  }, {}],
+              [{ text: correoEmpresa, style: 'datosempresa'  }, {}],
+              [{ text: felefonoEmpresa, style: 'datosempresa'  }, {}],
             ]
           },
           layout: 'noBorders'
@@ -765,6 +765,10 @@ export class AddSaleComponent implements OnInit {
         textBold: {
           fontSize: 12,
           bold: true,
+        },
+
+        datosempresa: {
+          fontSize: 10,
         },
 
         header: {

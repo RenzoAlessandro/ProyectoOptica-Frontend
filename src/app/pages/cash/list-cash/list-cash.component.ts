@@ -2,11 +2,14 @@ import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
-
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Registro } from './registro';
 import { TransactionService } from './registro.service';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { SedesModel } from 'src/models/sedes';
+
 
 @Component({
   selector: 'app-list-cash',
@@ -15,6 +18,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   providers: [TransactionService, DecimalPipe]
 })
 export class ListCashComponent implements OnInit {
+
+  formSedes: FormGroup;
+  listSedes: Array<SedesModel>;
+  nombre_sedes: string = "campoSede";
+  idSede:string = "";
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
@@ -27,13 +35,28 @@ export class ListCashComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    public service: TransactionService) {
+    public service: TransactionService,
+    private fb: FormBuilder,
+    private usuarioService: UsuarioService) {
     this.transactions$ = service.transactions$;
     this.total$ = service.total$;
   }
 
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Caja' }, { label: 'Lista de Ingresos y Egresos', active: true }];
+    this.getListSedes();
+    this.crearFormulario();
+  }
+
+  getListSedes() {
+    this.listSedes = JSON.parse(localStorage.getItem('sedes'));
+    this.idSede = this.usuarioService.getSedebyUser();
+  }
+
+  crearFormulario() {
+    this.formSedes = this.fb.group({
+      [this.nombre_sedes]: [this.idSede]
+    })
   }
 
   onSort({ column, direction }: SortEvent) {
