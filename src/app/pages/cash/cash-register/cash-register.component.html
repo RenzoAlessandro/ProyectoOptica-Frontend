@@ -29,28 +29,7 @@
         </div>
       </form>
     </div>
-
   </div>
-
-
-  <div class="row mb-2">
-    <!--   <div class="col-sm-6 col-md-6">
-
-  </div> -->
-    <div class="col-sm-12 col-md-12 text-md-end">
-      <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
-        [(ngModel)]="serviceI.pageSize"
-        class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
-        <option [ngValue]="5">5</option>
-        <option [ngValue]="10">10</option>
-        <option [ngValue]="25">25</option>
-        <option [ngValue]="50">50</option>
-        <option [ngValue]="100">100</option>
-      </select> entradas</label></div>
-    </div>
-  </div>
-
-
 
 
 
@@ -66,6 +45,21 @@
       </div>
       <div class="card">
         <div class="card-body">
+
+          <div class="row mb-md-2">
+            <div class="col-12 text-md-end">
+              <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
+                    [(ngModel)]="serviceI.pageSizeI"
+                    class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+                    <option [ngValue]="5">5</option>
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select> entradas</label></div>
+            </div>
+          </div>
+
           <div class="table-responsive mb-4">
             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
               <form>
@@ -73,11 +67,11 @@
                   style="border-spacing: 0 12px; width: 100%;">
                   <thead class="table-light">
                     <tr class="bg-transparent">
-                      <th scope="col" sortable="amount" (sort)="onSort($event)">Monto</th>
-                      <th scope="col" sortable="type" (sort)="onSort($event)">Método</th>
-                      <th scope="col" sortable="description" (sort)="onSort($event)">Descripción</th>
-                      <th scope="col" sortable="date" (sort)="onSort($event)">Fecha</th>
-                      <th scope="col" sortable="name" (sort)="onSort($event)">Usuario</th>
+                      <th scope="col" sortable="amount" (sort)="onSortI($event)">Monto</th>
+                      <th scope="col" sortable="type" (sort)="onSortI($event)">Método</th>
+                      <th scope="col" sortable="description" (sort)="onSortI($event)">Descripción</th>
+                      <th scope="col" sortable="date" (sort)="onSortI($event)">Fecha</th>
+                      <th scope="col" sortable="name" (sort)="onSortI($event)">Usuario</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -115,7 +109,7 @@
                   <!-- Pagination -->
                   <div class="col-12">
                     <div class="text-md-end float-md-end pagination-rounded">
-                      <ngb-pagination [collectionSize]="total$ | async" [(page)]="serviceI.page" [pageSize]="serviceI.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                      <ngb-pagination [collectionSize]="total$ | async" [(page)]="serviceI.pageI" [pageSize]="serviceI.pageSizeI" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
                       </ngb-pagination>
                     </div>
                   </div>
@@ -139,6 +133,21 @@
       </div>
       <div class="card">
         <div class="card-body">
+
+          <div class="row mb-md-2">
+            <div class="col-12 text-md-end">
+              <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
+                    [(ngModel)]="serviceE.pageSizeE"
+                    class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
+                    <option [ngValue]="5">5</option>
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select> entradas</label></div>
+            </div>
+          </div>
+
           <div class="table-responsive mb-4">
             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
               <form>
@@ -147,7 +156,7 @@
                   <thead class="table-light">
                     <tr class="bg-transparent">
                       <th scope="col" sortable="amount" (sort)="onSortE($event)">Monto</th>
-                      <th scope="col" sortable="type" (sort)="onSort($event)">Método</th>
+                      <th scope="col" sortable="type" (sort)="onSortE($event)">Método</th>
                       <th scope="col" sortable="description" (sort)="onSortE($event)">Descripción</th>
                       <th scope="col" sortable="date" (sort)="onSortE($event)">Fecha</th>
                       <th scope="col" sortable="name" (sort)="onSortE($event)">Usuario</th>
@@ -188,7 +197,7 @@
                   <!-- Pagination -->
                   <div class="col-12">
                     <div class="text-md-end float-md-end pagination-rounded">
-                      <ngb-pagination [collectionSize]="totalE$ | async" [(page)]="serviceE.page" [pageSize]="serviceE.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                      <ngb-pagination [collectionSize]="totalE$ | async" [(page)]="serviceE.pageE" [pageSize]="serviceE.pageSizeE" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
                       </ngb-pagination>
                     </div>
                   </div>
