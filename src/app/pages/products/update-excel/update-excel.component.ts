@@ -30,6 +30,10 @@ export class UpdateExcelComponent implements OnInit {
   formImportar: FormGroup;
   sede: string = "campoSede";
   producto: string = "campoProducto";
+
+  sedeC: string = "campoSedeC";
+  productoC: string = "campoProductoC";
+
   productos: string = "campoProductos";
 
   files: File[] = [];
@@ -50,7 +54,6 @@ export class UpdateExcelComponent implements OnInit {
   filebutton: boolean = false;
   idSede = '';
   constructor(
-    private sedeService: SedeService,
     private fb: FormBuilder,
     private productoService: ProductosService,
     private usuarioService: UsuarioService,
@@ -78,8 +81,8 @@ export class UpdateExcelComponent implements OnInit {
     });
 
     this.formExportarCrear = this.fb.group({
-      sede: [this.idSede, [Validators.required]],
-      producto: [null, [Validators.required]],
+      [this.sedeC]: [this.idSede, [Validators.required]],
+      [this.productoC]: [null, [Validators.required]],
     }); 
     this.formImportar = this.fb.group({
       productos: [null, [Validators.required]],
@@ -87,6 +90,10 @@ export class UpdateExcelComponent implements OnInit {
   }
   f(campo: string) {
     return this.formExportar.get(campo);
+  }
+
+  fC(campo: string) {
+    return this.formExportarCrear.get(campo);
   }
 
   exportarProductos() {
@@ -261,8 +268,17 @@ export class UpdateExcelComponent implements OnInit {
     let producto: Array<any>;
     if (this.validarCabeceraExcelUpdate(data, tipoProducto)) {
       producto = this.objExceltoDBUpdate(data, tipoProducto);
-      this.productoService.updateProductsbyExcel(producto).subscribe(res => {
-      })
+      console.log(producto)
+      const idSede = data[0].id_sede
+      if (this.validarIdSede(data,idSede) && this.validarTipo(data,tipoProducto)) {
+        this.productoService.updateProductsbyExcel(producto).subscribe(res => {
+          console.log("ACTUALIZADO");
+        })
+      } else {
+        Sweetalert("error", "Columna ID SEDE o TIPO incorrectos o faltantes");
+      }
+
+      
     } else {
       Sweetalert("error", "Excel con cabecera incorrecta");
       return;
@@ -275,8 +291,17 @@ export class UpdateExcelComponent implements OnInit {
     let producto: Array<any>;
     if (this.validarCabeceraExcelCreate(data, tipoProducto)) {
       producto = this.objExceltoDBCreate(data, tipoProducto);
-      this.productoService.createProductsbyExcel(producto).subscribe(res=> {
-      }) 
+      console.log(producto)
+      const idSede = data[0].id_sede
+      if (this.validarIdSede(data,idSede) && this.validarTipo(data,tipoProducto)) {
+        console.log("correcto")
+        this.productoService.createProductsbyExcel(producto).subscribe(res=> {
+          console.log("subido");
+        })  
+      } else {
+        Sweetalert("error", "Columna ID SEDE o TIPO incorrectos o faltantes");
+      return;
+      }
     } else {
       Sweetalert("error", "Excel con cabecera incorrecta");
       return;
@@ -440,8 +465,99 @@ export class UpdateExcelComponent implements OnInit {
     }
   }
 
+  validarIdSede(data:any, idSede:string):boolean {
+    return data.every(elem => (elem[this.label.cabeceraExcelSede] == idSede ))
+  }
+
+  validarTipo(data:any, tipo:string):boolean {
+    return data.every(elem => (elem[this.label.cabeceraExcelTipo] == tipo ))
+  }
+
   validarCampoFecha(data:any):boolean {
     return data.every(elem => (elem[this.label.cabeceraExcelFIngreso].length == 10 && Date.parse(elem[this.label.cabeceraExcelFIngreso])))
+  }
+
+  descargarPlantilla() {
+    if (this.formExportarCrear.valid) {
+      let productName = '';
+      switch (this.fC(this.productoC).value) {
+        case 1:
+          productName = 'montura';
+          break;
+        case 2:
+          productName = 'luna';
+          break;
+        case 3:
+          productName = 'accesorio';
+          break;
+        default:
+          break;
+      }
+      let idSede = this.fC(this.sedeC).value;
+      console.log(idSede)
+      const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+      const EXCEL_EXTENSION = '.xlsx';
+      let data = [];
+          switch (productName) {
+            case 'montura':
+              data[0] = {
+                  "PRECIO COMPRA": 0,
+                  "PRECIO VENTA": 0,
+                  "TALLA": 0,
+                  "CODIGO": 0,
+                  "MARCA": 'MARCA',
+                  "CANTIDAD": 0,
+                  "COLOR": 'COLOR',
+                  "MATERIAL": 'MATERIAL',
+                  "TIPO": productName,
+                  "SEDE": idSede,
+                  "FECHA INGRESO": new Date (Date.now()).toLocaleDateString('en-GB')
+                }
+              break;
+            case 'luna':
+              data[0] = {
+                  "PRECIO COMPRA": 0,
+                  "PRECIO VENTA": 0,
+                  //"CODIGO INTERNO": lunas.codigo_interno,
+                  "CANTIDAD": 0,
+                  "MATERIAL": 'MATERIAL',
+                  "TIPO": productName,
+                  "SEDE": idSede,
+                  "FECHA INGRESO": new Date (Date.now()).toLocaleDateString('en-GB')
+                }
+              break;
+            case 'accesorio':
+              data[0] = {
+                  "NOMBRE": "NOMBRE",
+                  "PRECIO COMPRA": 0,
+                  "PRECIO VENTA": 0,
+                  //"CODIGO INTERNO": accesorios.codigo_interno,
+                  "CANTIDAD": 0,
+                  "TIPO": productName,
+                  "SEDE": idSede,
+                  "FECHA INGRESO": new Date (Date.now()).toLocaleDateString('en-GB')
+                }
+            
+              break;
+            default:
+              break;
+          }
+          console.log(data)
+          const worksheet = XLSX.utils.json_to_sheet(data);
+          const workbook = {
+            Sheets: {
+              'hoja': worksheet
+            },
+            SheetNames: ['hoja']
+          }
+
+          const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+          const blobData = new Blob([excelBuffer], { type: EXCEL_TYPE });
+          const nombreSede = this.listSedes.find(res => (res.id_sede == idSede));
+          saveFile(blobData, productName + '_' + nombreSede.nombre_sede);
+    } else {
+      return;
+    }
   }
 }
 
