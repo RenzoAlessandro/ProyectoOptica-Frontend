@@ -13,7 +13,6 @@ import { SaleRoutingModule } from "./sale-routing.module";
 import { ListSalesComponent } from "./list-sales/list-sales.component";
 import { AutocompleteLibModule } from "angular-ng-autocomplete";
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
-import { FormModule } from '../form/form.module';
 
 @NgModule({
     // tslint:disable-next-line: max-line-length

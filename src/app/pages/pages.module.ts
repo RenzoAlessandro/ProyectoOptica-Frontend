@@ -19,12 +19,9 @@ import listPlugin from '@fullcalendar/list';
 import { UIModule } from '../shared/ui/ui.module';
 import { PagesRoutingModule } from './pages-routing.module';
 
-import { DashboardsModule } from './dashboards/dashboards.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeModule } from './home/home.module';
 
-import { CalendarComponent } from './calendar/calendar.component';
-import { ChatComponent } from './chat/chat.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -38,7 +35,7 @@ FullCalendarModule.registerPlugins([
 ]);
 
 @NgModule({
-  declarations: [CalendarComponent, ChatComponent, LoginComponent, RegisterComponent, ProfileComponent],
+  declarations: [ LoginComponent, RegisterComponent, ProfileComponent ],
   imports: [
     CommonModule,
     NgSelectModule,
@@ -50,7 +47,6 @@ FullCalendarModule.registerPlugins([
     PagesRoutingModule,
     NgApexchartsModule,
     ReactiveFormsModule,
-    DashboardsModule,
     HomeModule,
     HttpClientModule,
     FullCalendarModule,
