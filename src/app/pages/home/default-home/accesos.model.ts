@@ -46,7 +46,7 @@ export const accesosList: accesosModel[] = [
         detail: 'Registrar una salida o entrada de efectivo',
         images: 'assets/images/product/img-5.png',
         icono: ['uil-money-bill-stack', 'cinco'],
-        link: '/cash-register'
+        link: '/cash/cashregister'
     },
     {
         id: 6,
