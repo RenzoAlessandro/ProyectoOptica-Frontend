@@ -31,7 +31,7 @@ export class ListCashComponent implements OnInit {
   breadCrumbItems: Array<{}>;
   term: any;
 
-  transactions$: Observable<CajaModel[]>;
+  transactions$: Observable<any>;
   total$: Observable<number>;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
