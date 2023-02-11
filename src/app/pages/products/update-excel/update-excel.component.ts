@@ -26,6 +26,7 @@ export class UpdateExcelComponent implements OnInit {
 
   //formulario
   formExportar: FormGroup;
+  formExportarCrear: FormGroup;
   formImportar: FormGroup;
   sede: string = "campoSede";
   producto: string = "campoProducto";
@@ -47,7 +48,7 @@ export class UpdateExcelComponent implements OnInit {
     },
   ];
   filebutton: boolean = false;
-
+  idSede = '';
   constructor(
     private sedeService: SedeService,
     private fb: FormBuilder,
@@ -66,17 +67,20 @@ export class UpdateExcelComponent implements OnInit {
   }
 
   getListSedes() {
-    this.sedeService.getSedes().subscribe(res => {
-      this.listSedes = res;
-    });
+    this.listSedes = JSON.parse(localStorage.getItem('sedes'));
+    this.idSede = this.usuarioService.getSedebyUser();
   }
 
   crearFormulario() {
     this.formExportar = this.fb.group({
-      sede: [null, [Validators.required]],
+      sede: [this.idSede, [Validators.required]],
       producto: [null, [Validators.required]],
     });
 
+    this.formExportarCrear = this.fb.group({
+      sede: [this.idSede, [Validators.required]],
+      producto: [null, [Validators.required]],
+    }); 
     this.formImportar = this.fb.group({
       productos: [null, [Validators.required]],
     })

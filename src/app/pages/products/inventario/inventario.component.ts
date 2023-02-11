@@ -11,6 +11,7 @@ import * as XLSX from 'xlsx';
 import saveFile from 'save-as-file';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { ProductosService } from 'src/app/services/productos.service';
 
 @Component({
   selector: 'app-inventario',
@@ -35,13 +36,14 @@ export class InventarioComponent implements OnInit {
   keyword = "id_producto";
   products: any = [];
   formInventario: FormGroup;
-  sede: string = "campoSede";
-
+  nombre_sedes: string = "campoSede";
+  idSede = '';
   constructor(
     public service: CustomerService,
     private sedeService: SedeService,
     private fb: FormBuilder,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private monturaService: ProductosService
   ) {
     this.monturas$ = service.customers$;
     this.total$ = service.total$;
@@ -51,21 +53,36 @@ export class InventarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getListSedes();
+    this.crearFormulario();
     this.breadCrumbItems = [{ label: 'Productos' }, { label: 'Inventario de Monturas', active: true }];
     this.service.customers$.subscribe(res => {
       this.listMonturas = res;
     })
-    this.getListSedes();
-    this.crearFormulario();
+    
+    
   }
 
-  f(campo: any) {
-    return this.formInventario.get(campo);
-  }
 
   crearFormulario() {
     this.formInventario = this.fb.group({
-      sede: [this.usuarioService.getSedebyUser()],
+      [this.nombre_sedes]: [this.idSede]
+    })
+  }
+
+  fS(campo: string) {
+    return this.formInventario.get(campo);
+  }
+
+  changeSede() {
+    this.products = [];
+    this.idSede = this.fS(this.nombre_sedes).value;
+    this.updateListMonturas(this.idSede);
+  }
+
+  updateListMonturas(idSede:string) {
+    this.monturaService.getProductosbySede(idSede,'montura').subscribe( res=>{
+      this.service.updateTable(res);
     })
   }
 
@@ -82,7 +99,8 @@ export class InventarioComponent implements OnInit {
   }
 
   getListSedes() {
-    this.listSedes = this.sedeService.getListSedes();
+    this.listSedes = JSON.parse(localStorage.getItem('sedes'));
+  this.idSede = this.usuarioService.getSedebyUser();
   }
 
   removeProduct() {
@@ -158,7 +176,7 @@ export class InventarioComponent implements OnInit {
     }
     const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     const blobData = new Blob([excelBuffer], { type: EXCEL_TYPE });
-    const nombreSede = this.listSedes.find(res => (res.id_sede == this.f('sede').value));
+    const nombreSede = this.listSedes.find(res => (res.id_sede == this.fS(this.nombre_sedes).value));
     console.log(nombreSede);
     saveFile(blobData, 'monturas' + '_' + nombreSede.nombre_sede);
     this.products = [];
@@ -174,7 +192,4 @@ export class InventarioComponent implements OnInit {
     return res;
   }
 
-  actualizarTabla() {
-    this.products = [];
-  }
 }

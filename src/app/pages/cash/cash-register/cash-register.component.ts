@@ -151,6 +151,15 @@ export class CashRegisterComponent implements OnInit {
     this.serviceE.sortDirectionE = direction;
   }
 
+  fS(campo: string) {
+    return this.formSedes.get(campo);
+  }
+
+  changeSede() {
+    this.idSede = this.fS(this.nombre_sedes).value;
+    this.updateListIngresos(this.idSede);
+  }
+
   /**
    * Open center modal
    * @param centerDataModal center modal data
@@ -197,6 +206,7 @@ export class CashRegisterComponent implements OnInit {
       console.log(this.caja);
      this.cajaService.createIngresoEgreso(this.caja).subscribe(res=>{
         console.log("guardado ingreso");
+        this.updateListIngresos(this.idSede)
         this.formIngreso.reset();
         this.modalService.dismissAll();
       }) 
@@ -231,6 +241,22 @@ export class CashRegisterComponent implements OnInit {
     console.log(data)
     this.cajaService.deleteIngresoEgreso(data).subscribe(res=>{
       console.log("eliminado")
+      if (data.egreso) {
+        
+      } else {
+        this.updateListIngresos(this.idSede);
+      }
+      
+    })
+  }
+
+  updateListIngresos(idSede:string) {
+    let fIni: Date = new Date(Date.now());
+    fIni.setHours(0,0,1);
+    let fFin: Date = new Date(Date.now());
+    fFin.setHours(23,59,0);
+    this.cajaService.getIngresosbyDate(fIni,fFin,idSede).subscribe(res => {
+      this.serviceI.updateTableIngreso(res);
     })
   }
 }

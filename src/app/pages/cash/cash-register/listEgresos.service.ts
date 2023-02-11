@@ -8,6 +8,7 @@ import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
 import { CajaService } from 'src/app/services/caja.service';
 import { CajaModel } from 'src/models/caja';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 interface SearchResult {
   invoices: CajaModel[];
@@ -65,7 +66,8 @@ export class EgresoService {
 
   constructor(
     private pipe: DecimalPipe,
-    private cajaService: CajaService
+    private cajaService: CajaService,
+    private usuarioService: UsuarioService
     ) {
       let fIni: Date = new Date(Date.now());
     fIni.setHours(0,0,1);
@@ -146,7 +148,7 @@ export class EgresoService {
 
   getListEgresos(fIni:Date, fFin:Date) {
 
-    this.cajaService.getEgresosbyDate(fIni,fFin).subscribe( res=> {
+    this.cajaService.getIngresosbyDate(fIni,fFin,this.usuarioService.getSedebyUser()).subscribe( res=> {
       console.log("entre..",res);
       this.egresoList = res;
       this._searchE$

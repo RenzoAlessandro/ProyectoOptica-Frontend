@@ -107,14 +107,14 @@ export class TransactionService {
 
   getListIngresosEgresos(fIni:Date,fFin:Date) {
 
-    this.cajaService.getIngresosbyDate(fIni,fFin).subscribe(res=>{
+    /* this.cajaService.getIngresosbyDate(fIni,fFin).subscribe(res=>{
       this.cajaList = res;
       this.cajaService.getEgresosbyDate(fIni,fFin).subscribe(res=>{
         this.cajaList = [...res,...this.cajaList];
-        console.log(this.cajaList);
+        console.log(this.cajaList); */
         
         //for(let i=0;i< this.cajaList.length;i++) {
-          let date = new Date(this.cajaList[0].fecha_creacion_caja);
+          /* let date = new Date(this.cajaList[0].fecha_creacion_caja);
           console.log(date);
           let day = date.getDay();
           let month = date.getMonth();
@@ -128,7 +128,7 @@ export class TransactionService {
             let year2 = date.getFullYear();
             return (day == day2 && month == month2 && year == year2 )
           })
-          console.log(tmp)
+          console.log(tmp) */
         //}
 
         this._search$.pipe(
@@ -143,7 +143,7 @@ export class TransactionService {
         });
     
         this._search$.next();
-      })
-    })
+      /* })
+    }) */
   }
 }
