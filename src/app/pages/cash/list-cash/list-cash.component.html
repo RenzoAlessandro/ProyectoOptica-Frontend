@@ -93,7 +93,7 @@
                 </thead>
                 <tbody>
   
-                  <tr *ngFor="let data of transactions$ | async" class="odd">
+                  <tr *ngFor="let data of transactions$ | async; let i = index" class="odd">
   
 <!--                     <td>
                       <div class="form-check text-center">
@@ -102,10 +102,10 @@
                       </div>
                     </td> -->
                     <td>
-                      <ngb-highlight [result]="data.id" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="i+1" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.fecha" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.date" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
                       <ngb-highlight [result]="data.ingreso" [term]="service.searchTerm"></ngb-highlight>

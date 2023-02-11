@@ -3,14 +3,14 @@ import { Injectable, PipeTransform } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 
 import { DecimalPipe } from '@angular/common';
-import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, delay, groupBy, map, mergeMap, reduce, switchMap, tap, toArray } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
 import { CajaService } from 'src/app/services/caja.service';
 import { CajaModel } from 'src/models/caja';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 interface SearchResult {
-  transactions: CajaModel[];
+  transactions: any;
   total: number;
 }
 
@@ -24,7 +24,7 @@ interface State {
 
 const compare = (v1: string | number | boolean |Date, v2: string | number | boolean |Date) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-function sort(transactions: CajaModel[], column: SortColumn, direction: string): CajaModel[] {
+function sort(transactions: any, column: SortColumn, direction: string): any[] {
   if (direction === '' || column === '') {
     return transactions;
   } else {
@@ -35,8 +35,8 @@ function sort(transactions: CajaModel[], column: SortColumn, direction: string):
   }
 }
 
-function matches(transaction: CajaModel, term: string, pipe: PipeTransform) {
-  return //transaction.id_caja.toLowerCase().includes(term)
+function matches(transaction: any, term: string, pipe: PipeTransform) {
+  return transaction.date.toLowerCase().includes(term)
     //|| String(transaction.fecha_creacion_caja).toLowerCase().includes(term.toLowerCase())
     //|| String(transaction.monto).toLowerCase().includes(term)
     //|| transaction.metodo_pago.toLowerCase().includes(term)
@@ -48,9 +48,9 @@ function matches(transaction: CajaModel, term: string, pipe: PipeTransform) {
 export class TransactionService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _transactions$ = new BehaviorSubject<CajaModel[]>([]);
+  private _transactions$ = new BehaviorSubject<any>([]);
   private _total$ = new BehaviorSubject<number>(0);
-  cajaList: Array<CajaModel> = [];
+  cajaList:any;
   private _state: State = {
     page: 1,
     pageSize: 10,
@@ -72,6 +72,9 @@ export class TransactionService {
     lastDay.setHours(23, 59, 0);
     console.log(firstDay, lastDay)
     this.getListIngresosEgresos(firstDay,lastDay);
+  }
+  updateTable (data) {
+    this._transactions$.next(data);
   }
 
   get transactions$() { return this._transactions$.asObservable(); }
@@ -110,7 +113,39 @@ export class TransactionService {
   getListIngresosEgresos(fIni:Date,fFin:Date) {
 
     this.cajaService.getIngresosEgresosbyMonth(fIni,fFin,this.usuarioService.getSedebyUser()).subscribe(res=>{
-      this.cajaList = res;
+      /* of(...res).pipe(
+        groupBy((p: any) => p.fecha_creacion_caja.split(' ')[0]),
+        mergeMap(group$ =>
+          group$.pipe(reduce((acc, cur) => [...acc, cur], [`${group$.key}`]))
+        ),
+        map(arr => ({ date: arr[0], caja: arr.slice(1) })),
+        toArray()
+      ).subscribe(p => {
+        console.log(p)
+        this.cajaList = p;
+        //this.updateTable(this.cajaList)
+      }); */
+     
+      const groups = res.reduce((groups, game) => {
+        const date = game.fecha_creacion_caja.split(' ')[0];
+        if (!groups[date]) {
+          groups[date] = [];
+        }
+        groups[date].push(game);
+        return groups;
+      }, {}); 
+      
+      // Edit: to add it in the array format instead
+       const groupArrays = Object.keys(groups).map((date) => {
+        return {
+          date,
+          games: groups[date]
+        };
+      }); 
+      
+      this.cajaList = groupArrays
+
+
       console.log(this.cajaList)
         this._search$.pipe(
           tap(() => this._loading$.next(true)),
@@ -119,6 +154,7 @@ export class TransactionService {
           delay(200),
           tap(() => this._loading$.next(false))
         ).subscribe(result => {
+          console.log(result)
           this._transactions$.next(result.transactions);
           this._total$.next(result.total);
         });
