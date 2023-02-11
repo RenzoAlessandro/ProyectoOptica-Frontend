@@ -62,13 +62,7 @@ export class LoginComponent implements OnInit {
         //sede: this.f('sede').value
       }
       
-      console.log(vendedor);
-      
-
-
       this.usuarioService.signIn(vendedor).subscribe(res=> {
-        console.log('entre',res);
-        
         this.usuarioService.storeUserData(res.token, res.onlyDataUser);
         this.getListSedes();
         Sweetalert("close", null);

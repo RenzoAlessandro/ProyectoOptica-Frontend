@@ -117,7 +117,6 @@ export class CustomerService {
       this.accesorioList.forEach(elem => {
         Object.assign(elem,propiedad)
       })
-      console.log(this.accesorioList);
       this._mostrar$.next(true);
       this._search$.pipe(
         tap(() => this._loading$.next(true)),

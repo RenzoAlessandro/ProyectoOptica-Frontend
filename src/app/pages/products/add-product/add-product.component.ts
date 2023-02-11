@@ -197,15 +197,12 @@ export class AddProductComponent implements OnInit {
       this.accesorios.id_sede = this.userService.getSedebyUser();
       this.accesorios.habilitado = true;
       this.accesorios.tipo = "accesorio";
-      console.log(this.accesorios);
       Sweetalert("loading", "Cargando...");
       this.productosService.createAccesorios(this.accesorios).subscribe(res=>{
-        console.log(res)
         Sweetalert("close",null);
         Sweetalert("success", "Accesorio guardado");
         this.formAccesorios.reset();
         this.fA(this.fecha_registro_accesorio).setValue(this.fecha_actual.toLocaleDateString());
-        console.log("accesorio guardado")
       })
     } else {
       
@@ -224,14 +221,12 @@ export class AddProductComponent implements OnInit {
       this.lunas.id_sede = this.userService.getSedebyUser();
       this.lunas.habilitado = true;
       this.lunas.tipo = "luna";
-      console.log(this.lunas);
       Sweetalert("loading", "Cargando...");
       this.productosService.createLunas(this.lunas).subscribe(res=>{
         Sweetalert("close",null);
         Sweetalert("success","Luna guardada");
         this.formLunas.reset();
         this.fL(this.fecha_registro_luna).setValue(this.fecha_actual.toLocaleDateString());
-        console.log("lunas guardado")
       })
     } else {
       
@@ -254,7 +249,6 @@ export class AddProductComponent implements OnInit {
       this.monturas.id_sede = this.userService.getSedebyUser();
       this.monturas.habilitado = true;
       this.monturas.tipo = "montura";
-      console.log(this.monturas);
       Sweetalert("loading", "Cargando...");
       this.productosService.createMonturas(this.monturas).subscribe(res=>{
         Sweetalert("close",null);
@@ -262,7 +256,6 @@ export class AddProductComponent implements OnInit {
         this.formMonturas.reset();
         this.fM(this.fecha_registro_montura).setValue(this.fecha_actual.toLocaleDateString());
         //this.fecha_registro_montura.
-        console.log("monturas guardado")
       })
     } else {
       

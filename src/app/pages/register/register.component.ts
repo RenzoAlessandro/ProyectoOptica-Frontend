@@ -80,13 +80,11 @@ export class RegisterComponent implements OnInit {
         //rol: this.f(this.rol).value,
         //sede: this.f(this.sede).value
       }
-      console.log(usuario);
     };
     
 
     /* this.usuarioService.getUsers().subscribe(
       res=> {
-        console.log(res);
       }
     ) */
   }

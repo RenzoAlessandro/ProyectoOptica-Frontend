@@ -83,13 +83,11 @@ export class AddStoreComponent implements OnInit {
       this.sede.nombre_sede = this.f(this.nombre_tienda).value;
       this.sede.habilitado = true;
       this.sede.fecha_modificacion_sede = new Date(Date.now());
-      console.log(this.sede);
       Sweetalert("loading", "Cargando...");
       this.sedeService.createSedes(this.sede).subscribe( res=>{
         Sweetalert("close",null);
         Sweetalert("success", "Tienda guardada");
         this.formTiendas.reset();
-        console.log("registrado ok");
       }); 
     } else {
       

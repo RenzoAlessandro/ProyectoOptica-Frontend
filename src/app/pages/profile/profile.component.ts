@@ -120,14 +120,12 @@ export class ProfileComponent implements OnInit {
           password: this.f(this.actualPassword).value,
           newPassword: this.f(this.password).value
         }
-        console.log(changePassword)
         if(changePassword.password == changePassword.newPassword)
         {
           Sweetalert("error", "La contraseña nueva no puede ser igual a la antigua");
         } else {
           Sweetalert("loading", "Cargando...");
           this.usuarioService.changePasswordUser(changePassword).subscribe(res=> {
-            console.log("cambiada!!!");
             this.modalService.dismissAll();
             Sweetalert("close",null);
             Sweetalert("success","Contraseña guardada");
@@ -135,7 +133,6 @@ export class ProfileComponent implements OnInit {
         }
           
       } else {
-        console.log("invalido")
         return;
       }
     }

@@ -110,25 +110,21 @@ export class TransactionService {
     /* this.cajaService.getIngresosbyDate(fIni,fFin).subscribe(res=>{
       this.cajaList = res;
       this.cajaService.getEgresosbyDate(fIni,fFin).subscribe(res=>{
-        this.cajaList = [...res,...this.cajaList];
-        console.log(this.cajaList); */
+        this.cajaList = [...res,...this.cajaList]; */
         
         //for(let i=0;i< this.cajaList.length;i++) {
           /* let date = new Date(this.cajaList[0].fecha_creacion_caja);
-          console.log(date);
           let day = date.getDay();
           let month = date.getMonth();
           let year = date.getFullYear();
           let tmp = [];
           tmp = this.cajaList.filter(caja =>{
             let date = new Date(caja.fecha_creacion_caja);
-            console.log(date);
             let day2 = date.getDay();
             let month2 = date.getMonth();
             let year2 = date.getFullYear();
             return (day == day2 && month == month2 && year == year2 )
-          })
-          console.log(tmp) */
+          })*/
         //}
 
         this._search$.pipe(

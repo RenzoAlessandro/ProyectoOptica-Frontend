@@ -73,7 +73,6 @@ export class ListUsersComponent implements OnInit {
     service.mostrar.subscribe(res=>{
       this.mostrarSpinner = res;
     })
-    console.log(this.mostrarSpinner)
   }
 
   ngOnInit() {
@@ -220,7 +219,6 @@ closeEventModal() {
         this.usuarioService.darBajaUser(data.id_usuario).subscribe(res => {
           Sweetalert("close", null);
           Sweetalert("success", "Usuario eliminado");
-          console.log("Usuario borrado");
           this.updateListUsers();
         }, error => {
           Sweetalert("close", null);
@@ -254,10 +252,8 @@ closeEventModal() {
       this.user.rol = this.f('rol').value;
       this.user.id_sede = this.f('sede').value;
       this.user.observaciones = this.f(this.observaciones).value;
-      console.log(this.user);
       Sweetalert("loading", "Cargando...");
       this.usuarioService.updateUsers(this.user.id_usuario,this.user).subscribe(res=>{
-        console.log('actualizado');
         this.modalService.dismissAll();
         this.formUser.reset();
         this.updateListUsers();

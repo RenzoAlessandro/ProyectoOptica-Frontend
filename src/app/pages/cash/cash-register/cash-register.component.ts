@@ -203,9 +203,7 @@ export class CashRegisterComponent implements OnInit {
       this.caja.habilitado = true;
       this.caja.egreso = false;
       this.caja.metodo_pago = this.fI(this.metodoPagoContado_ingreso).value;
-      console.log(this.caja);
      this.cajaService.createIngresoEgreso(this.caja).subscribe(res=>{
-        console.log("guardado ingreso");
         this.updateListIngresos(this.idSede)
         this.formIngreso.reset();
         this.modalService.dismissAll();
@@ -226,9 +224,7 @@ export class CashRegisterComponent implements OnInit {
       this.caja.habilitado = true;
       this.caja.egreso = true;
       this.caja.metodo_pago = this.fE(this.metodoPagoContado_egreso).value;
-      console.log(this.caja);
      this.cajaService.createIngresoEgreso(this.caja).subscribe(res=>{
-        console.log("guardado egreso");
         this.formEgreso.reset();
         this.modalService.dismissAll();
       }) 
@@ -238,9 +234,7 @@ export class CashRegisterComponent implements OnInit {
   }
 
   eliminarIngreso(data:CajaModel) {
-    console.log(data)
     this.cajaService.deleteIngresoEgreso(data).subscribe(res=>{
-      console.log("eliminado")
       if (data.egreso) {
         
       } else {

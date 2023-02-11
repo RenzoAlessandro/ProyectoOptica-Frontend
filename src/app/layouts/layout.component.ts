@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 import { EventService } from '../core/services/event.service';
 
-import { LAYOUT_VERTICAL, LAYOUT_HORIZONTAL } from './layouts.model';
+import { LAYOUT_VERTICAL } from './layouts.model';
 
 @Component({
   selector: 'app-layout',
@@ -32,12 +32,5 @@ export class LayoutComponent implements OnInit, AfterViewInit {
    */
   isVerticalLayoutRequested() {
     return this.layoutType === LAYOUT_VERTICAL;
-  }
-
-  /**
-   * Check if the horizontal layout is requested
-   */
-  isHorizontalLayoutRequested() {
-    return this.layoutType === LAYOUT_HORIZONTAL;
   }
 }

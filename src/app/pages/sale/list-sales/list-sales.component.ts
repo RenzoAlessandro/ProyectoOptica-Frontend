@@ -94,7 +94,6 @@ export class ListSalesComponent implements OnInit {
     private usuarioService: UsuarioService
     ) {
     this.transactions$ = service.transactions$;
-    console.log(this.transactions$)
     this.total$ = service.total$;
     service.mostrar.subscribe(res=>{
       this.mostrarSpinner = res;
@@ -131,7 +130,6 @@ export class ListSalesComponent implements OnInit {
   centerModalActualizar(centerDataModalActualizar: any, venta: VentasModel) {
     this.crearFormularioActualizar();
     this.fechaVenta = new Date(Date.now());
-    console.log(venta)
     /* venta.tipo_venta = venta.tipo_venta.sort((a,b)=> {
       return  new Date(a.fecha_pago).getTime() - new Date(b.fecha_pago).getTime()
     }); */
@@ -204,7 +202,6 @@ export class ListSalesComponent implements OnInit {
   }
 
   updatePago(event: any) {
-    console.log("entre")
       this.g(this.pago_CreditoActualizacion).setValue(this.g(this.cantidadRecibida_CreditoActualizacion).value);
       const deuda = Number(round(this.g(this.cantidadRecibida_CreditoActualizacion).value - this.usuario.deuda,1).toFixed(2));
       this.g(this.cambio_CreditoActualizacion).setValue(Math.abs(deuda));
@@ -216,7 +213,6 @@ export class ListSalesComponent implements OnInit {
       this.venta.id_sede = this.usuarioService.getSedebyUser();
       let deuda = 0;
       deuda = round(this.tipoPago[0].deuda - this.g(this.cantidadRecibida_CreditoActualizacion).value,1);
-      console.log(deuda)
       const pago:TipoVentaModel = {
         forma_pago: "credito",
         cantidad_recibida: Number(this.g(this.cantidadRecibida_CreditoActualizacion).value),
@@ -227,7 +223,6 @@ export class ListSalesComponent implements OnInit {
         fecha_pago : new Date(Date.now()),
         observaciones: this.g(this.observaciones_CreditoActualizacion).value
       }
-      console.log(pago)
       let listPago: Array<TipoVentaModel> = [];
       
       if(this.tipoPago.length + 1 == Number(this.tipoPago[0].cuotas) && deuda > 0) {
@@ -245,7 +240,6 @@ export class ListSalesComponent implements OnInit {
         listPago.push(pago);
         listPago.push(...this.tipoPago)
         this.venta.tipo_venta= listPago;
-        console.log(this.venta);
         Swal.fire({
           title: '¿Está seguro que desea cancelar la totalidad de la deuda?',
           text: 'No se podrá revertir esto!',
@@ -260,7 +254,6 @@ export class ListSalesComponent implements OnInit {
             this.ventasService.updatePagoCuotas(this.venta.id_ventas,this.venta).subscribe(res => {
               Sweetalert("close", null);
               Sweetalert("success", "Venta completada");
-              console.log("venta pagada");
               this.modalService.dismissAll();
               this.updateListVentas();
             }, error => {
@@ -285,11 +278,9 @@ export class ListSalesComponent implements OnInit {
         listPago.push(pago);
         listPago.push(...this.tipoPago)
         this.venta.tipo_venta= listPago;
-        console.log(this.venta);
         this.ventasService.updatePagoCuotas(this.venta.id_ventas,this.venta).subscribe(res =>{
           this.modalService.dismissAll();
           this.updateListVentas();
-          console.log("actualizado");
         })
       }
     } else {
@@ -315,9 +306,7 @@ export class ListSalesComponent implements OnInit {
       /* fechaFin.setDate(fechaFin.getDate() + 1)
       fechaIni.setHours(0,0,0);
       fechaFin.setHours(23,59,0) */
-      console.log("fechas",fechaIni,fechaFin)
       this.ventasService.getVentasByDate(fechaIni,fechaFin).subscribe(res=>{
-        console.log(res);
         this.service.updateTable(res);
       }) 
     } else {
@@ -340,7 +329,6 @@ export class ListSalesComponent implements OnInit {
         this.ventasService.darBajaVenta(data.id_ventas).subscribe(res => {
           Sweetalert("close", null);
           Sweetalert("success", "Venta eliminada");
-          console.log("venta borrado");
           this.updateListVentas();
         }, error => {
           Sweetalert("close", null);
@@ -369,9 +357,7 @@ export class ListSalesComponent implements OnInit {
   }
 
   createPDF(venta:VentasModel) {
-    console.log(venta)
     this.customerService.getAllClientbyId(venta.id_cliente).subscribe((res:CustomersModel) => {
-      console.log(res);
       this.generatePDF(venta, res[0]);
     })
   }
@@ -379,8 +365,6 @@ export class ListSalesComponent implements OnInit {
   
 
   async generatePDF(venta:VentasModel, cliente: CustomersModel){
-    console.log(venta)
-    console.log(cliente)
     var fonts = {
       Roboto: {
         normal: 'fonts/Roboto-Regular.ttf',

@@ -161,7 +161,6 @@ export class AccesoriosComponent implements OnInit {
    * @param centerDataModal center modal data
    */
   centerModal(centerDataModal: any, data: AccesorioModel) {
-    console.log(data)
     this.f(this.nombre_accesorio).setValue(data.nombre_accesorio);
     this.f(this.codigo_accesorio).setValue(data.codigo_interno);
     this.f(this.cantidad_accesorio).setValue(data.cantidad);
@@ -250,7 +249,6 @@ export class AccesoriosComponent implements OnInit {
         this.accesorioService.darBajaAccesorio(data.id_producto).subscribe(res => {
           Sweetalert("close", null);
           Sweetalert("success", "Accesorio eliminado");
-          console.log("montura borrado");
           this.updateListAccesorios(this.idSede);
         }, error => {
           Sweetalert("close", null);
@@ -281,11 +279,8 @@ export class AccesoriosComponent implements OnInit {
       this.accesorio.precio_accesorio_c = Number(this.f(this.precio_compra_accesorio).value);
       this.accesorio.precio_accesorio_v = Number(this.f(this.precio_venta_accesorio).value);
       this.accesorio.fecha_modificacion_accesorio = new Date(Date.now());
-
-      console.log(this.accesorio);
       Sweetalert("loading", "Cargando...");
       this.accesorioService.updateAccesorio(this.accesorio.id_producto, this.accesorio).subscribe(res => {
-        console.log("actualizado");
         this.modalService.dismissAll();
         Sweetalert("close", null);
         Sweetalert("success", "Accesorio actualizado");
@@ -327,7 +322,6 @@ export class AccesoriosComponent implements OnInit {
   }
 
   checkUncheckAll(){
-    console.log(this.isMasterSel)
     this.accesorios$.forEach(element => {
       element.forEach(elem => {
         elem.isSelected = this.isMasterSel;
@@ -339,16 +333,13 @@ export class AccesoriosComponent implements OnInit {
   getCheckedItemList(){
     this.checkedAccesoriosList = [];
     this.accesorios$.forEach(element => {
-      console.log(element);
       element.forEach(elem => {
         if (elem.isSelected) {
           this.checkedAccesoriosList.push(elem);
         }
       })
     }); 
-    console.log(this.checkedAccesoriosList)
     //this.checkedLunasList = JSON.stringify(this.checkedLunasList); 
-    
   }
 
   isAllSelected() {
@@ -366,7 +357,6 @@ export class AccesoriosComponent implements OnInit {
       return accumulator + obj.cantidad;
     },0)
     let DATA: any = document.getElementById('htmlData');
-    console.log(DATA.children.length)
     //var HTML_Width = document.getElementById("htmlData").offsetWidth 
 		//var HTML_Height = document.getElementById("htmlData").offsetHeight
     var HTML_Width = 3
@@ -379,13 +369,10 @@ export class AccesoriosComponent implements OnInit {
 		var canvas_image_width = HTML_Width;
 		var canvas_image_height = HTML_Height;
 		
-    console.log(HTML_Width, HTML_Height)
 		//var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
     var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)
-    console.log(totalPDFPages)
     html2canvas(DATA).then((canvas) => {
       const nombreSede = this.listSedes.find(res => (res.id_sede == this.usuarioService.getSedebyUser()));
-      console.log(nombreSede)
       var imgData = canvas.toDataURL("image/jpeg", 1.0);
 			var pdf = new jsPDF('l', 'in',  [PDF_Width, PDF_Height]);
 		  pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
@@ -403,9 +390,7 @@ export class AccesoriosComponent implements OnInit {
 
   printEtiquetaIndividual() {
     Sweetalert("loading",null)
-    console.log("entre")
     let DATA: any = document.getElementById('htmlData2');
-    console.log(DATA.children.length)
     //var HTML_Width = document.getElementById("htmlData").offsetWidth 
 		//var HTML_Height = document.getElementById("htmlData").offsetHeight
     var HTML_Width = 3
@@ -418,14 +403,11 @@ export class AccesoriosComponent implements OnInit {
 		var canvas_image_width = HTML_Width;
 		var canvas_image_height = HTML_Height;
 		
-    console.log(HTML_Width, HTML_Height)
 		//var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
     var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)
-    console.log(totalPDFPages)
     
     html2canvas(DATA).then((canvas) => {
       const nombreSede = this.listSedes.find(res => (res.id_sede == this.usuarioService.getSedebyUser()));
-      console.log(nombreSede)
       var imgData = canvas.toDataURL("image/jpeg", 1.0);
 			var pdf = new jsPDF('l', 'in',  [PDF_Width, PDF_Height]);
 		  pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);

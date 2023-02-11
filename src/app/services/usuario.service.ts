@@ -73,10 +73,8 @@ export class UsuarioService {
 
   storeUserData(token, user) {
     //this.timeout = this.jwtHelper.getTokenExpirationDate(token).valueOf() - new Date().valueOf();
-    //console.log(this.jwtHelper.getTokenExpirationDate(token).valueOf())
     const jwtToken = (JSON.parse(atob(token.split('.')[1]))).exp;
     const expires = new Date(jwtToken * 1000);
-    console.log(expires)
     localStorage.setItem("access_token", token);
     localStorage.setItem("user", JSON.stringify(user))
     //this.authToken = token;
@@ -89,10 +87,7 @@ export class UsuarioService {
 
   expirationCounter(timeout) {
     this.tokenSubscription.unsubscribe();
-    console.log("entre")
     this.tokenSubscription = of(null).pipe(delay(timeout)).subscribe((expired) => {
-      console.log('EXPIRED!!');
-
       this.logOut();
       //this.router.navigate(["/login"]);
     });
@@ -101,7 +96,6 @@ export class UsuarioService {
   getRole() {
     const user = localStorage.getItem('user');
     this.roleAs = JSON.parse(user).rol;
-    console.log(this.roleAs)
     return this.roleAs;
   }
 
@@ -113,7 +107,6 @@ export class UsuarioService {
   getUser() {
     const user = localStorage.getItem('user');
     this.usuario = JSON.parse(user);
-    console.log(this.usuario)
     return this.usuario;
   }
 

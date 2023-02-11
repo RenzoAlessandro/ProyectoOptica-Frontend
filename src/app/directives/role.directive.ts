@@ -20,10 +20,8 @@ export class RoleDirective implements OnInit {
   }
 
   @Input() set appRole(val: string) {
-    console.log(val);
     this.viewContainer.createEmbeddedView(this.templateRef);
     this.permissions = val;
-    console.log(this.permissions)
     this.updateView();
   }
 
@@ -38,7 +36,6 @@ export class RoleDirective implements OnInit {
   private checkPermissions(): boolean {
     let hasPermission = false;
     if (this.role == this.permissions) {
-      console.log("si tienes permiso")
       hasPermission = true;
     }
     return hasPermission;

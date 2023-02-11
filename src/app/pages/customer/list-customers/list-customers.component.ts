@@ -90,7 +90,6 @@ export class ListCustomersComponent implements OnInit {
     service.mostrar.subscribe(res=>{
       this.mostrarSpinner = res;
     })
-    console.log(this.mostrarSpinner)
   }
 
   ngOnInit() {
@@ -141,13 +140,10 @@ export class ListCustomersComponent implements OnInit {
       this.f(this.antecedentes).setValue(data.antecedentes);
       this.customer.id_cliente = data.id_cliente;
       this.modalService.open(centerDataModal, { centered: true, size: 'lg'});
-      console.log(data);
     }
 
     centerModalPrint(centerDataModal: any, data: CustomersModel) {
-      //console.log(data)
       this.userPrint = data;
-      console.log(this.userPrint)
       this.modalService.open(centerDataModal, { scrollable: true, centered: true, size: 'lg'});
     }
 
@@ -170,7 +166,6 @@ export class ListCustomersComponent implements OnInit {
 
   closeEventModal() {
     this.userPrint = {} as CustomersModel;
-    console.log(this.userPrint)
     this.modalService.dismissAll();
   }
   /**
@@ -207,10 +202,8 @@ export class ListCustomersComponent implements OnInit {
       const listaMedidas = []
       listaMedidas.push(this.medidas);
       this.customer.medidas = listaMedidas;
-      console.log(this.customer);
       Sweetalert("loading", "Cargando...");
       this.customerService.updateClient(this.customer.id_cliente,this.customer).subscribe( res=>{
-        console.log("registrado ok");
         this.modalService.dismissAll();
         this.getListClients();
         this.formCustomer.reset();
@@ -334,7 +327,6 @@ export class ListCustomersComponent implements OnInit {
         this.customerService.darBajaClient(data.id_cliente).subscribe(res => {
           Sweetalert("close", null);
           Sweetalert("success", "Cliente eliminada");
-          console.log("Cliente borrado");
           this.updateListCustomers();
         }, error => {
           Sweetalert("close", null);
@@ -407,8 +399,6 @@ export class ListCustomersComponent implements OnInit {
 
     var encargadoCliente = this.userPrint.medidas[0].encargado;
     var antecedentesCliente = this.userPrint.antecedentes
-
-    console.log(this.userPrint);
     
     const pdfDefinition: any = {
       pageSize: 'A5',

@@ -42,7 +42,6 @@ function sort(
 }
 
 function matches(invoice: CajaModel, term: string, pipe: PipeTransform) {
-  console.log(invoice)
   return String(invoice.monto).toLowerCase().includes(term) ||
     invoice.descripcion.toLowerCase().includes(term.toLowerCase()) ||
     String(invoice.encargado).toLowerCase().includes(term.toLowerCase())
@@ -75,7 +74,6 @@ export class EgresoService {
     fFin.setHours(23,59,0);
     //fIni = new Date(fIni.getTime() - fIni.getTimezoneOffset()*60000)
     //fFin = new Date(fFin.getTime() - fFin.getTimezoneOffset()*60000)
-    console.log(fIni,'-',fFin)
     this.getListEgresos(fIni,fFin);
   }
 
@@ -149,7 +147,6 @@ export class EgresoService {
   getListEgresos(fIni:Date, fFin:Date) {
 
     this.cajaService.getIngresosbyDate(fIni,fFin,this.usuarioService.getSedebyUser()).subscribe( res=> {
-      console.log("entre..",res);
       this.egresoList = res;
       this._searchE$
       .pipe(

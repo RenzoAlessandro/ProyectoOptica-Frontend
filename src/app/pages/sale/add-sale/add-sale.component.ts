@@ -133,7 +133,6 @@ export class AddSaleComponent implements OnInit {
     this.getListClients();
     this.fechaVenta = new Date(Date.now());
     this.modalService.open(centerDataModal, { centered: true, windowClass: 'modal-holder' });
-    console.log("modal", products);
     this.f(this.fechaVenta_Contado).setValue(this.fechaVenta.toLocaleDateString());
     this.f(this.precioTotal_Contado).setValue(this.precioTotalVenta.toFixed(2)  );
     this.g(this.fechaVenta_Credito).setValue(this.fechaVenta.toLocaleDateString());
@@ -191,7 +190,6 @@ export class AddSaleComponent implements OnInit {
      Sweetalert("loading", "Cargando...");
      this.productosService.getMonturasforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
       this.listAllProducts = res;
-      console.log("monturas", this.listAllProducts); 
       this.getListAccesorios()
    });
   }
@@ -199,7 +197,6 @@ export class AddSaleComponent implements OnInit {
   getListAccesorios() {
     this.productosService.getAccesoriosforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
       this.listAllProducts = [...res,...this.listAllProducts];
-      console.log("accesorios", this.listAllProducts);
       this.getListLunas()
     });
   }
@@ -207,7 +204,6 @@ export class AddSaleComponent implements OnInit {
   getListLunas() {
     this.productosService.getLunasforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
       this.listAllProducts = [...res,...this.listAllProducts];
-      console.log("lunas", this.listAllProducts);
       Sweetalert("close", null);
     });
   }
@@ -218,12 +214,10 @@ export class AddSaleComponent implements OnInit {
       this.listClients.forEach(element => {
         element.nombres_apellidos = element.apellidos + ' ' + element.nombres;
       });
-      console.log("clientes", this.listClients);
     })
   }
 
   selectorProducts(changeEvent: NgbNavChangeEvent) {
-    console.log(changeEvent.nextId);
     switch (changeEvent.nextId) {
       case 1:
         this.getListMonturas();
@@ -242,7 +236,6 @@ export class AddSaleComponent implements OnInit {
   }
 
   selectorMetodoPago(changeEvent: NgbNavChangeEvent) {
-    console.log(changeEvent.nextId);
     if (changeEvent.nextId == 1) {
       this.selectorPago = "contado";
     } else {
@@ -250,7 +243,6 @@ export class AddSaleComponent implements OnInit {
     }
   }
   selectEvent(item: any) {
-    console.log(item);
     const productExistInCart = this.products.find((name) => name.id_producto === item.id_producto);
     if (!productExistInCart) {
       switch (item.tipo) {
@@ -270,9 +262,8 @@ export class AddSaleComponent implements OnInit {
           break;
       }
       this.estadoBotonGuardar();
-      console.log("autocomplete", this.products);
+      
     } else {
-      console.log("entre al false",productExistInCart)
       if (productExistInCart.cant_vendida +1 > productExistInCart.cantidad) {
         Sweetalert("error", "No se puede agregar más productos del stock");
         this.autocomplete.clear();
@@ -286,7 +277,6 @@ export class AddSaleComponent implements OnInit {
   }
 
   selectEventCliente(item: any) {
-    console.log(item);
     this.customer = item;
     if (this.selectorPago == "contado") {
       this.f(this.usuario_Contado).setValue(item.id_cliente);
@@ -294,7 +284,6 @@ export class AddSaleComponent implements OnInit {
       this.g(this.usuario_Credito).setValue(item.id_cliente);
     }
     this.venta.nombre_cliente = item.nombres + ' '+ item.apellidos;
-    console.log("autocompleteCliente", this.products);
   }
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -314,8 +303,6 @@ export class AddSaleComponent implements OnInit {
 
   /** actualiza el precio por cantidad */
   addQuantityProduct(product, i) {
-    console.log(this.products)
-    console.log(this.products[i].cant_vendida +1,this.products[i].cantidad)
     if (this.products[i].cant_vendida +1 > this.products[i].cantidad) {
       Sweetalert("error", "No se puede agregar más productos del stock");
       return;
@@ -340,8 +327,6 @@ export class AddSaleComponent implements OnInit {
   }
 
   substractQuantityProduct(product, i) {
-    console.log(this.products)
-
     this.products[i].cant_vendida -= 1;
     switch (this.products[i].tipo) {
       case 'montura':
@@ -366,7 +351,6 @@ export class AddSaleComponent implements OnInit {
    * Remueve elementos de la lista cuando la cantidad es = 0
    */
   removeProduct() {
-    //console.log(this.cartProductList);
     this.products = this.products.filter(
       (name) => name.cant_vendida !== 0
     );
@@ -376,7 +360,6 @@ export class AddSaleComponent implements OnInit {
    * Remueve productos del carrito de compras
    */
   removeCartProduct(product, i) {
-    console.log("eliminado", this.products)
     this.products[i].cant_vendida = 0;
     this.removeProduct();
     this.estadoBotonGuardar();
@@ -444,7 +427,6 @@ export class AddSaleComponent implements OnInit {
   }
 
   updatePago(event: any) {
-    console.log("entre")
     if (this.selectorPago == "contado") {
       this.f(this.pago_Contado).setValue(this.f(this.cantidadRecibida_Contado).value);
       this.f(this.cambio_Contado).setValue((this.f(this.cantidadRecibida_Contado).value - this.precioTotalVenta).toFixed(2));
@@ -470,7 +452,6 @@ export class AddSaleComponent implements OnInit {
         this.tipoPago.observaciones = this.f(this.observaciones_Contado).value;
         this.tipoPago.cantidad_recibida = Number(this.f(this.cantidadRecibida_Contado).value);
         if ( this.f(this.cantidadRecibida_Contado).value - this.precioTotalVenta  < 0) {
-          console.log("entre")
           Sweetalert("error", "El pago no puede ser menor al valor de la compra, se sugiere compra al crédito");
           return
         } else {
@@ -481,7 +462,6 @@ export class AddSaleComponent implements OnInit {
         }
       } else {
         if ( this.precioTotalVenta - this.g(this.cantidadRecibida_Credito).value  < 0) {
-          console.log("entre")
           Sweetalert("error", "El pago no puede ser mayor al valor de la compra, se sugiere compra al contado");
           return
         } else {
@@ -502,7 +482,6 @@ export class AddSaleComponent implements OnInit {
       this.venta.id_sede = this.usuarioService.getSedebyUser();
       this.venta.habilitado = true;
 
-      console.log("venta", this.venta);
       this.cancel();
 
     } else {
@@ -532,7 +511,6 @@ export class AddSaleComponent implements OnInit {
         if (result.value) {
           Sweetalert("loading", "Cargando...");
           this.productosService.createVenta(this.venta).subscribe(res => {
-            console.log("Guardando venta");
             this.createPDF(this.venta,this.customer);
             Sweetalert("close", null);
             Sweetalert("success", "Venta realizada");
@@ -566,7 +544,6 @@ export class AddSaleComponent implements OnInit {
 
   async createPDF(venta:VentasModel, cliente:any){
 
-    console.log(venta);
     var fonts = {
       Roboto: {
         normal: 'fonts/Roboto-Regular.ttf',

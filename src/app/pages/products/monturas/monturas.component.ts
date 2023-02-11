@@ -201,7 +201,6 @@ export class MonturasComponent implements OnInit {
   openModalEtiqueta(openDataModal: any, data:MonturasModel) {
     this.individualQR = data;
     this.nQR = Number(this.fEM(this.nEtiquetasPorMontura).value);
-    console.log(this.nQR)
     this.modalService.open(openDataModal, { windowClass:'modal-holder', centered: true, scrollable: true });
   }
 
@@ -258,7 +257,6 @@ export class MonturasComponent implements OnInit {
       this.montura.precio_montura_c = Number(this.f(this.precio_compra_montura).value);
       this.montura.precio_montura_v = Number(this.f(this.precio_venta_montura).value);
       this.montura.fecha_modificacion_monturas = new Date(Date.now());
-      console.log(this.montura);
       Sweetalert("loading", "Cargando...");
       this.monturaService.updateMontura(this.montura.id_producto,this.montura).subscribe(res => {
         this.modalService.dismissAll();
@@ -287,7 +285,6 @@ export class MonturasComponent implements OnInit {
         this.monturaService.darBajaMontura(data.id_producto).subscribe(res => {
           Sweetalert("close", null);
           Sweetalert("success", "Montura eliminada");
-          console.log("Montura borrado");
           this.updateListMonturas(this.idSede);
         }, error => {
           Sweetalert("close", null);
@@ -334,7 +331,6 @@ get formPEM() {
   }
 
   checkUncheckAll(){
-    console.log(this.isMasterSel)
     this.monturas$.forEach(element => {
       element.forEach(elem => {
         elem.isSelected = this.isMasterSel;
@@ -346,7 +342,6 @@ get formPEM() {
   getCheckedItemList(){
     this.checkedMonturasList = [];
     this.monturas$.forEach(element => {
-      console.log(element);
       element.forEach(elem => {
         if (elem.isSelected) {
           this.checkedMonturasList.push(elem);
@@ -354,7 +349,6 @@ get formPEM() {
       })
      
     }); 
-    console.log(this.checkedMonturasList)
   }
 
   isAllSelected() {
@@ -373,7 +367,6 @@ get formPEM() {
       return accumulator + obj.cantidad;
     },0)
     let DATA: any = document.getElementById('htmlData');
-    console.log(DATA.children.length)
     //var HTML_Width = document.getElementById("htmlData").offsetWidth 
 		//var HTML_Height = document.getElementById("htmlData").offsetHeight
     var HTML_Width = 3
@@ -386,14 +379,11 @@ get formPEM() {
 		var canvas_image_width = HTML_Width;
 		var canvas_image_height = HTML_Height;
 		
-    console.log(HTML_Width, HTML_Height)
 		//var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
     var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)
-    console.log(totalPDFPages)
     
     html2canvas(DATA).then((canvas) => {
       const nombreSede = this.listSedes.find(res => (res.id_sede == this.usuarioService.getSedebyUser()));
-      console.log(nombreSede)
       var imgData = canvas.toDataURL("image/jpeg", 1.0);
 			var pdf = new jsPDF('l', 'in',  [PDF_Width, PDF_Height]);
 		  pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
@@ -426,9 +416,7 @@ get formPEM() {
   }
 
   printEtiquetaIndividual() {
-    console.log("entre")
     let DATA: any = document.getElementById('htmlData2');
-    console.log(DATA.children.length)
     //var HTML_Width = document.getElementById("htmlData").offsetWidth 
 		//var HTML_Height = document.getElementById("htmlData").offsetHeight
     var HTML_Width = 3
@@ -441,14 +429,11 @@ get formPEM() {
 		var canvas_image_width = HTML_Width;
 		var canvas_image_height = HTML_Height;
 		
-    console.log(HTML_Width, HTML_Height)
 		//var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
     var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)
-    console.log(totalPDFPages)
     
     html2canvas(DATA).then((canvas) => {
       const nombreSede = this.listSedes.find(res => (res.id_sede == this.usuarioService.getSedebyUser()));
-      console.log(nombreSede)
       var imgData = canvas.toDataURL("image/jpeg", 1.0);
 			var pdf = new jsPDF('l', 'in',  [PDF_Width, PDF_Height]);
 		  pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
