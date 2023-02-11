@@ -63,7 +63,6 @@ export class ListCashComponent implements OnInit {
 
     this.formDateRange = this.fb.group({
       [this.fechaDesde]:[],
-      [this.fechaHasta]:[]
     });
   }
 
@@ -101,11 +100,11 @@ export class ListCashComponent implements OnInit {
   filterDateRange() {
     if (this.formDateRange.valid) {
       let fechaIni = new Date(this.f(this.fechaDesde).value);
-      let fechaFin:Date;
+      
       if(this.f(this.fechaHasta).value != null) {
-        fechaFin = new Date(this.f(this.fechaHasta).value);
+       
       } else {
-        fechaFin = new Date(Date.now());
+       
         //fechaFin.setHours(23,59,0)
       }
       //fechaIni.setDate(fechaIni.getDate() - 1)

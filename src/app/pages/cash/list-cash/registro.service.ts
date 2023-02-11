@@ -7,6 +7,7 @@ import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
 import { CajaService } from 'src/app/services/caja.service';
 import { CajaModel } from 'src/models/caja';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 interface SearchResult {
   transactions: CajaModel[];
@@ -35,10 +36,10 @@ function sort(transactions: CajaModel[], column: SortColumn, direction: string):
 }
 
 function matches(transaction: CajaModel, term: string, pipe: PipeTransform) {
-  return transaction.id_caja.toLowerCase().includes(term)
-    || String(transaction.fecha_creacion_caja).toLowerCase().includes(term.toLowerCase())
-    || String(transaction.monto).toLowerCase().includes(term)
-    || transaction.metodo_pago.toLowerCase().includes(term)
+  return //transaction.id_caja.toLowerCase().includes(term)
+    //|| String(transaction.fecha_creacion_caja).toLowerCase().includes(term.toLowerCase())
+    //|| String(transaction.monto).toLowerCase().includes(term)
+    //|| transaction.metodo_pago.toLowerCase().includes(term)
     //|| transaction.status.toLowerCase().includes(term)
     //|| pipe.transform(transaction.index).includes(term);
 }
@@ -61,14 +62,15 @@ export class TransactionService {
 
   constructor(
     private pipe: DecimalPipe,
-    private cajaService: CajaService
+    private cajaService: CajaService,
+    private usuarioService: UsuarioService
   ) {
     let fIni: Date = new Date();
     let firstDay = new Date(fIni.getFullYear(), fIni.getMonth(), 1);
     let lastDay = new Date(fIni.getFullYear(), fIni.getMonth() + 1, 0);
     firstDay.setHours(0, 0, 1);
     lastDay.setHours(23, 59, 0);
-
+    console.log(firstDay, lastDay)
     this.getListIngresosEgresos(firstDay,lastDay);
   }
 
@@ -107,26 +109,9 @@ export class TransactionService {
 
   getListIngresosEgresos(fIni:Date,fFin:Date) {
 
-    /* this.cajaService.getIngresosbyDate(fIni,fFin).subscribe(res=>{
+    this.cajaService.getIngresosEgresosbyMonth(fIni,fFin,this.usuarioService.getSedebyUser()).subscribe(res=>{
       this.cajaList = res;
-      this.cajaService.getEgresosbyDate(fIni,fFin).subscribe(res=>{
-        this.cajaList = [...res,...this.cajaList]; */
-        
-        //for(let i=0;i< this.cajaList.length;i++) {
-          /* let date = new Date(this.cajaList[0].fecha_creacion_caja);
-          let day = date.getDay();
-          let month = date.getMonth();
-          let year = date.getFullYear();
-          let tmp = [];
-          tmp = this.cajaList.filter(caja =>{
-            let date = new Date(caja.fecha_creacion_caja);
-            let day2 = date.getDay();
-            let month2 = date.getMonth();
-            let year2 = date.getFullYear();
-            return (day == day2 && month == month2 && year == year2 )
-          })*/
-        //}
-
+      console.log(this.cajaList)
         this._search$.pipe(
           tap(() => this._loading$.next(true)),
           debounceTime(200),
@@ -139,7 +124,6 @@ export class TransactionService {
         });
     
         this._search$.next();
-      /* })
-    }) */
+       })
   }
 }
