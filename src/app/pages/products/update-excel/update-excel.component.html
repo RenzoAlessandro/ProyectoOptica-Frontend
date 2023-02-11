@@ -65,21 +65,21 @@
               <div class="mb-3">
                 <!-- Default dropup button -->
                 <div class="btn-group mt-2 me-1" ngbDropdown>
-                  <ng-select [items]="listSedes" formControlName="sede" placeholder="Seleccione la sede" bindValue="id_sede"
+                  <ng-select [items]="listSedes" formControlName="{{this.sedeC}}" placeholder="Seleccione la sede" bindValue="id_sede"
                     bindLabel="nombre_sede">
                   </ng-select>
                 </div>
 
                 <!-- Default dropup button -->
                 <div class="btn-group mt-2 me-1" ngbDropdown>
-                  <ng-select [items]="listProductos" formControlName="producto" placeholder="Seleccione el producto" bindValue="id"
+                  <ng-select [items]="listProductos" formControlName="{{this.productoC}}" placeholder="Seleccione el producto" bindValue="id"
                     bindLabel="nombre">
                   </ng-select>
                 </div>
 
                 <!-- Default button -->
                 <div class="btn-group mt-2 me-1">
-                  <input type="button" class="btn btn-primary btn-block" value="Descargar Archivo" (click)="exportarProductos()" [disabled]="!formExportar.valid">
+                  <input type="button" class="btn btn-primary btn-block" value="Descargar Archivo" (click)="descargarPlantilla()" [disabled]="!formExportarCrear.valid">
                 </div>
               </div>
             </form>
