@@ -4,7 +4,6 @@ import { FlatpickrOptions } from 'ng2-flatpickr';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 
-import { InvoiceService } from './list.service';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -15,12 +14,15 @@ import { CajaService } from 'src/app/services/caja.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { SedesModel } from 'src/models/sedes';
 
+import { IngresoService } from './listIngresos.service';
+import { EgresoService } from './listEgresos.service';
+
 
 @Component({
   selector: 'app-cash-register',
   templateUrl: './cash-register.component.html',
   styleUrls: ['./cash-register.component.scss'],
-  providers: [InvoiceService, DecimalPipe],
+  providers: [IngresoService, EgresoService, DecimalPipe],
 })
 export class CashRegisterComponent implements OnInit {
 
@@ -69,14 +71,15 @@ export class CashRegisterComponent implements OnInit {
   caja = new CajaModel;
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
-  constructor(public serviceI: InvoiceService,
-    public serviceE: InvoiceService,
+  constructor(
+    public serviceI: IngresoService,
+    public serviceE: EgresoService,
     private modalService: NgbModal, 
     private formBuilder: FormBuilder,
     private cajaService: CajaService,
     private usuarioService: UsuarioService) {
-    this.ingresos$ = serviceI.invoices$;
-    this.total$ = serviceI.total$;
+    this.ingresos$ = serviceI.ingreso$;
+    this.total$ = serviceI.totalI$;
     this.egresos$ = serviceE.egresos$;
     this.totalE$ = serviceE.totalE$;
   }
@@ -126,15 +129,15 @@ export class CashRegisterComponent implements OnInit {
    * @param param0 sort the column
    *
    */
-  onSort({ column, direction }: SortEvent) {
+  onSortI({ column, direction }: SortEvent) {
     // resetting other headers
     this.headers.forEach(header => {
       if (header.sortable !== column) {
         header.direction = '';
       }
     });
-    this.serviceI.sortColumn = column;
-    this.serviceI.sortDirection = direction;
+    this.serviceI.sortColumnI = column;
+    this.serviceI.sortDirectionI = direction;
   }
 
   onSortE({ column, direction }: SortEvent) {
@@ -144,8 +147,8 @@ export class CashRegisterComponent implements OnInit {
         header.direction = '';
       }
     });
-    this.serviceE.sortColumn = column;
-    this.serviceE.sortDirection = direction;
+    this.serviceE.sortColumnE = column;
+    this.serviceE.sortDirectionE = direction;
   }
 
   /**

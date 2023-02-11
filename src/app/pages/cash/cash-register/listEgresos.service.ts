@@ -49,16 +49,11 @@ function matches(invoice: CajaModel, term: string, pipe: PipeTransform) {
 }
 
 @Injectable({ providedIn: 'root' })
-export class InvoiceService {
-  private _loading$ = new BehaviorSubject<boolean>(true);
+export class EgresoService {
   private _loadingE$ = new BehaviorSubject<boolean>(true);
-  private _search$ = new Subject<void>();
   private _searchE$ = new Subject<void>();
-  private _invoices$ = new BehaviorSubject<CajaModel[]>([]);
   private _egresos$ = new BehaviorSubject<CajaModel[]>([]);
-  private _total$ = new BehaviorSubject<number>(0);
   private _totalE$ = new BehaviorSubject<number>(0);
-  ingresoList: CajaModel[] = [];
   egresoList: CajaModel[] = [];
   private _state: State = {
     page: 1,
@@ -79,92 +74,48 @@ export class InvoiceService {
     //fIni = new Date(fIni.getTime() - fIni.getTimezoneOffset()*60000)
     //fFin = new Date(fFin.getTime() - fFin.getTimezoneOffset()*60000)
     console.log(fIni,'-',fFin)
-    this.getListIngresos(fIni,fFin);
     this.getListEgresos(fIni,fFin);
   }
 
-  get invoices$() {
-    return this._invoices$.asObservable();
-  }
   get egresos$() {
     return this._egresos$.asObservable();
-  }
-  get total$() {
-    return this._total$.asObservable();
   }
   get totalE$() {
     return this._totalE$.asObservable();
   }
-  get loading$() {
-    return this._loading$.asObservable();
+  get loadingE$() {
+    return this._loadingE$.asObservable();
   }
-  get page() {
+  get pageE() {
     return this._state.page;
   }
-  get pageSize() {
+  get pageSizeE() {
     return this._state.pageSize;
   }
-  get searchTerm() {
-    return this._state.searchTerm;
-  }
-
   get searchTermE() {
     return this._state.searchTerm;
   }
 
-  set page(page: number) {
-    this._set({ page });
+
+  set pageE(page: number) {
+    this._setE({ page });
   }
-  set pageSize(pageSize: number) {
-    this._set({ pageSize });
-  }
-  set searchTerm(searchTerm: string) {
-    this._set({ searchTerm });
+  set pageSizeE(pageSize: number) {
+    this._setE({ pageSize });
   }
   set searchTermE(searchTerm: string) {
     this._setE({ searchTerm });
   }
-  set sortColumn(sortColumn: SortColumn) {
-    this._set({ sortColumn });
+  set sortColumnE(sortColumn: SortColumn) {
+    this._setE({ sortColumn });
   }
-  set sortDirection(sortDirection: SortDirection) {
-    this._set({ sortDirection });
-  }
-
-  private _set(patch: Partial<State>) {
-    Object.assign(this._state, patch);
-    this._search$.next();
+  set sortDirectionE(sortDirection: SortDirection) {
+    this._setE({ sortDirection });
   }
 
   private _setE(patch: Partial<State>) {
     Object.assign(this._state, patch);
     this._searchE$.next();
-  }
-
-  private _search(): Observable<SearchResult> {
-    const {
-      sortColumn,
-      sortDirection,
-      pageSize,
-      page,
-      searchTerm,
-    } = this._state;
-
-    // 1. sort
-    let invoices = sort(this.ingresoList, sortColumn, sortDirection);
-
-    // 2. filter
-    invoices = invoices.filter((customer) =>
-      matches(customer, searchTerm, this.pipe)
-    );
-    const total = invoices.length;
-
-    // 3. paginate
-    invoices = invoices.slice(
-      (page - 1) * pageSize,
-      (page - 1) * pageSize + pageSize
-    );
-    return of({ invoices, total });
   }
 
   private _searchE(): Observable<SearchResult> {
@@ -193,29 +144,6 @@ export class InvoiceService {
     return of({ invoices, total });
   }
 
-  getListIngresos(fIni:Date, fFin:Date) {
-    
-    this.cajaService.getIngresosbyDate(fIni,fFin).subscribe( res=> {
-      console.log("entre..",res);
-      this.ingresoList = res;
-      this._search$
-      .pipe(
-        tap(() => this._loading$.next(true)),
-        debounceTime(200),
-        switchMap(() => this._search()),
-        delay(200),
-        tap(() => this._loading$.next(false))
-      )
-      .subscribe((result) => {
-        this._invoices$.next(result.invoices);
-        this._total$.next(result.total);
-      });
-
-    this._search$.next();
-    }
-
-    );
-  }
   getListEgresos(fIni:Date, fFin:Date) {
 
     this.cajaService.getEgresosbyDate(fIni,fFin).subscribe( res=> {
