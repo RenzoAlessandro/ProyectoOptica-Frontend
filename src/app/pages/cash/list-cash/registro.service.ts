@@ -2,14 +2,14 @@ import { Injectable, PipeTransform } from '@angular/core';
 
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 
-import { Registro } from './registro';
-import { TRANSACTIONS } from './registros';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
+import { CajaService } from 'src/app/services/caja.service';
+import { CajaModel } from 'src/models/caja';
 
 interface SearchResult {
-  transactions: Registro[];
+  transactions: CajaModel[];
   total: number;
 }
 
@@ -21,9 +21,9 @@ interface State {
   sortDirection: SortDirection;
 }
 
-const compare = (v1: string | number | boolean, v2: string | number | boolean) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+const compare = (v1: string | number | boolean |Date, v2: string | number | boolean |Date) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-function sort(transactions: Registro[], column: SortColumn, direction: string): Registro[] {
+function sort(transactions: CajaModel[], column: SortColumn, direction: string): CajaModel[] {
   if (direction === '' || column === '') {
     return transactions;
   } else {
@@ -34,22 +34,22 @@ function sort(transactions: Registro[], column: SortColumn, direction: string): 
   }
 }
 
-function matches(transaction: Registro, term: string, pipe: PipeTransform) {
-  return transaction.id.toLowerCase().includes(term)
-    || transaction.fecha.toLowerCase().includes(term.toLowerCase())
-    || transaction.ingreso.toLowerCase().includes(term)
-    || transaction.egreso.toLowerCase().includes(term)
-    || transaction.status.toLowerCase().includes(term)
-    || pipe.transform(transaction.index).includes(term);
+function matches(transaction: CajaModel, term: string, pipe: PipeTransform) {
+  return transaction.id_caja.toLowerCase().includes(term)
+    || String(transaction.fecha_creacion_caja).toLowerCase().includes(term.toLowerCase())
+    || String(transaction.monto).toLowerCase().includes(term)
+    || transaction.metodo_pago.toLowerCase().includes(term)
+    //|| transaction.status.toLowerCase().includes(term)
+    //|| pipe.transform(transaction.index).includes(term);
 }
 
 @Injectable({ providedIn: 'root' })
 export class TransactionService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _transactions$ = new BehaviorSubject<Registro[]>([]);
+  private _transactions$ = new BehaviorSubject<CajaModel[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
-
+  cajaList: Array<CajaModel> = [];
   private _state: State = {
     page: 1,
     pageSize: 10,
@@ -57,20 +57,19 @@ export class TransactionService {
     sortColumn: '',
     sortDirection: ''
   };
+  
 
-  constructor(private pipe: DecimalPipe) {
-    this._search$.pipe(
-      tap(() => this._loading$.next(true)),
-      debounceTime(200),
-      switchMap(() => this._search()),
-      delay(200),
-      tap(() => this._loading$.next(false))
-    ).subscribe(result => {
-      this._transactions$.next(result.transactions);
-      this._total$.next(result.total);
-    });
+  constructor(
+    private pipe: DecimalPipe,
+    private cajaService: CajaService
+  ) {
+    let fIni: Date = new Date();
+    let firstDay = new Date(fIni.getFullYear(), fIni.getMonth(), 1);
+    let lastDay = new Date(fIni.getFullYear(), fIni.getMonth() + 1, 0);
+    firstDay.setHours(0, 0, 1);
+    lastDay.setHours(23, 59, 0);
 
-    this._search$.next();
+    this.getListIngresosEgresos(firstDay,lastDay);
   }
 
   get transactions$() { return this._transactions$.asObservable(); }
@@ -95,7 +94,7 @@ export class TransactionService {
     const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
     // 1. sort
-    let transactions = sort(TRANSACTIONS, sortColumn, sortDirection);
+    let transactions = sort(this.cajaList, sortColumn, sortDirection);
 
     // 2. filter
     transactions = transactions.filter(transaction => matches(transaction, searchTerm, this.pipe));
@@ -104,5 +103,47 @@ export class TransactionService {
     // 3. paginate
     transactions = transactions.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
     return of({ transactions, total });
+  }
+
+  getListIngresosEgresos(fIni:Date,fFin:Date) {
+
+    this.cajaService.getIngresosbyDate(fIni,fFin).subscribe(res=>{
+      this.cajaList = res;
+      this.cajaService.getEgresosbyDate(fIni,fFin).subscribe(res=>{
+        this.cajaList = [...res,...this.cajaList];
+        console.log(this.cajaList);
+        
+        //for(let i=0;i< this.cajaList.length;i++) {
+          let date = new Date(this.cajaList[0].fecha_creacion_caja);
+          console.log(date);
+          let day = date.getDay();
+          let month = date.getMonth();
+          let year = date.getFullYear();
+          let tmp = [];
+          tmp = this.cajaList.filter(caja =>{
+            let date = new Date(caja.fecha_creacion_caja);
+            console.log(date);
+            let day2 = date.getDay();
+            let month2 = date.getMonth();
+            let year2 = date.getFullYear();
+            return (day == day2 && month == month2 && year == year2 )
+          })
+          console.log(tmp)
+        //}
+
+        this._search$.pipe(
+          tap(() => this._loading$.next(true)),
+          debounceTime(200),
+          switchMap(() => this._search()),
+          delay(200),
+          tap(() => this._loading$.next(false))
+        ).subscribe(result => {
+          this._transactions$.next(result.transactions);
+          this._total$.next(result.total);
+        });
+    
+        this._search$.next();
+      })
+    })
   }
 }

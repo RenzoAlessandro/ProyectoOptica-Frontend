@@ -212,7 +212,7 @@ export class CashRegisterComponent implements OnInit {
       this.caja.id_sede = this.usuarioService.getSedebyUser();
       this.caja.habilitado = true;
       this.caja.egreso = true;
-      this.caja.metodo_pago = this.fI(this.metodoPagoContado_egreso).value;
+      this.caja.metodo_pago = this.fE(this.metodoPagoContado_egreso).value;
       console.log(this.caja);
      this.cajaService.createIngresoEgreso(this.caja).subscribe(res=>{
         console.log("guardado egreso");

@@ -3,12 +3,12 @@ import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Registro } from './registro';
 import { TransactionService } from './registro.service';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { SedesModel } from 'src/models/sedes';
+import { CajaModel } from 'src/models/caja';
 
 
 @Component({
@@ -24,11 +24,14 @@ export class ListCashComponent implements OnInit {
   nombre_sedes: string = "campoSede";
   idSede:string = "";
 
+  formDateRange: FormGroup;
+  fechaDesde: string = 'campoFechaDesde';
+  fechaHasta: string = 'campoFechaHasta';
   // bread crumb items
   breadCrumbItems: Array<{}>;
   term: any;
 
-  transactions$: Observable<Registro[]>;
+  transactions$: Observable<CajaModel[]>;
   total$: Observable<number>;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
@@ -56,7 +59,12 @@ export class ListCashComponent implements OnInit {
   crearFormulario() {
     this.formSedes = this.fb.group({
       [this.nombre_sedes]: [this.idSede]
-    })
+    });
+
+    this.formDateRange = this.fb.group({
+      [this.fechaDesde]:[],
+      [this.fechaHasta]:[]
+    });
   }
 
   onSort({ column, direction }: SortEvent) {
@@ -86,4 +94,31 @@ export class ListCashComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
+  f(campo:any) {
+    return this.formDateRange.get(campo);
+  }
+
+  filterDateRange() {
+    if (this.formDateRange.valid) {
+      let fechaIni = new Date(this.f(this.fechaDesde).value);
+      let fechaFin:Date;
+      if(this.f(this.fechaHasta).value != null) {
+        fechaFin = new Date(this.f(this.fechaHasta).value);
+      } else {
+        fechaFin = new Date(Date.now());
+        //fechaFin.setHours(23,59,0)
+      }
+      //fechaIni.setDate(fechaIni.getDate() - 1)
+      /* fechaFin.setDate(fechaFin.getDate() + 1)
+      fechaIni.setHours(0,0,0);
+      fechaFin.setHours(23,59,0) */
+      console.log("fechas",fechaIni,fechaFin)
+      /* this.ventasService.getVentasByDate(fechaIni,fechaFin).subscribe(res=>{
+        console.log(res);
+        this.service.updateTable(res);
+      })  */
+    } else {
+      return;
+    }
+  }
 }

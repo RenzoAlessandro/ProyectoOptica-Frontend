@@ -31,6 +31,21 @@
                 </div>
               </form>
             </div>
+
+            <div class="col-12 col-md-6 d-grid mb-2 chat-search-box px-1">
+              <div class="position-relative">
+                <form [formGroup]="formDateRange">
+                  <div class="input-daterange input-group">
+                    <input type="month" class="form-control" id="billing-fechanacimiento"
+                    placeholder="Seleccione la fecha" formControlName="{{this.fechaDesde}}" />
+                    <input type="month" class="form-control" id="billing-fechanacimiento"
+                    placeholder="Seleccione la fecha" formControlName="{{this.fechaHasta}}" />
+                    <button type="button" class="btn btn-primary" (click)="filterDateRange()"><i
+                        class="mdi mdi-filter-variant"></i></button>
+                  </div>
+                </form>
+              </div>
+            </div>
   
           </div>
         </div>

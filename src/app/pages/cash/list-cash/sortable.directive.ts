@@ -1,7 +1,7 @@
 import { Directive, EventEmitter, Input, Output } from '@angular/core';
-import { Registro } from './registro';
+import { CajaModel } from 'src/models/caja';
 
-export type SortColumn = keyof Registro | '';
+export type SortColumn = keyof CajaModel | '';
 export type SortDirection = 'asc' | 'desc' | '';
 const rotate: { [key: string]: SortDirection } = { 'asc': 'desc', 'desc': '', '': 'asc' };
 
