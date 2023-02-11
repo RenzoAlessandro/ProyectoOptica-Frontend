@@ -171,14 +171,12 @@ export class AddCustomerComponent implements OnInit {
       const listaMedidas = []
       listaMedidas.push(this.medidas);
       this.customer.medidas = listaMedidas;
-      console.log(this.customer); 
       Sweetalert("loading", "Cargando...");
       this.customerService.createCustomers(this.customer).subscribe( res=>{
         Sweetalert("close",null);
         Sweetalert("success", "Cliente guardado");
         this.f(this.fecha_creacion).setValue(new Date(Date.now()).toLocaleDateString())
         this.formCustomer.reset();
-        console.log("registrado ok");
       });
     }
   } 

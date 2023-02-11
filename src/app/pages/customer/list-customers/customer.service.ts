@@ -28,7 +28,6 @@ function sort(customers: CustomersModel[], column: SortColumn, direction: string
     return customers;
   } else {
     return [...customers].sort((a, b) => {
-      console.log(a[column])
       const res = compare(a[column], b[column]);
       return direction === 'asc' ? res : -res;
     });
@@ -93,8 +92,7 @@ export class CustomerService {
 
   private _search(): Observable<SearchResult> {
     const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
-    console.log(this.customerList);
-    //console.log(sortColumn)
+
     // 1. sort
     let customers = sort(this.customerList, sortColumn, sortDirection);
 
@@ -111,7 +109,6 @@ export class CustomerService {
    */
   getListClients() {
     this.customerService.getAllClients().subscribe( res=>{
-      console.log("entre..")
       this.customerList = res;
       this._mostrar$.next(true);
       this._search$.pipe(

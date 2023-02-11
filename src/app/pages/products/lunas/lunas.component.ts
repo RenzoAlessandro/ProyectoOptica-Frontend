@@ -235,11 +235,8 @@ export class LunasComponent implements OnInit {
       this.luna.precio_luna_c = Number(this.f(this.precio_compra_luna).value);
       this.luna.precio_luna_v = Number(this.f(this.precio_venta_luna).value);
       this.luna.fecha_modificacion_luna = new Date(Date.now());
-
-      console.log(this.luna);
       Sweetalert("loading", "Cargando...");
       this.lunaService.updateLuna(this.luna.id_producto,this.luna).subscribe(res =>{
-        console.log("guardado");
         this.modalService.dismissAll();
         Sweetalert("close",null);
         Sweetalert("success",null);
@@ -265,7 +262,6 @@ export class LunasComponent implements OnInit {
         this.lunaService.darBajaLuna(data.id_producto).subscribe(res => {
           Sweetalert("close", null);
           Sweetalert("success", "Luna eliminada");
-          console.log("Luna borrado");
           this.updateListLunas(this.idSede);
         }, error => {
           Sweetalert("close", null);
@@ -316,7 +312,6 @@ export class LunasComponent implements OnInit {
   }
 
   checkUncheckAll(){
-    console.log(this.isMasterSel)
     this.lunas$.forEach(element => {
       element.forEach(elem => {
         elem.isSelected = this.isMasterSel;
@@ -335,9 +330,7 @@ export class LunasComponent implements OnInit {
       })
      
     }); 
-    console.log(this.checkedLunasList)
     //this.checkedLunasList = JSON.stringify(this.checkedLunasList); 
-    
   }
 
   isAllSelected() {
@@ -357,7 +350,6 @@ export class LunasComponent implements OnInit {
       return accumulator + obj.cantidad;
     },0)
     let DATA: any = document.getElementById('htmlData');
-    console.log(DATA.children.length)
     //var HTML_Width = document.getElementById("htmlData").offsetWidth 
 		//var HTML_Height = document.getElementById("htmlData").offsetHeight
     var HTML_Width = 3
@@ -370,13 +362,10 @@ export class LunasComponent implements OnInit {
 		var canvas_image_width = HTML_Width;
 		var canvas_image_height = HTML_Height;
 		
-    console.log(HTML_Width, HTML_Height)
 		//var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
     var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)
-    console.log(totalPDFPages)
     html2canvas(DATA).then((canvas) => {
       const nombreSede = this.listSedes.find(res => (res.id_sede == this.usuarioService.getSedebyUser()));
-      console.log(nombreSede)
       var imgData = canvas.toDataURL("image/jpeg", 1.0);
 			var pdf = new jsPDF('l', 'in',  [PDF_Width, PDF_Height]);
 		  pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
@@ -392,9 +381,7 @@ export class LunasComponent implements OnInit {
   }
 
   printEtiquetaIndividual() {
-    console.log("entre")
     let DATA: any = document.getElementById('htmlData2');
-    console.log(DATA.children.length)
     //var HTML_Width = document.getElementById("htmlData").offsetWidth 
 		//var HTML_Height = document.getElementById("htmlData").offsetHeight
     var HTML_Width = 3
@@ -406,15 +393,12 @@ export class LunasComponent implements OnInit {
     var PDF_Height = 0.57 
 		var canvas_image_width = HTML_Width;
 		var canvas_image_height = HTML_Height;
-		
-    console.log(HTML_Width, HTML_Height)
+
 		//var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
     var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)
-    console.log(totalPDFPages)
     
     html2canvas(DATA).then((canvas) => {
       const nombreSede = this.listSedes.find(res => (res.id_sede == this.usuarioService.getSedebyUser()));
-      console.log(nombreSede)
       var imgData = canvas.toDataURL("image/jpeg", 1.0);
 			var pdf = new jsPDF('l', 'in',  [PDF_Width, PDF_Height]);
 		  pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);

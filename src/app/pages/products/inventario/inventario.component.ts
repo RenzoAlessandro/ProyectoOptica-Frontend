@@ -104,20 +104,17 @@ export class InventarioComponent implements OnInit {
   }
 
   removeProduct() {
-    //console.log(this.cartProductList);
     this.products = this.products.filter(
       (name) => name.isSelected !== false
     );
   }
 
   eliminar(product, i) {
-    console.log("entre")
     this.products[i].isSelected = false;
     this.removeProduct();
   }
 
   selectEvent(item: any) {
-    console.log(item);
     const productExistInCart = this.products.find((name) => name.id_producto === item.id_producto);
 
     if (!productExistInCart) {
@@ -128,11 +125,6 @@ export class InventarioComponent implements OnInit {
       this.autocomplete.clear();
       return;
     }
-
-
-
-    //this.estadoBotonGuardar();
-    console.log("autocomplete", this.products);
   }
 
   onChangeSearch(search: string) {
@@ -148,9 +140,7 @@ export class InventarioComponent implements OnInit {
     const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     const EXCEL_EXTENSION = '.xlsx';
     const listTmp = this.filterArrays(this.listMonturas, this.products)
-    console.log(listTmp)
     this.products.push(...listTmp)
-    console.log(this.products)
     let data: Array<MonturasModel> = [];
     data = this.products.map((monturas: MonturasModel) => {
       return {
@@ -177,7 +167,6 @@ export class InventarioComponent implements OnInit {
     const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     const blobData = new Blob([excelBuffer], { type: EXCEL_TYPE });
     const nombreSede = this.listSedes.find(res => (res.id_sede == this.fS(this.nombre_sedes).value));
-    console.log(nombreSede);
     saveFile(blobData, 'monturas' + '_' + nombreSede.nombre_sede);
     this.products = [];
   }

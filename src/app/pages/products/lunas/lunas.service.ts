@@ -118,7 +118,6 @@ export class CustomerService {
         Object.assign(elem,propiedad)
       })
       this._mostrar$.next(true);
-      console.log(this.lunasList)
       this._search$.pipe(
         tap(() => this._loading$.next(true)),
         debounceTime(200),

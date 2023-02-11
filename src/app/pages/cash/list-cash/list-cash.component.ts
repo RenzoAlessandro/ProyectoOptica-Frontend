@@ -112,9 +112,7 @@ export class ListCashComponent implements OnInit {
       /* fechaFin.setDate(fechaFin.getDate() + 1)
       fechaIni.setHours(0,0,0);
       fechaFin.setHours(23,59,0) */
-      console.log("fechas",fechaIni,fechaFin)
       /* this.ventasService.getVentasByDate(fechaIni,fechaFin).subscribe(res=>{
-        console.log(res);
         this.service.updateTable(res);
       })  */
     } else {

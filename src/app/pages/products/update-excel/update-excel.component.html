@@ -11,31 +11,35 @@
           </p>
 
           <div class="alert alert-danger" role="alert">
-            <h4 class="alert-heading">Warning!</h4>
+            <h4 class="alert-heading">Advertencia!</h4>
             <p>Aww yeah, you successfully read this important alert message.</p>
           </div>
 
           <div>
             <form [formGroup]="formExportar">
-
-              <div class="mb-3">
-                <!-- Default dropup button -->
-                <div class="btn-group mt-2 me-1" ngbDropdown>
-                  <ng-select [items]="listSedes" formControlName="sede" placeholder="Seleccione la sede" bindValue="id_sede"
-                    bindLabel="nombre_sede">
-                  </ng-select>
+              <div class="mb-1">
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <!-- Default dropup button -->
+                    <div class="mt-2 me-1" ngbDropdown>
+                      <ng-select [items]="listSedes" formControlName="sede" placeholder="Seleccione la sede" bindValue="id_sede"
+                        bindLabel="nombre_sede">
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <!-- Default dropup button -->
+                    <div class="mt-2 me-1" ngbDropdown>
+                      <ng-select [items]="listProductos" formControlName="producto" placeholder="Seleccione el producto" bindValue="id"
+                        bindLabel="nombre">
+                      </ng-select>
+                    </div>
+                  </div>
                 </div>
-
-                <!-- Default dropup button -->
-                <div class="btn-group mt-2 me-1" ngbDropdown>
-                  <ng-select [items]="listProductos" formControlName="producto" placeholder="Seleccione el producto" bindValue="id"
-                    bindLabel="nombre">
-                  </ng-select>
-                </div>
-
-                <!-- Default button -->
-                <div class="btn-group mt-2 me-1">
-                  <input type="button" class="btn btn-primary btn-block" value="Descargar Archivo" (click)="exportarProductos()" [disabled]="!formExportar.valid">
+                <div class="col-12 d-grid">
+                  <button (click)="exportarProductos()" [disabled]="!formExportar.valid" type="button" class="btn btn-primary btn-block mt-2 me-1">
+                      <i class="uil uil-cloud-download me-2"></i> Descargar Archivo
+                  </button>
                 </div>
               </div>
             </form>
@@ -54,7 +58,7 @@
 
 
           <div class="alert alert-danger" role="alert">
-            <h4 class="alert-heading">Warning!</h4>
+            <h4 class="alert-heading">Advertencia!</h4>
             <p>Aww yeah, you successfully read this important alert message.</p>
           </div>
 

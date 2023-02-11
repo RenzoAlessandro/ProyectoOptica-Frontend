@@ -28,7 +28,6 @@ function sort(customers: UsersModel[], column: SortColumn, direction: string): U
   if (direction === '' || column === '') {
     return customers;
   } else {
-    console.log( typeof customers)
     return [...customers].sort((a, b) => {
       const res = compare(a[column], b[column]);
       return direction === 'asc' ? res : -res;
@@ -110,7 +109,6 @@ export class CustomerService {
 
   getListUsers() {
     this.userService.getUsers().subscribe(res =>{
-      console.log(res);
       this.usersList = res;
       this._mostrar$.next(true);
       this._search$.pipe(

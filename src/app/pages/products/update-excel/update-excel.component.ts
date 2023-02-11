@@ -187,7 +187,6 @@ export class UpdateExcelComponent implements OnInit {
           const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
           const blobData = new Blob([excelBuffer], { type: EXCEL_TYPE });
           const nombreSede = this.listSedes.find(res => (res.id_sede == this.f('sede').value));
-          console.log(nombreSede);
           saveFile(blobData, productName + '_' + nombreSede.nombre_sede);
         }
 
@@ -203,14 +202,11 @@ export class UpdateExcelComponent implements OnInit {
 
 
   onSelect(event) {
-    console.log(event);
     this.files.push(...event.addedFiles);
     if (this.files.length > 1) {
       this.errorImagen = "Solo un archivo";
       this.files = [];
       this.filebutton = false;
-      console.log(this.filebutton)
-      console.log(this.files[0].type);
     }
     else {
       this.errorImagen = "";
@@ -219,7 +215,6 @@ export class UpdateExcelComponent implements OnInit {
   }
 
   onRemove(event) {
-    console.log(event);
     this.filebutton = false;
     this.files.splice(this.files.indexOf(event), 1);
   }
@@ -229,14 +224,12 @@ export class UpdateExcelComponent implements OnInit {
     const fileReader = new FileReader();
     fileReader.readAsBinaryString(this.files[0]);
     fileReader.onload = (event: any) => {
-      console.log(event);
       let binaryData = event.target.result;
       let workbook = XLSX.read(binaryData, { type: 'binary' });
       let data;
       workbook.SheetNames.forEach(sheet => {
         data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet], { raw: false });
       });
-      console.log(data);
       if (this.validarCampoFecha(data)) {
         switch ((data[0].TIPO).toLowerCase()) {
           case 'montura':

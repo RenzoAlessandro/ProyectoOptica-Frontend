@@ -133,14 +133,12 @@ export class AdduserComponent implements OnInit {
       this.user.observaciones = this.f(this.observaciones).value;
       this.user.email = this.f(this.email).value;
       this.user.contrasenia = this.f(this.password).value;
-      console.log(this.user);
       Sweetalert("loading", "Cargando...");
       this.usuarioService.createUsers(this.user).subscribe( res=>{
         Sweetalert("close",null);
         Sweetalert("success", "Usuario guardado");
         this.formRegister.reset();
         this.f(this.fechaCreacion).setValue(new Date(Date.now()).toLocaleDateString())
-        console.log("registrado ok")
       }) 
     }
   }
@@ -165,7 +163,6 @@ export class AdduserComponent implements OnInit {
 
   getListSedes() {
     this.usuarioService.getSedes().subscribe(res=>{
-      console.log(res);
       this.listSedes = res;
     })
   }

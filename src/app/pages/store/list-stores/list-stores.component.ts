@@ -37,7 +37,6 @@ export class ListStoresComponent implements OnInit {
 
   getListSedes() {
     this.sedeService.getSedes().subscribe(res => {
-      console.log(res)
       this.listSedes = res;
       this.mostrar = true;
     })
@@ -69,7 +68,6 @@ export class ListStoresComponent implements OnInit {
    */
   OpenModalEditStore(DataModalEditStore: any,data:SedesModel) {
     this.crearFormulario();
-    console.log(data)
     this.f(this.nombre_tienda).setValue(data.nombre_sede);
     this.f(this.direccion_tienda).setValue(data.direccion);
     this.sede.id_sede = data.id_sede;
@@ -108,10 +106,8 @@ export class ListStoresComponent implements OnInit {
       this.sede.direccion = this.f(this.direccion_tienda).value;
       this.sede.nombre_sede = this.f(this.nombre_tienda).value;
       this.sede.fecha_modificacion_sede = new Date(Date.now());
-      console.log(this.sede);
       Sweetalert("loading", "Cargando...");
       this.sedeService.editSede(this.sede).subscribe( res=>{
-        console.log("actualizado ok");
         this.modalService.dismissAll();
         Sweetalert("close",null);
         Sweetalert("success","Datos de la tienda actualizados");

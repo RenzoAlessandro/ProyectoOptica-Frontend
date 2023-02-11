@@ -19,16 +19,13 @@ export class ErrorInterceptor implements HttpInterceptor {
                 case 401:
                     Sweetalert("close", null);
                     Sweetalert("error", err.error);
-                    console.log(err);
                     this.usuarioService.logOut();
                     break;
                 case 400:
                     Sweetalert("close", null);
                     Sweetalert("error", err.error.message);
-                    console.log(err);
                     break;
                 case 500:
-                    console.log(err);
                     Sweetalert("close", null);
                     Sweetalert("error", err.error.message);
                     break;
