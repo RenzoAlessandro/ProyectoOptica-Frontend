@@ -35,3 +35,7 @@ export function round(value, precision) {
   var multiplier = Math.pow(10, precision || 0);
   return Math.round(value * multiplier) / multiplier;
 }
+
+export function dateMonth(fecha:Date): string {
+  return fecha.toISOString().substring(0,7);
+}

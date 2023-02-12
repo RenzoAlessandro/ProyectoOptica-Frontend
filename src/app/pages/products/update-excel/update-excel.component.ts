@@ -83,7 +83,7 @@ export class UpdateExcelComponent implements OnInit {
     this.formExportarCrear = this.fb.group({
       [this.sedeC]: [this.idSede, [Validators.required]],
       [this.productoC]: [null, [Validators.required]],
-    }); 
+    });
     this.formImportar = this.fb.group({
       productos: [null, [Validators.required]],
     })
@@ -138,12 +138,12 @@ export class UpdateExcelComponent implements OnInit {
                   "MATERIAL": monturas.material,
                   "TIPO": monturas.tipo,
                   "SEDE": monturas.id_sede,
-                  "FECHA INGRESO": new Date (monturas.fecha_creacion_monturas).toLocaleDateString('en-GB')
+                  "FECHA INGRESO": new Date(monturas.fecha_creacion_monturas).toLocaleDateString('en-GB')
                 }
               })
               break;
             case 'luna':
-              data = res.map((lunas:LunasModel) => {
+              data = res.map((lunas: LunasModel) => {
                 return {
                   "ID LUNA": lunas.id_producto,
                   "PRECIO COMPRA": lunas.precio_luna_c,
@@ -153,12 +153,12 @@ export class UpdateExcelComponent implements OnInit {
                   "MATERIAL": lunas.material,
                   "TIPO": lunas.tipo,
                   "SEDE": lunas.id_sede,
-                  "FECHA INGRESO": new Date (lunas.fecha_creacion_luna).toLocaleDateString('en-GB')
+                  "FECHA INGRESO": new Date(lunas.fecha_creacion_luna).toLocaleDateString('en-GB')
                 }
               })
               break;
             case 'accesorio':
-              data = res.map((accesorios:AccesorioModel) => {
+              data = res.map((accesorios: AccesorioModel) => {
                 return {
                   "ID ACCESORIO": accesorios.id_producto,
                   "NOMBRE": accesorios.nombre_accesorio,
@@ -168,7 +168,7 @@ export class UpdateExcelComponent implements OnInit {
                   "CANTIDAD": accesorios.cantidad,
                   "TIPO": accesorios.tipo,
                   "SEDE": accesorios.id_sede,
-                  "FECHA INGRESO": new Date (accesorios.fecha_creacion_accesorio).toLocaleDateString('en-GB')
+                  "FECHA INGRESO": new Date(accesorios.fecha_creacion_accesorio).toLocaleDateString('en-GB')
                 }
               })
               break;
@@ -233,14 +233,14 @@ export class UpdateExcelComponent implements OnInit {
       if (this.validarCampoFecha(data)) {
         switch ((data[0].TIPO).toLowerCase()) {
           case 'montura':
-            if (data[0].hasOwnProperty('ID MONTURA')) {
+            if (data[0].hasOwnProperty(this.label.cabeceraExcelIdMont)) {
               this.actualizarProducto(data, data[0].TIPO);
             } else {
               this.crearProducto(data, data[0].TIPO);
             }
             break;
           case 'luna':
-            if (data[0].hasOwnProperty('ID LUNA')) {
+            if (data[0].hasOwnProperty(this.label.cabeceraExcelIdLun)) {
               this.actualizarProducto(data, data[0].TIPO);
             } else {
               this.crearProducto(data, data[0].TIPO);
@@ -260,7 +260,7 @@ export class UpdateExcelComponent implements OnInit {
         Sweetalert("error", "Excel con fechas incorrectas");
         return;
       }
-      
+
     }
   }
 
@@ -270,7 +270,7 @@ export class UpdateExcelComponent implements OnInit {
       producto = this.objExceltoDBUpdate(data, tipoProducto);
       console.log(producto)
       const idSede = producto[0].id_sede
-      if (this.validarIdSede(data,idSede) && this.validarTipo(data,tipoProducto)) {
+      if (this.validarIdSede(data, idSede) && this.validarTipo(data, tipoProducto)) {
         this.productoService.updateProductsbyExcel(producto).subscribe(res => {
           console.log("ACTUALIZADO");
         })
@@ -278,28 +278,30 @@ export class UpdateExcelComponent implements OnInit {
         Sweetalert("error", "Columna ID SEDE o TIPO incorrectos o faltantes");
       }
 
-      
+
     } else {
       Sweetalert("error", "Excel con cabecera incorrecta");
       return;
     }
-    
-    
+
+
   }
 
   crearProducto(data: any, tipoProducto: string) {
     let producto: Array<any>;
     if (this.validarCabeceraExcelCreate(data, tipoProducto)) {
       producto = this.objExceltoDBCreate(data, tipoProducto);
-      const idSede = producto[0].id_sede;
-      if (this.validarIdSede(data,idSede) && this.validarTipo(data,tipoProducto)) {
+      const idSede = producto[0].id_sede
+      console.log(tipoProducto);
+      console.log(this.validarIdSede(data, idSede), this.validarTipo(data, tipoProducto))
+      if (this.validarIdSede(data, idSede) && this.validarTipo(data, tipoProducto)) {
         console.log("correcto")
-        this.productoService.createProductsbyExcel(producto).subscribe(res=> {
-          console.log("subido");
-        })   
+        /*  this.productoService.createProductsbyExcel(producto).subscribe(res=> {
+           console.log("subido");
+         })  */
       } else {
         Sweetalert("error", "Columna ID SEDE o TIPO incorrectos o faltantes");
-      return;
+        return;
       }
     } else {
       Sweetalert("error", "Excel con cabecera incorrecta");
@@ -447,14 +449,14 @@ export class UpdateExcelComponent implements OnInit {
   validarCabeceraExcelUpdate(data: any, tipoProducto: string): boolean {
     switch (tipoProducto.toLowerCase()) {
       case 'montura':
-        return ((Object.keys(data[0]).length == 12) && data[0].hasOwnProperty(this.label.cabeceraExcelIdMont) && data[0].hasOwnProperty(this.label.cabeceraExcelMaterial) 
-                && data[0].hasOwnProperty(this.label.cabeceraExcelMarca) && data[0].hasOwnProperty(this.label.cabeceraExcelCodigo) &&
-          data[0].hasOwnProperty(this.label.cabeceraExcelTalla) && data[0].hasOwnProperty(this.label.cabeceraExcelColor) && data[0].hasOwnProperty(this.label.cabeceraExcelCantidad) 
-          && data[0].hasOwnProperty(this.label.cabeceraExcelPCompra) && data[0].hasOwnProperty(this.label.cabeceraExcelPVenta) && data[0].hasOwnProperty(this.label.cabeceraExcelFIngreso) 
+        return ((Object.keys(data[0]).length == 12) && data[0].hasOwnProperty(this.label.cabeceraExcelIdMont) && data[0].hasOwnProperty(this.label.cabeceraExcelMaterial)
+          && data[0].hasOwnProperty(this.label.cabeceraExcelMarca) && data[0].hasOwnProperty(this.label.cabeceraExcelCodigo) &&
+          data[0].hasOwnProperty(this.label.cabeceraExcelTalla) && data[0].hasOwnProperty(this.label.cabeceraExcelColor) && data[0].hasOwnProperty(this.label.cabeceraExcelCantidad)
+          && data[0].hasOwnProperty(this.label.cabeceraExcelPCompra) && data[0].hasOwnProperty(this.label.cabeceraExcelPVenta) && data[0].hasOwnProperty(this.label.cabeceraExcelFIngreso)
           && data[0].hasOwnProperty(this.label.cabeceraExcelTipo) && data[0].hasOwnProperty(this.label.cabeceraExcelSede))
       case 'luna':
-        return ((Object.keys(data[0]).length == 8) && data[0].hasOwnProperty(this.label.cabeceraExcelIdLun) && data[0].hasOwnProperty(this.label.cabeceraExcelMaterial) 
-        && data[0].hasOwnProperty(this.label.cabeceraExcelCantidad) && data[0].hasOwnProperty(this.label.cabeceraExcelPCompra) &&
+        return ((Object.keys(data[0]).length == 8) && data[0].hasOwnProperty(this.label.cabeceraExcelIdLun) && data[0].hasOwnProperty(this.label.cabeceraExcelMaterial)
+          && data[0].hasOwnProperty(this.label.cabeceraExcelCantidad) && data[0].hasOwnProperty(this.label.cabeceraExcelPCompra) &&
           data[0].hasOwnProperty(this.label.cabeceraExcelPVenta) && data[0].hasOwnProperty(this.label.cabeceraExcelFIngreso) && data[0].hasOwnProperty(this.label.cabeceraExcelTipo) && data[0].hasOwnProperty(this.label.cabeceraExcelSede))
       case 'accesorio':
         return ((Object.keys(data[0]).length == 8) && data[0].hasOwnProperty(this.label.cabeceraExcelIdAccesorio) && data[0].hasOwnProperty(this.label.cabeceraExcelNombre) && data[0].hasOwnProperty(this.label.cabeceraExcelCantidad) && data[0].hasOwnProperty(this.label.cabeceraExcelPCompra) &&
@@ -464,15 +466,26 @@ export class UpdateExcelComponent implements OnInit {
     }
   }
 
-  validarIdSede(data:any, idSede:string):boolean {
-    return data.every(elem => (elem[this.label.cabeceraExcelSede] == idSede ))
+  validarIdSede(data: any, idSede: string): boolean {
+    return data.every(elem => (elem[this.label.cabeceraExcelSede] === idSede))
   }
 
-  validarTipo(data:any, tipo:string):boolean {
-    return data.every(elem => (elem[this.label.cabeceraExcelTipo] == tipo ))
+  validarTipo(data: any, tipo: string): boolean {
+
+    switch (tipo) {
+      case 'montura':
+        return data.every(elem => (elem[this.label.cabeceraExcelTipo] === tipo))
+      case 'luna':
+        return data.every(elem => (elem[this.label.cabeceraExcelTipo] === tipo))
+      case 'accesorio':
+        return data.every(elem => (elem[this.label.cabeceraExcelTipo] === tipo))
+      default:
+        return false;
+    }
+
   }
 
-  validarCampoFecha(data:any):boolean {
+  validarCampoFecha(data: any): boolean {
     return data.every(elem => (elem[this.label.cabeceraExcelFIngreso].length == 10 && Date.parse(elem[this.label.cabeceraExcelFIngreso])))
   }
 
@@ -497,63 +510,63 @@ export class UpdateExcelComponent implements OnInit {
       const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
       const EXCEL_EXTENSION = '.xlsx';
       let data = [];
-          switch (productName) {
-            case 'montura':
-              data[0] = {
-                  "PRECIO COMPRA": 0,
-                  "PRECIO VENTA": 0,
-                  "TALLA": 0,
-                  "CODIGO": 0,
-                  "MARCA": 'MARCA',
-                  "CANTIDAD": 0,
-                  "COLOR": 'COLOR',
-                  "MATERIAL": 'MATERIAL',
-                  "TIPO": productName,
-                  "SEDE": idSede,
-                  "FECHA INGRESO": new Date (Date.now()).toLocaleDateString('en-GB')
-                }
-              break;
-            case 'luna':
-              data[0] = {
-                  "PRECIO COMPRA": 0,
-                  "PRECIO VENTA": 0,
-                  //"CODIGO INTERNO": lunas.codigo_interno,
-                  "CANTIDAD": 0,
-                  "MATERIAL": 'MATERIAL',
-                  "TIPO": productName,
-                  "SEDE": idSede,
-                  "FECHA INGRESO": new Date (Date.now()).toLocaleDateString('en-GB')
-                }
-              break;
-            case 'accesorio':
-              data[0] = {
-                  "NOMBRE": "NOMBRE",
-                  "PRECIO COMPRA": 0,
-                  "PRECIO VENTA": 0,
-                  //"CODIGO INTERNO": accesorios.codigo_interno,
-                  "CANTIDAD": 0,
-                  "TIPO": productName,
-                  "SEDE": idSede,
-                  "FECHA INGRESO": new Date (Date.now()).toLocaleDateString('en-GB')
-                }
-            
-              break;
-            default:
-              break;
+      switch (productName) {
+        case 'montura':
+          data[0] = {
+            "PRECIO COMPRA": 0,
+            "PRECIO VENTA": 0,
+            "TALLA": 0,
+            "CODIGO": 0,
+            "MARCA": 'MARCA',
+            "CANTIDAD": 0,
+            "COLOR": 'COLOR',
+            "MATERIAL": 'MATERIAL',
+            "TIPO": productName,
+            "SEDE": idSede,
+            "FECHA INGRESO": new Date(Date.now()).toLocaleDateString('en-GB')
           }
-          console.log(data)
-          const worksheet = XLSX.utils.json_to_sheet(data);
-          const workbook = {
-            Sheets: {
-              'hoja': worksheet
-            },
-            SheetNames: ['hoja']
+          break;
+        case 'luna':
+          data[0] = {
+            "PRECIO COMPRA": 0,
+            "PRECIO VENTA": 0,
+            //"CODIGO INTERNO": lunas.codigo_interno,
+            "CANTIDAD": 0,
+            "MATERIAL": 'MATERIAL',
+            "TIPO": productName,
+            "SEDE": idSede,
+            "FECHA INGRESO": new Date(Date.now()).toLocaleDateString('en-GB')
+          }
+          break;
+        case 'accesorio':
+          data[0] = {
+            "NOMBRE": "NOMBRE",
+            "PRECIO COMPRA": 0,
+            "PRECIO VENTA": 0,
+            //"CODIGO INTERNO": accesorios.codigo_interno,
+            "CANTIDAD": 0,
+            "TIPO": productName,
+            "SEDE": idSede,
+            "FECHA INGRESO": new Date(Date.now()).toLocaleDateString('en-GB')
           }
 
-          const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-          const blobData = new Blob([excelBuffer], { type: EXCEL_TYPE });
-          const nombreSede = this.listSedes.find(res => (res.id_sede == idSede));
-          saveFile(blobData, productName + '_' + nombreSede.nombre_sede);
+          break;
+        default:
+          break;
+      }
+      console.log(data)
+      const worksheet = XLSX.utils.json_to_sheet(data);
+      const workbook = {
+        Sheets: {
+          'hoja': worksheet
+        },
+        SheetNames: ['hoja']
+      }
+
+      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+      const blobData = new Blob([excelBuffer], { type: EXCEL_TYPE });
+      const nombreSede = this.listSedes.find(res => (res.id_sede == idSede));
+      saveFile(blobData, productName + '_' + nombreSede.nombre_sede);
     } else {
       return;
     }

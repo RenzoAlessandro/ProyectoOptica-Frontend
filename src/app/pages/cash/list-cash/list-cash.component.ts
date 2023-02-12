@@ -10,6 +10,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { SedesModel } from 'src/models/sedes';
 import { ReporteModel } from 'src/models/reporte';
 import { CajaService } from 'src/app/services/caja.service';
+import { dateMonth } from 'src/utils/functions';
 
 
 @Component({
@@ -68,7 +69,7 @@ export class ListCashComponent implements OnInit {
     });
 
     this.formDateRange = this.fb.group({
-      [this.fechaDesde]:[ ],
+      [this.fechaDesde]:[ dateMonth(new Date(Date.now()))],
     });
   }
 
@@ -130,8 +131,9 @@ export class ListCashComponent implements OnInit {
 
   filterDateRange() {
     if (this.formDateRange.valid) {
-      let fechaIni = this.f(this.fechaDesde).value;
+      let fechaIni = new Date(this.f(this.fechaDesde).value+'T00:00');
       console.log(fechaIni)
+
       /* if(this.f(this.fechaHasta).value != null) {
        
       } else {
@@ -157,16 +159,18 @@ export class ListCashComponent implements OnInit {
   changeSedes() {
     this.idSede = this.fS(this.nombre_sedes).value;
     console.log(this.f(this.fechaDesde).value)
-    const fIni = new Date(this.f(this.fechaDesde).value);
+    const fIni = new Date(this.f(this.fechaDesde).value + 'T00:00');
     let firstDay = new Date(fIni.getFullYear(), fIni.getMonth(), 1);
     let lastDay = new Date(fIni.getFullYear(), fIni.getMonth() + 1, 0);
     firstDay.setHours(0, 0, 1);
     lastDay.setHours(23, 59, 0);
+    console.log(firstDay,lastDay,this.idSede)
     this.updateListCaja(firstDay,firstDay,this.idSede);
   }
 
   updateListCaja(fIni:Date,fFin:Date,idSede:string) {
     this.cajaService.getIngresosEgresosbyMonth(fIni,fFin,idSede).subscribe( res=>{
+      console.log(res)
       this.service.updateTable(res);
     })
   }
