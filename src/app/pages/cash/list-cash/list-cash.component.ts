@@ -171,7 +171,23 @@ export class ListCashComponent implements OnInit {
   updateListCaja(fIni:Date,fFin:Date,idSede:string) {
     this.cajaService.getIngresosEgresosbyMonth(fIni,fFin,idSede).subscribe( res=>{
       console.log(res)
-      this.service.updateTable(res);
+      const groups = res.reduce((groups, game) => {
+        const date = game.fecha_creacion_caja.split(' ')[0];
+        if (!groups[date]) {
+          groups[date] = [];
+        }
+        groups[date].push(game);
+        return groups;
+      }, {}); 
+      
+      // Edit: to add it in the array format instead
+       const groupArrays = Object.keys(groups).map((date) => {
+        return {
+          date,
+          caja: groups[date],
+        };
+      }); 
+      this.service.updateTable(groupArrays);
     })
   }
 }

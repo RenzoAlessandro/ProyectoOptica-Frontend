@@ -296,9 +296,9 @@ export class UpdateExcelComponent implements OnInit {
       console.log(this.validarIdSede(data, idSede), this.validarTipo(data, tipoProducto))
       if (this.validarIdSede(data, idSede) && this.validarTipo(data, tipoProducto)) {
         console.log("correcto")
-        /*  this.productoService.createProductsbyExcel(producto).subscribe(res=> {
+         this.productoService.createProductsbyExcel(producto).subscribe(res=> {
            console.log("subido");
-         })  */
+         }) 
       } else {
         Sweetalert("error", "Columna ID SEDE o TIPO incorrectos o faltantes");
         return;
