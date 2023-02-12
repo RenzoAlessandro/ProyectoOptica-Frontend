@@ -139,10 +139,26 @@ export class TransactionService {
        const groupArrays = Object.keys(groups).map((date) => {
         return {
           date,
-          games: groups[date]
+          caja: groups[date],
         };
       }); 
       
+      groupArrays.forEach(element => {
+        const ingreso ={
+          ingreso_total: 0,
+          egreso_total:0
+        }
+        element.caja.reduce((acc,obj)=>{
+          if (obj.egreso) {
+            ingreso.egreso_total = acc+obj.monto
+          } else {
+            ingreso.ingreso_total = acc+obj.monto
+          }
+        },0);
+
+        Object.assign(element,ingreso)
+      });
+
       this.cajaList = groupArrays
 
 

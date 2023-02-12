@@ -8,7 +8,8 @@ import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { SedesModel } from 'src/models/sedes';
-import { CajaModel } from 'src/models/caja';
+import { ReporteModel } from 'src/models/reporte';
+import { CajaService } from 'src/app/services/caja.service';
 
 
 @Component({
@@ -34,15 +35,20 @@ export class ListCashComponent implements OnInit {
   transactions$: Observable<any>;
   total$: Observable<number>;
 
+  reporteCaja= new ReporteModel
+  
+
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   constructor(
     private modalService: NgbModal,
     public service: TransactionService,
     private fb: FormBuilder,
-    private usuarioService: UsuarioService) {
+    private usuarioService: UsuarioService,
+    private cajaService: CajaService) {
     this.transactions$ = service.transactions$;
     this.total$ = service.total$;
+    
   }
 
   ngOnInit() {
@@ -62,7 +68,7 @@ export class ListCashComponent implements OnInit {
     });
 
     this.formDateRange = this.fb.group({
-      [this.fechaDesde]:[],
+      [this.fechaDesde]:[ ],
     });
   }
 
@@ -82,7 +88,32 @@ export class ListCashComponent implements OnInit {
  * Open scroll modal
  * @param scrollDataModal scroll modal data
  */
-  scrollModal(scrollDataModal: any) {
+  scrollModal(scrollDataModal: any,data:any) {
+    console.log(data)
+    this.reporteCaja.fechaCaja = new Date(data.date+'T00:00').toLocaleDateString('en-GB');
+    this.reporteCaja.ingreso_total = data.ingreso_total;
+    this.reporteCaja.egreso_total = data.egreso_total;
+    this.reporteCaja.ingresos = data.caja.filter(el => (el.egreso == false));
+    this.reporteCaja.egresos = data.caja.filter(el => (el.egreso == true));
+
+    this.reporteCaja.ingresos.reduce((acc,obj)=> {
+      if (obj.metodo_pago == 'Físico') {
+        this.reporteCaja.ingresos_fisicos = acc+obj.monto
+      } else {
+        this.reporteCaja.ingresos_virtuales = acc+obj.monto
+      }
+    },0);
+
+    this.reporteCaja.egresos.reduce((acc,obj)=> {
+      if (obj.metodo_pago == 'Físico') {
+        this.reporteCaja.egresos_fisicos = acc+obj.monto
+      } else {
+        this.reporteCaja.egresos_virtuales = acc+obj.monto
+      }
+    },0)
+    
+
+    console.log(this.reporteCaja)
     this.modalService.open(scrollDataModal, { size: 'lg', centered: true, scrollable: true });
   }
 
@@ -99,14 +130,14 @@ export class ListCashComponent implements OnInit {
 
   filterDateRange() {
     if (this.formDateRange.valid) {
-      let fechaIni = new Date(this.f(this.fechaDesde).value);
-      
-      if(this.f(this.fechaHasta).value != null) {
+      let fechaIni = this.f(this.fechaDesde).value;
+      console.log(fechaIni)
+      /* if(this.f(this.fechaHasta).value != null) {
        
       } else {
        
-        //fechaFin.setHours(23,59,0)
-      }
+        
+      } */
       //fechaIni.setDate(fechaIni.getDate() - 1)
       /* fechaFin.setDate(fechaFin.getDate() + 1)
       fechaIni.setHours(0,0,0);
@@ -117,5 +148,26 @@ export class ListCashComponent implements OnInit {
     } else {
       return;
     }
+  }
+
+  fS(campo: string) {
+    return this.formSedes.get(campo);
+  }
+
+  changeSedes() {
+    this.idSede = this.fS(this.nombre_sedes).value;
+    console.log(this.f(this.fechaDesde).value)
+    const fIni = new Date(this.f(this.fechaDesde).value);
+    let firstDay = new Date(fIni.getFullYear(), fIni.getMonth(), 1);
+    let lastDay = new Date(fIni.getFullYear(), fIni.getMonth() + 1, 0);
+    firstDay.setHours(0, 0, 1);
+    lastDay.setHours(23, 59, 0);
+    this.updateListCaja(firstDay,firstDay,this.idSede);
+  }
+
+  updateListCaja(fIni:Date,fFin:Date,idSede:string) {
+    this.cajaService.getIngresosEgresosbyMonth(fIni,fFin,idSede).subscribe( res=>{
+      this.service.updateTable(res);
+    })
   }
 }
