@@ -134,19 +134,13 @@ export class ListCashComponent implements OnInit {
       let fechaIni = new Date(this.f(this.fechaDesde).value+'T00:00');
       console.log(fechaIni)
 
-      /* if(this.f(this.fechaHasta).value != null) {
-       
-      } else {
-       
-        
-      } */
-      //fechaIni.setDate(fechaIni.getDate() - 1)
-      /* fechaFin.setDate(fechaFin.getDate() + 1)
-      fechaIni.setHours(0,0,0);
-      fechaFin.setHours(23,59,0) */
-      /* this.ventasService.getVentasByDate(fechaIni,fechaFin).subscribe(res=>{
-        this.service.updateTable(res);
-      })  */
+      let firstDay = new Date(fechaIni.getFullYear(), fechaIni.getMonth(), 1);
+      let lastDay = new Date(fechaIni.getFullYear(), fechaIni.getMonth() + 1, 0);
+      firstDay.setHours(0, 0, 1);
+      lastDay.setHours(23, 59, 0);
+      console.log(firstDay,lastDay);
+      console.log(this.idSede)
+      this.updateListCaja(firstDay,lastDay,this.idSede);
     } else {
       return;
     }
@@ -164,13 +158,13 @@ export class ListCashComponent implements OnInit {
     let lastDay = new Date(fIni.getFullYear(), fIni.getMonth() + 1, 0);
     firstDay.setHours(0, 0, 1);
     lastDay.setHours(23, 59, 0);
-    console.log(firstDay,lastDay,this.idSede)
-    this.updateListCaja(firstDay,firstDay,this.idSede);
+    console.log(firstDay,lastDay);
+    console.log(this.idSede)
+    this.updateListCaja(firstDay,lastDay,this.idSede);
   }
 
   updateListCaja(fIni:Date,fFin:Date,idSede:string) {
     this.cajaService.getIngresosEgresosbyMonth(fIni,fFin,idSede).subscribe( res=>{
-      console.log(res)
       const groups = res.reduce((groups, game) => {
         const date = game.fecha_creacion_caja.split(' ')[0];
         if (!groups[date]) {
@@ -187,7 +181,25 @@ export class ListCashComponent implements OnInit {
           caja: groups[date],
         };
       }); 
-      this.service.updateTable(groupArrays);
+      
+      groupArrays.forEach(element => {
+        const ingreso ={
+          ingreso_total: 0,
+          egreso_total:0
+        }
+        element.caja.reduce((acc,obj)=>{
+          if (obj.egreso) {
+            ingreso.egreso_total = acc+obj.monto
+          } else {
+            ingreso.ingreso_total = acc+obj.monto
+          }
+        },0);
+
+        Object.assign(element,ingreso)
+      });
+
+      this.service.updateTable(groupArrays)
+      
     })
   }
 }

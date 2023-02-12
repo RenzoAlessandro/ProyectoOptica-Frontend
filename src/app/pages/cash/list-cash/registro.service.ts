@@ -111,7 +111,7 @@ export class TransactionService {
   }
 
   getListIngresosEgresos(fIni:Date,fFin:Date) {
-
+    console.log(this.usuarioService.getSedebyUser())
     this.cajaService.getIngresosEgresosbyMonth(fIni,fFin,this.usuarioService.getSedebyUser()).subscribe(res=>{
       /* of(...res).pipe(
         groupBy((p: any) => p.fecha_creacion_caja.split(' ')[0]),

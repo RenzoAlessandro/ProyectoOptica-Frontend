@@ -99,7 +99,7 @@ export class UsuarioService {
     return this.roleAs;
   }
 
-  getSedebyUser() {
+  getSedebyUser():string {
     const user = localStorage.getItem('user');
     return JSON.parse(user).id_sede;
   }
