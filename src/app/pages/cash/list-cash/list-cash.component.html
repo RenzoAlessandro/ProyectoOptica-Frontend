@@ -120,7 +120,7 @@
                       </span>
                     </td>
                     <td>
-                      <a (click)="scrollModal(scrollDataModal,data)" class="px-3 text-primary" placement="top" ngbTooltip="Ver detalle"><i
+                      <a (click)="scrollModal(scrollDataModalDetalleCajaDia,data)" class="px-3 text-primary" placement="top" ngbTooltip="Ver detalle"><i
                           class="uil uil-eye font-size-18"></i></a>
                     </td>
                   </tr>
@@ -151,7 +151,7 @@
 
 
     <!-- Scrollable Modal - Ver Detalle Caja por Día-->
-    <ng-template #scrollDataModal let-modal>
+    <ng-template #scrollDataModalDetalleCajaDia let-modal>
       <div class="modal-header">
         <h5 class="modal-title mt-0">Detalle de Caja: {{this.reporteCaja.fechaCaja}}</h5>
         <button type="button" class="btn-close" (click)="closeEventModalGeneral()" aria-label="Close">
