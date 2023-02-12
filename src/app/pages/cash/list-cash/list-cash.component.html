@@ -1,4 +1,5 @@
 <div class="container-fluid">
+
     <app-page-title title="Listas de Registro de Ingresos y Egresos" [breadcrumbItems]="breadCrumbItems"></app-page-title>
 
     <div class="row">
@@ -18,20 +19,6 @@
         <div>
           <div class="btn-toolbar" role="toolbar">
   
-            <div class="col-12 col-md-6 d-grid mb-2">
-
-            </div>
-  
-            <div class="col-12 col-md-6 d-grid">
-              <form [formGroup]="formSedes">
-                <div ngbDropdown>
-                  <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
-                    bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSedes()">
-                  </ng-select>
-                </div>
-              </form>
-            </div>
-
             <div class="col-12 col-md-6 d-grid mb-2 chat-search-box px-1">
               <div class="position-relative">
                 <form [formGroup]="formDateRange">
@@ -43,6 +30,16 @@
                   </div>
                 </form>
               </div>
+            </div>
+  
+            <div class="col-12 col-md-6 d-grid">
+              <form [formGroup]="formSedes">
+                <div ngbDropdown>
+                  <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
+                    bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSedes()">
+                  </ng-select>
+                </div>
+              </form>
             </div>
   
           </div>
