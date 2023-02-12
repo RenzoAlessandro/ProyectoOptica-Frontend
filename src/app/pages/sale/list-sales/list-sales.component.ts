@@ -406,14 +406,14 @@ export class ListSalesComponent implements OnInit {
     var peruIGV = 0.18;
 
     function buildData(){
-      var numOrdenItems = 1;
-      var totalMonturas, totallunas, totalAccesorios = 0
-      var subTotal = 0
+      var numOrdenItems = 0;
+      var totalMonturas, totallunas, totalAccesorios = 0;
+      var subTotal = 0;
 
       // Monturas
       if (venta.list_monturas.length > 0){
         for (var i = 0; i < venta.list_monturas.length; i++){
-          numOrdenItems += i;
+          numOrdenItems += 1;
           totalMonturas = venta.list_monturas[i].precio_montura_v * venta.list_monturas[i].cant_vendida;
           subTotal += totalMonturas;
           externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_monturas[i].marca, precio: venta.list_monturas[i].precio_montura_v, cantidad: venta.list_monturas[i].cant_vendida, total: totalMonturas},) // Añade
@@ -423,7 +423,7 @@ export class ListSalesComponent implements OnInit {
       // Lunas
       if (venta.list_lunas.length > 0){
         for (var i = 0; i < venta.list_lunas.length; i++){
-          numOrdenItems += i;
+          numOrdenItems += 1;
           totallunas =  venta.list_lunas[i].precio_luna_v * venta.list_lunas[i].cant_vendida;
           subTotal += totallunas;
           externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_lunas[i].material, precio: venta.list_lunas[i].precio_luna_v, cantidad: venta.list_lunas[i].cant_vendida, total: totallunas },) // Añade
@@ -433,7 +433,7 @@ export class ListSalesComponent implements OnInit {
       // Accesorios
       if (venta.list_accesorios.length > 0){
         for (var i = 0; i < venta.list_accesorios.length; i++){
-          numOrdenItems += i;
+          numOrdenItems += 1;
           totalAccesorios = venta.list_accesorios[i].precio_accesorio_v * venta.list_accesorios[i].cant_vendida;
           subTotal += totalAccesorios;
           externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_accesorios[i].nombre_accesorio, precio: venta.list_accesorios[i].precio_accesorio_v, cantidad: venta.list_accesorios[i].cant_vendida, total: totalAccesorios },) // Añade
@@ -458,8 +458,9 @@ export class ListSalesComponent implements OnInit {
           body.push(dataRow);
       });
       
-      var totalIGV = subtotal * peruIGV;
-      var total = subtotal + totalIGV;
+      var totalIGV = round(subtotal * peruIGV, 2);
+
+      var total = round(subtotal + totalIGV, 1);
 
       body.push([{ text: ' ', rowSpan: 3, colSpan: 2}, { }, {text: 'Sub. Total:', style: 'tableHeader', alignment: 'right', colSpan: 2 }, { }, { text: simboloNuevoSol + subtotal, style: 'contenido', alignment: 'right' }]);
       body.push([{ }, { }, { text: 'IGV (18%) :', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol + totalIGV, style: 'contenido', alignment: 'right' }]);
