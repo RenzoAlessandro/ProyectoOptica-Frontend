@@ -5,7 +5,6 @@ import { CashRegisterRoutingModule } from './cash-register-routing.module';
 import { UIModule } from '../../shared/ui/ui.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { Ng2FlatpickrModule } from 'ng2-flatpickr';
 import { NgbAccordionModule, NgbCollapseModule, NgbDropdownModule, NgbPaginationModule, NgbTooltipModule, NgbTypeaheadModule } from "@ng-bootstrap/ng-bootstrap";
 import { Ng5SliderModule } from "ng5-slider";
 import { DropzoneModule, DROPZONE_CONFIG } from "ngx-dropzone-wrapper";
@@ -29,7 +28,6 @@ import { ListCashComponent } from './list-cash/list-cash.component';
     NgbPaginationModule,
     NgSelectModule,
     Ng2SearchPipeModule,
-    Ng2FlatpickrModule,
     Ng5SliderModule,
     NgbAccordionModule,
     NgbTypeaheadModule,

@@ -12,7 +12,6 @@ import { AddSaleComponent } from "./add-sale/add-sale.component";
 import { SaleRoutingModule } from "./sale-routing.module";
 import { ListSalesComponent } from "./list-sales/list-sales.component";
 import { AutocompleteLibModule } from "angular-ng-autocomplete";
-import { Ng2FlatpickrModule } from 'ng2-flatpickr';
 
 @NgModule({
     // tslint:disable-next-line: max-line-length
@@ -36,8 +35,7 @@ import { Ng2FlatpickrModule } from 'ng2-flatpickr';
       NgbNavModule,
       NgbModule,
       AutocompleteLibModule,
-      NgbModule,
-      Ng2FlatpickrModule
+      NgbModule
     ],
     providers: [
       {
