@@ -91,6 +91,8 @@ export class CashRegisterComponent implements OnInit {
     this.totalE$ = serviceE.totalE$;
 
     this.egresos$.subscribe(res=> {
+      this.eFisico = 0;
+      this.eVirtual = 0;
       this.egresoTotal = res.reduce((acc,obj)=>{return acc+obj.monto},0);
       res.forEach(element => {
         if (element.metodo_pago == 'Físico') {
@@ -103,6 +105,8 @@ export class CashRegisterComponent implements OnInit {
      
     });
     this.ingresos$.subscribe(res=> {
+      this.iFisico = 0;
+      this.iVirtual=0
       this.ingresoTotal = res.reduce((acc,obj)=>{return acc+obj.monto},0);
       res.forEach(element => {
         if (element.metodo_pago == 'Físico') {
