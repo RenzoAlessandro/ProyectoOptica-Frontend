@@ -7,8 +7,7 @@ import { Observable } from 'rxjs';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { UsersModel } from 'src/models/user';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { CajaModel } from 'src/models/caja';
 import { CajaService } from 'src/app/services/caja.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -63,10 +62,17 @@ export class CashRegisterComponent implements OnInit {
   listData:CajaModel[];
 
   selectedDate;
-  ingresos$: Observable<CajaModel[]>;
-  egresos$: Observable<CajaModel[]>;
+  ingresos$: Observable<any>;
+  egresos$: Observable<any>;
   total$: Observable<number>;
   totalE$: Observable<number>;
+
+  egresoTotal: number;
+  eFisico:number = 0;
+  eVirtual:number = 0;
+  ingresoTotal: number;
+  iFisico:number = 0;
+  iVirtual:number = 0;
 
   caja = new CajaModel;
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
@@ -82,6 +88,32 @@ export class CashRegisterComponent implements OnInit {
     this.total$ = serviceI.totalI$;
     this.egresos$ = serviceE.egresos$;
     this.totalE$ = serviceE.totalE$;
+
+    this.egresos$.subscribe(res=> {
+
+      this.egresoTotal = res.reduce((acc,obj)=>{return acc+obj.monto},0);
+      res.forEach(element => {
+        if (element.metodo_pago == 'Físico') {
+          return this.eFisico += element.monto;
+        } else {
+          return this.eVirtual += element.monto
+        }
+      });
+        
+     
+    });
+    this.ingresos$.subscribe(res=> {
+      console.log(res)
+      this.ingresoTotal = res.reduce((acc,obj)=>{return acc+obj.monto},0);
+      res.forEach(element => {
+        if (element.metodo_pago == 'Físico') {
+          this.iFisico += element.monto;
+        } else {
+          this.iVirtual +=  element.monto
+        }
+      });
+    });
+
   }
 
   ngOnInit(): void {
@@ -158,6 +190,7 @@ export class CashRegisterComponent implements OnInit {
   changeSede() {
     this.idSede = this.fS(this.nombre_sedes).value;
     this.updateListIngresos(this.idSede);
+    this.updateListEgresos(this.idSede)
   }
 
   /**
@@ -227,6 +260,7 @@ export class CashRegisterComponent implements OnInit {
      this.cajaService.createIngresoEgreso(this.caja).subscribe(res=>{
         this.formEgreso.reset();
         this.modalService.dismissAll();
+        this.updateListEgresos(this.idSede)
       }) 
     } else {
       
@@ -253,4 +287,16 @@ export class CashRegisterComponent implements OnInit {
       this.serviceI.updateTableIngreso(res);
     })
   }
+
+  updateListEgresos(idSede:string) {
+    let fIni: Date = new Date(Date.now());
+    fIni.setHours(0,0,1);
+    let fFin: Date = new Date(Date.now());
+    fFin.setHours(23,59,0);
+    this.cajaService.getEgresosbyDate(fIni,fFin,idSede).subscribe(res => {
+      this.serviceE.updateTableEgreso(res);
+    })
+  }
+
+
 }

@@ -41,16 +41,16 @@
             <div class="col-12">
               <div class="mt-0">
                 <h3 class="text-center">Ingreso Total: <span class="text-success me-1"><i
-                  class="mdi mdi-arrow-up-bold me-1"></i>S/ 500.00</span> </h3>
+                  class="mdi mdi-arrow-up-bold me-1"></i>{{this.ingresoTotal}}</span> </h3>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-6">
-              <h5 class="text-center">Físico: S/ 000.00</h5>
+              <h5 class="text-center">Físico: {{this.iFisico}}</h5>
             </div>
             <div class="col-6">
-              <h5 class="text-center">Virtual: S/ 000.00</h5>
+              <h5 class="text-center">Virtual: {{this.iVirtual}}</h5>
             </div>
           </div>
         </div>
@@ -139,16 +139,16 @@
             <div class="col-12">
               <div class="mt-0">
                 <h3 class="text-center">Egreso Total: <span class="text-danger me-1"><i
-                  class="mdi mdi-arrow-down-bold me-1"></i>S/ 500.00</span> </h3>
+                  class="mdi mdi-arrow-down-bold me-1"></i>{{this.egresoTotal}}</span> </h3>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-6">
-              <h5 class="text-center">Físico: S/ 000.00</h5>
+              <h5 class="text-center">Físico: {{this.eFisico}}</h5>
             </div>
             <div class="col-6">
-              <h5 class="text-center">Virtual: S/ 000.00</h5>
+              <h5 class="text-center">Virtual: {{this.eVirtual}}</h5>
             </div>
           </div>
         </div>
@@ -191,7 +191,7 @@
                         <ngb-highlight [result]="data.monto|currency:'S/ '" [term]="serviceE.searchTerm"></ngb-highlight>
                       </td>
                       <td>
-                        <ngb-highlight [result]="data.metodo" [term]="serviceE.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="data.metodo_pago" [term]="serviceE.searchTerm"></ngb-highlight>
                       </td>
                       <td>
                         <ngb-highlight [result]="data.descripcion" [term]="serviceE.searchTerm"></ngb-highlight>
@@ -200,7 +200,7 @@
                         <ngb-highlight [result]="data.fecha_creacion_caja" [term]="serviceE.searchTerm"></ngb-highlight>
                       </td>
                       <td>
-                        <ngb-highlight [result]="data.encargado" [term]="serviceE.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="'-'" [term]="serviceE.searchTerm"></ngb-highlight>
                       </td>
                       <td>
                         <!-- <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i
