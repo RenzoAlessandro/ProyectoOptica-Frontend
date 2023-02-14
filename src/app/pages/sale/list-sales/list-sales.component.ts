@@ -35,8 +35,6 @@ import { SedesModel } from 'src/models/sedes';
 
 export class ListSalesComponent implements OnInit {
 
-  role = "Admin"; 
-
   formSedes: FormGroup;
   listSedes: Array<SedesModel>;
   nombre_sedes: string = "campoSede";

@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { MaintenanceComponent } from './maintenance/maintenance.component';
 import { Page404Component } from './page404/page404.component';
 import { Page500Component } from './page500/page500.component';
-import { Login1Component } from './login1/login1.component';
 import { ComingsoonComponent } from './comingsoon/comingsoon.component';
 
 const routes: Routes = [
@@ -23,11 +22,7 @@ const routes: Routes = [
     {
         path: '500',
         component: Page500Component
-    },
-    {
-        path: 'login-1',
-        component: Login1Component
-    },
+    }
 ];
 
 
