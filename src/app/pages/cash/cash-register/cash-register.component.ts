@@ -94,7 +94,12 @@ export class CashRegisterComponent implements OnInit {
     this.egresos$ = serviceE.egresos$;
     this.totalE$ = serviceE.totalE$;
 
-    this.egresos$.subscribe(res=> {
+    let fIni: Date = new Date(Date.now());
+    fIni.setHours(0,0,1);
+    let fFin: Date = new Date(Date.now());
+    fFin.setHours(23,59,0);
+
+    this.cajaService.getEgresosbyDate(fIni,fFin,this.usuarioService.getSedebyUser()).subscribe(res=> {
       this.eFisico = 0;
       this.eVirtual = 0;
       this.egresoTotal = res.reduce((acc,obj)=>{return acc+obj.monto},0);
@@ -108,7 +113,7 @@ export class CashRegisterComponent implements OnInit {
       
      
     });
-    this.ingresos$.subscribe(res=> {
+    this.cajaService.getIngresosbyDate(fIni,fFin,this.usuarioService.getSedebyUser()).subscribe(res=> {
       this.iFisico = 0;
       this.iVirtual=0
       this.ingresoTotal = res.reduce((acc,obj)=>{return acc+obj.monto},0);
