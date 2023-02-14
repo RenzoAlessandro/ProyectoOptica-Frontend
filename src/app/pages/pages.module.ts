@@ -58,5 +58,8 @@ FullCalendarModule.registerPlugins([
     NgbCollapseModule,
     SimplebarAngularModule,
   ],
+  exports: [
+    //RoleDirective
+  ]
 })
 export class PagesModule { }

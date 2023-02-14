@@ -27,7 +27,7 @@ import { getBase64ImageFromURL } from 'src/utils/functions';
 export class ListCustomersComponent implements OnInit {
 
   mostrarSpinner = false;
-
+  role = 'Admin'
   // modal
   editEvent: any;
   formCustomer: FormGroup;

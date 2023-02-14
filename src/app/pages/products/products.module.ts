@@ -18,10 +18,10 @@ import { DropzoneModule, DROPZONE_CONFIG } from "ngx-dropzone-wrapper";
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { NgxDropzoneModule } from "ngx-dropzone";
 import { BarcodeGeneratorAllModule,QRCodeGeneratorAllModule } from "@syncfusion/ej2-angular-barcode-generator";
-import { RoleDirective } from "src/app/directives/role.directive";
 import { AutocompleteLibModule } from "angular-ng-autocomplete";
 import { Labels } from "src/utils/labels";
 import { InventarioComponent } from './inventario/inventario.component';
+import { DirectivesModule } from "src/app/directives/role.module";
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -30,7 +30,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
 @NgModule({
     // tslint:disable-next-line: max-line-length
-    declarations: [AddProductComponent, LunasComponent, MonturasComponent, AccesoriosComponent, NgbdSortableHeader, UpdateExcelComponent, RoleDirective, InventarioComponent],
+    declarations: [AddProductComponent, LunasComponent, MonturasComponent, AccesoriosComponent, NgbdSortableHeader, UpdateExcelComponent, InventarioComponent],
     imports: [
       ProductsRoutingModule,
       CommonModule,
@@ -52,7 +52,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       NgxDropzoneModule,
       BarcodeGeneratorAllModule,
       AutocompleteLibModule,
-      QRCodeGeneratorAllModule
+      QRCodeGeneratorAllModule,
+      DirectivesModule
     ],
     providers: [
       Labels,

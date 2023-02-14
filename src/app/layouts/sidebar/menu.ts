@@ -26,17 +26,17 @@ export const MENU: MenuItem[] = [
                 label: 'MENUITEMS.CLIENT.LIST.ADDCLIENT',
                 link: '/customer/addcustomer',
                 parentId: 3,
-                role: ['Admin']
+                role: ['Admin','Vendedor']
             }, 
             {
                 id: 5,
                 label: 'MENUITEMS.CLIENT.LIST.LISTCLIENTS',
                 link: '/customer/listcustomers',
                 parentId: 3,
-                role: ['Admin']
+                role: ['Admin','Vendedor']
             }, 
         ],
-        role: ['Admin']
+        role: ['Admin','Vendedor']
     },
     {
         id: 6,

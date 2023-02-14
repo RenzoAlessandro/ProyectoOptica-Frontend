@@ -5,6 +5,7 @@ export class accesosModel {
     images: string;
     icono: string[];
     link: string;
+    role: string[];
 }
 
 export const accesosList: accesosModel[] = [
@@ -14,7 +15,8 @@ export const accesosList: accesosModel[] = [
         detail: 'Hacer una venta al contado o al credito',
         images: 'assets/images/product/img-1.png',
         icono: ['uil-invoice', 'uno'],
-        link: '/sale/addsale'
+        link: '/sale/addsale',
+        role: ['Admin','Vendedor']
     },
     {
         id: 2,
@@ -22,7 +24,8 @@ export const accesosList: accesosModel[] = [
         detail: 'Registrar, eliminar o actualizar detalles de productos',
         images: 'assets/images/product/img-2.png',
         icono: ['uil-box', 'dos'],
-        link: '/products/monturas'
+        link: '/products/monturas',
+        role: ['Admin','Vendedor']
     },
     {
         id: 3,
@@ -30,7 +33,8 @@ export const accesosList: accesosModel[] = [
         detail: 'Registrar, eliminar o actualizar detalles de clientes',
         images: 'assets/images/product/img-3.png',
         icono: ['uil-users-alt', 'tres'],
-        link: '/customer/listcustomers'
+        link: '/customer/listcustomers',
+        role: ['Admin','Vendedor']
     },
     {
         id: 4,
@@ -38,7 +42,8 @@ export const accesosList: accesosModel[] = [
         detail: 'Registrar, eliminar o actualizar detalles de Usuarios',
         images: 'assets/images/product/img-6.png',
         icono: ['uil-user-circle', 'ocho'],
-        link: '/user/listusers'
+        link: '/user/listusers',
+        role: ['Admin']
     },
     {
         id: 5,
@@ -46,7 +51,8 @@ export const accesosList: accesosModel[] = [
         detail: 'Registrar una salida o entrada de efectivo',
         images: 'assets/images/product/img-5.png',
         icono: ['uil-money-bill-stack', 'cinco'],
-        link: '/cash/cashregister'
+        link: '/cash/cashregister',
+        role: ['Admin','Vendedor']
     },
     {
         id: 6,
@@ -54,7 +60,8 @@ export const accesosList: accesosModel[] = [
         detail: 'Registrar, eliminar detalles de Tiendas',
         images: 'assets/images/product/img-4.png',
         icono: ['uil-shop', 'cuatro'],
-        link: '/store/liststores'
+        link: '/store/liststores',
+        role: ['Admin']
     },
 /*     {
         id: 7,

@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { AuthGuard } from "src/app/core/guards/auth.guard";
 
 import { AddCustomerComponent } from "./add-customer/add-customer.component";
 import { ListCustomersComponent } from "./list-customers/list-customers.component";
@@ -7,11 +8,17 @@ import { ListCustomersComponent } from "./list-customers/list-customers.componen
 const routes: Routes = [
     {
         path: 'addcustomer',
-        component: AddCustomerComponent
+        component: AddCustomerComponent,
+        data: {
+            role: ['Vendedor','Admin'],
+          }, canActivate: [AuthGuard]
     }, 
     {
         path: 'listcustomers',
-        component: ListCustomersComponent
+        component: ListCustomersComponent,
+        data: {
+            role: ['Vendedor','Admin'],
+          }, canActivate: [AuthGuard]
     } 
 ];
 

@@ -102,7 +102,7 @@
                     <a (click)="centerModal(centerDataModalEditCustomer,data)" class="px-2 text-primary" placement="top"
                       ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
                     <a (click)="eliminar(data)" class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
-                        class="uil uil-trash-alt font-size-18"></i></a>
+                        class="uil uil-trash-alt font-size-18" *appRole="role"></i></a>
                   </td>
                 </tr>
               </tbody>

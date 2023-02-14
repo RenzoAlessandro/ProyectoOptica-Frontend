@@ -12,6 +12,8 @@ import { AddSaleComponent } from "./add-sale/add-sale.component";
 import { SaleRoutingModule } from "./sale-routing.module";
 import { ListSalesComponent } from "./list-sales/list-sales.component";
 import { AutocompleteLibModule } from "angular-ng-autocomplete";
+import { DirectivesModule } from "src/app/directives/role.module";
+
 
 @NgModule({
     // tslint:disable-next-line: max-line-length
@@ -35,7 +37,11 @@ import { AutocompleteLibModule } from "angular-ng-autocomplete";
       NgbNavModule,
       NgbModule,
       AutocompleteLibModule,
-      NgbModule
+      NgbModule,
+      DirectivesModule
+    ],
+    exports:[
+      //RoleDirective
     ],
     providers: [
       {

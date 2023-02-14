@@ -19,7 +19,7 @@
       <div>
         <div class="btn-toolbar" role="toolbar">
 
-          <div class="col-12 col-md-6 d-grid mb-2 chat-search-box px-1">
+          <div class="col-12 col-md-6 d-grid mb-2 chat-search-box px-1" *appRole="role">
             <div class="position-relative">
               <form [formGroup]="formDateRange">
                 <div class="input-daterange input-group">
@@ -34,7 +34,7 @@
             </div>
           </div>
 
-          <div class="col-12 col-md-6 d-grid">
+          <div class="col-12 col-md-6 d-grid" *appRole="role">
             <form [formGroup]="formSedes">
               <div ngbDropdown>
                 <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
@@ -87,7 +87,7 @@
                     <th scope="col" sortable="" (sort)="onSort($event)">Total</th>
                     <th scope="col" sortable="" (sort)="onSort($event)">Estado de Pago</th>
                     <th scope="col" sortable="" (sort)="onSort($event)">Descargar Pdf</th>
-                    <th style="width: 170px;">Action</th>
+                    <th style="width: 170px;" *appRole="role">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -132,7 +132,7 @@
                       <a *ngIf="data.tipo_venta[0].deuda != 0" (click)="centerModalActualizar(centerDataModalActualizarVenta,data)" class="px-3 text-primary"
                         placement="top" ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
                       <a (click)="eliminar(data)" class="px-3 text-danger" placement="top" ngbTooltip="Eliminar"><i
-                          class="uil uil-trash-alt font-size-18"></i></a>
+                          class="uil uil-trash-alt font-size-18" *appRole="role"></i></a>
                     </td>
                   </tr>
                 </tbody>

@@ -21,7 +21,7 @@ import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { FakeBackendInterceptor } from './core/helpers/fake-backend';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { RoleDirective } from './directives/role.directive';
+
 
 if (environment.defaultauth === 'firebase') {
   initFirebaseBackend(environment.firebaseConfig);
@@ -37,7 +37,6 @@ export function createTranslateLoader(http: HttpClient): any {
 @NgModule({
   declarations: [
     AppComponent,
-    //RoleDirective,
   ],
   imports: [
     BrowserModule,

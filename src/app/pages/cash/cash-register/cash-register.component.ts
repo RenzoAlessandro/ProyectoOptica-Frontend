@@ -25,6 +25,7 @@ import { EgresoService } from './listEgresos.service';
 })
 export class CashRegisterComponent implements OnInit {
 
+  role = 'Admin';
   formSedes: FormGroup;
   listSedes: Array<SedesModel>;
   nombre_sedes: string = "campoSede";

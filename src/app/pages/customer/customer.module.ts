@@ -7,6 +7,7 @@ import { Ng2SearchPipeModule } from "ng2-search-filter";
 import { Ng5SliderModule } from "ng5-slider";
 import { DropzoneModule, DROPZONE_CONFIG } from "ngx-dropzone-wrapper";
 import { config } from "rxjs";
+import { DirectivesModule } from "src/app/directives/role.module";
 import { UIModule } from "src/app/shared/ui/ui.module";
 import { AddCustomerComponent } from "./add-customer/add-customer.component";
 import { CustomerRoutingModule } from "./customer-routing.module";
@@ -31,7 +32,8 @@ import { NgbdSortableHeader } from "./list-customers/sortable.directive";
       NgbTooltipModule,
       NgbAccordionModule,
       NgbTypeaheadModule,
-      NgbCollapseModule
+      NgbCollapseModule,
+      DirectivesModule
     ],
     providers: [
       {

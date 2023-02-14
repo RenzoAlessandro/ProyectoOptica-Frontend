@@ -20,7 +20,7 @@
     <div class="col-12 col-md-3 d-grid">
     </div>
 
-    <div class="col-12 col-md-3 d-grid">
+    <div class="col-12 col-md-3 d-grid" *appRole="role">
       <form [formGroup]="formSedes">
         <div ngbDropdown>
           <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"

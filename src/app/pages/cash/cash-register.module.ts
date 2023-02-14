@@ -12,6 +12,7 @@ import { config } from "rxjs";
 
 import { CashRegisterComponent } from './cash-register/cash-register.component';
 import { ListCashComponent } from './list-cash/list-cash.component';
+import { DirectivesModule } from 'src/app/directives/role.module';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { ListCashComponent } from './list-cash/list-cash.component';
     Ng5SliderModule,
     NgbAccordionModule,
     NgbTypeaheadModule,
-    NgbCollapseModule
+    NgbCollapseModule,
+    DirectivesModule
   ],
   providers: [
     {
