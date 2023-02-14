@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CajaModel } from 'src/models/caja';
 import { CajaService } from 'src/app/services/caja.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -75,6 +75,8 @@ export class CashRegisterComponent implements OnInit {
   iFisico:number = 0;
   iVirtual:number = 0;
 
+  numberDecimalPattern = /^\d+(\.\d{1,2})?$/;
+
   caja = new CajaModel;
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
@@ -134,17 +136,33 @@ export class CashRegisterComponent implements OnInit {
 
   crearFormulario() {
     this.formIngreso = this.formBuilder.group({
-      [this.monto_ingreso]:[],
+      [this.monto_ingreso]:[null,[
+        Validators.required,
+        Validators.pattern(this.numberDecimalPattern)
+      ]],
       [this.fecha_ingreso]:[],
-      [this.descripcion_ingreso]:[],
-      [this.metodoPagoContado_ingreso]:[]
+      [this.descripcion_ingreso]:[null,[
+        Validators.required,
+        Validators.maxLength(50)
+      ]],
+      [this.metodoPagoContado_ingreso]:[null,[
+        Validators.required,
+      ]],
     });
 
     this.formEgreso = this.formBuilder.group({
-      [this.monto_egreso]:[],
+      [this.monto_egreso]:[null,[
+        Validators.required,
+        Validators.pattern(this.numberDecimalPattern),
+      ]],
       [this.fecha_egreso]:[],
-      [this.descripcion_egreso]:[],
-      [this.metodoPagoContado_egreso]:[]
+      [this.descripcion_egreso]:[null,[
+        Validators.required,
+        Validators.maxLength(50)
+      ]],
+      [this.metodoPagoContado_egreso]:[null,[
+        Validators.required,
+      ]],
     });
 
     this.formSedes = this.formBuilder.group({
@@ -322,6 +340,19 @@ export class CashRegisterComponent implements OnInit {
       });
     })
   }
+
+    /**
+   * Returns form Cash Ingresos
+   */
+    get formCI() {
+      return this.formIngreso.controls;
+    }
+        /**
+   * Returns form Cash Egresos
+   */
+    get formCE() {
+      return this.formEgreso.controls;
+    }
 
 
 }
