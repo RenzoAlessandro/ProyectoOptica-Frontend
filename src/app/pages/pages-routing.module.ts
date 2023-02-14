@@ -17,7 +17,9 @@ const routes: Routes = [
     role: 'Admin'
   }  },
   { path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)   },
-  { path: 'store', loadChildren: () => import('./store/store.module').then(m => m.StoreModule), canActivate: [AuthGuard]  },
+  { path: 'store', loadChildren: () => import('./store/store.module').then(m => m.StoreModule), canActivate: [AuthGuard],data:{
+    role: 'Admin'
+  }  },
   { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule), canActivate: [AuthGuard], data: {
     role: 'Admin'
   }  },
