@@ -105,15 +105,15 @@
                       <ngb-highlight [result]="data.date" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.ingreso_total" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.ingreso_total |currency:'S/ '" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.egreso_total" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.egreso_total |currency:'S/ '" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
                       <span class="badge rounded-pill bg-soft-success font-size-12"
                         [ngClass]=" { 'bg-soft-danger': data.ingreso_total-data.egreso_total < 0}">
-                        {{data.ingreso_total-data.egreso_total}}
+                        {{data.ingreso_total-data.egreso_total |currency:'S/ '}}
                       </span>
                     </td>
                     <td>
@@ -168,14 +168,14 @@
                                 <div class="mt-1">
                                     <p class="text-muted mb-2">Ingreso</p>
                                     <h4 class="text-muted mt-3 mb-0"><span class="text-success me-1"><i
-                                      class="mdi mdi-arrow-up-bold me-1"></i>{{this.reporteCaja.ingreso_total}}</span></h4>
+                                      class="mdi mdi-arrow-up-bold me-1"></i>{{this.reporteCaja.ingreso_total |currency:'S/ '}}</span></h4>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mt-1">
                                     <p class="text-muted mb-2">Egreso</p>
                                     <h4 class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i
-                                      class="mdi mdi-arrow-down-bold me-1"></i>{{this.reporteCaja.egreso_total}}</span></h4>
+                                      class="mdi mdi-arrow-down-bold me-1"></i>{{this.reporteCaja.egreso_total |currency:'S/ '}}</span></h4>
                                 </div>
                             </div>
                         </div>
@@ -191,10 +191,10 @@
           <div class="col-lg-12">
             <div class="row">
               <div class="col-6">
-                <h6>Ingresos Físico: {{this.reporteCaja.ingresos_fisicos}}</h6>
+                <h6>Ingresos Físico: {{this.reporteCaja.ingresos_fisicos |currency:'S/ '}}</h6>
               </div>
               <div class="col-6">
-                <h6>Ingresos Virtual: {{this.reporteCaja.ingresos_virtuales}}</h6>
+                <h6>Ingresos Virtual: {{this.reporteCaja.ingresos_virtuales |currency:'S/ '}}</h6>
               </div>
             </div>
             <div class="table-responsive mb-4">
@@ -257,10 +257,10 @@
           <div class="col-lg-12">
             <div class="row">
               <div class="col-6">
-                <h6>Egresos Físico: {{this.reporteCaja.egresos_fisicos}}</h6>
+                <h6>Egresos Físico: {{this.reporteCaja.egresos_fisicos |currency:'S/ '}}</h6>
               </div>
               <div class="col-6">
-                <h6>Egresos Virtual: {{this.reporteCaja.egresos_virtuales}}</h6>
+                <h6>Egresos Virtual: {{this.reporteCaja.egresos_virtuales |currency:'S/ '}}</h6>
               </div>
             </div>
             <div class="table-responsive mb-4">

@@ -16,6 +16,8 @@ import { SedesModel } from 'src/models/sedes';
 import { IngresoService } from './listIngresos.service';
 import { EgresoService } from './listEgresos.service';
 
+import { Sweetalert } from 'src/utils/sweetalert';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cash-register',
@@ -257,10 +259,13 @@ export class CashRegisterComponent implements OnInit {
       this.caja.habilitado = true;
       this.caja.egreso = false;
       this.caja.metodo_pago = this.fI(this.metodoPagoContado_ingreso).value;
+      Sweetalert("loading", "Cargando...");
      this.cajaService.createIngresoEgreso(this.caja).subscribe(res=>{
         this.updateListIngresos(this.idSede)
         this.formIngreso.reset();
         this.modalService.dismissAll();
+        Sweetalert("close",null);
+        Sweetalert("success", "Ingreso guardado");
       }) 
     } else {
 
@@ -278,10 +283,13 @@ export class CashRegisterComponent implements OnInit {
       this.caja.habilitado = true;
       this.caja.egreso = true;
       this.caja.metodo_pago = this.fE(this.metodoPagoContado_egreso).value;
+      Sweetalert("loading", "Cargando...");
      this.cajaService.createIngresoEgreso(this.caja).subscribe(res=>{
         this.formEgreso.reset();
         this.modalService.dismissAll();
         this.updateListEgresos(this.idSede)
+        Sweetalert("close",null);
+        Sweetalert("success", "Egreso guardado");
       }) 
     } else {
       
@@ -295,9 +303,51 @@ export class CashRegisterComponent implements OnInit {
       } else {
         this.updateListIngresos(this.idSede);
       }
-      
     })
   }
+
+
+  /* eliminarIngreso(data:CajaModel) {
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar?',
+      text: 'No se podrá revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: 'Si, eliminar!'
+    }).then(result => {
+      if (result.value) {
+        Sweetalert("loading", "Cargando...");
+        this.cajaService.deleteIngresoEgreso(data).subscribe(res=>{
+          if (data.egreso) {
+            Sweetalert("close", null);
+            Sweetalert("success", "Egreso eliminado");
+            this.updateListEgresos(this.idSede);
+          } else {
+            Sweetalert("close", null);
+            Sweetalert("success", "Ingreso eliminado");
+            this.updateListIngresos(this.idSede);
+          }
+        }, error => {
+          Sweetalert("close", null);
+          Sweetalert("error", "Error en la conexión");
+        },
+        );
+      }
+      else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire(
+          'Cancelado',
+          'Movimiento no eliminado',
+          'error'
+        );
+      }
+    }
+    );
+  }*/
+
 
   updateListIngresos(idSede:string) {
     let fIni: Date = new Date(Date.now());
