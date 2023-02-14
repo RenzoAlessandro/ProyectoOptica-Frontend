@@ -54,7 +54,8 @@ export class IngresoService {
   private _searchI$ = new Subject<void>();
   private _ingreso$ = new BehaviorSubject<CajaModel[]>([]);
   private _totalI$ = new BehaviorSubject<number>(0);
-  ingresoList: CajaModel[] = [];
+  private ingresoList: CajaModel[] = [];
+
   private _state: State = {
     page: 1,
     pageSize: 5,
@@ -62,6 +63,7 @@ export class IngresoService {
     sortColumn: '',
     sortDirection: '',
   };
+  
 
   constructor(
     private pipe: DecimalPipe,
@@ -72,14 +74,13 @@ export class IngresoService {
     fIni.setHours(0,0,1);
     let fFin: Date = new Date(Date.now());
     fFin.setHours(23,59,0);
-    //fIni = new Date(fIni.getTime() - fIni.getTimezoneOffset()*60000)
-    //fFin = new Date(fFin.getTime() - fFin.getTimezoneOffset()*60000)
     this.getListIngresos(fIni,fFin);
   }
 
   updateTableIngreso (data) {
     this._ingreso$.next(data);
   }
+
   get ingreso$() {
     return this._ingreso$.asObservable();
   }
