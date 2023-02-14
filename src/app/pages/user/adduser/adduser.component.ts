@@ -31,7 +31,7 @@ export class AdduserComponent implements OnInit {
   listRoles = [
     { cNombre:1, tNombre: "Admin" },
     { cNombre:2, tNombre: "Vendedor" },
-    { cNombre:3, tNombre: "Contador" }
+    //{ cNombre:3, tNombre: "Contador" }
   ];
   listSedes: SedesModel[] = [];
   user= new UsersModel;
