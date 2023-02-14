@@ -15,7 +15,7 @@ import { AutocompleteLibModule } from "angular-ng-autocomplete";
 
 @NgModule({
     // tslint:disable-next-line: max-line-length
-    declarations: [AddSaleComponent, ListSalesComponent],
+    declarations: [AddSaleComponent, ListSalesComponent ],
     imports: [
       SaleRoutingModule,
       CommonModule,

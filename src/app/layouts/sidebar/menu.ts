@@ -145,14 +145,14 @@ export const MENU: MenuItem[] = [
                 label: 'MENUITEMS.SALES.LIST.SALES',
                 link: '/sale/listsales',
                 parentId: 19,
-                role: ['Admin']
+                role: ['Admin', 'Vendedor']
             }, 
             {
                 id: 21,
                 label: 'MENUITEMS.SALES.LIST.ADDSALES',
                 link: '/sale/addsale',
                 parentId: 19,
-                role: ['Admin']
+                role: ['Admin', 'Vendedor']
             },
         ],
         link: '/sale',

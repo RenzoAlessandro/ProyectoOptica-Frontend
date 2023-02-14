@@ -81,7 +81,7 @@
                 <!-- <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th> -->
                 <th scope="col" sortable="fecha_creacion_accesorio" (sort)="onSort($event)">Fecha de Ingreso</th>
                 <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
-                <th>Acción</th>
+                <th *appRole="role">Acción</th>
               </tr>
             </thead>
             <tbody>
@@ -123,11 +123,11 @@
                       [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
                   </td> -->
                   <td>
-                    <a (click)="openModalEtiqueta(centerModalEIA,data)" class="px-2 text-success" placement="top" ngbTooltip="Etiqueta"><i
-                      class="uil-tag-alt font-size-18"></i></a>
+                    <a (click)="openModalEtiqueta(centerModalEIA,data)" class="px-2 text-success" placement="top" ngbTooltip="Etiqueta" *appRole="role"><i
+                      class="uil-tag-alt font-size-18" *appRole="role"></i></a>
                     <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top"
-                      ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
-                    <a (click)="eliminar(data)" class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
+                      ngbTooltip="Editar"><i class="uil uil-pen font-size-18" *appRole="role"></i></a>
+                    <a (click)="eliminar(data)" class="px-2 text-danger" placement="top" ngbTooltip="Eliminar" *appRole="role"><i
                         class="uil uil-trash-alt font-size-18"></i></a>
                   </td>
                 </tr>
