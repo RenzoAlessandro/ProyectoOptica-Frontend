@@ -116,21 +116,21 @@ export const MENU: MenuItem[] = [
         id: 16,
         label: 'MENUITEMS.STORES.TEXT',
         icon: 'uil-shop',
-        role: ['Admin','Vendedor'],
+        role: ['Admin'],
         subItems: [
             {
                 id: 17,
                 label: 'MENUITEMS.STORES.LIST.STORES',
                 link: '/store/liststores',
                 parentId: 16,
-                role: ['Admin', 'Vendedor']
+                role: ['Admin']
             }, 
             {
                 id: 18,
                 label: 'MENUITEMS.STORES.LIST.ADDSTORES',
                 link: '/store/addstore',
                 parentId: 16,
-                role: ['Admin', 'Vendedor']
+                role: ['Admin']
             },
         ],
         link: '/store',
