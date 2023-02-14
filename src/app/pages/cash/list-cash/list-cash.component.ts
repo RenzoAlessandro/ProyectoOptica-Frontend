@@ -90,7 +90,6 @@ export class ListCashComponent implements OnInit {
  * @param scrollDataModal scroll modal data
  */
   scrollModal(scrollDataModal: any,data:any) {
-    console.log(data)
     this.reporteCaja.fechaCaja = new Date(data.date+'T00:00').toLocaleDateString('en-GB');
     this.reporteCaja.ingreso_total = data.ingreso_total;
     this.reporteCaja.egreso_total = data.egreso_total;
@@ -113,8 +112,6 @@ export class ListCashComponent implements OnInit {
       }
     },0)
     
-
-    console.log(this.reporteCaja)
     this.modalService.open(scrollDataModal, { size: 'lg', centered: true, scrollable: true });
   }
 
@@ -132,14 +129,12 @@ export class ListCashComponent implements OnInit {
   filterDateRange() {
     if (this.formDateRange.valid) {
       let fechaIni = new Date(this.f(this.fechaDesde).value+'T00:00');
-      console.log(fechaIni)
 
       let firstDay = new Date(fechaIni.getFullYear(), fechaIni.getMonth(), 1);
       let lastDay = new Date(fechaIni.getFullYear(), fechaIni.getMonth() + 1, 0);
       firstDay.setHours(0, 0, 1);
       lastDay.setHours(23, 59, 0);
-      console.log(firstDay,lastDay);
-      console.log(this.idSede)
+
       this.updateListCaja(firstDay,lastDay,this.idSede);
     } else {
       return;
@@ -152,14 +147,11 @@ export class ListCashComponent implements OnInit {
 
   changeSedes() {
     this.idSede = this.fS(this.nombre_sedes).value;
-    console.log(this.f(this.fechaDesde).value)
     const fIni = new Date(this.f(this.fechaDesde).value + 'T00:00');
     let firstDay = new Date(fIni.getFullYear(), fIni.getMonth(), 1);
     let lastDay = new Date(fIni.getFullYear(), fIni.getMonth() + 1, 0);
     firstDay.setHours(0, 0, 1);
     lastDay.setHours(23, 59, 0);
-    console.log(firstDay,lastDay);
-    console.log(this.idSede)
     this.updateListCaja(firstDay,lastDay,this.idSede);
   }
 

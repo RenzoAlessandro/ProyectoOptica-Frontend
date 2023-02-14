@@ -109,7 +109,6 @@ export class CustomerService {
 
   getListUsers() {
     this.userService.getUsers().subscribe(res =>{
-      console.log(res);
       this.usersList = res;
       this._mostrar$.next(true);
       this._search$.pipe(

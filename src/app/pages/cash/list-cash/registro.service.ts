@@ -70,7 +70,6 @@ export class TransactionService {
     let lastDay = new Date(fIni.getFullYear(), fIni.getMonth() + 1, 0);
     firstDay.setHours(0, 0, 1);
     lastDay.setHours(23, 59, 0);
-    console.log(firstDay, lastDay)
     this.getListIngresosEgresos(firstDay,lastDay);
   }
   updateTable (data) {
@@ -111,7 +110,6 @@ export class TransactionService {
   }
 
   getListIngresosEgresos(fIni:Date,fFin:Date) {
-    console.log(this.usuarioService.getSedebyUser())
     this.cajaService.getIngresosEgresosbyMonth(fIni,fFin,this.usuarioService.getSedebyUser()).subscribe(res=>{
       /* of(...res).pipe(
         groupBy((p: any) => p.fecha_creacion_caja.split(' ')[0]),
@@ -121,7 +119,6 @@ export class TransactionService {
         map(arr => ({ date: arr[0], caja: arr.slice(1) })),
         toArray()
       ).subscribe(p => {
-        console.log(p)
         this.cajaList = p;
         //this.updateTable(this.cajaList)
       }); */
@@ -161,8 +158,6 @@ export class TransactionService {
 
       this.cajaList = groupArrays
 
-
-      console.log(this.cajaList)
         this._search$.pipe(
           tap(() => this._loading$.next(true)),
           debounceTime(200),
@@ -170,7 +165,6 @@ export class TransactionService {
           delay(200),
           tap(() => this._loading$.next(false))
         ).subscribe(result => {
-          console.log(result)
           this._transactions$.next(result.transactions);
           this._total$.next(result.total);
         });

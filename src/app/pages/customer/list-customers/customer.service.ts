@@ -118,7 +118,6 @@ export class CustomerService {
         delay(200),
         tap(() => this._loading$.next(false))
       ).subscribe(result => {
-        console.log(result)
         this._customers$.next(result.customers);
         this._total$.next(result.total);
       });

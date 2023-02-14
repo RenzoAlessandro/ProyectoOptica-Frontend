@@ -268,11 +268,9 @@ export class UpdateExcelComponent implements OnInit {
     let producto: Array<any>;
     if (this.validarCabeceraExcelUpdate(data, tipoProducto)) {
       producto = this.objExceltoDBUpdate(data, tipoProducto);
-      console.log(producto)
       const idSede = producto[0].id_sede
       if (this.validarIdSede(data, idSede) && this.validarTipo(data, tipoProducto)) {
         this.productoService.updateProductsbyExcel(producto).subscribe(res => {
-          console.log("ACTUALIZADO");
         })
       } else {
         Sweetalert("error", "Columna ID SEDE o TIPO incorrectos o faltantes");
@@ -292,12 +290,8 @@ export class UpdateExcelComponent implements OnInit {
     if (this.validarCabeceraExcelCreate(data, tipoProducto)) {
       producto = this.objExceltoDBCreate(data, tipoProducto);
       const idSede = producto[0].id_sede
-      console.log(tipoProducto);
-      console.log(this.validarIdSede(data, idSede), this.validarTipo(data, tipoProducto))
       if (this.validarIdSede(data, idSede) && this.validarTipo(data, tipoProducto)) {
-        console.log("correcto")
          this.productoService.createProductsbyExcel(producto).subscribe(res=> {
-           console.log("subido");
          }) 
       } else {
         Sweetalert("error", "Columna ID SEDE o TIPO incorrectos o faltantes");
@@ -506,7 +500,6 @@ export class UpdateExcelComponent implements OnInit {
           break;
       }
       let idSede = this.fC(this.sedeC).value;
-      console.log(idSede)
       const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
       const EXCEL_EXTENSION = '.xlsx';
       let data = [];
@@ -554,7 +547,6 @@ export class UpdateExcelComponent implements OnInit {
         default:
           break;
       }
-      console.log(data)
       const worksheet = XLSX.utils.json_to_sheet(data);
       const workbook = {
         Sheets: {

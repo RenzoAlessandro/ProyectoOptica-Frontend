@@ -20,7 +20,6 @@ export class DefaultHomeComponent implements OnInit {
   ngOnInit(): void {
     this.breadCrumbItems = [{ label: 'Orange Ópticas' }, { label: 'Inicio', active: true }];
     this.menu = accesosList.filter(element=>{
-      console.log(element.role.find(el =>(el == this.usuarioService.getSedebyUser())))
       return element.role.find(el =>(el == this.usuarioService.getUser().rol))
     })
     this.accesosDirectos = Object.assign([], this.menu);

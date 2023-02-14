@@ -36,7 +36,6 @@ export class RoleDirective implements OnInit {
   private checkPermissions(): boolean {
     let hasPermission = false;
     if (this.role == this.permissions) {
-      console.log("si tienes permiso")
       hasPermission = true;
     }
     return hasPermission;

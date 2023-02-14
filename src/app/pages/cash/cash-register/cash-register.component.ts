@@ -302,17 +302,6 @@ export class CashRegisterComponent implements OnInit {
   }
 
   eliminarIngreso(data:CajaModel) {
-    this.cajaService.deleteIngresoEgreso(data).subscribe(res=>{
-      if (data.egreso) {
-        this.updateListEgresos(this.idSede);
-      } else {
-        this.updateListIngresos(this.idSede);
-      }
-    })
-  }
-
-
-  /* eliminarIngreso(data:CajaModel) {
     Swal.fire({
       title: '¿Está seguro que desea eliminar?',
       text: 'No se podrá revertir esto!',
@@ -351,7 +340,7 @@ export class CashRegisterComponent implements OnInit {
       }
     }
     );
-  }*/
+  }
 
 
   updateListIngresos(idSede:string) {
