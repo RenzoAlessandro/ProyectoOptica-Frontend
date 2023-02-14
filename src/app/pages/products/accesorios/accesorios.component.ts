@@ -28,6 +28,8 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class AccesoriosComponent implements OnInit {
 
+  role = "Admin"; 
+
   mostrarSpinner = false;
 
   visibleSelection = 5;

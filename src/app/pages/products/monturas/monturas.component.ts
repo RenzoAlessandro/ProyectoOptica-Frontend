@@ -25,6 +25,8 @@ import { DisplayTextModel } from '@syncfusion/ej2-angular-barcode-generator';
 })
 export class MonturasComponent implements OnInit {
 
+  role = "Admin"; 
+
   //formulario - seleccionar sede
   formExportar: FormGroup;
   
