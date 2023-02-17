@@ -4,6 +4,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { SedesModel } from 'src/models/sedes';
 import { UsersModel } from 'src/models/user';
 import { Sweetalert } from '../../../../utils/sweetalert';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-adduser',
@@ -135,12 +136,23 @@ export class AdduserComponent implements OnInit {
       this.user.contrasenia = this.f(this.password).value;
       Sweetalert("loading", "Cargando...");
       this.usuarioService.createUsers(this.user).subscribe( res=>{
+        console.log(res)
         Sweetalert("close",null);
         Sweetalert("success", "Usuario guardado");
+        this.mostrarUsuario(res)
         this.formRegister.reset();
         this.f(this.fechaCreacion).setValue(new Date(Date.now()).toLocaleDateString())
       }) 
     }
+  }
+
+  mostrarUsuario(data: any) {
+    Swal.fire({
+      title: 'Usuario guardado con éxito',
+      text: 'Su usuario es: ' + 'holi',
+      icon: 'success',
+      confirmButtonColor: '#34c38f',
+    })
   }
 
   ConfirmedValidator(controlName: string, matchingControlName: string) {

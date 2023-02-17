@@ -72,13 +72,26 @@ export class EgresoService {
     fIni.setHours(0,0,1);
     let fFin: Date = new Date(Date.now());
     fFin.setHours(23,59,0);
-    //fIni = new Date(fIni.getTime() - fIni.getTimezoneOffset()*60000)
-    //fFin = new Date(fFin.getTime() - fFin.getTimezoneOffset()*60000)
     this.getListEgresos(fIni,fFin);
   }
 
   updateTableEgreso (data) {
-    this._egresos$.next(data);
+    this.egresoList = data;
+      
+      this._searchE$
+      .pipe(
+        tap(() => this._loadingE$.next(true)),
+        debounceTime(200),
+        switchMap(() => this._searchE()),
+        delay(200),
+        tap(() => this._loadingE$.next(false))
+      )
+      .subscribe((result) => {
+        this._egresos$.next(result.invoices);
+        this._totalE$.next(result.total);
+      });
+
+    this._searchE$.next();
   }
 
   get egresos$() {

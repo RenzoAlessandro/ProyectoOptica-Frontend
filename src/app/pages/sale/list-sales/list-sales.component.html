@@ -38,7 +38,7 @@
             <form [formGroup]="formSedes">
               <div ngbDropdown>
                 <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
-                  bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}">
+                  bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSedes()">
                 </ng-select>
               </div>
             </form>
@@ -309,7 +309,7 @@
               </div>
               <div class="col-4">
                 <div class="mb-3">
-                  <label class="control-label">Cambio</label>
+                  <label class="control-label">Deuda</label>
                   <input class="form-control" placeholder="S/ 000.00" type="text" name="nameCambioCredito"
                     formControlName="{{this.cambio_CreditoActualizacion}}"
                     [ngClass]="{'is-invalid': submitted && form.title.errors}" />
