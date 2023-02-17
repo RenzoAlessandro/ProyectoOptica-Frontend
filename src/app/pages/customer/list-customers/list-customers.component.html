@@ -54,7 +54,7 @@
                   <th scope="col" sortable="fecha_nacimiento" (sort)="onSort($event)">Fecha de Nacimiento</th>
                   <!-- <th scope="col" sortable="Encarg. Medición" (sort)="onSort($event)">Encargado Medicion</th> -->
                   <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
-                  <th>Action</th>
+                  <th>Acción</th>
                 </tr>
               </thead>
               <tbody>
@@ -162,7 +162,7 @@
                     </div> -->
                     <div class="mt-4">
                       <h5 class="font-size-16 mb-1">Fecha de la Receta:</h5>
-                      <p>15 Dic, 2022</p>
+                      <p>{{this.fecha_actual| date: 'dd/MM/yyyy'}}</p>
                     </div>
                   </div>
                 </div>
@@ -200,16 +200,16 @@
                       <tbody>
                         <tr>
                           <th scope="row">O.D.</th>
-                          <td>{{userPrint.medidas[0].od_esferico}}</td>
-                          <td>{{userPrint.medidas[0].od_cilindrico}}</td>
+                          <td>{{userPrint.medidas[0].od_esferico > 0? '+'+userPrint.medidas[0].od_esferico.toFixed(2): userPrint.medidas[0].od_esferico.toFixed(2) }}</td>
+                          <td>{{userPrint.medidas[0].od_cilindrico  > 0 ? '+'+userPrint.medidas[0].od_cilindrico.toFixed(2) : userPrint.medidas[0].od_cilindrico.toFixed(2) }}</td>
                           <td>{{userPrint.medidas[0].od_eje}}</td>
                           <td>{{userPrint.medidas[0].dip}}</td>
                         </tr>
 
                         <tr>
                           <th scope="row">O.I.</th>
-                          <td>{{userPrint.medidas[0].oi_esferico}}</td>
-                          <td>{{userPrint.medidas[0].oi_cilindrico}}</td>
+                          <td>{{userPrint.medidas[0].oi_esferico  > 0? '+'+userPrint.medidas[0].oi_esferico.toFixed(2): userPrint.medidas[0].oi_esferico.toFixed(2)}}</td>
+                          <td>{{userPrint.medidas[0].oi_cilindrico  > 0 ? '+'+userPrint.medidas[0].oi_cilindrico.toFixed(2) : userPrint.medidas[0].oi_cilindrico.toFixed(2) }}</td>
                           <td>{{userPrint.medidas[0].oi_eje}}</td>
                           <td>{{userPrint.medidas[0].dip}}</td>
                         </tr>
@@ -228,7 +228,7 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <td class="text-center">{{userPrint.medidas[0].add}}</td>
+                          <td class="text-center">{{userPrint.medidas[0].add  > 0 ? '+'+userPrint.medidas[0].add.toFixed(2): userPrint.medidas[0].add.toFixed(2) }}</td>
                         </tr>
                       </tbody>
                     </table>

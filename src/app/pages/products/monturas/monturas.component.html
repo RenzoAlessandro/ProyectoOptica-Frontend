@@ -79,7 +79,7 @@
                 <th scope="col" sortable="talla" (sort)="onSort($event)">Talla</th>
                 <th scope="col" sortable="color" (sort)="onSort($event)">Color</th>
                 <th scope="col" sortable="cantidad" (sort)="onSort($event)">Stock</th>
-                <th scope="col" sortable="precio_montura_c" (sort)="onSort($event)">P. Compra</th>
+                <th *appRole="role" scope="col" sortable="precio_montura_c" (sort)="onSort($event)">P. Compra</th>
                 <th scope="col" sortable="precio_montura_v" (sort)="onSort($event)">P. Venta</th>
                 <!-- <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th> -->
                 <th scope="col" sortable="fecha_creacion_monturas" (sort)="onSort($event)">Fecha de ing.</th>
@@ -120,7 +120,7 @@
                 <td>
                   <ngb-highlight [result]="data.cantidad" [term]="service.searchTerm"></ngb-highlight>
                 </td>
-                <td>
+                <td *appRole="role">
                   <ngb-highlight [result]="data.precio_montura_c" [term]="service.searchTerm"></ngb-highlight>
                 </td>
                 <td>
@@ -139,9 +139,9 @@
                   </td> -->
                 <td>
                   <a (click)="openModalEtiqueta(centerModalEIM,data)" class="px-2 text-success" placement="top"
-                    ngbTooltip="Etiqueta"><i class="uil-tag-alt font-size-18" *appRole="role"></i></a>
+                    ngbTooltip="Etiqueta" *appRole="role"><i class="uil-tag-alt font-size-18"></i></a>
                   <a (click)="centerModal(centerDataModal,data)" class="px-2 text-primary" placement="top"
-                    ngbTooltip="Editar"><i class="uil uil-pen font-size-18" *appRole="role"></i></a>
+                    ngbTooltip="Editar" *appRole="role"><i class="uil uil-pen font-size-18"></i></a>
                   <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar" (click)="eliminar(data)" *appRole="role"><i
                       class="uil uil-trash-alt font-size-18"></i></a>
                 </td>
@@ -362,23 +362,26 @@
     <div id="htmlData2">
       <div *ngFor="let cant of [].constructor(nQR)">
         <div class="row align-items-center">
-          <div class="col-6">
-            <ejs-qrcodegenerator style="display: block;" #barcode id="barcode" width="225px" height="100px" mode="SVG"
+          <div class="col-3">
+            <ejs-qrcodegenerator style="display: block;" #barcode id="barcode" width="130px" height="130px" mode="SVG"
               value={{individualQR.id_producto}} [displayText]='displayTextMethod'>
             </ejs-qrcodegenerator>
           </div>
-          <div class="col-6 ml-0">
-            <span>
-              {{individualQR.codigo}}<br>
+          <div class="col-9 ml-0">
+            <span class="font-size-13">
+              Código int.: {{individualQR.codigo}}<br>
             </span>
-            <span>
-              {{individualQR.marca}}<br>
+            <span class="font-size-13">
+              Marca: {{individualQR.marca}}<br>
             </span>
-            <span>
-              {{individualQR.talla}}<br>
+            <span class="font-size-13">
+              Talla: {{individualQR.talla}}<br>
             </span>
-            <span>
-              {{individualQR.color}}
+            <span class="font-size-13">
+              Color: {{individualQR.color}}<br>
+            </span>
+            <span class="font-size-12">
+              ID: {{individualQR.id_producto}}
             </span>
           </div>
         </div>
@@ -414,23 +417,26 @@
       <div *ngFor="let item of checkedMonturasList">
         <div *ngFor="let cant of [].constructor(item.cantidad)">
           <div class="row align-items-center">
-            <div class="col-6">
-              <ejs-qrcodegenerator style="display: block;" #barcode id="barcode" width="225px" height="100px" mode="SVG"
+            <div class="col-3">
+              <ejs-qrcodegenerator style="display: block;" #barcode id="barcode" width="130px" height="130px" mode="SVG"
                 value={{item.id_producto}} [displayText]='displayTextMethod'>
               </ejs-qrcodegenerator>
             </div>
-            <div class="col-6 ml-0">
-              <span>
-                {{item.codigo}}<br>
+            <div class="col-9 ml-0">
+              <span class="font-size-13">
+                Código int.: {{item.codigo}}<br>
               </span>
-              <span>
-                {{item.marca}}<br>
+              <span class="font-size-13">
+                Marca: {{item.marca}}<br>
               </span>
-              <span>
-                {{item.talla}}<br>
+              <span class="font-size-13">
+                Talla: {{item.talla}}<br>
               </span>
-              <span>
-                {{item.color}}
+              <span class="font-size-13">
+                Color: {{item.color}}<br>
+              </span>
+              <span class="font-size-12">
+                ID: {{item.id_producto}}
               </span>
             </div>
           </div>

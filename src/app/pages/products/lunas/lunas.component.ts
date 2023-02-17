@@ -352,7 +352,7 @@ export class LunasComponent implements OnInit {
     let DATA: any = document.getElementById('htmlData');
     //var HTML_Width = document.getElementById("htmlData").offsetWidth 
 		//var HTML_Height = document.getElementById("htmlData").offsetHeight
-    var HTML_Width = 3
+    var HTML_Width = 2
     var HTML_Height = 0.57 * cant
 		var top_left_margin = 0;
 		//var PDF_Width = HTML_Width+(top_left_margin*2);
@@ -373,7 +373,7 @@ export class LunasComponent implements OnInit {
 			
 			for (var i = 0; i < totalPDFPages; i++) { 
 				pdf.addPage([PDF_Width, PDF_Height]);
-				pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+				pdf.addImage(imgData, 'JPG', 0.5, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
 			}
 			pdf.save("Lunas_"+nombreSede.nombre_sede+".pdf");
     }); 
@@ -384,7 +384,7 @@ export class LunasComponent implements OnInit {
     let DATA: any = document.getElementById('htmlData2');
     //var HTML_Width = document.getElementById("htmlData").offsetWidth 
 		//var HTML_Height = document.getElementById("htmlData").offsetHeight
-    var HTML_Width = 3
+    var HTML_Width = 2
     var HTML_Height = 0.57 * this.nQR
 		var top_left_margin = 0;
 		//var PDF_Width = HTML_Width+(top_left_margin*2);
@@ -406,7 +406,7 @@ export class LunasComponent implements OnInit {
 			
 			for (var i = 0; i < totalPDFPages; i++) { 
 				pdf.addPage([PDF_Width, PDF_Height]);
-				pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+				pdf.addImage(imgData, 'JPG', 0.5, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
 			}
 			pdf.save("Lunas_"+nombreSede.nombre_sede+".pdf");
     }); 
