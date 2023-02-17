@@ -516,6 +516,7 @@ export class AddSaleComponent implements OnInit {
             Sweetalert("success", "Venta realizada");
             this.modalService.dismissAll();
             this.products = [];
+            this.getListMonturas();
             this.estadoBotonGuardar();
           },
             (error) => {
