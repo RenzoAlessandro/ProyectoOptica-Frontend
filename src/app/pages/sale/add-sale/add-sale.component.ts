@@ -680,7 +680,8 @@ export class AddSaleComponent implements OnInit {
           table: {
             widths: ['*', '*'],
             body: [
-              [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150 }, { text: 'Nº de Boleta: ' + numeroBoleta, style: 'tableHeader', rowSpan: 4, alignment: 'right' }],
+              /* [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150 }, { text: 'Nº de Boleta: ' + numeroBoleta, style: 'tableHeader', rowSpan: 4, alignment: 'right' }], */
+              [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150 }, { text: '', style: 'tableHeader', rowSpan: 3, alignment: 'right' }],
               [{ text: direccionEmpresa, style: 'datosempresa'  }, {}],
               [{ text: correoEmpresa, style: 'datosempresa'  }, {}],
               [{ text: felefonoEmpresa, style: 'datosempresa'  }, {}],
@@ -694,10 +695,12 @@ export class AddSaleComponent implements OnInit {
           table: {
             widths: ['*', '*'],
             body: [
-              [{ text: 'Facturado a:', style: 'tableHeader' }, { text: 'Nº de Boleta:', style: 'tableHeader', alignment: 'right' }],
-              [{ text: nombresCliente, style: 'subtitulo' }, {text: numeroBoleta, style: 'contenido', alignment: 'right'}],
-              [{ text: 'Fecha de Nacimiento: '+fnacimientoCliente, style: 'contenido'  }, {text: 'Fecha de la Boleta:', style: 'tableHeader', alignment: 'right'}],
-              [{ text: 'Correo: '+correoCliente, style: 'contenido' }, {text: fecha_hoy, style: 'contenido', alignment: 'right'}],
+              /* [{ text: 'Facturado a:', style: 'tableHeader' }, { text: 'Nº de Boleta:', style: 'tableHeader', alignment: 'right' }],
+              [{ text: nombresCliente, style: 'subtitulo' }, {text: numeroBoleta, style: 'contenido', alignment: 'right'}], */
+              [{ text: 'Facturado a:', style: 'tableHeader' }, { text: 'Fecha de la Boleta:', style: 'tableHeader', alignment: 'right' }],
+              [{ text: nombresCliente, style: 'subtitulo' }, {text: fecha_hoy, style: 'contenido', alignment: 'right'}],
+              [{ text: 'Fecha de Nacimiento: '+fnacimientoCliente, style: 'contenido'  }, {text: '', style: 'tableHeader', alignment: 'right'}],
+              [{ text: 'Correo: '+correoCliente, style: 'contenido' }, {text: '', style: 'contenido', alignment: 'right'}],
               [{ text: 'Telefono: '+telefonoCliente, style: 'contenido'  }, { }],
             ]
           },
