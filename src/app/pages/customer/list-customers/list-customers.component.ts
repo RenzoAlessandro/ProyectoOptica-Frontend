@@ -128,12 +128,15 @@ export class ListCustomersComponent implements OnInit {
       this.f(this.telefono).setValue(data.telefono);
       this.f(this.email).setValue(data.email);
       this.f(this.direccion).setValue(data.direccion);
+
       this.f(this.od_cilindrico).setValue(data.medidas[0].od_cilindrico > 0 ? '+'+data.medidas[0].od_cilindrico.toFixed(2) : data.medidas[0].od_cilindrico.toFixed(2));
       this.f(this.od_eje).setValue(data.medidas[0].od_eje);
       this.f(this.od_esferico).setValue(data.medidas[0].od_esferico > 0? '+'+data.medidas[0].od_esferico.toFixed(2): data.medidas[0].od_esferico.toFixed(2));
+
       this.f(this.oi_cilindrico).setValue(data.medidas[0].oi_cilindrico > 0 ? '+'+data.medidas[0].oi_cilindrico.toFixed(2): data.medidas[0].oi_cilindrico.toFixed(2));
       this.f(this.oi_esferico).setValue(data.medidas[0].oi_esferico > 0? '+'+data.medidas[0].oi_esferico.toFixed(2) : data.medidas[0].oi_esferico.toFixed(2) );
       this.f(this.oi_eje).setValue(data.medidas[0].oi_eje);
+
       this.f(this.dip).setValue(data.medidas[0].dip);
       this.f(this.add).setValue(data.medidas[0].add > 0 ? '+'+data.medidas[0].add.toFixed(2): data.medidas[0].add.toFixed(2));
       this.f(this.encargado).setValue(data.medidas[0].encargado);
@@ -143,6 +146,7 @@ export class ListCustomersComponent implements OnInit {
     }
 
     centerModalPrint(centerDataModal: any, data: CustomersModel) {
+      this.fecha_actual = new Date(Date.now());
       this.userPrint = data;
       this.modalService.open(centerDataModal, { scrollable: true, centered: true, size: 'lg'});
     }
@@ -387,16 +391,16 @@ export class ListCustomersComponent implements OnInit {
     var correoCliente = 'renzo.sucari@gmail.com';
     var telefonoCliente = this.userPrint.telefono;
 
-    var od_esf_Cliente = this.userPrint.medidas[0].od_esferico;
-    var od_cil_Cliente = this.userPrint.medidas[0].od_cilindrico;
+    var od_esf_Cliente = this.userPrint.medidas[0].od_esferico > 0? '+'+this.userPrint.medidas[0].od_esferico.toFixed(2): this.userPrint.medidas[0].od_esferico.toFixed(2) ;
+    var od_cil_Cliente = this.userPrint.medidas[0].od_cilindrico > 0 ? '+'+this.userPrint.medidas[0].od_cilindrico.toFixed(2) : this.userPrint.medidas[0].od_cilindrico.toFixed(2);
     var od_eje_Cliente = this.userPrint.medidas[0].od_eje;
 
-    var oi_esf_Cliente = this.userPrint.medidas[0].oi_esferico;
-    var oi_cil_Cliente = this.userPrint.medidas[0].oi_cilindrico;
+    var oi_esf_Cliente = this.userPrint.medidas[0].oi_esferico > 0? '+'+this.userPrint.medidas[0].oi_esferico.toFixed(2): this.userPrint.medidas[0].oi_esferico.toFixed(2) ;
+    var oi_cil_Cliente = this.userPrint.medidas[0].oi_cilindrico > 0 ? '+'+this.userPrint.medidas[0].oi_cilindrico.toFixed(2) : this.userPrint.medidas[0].oi_cilindrico.toFixed(2);
     var oi_eje_Cliente = this.userPrint.medidas[0].oi_eje;
 
     var dip_Cliente = this.userPrint.medidas[0].dip;
-    var add_Cliente = this.userPrint.medidas[0].add
+    var add_Cliente = this.userPrint.medidas[0].add > 0 ? '+'+this.userPrint.medidas[0].add.toFixed(2): this.userPrint.medidas[0].add.toFixed(2)
 
     var encargadoCliente = this.userPrint.medidas[0].encargado;
     var antecedentesCliente = this.userPrint.antecedentes

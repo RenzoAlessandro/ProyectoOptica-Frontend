@@ -87,7 +87,7 @@
                     <th scope="col" sortable="" (sort)="onSort($event)">Total</th>
                     <th scope="col" sortable="" (sort)="onSort($event)">Estado de Pago</th>
                     <th scope="col" sortable="" (sort)="onSort($event)">Descargar Pdf</th>
-                    <th style="width: 170px;">Action</th>
+                    <th style="width: 170px;">Acción</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -131,7 +131,7 @@
                     <td>
                       <a *ngIf="data.tipo_venta[0].deuda != 0" (click)="centerModalActualizar(centerDataModalActualizarVenta,data)" class="px-3 text-primary"
                         placement="top" ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
-                      <a (click)="eliminar(data)" class="px-3 text-danger" placement="top" ngbTooltip="Eliminar"><i
+                      <a (click)="eliminar(data)" class="px-3 text-danger" placement="top" ngbTooltip="Eliminar" *appRole="role"><i
                           class="uil uil-trash-alt font-size-18" *appRole="role"></i></a>
                     </td>
                   </tr>

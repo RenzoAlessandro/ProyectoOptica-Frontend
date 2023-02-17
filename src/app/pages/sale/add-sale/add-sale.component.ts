@@ -637,13 +637,14 @@ export class AddSaleComponent implements OnInit {
           body.push(dataRow);
       });
 
-      var totalIGV = round(subtotal * peruIGV, 2);
+      /* var totalIGV = round(subtotal * peruIGV, 2);
+      var total = round(subtotal + totalIGV, 1); */
 
-      var total = round(subtotal + totalIGV, 1);
+      var total = round(subtotal, 1);
 
-      body.push([{ text: ' ', rowSpan: 3, colSpan: 2}, { }, {text: 'Sub. Total:', style: 'tableHeader', alignment: 'right', colSpan: 2 }, { }, { text: simboloNuevoSol + subtotal, style: 'contenido', alignment: 'right' }]);
-      body.push([{ }, { }, { text: 'IGV (18%) :', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol + totalIGV, style: 'contenido', alignment: 'right' }]);
-      body.push([{ }, { }, { text: 'Total:', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol + total, style: 'contenido', alignment: 'right' }]);
+      /* body.push([{ text: ' ', rowSpan: 3, colSpan: 2}, { }, {text: 'Sub. Total:', style: 'tableHeader', alignment: 'right', colSpan: 2 }, { }, { text: simboloNuevoSol + subtotal, style: 'contenido', alignment: 'right' }]);
+      body.push([{ }, { }, { text: 'IGV (18%) :', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol + totalIGV, style: 'contenido', alignment: 'right' }]); */
+      body.push([{ text: '', border: [false, false, false, false], colSpan: 2 }, {  }, { text: 'Total:', style: 'tableHeader', alignment: 'right', colSpan: 2 }, {  }, { text: simboloNuevoSol + total, style: 'contenido', alignment: 'right' }]);
   
       return body;
     }
