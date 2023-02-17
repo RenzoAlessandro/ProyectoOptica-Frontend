@@ -78,7 +78,22 @@ export class IngresoService {
   }
 
   updateTableIngreso (data) {
-    this._ingreso$.next(data);
+    //this._ingreso$.next(data);
+    this.ingresoList = data;
+    this._searchI$
+      .pipe(
+        tap(() => this._loadingI$.next(true)),
+        debounceTime(200),
+        switchMap(() => this._searchI()),
+        delay(200),
+        tap(() => this._loadingI$.next(false))
+      )
+      .subscribe((result) => {
+        this._ingreso$.next(result.invoices);
+        this._totalI$.next(result.total);
+      });
+
+    this._searchI$.next();
   }
 
   get ingreso$() {

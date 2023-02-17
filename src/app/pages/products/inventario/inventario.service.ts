@@ -73,7 +73,26 @@ export class CustomerService {
       }
     
       updateTable (data) {
-        this._customers$.next(data);
+        this.monturasList = data;
+      const propiedad = {
+        isSelected: false
+      }
+      this.monturasList.forEach(elem => {
+        Object.assign(elem,propiedad)
+      })
+      this._mostrar$.next(true);
+      this._search$.pipe(
+        tap(() => this._loading$.next(true)),
+        debounceTime(200),
+        switchMap(() => this._search()),
+        delay(200),
+        tap(() => this._loading$.next(false))
+      ).subscribe(result => {
+        this._customers$.next(result.customers);
+        this._total$.next(result.total);
+      });
+  
+      this._search$.next();
       }
       
 

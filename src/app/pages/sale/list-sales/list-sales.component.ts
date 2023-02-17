@@ -231,7 +231,7 @@ export class ListSalesComponent implements OnInit {
         return
       }
       //controla que la cantidad recibida sea menor a la deuda
-      if(Number(this.g(this.cambio_CreditoActualizacion).value)>0) {
+      if(Number(this.g(this.cantidadRecibida_CreditoActualizacion).value > this.g(this.precioTotal_CreditoActualizacion).value)) {
         Sweetalert("error", "El pago debe ser menor a la deuda");
         return
       }
@@ -604,7 +604,18 @@ export class ListSalesComponent implements OnInit {
     pdf.open();
   }
 
+  fS(campo: string) {
+    return this.formSedes.get(campo);
+  }
 
+  changeSedes() {
+    this.idSede = this.fS(this.nombre_sedes).value;
+    this.getListVentas(this.idSede);
+  }
 
-
+  getListVentas(sede:string) {
+    this.ventasService.getVentasbySede(sede).subscribe(res=>{
+      this.service.updateTable(res)
+    })
+  }
 }

@@ -73,7 +73,20 @@ export class TransactionService {
     this.getListIngresosEgresos(firstDay,lastDay);
   }
   updateTable (data) {
-    this._transactions$.next(data);
+    this.cajaList = data
+    console.log(data)
+        this._search$.pipe(
+          tap(() => this._loading$.next(true)),
+          debounceTime(200),
+          switchMap(() => this._search()),
+          delay(200),
+          tap(() => this._loading$.next(false))
+        ).subscribe(result => {
+          this._transactions$.next(result.transactions);
+          this._total$.next(result.total);
+        });
+    
+        this._search$.next();
   }
 
   get transactions$() { return this._transactions$.asObservable(); }
@@ -122,7 +135,7 @@ export class TransactionService {
         this.cajaList = p;
         //this.updateTable(this.cajaList)
       }); */
-     
+     console.log(res)
       const groups = res.reduce((groups, game) => {
         const date = game.fecha_creacion_caja.split(' ')[0];
         if (!groups[date]) {
