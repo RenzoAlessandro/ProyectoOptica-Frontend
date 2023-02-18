@@ -88,41 +88,34 @@ export class AddCustomerComponent implements OnInit {
       [this.antecedentes]:[],
       
       [this.od_esferico]:[null,[
-        Validators.required,
         Validators.pattern(this.esf_cylPattern),
         Validators.max(+20),
         Validators.min(-20)
       ]],
       [this.od_cilindrico]:[null,[
-        Validators.required,
         Validators.pattern(this.esf_cylPattern),
         Validators.max(+20),
         Validators.min(-20)
       ]],
       [this.od_eje]:[null,[
-        Validators.required,
         Validators.max(+180),
         Validators.min(0)
       ]],
       [this.oi_esferico]:[null,[
-        Validators.required,
         Validators.pattern(this.esf_cylPattern),
         Validators.max(+20),
         Validators.min(-20)
       ]],
       [this.oi_cilindrico]:[null,[
-        Validators.required,
         Validators.pattern(this.esf_cylPattern),
         Validators.max(+20),
         Validators.min(-20)
       ]],
       [this.oi_eje]:[null,[
-        Validators.required,
         Validators.max(+180),
         Validators.min(0)
       ]],
       [this.dip]:[null,[
-        Validators.required,
         Validators.max(+80),
         Validators.min(0)
       ]],

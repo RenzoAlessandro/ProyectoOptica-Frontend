@@ -185,7 +185,7 @@
                 </div>
               </div>
             </h4>
-            <p class="card-title-desc text-danger">* Campo requerido</p> 
+            <!-- <p class="card-title-desc text-danger">* Campo requerido</p>  -->
             <div class="border-top py-4">
               <div class="row">
                 <div class="col-12 col-sm-6">
@@ -193,60 +193,51 @@
                   <div class="row">
                     <div class="col-4">
                       <div class="mb-4">
-                        <label class="form-label" for="billing-OD-ESF">ESF *</label>
+                        <label class="form-label" for="billing-OD-ESF">ESF</label>
                         <input type="text" class="form-control" id="billing-OD-ESF" placeholder="Esfera"
                           formControlName="{{this.od_esferico}}" [ngClass]="{'is-invalid': formC.campoOdEsferico.invalid && (formC.campoOdEsferico.dirty || formC.campoOdEsferico.touched)}" />
                         <div class="invalid-feedback">
-                          <div *ngIf="formC.campoOdEsferico.errors?.required">
-                            Campo requerido
-                          </div>
                           <div *ngIf="formC.campoOdEsferico.errors?.pattern">
-                            Formato mal escrito
+                            Formato mal escrito: de -20.00 a +20.00
                           </div>
                           <div *ngIf="formC.campoOdEsferico.errors?.min">
-                            Número menor
+                            Número menor.
                           </div>
                           <div *ngIf="formC.campoOdEsferico.errors?.max">
-                            Número mayor
+                            Número mayor.
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-4">
                       <div class="mb-4">
-                        <label class="form-label" for="billing-OD-CYL">CYL *</label>
+                        <label class="form-label" for="billing-OD-CYL">CYL</label>
                         <input type="text" class="form-control" id="billing-OD-CYL" placeholder="Cilindro"
                           formControlName="{{this.od_cilindrico}}" [ngClass]="{'is-invalid': formC.campoOd_Cilindrico.invalid && (formC.campoOd_Cilindrico.dirty || formC.campoOd_Cilindrico.touched)}" />
                         <div class="invalid-feedback">
-                          <div *ngIf="formC.campoOd_Cilindrico.errors?.required">
-                            Campo requerido
-                          </div>
                           <div *ngIf="formC.campoOd_Cilindrico.errors?.pattern">
-                            Formato mal escrito
+                            Formato mal escrito: de -20.00 a +20.00
                           </div>
                           <div *ngIf="formC.campoOd_Cilindrico.errors?.min">
-                            Número menor
+                            Número menor.
                           </div>
                           <div *ngIf="formC.campoOd_Cilindrico.errors?.max">
-                            Número mayor
+                            Número mayor.
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-4">
                       <div class="mb-4">
-                        <label class="form-label" for="billing-OD-EJE">EJE *</label>
+                        <label class="form-label" for="billing-OD-EJE">EJE</label>
                         <input type="text" class="form-control" id="billing-OD-EJE" placeholder="Eje"
                           formControlName="{{this.od_eje}}" [ngClass]="{'is-invalid': formC.campoOdEje.invalid && (formC.campoOdEje.dirty || formC.campoOdEje.touched)}" />
                         <div class="invalid-feedback">
-                          <div *ngIf="formC.campoOdEje.errors?.required">
-                            Campo requerido
-                          </div>
                           <div *ngIf="formC.campoOdEje.errors?.min">
-                            Número menor
+                            Número menor, mínimo permitido 0.
                           </div>
                           <div *ngIf="formC.campoOdEje.errors?.max">
-                            Número mayor
+                            Número mayor, máximo permitido 180.
                           </div>
                         </div>
                       </div>
@@ -258,60 +249,51 @@
                   <div class="row">
                     <div class="col-4">
                       <div class="mb-4">
-                        <label class="form-label" for="billing-OI-ESF">ESF *</label>
+                        <label class="form-label" for="billing-OI-ESF">ESF</label>
                         <input type="text" class="form-control" id="billing-phone" placeholder="Esfera"
                           formControlName="{{this.oi_esferico}}" [ngClass]="{'is-invalid': formC.campoOiEsferico.invalid && (formC.campoOiEsferico.dirty || formC.campoOiEsferico.touched)}" />
                         <div class="invalid-feedback">
-                          <div *ngIf="formC.campoOiEsferico.errors?.required">
-                            Campo requerido
-                          </div>
                           <div *ngIf="formC.campoOiEsferico.errors?.pattern">
-                            Formato mal escrito
+                            Formato mal escrito: de -20.00 a +20.00
                           </div>
                           <div *ngIf="formC.campoOiEsferico.errors?.min">
-                            Número menor
+                            Número menor.
                           </div>
                           <div *ngIf="formC.campoOiEsferico.errors?.max">
-                            Número mayor
+                            Número mayor.
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-4">
                       <div class="mb-4">
-                        <label class="form-label" for="billing-OI-CYL">CYL *</label>
+                        <label class="form-label" for="billing-OI-CYL">CYL</label>
                         <input type="text" class="form-control" id="billing-OI-CYL" placeholder="Cilindro"
                           formControlName="{{this.oi_cilindrico}}" [ngClass]="{'is-invalid': formC.campoOiCilindrico.invalid && (formC.campoOiCilindrico.dirty || formC.campoOiCilindrico.touched)}" />
                         <div class="invalid-feedback">
-                          <div *ngIf="formC.campoOiCilindrico.errors?.required">
-                            Campo requerido
-                          </div>
                           <div *ngIf="formC.campoOiCilindrico.errors?.pattern">
-                            Formato mal escrito
+                            Formato mal escrito: de -20.00 a +20.00
                           </div>
                           <div *ngIf="formC.campoOiCilindrico.errors?.min">
-                            Número menor
+                            Número menor.
                           </div>
                           <div *ngIf="formC.campoOiCilindrico.errors?.max">
-                            Número mayor
+                            Número mayor.
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-4">
                       <div class="mb-4">
-                        <label class="form-label" for="billing-OI-EJE">EJE *</label>
+                        <label class="form-label" for="billing-OI-EJE">EJE</label>
                         <input type="text" class="form-control" id="billing-OI-EJE" placeholder="Eje"
                           formControlName="{{this.oi_eje}}" [ngClass]="{'is-invalid': formC.campoOiEje.invalid && (formC.campoOiEje.dirty || formC.campoOiEje.touched)}" />
                         <div class="invalid-feedback">
-                          <div *ngIf="formC.campoOiEje.errors?.required">
-                            Campo requerido
-                          </div>
                           <div *ngIf="formC.campoOiEje.errors?.min">
-                            Número menor
+                            Número menor, mínimo permitido 0.
                           </div>
                           <div *ngIf="formC.campoOiEje.errors?.max">
-                            Número mayor
+                            Número mayor, máximo permitido 180.
                           </div>
                         </div>
                       </div>
@@ -319,22 +301,19 @@
                   </div>
                 </div>
               </div>
-              <h5 class="font-size-14 mb-3 d-flex justify-content-center">Otros</h5>
+              <!-- <h5 class="font-size-14 mb-3 d-flex justify-content-center">Otros</h5> -->
               <div class="row">
                 <div class="col-6 col-sm-2">
                   <div class="mb-4">
-                    <label class="form-label" for="billing-DIP">DIP *</label>
+                    <label class="form-label" for="billing-DIP">DIP</label>
                     <input type="text" class="form-control" id="billing-DIP" placeholder="Distancia Interpupilar"
                       formControlName="{{this.dip}}" [ngClass]="{'is-invalid': formC.campoDip.invalid && (formC.campoDip.dirty || formC.campoDip.touched)}" />
                     <div class="invalid-feedback">
-                      <div *ngIf="formC.campoDip.errors?.required">
-                        Campo requerido
-                      </div>
                       <div *ngIf="formC.campoDip.errors?.min">
-                        Número menor
+                        Número menor, mínimo permitido 0.
                       </div>
                       <div *ngIf="formC.campoDip.errors?.max">
-                        Número mayor
+                        Número mayor, máximo permitido 80.
                       </div>
                     </div>
                   </div>
@@ -346,13 +325,13 @@
                       formControlName="{{this.add}}" [ngClass]="{'is-invalid': formC.campoAdd.invalid && (formC.campoAdd.dirty || formC.campoAdd.touched)}" />
                     <div class="invalid-feedback">
                       <div *ngIf="formC.campoAdd.errors?.pattern">
-                        Formato mal escrito
+                        Formato mal escrito: de +0.00 a +10.00
                       </div>
                       <div *ngIf="formC.campoAdd.errors?.min">
-                        Número menor
+                        Número menor.
                       </div>
                       <div *ngIf="formC.campoAdd.errors?.max">
-                        Número mayor
+                        Número mayor.
                       </div>
                     </div>
                   </div>

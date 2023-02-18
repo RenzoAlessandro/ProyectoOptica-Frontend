@@ -254,6 +254,9 @@
                 <div *ngIf="formCI.campoMontoIngreso.errors?.required">
                   Campo requerido.
                 </div>
+                <div *ngIf="formCI.campoMontoIngreso.errors?.min">
+                  Número menor.
+                </div>
                 <div *ngIf="formCI.campoMontoIngreso.errors?.pattern">
                   Ingrese solo números.
                 </div>
@@ -327,6 +330,9 @@
               <div class="invalid-feedback">
                 <div *ngIf="formCE.campoMontoEgreso.errors?.required">
                   Campo requerido.
+                </div>
+                <div *ngIf="formCE.campoMontoEgreso.errors?.min">
+                  Número menor.
                 </div>
                 <div *ngIf="formCE.campoMontoEgreso.errors?.pattern">
                   Ingrese solo números.
