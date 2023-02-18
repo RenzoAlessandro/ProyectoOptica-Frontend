@@ -167,7 +167,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-6">
+        <div class="col-md-6">
           <div class="mb-3">
             <label class="control-label">Nombres *</label>
             <input class="form-control" placeholder="Nombres del cliente" type="text" name="title"
@@ -188,7 +188,7 @@
             </div>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-md-6">
           <div class="mb-3">
             <label class="control-label">Apellidos *</label>
             <input class="form-control" placeholder="Apellidos del cliente" type="text" name="title"
@@ -211,14 +211,14 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-3">
+        <div class="col-md-3">
           <div class="mb-3">
             <label class="control-label">Fecha de Nacimiento</label>
             <input class="form-control" placeholder="Seleccione la fecha" type="date" name="title"
               formControlName="{{this.fechaNacimiento}}"  />
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-md-3">
           <div class="mb-3">
             <label class="control-label">Telefono</label>
             <input class="form-control" placeholder="Telefono del cliente" type="text" name="title"
@@ -236,7 +236,7 @@
             </div>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-md-6">
           <div class="mb-3">
             <label class="control-label">Correo Electrónico</label>
             <input class="form-control" placeholder="Correo electrónico" type="email" 
@@ -254,7 +254,7 @@
           <h6>Rol y Sede del Usuario</h6>
         </div>
         <div class="row">
-          <div class="col-6">
+          <div class="col-md-6">
             <div class="mb-3">
               <label class="control-label">Rol *</label>
               <ng-select [items]="listRoles" formControlName="rol" placeholder="Seleccione" bindValue="tNombre"
@@ -262,7 +262,7 @@
               </ng-select>
             </div>
           </div>
-          <div class="col-6">
+          <div class="col-md-6">
             <div class="mb-3">
               <label class="control-label">Sede *</label>
               <ng-select [items]="listSedes" formControlName="sede" placeholder="Seleccione" bindValue="id_sede"

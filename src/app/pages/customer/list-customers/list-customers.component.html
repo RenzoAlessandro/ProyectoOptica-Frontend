@@ -301,7 +301,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-6">
+        <div class="col-md-6">
           <div class="mb-3">
             <label class="control-label">Nombres *</label>
             <input class="form-control" placeholder="Nombres del cliente" type="text" formControlName="{{this.nombres}}"
@@ -322,7 +322,7 @@
             </div>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-md-6">
           <div class="mb-3">
             <label class="control-label">Apellidos *</label>
             <input class="form-control" placeholder="Apellidos del cliente" type="text"
@@ -346,14 +346,14 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-3">
+        <div class="col-md-3">
           <div class="mb-3">
             <label class="control-label">Fecha de Nacimiento</label>
             <input class="form-control" placeholder="Seleccione la fecha" type="date"
               formControlName="{{this.fecha_nacimiento}}" />
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-md-3">
           <div class="mb-3">
             <label class="control-label">Teléfono</label>
             <input class="form-control" placeholder="Teléfono del cliente" type="text"
@@ -372,7 +372,7 @@
             </div>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-md-6">
           <div class="mb-3">
             <label class="control-label">Correo Electrónico</label>
             <input class="form-control" placeholder="Correo electrónico" type="email" formControlName="{{this.email}}"
@@ -399,7 +399,7 @@
           <h6>Especificaciones de la Medida</h6>
         </div>
         <div class="row">
-          <div class="col-6">
+          <div class="col-md-6">
             <div class="d-flex justify-content-center">
               <h6>Ojo Derecho</h6>
             </div>
@@ -466,7 +466,7 @@
               </div>
             </div>
           </div>
-          <div class="col-6">
+          <div class="col-md-6">
             <div class="d-flex justify-content-center">
               <h6>Ojo Izquierdo</h6>
             </div>
@@ -536,7 +536,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-3">
+        <div class="col-md-3">
           <div class="mb-3">
             <label class="control-label">DIP *</label>
             <input class="form-control" placeholder="Distancia Interpupilar" type="text"
@@ -554,7 +554,7 @@
               </div>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-md-3">
           <div class="mb-3">
             <label class="control-label">ADD</label>
             <input class="form-control" placeholder="Adición" type="text" 
@@ -572,7 +572,7 @@
             </div>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-md-6">
           <div class="mb-3">
             <label class="control-label">Encargado de la Medición</label>
             <input class="form-control" placeholder="Nombres y apellidos del Oftometra" type="text"
@@ -592,15 +592,13 @@
           </div>
         </div>
       </div>
-      <div class="border-top py-2">
-        <div class="row">
-          <div class="col-12">
-            <div class="mb-4">
-              <label class="form-label" for="billing-antecedentes">Antecedentes</label>
-              <textarea class="form-control" id="billing-antecedentes" rows="3"
-                placeholder="Antecedentes del cliente"
-                formControlName="{{this.antecedentes}}"></textarea>
-            </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="mb-4">
+            <label class="form-label" for="billing-antecedentes">Antecedentes</label>
+            <textarea class="form-control" id="billing-antecedentes" rows="3"
+              placeholder="Antecedentes del cliente"
+              formControlName="{{this.antecedentes}}"></textarea>
           </div>
         </div>
       </div>
