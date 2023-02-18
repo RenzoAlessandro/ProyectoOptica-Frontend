@@ -125,7 +125,6 @@ export class TransactionService {
   //Servicio 
   getAllVentas() {
     this.ventaService.getVentasbySede(this.usuarioService.getSedebyUser()).subscribe( res=>{
-      console.log(res)
       this.ventaList = res;
       this._mostrar$.next(true);
       this._search$.pipe(

@@ -70,12 +70,10 @@ export class TransactionService {
     let lastDay = new Date(fIni.getFullYear(), fIni.getMonth() + 1, 0);
     firstDay.setHours(0, 0, 1);
     lastDay.setHours(23, 59, 0);
-    console.log(firstDay,lastDay)
     this.getListIngresosEgresos(firstDay,lastDay);
   }
   updateTable (data) {
     this.cajaList = data
-    console.log(data)
         this._search$.pipe(
           tap(() => this._loading$.next(true)),
           debounceTime(200),
@@ -136,7 +134,6 @@ export class TransactionService {
         this.cajaList = p;
         //this.updateTable(this.cajaList)
       }); */
-     console.log(res)
       const groups = res.reduce((groups, game) => {
         const date = game.fecha_creacion_caja.split(' ')[0];
         if (!groups[date]) {
@@ -170,7 +167,6 @@ export class TransactionService {
 
         Object.assign(element,ingreso)
       });
-      console.log(groupArrays)
       this.cajaList = groupArrays
 
         this._search$.pipe(

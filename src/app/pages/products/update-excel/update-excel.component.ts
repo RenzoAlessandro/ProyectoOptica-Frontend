@@ -230,7 +230,6 @@ export class UpdateExcelComponent implements OnInit {
       workbook.SheetNames.forEach(sheet => {
         data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet], { raw: false });
       });
-      console.log(data)
       if (this.validarCampoFecha(data)) {
         switch ((data[0].TIPO).toLowerCase()) {
           case 'montura':
@@ -271,7 +270,6 @@ export class UpdateExcelComponent implements OnInit {
       producto = this.objExceltoDBUpdate(data, tipoProducto);
       const idSede = producto[0].id_sede
       if (this.validarIdSede(data, idSede) && this.validarTipo(data, tipoProducto)) {
-        console.log("actualizado")
         this.productoService.updateProductsbyExcel(producto).subscribe(res => {
         }) 
       } else {
@@ -293,7 +291,6 @@ export class UpdateExcelComponent implements OnInit {
       producto = this.objExceltoDBCreate(data, tipoProducto);
       const idSede = producto[0].id_sede
       if (this.validarIdSede(data, idSede) && this.validarTipo(data, tipoProducto)) {
-        console.log("actualizado")
          this.productoService.createProductsbyExcel(producto).subscribe(res=> {
          }) 
       } else {

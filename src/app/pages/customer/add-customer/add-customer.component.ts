@@ -164,7 +164,6 @@ export class AddCustomerComponent implements OnInit {
       const listaMedidas = []
       listaMedidas.push(this.medidas);
       this.customer.medidas = listaMedidas;
-      console.log(this.customer)
       Sweetalert("loading", "Cargando...");
       this.customerService.createCustomers(this.customer).subscribe(res => {
         Sweetalert("close", null);

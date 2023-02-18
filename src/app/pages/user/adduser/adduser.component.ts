@@ -136,7 +136,6 @@ export class AdduserComponent implements OnInit {
       this.user.contrasenia = this.f(this.password).value;
       Sweetalert("loading", "Cargando...");
       this.usuarioService.createUsers(this.user).subscribe( res=>{
-        console.log(res)
         Sweetalert("close",null);
         Sweetalert("success", "Usuario guardado");
         this.mostrarUsuario(res.user)
