@@ -145,6 +145,7 @@ export class CashRegisterComponent implements OnInit {
     this.formIngreso = this.formBuilder.group({
       [this.monto_ingreso]:[null,[
         Validators.required,
+        Validators.min(0.10),
         Validators.pattern(this.numberDecimalPattern)
       ]],
       [this.fecha_ingreso]:[],
@@ -160,6 +161,7 @@ export class CashRegisterComponent implements OnInit {
     this.formEgreso = this.formBuilder.group({
       [this.monto_egreso]:[null,[
         Validators.required,
+        Validators.min(0.10),
         Validators.pattern(this.numberDecimalPattern),
       ]],
       [this.fecha_egreso]:[],

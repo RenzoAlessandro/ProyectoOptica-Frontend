@@ -142,7 +142,7 @@ export class ListCustomersComponent implements OnInit {
       this.f(this.encargado).setValue(data.medidas[0].encargado);
       this.f(this.antecedentes).setValue(data.antecedentes);
       this.customer.id_cliente = data.id_cliente;
-      this.modalService.open(centerDataModal, { centered: true, size: 'lg'});
+      this.modalService.open(centerDataModal, { scrollable: true, centered: true, size: 'lg'});
     }
 
     centerModalPrint(centerDataModal: any, data: CustomersModel) {
@@ -263,7 +263,7 @@ export class ListCustomersComponent implements OnInit {
       [this.direccion]: [],
       [this.antecedentes]:[],
 
-      [this.fecha_modificacion]:[],
+      [this.fecha_modificacion]:[{value: null, disabled: true}],
 
       [this.od_esferico]:[null,[
         Validators.required,

@@ -85,44 +85,37 @@ export class AddCustomerComponent implements OnInit {
         Validators.email
       ]],
       [this.direccion]: [],
-      [this.antecedentes]: [],
-
-      [this.od_esferico]: [null, [
-        Validators.required,
+      [this.antecedentes]:[],
+      
+      [this.od_esferico]:[null,[
         Validators.pattern(this.esf_cylPattern),
         Validators.max(+20),
         Validators.min(-20)
       ]],
-      [this.od_cilindrico]: [null, [
-        Validators.required,
+      [this.od_cilindrico]:[null,[
         Validators.pattern(this.esf_cylPattern),
         Validators.max(+20),
         Validators.min(-20)
       ]],
-      [this.od_eje]: [null, [
-        Validators.required,
+      [this.od_eje]:[null,[
         Validators.max(+180),
         Validators.min(0)
       ]],
-      [this.oi_esferico]: [null, [
-        Validators.required,
+      [this.oi_esferico]:[null,[
         Validators.pattern(this.esf_cylPattern),
         Validators.max(+20),
         Validators.min(-20)
       ]],
-      [this.oi_cilindrico]: [null, [
-        Validators.required,
+      [this.oi_cilindrico]:[null,[
         Validators.pattern(this.esf_cylPattern),
         Validators.max(+20),
         Validators.min(-20)
       ]],
-      [this.oi_eje]: [null, [
-        Validators.required,
+      [this.oi_eje]:[null,[
         Validators.max(+180),
         Validators.min(0)
       ]],
-      [this.dip]: [null, [
-        Validators.required,
+      [this.dip]:[null,[
         Validators.max(+80),
         Validators.min(0)
       ]],
