@@ -96,22 +96,22 @@ export class ListCashComponent implements OnInit {
     this.reporteCaja.ingresos = data.caja.filter(el => (el.egreso == false));
     this.reporteCaja.egresos = data.caja.filter(el => (el.egreso == true));
 
-    this.reporteCaja.ingresos.reduce((acc,obj)=> {
-      if (obj.metodo_pago == 'Físico') {
-        this.reporteCaja.ingresos_fisicos = acc+obj.monto
+    this.reporteCaja.ingresos.forEach(element => {
+      if (element.metodo_pago == 'Físico') {
+        this.reporteCaja.ingresos_fisicos += element.monto
       } else {
-        this.reporteCaja.ingresos_virtuales = acc+obj.monto
+        this.reporteCaja.ingresos_virtuales += element.monto
       }
-    },0);
+    });
 
-    this.reporteCaja.egresos.reduce((acc,obj)=> {
-      if (obj.metodo_pago == 'Físico') {
-        this.reporteCaja.egresos_fisicos = acc+obj.monto
+    this.reporteCaja.egresos.forEach(element => {
+      if (element.metodo_pago == 'Físico') {
+        this.reporteCaja.egresos_fisicos += element.monto
       } else {
-        this.reporteCaja.egresos_virtuales = acc+obj.monto
+        this.reporteCaja.egresos_virtuales += element.monto
       }
-    },0)
-    
+    });
+
     this.modalService.open(scrollDataModal, { size: 'lg', centered: true, scrollable: true });
   }
 
@@ -179,13 +179,13 @@ export class ListCashComponent implements OnInit {
           ingreso_total: 0,
           egreso_total:0
         }
-        element.caja.reduce((acc,obj)=>{
-          if (obj.egreso) {
-            return ingreso.egreso_total = acc+obj.monto
+        element.caja.forEach(element => {
+          if (element.egreso) {
+             ingreso.egreso_total +=element.monto
           } else {
-            return ingreso.ingreso_total = acc+obj.monto
+            ingreso.ingreso_total +=element.monto
           }
-        },0);
+        });
 
         Object.assign(element,ingreso)
       });

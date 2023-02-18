@@ -165,7 +165,7 @@ export class EgresoService {
 
     this.cajaService.getEgresosbyDate(fIni,fFin,this.usuarioService.getSedebyUser()).subscribe( res=> {
       this.egresoList = res;
-      
+      console.log(res)
       this._searchE$
       .pipe(
         tap(() => this._loadingE$.next(true)),

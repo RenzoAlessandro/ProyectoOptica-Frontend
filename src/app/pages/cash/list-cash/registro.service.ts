@@ -159,15 +159,14 @@ export class TransactionService {
           ingreso_total: 0,
           egreso_total:0
         }
-        element.caja.reduce((acc,obj)=>{
-          //console.log(obj)
-          if (obj.egreso) {
-            return ingreso.egreso_total = acc+obj.monto
+        element.caja.forEach(element => {
+          if (element.egreso) {
+             ingreso.egreso_total +=element.monto
           } else {
-            console.log(acc,obj.monto)
-            return ingreso.ingreso_total = acc+obj.monto
+            ingreso.ingreso_total +=element.monto
           }
-        },0);
+        });
+
 
         Object.assign(element,ingreso)
       });
