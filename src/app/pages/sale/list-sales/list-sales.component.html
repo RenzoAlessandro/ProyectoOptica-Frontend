@@ -85,6 +85,7 @@
                     <th scope="col" sortable="fecha_creacion_venta" (sort)="onSort($event)">Fecha</th>
                     <th scope="col" sortable="nombre_cliente" (sort)="onSort($event)">Nombre del Cliente</th>
                     <th scope="col" sortable="" (sort)="onSort($event)">Total</th>
+                    <th scope="col" sortable="nombre_vendedor" (sort)="onSort($event)">Vendedor</th>
                     <th scope="col" sortable="" (sort)="onSort($event)">Estado de Pago</th>
                     <th scope="col" sortable="" (sort)="onSort($event)">Descargar Pdf</th>
                     <th style="width: 170px;">Acción</th>
@@ -111,6 +112,10 @@
                     </td>
                     <td>
                       <ngb-highlight [result]="data.tipo_venta[0].precio_total | currency:'S/ '" [term]="service.searchTerm">
+                      </ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.nombre_vendedor" [term]="service.searchTerm">
                       </ngb-highlight>
                     </td>
                     <td *ngIf="data.tipo_venta[0].deuda>0">
