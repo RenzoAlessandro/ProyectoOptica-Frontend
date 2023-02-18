@@ -181,9 +181,9 @@ export class ListCashComponent implements OnInit {
         }
         element.caja.reduce((acc,obj)=>{
           if (obj.egreso) {
-            ingreso.egreso_total = acc+obj.monto
+            return ingreso.egreso_total = acc+obj.monto
           } else {
-            ingreso.ingreso_total = acc+obj.monto
+            return ingreso.ingreso_total = acc+obj.monto
           }
         },0);
 

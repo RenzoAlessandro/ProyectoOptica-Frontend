@@ -18,7 +18,7 @@ export class AddCustomerComponent implements OnInit {
   nombres: string = "campoNombres";
   apellidos: string = "campoApellidos";
   dni: string = "campoDNI";
-  telefono:string = "campoTelefono";
+  telefono: string = "campoTelefono";
   fecha_nacimiento: string = "campoFechaNacimiento";
   fecha_creacion: string = "campoFechaCreacion";
   od_esferico: string = "campoOdEsferico";
@@ -56,32 +56,32 @@ export class AddCustomerComponent implements OnInit {
   crearFormulario() {
     this.fecha_actual = new Date(Date.now());
     this.formCustomer = this.fb.group({
-      [this.fecha_creacion]:[{value: this.fecha_actual.toLocaleString(), disabled: true}],
-      [this.dni]:[null,[
+      [this.fecha_creacion]: [{ value: this.fecha_actual.toLocaleString(), disabled: true }],
+      [this.dni]: [null, [
         Validators.required,
         Validators.pattern(this.numberPattern),
         Validators.min(11111111),
         Validators.max(99999999)
       ]],
-      [this.nombres]:[null,[
+      [this.nombres]: [null, [
         Validators.required,
         Validators.pattern(this.lettersPattern),
         Validators.minLength(3),
         Validators.maxLength(40)
       ]],
-      [this.apellidos]:[null,[
+      [this.apellidos]: [null, [
         Validators.required,
         Validators.pattern(this.lettersPattern),
         Validators.minLength(3),
         Validators.maxLength(40)
       ]],
-      [this.fecha_nacimiento]:[],
-      [this.telefono]:[null,[
+      [this.fecha_nacimiento]: [],
+      [this.telefono]: [null, [
         Validators.pattern(this.numberPattern),
         Validators.min(111111111),
         Validators.max(999999999)
       ]],
-      [this.email]: [null,[
+      [this.email]: [null, [
         Validators.email
       ]],
       [this.direccion]: [],
@@ -119,12 +119,12 @@ export class AddCustomerComponent implements OnInit {
         Validators.max(+80),
         Validators.min(0)
       ]],
-      [this.add]:[null,[
+      [this.add]: [null, [
         Validators.pattern(this.addPattern), // Solo iniciara con un + (ejem. +0.00 - +10.00)
         Validators.max(+10),
         Validators.min(0)
       ]],
-      [this.encargado]:[null,[
+      [this.encargado]: [null, [
         Validators.pattern(this.lettersPattern),
         Validators.minLength(3),
         Validators.maxLength(40)
@@ -132,15 +132,15 @@ export class AddCustomerComponent implements OnInit {
     })
   }
 
-  f(campo:any){
+  f(campo: any) {
     return this.formCustomer.get(campo);
   }
 
   /**
    * guarda cliente en la base de datos
    */
-   guardarCliente() {
-    if(this.formCustomer.valid){
+  guardarCliente() {
+    if (this.formCustomer.valid) {
       this.customer.apellidos = this.f(this.apellidos).value;
       this.customer.dni = this.f(this.dni).value;
       this.customer.fecha_creacion = new Date(Date.now());
@@ -152,32 +152,33 @@ export class AddCustomerComponent implements OnInit {
       this.customer.habilitado = true;
       this.customer.antecedentes = this.f(this.antecedentes).value;
       this.customer.direccion = this.f(this.direccion).value;
-      this.medidas.add = Number(this.f(this.add).value);
-      this.medidas.dip = Number(this.f(this.dip).value);
+      this.medidas.add = this.f(this.add).value ? Number(this.f(this.add).value) : 0;
+      this.medidas.dip = this.f(this.dip).value ? Number(this.f(this.dip).value) : 0;
       this.medidas.encargado = this.f(this.encargado).value;
-      this.medidas.od_cilindrico = Number(this.f(this.od_cilindrico).value);
-      this.medidas.od_eje = Number(this.f(this.od_eje).value);
-      this.medidas.od_esferico = Number(this.f(this.od_esferico).value);
-      this.medidas.oi_cilindrico = Number(this.f(this.oi_cilindrico).value);
-      this.medidas.oi_eje = Number(this.f(this.oi_eje).value);
-      this.medidas.oi_esferico = Number(this.f(this.oi_esferico).value); 
+      this.medidas.od_cilindrico = this.f(this.od_cilindrico).value ? Number(this.f(this.od_cilindrico).value) : 0;
+      this.medidas.od_eje = this.f(this.od_eje).value ? Number(this.f(this.od_eje).value) : 0;
+      this.medidas.od_esferico = this.f(this.od_esferico).value ? Number(this.f(this.od_esferico).value) : 0;
+      this.medidas.oi_cilindrico = this.f(this.oi_cilindrico).value ? Number(this.f(this.oi_cilindrico).value) : 0;
+      this.medidas.oi_eje = this.f(this.oi_eje).value ? Number(this.f(this.oi_eje).value) : 0;
+      this.medidas.oi_esferico = this.f(this.oi_esferico).value ? Number(this.f(this.oi_esferico).value) : 0;
       const listaMedidas = []
       listaMedidas.push(this.medidas);
       this.customer.medidas = listaMedidas;
+      console.log(this.customer)
       Sweetalert("loading", "Cargando...");
-      this.customerService.createCustomers(this.customer).subscribe( res=>{
-        Sweetalert("close",null);
+      this.customerService.createCustomers(this.customer).subscribe(res => {
+        Sweetalert("close", null);
         Sweetalert("success", "Cliente guardado");
         this.f(this.fecha_creacion).setValue(new Date(Date.now()).toLocaleDateString())
         this.formCustomer.reset();
       });
     }
-  } 
+  }
   /**
    * Returns form Cliente
    */
   get formC() {
     return this.formCustomer.controls;
   }
-  
+
 }

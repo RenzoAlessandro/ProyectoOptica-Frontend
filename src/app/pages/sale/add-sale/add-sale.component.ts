@@ -475,6 +475,7 @@ export class AddSaleComponent implements OnInit {
         
       }
       this.venta.id_vendedor = this.usuarioService.getUser().id_usuario;
+      this.venta.nombre_vendedor = this.usuarioService.getUser().nombres + ' ' + this.usuarioService.getUser().apellidos;
       this.tipoPago.forma_pago = this.selectorPago;
       this.tipoPago.precio_total = this.precioTotalVenta;
       this.tipoPago.fecha_pago = new Date();
