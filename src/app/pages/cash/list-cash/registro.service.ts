@@ -70,6 +70,7 @@ export class TransactionService {
     let lastDay = new Date(fIni.getFullYear(), fIni.getMonth() + 1, 0);
     firstDay.setHours(0, 0, 1);
     lastDay.setHours(23, 59, 0);
+    console.log(firstDay,lastDay)
     this.getListIngresosEgresos(firstDay,lastDay);
   }
   updateTable (data) {
@@ -159,16 +160,18 @@ export class TransactionService {
           egreso_total:0
         }
         element.caja.reduce((acc,obj)=>{
+          //console.log(obj)
           if (obj.egreso) {
-            ingreso.egreso_total = acc+obj.monto
+            return ingreso.egreso_total = acc+obj.monto
           } else {
-            ingreso.ingreso_total = acc+obj.monto
+            console.log(acc,obj.monto)
+            return ingreso.ingreso_total = acc+obj.monto
           }
         },0);
 
         Object.assign(element,ingreso)
       });
-
+      console.log(groupArrays)
       this.cajaList = groupArrays
 
         this._search$.pipe(

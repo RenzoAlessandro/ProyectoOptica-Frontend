@@ -258,7 +258,7 @@ export class CashRegisterComponent implements OnInit {
     if (this.formIngreso.valid) {
       this.caja.monto = Number(this.fI(this.monto_ingreso).value);
       this.caja.fecha_creacion_caja = new Date(Date.now());
-      this.caja.encargado = this.usuarioService.getUser().id_usuario;
+      this.caja.id_encargado = this.usuarioService.getUser().id_usuario;
       this.caja.descripcion = this.fI(this.descripcion_ingreso).value;
       this.caja.id_sede = this.usuarioService.getSedebyUser();
       this.caja.habilitado = true;
@@ -282,7 +282,7 @@ export class CashRegisterComponent implements OnInit {
     if (this.formEgreso.valid) {
       this.caja.monto = Number(this.fE(this.monto_egreso).value);
       this.caja.fecha_creacion_caja = new Date(Date.now());
-      this.caja.encargado = this.usuarioService.getUser().id_usuario;
+      this.caja.id_encargado = this.usuarioService.getUser().id_usuario;
       this.caja.descripcion = this.fE(this.descripcion_egreso).value;
       this.caja.id_sede = this.usuarioService.getSedebyUser();
       this.caja.habilitado = true;

@@ -39,7 +39,7 @@ function sort(transactions: VentasModel[], column: SortColumn, direction: string
 }
 
 function matches(transaction: VentasModel, term: string, pipe: PipeTransform) {
-  return transaction.id_cliente.toLowerCase().includes(term)
+  return transaction.nombre_vendedor.toLowerCase().includes(term)
     || String(transaction.tipo_venta[0].precio_total).toLowerCase().includes(term.toLowerCase())
     || (transaction.fecha_creacion_venta).toLocaleString().includes(term)
     //|| transaction.id_sede.toLowerCase().includes(term)
@@ -125,6 +125,7 @@ export class TransactionService {
   //Servicio 
   getAllVentas() {
     this.ventaService.getVentasbySede(this.usuarioService.getSedebyUser()).subscribe( res=>{
+      console.log(res)
       this.ventaList = res;
       this._mostrar$.next(true);
       this._search$.pipe(

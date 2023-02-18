@@ -44,7 +44,7 @@ function sort(
 function matches(invoice: CajaModel, term: string, pipe: PipeTransform) {
   return String(invoice.monto).toLowerCase().includes(term) ||
     invoice.descripcion.toLowerCase().includes(term.toLowerCase()) ||
-    String(invoice.encargado).toLowerCase().includes(term.toLowerCase())
+    String(invoice.nombre_encargado).toLowerCase().includes(term.toLowerCase())
     ;
 }
 

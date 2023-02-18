@@ -139,7 +139,7 @@ export class AdduserComponent implements OnInit {
         console.log(res)
         Sweetalert("close",null);
         Sweetalert("success", "Usuario guardado");
-        this.mostrarUsuario(res)
+        this.mostrarUsuario(res.user)
         this.formRegister.reset();
         this.f(this.fechaCreacion).setValue(new Date(Date.now()).toLocaleDateString())
       }) 
@@ -149,7 +149,7 @@ export class AdduserComponent implements OnInit {
   mostrarUsuario(data: any) {
     Swal.fire({
       title: 'Usuario guardado con éxito',
-      text: 'Su usuario es: ' + 'holi',
+      text: 'Su usuario es: ' + data,
       icon: 'success',
       confirmButtonColor: '#34c38f',
     })

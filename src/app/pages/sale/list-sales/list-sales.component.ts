@@ -295,6 +295,7 @@ export class ListSalesComponent implements OnInit {
 
   filterDateRange() {
     if (this.formDateRange.valid) {
+      this.idSede = this.fS(this.nombre_sedes).value;
       let fechaIni = new Date(this.f(this.fechaDesde).value+'T00:00');
       let fechaFin:Date;
       if(this.f(this.fechaHasta).value != null) {
@@ -307,7 +308,7 @@ export class ListSalesComponent implements OnInit {
       /* fechaFin.setDate(fechaFin.getDate() + 1)
       fechaIni.setHours(0,0,0);
       fechaFin.setHours(23,59,0) */
-      this.ventasService.getVentasByDate(fechaIni,fechaFin).subscribe(res=>{
+      this.ventasService.getVentasByDate(fechaIni,fechaFin,this.idSede).subscribe(res=>{
         this.service.updateTable(res);
       }) 
     } else {
