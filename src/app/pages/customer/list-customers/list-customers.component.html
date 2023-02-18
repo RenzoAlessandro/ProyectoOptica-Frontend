@@ -411,16 +411,16 @@
                   formControlName="{{this.od_esferico}}" [ngClass]="{'is-invalid': formEC.campoOdEsferico.invalid && (formEC.campoOdEsferico.dirty || formEC.campoOdEsferico.touched)}" />
                   <div class="invalid-feedback">
                     <div *ngIf="formEC.campoOdEsferico.errors?.required">
-                      Campo requerido
+                      Campo requerido.
                     </div>
                     <div *ngIf="formEC.campoOdEsferico.errors?.pattern">
-                      Formato mal escrito
+                      Formato mal escrito: de -20.00 a +20.00
                     </div>
                     <div *ngIf="formEC.campoOdEsferico.errors?.min">
-                      Número menor
+                      Número menor.
                     </div>
                     <div *ngIf="formEC.campoOdEsferico.errors?.max">
-                      Número mayor
+                      Número mayor.
                     </div>
                   </div>
                 </div>
@@ -432,16 +432,16 @@
                     formControlName="{{this.od_cilindrico}}" [ngClass]="{'is-invalid': formEC.campoOd_Cilindrico.invalid && (formEC.campoOd_Cilindrico.dirty || formEC.campoOd_Cilindrico.touched)}" />
                     <div class="invalid-feedback">
                       <div *ngIf="formEC.campoOd_Cilindrico.errors?.required">
-                        Campo requerido
+                        Campo requerido.
                       </div>
                       <div *ngIf="formEC.campoOd_Cilindrico.errors?.pattern">
-                        Formato mal escrito
+                        Formato mal escrito: de -20.00 a +20.00
                       </div>
                       <div *ngIf="formEC.campoOd_Cilindrico.errors?.min">
-                        Número menor
+                        Número menor.
                       </div>
                       <div *ngIf="formEC.campoOd_Cilindrico.errors?.max">
-                        Número mayor
+                        Número mayor.
                       </div>
                     </div>
                 </div>
@@ -453,13 +453,13 @@
                   formControlName="{{this.od_eje}}" [ngClass]="{'is-invalid': formEC.campoOdEje.invalid && (formEC.campoOdEje.dirty || formEC.campoOdEje.touched)}" />
                   <div class="invalid-feedback">
                     <div *ngIf="formEC.campoOdEje.errors?.required">
-                      Campo requerido
+                      Campo requerido.
                     </div>
                     <div *ngIf="formEC.campoOdEje.errors?.min">
-                      Número menor
+                      Número menor, mínimo permitido 0.
                     </div>
                     <div *ngIf="formEC.campoOdEje.errors?.max">
-                      Número mayor
+                      Número mayor, máximo permitido 180.
                     </div>
                   </div>
                 </div>
@@ -478,16 +478,16 @@
                   formControlName="{{this.oi_esferico}}" [ngClass]="{'is-invalid': formEC.campoOiEsferico.invalid && (formEC.campoOiEsferico.dirty || formEC.campoOiEsferico.touched)}" />
                   <div class="invalid-feedback">
                     <div *ngIf="formEC.campoOiEsferico.errors?.required">
-                      Campo requerido
+                      Campo requerido.
                     </div>
                     <div *ngIf="formEC.campoOiEsferico.errors?.pattern">
-                      Formato mal escrito
+                      Formato mal escrito: de -20.00 a +20.00
                     </div>
                     <div *ngIf="formEC.campoOiEsferico.errors?.min">
-                      Número menor
+                      Número menor.
                     </div>
                     <div *ngIf="formEC.campoOiEsferico.errors?.max">
-                      Número mayor
+                      Número mayor.
                     </div>
                   </div>
                 </div>
@@ -499,16 +499,16 @@
                     formControlName="{{this.oi_cilindrico}}" [ngClass]="{'is-invalid': formEC.campoOiCilindrico.invalid && (formEC.campoOiCilindrico.dirty || formEC.campoOiCilindrico.touched)}" />
                     <div class="invalid-feedback">
                       <div *ngIf="formEC.campoOiCilindrico.errors?.required">
-                        Campo requerido
+                        Campo requerido.
                       </div>
                       <div *ngIf="formEC.campoOiCilindrico.errors?.pattern">
-                        Formato mal escrito
+                        Formato mal escrito: de -20.00 a +20.00
                       </div>
                       <div *ngIf="formEC.campoOiCilindrico.errors?.min">
-                        Número menor
+                        Número menor.
                       </div>
                       <div *ngIf="formEC.campoOiCilindrico.errors?.max">
-                        Número mayor
+                        Número mayor.
                       </div>
                     </div>
                 </div>
@@ -520,13 +520,13 @@
                   formControlName="{{this.oi_eje}}" [ngClass]="{'is-invalid': formEC.campoOiEje.invalid && (formEC.campoOiEje.dirty || formEC.campoOiEje.touched)}" />
                   <div class="invalid-feedback">
                     <div *ngIf="formEC.campoOiEje.errors?.required">
-                      Campo requerido
+                      Campo requerido.
                     </div>
                     <div *ngIf="formEC.campoOiEje.errors?.min">
-                      Número menor
+                      Número menor, mínimo permitido 0.
                     </div>
                     <div *ngIf="formEC.campoOiEje.errors?.max">
-                      Número mayor
+                      Número mayor, máximo permitido 180.
                     </div>
                   </div>
                 </div>
@@ -543,13 +543,13 @@
               formControlName="{{this.dip}}" [ngClass]="{'is-invalid': formEC.campoDip.invalid && (formEC.campoDip.dirty || formEC.campoDip.touched)}" />
               <div class="invalid-feedback">
                 <div *ngIf="formEC.campoDip.errors?.required">
-                  Campo requerido
+                  Campo requerido.
                 </div>
                 <div *ngIf="formEC.campoDip.errors?.min">
-                  Número menor
+                  Número menor, mínimo permitido 0.
                 </div>
                 <div *ngIf="formEC.campoDip.errors?.max">
-                  Número mayor
+                  Número mayor, máximo permitido 80.
                 </div>
               </div>
           </div>
@@ -561,13 +561,13 @@
             formControlName="{{this.add}}" [ngClass]="{'is-invalid': formEC.campoAdd.invalid && (formEC.campoAdd.dirty || formEC.campoAdd.touched)}" />
             <div class="invalid-feedback">
               <div *ngIf="formEC.campoAdd.errors?.pattern">
-                Formato mal escrito
+                Formato mal escrito: de +0.00 a +10.00
               </div>
               <div *ngIf="formEC.campoAdd.errors?.min">
-                Número menor
+                Número menor.
               </div>
               <div *ngIf="formEC.campoAdd.errors?.max">
-                Número mayor
+                Número mayor.
               </div>
             </div>
           </div>
@@ -580,13 +580,13 @@
               [ngClass]="{'is-invalid': formEC.campoEncargado.invalid && (formEC.campoEncargado.dirty || formEC.campoEncargado.touched)}" />
             <div class="invalid-feedback">
               <div *ngIf="formEC.campoEncargado.errors?.pattern">
-                Ingrese solo letras
+                Ingrese solo letras.
               </div>
               <div *ngIf="formEC.campoEncargado.errors?.minlength">
-                El campo debe ser mayor a 3 caracteres
+                El campo debe ser mayor a 3 caracteres.
               </div>
               <div *ngIf="formEC.campoEncargado.errors?.maxlength">
-                El campo debe ser menor a 40 caracteres
+                El campo debe ser menor a 40 caracteres.
               </div>
             </div>
           </div>

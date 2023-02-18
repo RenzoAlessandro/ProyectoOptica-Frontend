@@ -345,13 +345,13 @@
                       [ngClass]="{'is-invalid': formC.campoEncargado.invalid && (formC.campoEncargado.dirty || formC.campoEncargado.touched)}" />
                     <div class="invalid-feedback">
                       <div *ngIf="formC.campoEncargado.errors?.pattern">
-                        Ingrese solo letras
+                        Ingrese solo letras.
                       </div>
                       <div *ngIf="formC.campoEncargado.errors?.minlength">
-                        El campo debe ser mayor a 3 caracteres
+                        El campo debe ser mayor a 3 caracteres.
                       </div>
                       <div *ngIf="formC.campoEncargado.errors?.maxlength">
-                        El campo debe ser menor a 40 caracteres
+                        El campo debe ser menor a 40 caracteres.
                       </div>
                     </div>
                   </div>
