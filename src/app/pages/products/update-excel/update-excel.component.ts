@@ -270,7 +270,10 @@ export class UpdateExcelComponent implements OnInit {
       producto = this.objExceltoDBUpdate(data, tipoProducto);
       const idSede = producto[0].id_sede
       if (this.validarIdSede(data, idSede) && this.validarTipo(data, tipoProducto)) {
+        Sweetalert("loading", "Cargando...");
         this.productoService.updateProductsbyExcel(producto).subscribe(res => {
+          Sweetalert("close", null);
+          Sweetalert("success", "Lista de "+tipoProducto+" actualizada");
         }) 
       } else {
         Sweetalert("error", "Columna ID SEDE o TIPO incorrectos o faltantes");
@@ -291,8 +294,11 @@ export class UpdateExcelComponent implements OnInit {
       producto = this.objExceltoDBCreate(data, tipoProducto);
       const idSede = producto[0].id_sede
       if (this.validarIdSede(data, idSede) && this.validarTipo(data, tipoProducto)) {
-         this.productoService.createProductsbyExcel(producto).subscribe(res=> {
-         }) 
+        Sweetalert("loading", "Cargando...");
+        this.productoService.createProductsbyExcel(producto).subscribe(res=> {
+          Sweetalert("close", null);
+          Sweetalert("success", "Lista de "+tipoProducto+" creada");
+        }) 
       } else {
         Sweetalert("error", "Columna ID SEDE o TIPO incorrectos o faltantes");
         return;

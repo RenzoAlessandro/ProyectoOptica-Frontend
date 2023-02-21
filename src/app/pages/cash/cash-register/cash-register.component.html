@@ -6,15 +6,15 @@
 
   <div class="row mt-2 mb-2">
     <div class=" col-12 col-md-3 d-grid text-center mb-2">
-        <button type="button" class="btn btn-primary btn-block" (click)="centerModal(centerDataModalIngreso)">
-            <i class="uil uil-arrow-growth me-2"></i> Registar Ingreso
-        </button>
+      <button type="button" class="btn btn-primary btn-block" (click)="centerModal(centerDataModalIngreso)">
+        <i class="uil uil-arrow-growth me-2"></i> Registar Ingreso
+      </button>
     </div>
 
     <div class="col-12 col-md-3 d-grid text-center mb-2">
-        <button type="button" class="btn btn-danger btn-block" (click)="centerModal(centerDataModalEgreso)">
-            <i class="uil uil-chart-down me-2"></i>Registar Egreso
-        </button>
+      <button type="button" class="btn btn-danger btn-block" (click)="centerModal(centerDataModalEgreso)">
+        <i class="uil uil-chart-down me-2"></i>Registar Egreso
+      </button>
     </div>
 
     <div class="col-12 col-md-3 d-grid">
@@ -23,8 +23,8 @@
     <div class="col-12 col-md-3 d-grid" *appRole="role">
       <form [formGroup]="formSedes">
         <div ngbDropdown>
-          <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
-            bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+          <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede" bindLabel="nombre_sede"
+            formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
           </ng-select>
         </div>
       </form>
@@ -41,7 +41,7 @@
             <div class="col-12">
               <div class="mt-0">
                 <h4 class="text-center">Ingreso Total: <span class="text-success me-1"><i
-                  class="mdi mdi-arrow-up-bold me-1"></i>{{this.ingresoTotal|currency:'S/ '}}</span> </h4>
+                      class="mdi mdi-arrow-up-bold me-1"></i>{{this.ingresoTotal|currency:'S/ '}}</span> </h4>
               </div>
             </div>
           </div>
@@ -59,8 +59,8 @@
         <div class="card-body">
           <div class="row mb-md-2">
             <div class="col-12 text-md-end">
-              <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
-                    [(ngModel)]="serviceI.pageSizeI"
+              <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select
+                    name="pageSize" [(ngModel)]="serviceI.pageSizeI"
                     class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
                     <option [ngValue]="5">5</option>
                     <option [ngValue]="10">10</option>
@@ -71,64 +71,62 @@
             </div>
           </div>
           <div class="table-responsive mb-4">
-            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-              <form>
-                <table class="table table-centered dt-responsive nowrap table-card-list"
-                  style="border-spacing: 0 12px; width: 100%;">
-                  <thead class="table-light">
-                    <tr class="bg-transparent">
-                      <th scope="col" sortable="amount" (sort)="onSortI($event)">Monto</th>
-                      <th scope="col" sortable="type" (sort)="onSortI($event)">Método</th>
-                      <th scope="col" sortable="description" (sort)="onSortI($event)">Descripción</th>
-                      <th scope="col" sortable="date" (sort)="onSortI($event)">Fecha</th>
-                      <th scope="col" sortable="name" (sort)="onSortI($event)">Usuario</th>
-                      <th *appRole="role">Acción</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let data of ingresos$ | async">
-                      <td>
-                        <ngb-highlight [result]="data.monto|currency:'S/ '" [term]="serviceI.searchTerm"></ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="data.metodo_pago" [term]="serviceI.searchTerm"></ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="data.descripcion" [term]="serviceI.searchTerm"></ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="data.fecha_creacion_caja" [term]="serviceI.searchTerm"></ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="data.nombre_encargado" [term]="serviceI.searchTerm"></ngb-highlight>
-                      </td>
-                      <td>
-                        <!-- <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i
+            <form>
+              <table class="table table-centered table-nowrap mb-0 align-middle table-card-list"
+                style="border-spacing: 0 12px; width: 100%;">
+                <thead class="table-light">
+                  <tr class="bg-transparent">
+                    <th scope="col" sortable="amount" (sort)="onSortI($event)">Monto</th>
+                    <th scope="col" sortable="type" (sort)="onSortI($event)">Método</th>
+                    <th scope="col" sortable="description" (sort)="onSortI($event)">Descripción</th>
+                    <th scope="col" sortable="date" (sort)="onSortI($event)">Fecha</th>
+                    <th scope="col" sortable="name" (sort)="onSortI($event)">Usuario</th>
+                    <th *appRole="role">Acción</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of ingresos$ | async">
+                    <td>
+                      <ngb-highlight [result]="data.monto|currency:'S/ '" [term]="serviceI.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.metodo_pago" [term]="serviceI.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.descripcion" [term]="serviceI.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.fecha_creacion_caja" [term]="serviceI.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.nombre_encargado" [term]="serviceI.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <!-- <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i
                             class="uil uil-pen font-size-18"></i></a> -->
-                        <a class="px-3 text-danger" placement="top" ngbTooltip="Delete" (click)="eliminarIngreso(data)" *appRole="role"><i
-                            class="uil uil-trash-alt font-size-18"></i></a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <!-- End table -->
-                <div class="row justify-content-md-between align-items-md-center">
-                  <!-- <div class="col-sm-12 col-md-5">
-                    <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">Page 2 of 84</div>
-                  </div> -->
-                  <!-- Pagination -->
-                  <div class="col-12">
-                    <div class="text-md-end float-md-end pagination-rounded">
-                      <ngb-pagination [collectionSize]="total$ | async" [(page)]="serviceI.pageI" [pageSize]="serviceI.pageSizeI" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
-                      </ngb-pagination>
-                    </div>
-                  </div>
-                  <!-- End Pagination -->
-                </div>
-              </form>
-            </div>
+                      <a class="px-3 text-danger" placement="top" ngbTooltip="Delete" (click)="eliminarIngreso(data)"
+                        *appRole="role"><i class="uil uil-trash-alt font-size-18"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
           </div>
-
+          <!-- End table -->
+          <div class="row justify-content-md-between align-items-md-center">
+            <!-- <div class="col-sm-12 col-md-5">
+              <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">Page 2 of 84</div>
+            </div> -->
+            <!-- Pagination -->
+            <div class="col-12">
+              <div class="text-md-end float-md-end pagination-rounded">
+                <ngb-pagination [collectionSize]="total$ | async" [(page)]="serviceI.pageI"
+                  [pageSize]="serviceI.pageSizeI" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                </ngb-pagination>
+              </div>
+            </div>
+            <!-- End Pagination -->
+          </div>
         </div>
       </div>
     </div>
@@ -139,7 +137,7 @@
             <div class="col-12">
               <div class="mt-0">
                 <h4 class="text-center">Egreso Total: <span class="text-danger me-1"><i
-                  class="mdi mdi-arrow-down-bold me-1"></i>{{this.egresoTotal|currency:'S/ '}}</span> </h4>
+                      class="mdi mdi-arrow-down-bold me-1"></i>{{this.egresoTotal|currency:'S/ '}}</span> </h4>
               </div>
             </div>
           </div>
@@ -158,8 +156,8 @@
 
           <div class="row mb-md-2">
             <div class="col-12 text-md-end">
-              <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
-                    [(ngModel)]="serviceE.pageSizeE"
+              <div class="dataTables_length"><label class="d-inline-flex align-items-center">Mostrar<select
+                    name="pageSize" [(ngModel)]="serviceE.pageSizeE"
                     class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
                     <option [ngValue]="5">5</option>
                     <option [ngValue]="10">10</option>
@@ -171,64 +169,65 @@
           </div>
 
           <div class="table-responsive mb-4">
-            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-              <form>
-                <table class="table table-centered dt-responsive nowrap table-card-list"
-                  style="border-spacing: 0 12px; width: 100%;">
-                  <thead class="table-light">
-                    <tr class="bg-transparent">
-                      <th scope="col" sortable="amount" (sort)="onSortE($event)">Monto</th>
-                      <th scope="col" sortable="type" (sort)="onSortE($event)">Método</th>
-                      <th scope="col" sortable="description" (sort)="onSortE($event)">Descripción</th>
-                      <th scope="col" sortable="date" (sort)="onSortE($event)">Fecha</th>
-                      <th scope="col" sortable="name" (sort)="onSortE($event)">Usuario</th>
-                      <th *appRole="role">Acción</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let data of egresos$ | async">
-                      <td>
-                        <ngb-highlight [result]="data.monto|currency:'S/ '" [term]="serviceE.searchTerm"></ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="data.metodo_pago" [term]="serviceE.searchTerm"></ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="data.descripcion" [term]="serviceE.searchTerm"></ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="data.fecha_creacion_caja" [term]="serviceE.searchTerm"></ngb-highlight>
-                      </td>
-                      <td>
-                        <ngb-highlight [result]="data.nombre_encargado" [term]="serviceE.searchTerm"></ngb-highlight>
-                      </td>
-                      <td>
-                        <!-- <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i
+            <form>
+              <table class="table table-centered table-nowrap mb-0 align-middle table-card-list"
+                style="border-spacing: 0 12px; width: 100%;">
+                <thead class="table-light">
+                  <tr class="bg-transparent">
+                    <th scope="col" sortable="amount" (sort)="onSortE($event)">Monto</th>
+                    <th scope="col" sortable="type" (sort)="onSortE($event)">Método</th>
+                    <th scope="col" sortable="description" (sort)="onSortE($event)">Descripción</th>
+                    <th scope="col" sortable="date" (sort)="onSortE($event)">Fecha</th>
+                    <th scope="col" sortable="name" (sort)="onSortE($event)">Usuario</th>
+                    <th *appRole="role">Acción</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of egresos$ | async">
+                    <td>
+                      <ngb-highlight [result]="data.monto|currency:'S/ '" [term]="serviceE.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.metodo_pago" [term]="serviceE.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.descripcion" [term]="serviceE.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.fecha_creacion_caja" [term]="serviceE.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <ngb-highlight [result]="data.nombre_encargado" [term]="serviceE.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                      <!-- <a href="javascript:void(0);" class="px-3 text-primary" placement="top" ngbTooltip="Edit"><i
                             class="uil uil-pen font-size-18"></i></a> -->
-                        <a class="px-3 text-danger" placement="top" ngbTooltip="Delete" (click)="eliminarIngreso(data)" *appRole="role"><i
-                            class="uil uil-trash-alt font-size-18"></i></a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <!-- End table -->
-                <div class="row justify-content-md-between align-items-md-center">
-                  <!-- <div class="col-sm-12 col-md-5">
-                    <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">Page 2 of 84</div>
-                  </div> -->
-                  <!-- Pagination -->
-                  <div class="col-12">
-                    <div class="text-md-end float-md-end pagination-rounded">
-                      <ngb-pagination [collectionSize]="totalE$ | async" [(page)]="serviceE.pageE" [pageSize]="serviceE.pageSizeE" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
-                      </ngb-pagination>
-                    </div>
-                  </div>
-                  <!-- End Pagination -->
-                </div>
-              </form>
+                      <a class="px-3 text-danger" placement="top" ngbTooltip="Delete" (click)="eliminarIngreso(data)"
+                        *appRole="role"><i class="uil uil-trash-alt font-size-18"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+          </div>
+
+          <!-- End table -->
+          <div class="row justify-content-md-between align-items-md-center">
+            <!-- <div class="col-sm-12 col-md-5">
+              <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">Page 2 of 84</div>
+            </div> -->
+            <!-- Pagination -->
+            <div class="col-12">
+              <div class="text-md-end float-md-end pagination-rounded">
+                <ngb-pagination [collectionSize]="totalE$ | async" [(page)]="serviceE.pageE"
+                  [pageSize]="serviceE.pageSizeE" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                </ngb-pagination>
+              </div>
             </div>
+            <!-- End Pagination -->
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -249,25 +248,28 @@
           <div class="mb-3">
             <label class="control-label">Monto</label>
             <input class="form-control" placeholder="Ingrese el monto" type="text" name="title"
-              formControlName="{{this.monto_ingreso}}" [ngClass]="{'is-invalid': formCI.campoMontoIngreso.invalid && (formCI.campoMontoIngreso.dirty || formCI.campoMontoIngreso.touched)}"/>
-              <div class="invalid-feedback">
-                <div *ngIf="formCI.campoMontoIngreso.errors?.required">
-                  Campo requerido.
-                </div>
-                <div *ngIf="formCI.campoMontoIngreso.errors?.min">
-                  Número menor.
-                </div>
-                <div *ngIf="formCI.campoMontoIngreso.errors?.pattern">
-                  Ingrese solo números.
-                </div>
+              formControlName="{{this.monto_ingreso}}"
+              [ngClass]="{'is-invalid': formCI.campoMontoIngreso.invalid && (formCI.campoMontoIngreso.dirty || formCI.campoMontoIngreso.touched)}" />
+            <div class="invalid-feedback">
+              <div *ngIf="formCI.campoMontoIngreso.errors?.required">
+                Campo requerido.
               </div>
+              <div *ngIf="formCI.campoMontoIngreso.errors?.min">
+                Número menor.
+              </div>
+              <div *ngIf="formCI.campoMontoIngreso.errors?.pattern">
+                Ingrese solo números.
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Método</label>
-            <ng-select name="selectMetodo" [items]="listMetodosPagos" formControlName="{{this.metodoPagoContado_ingreso}}" placeholder="Seleccione" [ngClass]="{'is-invalid': formCI.campoMetodoPagoContadoIngreso.invalid && (formCI.campoMetodoPagoContadoIngreso.dirty || formCI.campoMetodoPagoContadoIngreso.touched)}">
+            <ng-select name="selectMetodo" [items]="listMetodosPagos"
+              formControlName="{{this.metodoPagoContado_ingreso}}" placeholder="Seleccione"
+              [ngClass]="{'is-invalid': formCI.campoMetodoPagoContadoIngreso.invalid && (formCI.campoMetodoPagoContadoIngreso.dirty || formCI.campoMetodoPagoContadoIngreso.touched)}">
             </ng-select>
             <div class="invalid-feedback">
               <div *ngIf="formCI.campoMetodoPagoContadoIngreso.errors?.required">
@@ -282,14 +284,15 @@
         <div class="col-12">
           <div class="mb-3">
             <label class="control-label">Descripción</label>
-            <textarea class="form-control" id="billing-observaciones" rows="3"
-              placeholder="Ingrese la descripción" formControlName="{{this.descripcion_ingreso}}" [ngClass]="{'is-invalid': formCI.campoDescripcionIngreso.invalid && (formCI.campoDescripcionIngreso.dirty || formCI.campoDescripcionIngreso.touched)}">
+            <textarea class="form-control" id="billing-observaciones" rows="3" placeholder="Ingrese la descripción"
+              formControlName="{{this.descripcion_ingreso}}"
+              [ngClass]="{'is-invalid': formCI.campoDescripcionIngreso.invalid && (formCI.campoDescripcionIngreso.dirty || formCI.campoDescripcionIngreso.touched)}">
             </textarea>
             <div class="invalid-feedback">
               <div *ngIf="formCI.campoDescripcionIngreso.errors?.required">
                 Campo requerido.
               </div>
-              <div  *ngIf="formCI.campoDescripcionIngreso.errors?.maxlength">
+              <div *ngIf="formCI.campoDescripcionIngreso.errors?.maxlength">
                 La descripción debe ser menor a 50 caracteres.
               </div>
             </div>
@@ -301,7 +304,8 @@
         <button type="button" class="btn btn-danger" (click)="closeEventModal()">
           Cerrar
         </button>
-        <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="guardarIngreso()" [disabled]="!formIngreso.valid">
+        <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="guardarIngreso()"
+          [disabled]="!formIngreso.valid">
           Guardar
         </button>
       </div>
@@ -326,25 +330,28 @@
           <div class="mb-3">
             <label class="control-label">Monto</label>
             <input class="form-control" placeholder="Ingrese el monto" type="text" name="title"
-              formControlName="{{this.monto_egreso}}"[ngClass]="{'is-invalid': formCE.campoMontoEgreso.invalid && (formCE.campoMontoEgreso.dirty || formCE.campoMontoEgreso.touched)}"/>
-              <div class="invalid-feedback">
-                <div *ngIf="formCE.campoMontoEgreso.errors?.required">
-                  Campo requerido.
-                </div>
-                <div *ngIf="formCE.campoMontoEgreso.errors?.min">
-                  Número menor.
-                </div>
-                <div *ngIf="formCE.campoMontoEgreso.errors?.pattern">
-                  Ingrese solo números.
-                </div>
+              formControlName="{{this.monto_egreso}}"
+              [ngClass]="{'is-invalid': formCE.campoMontoEgreso.invalid && (formCE.campoMontoEgreso.dirty || formCE.campoMontoEgreso.touched)}" />
+            <div class="invalid-feedback">
+              <div *ngIf="formCE.campoMontoEgreso.errors?.required">
+                Campo requerido.
               </div>
+              <div *ngIf="formCE.campoMontoEgreso.errors?.min">
+                Número menor.
+              </div>
+              <div *ngIf="formCE.campoMontoEgreso.errors?.pattern">
+                Ingrese solo números.
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="col-6">
           <div class="mb-3">
             <label class="control-label">Método</label>
-            <ng-select name="selectMetodo" [items]="listMetodosPagos" formControlName="{{this.metodoPagoContado_egreso}}" placeholder="Seleccione" [ngClass]="{'is-invalid': formCE.campoMetodoPagoContadoEgreso.invalid && (formCE.campoMetodoPagoContadoEgreso.dirty || formCE.campoMetodoPagoContadoEgreso.touched)}">
+            <ng-select name="selectMetodo" [items]="listMetodosPagos"
+              formControlName="{{this.metodoPagoContado_egreso}}" placeholder="Seleccione"
+              [ngClass]="{'is-invalid': formCE.campoMetodoPagoContadoEgreso.invalid && (formCE.campoMetodoPagoContadoEgreso.dirty || formCE.campoMetodoPagoContadoEgreso.touched)}">
             </ng-select>
             <div class="invalid-feedback">
               <div *ngIf="formCE.campoMetodoPagoContadoEgreso.errors?.required">
@@ -359,14 +366,15 @@
         <div class="col-12">
           <div class="mb-3">
             <label class="control-label">Descripción</label>
-            <textarea class="form-control" id="billing-observaciones" rows="3"
-              placeholder="Ingrese la descripción" formControlName="{{this.descripcion_egreso}}" [ngClass]="{'is-invalid': formCE.campoDescripcionEgreso.invalid && (formCE.campoDescripcionEgreso.dirty || formCE.campoDescripcionEgreso.touched)}">
+            <textarea class="form-control" id="billing-observaciones" rows="3" placeholder="Ingrese la descripción"
+              formControlName="{{this.descripcion_egreso}}"
+              [ngClass]="{'is-invalid': formCE.campoDescripcionEgreso.invalid && (formCE.campoDescripcionEgreso.dirty || formCE.campoDescripcionEgreso.touched)}">
             </textarea>
             <div class="invalid-feedback">
               <div *ngIf="formCE.campoDescripcionEgreso.errors?.required">
                 Campo requerido.
               </div>
-              <div  *ngIf="formCE.campoDescripcionEgreso.errors?.maxlength">
+              <div *ngIf="formCE.campoDescripcionEgreso.errors?.maxlength">
                 La descripción debe ser menor a 50 caracteres.
               </div>
             </div>
@@ -378,7 +386,8 @@
         <button type="button" class="btn btn-danger" (click)="closeEventModal()">
           Cerrar
         </button>
-        <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="guardarEgreso()" [disabled]="!formEgreso.valid">
+        <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="guardarEgreso()"
+          [disabled]="!formEgreso.valid">
           Guardar
         </button>
       </div>

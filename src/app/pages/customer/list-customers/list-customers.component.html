@@ -12,7 +12,7 @@
             <i class="uil uil-search search-icon"></i>
           </div>
         </div>
-<!--         <div class="col-4">
+        <!--         <div class="col-4">
           <div class="btn-group text-md-start">
             <button type="button" class="btn btn-primary"><i class="uil uil-import" ngbTooltip="Exportar"></i></button>
             <button type="button" class="btn btn-primary"><i class="uil uil-export" ngbTooltip="Importar"></i></button>
@@ -35,79 +35,80 @@
   <div class="row">
     <div class="col-12">
       <div class="table-responsive mb-4">
-          <form>
-            <table class="table datatables table-centered table-nowrap mb-0 align-middle table-card-list"style="border-spacing: 0 12px; width: 100%;">
-              <thead>
-                <tr class="bg-transparent">
-                  <!--                     <th style="width: 20px;">
+        <form>
+          <table class="table datatables table-centered table-nowrap mb-0 align-middle table-card-list"
+            style="border-spacing: 0 12px; width: 100%;">
+            <thead>
+              <tr class="bg-transparent">
+                <!--                     <th style="width: 20px;">
   
                       <div class="form-check text-center">
                         <input type="checkbox" class="form-check-input" id="customercheck">
                         <label class="form-check-label" for="customercheck"></label>
                       </div>
                     </th> -->
-                  <th scope="col" sortable="id" (sort)="onSort($event)">Ord.</th>
-                  <th scope="col" sortable="nombres" (sort)="onSort($event)">Nombres</th>
-                  <th scope="col" sortable="apellidos" (sort)="onSort($event)">Apellidos</th>
-                  <th scope="col" sortable="dni" (sort)="onSort($event)">DNI</th>
-                  <th scope="col" sortable="telefono" (sort)="onSort($event)">Teléfono</th>
-                  <th scope="col" sortable="fecha_nacimiento" (sort)="onSort($event)">Fecha de Nacimiento</th>
-                  <!-- <th scope="col" sortable="Encarg. Medición" (sort)="onSort($event)">Encargado Medicion</th> -->
-                  <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
-                  <th>Acción</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let data of customers$ | async; let i = index">
-                  <!--                     <td>
+                <th scope="col" sortable="id" (sort)="onSort($event)">Ord.</th>
+                <th scope="col" sortable="nombres" (sort)="onSort($event)">Nombres</th>
+                <th scope="col" sortable="apellidos" (sort)="onSort($event)">Apellidos</th>
+                <th scope="col" sortable="dni" (sort)="onSort($event)">DNI</th>
+                <th scope="col" sortable="telefono" (sort)="onSort($event)">Teléfono</th>
+                <th scope="col" sortable="fecha_nacimiento" (sort)="onSort($event)">Fecha de Nacimiento</th>
+                <!-- <th scope="col" sortable="Encarg. Medición" (sort)="onSort($event)">Encargado Medicion</th> -->
+                <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of customers$ | async; let i = index">
+                <!--                     <td>
                       <div class="form-check text-center">
                         <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input" />
                         <label class="form-check-label" for="ordercheck{{data.index}}">&nbsp;</label>
                       </div>
                     </td> -->
-                  <td>
-                    <ngb-highlight [result]="i+1" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <td>
-                    <div class="avatar-xs d-inline-block me-2">
-                      <span class="avatar-title rounded-circle bg-light text-body">
-                        {{data.nombres.charAt(0)}}
-                      </span>
-                    </div>
-                    <ngb-highlight [result]="data.nombres" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="data.apellidos" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="data.dni" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="data.telefono" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
-                  <td>
-                    <ngb-highlight [result]="data.fecha_creacion| date: 'dd/MM/yyyy'" [term]="service.searchTerm">
-                    </ngb-highlight>
-                  </td>
-                  <!--                   <td>
+                <td>
+                  <ngb-highlight [result]="i+1" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <div class="avatar-xs d-inline-block me-2">
+                    <span class="avatar-title rounded-circle bg-light text-body">
+                      {{data.nombres.charAt(0)}}
+                    </span>
+                  </div>
+                  <ngb-highlight [result]="data.nombres" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.apellidos" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.dni" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.telefono" [term]="service.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.fecha_creacion| date: 'dd/MM/yyyy'" [term]="service.searchTerm">
+                  </ngb-highlight>
+                </td>
+                <!--                   <td>
                     <ngb-highlight [result]="data.medidas[0].encargado" [term]="service.searchTerm"></ngb-highlight>
                   </td> -->
-                  <!-- <td>
+                <!-- <td>
                       <span class="badge bg-pill bg-soft-success font-size-12"
                         [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
                     </td> -->
-                  <td>
-                    <a (click)="centerModalPrint(centerDataModalMeasurementsCustomer,data)" class="px-2 text-info"
-                      placement="top" ngbTooltip="Receta"><i class="uil uil-file-info-alt font-size-18"></i></a>
-                    <a (click)="centerModal(centerDataModalEditCustomer,data)" class="px-2 text-primary" placement="top"
-                      ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
-                    <a (click)="eliminar(data)" class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
-                        class="uil uil-trash-alt font-size-18" *appRole="role"></i></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </form>
+                <td>
+                  <a (click)="centerModalPrint(centerDataModalMeasurementsCustomer,data)" class="px-2 text-info"
+                    placement="top" ngbTooltip="Receta"><i class="uil uil-file-info-alt font-size-18"></i></a>
+                  <a (click)="centerModal(centerDataModalEditCustomer,data)" class="px-2 text-primary" placement="top"
+                    ngbTooltip="Editar"><i class="uil uil-pen font-size-18"></i></a>
+                  <a (click)="eliminar(data)" class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
+                      class="uil uil-trash-alt font-size-18" *appRole="role"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
       </div>
 
       <div class="row" *ngIf="!mostrarSpinner">
@@ -127,7 +128,8 @@
         <!-- Pagination -->
         <div class="col-12">
           <div class="text-md-end float-md-end pagination-rounded">
-            <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+            <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize"
+              [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
             </ngb-pagination>
           </div>
         </div>
@@ -147,112 +149,118 @@
   </div>
   <div class="modal-body">
     <div class="p-3">
-            <div class="invoice-title">
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="mb-4">
-                    <img src="assets/images/logo-dark.png" alt="logo" height="100" />
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="text-muted text-sm-end">
-                    <!-- <div>
+      <div class="invoice-title">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="mb-4">
+              <img src="assets/images/logo-dark.png" alt="logo" height="100" />
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="text-muted text-sm-end">
+              <!-- <div>
                       <h5 class="font-size-16 mb-1">Nº de Receta:</h5>
                       <p>#MN0131</p>
                     </div> -->
-                    <div class="mt-4">
-                      <h5 class="font-size-16 mb-1">Fecha de la Receta:</h5>
-                      <p>{{this.fecha_actual| date: 'dd/MM/yyyy'}}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <hr class="my-1">
-
-            <div class="row">
-              <div class="col-12">
-                <div class="text-muted">
-                  <h5 class="font-size-16 mb-3">Paciente:</h5>
-                  <h5 class="font-size-15 mb-2">{{userPrint.nombres}} {{userPrint.apellidos}}</h5>
-                  <li class="list-inline-item"><span class="fw-medium">Fecha de Nacimiento : </span>{{userPrint.fecha_nacimiento | date: 'dd/MM/yyyy'}}</li><br>
-                  <li class="list-inline-item"><span class="fw-medium">Telefono: </span>{{userPrint.telefono}}</li>
-                </div>
-              </div>
-            </div>
-            <hr class="my-2">
-            <div class="py-1">
-              <div class="row">
-                <div class="col-lg-9 mb-2">
-                  <h5 class="card-title text-center">Visión de Lejos</h5>
-                  <div class="table-responsive">
-                    <table class="table table-nowrap table-centered table-bordered mb-0">
-                      <thead>
-                        <tr class="table-light">
-                          <th style="width: 70px;">REF.</th>
-                          <th>ESF.</th>
-                          <th>CIL.</th>
-                          <th>EJE.</th>
-                          <th>DIP.</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">O.D.</th>
-                          <td>{{userPrint.medidas[0].od_esferico > 0? '+'+userPrint.medidas[0].od_esferico.toFixed(2): userPrint.medidas[0].od_esferico.toFixed(2) }}</td>
-                          <td>{{userPrint.medidas[0].od_cilindrico  > 0 ? '+'+userPrint.medidas[0].od_cilindrico.toFixed(2) : userPrint.medidas[0].od_cilindrico.toFixed(2) }}</td>
-                          <td>{{userPrint.medidas[0].od_eje}}</td>
-                          <td>{{userPrint.medidas[0].dip}}</td>
-                        </tr>
-
-                        <tr>
-                          <th scope="row">O.I.</th>
-                          <td>{{userPrint.medidas[0].oi_esferico  > 0? '+'+userPrint.medidas[0].oi_esferico.toFixed(2): userPrint.medidas[0].oi_esferico.toFixed(2)}}</td>
-                          <td>{{userPrint.medidas[0].oi_cilindrico  > 0 ? '+'+userPrint.medidas[0].oi_cilindrico.toFixed(2) : userPrint.medidas[0].oi_cilindrico.toFixed(2) }}</td>
-                          <td>{{userPrint.medidas[0].oi_eje}}</td>
-                          <td>{{userPrint.medidas[0].dip}}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="col-lg-3">
-                  <h5 class="card-title text-center">Visión de Cerca</h5>
-                  <div class="table-responsive">
-                    <table class="table table-nowrap table-centered table-bordered mb-0">
-                      <thead>
-                        <tr class="table-light">
-                          <th class="text-center">ADD.</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td class="text-center">{{userPrint.medidas[0].add  > 0 ? '+'+userPrint.medidas[0].add.toFixed(2): userPrint.medidas[0].add.toFixed(2) }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="text-muted">
-                    <div class="mt-4">
-                      <h4 class="card-title">Encargado Medición:</h4>
-                      <p class="card-title-desc">{{userPrint.medidas[0].encargado}}</p>
-                      <h4 class="card-title">Antecedentes:</h4>
-                      <p class="card-title-desc">{{userPrint.antecedentes}}</p>
-                    </div>
-                  </div>
-                </div>
+              <div class="mt-4">
+                <h5 class="font-size-16 mb-1">Fecha de la Receta:</h5>
+                <p>{{this.fecha_actual| date: 'dd/MM/yyyy'}}</p>
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      <hr class="my-1">
+
+      <div class="row">
+        <div class="col-12">
+          <div class="text-muted">
+            <h5 class="font-size-16 mb-3">Paciente:</h5>
+            <h5 class="font-size-15 mb-2">{{userPrint.nombres}} {{userPrint.apellidos}}</h5>
+            <li class="list-inline-item"><span class="fw-medium">Fecha de Nacimiento :
+              </span>{{userPrint.fecha_nacimiento | date: 'dd/MM/yyyy'}}</li><br>
+            <li class="list-inline-item"><span class="fw-medium">Telefono: </span>{{userPrint.telefono}}</li>
+          </div>
+        </div>
+      </div>
+      <hr class="my-2">
+      <div class="py-1">
+        <div class="row">
+          <div class="col-lg-9 mb-2">
+            <h5 class="card-title text-center">Visión de Lejos</h5>
+            <div class="table-responsive">
+              <table class="table table-nowrap table-centered table-bordered mb-0">
+                <thead>
+                  <tr class="table-light">
+                    <th style="width: 70px;">REF.</th>
+                    <th>ESF.</th>
+                    <th>CIL.</th>
+                    <th>EJE.</th>
+                    <th>DIP.</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">O.D.</th>
+                    <td>{{userPrint.medidas[0].od_esferico > 0? '+'+userPrint.medidas[0].od_esferico.toFixed(2):
+                      userPrint.medidas[0].od_esferico.toFixed(2) }}</td>
+                    <td>{{userPrint.medidas[0].od_cilindrico > 0 ? '+'+userPrint.medidas[0].od_cilindrico.toFixed(2) :
+                      userPrint.medidas[0].od_cilindrico.toFixed(2) }}</td>
+                    <td>{{userPrint.medidas[0].od_eje}}</td>
+                    <td>{{userPrint.medidas[0].dip}}</td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">O.I.</th>
+                    <td>{{userPrint.medidas[0].oi_esferico > 0? '+'+userPrint.medidas[0].oi_esferico.toFixed(2):
+                      userPrint.medidas[0].oi_esferico.toFixed(2)}}</td>
+                    <td>{{userPrint.medidas[0].oi_cilindrico > 0 ? '+'+userPrint.medidas[0].oi_cilindrico.toFixed(2) :
+                      userPrint.medidas[0].oi_cilindrico.toFixed(2) }}</td>
+                    <td>{{userPrint.medidas[0].oi_eje}}</td>
+                    <td>{{userPrint.medidas[0].dip}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <h5 class="card-title text-center">Visión de Cerca</h5>
+            <div class="table-responsive">
+              <table class="table table-nowrap table-centered table-bordered mb-0">
+                <thead>
+                  <tr class="table-light">
+                    <th class="text-center">ADD.</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-center">{{userPrint.medidas[0].add > 0 ? '+'+userPrint.medidas[0].add.toFixed(2):
+                      userPrint.medidas[0].add.toFixed(2) }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="text-muted">
+              <div class="mt-4">
+                <h4 class="card-title">Encargado Medición:</h4>
+                <p class="card-title-desc">{{userPrint.medidas[0].encargado}}</p>
+                <h4 class="card-title">Antecedentes:</h4>
+                <p class="card-title-desc">{{userPrint.antecedentes}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="modal-footer">
-<!--     <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light me-1"><i
+    <!--     <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light me-1"><i
       class="fa fa-print"></i></a> -->
     <button class="btn btn-primary" (click)="createPDF()"><i class="uil uil-download-alt me-1"></i> Pdf</button>
     <a (click)="closeEventModalGeneral()" class="btn btn-danger w-md waves-effect waves-light">Cerrar</a>
@@ -389,7 +397,8 @@
         <div class="col-12">
           <div class="mb-3">
             <label class="control-label">Dirección</label>
-            <input class="form-control" placeholder="Dirección completa del cliente" type="text" formControlName="{{this.direccion}}"/>
+            <input class="form-control" placeholder="Dirección completa del cliente" type="text"
+              formControlName="{{this.direccion}}" />
           </div>
         </div>
       </div>
@@ -407,8 +416,8 @@
               <div class="col-4">
                 <div class="mb-3">
                   <label class="control-label">ESF *</label>
-                  <input class="form-control" placeholder="Esfera" type="text" 
-                  formControlName="{{this.od_esferico}}" [ngClass]="{'is-invalid': formEC.campoOdEsferico.invalid && (formEC.campoOdEsferico.dirty || formEC.campoOdEsferico.touched)}" />
+                  <input class="form-control" placeholder="Esfera" type="text" formControlName="{{this.od_esferico}}"
+                    [ngClass]="{'is-invalid': formEC.campoOdEsferico.invalid && (formEC.campoOdEsferico.dirty || formEC.campoOdEsferico.touched)}" />
                   <div class="invalid-feedback">
                     <div *ngIf="formEC.campoOdEsferico.errors?.required">
                       Campo requerido.
@@ -429,28 +438,29 @@
                 <div class="mb-3">
                   <label class="control-label">CYL *</label>
                   <input class="form-control" placeholder="Cilindro" type="text"
-                    formControlName="{{this.od_cilindrico}}" [ngClass]="{'is-invalid': formEC.campoOd_Cilindrico.invalid && (formEC.campoOd_Cilindrico.dirty || formEC.campoOd_Cilindrico.touched)}" />
-                    <div class="invalid-feedback">
-                      <div *ngIf="formEC.campoOd_Cilindrico.errors?.required">
-                        Campo requerido.
-                      </div>
-                      <div *ngIf="formEC.campoOd_Cilindrico.errors?.pattern">
-                        Formato mal escrito: de -20.00 a +20.00
-                      </div>
-                      <div *ngIf="formEC.campoOd_Cilindrico.errors?.min">
-                        Número menor.
-                      </div>
-                      <div *ngIf="formEC.campoOd_Cilindrico.errors?.max">
-                        Número mayor.
-                      </div>
+                    formControlName="{{this.od_cilindrico}}"
+                    [ngClass]="{'is-invalid': formEC.campoOd_Cilindrico.invalid && (formEC.campoOd_Cilindrico.dirty || formEC.campoOd_Cilindrico.touched)}" />
+                  <div class="invalid-feedback">
+                    <div *ngIf="formEC.campoOd_Cilindrico.errors?.required">
+                      Campo requerido.
                     </div>
+                    <div *ngIf="formEC.campoOd_Cilindrico.errors?.pattern">
+                      Formato mal escrito: de -20.00 a +20.00
+                    </div>
+                    <div *ngIf="formEC.campoOd_Cilindrico.errors?.min">
+                      Número menor.
+                    </div>
+                    <div *ngIf="formEC.campoOd_Cilindrico.errors?.max">
+                      Número mayor.
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="col-4">
                 <div class="mb-3">
                   <label class="control-label">EJE *</label>
-                  <input class="form-control" placeholder="Eje" type="text" 
-                  formControlName="{{this.od_eje}}" [ngClass]="{'is-invalid': formEC.campoOdEje.invalid && (formEC.campoOdEje.dirty || formEC.campoOdEje.touched)}" />
+                  <input class="form-control" placeholder="Eje" type="text" formControlName="{{this.od_eje}}"
+                    [ngClass]="{'is-invalid': formEC.campoOdEje.invalid && (formEC.campoOdEje.dirty || formEC.campoOdEje.touched)}" />
                   <div class="invalid-feedback">
                     <div *ngIf="formEC.campoOdEje.errors?.required">
                       Campo requerido.
@@ -474,8 +484,8 @@
               <div class="col-4">
                 <div class="mb-3">
                   <label class="control-label">ESF *</label>
-                  <input class="form-control" placeholder="Esfera" type="text" 
-                  formControlName="{{this.oi_esferico}}" [ngClass]="{'is-invalid': formEC.campoOiEsferico.invalid && (formEC.campoOiEsferico.dirty || formEC.campoOiEsferico.touched)}" />
+                  <input class="form-control" placeholder="Esfera" type="text" formControlName="{{this.oi_esferico}}"
+                    [ngClass]="{'is-invalid': formEC.campoOiEsferico.invalid && (formEC.campoOiEsferico.dirty || formEC.campoOiEsferico.touched)}" />
                   <div class="invalid-feedback">
                     <div *ngIf="formEC.campoOiEsferico.errors?.required">
                       Campo requerido.
@@ -496,28 +506,29 @@
                 <div class="mb-3">
                   <label class="control-label">CYL *</label>
                   <input class="form-control" placeholder="Cilindro" type="text"
-                    formControlName="{{this.oi_cilindrico}}" [ngClass]="{'is-invalid': formEC.campoOiCilindrico.invalid && (formEC.campoOiCilindrico.dirty || formEC.campoOiCilindrico.touched)}" />
-                    <div class="invalid-feedback">
-                      <div *ngIf="formEC.campoOiCilindrico.errors?.required">
-                        Campo requerido.
-                      </div>
-                      <div *ngIf="formEC.campoOiCilindrico.errors?.pattern">
-                        Formato mal escrito: de -20.00 a +20.00
-                      </div>
-                      <div *ngIf="formEC.campoOiCilindrico.errors?.min">
-                        Número menor.
-                      </div>
-                      <div *ngIf="formEC.campoOiCilindrico.errors?.max">
-                        Número mayor.
-                      </div>
+                    formControlName="{{this.oi_cilindrico}}"
+                    [ngClass]="{'is-invalid': formEC.campoOiCilindrico.invalid && (formEC.campoOiCilindrico.dirty || formEC.campoOiCilindrico.touched)}" />
+                  <div class="invalid-feedback">
+                    <div *ngIf="formEC.campoOiCilindrico.errors?.required">
+                      Campo requerido.
                     </div>
+                    <div *ngIf="formEC.campoOiCilindrico.errors?.pattern">
+                      Formato mal escrito: de -20.00 a +20.00
+                    </div>
+                    <div *ngIf="formEC.campoOiCilindrico.errors?.min">
+                      Número menor.
+                    </div>
+                    <div *ngIf="formEC.campoOiCilindrico.errors?.max">
+                      Número mayor.
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="col-4">
                 <div class="mb-3">
                   <label class="control-label">EJE *</label>
-                  <input class="form-control" placeholder="Eje" type="text" 
-                  formControlName="{{this.oi_eje}}" [ngClass]="{'is-invalid': formEC.campoOiEje.invalid && (formEC.campoOiEje.dirty || formEC.campoOiEje.touched)}" />
+                  <input class="form-control" placeholder="Eje" type="text" formControlName="{{this.oi_eje}}"
+                    [ngClass]="{'is-invalid': formEC.campoOiEje.invalid && (formEC.campoOiEje.dirty || formEC.campoOiEje.touched)}" />
                   <div class="invalid-feedback">
                     <div *ngIf="formEC.campoOiEje.errors?.required">
                       Campo requerido.
@@ -539,26 +550,26 @@
         <div class="col-md-3">
           <div class="mb-3">
             <label class="control-label">DIP *</label>
-            <input class="form-control" placeholder="Distancia Interpupilar" type="text"
-              formControlName="{{this.dip}}" [ngClass]="{'is-invalid': formEC.campoDip.invalid && (formEC.campoDip.dirty || formEC.campoDip.touched)}" />
-              <div class="invalid-feedback">
-                <div *ngIf="formEC.campoDip.errors?.required">
-                  Campo requerido.
-                </div>
-                <div *ngIf="formEC.campoDip.errors?.min">
-                  Número menor, mínimo permitido 0.
-                </div>
-                <div *ngIf="formEC.campoDip.errors?.max">
-                  Número mayor, máximo permitido 80.
-                </div>
+            <input class="form-control" placeholder="Distancia Interpupilar" type="text" formControlName="{{this.dip}}"
+              [ngClass]="{'is-invalid': formEC.campoDip.invalid && (formEC.campoDip.dirty || formEC.campoDip.touched)}" />
+            <div class="invalid-feedback">
+              <div *ngIf="formEC.campoDip.errors?.required">
+                Campo requerido.
               </div>
+              <div *ngIf="formEC.campoDip.errors?.min">
+                Número menor, mínimo permitido 0.
+              </div>
+              <div *ngIf="formEC.campoDip.errors?.max">
+                Número mayor, máximo permitido 80.
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-md-3">
           <div class="mb-3">
             <label class="control-label">ADD</label>
-            <input class="form-control" placeholder="Adición" type="text" 
-            formControlName="{{this.add}}" [ngClass]="{'is-invalid': formEC.campoAdd.invalid && (formEC.campoAdd.dirty || formEC.campoAdd.touched)}" />
+            <input class="form-control" placeholder="Adición" type="text" formControlName="{{this.add}}"
+              [ngClass]="{'is-invalid': formEC.campoAdd.invalid && (formEC.campoAdd.dirty || formEC.campoAdd.touched)}" />
             <div class="invalid-feedback">
               <div *ngIf="formEC.campoAdd.errors?.pattern">
                 Formato mal escrito: de +0.00 a +10.00
@@ -596,8 +607,7 @@
         <div class="col-12">
           <div class="mb-4">
             <label class="form-label" for="billing-antecedentes">Antecedentes</label>
-            <textarea class="form-control" id="billing-antecedentes" rows="3"
-              placeholder="Antecedentes del cliente"
+            <textarea class="form-control" id="billing-antecedentes" rows="3" placeholder="Antecedentes del cliente"
               formControlName="{{this.antecedentes}}"></textarea>
           </div>
         </div>
