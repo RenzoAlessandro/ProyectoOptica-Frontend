@@ -95,7 +95,6 @@ export class ListCashComponent implements OnInit {
     this.reporteCaja.egreso_total = data.egreso_total;
     this.reporteCaja.ingresos = data.caja.filter(el => (el.egreso == false));
     this.reporteCaja.egresos = data.caja.filter(el => (el.egreso == true));
-
     this.reporteCaja.ingresos.forEach(element => {
       if (element.metodo_pago == 'Físico') {
         this.reporteCaja.ingresos_fisicos += element.monto

@@ -28,6 +28,10 @@ export class ClienteService {
     return this.http.get<any>(environment.urlBackend+'getAllClientsMinified');
   }
 
+  getAllClientsforSalebySede(idSede: string): Observable<any> {
+    return this.http.get<any>(environment.urlBackend+'getAllClientsBySedeMinified/' + idSede);
+  }
+
   updateClient(idClient:string, customer:CustomersModel): Observable<any> {
     return this.http.put<any>(environment.urlBackend+'editClientById/'+idClient, customer);
   }

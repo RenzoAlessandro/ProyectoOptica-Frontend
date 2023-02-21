@@ -44,6 +44,13 @@
             </form>
           </div>
 
+          <div class="col-12 col-md-3 d-grid" *appRole="role">
+            <div class="btn-group mb-2">
+              <input type="button" class="btn btn-primary btn-block" value="Descargar Archivo"
+                (click)="exportarVentas()" [disabled]="">
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

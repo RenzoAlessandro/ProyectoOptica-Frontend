@@ -17,13 +17,14 @@ import { NgbModal, NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap'
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
+import saveFile from 'save-as-file';
 import { getBase64ImageFromURL, round } from 'src/utils/functions';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { CustomersModel } from 'src/models/customer';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { TipoVentaModel } from 'src/models/tipo_venta';
 import { SedesModel } from 'src/models/sedes';
+import * as XLSX from 'xlsx';
 
 
 @Component({
@@ -85,7 +86,7 @@ export class ListSalesComponent implements OnInit {
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
   decimalPattern = /^\d+(\.\d{1,2})?$/;
-
+  excelVentas : Array<VentasModel> = [];
   constructor(
     public service: TransactionService,
     private fb: FormBuilder,
@@ -98,6 +99,9 @@ export class ListSalesComponent implements OnInit {
     this.total$ = service.total$;
     service.mostrar.subscribe(res=>{
       this.mostrarSpinner = res;
+    })
+    this.transactions$.subscribe(res =>{
+      this.excelVentas = res;
     })
   }
 
@@ -623,5 +627,37 @@ export class ListSalesComponent implements OnInit {
     this.ventasService.getVentasbySede(sede).subscribe(res=>{
       this.service.updateTable(res)
     })
+  }
+
+  exportarVentas() {
+    if (this.formSedes.valid) {
+      let data = [];
+      const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+      const EXCEL_EXTENSION = '.xlsx';
+      data = this.excelVentas.map((ventas:VentasModel) => {
+        return {
+          "FECHA": new Date(ventas.fecha_creacion_venta).toLocaleDateString('en-GB') ,
+          "NOMBRE CLIENTE": ventas.nombre_cliente,
+          "TOTAL": ventas.tipo_venta[0].precio_total,
+          "VENDEDOR": ventas.nombre_vendedor,
+          "FORMA DE PAGO": ventas.tipo_venta[0].forma_pago,
+          "ESTADO": ventas.tipo_venta[0].deuda > 0? "DEUDA":"PAGADO"
+        }
+      }); 
+      const worksheet = XLSX.utils.json_to_sheet(data);
+          const workbook = {
+            Sheets: {
+              'hoja': worksheet
+            },
+            SheetNames: ['hoja']
+          }
+
+          const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+          const blobData = new Blob([excelBuffer], { type: EXCEL_TYPE });
+          const nombreSede = this.listSedes.find(res => (res.id_sede == this.fS(this.nombre_sedes).value));
+          saveFile(blobData, 'ventas' + '_' + nombreSede.nombre_sede);
+    } else {
+      return;
+    }
   }
 }
