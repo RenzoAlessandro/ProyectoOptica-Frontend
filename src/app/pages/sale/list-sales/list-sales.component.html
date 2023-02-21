@@ -14,27 +14,10 @@
         </div>
       </div>
     </div>
-
     <div class="col-md-6 mb-2">
       <div>
         <div class="btn-toolbar" role="toolbar">
-
           <div class="col-12 col-md-6 d-grid mb-2 chat-search-box px-1" *appRole="role">
-            <div class="position-relative">
-              <form [formGroup]="formDateRange">
-                <div class="input-daterange input-group">
-                  <input type="date" class="form-control" id="billing-fechanacimiento"
-                  placeholder="Seleccione la fecha" formControlName="{{this.fechaDesde}}" />
-                  <input type="date" class="form-control" id="billing-fechanacimiento"
-                  placeholder="Seleccione la fecha" formControlName="{{this.fechaHasta}}" />
-                  <button type="button" class="btn btn-primary" (click)="filterDateRange()"><i
-                      class="mdi mdi-filter-variant"></i></button>
-                </div>
-              </form>
-            </div>
-          </div>
-
-          <div class="col-12 col-md-6 d-grid" *appRole="role">
             <form [formGroup]="formSedes">
               <div ngbDropdown>
                 <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
@@ -43,31 +26,33 @@
               </div>
             </form>
           </div>
-
-          <div class="col-12 col-md-3 d-grid" *appRole="role">
+          <div class="col-12 col-md-6 d-grid" *appRole="role">
             <div class="btn-group mb-2">
               <input type="button" class="btn btn-primary btn-block" value="Descargar Archivo"
                 (click)="exportarVentas()" [disabled]="this.excelVentas.length == 0">
             </div>
           </div>
-
         </div>
       </div>
     </div>
   </div>
 
 <div class="row md-2">
-<!--   <div class="col-sm-6 col-md-6">
-    <div class="dataTables_length">
-      <label class="d-inline-flex align-items-center">Ventas<select name="sales"
-          class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
-          <option [ngValue]="1">pagados</option>
-          <option [ngValue]="2">deudas</option>
-        </select> entradas
-      </label>
+  <div class="col-md-6 d-grid mb-2 chat-search-box px-1" *appRole="role">
+    <div class="position-relative">
+      <form [formGroup]="formDateRange">
+        <div class="input-daterange input-group">
+          <input type="date" class="form-control" id="billing-fechanacimiento"
+          placeholder="Seleccione la fecha" formControlName="{{this.fechaDesde}}" />
+          <input type="date" class="form-control" id="billing-fechanacimiento"
+          placeholder="Seleccione la fecha" formControlName="{{this.fechaHasta}}" />
+          <button type="button" class="btn btn-primary" (click)="filterDateRange()"><i
+              class="mdi mdi-filter-variant"></i></button>
+        </div>
+      </form>
     </div>
-  </div> -->
-  <div class="col-sm-12 col-md-12">
+  </div>
+  <div class="col-md-6">
     <div class="dataTables_length text-md-end"><label class="d-inline-flex align-items-center">Mostrar<select name="pageSize"
           [(ngModel)]="service.pageSize"
           class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
