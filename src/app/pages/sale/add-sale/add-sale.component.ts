@@ -55,9 +55,9 @@ export class AddSaleComponent implements OnInit {
   observaciones_Credito: string = "campoObservacionesCredito";
   metodoPagoCredito: string = "campoMetodoPagoCredito";
 
-  formEditar: FormGroup;
+  formEditarPrecio: FormGroup;
+  submitted_EditarPrecio = false;
   precioOriginal_Editar: string = "campoPrecioOriginalEditar";
-  fechaCambio_Editar: string = "campoFechaCambioEditar";
   nuevoPrecio_Editar: string = "campoNuevoPrecioEditar";
 
 
@@ -109,7 +109,56 @@ export class AddSaleComponent implements OnInit {
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Venta' }, { label: 'Realizar Venta', active: true }];
     this.getListMonturas();
+    this.crearFormularioEditarPrecio();
+  }
+  crearFormularioEditarPrecio() {
+    this.formEditarPrecio = this.fb.group({
+      [this.precioOriginal_Editar]: [{ value: "S/ 000.00", disabled: true }],
+      [this.nuevoPrecio_Editar]: [null, [
+        Validators.required,
+        Validators.pattern(this.decimalPattern),
+      ]],
+    })
+  }
 
+  crearFormulario() {
+    this.formContado = this.fb.group({
+      [this.cantidadRecibida_Contado]: [null, [
+        Validators.required,
+        Validators.pattern(this.decimalPattern),
+      ]],
+      [this.fechaVenta_Contado]: [{ value: null, disabled: true }],
+      [this.usuario_Contado]: [null],
+
+      [this.precioTotal_Contado]: [{ value: null, disabled: true }],
+      [this.pago_Contado]: [{ value: null, disabled: true }],
+      [this.cambio_Contado]: [{ value: null, disabled: true }],
+      [this.observaciones_Contado]: [null],
+      [this.metodoPagoContado]: [null, [
+        Validators.required
+      ]],
+      [this.nombreContado]: [null, [
+        Validators.required
+      ]]
+    })
+
+    this.formCredito = this.fb.group({
+      [this.cantidadRecibida_Credito]: [null, [
+        Validators.required,
+        Validators.pattern(this.decimalPattern),
+      ]],
+      [this.fechaVenta_Credito]: [{ value: null, disabled: true }],
+      [this.usuario_Credito]: [null],
+      [this.precioTotal_Credito]: [{ value: null, disabled: true }],
+      [this.pago_Credito]: [{ value: null, disabled: true }],
+      [this.cambio_Credito]: [{ value: null, disabled: true }],
+      [this.observaciones_Credito]: [null],
+      [this.metodoPagoCredito]: [null, [
+        Validators.required
+      ]],
+      [this.nombreCredito]: [null, [
+        Validators.required]],
+    })
   }
 
   onSort({ column, direction }: SortEvent) {
@@ -134,7 +183,7 @@ export class AddSaleComponent implements OnInit {
     this.fechaVenta = new Date(Date.now());
     this.modalService.open(centerDataModal, { centered: true, windowClass: 'modal-holder' });
     this.f(this.fechaVenta_Contado).setValue(this.fechaVenta.toLocaleDateString());
-    this.f(this.precioTotal_Contado).setValue(this.precioTotalVenta.toFixed(2)  );
+    this.f(this.precioTotal_Contado).setValue(this.precioTotalVenta.toFixed(2));
     this.g(this.fechaVenta_Credito).setValue(this.fechaVenta.toLocaleDateString());
     this.g(this.precioTotal_Credito).setValue(this.precioTotalVenta.toFixed(2));
 
@@ -146,6 +195,14 @@ export class AddSaleComponent implements OnInit {
   scrollModal(scrollDataModal: any) {
     this.modalService.open(scrollDataModal, { size: 'xl', scrollable: true });
   }
+  /**
+   * Open small modal
+   * @param DataModalEditarPrecio small modal data
+   */
+  centerModalEditarPrecio(DataModalEditarPrecio: any) {
+    this.modalService.open(DataModalEditarPrecio, { scrollable: true, size: 'md', windowClass: 'modal-holder', centered: true });
+  }
+
   /**
    * Delete event
    */
@@ -187,23 +244,23 @@ export class AddSaleComponent implements OnInit {
     ]
   };
   getListMonturas() {
-     Sweetalert("loading", "Cargando...");
-     this.productosService.getMonturasforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
+    Sweetalert("loading", "Cargando...");
+    this.productosService.getMonturasforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
       this.listAllProducts = res;
       this.getListAccesorios()
-   });
+    });
   }
 
   getListAccesorios() {
     this.productosService.getAccesoriosforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
-      this.listAllProducts = [...res,...this.listAllProducts];
+      this.listAllProducts = [...res, ...this.listAllProducts];
       this.getListLunas()
     });
   }
 
   getListLunas() {
     this.productosService.getLunasforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
-      this.listAllProducts = [...res,...this.listAllProducts];
+      this.listAllProducts = [...res, ...this.listAllProducts];
       Sweetalert("close", null);
     });
   }
@@ -262,9 +319,9 @@ export class AddSaleComponent implements OnInit {
           break;
       }
       this.estadoBotonGuardar();
-      
+
     } else {
-      if (productExistInCart.cant_vendida +1 > productExistInCart.cantidad) {
+      if (productExistInCart.cant_vendida + 1 > productExistInCart.cantidad) {
         Sweetalert("error", "No se puede agregar más productos del stock");
         this.autocomplete.clear();
         return;
@@ -272,7 +329,7 @@ export class AddSaleComponent implements OnInit {
         productExistInCart.cant_vendida += 1;
         this.autocomplete.clear();
       }
-      
+
     }
   }
 
@@ -283,7 +340,7 @@ export class AddSaleComponent implements OnInit {
     } else {
       this.g(this.usuario_Credito).setValue(item.id_cliente);
     }
-    this.venta.nombre_cliente = item.nombres + ' '+ item.apellidos;
+    this.venta.nombre_cliente = item.nombres + ' ' + item.apellidos;
   }
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -297,13 +354,13 @@ export class AddSaleComponent implements OnInit {
   /** Gets the total cost of all products. */
   getTotalCost() {
     this.precioTotalVenta = this.products.map(t => t.precio).reduce((acc, value) => acc + value, 0);
-    this.precioTotalVenta = round(this.precioTotalVenta,1)
+    this.precioTotalVenta = round(this.precioTotalVenta, 1)
     return this.precioTotalVenta;
   }
 
   /** actualiza el precio por cantidad */
   addQuantityProduct(product, i) {
-    if (this.products[i].cant_vendida +1 > this.products[i].cantidad) {
+    if (this.products[i].cant_vendida + 1 > this.products[i].cantidad) {
       Sweetalert("error", "No se puede agregar más productos del stock");
       return;
     } else {
@@ -322,7 +379,7 @@ export class AddSaleComponent implements OnInit {
           break;
       }
     }
-    
+
 
   }
 
@@ -377,45 +434,13 @@ export class AddSaleComponent implements OnInit {
   }
 
 
-  crearFormulario() {
-    this.formContado = this.fb.group({
-      [this.cantidadRecibida_Contado]: [null, [
-        Validators.required,
-        Validators.pattern(this.decimalPattern),
-      ]],
-      [this.fechaVenta_Contado]: [{ value: null, disabled: true }],
-      [this.usuario_Contado]: [null],
 
-      [this.precioTotal_Contado]: [{ value: null, disabled: true }],
-      [this.pago_Contado]: [{ value: null, disabled: true }],
-      [this.cambio_Contado]: [{ value: null, disabled: true }],
-      [this.observaciones_Contado]: [null],
-      [this.metodoPagoContado]: [null, [
-        Validators.required
-      ]],
-      [this.nombreContado]: [null, [
-        Validators.required
-      ]]
-    })
 
-    this.formCredito = this.fb.group({
-      [this.cantidadRecibida_Credito]: [null, [
-        Validators.required,
-        Validators.pattern(this.decimalPattern),
-      ]],
-      [this.fechaVenta_Credito]: [{ value: null, disabled: true }],
-      [this.usuario_Credito]: [null],
-      [this.precioTotal_Credito]: [{ value: null, disabled: true }],
-      [this.pago_Credito]: [{ value: null, disabled: true }],
-      [this.cambio_Credito]: [{ value: null, disabled: true }],
-      [this.observaciones_Credito]: [null],
-      [this.metodoPagoCredito]: [null, [
-        Validators.required
-      ]],
-      [this.nombreCredito]: [null, [
-        Validators.required]],
-    })
-
+  /**
+ * Returns form Cliente
+ */
+  get formEP() {
+    return this.formEditarPrecio.controls;
   }
 
   f(campo: any) {
@@ -451,7 +476,7 @@ export class AddSaleComponent implements OnInit {
       if (this.selectorPago == "contado") {
         this.tipoPago.observaciones = this.f(this.observaciones_Contado).value;
         this.tipoPago.cantidad_recibida = Number(this.f(this.cantidadRecibida_Contado).value);
-        if ( this.f(this.cantidadRecibida_Contado).value - this.precioTotalVenta  < 0) {
+        if (this.f(this.cantidadRecibida_Contado).value - this.precioTotalVenta < 0) {
           Sweetalert("error", "El pago no puede ser menor al valor de la compra, se sugiere compra al crédito");
           return
         } else {
@@ -461,18 +486,18 @@ export class AddSaleComponent implements OnInit {
           this.venta.id_cliente = this.f(this.usuario_Contado).value;
         }
       } else {
-        if ( this.precioTotalVenta - this.g(this.cantidadRecibida_Credito).value  < 0) {
+        if (this.precioTotalVenta - this.g(this.cantidadRecibida_Credito).value < 0) {
           Sweetalert("error", "El pago no puede ser mayor al valor de la compra, se sugiere compra al contado");
           return
         } else {
           this.tipoPago.observaciones = this.g(this.observaciones_Credito).value;
-        this.tipoPago.cantidad_recibida = Number(this.g(this.cantidadRecibida_Credito).value);
-        this.tipoPago.deuda = round(this.precioTotalVenta - this.g(this.cantidadRecibida_Credito).value,1);
-        this.tipoPago.metodo_pago = this.g(this.metodoPagoCredito).value;
-        this.tipoPago.cuotas = String(this.tickValue);
-        this.venta.id_cliente = this.g(this.usuario_Credito).value;
+          this.tipoPago.cantidad_recibida = Number(this.g(this.cantidadRecibida_Credito).value);
+          this.tipoPago.deuda = round(this.precioTotalVenta - this.g(this.cantidadRecibida_Credito).value, 1);
+          this.tipoPago.metodo_pago = this.g(this.metodoPagoCredito).value;
+          this.tipoPago.cuotas = String(this.tickValue);
+          this.venta.id_cliente = this.g(this.usuario_Credito).value;
         }
-        
+
       }
       this.venta.id_vendedor = this.usuarioService.getUser().id_usuario;
       this.venta.nombre_vendedor = this.usuarioService.getUser().nombres + ' ' + this.usuarioService.getUser().apellidos;
@@ -512,7 +537,7 @@ export class AddSaleComponent implements OnInit {
         if (result.value) {
           Sweetalert("loading", "Cargando...");
           this.productosService.createVenta(this.venta).subscribe(res => {
-            this.createPDF(this.venta,this.customer);
+            this.createPDF(this.venta, this.customer);
             Sweetalert("close", null);
             Sweetalert("success", "Venta realizada");
             this.modalService.dismissAll();
@@ -523,12 +548,12 @@ export class AddSaleComponent implements OnInit {
             (error) => {
               Sweetalert("close", null);
               if (error.status !== 404) {
-                
+
                 Sweetalert("error", "Error en la conexión");
               }
-            }); 
+            });
         } else if (
-          
+
           /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
         ) {
@@ -538,13 +563,12 @@ export class AddSaleComponent implements OnInit {
             'La venta no se ha realizado',
             'error'
           );
-          
+
         }
       });
   }
 
-
-  async createPDF(venta:VentasModel, cliente:any){
+  async createPDF(venta: VentasModel, cliente: any) {
 
     var fonts = {
       Roboto: {
@@ -556,14 +580,14 @@ export class AddSaleComponent implements OnInit {
     };
 
     var estadoBoleta = "Pagado"
-    var fecha_hoy = new Date (Date.now()).toLocaleDateString('en-GB');
-    var fecha_entrega = new Date (Date.now()).toLocaleDateString("es-CL", {
+    var fecha_hoy = new Date(Date.now()).toLocaleDateString('en-GB');
+    var fecha_entrega = new Date(Date.now()).toLocaleDateString("es-CL", {
       weekday: "long", // narrow, short
       year: "numeric", // 2-digit
       month: "long", // numeric, 2-digit, narrow, long
       day: "numeric" // 2-digit
     });
-    var hora_entrega = new Date (Date.now()).toLocaleTimeString("es-CL", {
+    var hora_entrega = new Date(Date.now()).toLocaleTimeString("es-CL", {
       timeZone: "America/Bogota",
       hour12: true, // false
       hour: "numeric", // 2-digit
@@ -578,7 +602,7 @@ export class AddSaleComponent implements OnInit {
     var felefonoEmpresa = '955 739 464';
 
     var nombresCliente = cliente.nombres + ' ' + cliente.apellidos;
-    var fnacimientoCliente = new Date (cliente.fecha_nacimiento).toLocaleDateString('en-GB');
+    var fnacimientoCliente = new Date(cliente.fecha_nacimiento).toLocaleDateString('en-GB');
     //var direccionCliente = 'Calle';
     var correoCliente = cliente.email;
     var telefonoCliente = cliente.telefono;
@@ -586,34 +610,34 @@ export class AddSaleComponent implements OnInit {
     var externalDataRetrievedFromServer = [];
     var peruIGV = 0.18;
 
-    function buildData(){
+    function buildData() {
       var numOrdenItems = 1;
       var totalMonturas, totallunas, totalAccesorios = 0;
       var subTotal = 0;
 
       // Monturas
-      if (venta.list_monturas.length > 0){
-        for (var i = 0; i < venta.list_monturas.length; i++){
+      if (venta.list_monturas.length > 0) {
+        for (var i = 0; i < venta.list_monturas.length; i++) {
           numOrdenItems += 1;
           totalMonturas = venta.list_monturas[i].precio_montura_v * venta.list_monturas[i].cant_vendida;
           subTotal += totalMonturas;
-          externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_monturas[i].marca, precio: venta.list_monturas[i].precio_montura_v, cantidad: venta.list_monturas[i].cant_vendida, total: totalMonturas},) // Añade
+          externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_monturas[i].marca, precio: venta.list_monturas[i].precio_montura_v, cantidad: venta.list_monturas[i].cant_vendida, total: totalMonturas },) // Añade
         }
       }
 
       // Lunas
-      if (venta.list_lunas.length > 0){
-        for (var i = 0; i < venta.list_lunas.length; i++){
+      if (venta.list_lunas.length > 0) {
+        for (var i = 0; i < venta.list_lunas.length; i++) {
           numOrdenItems += 1;
-          totallunas =  venta.list_lunas[i].precio_luna_v * venta.list_lunas[i].cant_vendida;
+          totallunas = venta.list_lunas[i].precio_luna_v * venta.list_lunas[i].cant_vendida;
           subTotal += totallunas;
           externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_lunas[i].material, precio: venta.list_lunas[i].precio_luna_v, cantidad: venta.list_lunas[i].cant_vendida, total: totallunas },) // Añade
         }
       }
 
       // Accesorios
-      if (venta.list_accesorios.length > 0){
-        for (var i = 0; i < venta.list_accesorios.length; i++){
+      if (venta.list_accesorios.length > 0) {
+        for (var i = 0; i < venta.list_accesorios.length; i++) {
           numOrdenItems += 1;
           totalAccesorios = venta.list_accesorios[i].precio_accesorio_v * venta.list_accesorios[i].cant_vendida;
           subTotal += totalAccesorios;
@@ -625,18 +649,18 @@ export class AddSaleComponent implements OnInit {
 
     function buildTableBody(data, columns, subtotal) {
       var body = [];
-  
+
       body.push([{ text: 'No.', style: 'tableHeader', alignment: 'center' }, { text: 'Detalle', style: 'tableHeader', alignment: 'center' }, { text: 'Precio', style: 'tableHeader', alignment: 'center' }, { text: 'Cantidad', style: 'tableHeader', alignment: 'center' }, { text: 'Total', style: 'tableHeader', alignment: 'center' }]);
-  
-      data.forEach(function(row) {
-          var dataRow = [];
-  
-          columns.forEach(function(column) {
-            //dataRow.push({ text: row[column].toString(), style: 'cell', alignment: 'center' },);
-            dataRow.push(row[column].toString());
-          })
-        
-          body.push(dataRow);
+
+      data.forEach(function (row) {
+        var dataRow = [];
+
+        columns.forEach(function (column) {
+          //dataRow.push({ text: row[column].toString(), style: 'cell', alignment: 'center' },);
+          dataRow.push(row[column].toString());
+        })
+
+        body.push(dataRow);
       });
 
       /* var totalIGV = round(subtotal * peruIGV, 2);
@@ -646,8 +670,8 @@ export class AddSaleComponent implements OnInit {
 
       /* body.push([{ text: ' ', rowSpan: 3, colSpan: 2}, { }, {text: 'Sub. Total:', style: 'tableHeader', alignment: 'right', colSpan: 2 }, { }, { text: simboloNuevoSol + subtotal, style: 'contenido', alignment: 'right' }]);
       body.push([{ }, { }, { text: 'IGV (18%) :', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol + totalIGV, style: 'contenido', alignment: 'right' }]); */
-      body.push([{ text: '', border: [false, false, false, false], colSpan: 2 }, {  }, { text: 'Total:', style: 'tableHeader', alignment: 'right', colSpan: 2 }, {  }, { text: simboloNuevoSol + total, style: 'contenido', alignment: 'right' }]);
-  
+      body.push([{ text: '', border: [false, false, false, false], colSpan: 2 }, {}, { text: 'Total:', style: 'tableHeader', alignment: 'right', colSpan: 2 }, {}, { text: simboloNuevoSol + total, style: 'contenido', alignment: 'right' }]);
+
       return body;
     }
 
@@ -656,12 +680,12 @@ export class AddSaleComponent implements OnInit {
       return {
         style: 'tableMargin',
         color: '#444',
-          table: {
-            widths: [25, '*', 63, 60, 63],
-            heights: [20, 20 , 20, 20],
-            headerRows: 1,
-            body: buildTableBody(data, columns, subtotal)
-          }
+        table: {
+          widths: [25, '*', 63, 60, 63],
+          heights: [20, 20, 20, 20],
+          headerRows: 1,
+          body: buildTableBody(data, columns, subtotal)
+        }
       };
     }
 
@@ -670,12 +694,12 @@ export class AddSaleComponent implements OnInit {
         text: estado, background: 'yellow'
       };
     }
-    
-    
+
+
     const pdfDefinition: any = {
       pageSize: 'A4',
       //pageOrientation: 'landscape',
-      pageMargins: [ 40, 60, 40, 60 ],
+      pageMargins: [40, 60, 40, 60],
       content: [
         {
           style: 'tableMargin',
@@ -684,9 +708,9 @@ export class AddSaleComponent implements OnInit {
             body: [
               /* [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150 }, { text: 'Nº de Boleta: ' + numeroBoleta, style: 'tableHeader', rowSpan: 4, alignment: 'right' }], */
               [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150 }, { text: '', style: 'tableHeader', rowSpan: 3, alignment: 'right' }],
-              [{ text: direccionEmpresa, style: 'datosempresa'  }, {}],
-              [{ text: correoEmpresa, style: 'datosempresa'  }, {}],
-              [{ text: felefonoEmpresa, style: 'datosempresa'  }, {}],
+              [{ text: direccionEmpresa, style: 'datosempresa' }, {}],
+              [{ text: correoEmpresa, style: 'datosempresa' }, {}],
+              [{ text: felefonoEmpresa, style: 'datosempresa' }, {}],
             ]
           },
           layout: 'noBorders'
@@ -700,10 +724,10 @@ export class AddSaleComponent implements OnInit {
               /* [{ text: 'Facturado a:', style: 'tableHeader' }, { text: 'Nº de Boleta:', style: 'tableHeader', alignment: 'right' }],
               [{ text: nombresCliente, style: 'subtitulo' }, {text: numeroBoleta, style: 'contenido', alignment: 'right'}], */
               [{ text: 'Facturado a:', style: 'tableHeader' }, { text: 'Fecha de la Boleta:', style: 'tableHeader', alignment: 'right' }],
-              [{ text: nombresCliente, style: 'subtitulo' }, {text: fecha_hoy, style: 'contenido', alignment: 'right'}],
-              [{ text: 'Fecha de Nacimiento: '+fnacimientoCliente, style: 'contenido'  }, {text: '', style: 'tableHeader', alignment: 'right'}],
-              [{ text: 'Correo: '+correoCliente, style: 'contenido' }, {text: '', style: 'contenido', alignment: 'right'}],
-              [{ text: 'Telefono: '+telefonoCliente, style: 'contenido'  }, { }],
+              [{ text: nombresCliente, style: 'subtitulo' }, { text: fecha_hoy, style: 'contenido', alignment: 'right' }],
+              [{ text: 'Fecha de Nacimiento: ' + fnacimientoCliente, style: 'contenido' }, { text: '', style: 'tableHeader', alignment: 'right' }],
+              [{ text: 'Correo: ' + correoCliente, style: 'contenido' }, { text: '', style: 'contenido', alignment: 'right' }],
+              [{ text: 'Telefono: ' + telefonoCliente, style: 'contenido' }, {}],
             ]
           },
           layout: 'noBorders'
@@ -715,17 +739,17 @@ export class AddSaleComponent implements OnInit {
 
         {
           text: [,
-            { text: 'Fecha de Entrega: ', style: 'textBold'},
-            fecha_entrega, 
-            '   ', 
-            { text: 'Hora: ', style: 'textBold'},
+            { text: 'Fecha de Entrega: ', style: 'textBold' },
+            fecha_entrega,
+            '   ',
+            { text: 'Hora: ', style: 'textBold' },
             hora_entrega,
           ]
         },
 
         { text: 'Nota:', style: 'subtitulo2' },
-        { text: 'Todo trabajo se efectuara con un adelanto del 50%.', style: 'contenido2', alignment: 'justify'},
-        { text: 'La empresa no se responsabiliza de los pedidos no recogidos después de un mes.', style: 'contenido2', alignment: 'justify'},
+        { text: 'Todo trabajo se efectuara con un adelanto del 50%.', style: 'contenido2', alignment: 'justify' },
+        { text: 'La empresa no se responsabiliza de los pedidos no recogidos después de un mes.', style: 'contenido2', alignment: 'justify' },
       ],
       styles: {
         subtitulo: {

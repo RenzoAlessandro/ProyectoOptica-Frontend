@@ -93,8 +93,8 @@
                           class="uil uil-plus-circle font-size-18" name="quantity" ngDefaultControl
                           [(ngModel)]="item.num" min="0"
                           (click)="addQuantityProduct($event,i)"></i></a>
-                      <!-- <a href="javascript:void(0);" class="px-2 text-primary" placement="top" ngbTooltip="Editar"><i
-                          class="uil uil-pen font-size-18"></i></a> -->
+                      <a (click)="centerModalEditarPrecio(centerDataModalEditar)" class="px-2 text-primary" placement="top" ngbTooltip="Editar precio"><i
+                          class="uil uil-pen font-size-18"></i></a>
                       <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
                           class="uil uil-trash-alt font-size-18" (click)="removeCartProduct($event,i)"></i></a>
                     </td>
@@ -120,59 +120,49 @@
 <!-- Editar Precio - Center Modal -->
 <ng-template #centerDataModalEditar let-modal>
   <div class="modal-header">
-    <h5 class="modal-title" id="modal-title">Cambio de Precio</h5>
+    <h5 class="modal-title mt-0">Cambio de Precio</h5>
     <button type="button" class="btn-close" (click)="closeEventModal()">
     </button>
   </div>
-  <div class="modal-body p-4">
-    <form (ngSubmit)="saveEvent()" [formGroup]="formEditar">
+  <form  [formGroup]="formEditarPrecio">
+    <div class="modal-body">
       <div class="row">
-        <div class="col-6">
-          <div class="mb-3">
-            <label class="control-label">Precio Original</label>
-            <input class="form-control" placeholder="PEN 000.00" type="text" name="namePrecioOriginalEditar"
-              formControlName="{{this.precioOriginal_Editar}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
+        <div class="col-sm-6">
+          <label class="form-label" for="billing-PrecioOriginal">Precio Original</label>
+          <input type="text" class="form-control" id="billing-PrecioOriginal" placeholder="Precio Original"
+            formControlName="{{this.precioOriginal_Editar}}"/>
+        </div>
+        <div class="col-sm-6">
+          <div class="mb-4">
+            <label class="form-label" for="billing-NuevoPrecio">Nuevo Precio de Venta</label>
+            <input type="text" class="form-control" id="billing-NuevoPrecio" placeholder="Escriba el nuevo precio"
+              formControlName="{{this.nuevoPrecio_Editar}}"
+              [ngClass]="{'is-invalid': formEP.campoNuevoPrecioEditar.invalid && (formEP.campoNuevoPrecioEditar.dirty || formEP.campoNuevoPrecioEditar.touched)}" />
+            <div class="invalid-feedback">
+              <div *ngIf="formEP.campoNuevoPrecioEditar.errors?.required">
+                Campo requerido
+              </div>
+              <div *ngIf="formEP.campoNuevoPrecioEditar.errors?.pattern">
+                Ingrese solo números
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-6">
-          <div class="mb-3">
-            <label class="control-label">Fecha de Cambio</label>
-            <input class="form-control" placeholder="Seleccione la fecha" type="text" name="nameFechaCambioEditar"
-              formControlName="{{this.fechaCambio_Editar}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-            <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-              <span *ngIf="form.title.errors.required">This value is required.</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      </div>  
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="closeEventModal()">
+        Cerrar
+      </button>
+      <button type="submit" class="btn btn-success ms-1" (click)="closeEventModal()" id="btn-save-event">
+        Guardar
+      </button>
+    </div>
 
-      <div class="row">
-        <div class="col-12">
-          <div class="mb-3">
-            <label class="control-label">Nuevo Precio de Venta</label>
-            <input class="form-control" placeholder="Escriba el nuevo precio de venta" type="text" name="nameNuevoPrecioEditar"
-              formControlName="{{this.nuevoPrecio_Editar}}" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-          </div>
-        </div>
-      </div>
 
-      <div class="text-end mt-2">
-        <button type="button" class="btn btn-danger" (click)="closeEventModal()">
-          Cerrar
-        </button>
-        <button type="submit" class="btn btn-success ms-1" (click)="closeEventModal()" id="btn-save-event">
-          Guardar
-        </button>
-      </div>
-    </form>
-  </div>
-  <!-- end modal dialog-->
+  </form>
+
 </ng-template>
-<!-- end modal-->
-
 
 <!-- Guardar Venta 2 - Center Modal -->
 <ng-template #centerDataModalGuardar2 let-modal>
