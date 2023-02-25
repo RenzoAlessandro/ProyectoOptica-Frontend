@@ -226,9 +226,9 @@ export class UpdateExcelComponent implements OnInit {
     fileReader.onload = (event: any) => {
       let binaryData = event.target.result;
       let workbook = XLSX.read(binaryData, { type: 'binary' });
-      let data;
+      let data: any;
       workbook.SheetNames.forEach(sheet => {
-        data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet], { raw: false });
+        data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet], { raw: false, defval: ""});
       });
       if (this.validarCampoFecha(data)) {
         switch ((data[0].TIPO).toLowerCase()) {
@@ -302,7 +302,7 @@ export class UpdateExcelComponent implements OnInit {
           Sweetalert("success", "Lista de " + tipoProducto + " creada");
           this.files = [];
           this.filebutton = false;
-        })
+        }) 
       } else {
         Sweetalert("error", "Columna ID SEDE o TIPO incorrectos o faltantes");
         return;
@@ -322,7 +322,6 @@ export class UpdateExcelComponent implements OnInit {
       case 'montura':
         listMontura = data.map((element) => {
           return {
-            //num_orden: Number(element.ORDEN),
             material: element.MATERIAL == '' ? 'SIN ESPECIFICAR' : element.MATERIAL,
             marca: element.MARCA == '' ? 'SIN ESPECIFICAR' : element.MARCA,
             codigo: element.CODIGO == '' ? 'SIN ESPECIFICAR' : element.CODIGO,
