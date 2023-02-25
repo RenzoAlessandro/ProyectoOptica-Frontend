@@ -93,7 +93,7 @@ export class AddSaleComponent implements OnInit {
   decimalPattern = /^\d+(\.\d{1,2})?$/;
   fechaVenta: Date;
   customer: any;
-
+  tmpProducto: any;
 
   constructor(public service: AddsaleService,
     private fb: FormBuilder,
@@ -119,6 +119,10 @@ export class AddSaleComponent implements OnInit {
         Validators.pattern(this.decimalPattern),
       ]],
     })
+  }
+
+  fE(campo: string) {
+    return this.formEditarPrecio.get(campo);
   }
 
   crearFormulario() {
@@ -199,8 +203,60 @@ export class AddSaleComponent implements OnInit {
    * Open small modal
    * @param DataModalEditarPrecio small modal data
    */
-  centerModalEditarPrecio(DataModalEditarPrecio: any) {
+  centerModalEditarPrecio(DataModalEditarPrecio: any, data: any) {
+    this.formEditarPrecio.reset();
+    this.tmpProducto = data;
+    switch (data.tipo) {
+      case 'montura':
+        this.fE(this.precioOriginal_Editar).setValue(data.precio_montura_v);
+        break;
+      case 'accesorio':
+        this.fE(this.precioOriginal_Editar).setValue(data.precio_accesorio_v);
+        break;
+      case 'luna':
+        this.fE(this.precioOriginal_Editar).setValue(data.precio_luna_v);
+        break;
+      default:
+        break;
+    }
     this.modalService.open(DataModalEditarPrecio, { scrollable: true, size: 'md', windowClass: 'modal-holder', centered: true });
+  }
+
+  /**
+   * Funcion para actualizar el precio unitario según conveniencia
+   * 
+   */
+  actualizarPrecio() {
+    let tmpPrecio = Number(this.fE(this.nuevoPrecio_Editar).value);
+    switch (this.tmpProducto.tipo) {
+      case 'montura':
+        this.products.forEach(el => {
+          if (el.id_producto == this.tmpProducto.id_producto) {
+            el.precio_montura_v = isNaN(tmpPrecio) ? 0 : tmpPrecio;
+            el.precio = el.precio_montura_v * el.cant_vendida;
+          }
+        });
+        break;
+      case 'accesorio':
+        this.products.forEach(el => {
+          if (el.id_producto == this.tmpProducto.id_producto) {
+            el.precio_accesorio_v = isNaN(tmpPrecio) ? 0 : tmpPrecio;
+            el.precio = el.precio_accesorio_v * el.cant_vendida;
+          }
+        });
+        break;
+      case 'luna':
+        this.products.forEach(el => {
+          if (el.id_producto == this.tmpProducto.id_producto) {
+            el.precio_luna_v = isNaN(tmpPrecio) ? 0 : tmpPrecio;
+            el.precio = el.precio_luna_v * el.cant_vendida;
+          }
+        });
+        break;
+      default:
+        break;
+    }
+    this.modalService.dismissAll();
   }
 
   /**

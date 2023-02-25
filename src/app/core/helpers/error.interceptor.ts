@@ -4,7 +4,6 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Sweetalert } from 'src/utils/sweetalert';
 
-import { AuthenticationService } from '../services/auth.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Injectable()

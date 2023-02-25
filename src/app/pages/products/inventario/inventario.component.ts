@@ -3,9 +3,7 @@ import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 import { Observable } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { MonturasModel } from 'src/models/monturas';
-import { CustomerService } from './inventario.service';
 import { SedesModel } from 'src/models/sedes';
-import { SedeService } from 'src/app/services/sede.service';
 import { Sweetalert } from 'src/utils/sweetalert';
 import * as XLSX from 'xlsx';
 import saveFile from 'save-as-file';
@@ -17,7 +15,7 @@ import { ProductosService } from 'src/app/services/productos.service';
   selector: 'app-inventario',
   templateUrl: './inventario.component.html',
   styleUrls: ['./inventario.component.scss'],
-  providers: [CustomerService, DecimalPipe]
+  providers: [DecimalPipe]
 })
 export class InventarioComponent implements OnInit {
 
@@ -38,31 +36,37 @@ export class InventarioComponent implements OnInit {
   formInventario: FormGroup;
   nombre_sedes: string = "campoSede";
   idSede = '';
+  monturasList: MonturasModel[] = [];
   constructor(
-    public service: CustomerService,
-    private sedeService: SedeService,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
-    private monturaService: ProductosService
+    private monturasService: ProductosService
   ) {
-    this.monturas$ = service.customers$;
-    this.total$ = service.total$;
-    service.mostrar.subscribe(res => {
-      this.mostrarSpinner = res;
-    })
   }
 
   ngOnInit(): void {
     this.getListSedes();
+    this.getListMonturas();
     this.crearFormulario();
     this.breadCrumbItems = [{ label: 'Productos' }, { label: 'Inventario de Monturas', active: true }];
-    this.service.customers$.subscribe(res => {
-      this.listMonturas = res;
-    })
+    
     
     
   }
 
+  getListMonturas() {
+    this.monturasService.getProductosbySede(this.usuarioService.getSedebyUser(),'montura').subscribe( res=>{
+      this.listMonturas = res;
+      const propiedad = {
+        isSelected: false
+      }
+      this.listMonturas.forEach(elem => {
+        Object.assign(elem,propiedad)
+      })
+      this.mostrarSpinner = true;
+      
+    })  
+  }
 
   crearFormulario() {
     this.formInventario = this.fb.group({
@@ -81,26 +85,22 @@ export class InventarioComponent implements OnInit {
   }
 
   updateListMonturas(idSede:string) {
-    this.monturaService.getProductosbySede(idSede,'montura').subscribe( res=>{
-      this.service.updateTable(res);
-    })
-  }
-
-  onSort({ column, direction }: SortEvent) {
-    // resetting other headers
-    this.headers.forEach(header => {
-      if (header.sortable !== column) {
-        header.direction = '';
+    this.monturasService.getProductosbySede(idSede,'montura').subscribe( res=>{
+      this.listMonturas = res;
+      const propiedad = {
+        isSelected: false
       }
-    });
-
-    this.service.sortColumn = column;
-    this.service.sortDirection = direction;
+      this.listMonturas.forEach(elem => {
+        Object.assign(elem,propiedad)
+      })
+      this.mostrarSpinner = true;
+    })
   }
 
   getListSedes() {
     this.listSedes = JSON.parse(localStorage.getItem('sedes'));
   this.idSede = this.usuarioService.getSedebyUser();
+
   }
 
   removeProduct() {
@@ -168,7 +168,7 @@ export class InventarioComponent implements OnInit {
     const blobData = new Blob([excelBuffer], { type: EXCEL_TYPE });
     const nombreSede = this.listSedes.find(res => (res.id_sede == this.fS(this.nombre_sedes).value));
     saveFile(blobData, 'monturas' + '_' + nombreSede.nombre_sede);
-    this.products = [];
+    this.products = [];  
   }
 
   filterArrays(arr1: Array<MonturasModel>, arr2: Array<MonturasModel>): Array<MonturasModel> {

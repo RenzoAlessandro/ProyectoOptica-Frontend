@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { AuthenticationService } from '../services/auth.service';
 import { AuthfakeauthenticationService } from '../services/authfake.service';
 
 import { environment } from '../../../environments/environment';
@@ -11,7 +10,6 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
     constructor(
-        private authenticationService: AuthenticationService, 
         private authfackservice: AuthfakeauthenticationService,
         private usuarioService: UsuarioService
         ) { }

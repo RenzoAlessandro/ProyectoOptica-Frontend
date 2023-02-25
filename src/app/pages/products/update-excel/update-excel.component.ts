@@ -273,8 +273,10 @@ export class UpdateExcelComponent implements OnInit {
         Sweetalert("loading", "Cargando...");
         this.productoService.updateProductsbyExcel(producto).subscribe(res => {
           Sweetalert("close", null);
-          Sweetalert("success", "Lista de "+tipoProducto+" actualizada");
-        }) 
+          Sweetalert("success", "Lista de " + tipoProducto + " actualizada");
+          this.files = [];
+          this.filebutton = false;
+        })
       } else {
         Sweetalert("error", "Columna ID SEDE o TIPO incorrectos o faltantes");
       }
@@ -295,10 +297,12 @@ export class UpdateExcelComponent implements OnInit {
       const idSede = producto[0].id_sede
       if (this.validarIdSede(data, idSede) && this.validarTipo(data, tipoProducto)) {
         Sweetalert("loading", "Cargando...");
-        this.productoService.createProductsbyExcel(producto).subscribe(res=> {
+        this.productoService.createProductsbyExcel(producto).subscribe(res => {
           Sweetalert("close", null);
-          Sweetalert("success", "Lista de "+tipoProducto+" creada");
-        }) 
+          Sweetalert("success", "Lista de " + tipoProducto + " creada");
+          this.files = [];
+          this.filebutton = false;
+        })
       } else {
         Sweetalert("error", "Columna ID SEDE o TIPO incorrectos o faltantes");
         return;
@@ -319,11 +323,11 @@ export class UpdateExcelComponent implements OnInit {
         listMontura = data.map((element) => {
           return {
             //num_orden: Number(element.ORDEN),
-            material: element.MATERIAL,
-            marca: element.MARCA,
-            codigo: element.CODIGO,
-            talla: element.TALLA,
-            color: element.COLOR,
+            material: element.MATERIAL == '' ? 'SIN ESPECIFICAR' : element.MATERIAL,
+            marca: element.MARCA == '' ? 'SIN ESPECIFICAR' : element.MARCA,
+            codigo: element.CODIGO == '' ? 'SIN ESPECIFICAR' : element.CODIGO,
+            talla: element.TALLA == '' ? 'SIN ESPECIFICAR' : element.TALLA,
+            color: element.COLOR == '' ? 'SIN ESPECIFICAR' : element.COLOR,
             precio_montura_c: isNaN(Number(element[this.label.cabeceraExcelPCompra])) ? 0 : Number(element[this.label.cabeceraExcelPCompra]),
             precio_montura_v: isNaN(Number(element[this.label.cabeceraExcelPVenta])) ? 0 : Number(element[this.label.cabeceraExcelPVenta]),
             cantidad: isNaN(Number(element.CANTIDAD)) ? 0 : Number(element.CANTIDAD),
@@ -341,7 +345,7 @@ export class UpdateExcelComponent implements OnInit {
         listLuna = data.map(element => {
           return {
             //num_orden: Number(element.ORDEN),
-            material: element.MATERIAL,
+            material: element.MATERIAL == '' ? 'SIN ESPECIFICAR' : element.MATERIAL,
             precio_luna_c: isNaN(Number(element[this.label.cabeceraExcelPCompra])) ? 0 : Number(element[this.label.cabeceraExcelPCompra]),
             precio_luna_v: isNaN(Number(element[this.label.cabeceraExcelPVenta])) ? 0 : Number(element[this.label.cabeceraExcelPVenta]),
             cantidad: isNaN(Number(element.CANTIDAD)) ? 0 : Number(element.CANTIDAD),
@@ -359,7 +363,7 @@ export class UpdateExcelComponent implements OnInit {
         listAccesorio = data.map(element => {
           return {
             //num_orden: Number(element.ORDEN),
-            nombre_accesorio: element['NOMBRE'],
+            nombre_accesorio: element['NOMBRE'] == '' ? 'SIN ESPECIFICAR' : element['NOMBRE'],
             precio_accesorio_c: isNaN(Number(element[this.label.cabeceraExcelPCompra])) ? 0 : Number(element[this.label.cabeceraExcelPCompra]),
             precio_accesorio_v: isNaN(Number(element[this.label.cabeceraExcelPVenta])) ? 0 : Number(element[this.label.cabeceraExcelPVenta]),
             fecha_creacion_accesorio: stringToDate(element[this.label.cabeceraExcelFIngreso]),
@@ -486,7 +490,7 @@ export class UpdateExcelComponent implements OnInit {
   }
 
   validarCampoFecha(data: any): boolean {
-    return data.every(elem => (elem[this.label.cabeceraExcelFIngreso].length == 10 && Date.parse(changeFormatDate(elem[this.label.cabeceraExcelFIngreso]) )))
+    return data.every(elem => (elem[this.label.cabeceraExcelFIngreso].length == 10 && Date.parse(changeFormatDate(elem[this.label.cabeceraExcelFIngreso]))))
   }
 
   descargarPlantilla() {

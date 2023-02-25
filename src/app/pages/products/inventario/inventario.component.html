@@ -56,7 +56,7 @@
     </div> -->
     <div class="col-sm-12 col-md-12">
       <div class="dataTables_length text-md-end"><label class="d-inline-flex align-items-center">Mostrar<select
-            name="pageSize" [(ngModel)]="service.pageSize"
+            name="pageSize"
             class="custom-select custom-select-sm form-control form-control-sm form-select form-select-sm">
             <option [ngValue]="10">10</option>
             <option [ngValue]="25">25</option>
@@ -175,9 +175,9 @@
         <!-- Pagination -->
         <div class="col-12">
           <div class="text-md-end float-md-end pagination-rounded">
-            <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize"
+            <!-- <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize"
               [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
-            </ngb-pagination>
+            </ngb-pagination> -->
           </div>
         </div>
         <!-- End Pagination -->
