@@ -565,8 +565,7 @@ export class AddSaleComponent implements OnInit {
       this.venta.tipo_venta.push(this.tipoPago);
       this.venta.id_sede = this.usuarioService.getSedebyUser();
       this.venta.habilitado = true;
-      console.log(this.venta)
-      //this.cancel();
+      this.cancel();
 
     } else {
 
