@@ -379,16 +379,17 @@ export class ListSalesComponent implements OnInit {
         bolditalics: 'fonts/Roboto-MediumItalic.ttf'
       },
     };
-
+    
     var estadoBoleta = "Pagado"
-    var fecha_hoy = new Date (Date.now()).toLocaleDateString('en-GB');
-    var fecha_entrega = new Date (Date.now()).toLocaleDateString("es-CL", {
+    var fecha_hoy = new Date (venta.fecha_creacion_venta).toLocaleDateString('en-GB');
+    //var fecha_hoy = new Date (Date.now()).toLocaleDateString('en-GB');
+    var fecha_entrega = new Date (venta.fecha_creacion_venta).toLocaleDateString("es-CL", {
       weekday: "long", // narrow, short
       year: "numeric", // 2-digit
       month: "long", // numeric, 2-digit, narrow, long
       day: "numeric" // 2-digit
     });
-    var hora_entrega = new Date (Date.now()).toLocaleTimeString("es-CL", {
+    var hora_entrega = new Date (venta.fecha_creacion_venta).toLocaleTimeString("es-CL", {
       timeZone: "America/Bogota",
       hour12: true, // false
       hour: "numeric", // 2-digit
@@ -403,10 +404,10 @@ export class ListSalesComponent implements OnInit {
     var felefonoEmpresa = '955 739 464';
 
     var nombresCliente = cliente.nombres + ' ' + cliente.apellidos;
-    var fnacimientoCliente = new Date (cliente.fecha_nacimiento).toLocaleDateString('en-GB');
+    var fnacimientoCliente = cliente.fecha_nacimiento ? new Date(cliente.fecha_nacimiento).toLocaleDateString('en-GB') : "Sin fecha de nacimiento";
     //var direccionCliente = 'Calle';
-    var correoCliente = cliente.email;
-    var telefonoCliente = cliente.telefono;
+    var correoCliente = cliente.email ? cliente.email : "Sin correo";
+    var telefonoCliente = cliente.telefono ? cliente.telefono : "Sin telefono";
 
     var externalDataRetrievedFromServer = [];
     var peruIGV = 0.18;
