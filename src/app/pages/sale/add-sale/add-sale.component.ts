@@ -539,7 +539,8 @@ export class AddSaleComponent implements OnInit {
           this.tipoPago.deuda = 0;
           this.tipoPago.metodo_pago = this.f(this.metodoPagoContado).value;
           this.tipoPago.cuotas = String(0);
-          this.venta.id_cliente = this.f(this.usuario_Contado).value;
+          let idClienteContado = this.listClients.find(cliente=>(cliente.id_cliente == this.f(this.nombreContado).value));
+          this.venta.id_cliente = idClienteContado != undefined? idClienteContado: this.f(this.nombreContado).setValue(null);
         }
       } else {
         if (this.precioTotalVenta - this.g(this.cantidadRecibida_Credito).value < 0) {
@@ -551,7 +552,8 @@ export class AddSaleComponent implements OnInit {
           this.tipoPago.deuda = round(this.precioTotalVenta - this.g(this.cantidadRecibida_Credito).value, 1);
           this.tipoPago.metodo_pago = this.g(this.metodoPagoCredito).value;
           this.tipoPago.cuotas = String(this.tickValue);
-          this.venta.id_cliente = this.g(this.usuario_Credito).value;
+          let idClienteCredito = this.listClients.find(cliente=>(cliente.id_cliente == this.g(this.nombreCredito).value));
+          this.venta.id_cliente = idClienteCredito != undefined? idClienteCredito: this.g(this.nombreCredito).setValue(null);
         }
 
       }
@@ -563,8 +565,8 @@ export class AddSaleComponent implements OnInit {
       this.venta.tipo_venta.push(this.tipoPago);
       this.venta.id_sede = this.usuarioService.getSedebyUser();
       this.venta.habilitado = true;
-
-      this.cancel();
+      console.log(this.venta)
+      //this.cancel();
 
     } else {
 
