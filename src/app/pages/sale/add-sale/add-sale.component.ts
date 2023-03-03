@@ -539,8 +539,13 @@ export class AddSaleComponent implements OnInit {
           this.tipoPago.deuda = 0;
           this.tipoPago.metodo_pago = this.f(this.metodoPagoContado).value;
           this.tipoPago.cuotas = String(0);
-          let idClienteContado = this.listClients.find(cliente=>(cliente.id_cliente == this.f(this.nombreContado).value));
-          this.venta.id_cliente = idClienteContado != undefined? idClienteContado: this.f(this.nombreContado).setValue(null);
+          let idClienteContado = this.listClients.find(cliente=>(cliente.id_cliente == (this.f(this.nombreContado).value).id_cliente));
+          if (idClienteContado != undefined) {
+            this.venta.id_cliente = (this.f(this.nombreContado).value).id_cliente
+          } else {
+            this.f(this.nombreContado).setValue(null);
+            return;
+          }
         }
       } else {
         if (this.precioTotalVenta - this.g(this.cantidadRecibida_Credito).value < 0) {
@@ -552,8 +557,13 @@ export class AddSaleComponent implements OnInit {
           this.tipoPago.deuda = round(this.precioTotalVenta - this.g(this.cantidadRecibida_Credito).value, 1);
           this.tipoPago.metodo_pago = this.g(this.metodoPagoCredito).value;
           this.tipoPago.cuotas = String(this.tickValue);
-          let idClienteCredito = this.listClients.find(cliente=>(cliente.id_cliente == this.g(this.nombreCredito).value));
-          this.venta.id_cliente = idClienteCredito != undefined? idClienteCredito: this.g(this.nombreCredito).setValue(null);
+          let idClienteCredito = this.listClients.find(cliente=>(cliente.id_cliente == (this.g(this.nombreCredito).value).id_cliente));
+          if (idClienteCredito != undefined) {
+            this.venta.id_cliente = (this.g(this.nombreCredito).value).id_cliente;
+          } else {
+            this.g(this.nombreCredito).setValue(null);
+            return;
+          }
         }
 
       }
