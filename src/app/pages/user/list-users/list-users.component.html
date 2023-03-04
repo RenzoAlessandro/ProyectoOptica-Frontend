@@ -49,7 +49,7 @@
                   <th scope="col" sortable="apellidos" (sort)="onSort($event)">Apellidos</th>
                   <th scope="col" sortable="dni" (sort)="onSort($event)">DNI</th>
                   <th scope="col" sortable="rol" (sort)="onSort($event)">Rol</th>
-                  <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th>
+                  <!-- <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th> -->
                   <th scope="col" sortable="email" (sort)="onSort($event)">Email</th>
                   <th scope="col" sortable="fecha_creacion" (sort)="onSort($event)">Fecha de Ingreso</th>
 <!--                   <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
@@ -84,9 +84,9 @@
                   <td>
                     <ngb-highlight [result]="data.rol" [term]="service.searchTerm"></ngb-highlight>
                   </td>
-                  <td>
+                  <!-- <td>
                     <ngb-highlight [result]="data.sede" [term]="service.searchTerm"></ngb-highlight>
-                  </td>
+                  </td> -->
                   <td>
                     <ngb-highlight [result]="data.email" [term]="service.searchTerm"></ngb-highlight>
                   </td>
