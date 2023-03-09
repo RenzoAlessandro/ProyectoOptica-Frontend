@@ -348,7 +348,6 @@ export class AddSaleComponent implements OnInit {
   getListLunas(idSede:string) {
     this.productosService.getLunasforSale(idSede).subscribe(res => {
       this.listAllProducts = [...res, ...this.listAllProducts];
-      console.log(this.listAllProducts)
       Sweetalert("close", null);
     });
   }
