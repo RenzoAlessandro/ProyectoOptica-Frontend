@@ -587,7 +587,7 @@ export class AddSaleComponent implements OnInit {
       this.tipoPago.precio_total = this.precioTotalVenta;
       this.tipoPago.fecha_pago = new Date();
       this.venta.tipo_venta.push(this.tipoPago);
-      this.venta.id_sede = this.usuarioService.getSedebyUser();
+      this.venta.id_sede = this.idSede;
       this.venta.habilitado = true;
       this.cancel();
 
