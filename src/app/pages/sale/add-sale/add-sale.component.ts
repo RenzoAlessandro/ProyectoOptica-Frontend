@@ -149,6 +149,7 @@ export class AddSaleComponent implements OnInit {
 
   updateProductosbySede(idSede:string) {
     this.listAllProducts = [];
+    this.products = [];
     this.getListMonturas(idSede);
   }
 
