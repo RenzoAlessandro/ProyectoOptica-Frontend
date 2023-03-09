@@ -263,7 +263,7 @@ export class CashRegisterComponent implements OnInit {
       this.caja.id_encargado = this.usuarioService.getUser().id_usuario;
       this.caja.nombre_encargado = this.usuarioService.getUser().nombres + ' ' + this.usuarioService.getUser().apellidos;
       this.caja.descripcion = this.fI(this.descripcion_ingreso).value;
-      this.caja.id_sede = this.usuarioService.getSedebyUser();
+      this.caja.id_sede = this.idSede;
       this.caja.habilitado = true;
       this.caja.egreso = false;
       this.caja.metodo_pago = this.fI(this.metodoPagoContado_ingreso).value;
@@ -288,7 +288,7 @@ export class CashRegisterComponent implements OnInit {
       this.caja.id_encargado = this.usuarioService.getUser().id_usuario;
       this.caja.nombre_encargado = this.usuarioService.getUser().nombres + ' ' + this.usuarioService.getUser().apellidos;
       this.caja.descripcion = this.fE(this.descripcion_egreso).value;
-      this.caja.id_sede = this.usuarioService.getSedebyUser();
+      this.caja.id_sede = this.idSede;
       this.caja.habilitado = true;
       this.caja.egreso = true;
       this.caja.metodo_pago = this.fE(this.metodoPagoContado_egreso).value;

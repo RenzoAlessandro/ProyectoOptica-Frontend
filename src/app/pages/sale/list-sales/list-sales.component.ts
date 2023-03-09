@@ -357,7 +357,7 @@ export class ListSalesComponent implements OnInit {
   }
 
   updateListVentas() {
-    this.ventasService.getVentasbySede(this.usuarioService.getSedebyUser()).subscribe( res=>{
+    this.ventasService.getVentasbySede(this.idSede).subscribe( res=>{
       this.service.updateTable(res);
     })
   }
