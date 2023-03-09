@@ -116,7 +116,7 @@ export class AddSaleComponent implements OnInit {
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Venta' }, { label: 'Realizar Venta', active: true }];
     this.getListSedes();
-    this.getListMonturas();
+    this.getListMonturas(this.usuarioService.getSedebyUser());
     this.crearFormularioEditarPrecio();
   }
 
@@ -132,7 +132,24 @@ export class AddSaleComponent implements OnInit {
         Validators.required,
         Validators.pattern(this.decimalPattern),
       ]],
+    });
+    this.formSedes = this.fb.group({
+      [this.nombre_sedes]: [this.idSede]
     })
+  }
+
+  fS(campo: string) {
+    return this.formSedes.get(campo);
+  }
+
+  changeSede() {
+    this.idSede = this.fS(this.nombre_sedes).value;
+    this.updateProductosbySede(this.idSede);
+  }
+
+  updateProductosbySede(idSede:string) {
+    this.listAllProducts = [];
+    this.getListMonturas(idSede);
   }
 
   fE(campo: string) {
@@ -176,10 +193,6 @@ export class AddSaleComponent implements OnInit {
       ]],
       [this.nombreCredito]: [null, [
         Validators.required]],
-    })
-
-    this.formSedes = this.fb.group({
-      [this.nombre_sedes]: [this.idSede]
     })
   }
 
@@ -317,24 +330,25 @@ export class AddSaleComponent implements OnInit {
       { value: 5, legend: 'Máximo' }
     ]
   };
-  getListMonturas() {
+  getListMonturas(idSede:string) {
     Sweetalert("loading", "Cargando...");
-    this.productosService.getMonturasforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
+    this.productosService.getMonturasforSale(idSede).subscribe(res => {
       this.listAllProducts = res;
-      this.getListAccesorios()
+      this.getListAccesorios(idSede)
     });
   }
 
-  getListAccesorios() {
-    this.productosService.getAccesoriosforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
+  getListAccesorios(idSede:string) {
+    this.productosService.getAccesoriosforSale(idSede).subscribe(res => {
       this.listAllProducts = [...res, ...this.listAllProducts];
-      this.getListLunas()
+      this.getListLunas(idSede)
     });
   }
 
-  getListLunas() {
-    this.productosService.getLunasforSale(this.usuarioService.getSedebyUser()).subscribe(res => {
+  getListLunas(idSede:string) {
+    this.productosService.getLunasforSale(idSede).subscribe(res => {
       this.listAllProducts = [...res, ...this.listAllProducts];
+      console.log(this.listAllProducts)
       Sweetalert("close", null);
     });
   }
@@ -346,24 +360,6 @@ export class AddSaleComponent implements OnInit {
         element.nombres_apellidos = element.apellidos + ' ' + element.nombres;
       });
     })
-  }
-
-  selectorProducts(changeEvent: NgbNavChangeEvent) {
-    switch (changeEvent.nextId) {
-      case 1:
-        this.getListMonturas();
-        this.keyword = "marca";
-        break;
-      case 2:
-        this.getListLunas();
-        this.keyword = "material";
-        break;
-      case 3:
-        this.getListAccesorios();
-        this.keyword = "nombre_accesorio";
-      default:
-        break;
-    }
   }
 
   selectorMetodoPago(changeEvent: NgbNavChangeEvent) {
@@ -627,7 +623,7 @@ export class AddSaleComponent implements OnInit {
             Sweetalert("success", "Venta realizada");
             this.modalService.dismissAll();
             this.products = [];
-            this.getListMonturas();
+            this.getListMonturas(this.idSede);
             this.estadoBotonGuardar();
           },
             (error) => {
