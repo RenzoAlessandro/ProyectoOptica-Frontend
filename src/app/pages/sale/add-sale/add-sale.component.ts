@@ -23,6 +23,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import { getBase64ImageFromURL, round } from 'src/utils/functions';
+import { SedesModel } from 'src/models/sedes';
 
 @Component({
   selector: 'app-add-sale',
@@ -31,6 +32,12 @@ import { getBase64ImageFromURL, round } from 'src/utils/functions';
   providers: [AddsaleService, DecimalPipe]
 })
 export class AddSaleComponent implements OnInit {
+
+  role = 'Admin'
+  formSedes: FormGroup;
+  listSedes: Array<SedesModel>;
+  nombre_sedes: string = "campoSede";
+  idSede:string = "";
 
   formContado: FormGroup;
   submitted_Contado = false;
@@ -108,9 +115,16 @@ export class AddSaleComponent implements OnInit {
 
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Venta' }, { label: 'Realizar Venta', active: true }];
+    this.getListSedes();
     this.getListMonturas();
     this.crearFormularioEditarPrecio();
   }
+
+  getListSedes() {
+    this.listSedes = JSON.parse(localStorage.getItem('sedes'));
+    this.idSede = this.usuarioService.getSedebyUser();
+  }
+  
   crearFormularioEditarPrecio() {
     this.formEditarPrecio = this.fb.group({
       [this.precioOriginal_Editar]: [{ value: "S/ 000.00", disabled: true }],
@@ -162,6 +176,10 @@ export class AddSaleComponent implements OnInit {
       ]],
       [this.nombreCredito]: [null, [
         Validators.required]],
+    })
+
+    this.formSedes = this.fb.group({
+      [this.nombre_sedes]: [this.idSede]
     })
   }
 
