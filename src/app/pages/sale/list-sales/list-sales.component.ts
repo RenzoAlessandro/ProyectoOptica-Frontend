@@ -93,15 +93,13 @@ export class ListSalesComponent implements OnInit {
     private ventasService: VentaService,
     private modalService: NgbModal,
     private customerService: ClienteService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private ventaService: VentaService,
     ) {
     this.transactions$ = service.transactions$;
     this.total$ = service.total$;
     service.mostrar.subscribe(res=>{
       this.mostrarSpinner = res;
-    })
-    this.transactions$.subscribe(res =>{
-      this.excelVentas = res;
     })
   }
 
@@ -215,6 +213,7 @@ export class ListSalesComponent implements OnInit {
   guardarActualizacionDeuda() {
     if (this.formCreditoActualizacion.valid) {
       this.venta.id_vendedor = this.usuarioService.getUser().id_usuario;
+      this.venta.nombre_vendedor = this.usuarioService.getUser().nombres + ' ' + this.usuarioService.getUser().apellidos;
       this.venta.id_sede = this.usuarioService.getSedebyUser();
       let deuda = 0;
       deuda = round(this.tipoPago[0].deuda - this.g(this.cantidadRecibida_CreditoActualizacion).value,1);
@@ -635,28 +634,32 @@ export class ListSalesComponent implements OnInit {
       let data = [];
       const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
       const EXCEL_EXTENSION = '.xlsx';
-      data = this.excelVentas.map((ventas:VentasModel) => {
-        return {
-          "FECHA": new Date(ventas.fecha_creacion_venta).toLocaleDateString('en-GB') ,
-          "NOMBRE CLIENTE": ventas.nombre_cliente,
-          "TOTAL": ventas.tipo_venta[0].precio_total,
-          "VENDEDOR": ventas.nombre_vendedor,
-          "FORMA DE PAGO": ventas.tipo_venta[0].forma_pago,
-          "ESTADO": ventas.tipo_venta[0].deuda > 0? "DEUDA":"PAGADO"
-        }
-      }); 
-      const worksheet = XLSX.utils.json_to_sheet(data);
-          const workbook = {
-            Sheets: {
-              'hoja': worksheet
-            },
-            SheetNames: ['hoja']
+      this.ventaService.getVentasbySede(this.usuarioService.getSedebyUser()).subscribe(res=>{
+        this.excelVentas = res;
+        data = this.excelVentas.map((ventas:VentasModel) => {
+          return {
+            "FECHA": new Date(ventas.fecha_creacion_venta).toLocaleDateString('en-GB') ,
+            "NOMBRE CLIENTE": ventas.nombre_cliente,
+            "TOTAL": ventas.tipo_venta[0].precio_total,
+            "VENDEDOR": ventas.nombre_vendedor,
+            "FORMA DE PAGO": ventas.tipo_venta[0].forma_pago,
+            "ESTADO": ventas.tipo_venta[0].deuda > 0? "DEUDA":"PAGADO"
           }
-
-          const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-          const blobData = new Blob([excelBuffer], { type: EXCEL_TYPE });
-          const nombreSede = this.listSedes.find(res => (res.id_sede == this.fS(this.nombre_sedes).value));
-          saveFile(blobData, 'ventas' + '_' + nombreSede.nombre_sede);
+        }); 
+        const worksheet = XLSX.utils.json_to_sheet(data);
+            const workbook = {
+              Sheets: {
+                'hoja': worksheet
+              },
+              SheetNames: ['hoja']
+            }
+  
+            const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+            const blobData = new Blob([excelBuffer], { type: EXCEL_TYPE });
+            const nombreSede = this.listSedes.find(res => (res.id_sede == this.fS(this.nombre_sedes).value));
+            saveFile(blobData, 'ventas' + '_' + nombreSede.nombre_sede);
+      })
+      
     } else {
       return;
     }
