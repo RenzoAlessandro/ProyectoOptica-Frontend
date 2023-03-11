@@ -154,24 +154,31 @@ export const MENU: MenuItem[] = [
                 parentId: 19,
                 role: ['Admin', 'Vendedor']
             },
+            {
+                id: 22,
+                label: 'MENUITEMS.SALES.LIST.DELETESALES',
+                link: '/sale/deletesales',
+                parentId: 19,
+                role: ['Admin', 'Vendedor']
+            },
         ],
         link: '/sale',
         role: ['Admin','Vendedor']
     },
     {
-        id: 22,
+        id: 23,
         label: 'MENUITEMS.CASHREGISTER.TEXT',
         icon: 'uil-invoice',
         subItems: [
             {
-                id: 23,
+                id: 24,
                 label: 'MENUITEMS.CASHREGISTER.LIST.CASHREGISTER',
                 link: '/cash/cashregister',
                 parentId: 22,
                 role: ['Admin','Vendedor']
             }, 
             {
-                id: 24,
+                id: 25,
                 label: 'MENUITEMS.CASHREGISTER.LIST.LISTCASH',
                 link: '/cash/listcash',
                 parentId: 22,

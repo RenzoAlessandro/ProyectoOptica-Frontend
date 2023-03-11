@@ -146,7 +146,8 @@
       "TEXT": "Venta",
       "LIST": {
         "SALES": "Lista de Ventas",
-        "ADDSALES": "Realizar Venta"
+        "ADDSALES": "Realizar Venta",
+        "DELETESALES": "Ventas Eliminadas"
       }
     },
     "AUTHENTICATION": {

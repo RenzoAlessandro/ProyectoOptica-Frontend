@@ -1,0 +1,48 @@
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <app-page-title title="Ventas Eliminadas" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <!-- end page title -->
+  
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+              <p class="card-title-desc text-danger">* Campo requerido</p> 
+              <div class="row">
+                <div class="col-12 col-sm-12">
+                  <div class="mb-3">
+                    <label for="validationCustom01">Sede *</label>
+                    <div class="btn-toolbar" role="toolbar">
+                        <div class="col-12 d-grid" *appRole="role">
+                          <form [formGroup]="formSedes">
+                            <div ngbDropdown>
+                              <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
+                                bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+                              </ng-select>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            <div class="row my-2">
+              <div class="col">
+                <div class="text-sm-end mt-2 mt-sm-0">
+                  <button class="btn btn-success" (click)="0">
+                    <i class="uil uil-store-alt me-1"></i> Descargar Archivo
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end card -->
+      </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+  
+
+  </div>
+  

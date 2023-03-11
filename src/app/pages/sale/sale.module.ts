@@ -13,11 +13,12 @@ import { SaleRoutingModule } from "./sale-routing.module";
 import { ListSalesComponent } from "./list-sales/list-sales.component";
 import { AutocompleteLibModule } from "angular-ng-autocomplete";
 import { DirectivesModule } from "src/app/directives/role.module";
+import { DeletedSalesComponent } from './deleted-sales/deleted-sales.component';
 
 
 @NgModule({
     // tslint:disable-next-line: max-line-length
-    declarations: [AddSaleComponent, ListSalesComponent ],
+    declarations: [AddSaleComponent, ListSalesComponent, DeletedSalesComponent ],
     imports: [
       SaleRoutingModule,
       CommonModule,
