@@ -6,7 +6,7 @@ import { AccesorioModel } from 'src/models/accesorio';
 import { LunasModel } from 'src/models/lunas';
 import { MonturasModel } from 'src/models/monturas';
 import { Sweetalert } from '../../../../utils/sweetalert';
-
+import { SedesModel } from 'src/models/sedes';
 
 @Component({
   selector: 'app-add-product',
@@ -14,6 +14,12 @@ import { Sweetalert } from '../../../../utils/sweetalert';
   styleUrls: ['./add-product.component.scss']
 })
 export class AddProductComponent implements OnInit {
+
+  role = 'Admin'
+  formSedes: FormGroup;
+  listSedes: Array<SedesModel>;
+  nombre_sedes: string = "campoSede";
+  idSede:string = "";
 
   submitted = false;
 
@@ -64,12 +70,18 @@ export class AddProductComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private productosService: ProductosService,
-    private userService: UsuarioService) { }
+    private userService: UsuarioService,
+    private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
     this.breadCrumbItems = [{ label: 'Productos' }, { label: 'Añadir Productos', active: true }];
-
+    this.getListSedes();
     this.crearFormulario();
+  }
+
+  getListSedes() {
+    this.listSedes = JSON.parse(localStorage.getItem('sedes'));
+    this.idSede = this.usuarioService.getSedebyUser();
   }
 
   crearFormulario() {
@@ -160,6 +172,10 @@ export class AddProductComponent implements OnInit {
       ]],
       [this.fecha_registro_accesorio]:[{value:this.fecha_actual.toLocaleDateString(), disabled:true}],
       [this.fecha_modificacion_accesorio]:[],
+    })
+
+    this.formSedes = this.fb.group({
+      [this.nombre_sedes]: [this.idSede]
     })
   }
 

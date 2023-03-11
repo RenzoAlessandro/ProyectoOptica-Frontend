@@ -69,7 +69,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-12 col-sm-6">
+                  <div class="col-12 col-sm-4">
                     <div class="mb-3">
                       <label class="control-label">Material *</label>
                       <input class="form-control" placeholder="Material de la montura" type="text" name="title"
@@ -81,7 +81,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-12 col-sm-6">
+                  <div class="col-12 col-sm-4">
                     <div class="mb-3">
                       <label class="control-label">Marca *</label>
                       <input class="form-control" placeholder="Marca de la montura" type="text" name="title"
@@ -89,6 +89,22 @@
                       <div class="invalid-feedback">
                         <div *ngIf="formM.campoMarcaMontura.errors?.required">
                           Campo requerido
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4">
+                    <div class="mb-3">
+                      <label class="control-label">Sede *</label>
+                      <div class="btn-toolbar" role="toolbar">
+                        <div class="col-12 d-grid" *appRole="role">
+                          <form [formGroup]="formSedes">
+                            <div ngbDropdown>
+                              <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
+                                bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+                              </ng-select>
+                            </div>
+                          </form>
                         </div>
                       </div>
                     </div>
@@ -225,7 +241,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-12">
+                  <div class="col-12 col-sm-4">
                     <div class="mb-3">
                       <label class="control-label">Material *</label>
                       <input class="form-control" placeholder="Material de la luna" type="text" name="title"
@@ -233,6 +249,22 @@
                       <div class="invalid-feedback">
                         <div *ngIf="formL.campoMaterialLuna.errors?.required">
                           Campo requerido
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4">
+                    <div class="mb-3">
+                      <label class="control-label">Sede *</label>
+                      <div class="btn-toolbar" role="toolbar">
+                        <div class="col-12 d-grid" *appRole="role">
+                          <form [formGroup]="formSedes">
+                            <div ngbDropdown>
+                              <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
+                                bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+                              </ng-select>
+                            </div>
+                          </form>
                         </div>
                       </div>
                     </div>
@@ -328,7 +360,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-12">
+                  <div class="col-12 col-sm-4">
                     <div class="mb-3">
                       <label class="control-label">Nombre del Accesorio *</label>
                       <input class="form-control" placeholder="Accesorio" type="text" name="accesorio"
@@ -336,6 +368,22 @@
                       <div class="invalid-feedback">
                         <div *ngIf="formA.campoNombreAccesorio.errors?.required">
                           Campo requerido
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4">
+                    <div class="mb-3">
+                      <label class="control-label">Sede *</label>
+                      <div class="btn-toolbar" role="toolbar">
+                        <div class="col-12 d-grid" *appRole="role">
+                          <form [formGroup]="formSedes">
+                            <div ngbDropdown>
+                              <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
+                                bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+                              </ng-select>
+                            </div>
+                          </form>
                         </div>
                       </div>
                     </div>
