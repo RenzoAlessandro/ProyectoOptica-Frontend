@@ -18,8 +18,7 @@ export class AddProductComponent implements OnInit {
   role = 'Admin'
   formSedes: FormGroup;
   listSedes: Array<SedesModel>;
-  nombre_sedes: string = "campoSede";
-  idSede:string = "";
+  idSede: string = "";
 
   submitted = false;
 
@@ -35,6 +34,7 @@ export class AddProductComponent implements OnInit {
   precio_venta_montura: string = "campoVentaMontura";
   fecha_registro_montura: string = "campoFechaRegistroMontura";
   fecha_modificacion_montura: string = "campoFechaModificacionMontura";
+  nombre_sedesMontura: string = "campoSedeMOntura";
 
   formLunas: FormGroup;
   orden_luna: string = "campoOrdenLuna";
@@ -44,6 +44,7 @@ export class AddProductComponent implements OnInit {
   precio_venta_luna: string = "campoVentaLuna";
   fecha_registro_luna: string = "campoFechaRegistroLuna";
   fecha_modificacion_luna: string = "campoFechaModificacionLuna";
+  nombre_sedesLuna: string = "campoSedeLuna";
 
   formAccesorios: FormGroup;
   orden_accesorio: string = "campoOrdenAccesorio";
@@ -53,6 +54,7 @@ export class AddProductComponent implements OnInit {
   precio_venta_accesorio: string = "campoVentaAccesorio";
   fecha_registro_accesorio: string = "campoFechaRegistroAccesorio";
   fecha_modificacion_accesorio: string = "campoFechaModificacionAccesorio";
+  nombre_sedesAccesorio: string = "campoSedeAccesorio";
 
   lunas = new LunasModel;
   monturas = new MonturasModel;
@@ -92,36 +94,37 @@ export class AddProductComponent implements OnInit {
         Validators.required,
         Validators.pattern(this.numberPattern)
       ]], */
-      [this.material_montura]:[null, [
+      [this.material_montura]: [null, [
         Validators.required
       ]],
-      [this.marca_montura]:[null,[
+      [this.marca_montura]: [null, [
         Validators.required
       ]],
-      [this.talla_montura]:[null,[
+      [this.talla_montura]: [null, [
         Validators.required
       ]],
-      [this.color_montura]:[null,[
+      [this.color_montura]: [null, [
         Validators.required,
         Validators.pattern(this.lettersPattern)
       ]],
-      [this.codigo_montura]:[null, [
+      [this.codigo_montura]: [null, [
         Validators.required,
       ]],
-      [this.cantidad_montura]:[null, [
+      [this.cantidad_montura]: [null, [
         Validators.required,
         Validators.pattern(this.numberPattern)
       ]],
-      [this.precio_compra_montura]:[null, [
+      [this.precio_compra_montura]: [null, [
         Validators.required,
         Validators.pattern(this.decimalPattern)
       ]],
-      [this.precio_venta_montura]:[null, [
+      [this.precio_venta_montura]: [null, [
         Validators.required,
         Validators.pattern(this.decimalPattern)
       ]],
-      [this.fecha_registro_montura]:[{value:this.fecha_actual.toLocaleDateString(), disabled:true}],
-      [this.fecha_modificacion_montura]:[],
+      [this.fecha_registro_montura]: [{ value: this.fecha_actual.toLocaleDateString(), disabled: true }],
+      [this.fecha_modificacion_montura]: [],
+      [this.nombre_sedesMontura]: [this.idSede, [Validators.required]]
     })
 
     this.formLunas = this.fb.group({
@@ -130,23 +133,24 @@ export class AddProductComponent implements OnInit {
         Validators.required,
         Validators.pattern(this.numberPattern)
       ]], */
-      [this.material_luna]:[null, [
+      [this.material_luna]: [null, [
         Validators.required
       ]],
-      [this.cantidad_luna]:[null, [
+      [this.cantidad_luna]: [null, [
         Validators.required,
         Validators.pattern(this.numberPattern)
       ]],
-      [this.precio_compra_luna]:[null, [
+      [this.precio_compra_luna]: [null, [
         Validators.required,
         Validators.pattern(this.decimalPattern)
       ]],
-      [this.precio_venta_luna]:[null, [
+      [this.precio_venta_luna]: [null, [
         Validators.required,
         Validators.pattern(this.decimalPattern)
       ]],
-      [this.fecha_registro_luna]:[{value:this.fecha_actual.toLocaleDateString(), disabled:true}],
-      [this.fecha_modificacion_luna]:[],
+      [this.fecha_registro_luna]: [{ value: this.fecha_actual.toLocaleDateString(), disabled: true }],
+      [this.fecha_modificacion_luna]: [],
+      [this.nombre_sedesLuna]: [this.idSede, [Validators.required]]
     })
 
     this.formAccesorios = this.fb.group({
@@ -155,27 +159,24 @@ export class AddProductComponent implements OnInit {
         Validators.required,
         Validators.pattern(this.numberPattern)
       ]], */
-      [this.nombre_accesorio]:[null, [
+      [this.nombre_accesorio]: [null, [
         Validators.required
       ]],
-      [this.cantidad_accesorio]:[null, [
+      [this.cantidad_accesorio]: [null, [
         Validators.required,
         Validators.pattern(this.numberPattern)
       ]],
-      [this.precio_compra_accesorio]:[null, [
+      [this.precio_compra_accesorio]: [null, [
         Validators.required,
         Validators.pattern(this.decimalPattern)
       ]],
-      [this.precio_venta_accesorio]:[null, [
+      [this.precio_venta_accesorio]: [null, [
         Validators.required,
         Validators.pattern(this.decimalPattern)
       ]],
-      [this.fecha_registro_accesorio]:[{value:this.fecha_actual.toLocaleDateString(), disabled:true}],
-      [this.fecha_modificacion_accesorio]:[],
-    })
-
-    this.formSedes = this.fb.group({
-      [this.nombre_sedes]: [this.idSede]
+      [this.fecha_registro_accesorio]: [{ value: this.fecha_actual.toLocaleDateString(), disabled: true }],
+      [this.fecha_modificacion_accesorio]: [],
+      [this.nombre_sedesAccesorio]: [this.idSede, [Validators.required]]
     })
   }
 
@@ -189,15 +190,15 @@ export class AddProductComponent implements OnInit {
     this.submitted = true;
   }
 
-  fA(campo:any){
+  fA(campo: any) {
     return this.formAccesorios.get(campo);
   }
 
-  fL(campo:any){
+  fL(campo: any) {
     return this.formLunas.get(campo);
   }
 
-  fM(campo:any){
+  fM(campo: any) {
     return this.formMonturas.get(campo);
   }
 
@@ -210,18 +211,18 @@ export class AddProductComponent implements OnInit {
       this.accesorios.precio_accesorio_v = Number(this.fA(this.precio_venta_accesorio).value);
       this.accesorios.precio_accesorio_c = Number(this.fA(this.precio_compra_accesorio).value);
       this.accesorios.fecha_modificacion_accesorio = new Date(Date.now());
-      this.accesorios.id_sede = this.userService.getSedebyUser();
+      this.accesorios.id_sede = this.fA(this.nombre_sedesMontura).value;
       this.accesorios.habilitado = true;
       this.accesorios.tipo = "accesorio";
       Sweetalert("loading", "Cargando...");
-      this.productosService.createAccesorios(this.accesorios).subscribe(res=>{
-        Sweetalert("close",null);
+      this.productosService.createAccesorios(this.accesorios).subscribe(res => {
+        Sweetalert("close", null);
         Sweetalert("success", "Accesorio guardado");
         this.formAccesorios.reset();
         this.fA(this.fecha_registro_accesorio).setValue(this.fecha_actual.toLocaleDateString());
       })
     } else {
-      
+
     }
   }
 
@@ -234,18 +235,18 @@ export class AddProductComponent implements OnInit {
       this.lunas.fecha_creacion_luna = new Date(Date.now());
       this.lunas.fecha_modificacion_luna = new Date(Date.now())
       this.lunas.cantidad = Number(this.fL(this.cantidad_luna).value);
-      this.lunas.id_sede = this.userService.getSedebyUser();
+      this.lunas.id_sede = this.fL(this.nombre_sedesLuna).value;
       this.lunas.habilitado = true;
       this.lunas.tipo = "luna";
       Sweetalert("loading", "Cargando...");
-      this.productosService.createLunas(this.lunas).subscribe(res=>{
-        Sweetalert("close",null);
-        Sweetalert("success","Luna guardada");
+      this.productosService.createLunas(this.lunas).subscribe(res => {
+        Sweetalert("close", null);
+        Sweetalert("success", "Luna guardada");
         this.formLunas.reset();
         this.fL(this.fecha_registro_luna).setValue(this.fecha_actual.toLocaleDateString());
       })
     } else {
-      
+
     }
   }
 
@@ -262,19 +263,19 @@ export class AddProductComponent implements OnInit {
       this.monturas.fecha_creacion_monturas = new Date(Date.now());
       this.monturas.fecha_modificacion_monturas = new Date(Date.now())
       this.monturas.cantidad = Number(this.fM(this.cantidad_montura).value);
-      this.monturas.id_sede = this.userService.getSedebyUser();
+      this.monturas.id_sede = this.fM(this.nombre_sedesMontura).value;
       this.monturas.habilitado = true;
       this.monturas.tipo = "montura";
+
       Sweetalert("loading", "Cargando...");
-      this.productosService.createMonturas(this.monturas).subscribe(res=>{
-        Sweetalert("close",null);
-        Sweetalert("success","Montura guardada");
+      this.productosService.createMonturas(this.monturas).subscribe(res => {
+        Sweetalert("close", null);
+        Sweetalert("success", "Montura guardada");
         this.formMonturas.reset();
         this.fM(this.fecha_registro_montura).setValue(this.fecha_actual.toLocaleDateString());
-        //this.fecha_registro_montura.
       })
     } else {
-      
+
     }
   }
 

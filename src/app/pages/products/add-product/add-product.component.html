@@ -98,13 +98,11 @@
                       <label class="control-label">Sede *</label>
                       <div class="btn-toolbar" role="toolbar">
                         <div class="col-12 d-grid" *appRole="role">
-                          <form [formGroup]="formSedes">
                             <div ngbDropdown>
                               <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
-                                bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+                                bindLabel="nombre_sede" formControlName="{{this.nombre_sedesMontura}}">
                               </ng-select>
                             </div>
-                          </form>
                         </div>
                       </div>
                     </div>
@@ -258,13 +256,11 @@
                       <label class="control-label">Sede *</label>
                       <div class="btn-toolbar" role="toolbar">
                         <div class="col-12 d-grid" *appRole="role">
-                          <form [formGroup]="formSedes">
                             <div ngbDropdown>
                               <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
-                                bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+                                bindLabel="nombre_sede" formControlName="{{this.nombre_sedesLuna}}" >
                               </ng-select>
                             </div>
-                          </form>
                         </div>
                       </div>
                     </div>
@@ -377,13 +373,11 @@
                       <label class="control-label">Sede *</label>
                       <div class="btn-toolbar" role="toolbar">
                         <div class="col-12 d-grid" *appRole="role">
-                          <form [formGroup]="formSedes">
                             <div ngbDropdown>
                               <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
-                                bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+                                bindLabel="nombre_sede" formControlName="{{this.nombre_sedesAccesorio}}" >
                               </ng-select>
                             </div>
-                          </form>
                         </div>
                       </div>
                     </div>

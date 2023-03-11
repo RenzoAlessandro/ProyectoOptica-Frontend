@@ -30,4 +30,8 @@ export class VentaService {
   updatePagoCuotas(idVenta: string, venta:VentasModel): Observable<any> {
     return this.http.put<any>(environment.urlBackend+'updatePagoCuotasVentaById/'+idVenta,venta);
   }
+
+  getVentasEliminadasbySede(idSede: string): Observable<any> {
+    return this.http.get<any>(environment.urlBackend+'getAllVentasEliminadasBySede/'+idSede);
+  }
 }

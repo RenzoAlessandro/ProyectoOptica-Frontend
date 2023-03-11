@@ -18,7 +18,7 @@
                           <form [formGroup]="formSedes">
                             <div ngbDropdown>
                               <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
-                                bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+                                bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}">
                               </ng-select>
                             </div>
                           </form>
@@ -30,7 +30,7 @@
             <div class="row my-2">
               <div class="col">
                 <div class="text-sm-end mt-2 mt-sm-0">
-                  <button class="btn btn-success" (click)="0">
+                  <button class="btn btn-success" (click)="exportarVentasEliminadas()">
                     <i class="uil uil-store-alt me-1"></i> Descargar Archivo
                   </button>
                 </div>
