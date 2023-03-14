@@ -37,7 +37,7 @@ function matches(customer: UsersModel, term: string, pipe: PipeTransform) {
   || customer.apellidos.toLowerCase().includes(term.toLowerCase())
   || customer.dni.toLowerCase().includes(term.toLowerCase())
   || customer.rol.toLowerCase().includes(term.toLowerCase())
-  || customer.email.toLowerCase().includes(term.toLowerCase())
+  /* || customer.email.toLowerCase().includes(term.toLowerCase()) */
   || String(customer.fecha_creacion).toLowerCase().includes(term.toLowerCase())
 }
 
