@@ -1,8 +1,5 @@
 import { Injectable, PipeTransform } from '@angular/core';
-
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-
-
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
@@ -38,12 +35,10 @@ function sort(customers: UsersModel[], column: SortColumn, direction: string): U
 function matches(customer: UsersModel, term: string, pipe: PipeTransform) {
   return customer.nombres.toLowerCase().includes(term.toLowerCase())
   || customer.apellidos.toLowerCase().includes(term.toLowerCase())
-  || String(customer.dni).toLowerCase().includes(term.toLowerCase())
+  || customer.dni.toLowerCase().includes(term.toLowerCase())
   || customer.rol.toLowerCase().includes(term.toLowerCase())
-  // || customer.sede.toLowerCase().includes(term.toLowerCase())
-  || customer.telefono.toLowerCase().includes(term)
-  || customer.email.toLowerCase().includes(term)
-  || customer.fecha_creacion.toLocaleString().includes(term);
+  || customer.email.toLowerCase().includes(term.toLowerCase())
+  || String(customer.fecha_creacion).toLowerCase().includes(term.toLowerCase())
 }
 
 @Injectable({ providedIn: 'root' })

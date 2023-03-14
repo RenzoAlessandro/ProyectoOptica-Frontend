@@ -35,12 +35,11 @@ function sort(customers: CustomersModel[], column: SortColumn, direction: string
 }
 
 function matches(customer: CustomersModel, term: string, pipe: PipeTransform) {
-  return customer.id_cliente.toLowerCase().includes(term)
-  || customer.nombres.toLowerCase().includes(term.toLowerCase())
+  return customer.nombres.toLowerCase().includes(term.toLowerCase())
   || customer.apellidos.toLowerCase().includes(term.toLowerCase())
-  || String(customer.dni).toLowerCase().includes(term.toLowerCase())
+  || customer.dni.toLowerCase().includes(term.toLowerCase())
   || customer.telefono.toLowerCase().includes(term.toLowerCase())
-  || customer.fecha_nacimiento.toLocaleString().includes(term);
+  || String(customer.fecha_nacimiento).toLowerCase().includes(term.toLowerCase())
 }
 
 @Injectable({ providedIn: 'root' })
