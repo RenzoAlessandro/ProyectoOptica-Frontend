@@ -11,4 +11,5 @@ export class LunasModel {
     habilitado: true;
     tipo:string;
     cant_vendida: number;
+    precio?: number
 }

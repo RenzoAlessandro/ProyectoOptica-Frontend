@@ -58,9 +58,41 @@ export class DeletedSalesComponent implements OnInit {
       this.ventaService.getVentasEliminadasbySede(this.fS(this.nombre_sedes).value).subscribe(res=>{
         if(res.length > 0){
           data = res.map((ventas:VentasModel) => {
+            let accesorios = ventas.list_accesorios.map(acc => {
+              return {
+                "PRECIO VENTA": acc.precio_accesorio_v,
+                "PRECIO COMPRA": acc.precio_accesorio_c,
+                "CANTIDAD VENDIDA": acc.cant_vendida,
+                "NOMBRE": acc.nombre_accesorio,
+                "SUMA TOTAL": acc.precio
+              }
+            })
+            let monturas = ventas.list_monturas.map(mont => {
+              return {
+                "PRECIO VENTA": mont.precio_montura_v,
+                "PRECIO COMPRA": mont.precio_montura_c,
+                "CANTIDAD VENDIDA": mont.cant_vendida,
+                "MARCA": mont.marca,
+                "MATERIAL": mont.material,
+                "COLOR": mont.color,
+                "SUMA TOTAL": mont.precio
+              }
+            })
+            let lunas = ventas.list_lunas.map(lun => {
+              return {
+                "PRECIO VENTA": lun.precio_luna_v,
+                "PRECIO COMPRA": lun.precio_luna_c,
+                "CANTIDAD VENDIDA": lun.cant_vendida,
+                "MATERIAL": lun.material,
+                "SUMA TOTAL": lun.precio
+              }
+            })
             return {
               "FECHA": new Date(ventas.fecha_creacion_venta).toLocaleDateString('en-GB') ,
               "NOMBRE CLIENTE": ventas.nombre_cliente,
+              "ACCESORIOS": JSON.stringify(accesorios),
+            "LUNAS": JSON.stringify(lunas),
+            "MONTURAS": JSON.stringify(monturas),
               "TOTAL": ventas.tipo_venta[0].precio_total,
               "VENDEDOR": ventas.nombre_vendedor,
               "FORMA DE PAGO": ventas.tipo_venta[0].forma_pago,

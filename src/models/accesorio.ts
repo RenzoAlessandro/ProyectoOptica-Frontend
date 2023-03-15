@@ -12,4 +12,5 @@ export class AccesorioModel {
     habilitado: boolean;
     tipo: string;
     cant_vendida: number;
+    precio?: number
 }

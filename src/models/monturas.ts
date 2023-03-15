@@ -15,4 +15,5 @@ export class MonturasModel {
     habilitado: boolean;
     tipo: string;
     cant_vendida: number;
+    precio?: number
 }
