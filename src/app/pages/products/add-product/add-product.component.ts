@@ -215,7 +215,6 @@ export class AddProductComponent implements OnInit {
       this.accesorios.habilitado = true;
       this.accesorios.tipo = "accesorio";
       Sweetalert("loading", "Cargando...");
-      console.log(this.accesorios)
       this.productosService.createAccesorios(this.accesorios).subscribe(res => {
         Sweetalert("close", null);
         Sweetalert("success", "Accesorio guardado");
