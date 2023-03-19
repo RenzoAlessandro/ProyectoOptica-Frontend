@@ -211,16 +211,17 @@ export class AddProductComponent implements OnInit {
       this.accesorios.precio_accesorio_v = Number(this.fA(this.precio_venta_accesorio).value);
       this.accesorios.precio_accesorio_c = Number(this.fA(this.precio_compra_accesorio).value);
       this.accesorios.fecha_modificacion_accesorio = new Date(Date.now());
-      this.accesorios.id_sede = this.fA(this.nombre_sedesMontura).value;
+      this.accesorios.id_sede = this.fA(this.nombre_sedesAccesorio).value;
       this.accesorios.habilitado = true;
       this.accesorios.tipo = "accesorio";
       Sweetalert("loading", "Cargando...");
+      console.log(this.accesorios)
       this.productosService.createAccesorios(this.accesorios).subscribe(res => {
         Sweetalert("close", null);
         Sweetalert("success", "Accesorio guardado");
         this.formAccesorios.reset();
         this.fA(this.fecha_registro_accesorio).setValue(this.fecha_actual.toLocaleDateString());
-      })
+      }) 
     } else {
 
     }
