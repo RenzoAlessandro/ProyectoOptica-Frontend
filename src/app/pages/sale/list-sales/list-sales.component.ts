@@ -635,7 +635,6 @@ export class ListSalesComponent implements OnInit {
       const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
       const EXCEL_EXTENSION = '.xlsx';
       this.ventaService.getVentasbySede(this.idSede).subscribe(res => {
-        console.log(res)
         this.excelVentas = res;
         data = this.excelVentas.map((ventas: VentasModel) => {
           let accesorios = ventas.list_accesorios.map(acc => {
