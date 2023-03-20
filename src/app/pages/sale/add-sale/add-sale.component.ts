@@ -419,6 +419,7 @@ export class AddSaleComponent implements OnInit {
 
   onFocused(e) {
     // do something
+    this.autocomplete.close();
   }
 
   /** Gets the total cost of all products. */
@@ -896,4 +897,5 @@ export class AddSaleComponent implements OnInit {
     const pdf = pdfMake.createPdf(pdfDefinition);
     pdf.open();
   }
+
 }

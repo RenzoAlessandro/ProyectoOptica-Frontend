@@ -45,27 +45,29 @@ export class InventarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    Sweetalert("loading", "Cargando...");
     this.getListSedes();
     this.getListMonturas();
     this.crearFormulario();
     this.breadCrumbItems = [{ label: 'Productos' }, { label: 'Inventario de Monturas', active: true }];
-    
-    
-    
+
+
+
   }
 
   getListMonturas() {
-    this.monturasService.getProductosbySede(this.usuarioService.getSedebyUser(),'montura').subscribe( res=>{
+    this.monturasService.getProductosbySede(this.usuarioService.getSedebyUser(), 'montura').subscribe(res => {
+      Sweetalert("close", null);
       this.listMonturas = res;
       const propiedad = {
         isSelected: false
       }
       this.listMonturas.forEach(elem => {
-        Object.assign(elem,propiedad)
+        Object.assign(elem, propiedad)
       })
       this.mostrarSpinner = true;
-      
-    })  
+
+    })
   }
 
   crearFormulario() {
@@ -81,17 +83,19 @@ export class InventarioComponent implements OnInit {
   changeSede() {
     this.products = [];
     this.idSede = this.fS(this.nombre_sedes).value;
+    Sweetalert("loading", "Cargando...");
     this.updateListMonturas(this.idSede);
   }
 
-  updateListMonturas(idSede:string) {
-    this.monturasService.getProductosbySede(idSede,'montura').subscribe( res=>{
+  updateListMonturas(idSede: string) {
+    this.monturasService.getProductosbySede(idSede, 'montura').subscribe(res => {
+      Sweetalert("close", null);
       this.listMonturas = res;
       const propiedad = {
         isSelected: false
       }
       this.listMonturas.forEach(elem => {
-        Object.assign(elem,propiedad)
+        Object.assign(elem, propiedad)
       })
       this.mostrarSpinner = true;
     })
@@ -99,7 +103,7 @@ export class InventarioComponent implements OnInit {
 
   getListSedes() {
     this.listSedes = JSON.parse(localStorage.getItem('sedes'));
-  this.idSede = this.usuarioService.getSedebyUser();
+    this.idSede = this.usuarioService.getSedebyUser();
 
   }
 
@@ -114,12 +118,18 @@ export class InventarioComponent implements OnInit {
     this.removeProduct();
   }
 
-  selectEvent(item: any) {
+  selectEvent(item: MonturasModel) {
     const productExistInCart = this.products.find((name) => name.id_producto === item.id_producto);
-
     if (!productExistInCart) {
-      this.products.push({ ...item, isSelected: true });
-      this.autocomplete.clear();
+      switch (item.tipo) {
+        case 'montura':
+          this.products.push({ ...item, isSelected: true });
+          this.autocomplete.clear();
+          break;
+        default:
+          break;
+      }
+
     } else {
       Sweetalert("error", "Este producto ya fue registrado");
       this.autocomplete.clear();
@@ -134,6 +144,7 @@ export class InventarioComponent implements OnInit {
 
   onFocused(e) {
     // do something
+    this.autocomplete.close();
   }
 
   exportarMonturas() {
@@ -168,7 +179,7 @@ export class InventarioComponent implements OnInit {
     const blobData = new Blob([excelBuffer], { type: EXCEL_TYPE });
     const nombreSede = this.listSedes.find(res => (res.id_sede == this.fS(this.nombre_sedes).value));
     saveFile(blobData, 'monturas' + '_' + nombreSede.nombre_sede);
-    this.products = [];  
+    this.products = [];
   }
 
   filterArrays(arr1: Array<MonturasModel>, arr2: Array<MonturasModel>): Array<MonturasModel> {

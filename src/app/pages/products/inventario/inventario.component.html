@@ -21,15 +21,10 @@
 
           <div class="col-12 col-md-6 d-grid mb-2 px-2">
             <div class="position-relative">
-              <!-- <ng-autocomplete #autocomplete [data]="listMonturas" [searchKeyword]="keyword"
-                placeholder="Buscar productos" (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)'
-                (inputFocused)='onFocused($event)' historyIdentifier="" [itemTemplate]="itemTemplate"
-                [notFoundTemplate]="notFoundTemplate" (keyup.enter)="selectEvent($event)" focusFirst="true">
-              </ng-autocomplete> -->
               <ng-autocomplete #autocomplete [data]="listMonturas" [searchKeyword]="keyword"
                 placeholder="Buscar productos" (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)'
                 (inputFocused)='onFocused($event)' historyIdentifier="" [itemTemplate]="itemTemplate"
-                [notFoundTemplate]="notFoundTemplate" (keyup.enter)="selectEvent($event)">
+                [notFoundTemplate]="notFoundTemplate" (keyup.enter)="selectEvent($event)" focusFirst="true">
               </ng-autocomplete>
 
               <ng-template #itemTemplate let-item>

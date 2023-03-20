@@ -5,17 +5,17 @@
 
     <div class="col-md-9 mb-2 search-box chat-search-box">
       <div class="position-relative">
-        <ng-autocomplete #autocomplete [data]="listAllProducts" [searchKeyword]="keyword" placeholder="Buscar productos"
-          (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
-          historyIdentifier="" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-          (keyup.enter)="selectEvent($event)">
-        </ng-autocomplete>
-
         <!-- <ng-autocomplete #autocomplete [data]="listAllProducts" [searchKeyword]="keyword" placeholder="Buscar productos"
           (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
           historyIdentifier="" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-          (keyup.enter)="selectEvent($event)" focusFirst="true">
+          (keyup.enter)="selectEvent($event)">
         </ng-autocomplete> -->
+
+        <ng-autocomplete #autocomplete [data]="listAllProducts" [searchKeyword]="keyword" placeholder="Buscar productos"
+          (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
+          historyIdentifier="" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+          (keyup.enter)="selectEvent($event)" focusFirst="true">
+        </ng-autocomplete>
 
         <ng-template #itemTemplate let-item>
           <a [innerHTML]="item.id_producto"></a>
