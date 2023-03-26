@@ -376,14 +376,17 @@ export class AddSaleComponent implements OnInit {
         case 'montura':
           this.products.push({ ...item, cant_vendida: 1, precio: item.precio_montura_v });
           this.autocomplete.clear();
+          this.autocomplete.close();
           break;
         case 'luna':
           this.products.push({ ...item, cant_vendida: 1, precio: item.precio_luna_v });
           this.autocomplete.clear();
+          this.autocomplete.close();
           break;
         case 'accesorio':
           this.products.push({ ...item, cant_vendida: 1, precio: item.precio_accesorio_v });
           this.autocomplete.clear();
+          this.autocomplete.close();
           break;
         default:
           break;
@@ -394,10 +397,12 @@ export class AddSaleComponent implements OnInit {
       if (productExistInCart.cant_vendida + 1 > productExistInCart.cantidad) {
         Sweetalert("error", "No se puede agregar más productos del stock");
         this.autocomplete.clear();
+        this.autocomplete.close();
         return;
       } else {
         productExistInCart.cant_vendida += 1;
         this.autocomplete.clear();
+        this.autocomplete.close();
       }
 
     }

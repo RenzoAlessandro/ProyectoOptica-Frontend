@@ -125,6 +125,7 @@ export class InventarioComponent implements OnInit {
         case 'montura':
           this.products.push({ ...item, isSelected: true });
           this.autocomplete.clear();
+          this.autocomplete.close();
           break;
         default:
           break;
@@ -133,6 +134,7 @@ export class InventarioComponent implements OnInit {
     } else {
       Sweetalert("error", "Este producto ya fue registrado");
       this.autocomplete.clear();
+      this.autocomplete.close();
       return;
     }
   }

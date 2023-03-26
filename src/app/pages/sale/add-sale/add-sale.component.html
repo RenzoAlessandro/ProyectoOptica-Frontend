@@ -14,7 +14,7 @@
         <ng-autocomplete #autocomplete [data]="listAllProducts" [searchKeyword]="keyword" placeholder="Buscar productos"
           (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
           historyIdentifier="" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-          (keyup.enter)="selectEvent($event)" focusFirst="true">
+          (keyup.enter)="selectEvent($event)" focusFirst="true" minQueryLength="8">
         </ng-autocomplete>
 
         <ng-template #itemTemplate let-item>
@@ -58,7 +58,7 @@
                 style="border-spacing: 0 12px; width: 100%;">
                 <thead class="table-light">
                   <tr class="bg-transparent">
-                    <th>ID Producto</th>
+                    <th>Ord.</th>
                     <th>Tipo</th>
                     <th>Detalle</th>
                     <th>Cantidad</th>

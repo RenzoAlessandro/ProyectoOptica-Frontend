@@ -28,7 +28,7 @@
           </div>
           <div class="col-12 col-md-6 d-grid" *appRole="role">
             <div class="btn-group mb-2">
-              <input type="button" class="btn btn-primary btn-block" value="Descargar Archivo"
+              <input type="button" class="btn btn-primary btn-block" value="Descargar Archivo" [disabled]="!formDateRange.valid"
                 (click)="exportarVentas()">
             </div>
           </div>

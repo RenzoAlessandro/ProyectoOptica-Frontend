@@ -24,7 +24,7 @@
               <ng-autocomplete #autocomplete [data]="listMonturas" [searchKeyword]="keyword"
                 placeholder="Buscar productos" (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)'
                 (inputFocused)='onFocused($event)' historyIdentifier="" [itemTemplate]="itemTemplate"
-                [notFoundTemplate]="notFoundTemplate" (keyup.enter)="selectEvent($event)" focusFirst="true">
+                [notFoundTemplate]="notFoundTemplate" (keyup.enter)="selectEvent($event)" focusFirst="true" minQueryLength="8">
               </ng-autocomplete>
 
               <ng-template #itemTemplate let-item>

@@ -171,7 +171,7 @@ export class ListSalesComponent implements OnInit {
 
   crearFormulario() {
     this.formDateRange = this.fb.group({
-      [this.fechaDesde]: [],
+      [this.fechaDesde]: [null,[Validators.required]],
       [this.fechaHasta]: []
     });
 
@@ -630,11 +630,20 @@ export class ListSalesComponent implements OnInit {
   }
 
   exportarVentas() {
-    if (this.formSedes.valid) {
+    if (this.formSedes.valid && this.formDateRange.valid) {
       let data = [];
       const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
       const EXCEL_EXTENSION = '.xlsx';
-      this.ventaService.getVentasbySede(this.idSede).subscribe(res => {
+      this.idSede = this.fS(this.nombre_sedes).value;
+      let fechaIni = new Date(this.f(this.fechaDesde).value + 'T00:00');
+      let fechaFin: Date;
+      if (this.f(this.fechaHasta).value != null) {
+        fechaFin = new Date(this.f(this.fechaHasta).value + 'T23:59');
+      } else {
+        fechaFin = new Date(Date.now());
+        fechaFin.setHours(23, 59, 0)
+      }
+      this.ventaService.getVentasByDate(fechaIni, fechaFin, this.idSede).subscribe(res => {
         this.excelVentas = res;
         data = this.excelVentas.map((ventas: VentasModel) => {
           let accesorios = ventas.list_accesorios.map(acc => {
