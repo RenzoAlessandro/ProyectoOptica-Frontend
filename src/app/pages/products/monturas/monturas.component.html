@@ -100,10 +100,10 @@
                   <ngb-highlight [result]="i+1" [term]="service.searchTerm"></ngb-highlight>
                 </td>
                 <td>
-                  <ngb-highlight [result]="data.material" [term]="service.searchTerm"></ngb-highlight>
+                  <ngb-highlight [result]="data.material.toUpperCase()" [term]="service.searchTerm"></ngb-highlight>
                 </td>
                 <td>
-                  <ngb-highlight [result]="data.marca" [term]="service.searchTerm"></ngb-highlight>
+                  <ngb-highlight [result]="data.marca.toUpperCase()" [term]="service.searchTerm"></ngb-highlight>
                 </td>
                 <td>
                   <ngb-highlight [result]="data.codigo" [term]="service.searchTerm"></ngb-highlight>
@@ -115,7 +115,7 @@
                   <ngb-highlight [result]="data.talla" [term]="service.searchTerm"></ngb-highlight>
                 </td>
                 <td>
-                  <ngb-highlight [result]="data.color" [term]="service.searchTerm"></ngb-highlight>
+                  <ngb-highlight [result]="data.color.toUpperCase()" [term]="service.searchTerm"></ngb-highlight>
                 </td>
                 <td>
                   <ngb-highlight [result]="data.cantidad" [term]="service.searchTerm"></ngb-highlight>

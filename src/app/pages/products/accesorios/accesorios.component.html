@@ -97,7 +97,7 @@
                   <ngb-highlight [result]="i+1" [term]="service.searchTerm"></ngb-highlight>
                 </td>
                 <td>
-                  <ngb-highlight [result]="data.nombre_accesorio" [term]="service.searchTerm"></ngb-highlight>
+                  <ngb-highlight [result]="data.nombre_accesorio.toUpperCase()" [term]="service.searchTerm"></ngb-highlight>
                 </td>
                 <!--                   <td>
                     <ngb-highlight [result]="data.codigo_interno" [term]="service.searchTerm"></ngb-highlight>

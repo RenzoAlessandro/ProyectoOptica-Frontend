@@ -215,16 +215,16 @@
                           <ngb-highlight [result]="data.monto|currency:'S/.'" [term]=""></ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="data.metodo_pago" [term]=""></ngb-highlight>
+                          <ngb-highlight [result]="data.metodo_pago.toUpperCase()" [term]=""></ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="data.descripcion" [term]=""></ngb-highlight>
+                          <ngb-highlight [result]="data.descripcion.toUpperCase()" [term]=""></ngb-highlight>
                         </td>
                         <td>
                           <ngb-highlight [result]="data.fecha_creacion_caja| date: 'dd/MM/yyyy'" [term]=""></ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="data.nombre_encargado" [term]=""></ngb-highlight>
+                          <ngb-highlight [result]="data.nombre_encargado.toUpperCase()" [term]=""></ngb-highlight>
                         </td>
                       </tr>
                     </tbody>
@@ -278,16 +278,16 @@
                           <ngb-highlight [result]="data.monto|currency:'S/.'" [term]=""></ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="data.metodo_pago" [term]=""></ngb-highlight>
+                          <ngb-highlight [result]="data.metodo_pago.toUpperCase()" [term]=""></ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="data.descripcion" [term]=""></ngb-highlight>
+                          <ngb-highlight [result]="data.descripcion.toUpperCase()" [term]=""></ngb-highlight>
                         </td>
                         <td>
                           <ngb-highlight [result]="data.fecha_creacion_caja| date: 'dd/MM/yyyy'" [term]=""></ngb-highlight>
                         </td>
                         <td>
-                          <ngb-highlight [result]="data.nombre_encargado" [term]=""></ngb-highlight>
+                          <ngb-highlight [result]="data.nombre_encargado.toUpperCase()" [term]=""></ngb-highlight>
                         </td>
                       </tr>
                     </tbody>

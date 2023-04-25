@@ -100,14 +100,14 @@
                           {{data.nombre_cliente.charAt(0)}}
                         </span>
                       </div>
-                      <ngb-highlight [result]="data.nombre_cliente" [term]="service.searchTerm"></ngb-highlight>
+                      <ngb-highlight [result]="data.nombre_cliente.toUpperCase()" [term]="service.searchTerm"></ngb-highlight>
                     </td>
                     <td>
                       <ngb-highlight [result]="data.tipo_venta[0].precio_total | currency:'S/ '" [term]="service.searchTerm">
                       </ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="data.nombre_vendedor" [term]="service.searchTerm">
+                      <ngb-highlight [result]="data.nombre_vendedor.toUpperCase()" [term]="service.searchTerm">
                       </ngb-highlight>
                     </td>
                     <td *ngIf="data.tipo_venta[0].deuda>0">

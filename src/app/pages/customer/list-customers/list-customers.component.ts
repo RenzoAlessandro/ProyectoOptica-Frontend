@@ -387,9 +387,9 @@ export class ListCustomersComponent implements OnInit {
     var nombresCliente = this.userPrint.nombres;
     var apellidosCliente = this.userPrint.apellidos;
     var fnacimientoCliente = new Date (this.userPrint.fecha_nacimiento).toLocaleDateString('en-GB');
-    var direccionCliente = 'Calle Leticia 104, Carmen Alto Cayma, Arequipa';
-    var correoCliente = 'renzo.sucari@gmail.com';
-    var telefonoCliente = this.userPrint.telefono;
+    var direccionCliente = this.userPrint.direccion ? this.userPrint.direccion : "Sin dirección";
+    var correoCliente = this.userPrint.email ? this.userPrint.email : "Sin correo";
+    var telefonoCliente = this.userPrint.telefono ? this.userPrint.telefono : "Sin telefono";
 
     var od_esf_Cliente = this.userPrint.medidas[0].od_esferico > 0? '+'+this.userPrint.medidas[0].od_esferico.toFixed(2): this.userPrint.medidas[0].od_esferico.toFixed(2) ;
     var od_cil_Cliente = this.userPrint.medidas[0].od_cilindrico > 0 ? '+'+this.userPrint.medidas[0].od_cilindrico.toFixed(2) : this.userPrint.medidas[0].od_cilindrico.toFixed(2);
@@ -431,6 +431,7 @@ export class ListCustomersComponent implements OnInit {
               [{ text: 'Paciente:', style: 'subtitulo2' }],
               [{ text: nombresCliente + ' ' + apellidosCliente, style: 'subtitulo' }],
               [{ text: 'Fecha de Nacimiento: '+fnacimientoCliente, style: 'contenido2'  }],
+              [{ text: 'Dirección: '+direccionCliente, style: 'contenido2' }],
               [{ text: 'Correo: '+correoCliente, style: 'contenido2' }],
               [{ text: 'Telefono: '+telefonoCliente, style: 'contenido2'  }],
             ]

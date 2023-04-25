@@ -73,16 +73,16 @@
                         {{data.nombres.charAt(0)}}
                       </span>
                     </div>
-                    <ngb-highlight [result]="data.nombres" [term]="service.searchTerm"></ngb-highlight>
+                    <ngb-highlight [result]="data.nombres.toUpperCase()" [term]="service.searchTerm"></ngb-highlight>
                   </td>
                   <td>
-                    <ngb-highlight [result]="data.apellidos" [term]="service.searchTerm"></ngb-highlight>
+                    <ngb-highlight [result]="data.apellidos.toUpperCase()" [term]="service.searchTerm"></ngb-highlight>
                   </td>
                   <td>
                     <ngb-highlight [result]="data.dni" [term]="service.searchTerm"></ngb-highlight>
                   </td>
                   <td>
-                    <ngb-highlight [result]="data.rol" [term]="service.searchTerm"></ngb-highlight>
+                    <ngb-highlight [result]="data.rol.toUpperCase()" [term]="service.searchTerm"></ngb-highlight>
                   </td>
                   <!-- <td>
                     <ngb-highlight [result]="data.sede" [term]="service.searchTerm"></ngb-highlight>

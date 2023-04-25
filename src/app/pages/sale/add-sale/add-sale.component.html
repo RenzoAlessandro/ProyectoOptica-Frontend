@@ -73,17 +73,17 @@
                       <ngb-highlight [result]="i+1"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="item.tipo"></ngb-highlight>
+                      <ngb-highlight [result]="item.tipo.toUpperCase()"></ngb-highlight>
                     </td>
                     <td *ngIf="item.tipo == 'montura'">
-                      <ngb-highlight [result]="item.material"></ngb-highlight>&nbsp;
-                      <ngb-highlight [result]="item.marca"></ngb-highlight>
+                      <ngb-highlight [result]="item.material.toUpperCase()"></ngb-highlight>&nbsp;
+                      <ngb-highlight [result]="item.marca.toUpperCase()"></ngb-highlight>
                     </td>
                     <td *ngIf="item.tipo == 'luna'">
-                      <ngb-highlight [result]="item.material"></ngb-highlight>
+                      <ngb-highlight [result]="item.material.toUpperCase()"></ngb-highlight>
                     </td>
                     <td *ngIf="item.tipo == 'accesorio'">
-                      <ngb-highlight [result]="item.nombre_accesorio"></ngb-highlight>
+                      <ngb-highlight [result]="item.nombre_accesorio.toUpperCase()"></ngb-highlight>
                     </td>
                     <td>
                       <ngb-highlight [result]="item.cant_vendida"></ngb-highlight>
