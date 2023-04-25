@@ -49,6 +49,7 @@ export class AddSaleComponent implements OnInit {
   pago_Contado: string = "campoPagoContado";
   cambio_Contado: string = "campoCambioContado";
   observaciones_Contado: string = "campoObservacionesContado";
+  vendedor_Contado: string = "campoVendedorContado";
   metodoPagoContado: string = "campoMetodoPagoContado";
 
   formCredito: FormGroup;
@@ -60,6 +61,7 @@ export class AddSaleComponent implements OnInit {
   pago_Credito: string = "campoPagoCredito";
   cambio_Credito: string = "campoCambioCredito";
   observaciones_Credito: string = "campoObservacionesCredito";
+  vendedor_Credito: string = "campoVendedorCredito";
   metodoPagoCredito: string = "campoMetodoPagoCredito";
 
   formEditarPrecio: FormGroup;
@@ -96,6 +98,7 @@ export class AddSaleComponent implements OnInit {
   listClients: any = [];
 
   btnGuardar = false;
+  lettersPattern = '[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'; // Incluimos Ññ y tildes en cada vocal
   numberPattern = '(^[0-9])+([.][0-9]{1,2})?$';
   decimalPattern = /^\d+(\.\d{1,2})?$/;
   fechaVenta: Date;
@@ -170,6 +173,10 @@ export class AddSaleComponent implements OnInit {
       [this.pago_Contado]: [{ value: null, disabled: true }],
       [this.cambio_Contado]: [{ value: null, disabled: true }],
       [this.observaciones_Contado]: [null],
+      [this.vendedor_Contado]: [null, [
+        Validators.required,
+        Validators.pattern(this.lettersPattern),
+      ]],
       [this.metodoPagoContado]: [null, [
         Validators.required
       ]],
@@ -189,6 +196,10 @@ export class AddSaleComponent implements OnInit {
       [this.pago_Credito]: [{ value: null, disabled: true }],
       [this.cambio_Credito]: [{ value: null, disabled: true }],
       [this.observaciones_Credito]: [null],
+      [this.vendedor_Credito]: [null, [
+        Validators.required,
+        Validators.pattern(this.lettersPattern),
+      ]],
       [this.metodoPagoCredito]: [null, [
         Validators.required
       ]],
@@ -196,6 +207,20 @@ export class AddSaleComponent implements OnInit {
         Validators.required]],
     })
   }
+
+    /**
+   * Returns form contado
+   */
+    get formVContado() {
+      return this.formContado.controls;
+    }
+
+        /**
+   * Returns form contado
+   */
+    get formVCredito() {
+      return this.formCredito.controls;
+    }
 
   onSort({ column, direction }: SortEvent) {
     // resetting other headers

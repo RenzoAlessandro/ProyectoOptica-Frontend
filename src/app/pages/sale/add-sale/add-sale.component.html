@@ -73,17 +73,17 @@
                       <ngb-highlight [result]="i+1"></ngb-highlight>
                     </td>
                     <td>
-                      <ngb-highlight [result]="item.tipo.toUpperCase()"></ngb-highlight>
+                      <ngb-highlight [result]="item.tipo"></ngb-highlight>
                     </td>
                     <td *ngIf="item.tipo == 'montura'">
-                      <ngb-highlight [result]="item.material.toUpperCase()"></ngb-highlight>&nbsp;
-                      <ngb-highlight [result]="item.marca.toUpperCase()"></ngb-highlight>
+                      <ngb-highlight [result]="item.material"></ngb-highlight>&nbsp;
+                      <ngb-highlight [result]="item.marca"></ngb-highlight>
                     </td>
                     <td *ngIf="item.tipo == 'luna'">
-                      <ngb-highlight [result]="item.material.toUpperCase()"></ngb-highlight>
+                      <ngb-highlight [result]="item.material"></ngb-highlight>
                     </td>
                     <td *ngIf="item.tipo == 'accesorio'">
-                      <ngb-highlight [result]="item.nombre_accesorio.toUpperCase()"></ngb-highlight>
+                      <ngb-highlight [result]="item.nombre_accesorio"></ngb-highlight>
                     </td>
                     <td>
                       <ngb-highlight [result]="item.cant_vendida"></ngb-highlight>
@@ -304,11 +304,30 @@
 
               <div class="row">
                 <div class="col-lg-12">
-                  <div class="mb-4">
+                  <div class="mb-3">
                     <label class="form-label" for="billing-observaciones">Observaciones</label>
                     <textarea class="form-control" id="billing-observaciones" rows="3"
                       placeholder="Ingrese las observaciones"
                       formControlName="{{this.observaciones_Contado}}"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="mb-4">
+                    <label class="form-label" for="billing-vendedor">Responsable de la Venta</label>
+                    <input class="form-control" placeholder="Nombre Completo" type="text" name="nameVendenorContado"
+                      formControlName="{{this.vendedor_Contado}}" 
+                      [ngClass]="{'is-invalid': formVContado.campoVendedorContado.invalid && (formVContado.campoVendedorContado.dirty || formVContado.campoVendedorContado.touched)}" />
+                      <div class="invalid-feedback">
+                        <div *ngIf="formVContado.campoVendedorContado.errors?.required">
+                          Campo requerido
+                        </div>
+                        <div *ngIf="formVContado.campoVendedorContado.errors?.pattern">
+                          Ingrese solo letras
+                        </div>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -452,11 +471,30 @@
 
               <div class="row">
                 <div class="col-lg-12">
-                  <div class="mb-4">
+                  <div class="mb-3">
                     <label class="form-label" for="billing-observaciones">Observaciones</label>
                     <textarea class="form-control" id="billing-observaciones" rows="3"
                       placeholder="Ingrese las observaciones"
                       formControlName="{{this.observaciones_Credito}}"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="mb-4">
+                    <label class="form-label" for="billing-vendedor">Responsable de la Venta</label>
+                    <input class="form-control" placeholder="Nombre Completo" type="text" name="nameVendenorCredito"
+                      formControlName="{{this.vendedor_Credito}}"
+                      [ngClass]="{'is-invalid': formVCredito.campoVendedorCredito.invalid && (formVCredito.campoVendedorCredito.dirty || formVCredito.campoVendedorCredito.touched)}" />
+                      <div class="invalid-feedback">
+                        <div *ngIf="formVCredito.campoVendedorCredito.errors?.required">
+                          Campo requerido
+                        </div>
+                        <div *ngIf="formVCredito.campoVendedorCredito.errors?.pattern">
+                          Ingrese solo letras
+                        </div>
+                      </div>
                   </div>
                 </div>
               </div>

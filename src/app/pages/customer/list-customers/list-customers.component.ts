@@ -403,7 +403,7 @@ export class ListCustomersComponent implements OnInit {
     var add_Cliente = this.userPrint.medidas[0].add > 0 ? '+'+this.userPrint.medidas[0].add.toFixed(2): this.userPrint.medidas[0].add.toFixed(2)
 
     var encargadoCliente = this.userPrint.medidas[0].encargado;
-    var antecedentesCliente = this.userPrint.antecedentes
+    var antecedentesCliente = this.userPrint.antecedentes ? this.userPrint.antecedentes : "Sin atecedentes.";
     
     const pdfDefinition: any = {
       pageSize: 'A5',
@@ -417,7 +417,7 @@ export class ListCustomersComponent implements OnInit {
             body: [
 /*               [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150, rowSpan: 4 }, { text: 'Nº de Receta:', style: 'tableHeader', alignment: 'right' }],
               [{ }, { text: numeroReceta, alignment: 'right' }], */
-              [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150, rowSpan: 2 }, { text: 'Fecha de la Receta:', style: 'tableHeader', alignment: 'right' }],
+              [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150, rowSpan: 2 }, { text: 'Fecha de hoy:', style: 'tableHeader', alignment: 'right' }],
               [{ }, { text: fecha_hoy, alignment: 'right' }],
             ]
           },
@@ -466,7 +466,7 @@ export class ListCustomersComponent implements OnInit {
       styles: {
         subtitulo: {
           bold: true,
-          fontSize: 13,
+          fontSize: 12,
           color: 'black',
           margin: [0, 10, 0, 5]
         },
