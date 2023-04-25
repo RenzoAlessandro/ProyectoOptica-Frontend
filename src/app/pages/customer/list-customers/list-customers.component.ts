@@ -387,9 +387,9 @@ export class ListCustomersComponent implements OnInit {
     var nombresCliente = this.userPrint.nombres;
     var apellidosCliente = this.userPrint.apellidos;
     var fnacimientoCliente = new Date (this.userPrint.fecha_nacimiento).toLocaleDateString('en-GB');
-    var direccionCliente = this.userPrint.direccion ? this.userPrint.direccion : "Sin dirección";
-    var correoCliente = this.userPrint.email ? this.userPrint.email : "Sin correo";
-    var telefonoCliente = this.userPrint.telefono ? this.userPrint.telefono : "Sin telefono";
+    var direccionCliente = this.userPrint.direccion ? this.userPrint.direccion : "Sin especificar.";
+    var correoCliente = this.userPrint.email ? this.userPrint.email : "Sin especificar.";
+    var telefonoCliente = this.userPrint.telefono ? this.userPrint.telefono : "Sin especificar.";
 
     var od_esf_Cliente = this.userPrint.medidas[0].od_esferico > 0? '+'+this.userPrint.medidas[0].od_esferico.toFixed(2): this.userPrint.medidas[0].od_esferico.toFixed(2) ;
     var od_cil_Cliente = this.userPrint.medidas[0].od_cilindrico > 0 ? '+'+this.userPrint.medidas[0].od_cilindrico.toFixed(2) : this.userPrint.medidas[0].od_cilindrico.toFixed(2);
@@ -468,13 +468,13 @@ export class ListCustomersComponent implements OnInit {
           bold: true,
           fontSize: 12,
           color: 'black',
-          margin: [0, 10, 0, 5]
+          margin: [0, 2, 0, 3]
         },
         subtitulo2: {
           bold: true,
           fontSize: 11,
           color: 'black',
-          margin: [0, 10, 0, 5]
+          margin: [0, 5, 0, 5]
         },
         subtitulo3: {
           bold: true,
