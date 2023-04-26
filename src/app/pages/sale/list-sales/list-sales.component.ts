@@ -682,7 +682,9 @@ export class ListSalesComponent implements OnInit {
             "LUNAS": JSON.stringify(lunas),
             "MONTURAS": JSON.stringify(monturas),
             "TOTAL": ventas.tipo_venta[0].precio_total,
-            "VENDEDOR": ventas.nombre_vendedor,
+            "USUARIO": ventas.nombre_vendedor.toUpperCase(),
+            "VENDEDOR": ventas.nombre_jalador.toUpperCase(),
+            "ENCARGADO MEDICION": ventas.encargado_medicion.toUpperCase(),
             "FORMA DE PAGO": ventas.tipo_venta[0].forma_pago,
             "ESTADO": ventas.tipo_venta[0].deuda > 0 ? "DEUDA" : "PAGADO"
           }

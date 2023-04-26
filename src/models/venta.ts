@@ -16,4 +16,6 @@ export class VentasModel {
     id_cliente: string;
     nombre_cliente: string;
     habilitado: boolean;
+    nombre_jalador:string;
+    encargado_medicion:string;
 }

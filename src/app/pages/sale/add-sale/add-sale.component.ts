@@ -5,8 +5,6 @@ import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { NgbModal, NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap'
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { Venta } from './addsale.model';
-import { AddsaleService } from './addsale.service';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 import { ProductosService } from 'src/app/services/productos.service';
 import { VentasModel } from 'src/models/venta';
@@ -29,7 +27,7 @@ import { SedesModel } from 'src/models/sedes';
   selector: 'app-add-sale',
   templateUrl: './add-sale.component.html',
   styleUrls: ['./add-sale.component.scss'],
-  providers: [AddsaleService, DecimalPipe]
+  providers: [DecimalPipe]
 })
 export class AddSaleComponent implements OnInit {
 
@@ -77,7 +75,6 @@ export class AddSaleComponent implements OnInit {
   breadCrumbItems: Array<{}>;
   term: any;
 
-  addsales$: Observable<Venta[]>;
   total$: Observable<number>;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
@@ -105,15 +102,13 @@ export class AddSaleComponent implements OnInit {
   customer: any;
   tmpProducto: any;
 
-  constructor(public service: AddsaleService,
+  constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
     private productosService: ProductosService,
     private customerService: ClienteService,
     private usuarioService: UsuarioService
   ) {
-    this.addsales$ = service.Addsales$;
-    this.total$ = service.total$;
   }
 
   ngOnInit() {
@@ -229,9 +224,6 @@ export class AddSaleComponent implements OnInit {
         header.direction = '';
       }
     });
-
-    this.service.sortColumn = column;
-    this.service.sortDirection = direction;
   }
 
   /**
@@ -575,6 +567,7 @@ export class AddSaleComponent implements OnInit {
       this.venta.list_accesorios = tempAccesorios;
       this.venta.fecha_creacion_venta = new Date(Date.now());
       if (this.selectorPago == "contado") {
+        this.venta.nombre_jalador = this.f(this.vendedor_Contado).value;
         this.tipoPago.observaciones = this.f(this.observaciones_Contado).value;
         this.tipoPago.cantidad_recibida = Number(this.f(this.cantidadRecibida_Contado).value);
         if (this.f(this.cantidadRecibida_Contado).value - this.precioTotalVenta < 0) {
@@ -586,7 +579,8 @@ export class AddSaleComponent implements OnInit {
           this.tipoPago.cuotas = String(0);
           let idClienteContado = this.listClients.find(cliente=>(cliente.id_cliente == (this.f(this.nombreContado).value).id_cliente));
           if (idClienteContado != undefined) {
-            this.venta.id_cliente = (this.f(this.nombreContado).value).id_cliente
+            this.venta.id_cliente = (this.f(this.nombreContado).value).id_cliente;
+            this.venta.encargado_medicion = (this.f(this.nombreContado).value).medidas[0].encargado
           } else {
             this.f(this.nombreContado).setValue(null);
             return;
@@ -597,6 +591,7 @@ export class AddSaleComponent implements OnInit {
           Sweetalert("error", "El pago no puede ser mayor al valor de la compra, se sugiere compra al contado");
           return
         } else {
+          this.venta.nombre_jalador = this.g(this.vendedor_Credito).value;
           this.tipoPago.observaciones = this.g(this.observaciones_Credito).value;
           this.tipoPago.cantidad_recibida = Number(this.g(this.cantidadRecibida_Credito).value);
           this.tipoPago.deuda = round(this.precioTotalVenta - this.g(this.cantidadRecibida_Credito).value, 1);
@@ -605,6 +600,7 @@ export class AddSaleComponent implements OnInit {
           let idClienteCredito = this.listClients.find(cliente=>(cliente.id_cliente == (this.g(this.nombreCredito).value).id_cliente));
           if (idClienteCredito != undefined) {
             this.venta.id_cliente = (this.g(this.nombreCredito).value).id_cliente;
+            this.venta.encargado_medicion = (this.g(this.nombreCredito).value).medidas[0].encargado
           } else {
             this.g(this.nombreCredito).setValue(null);
             return;
