@@ -403,10 +403,10 @@ export class ListSalesComponent implements OnInit {
     var felefonoEmpresa = '955 739 464';
 
     var nombresCliente = cliente.nombres + ' ' + cliente.apellidos;
-    var fnacimientoCliente = cliente.fecha_nacimiento ? new Date(cliente.fecha_nacimiento).toLocaleDateString('en-GB') : "Sin fecha de nacimiento";
-    //var direccionCliente = 'Calle';
-    var correoCliente = cliente.email ? cliente.email : "Sin correo";
-    var telefonoCliente = cliente.telefono ? cliente.telefono : "Sin telefono";
+    var fnacimientoCliente = cliente.fecha_nacimiento ? new Date(cliente.fecha_nacimiento).toLocaleDateString('en-GB') : "Sin especificar.";
+    var direccionCliente = cliente.direccion ? cliente.direccion : "Sin especificar.";
+    var correoCliente = cliente.email ? cliente.email : "Sin especificar.";
+    var telefonoCliente = cliente.telefono ? cliente.telefono : "Sin especificar.";
 
     var externalDataRetrievedFromServer = [];
     var peruIGV = 0.18;
@@ -527,8 +527,9 @@ export class ListSalesComponent implements OnInit {
               [{ text: nombresCliente, style: 'subtitulo' }, {text: numeroBoleta, style: 'contenido', alignment: 'right'}], */
               [{ text: 'Facturado a:', style: 'tableHeader' }, { text: 'Fecha de la Boleta:', style: 'tableHeader', alignment: 'right' }],
               [{ text: nombresCliente, style: 'subtitulo' }, { text: fecha_hoy, style: 'contenido', alignment: 'right' }],
-              [{ text: 'Fecha de Nacimiento: ' + fnacimientoCliente, style: 'contenido' }, { text: '', style: 'tableHeader', alignment: 'right' }],
-              [{ text: 'Correo: ' + correoCliente, style: 'contenido' }, { text: '', style: 'contenido', alignment: 'right' }],
+              [{ text: 'Fecha de Nacimiento: ' + fnacimientoCliente, style: 'contenido' }, { }],
+              [{ text: 'Dirección: ' + direccionCliente, style: 'contenido' }, { }],
+              [{ text: 'Correo: ' + correoCliente, style: 'contenido' }, {  }],
               [{ text: 'Telefono: ' + telefonoCliente, style: 'contenido' }, {}],
             ]
           },
