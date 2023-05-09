@@ -129,16 +129,16 @@ export class ListCustomersComponent implements OnInit {
       this.f(this.email).setValue(data.email);
       this.f(this.direccion).setValue(data.direccion);
 
-      this.f(this.od_cilindrico).setValue(data.medidas[0].od_cilindrico > 0 ? '+'+data.medidas[0].od_cilindrico.toFixed(2) : data.medidas[0].od_cilindrico.toFixed(2));
+      this.f(this.od_cilindrico).setValue(data.medidas[0].od_cilindrico >= 0 ? '+'+data.medidas[0].od_cilindrico.toFixed(2) : data.medidas[0].od_cilindrico.toFixed(2));
       this.f(this.od_eje).setValue(data.medidas[0].od_eje);
-      this.f(this.od_esferico).setValue(data.medidas[0].od_esferico > 0? '+'+data.medidas[0].od_esferico.toFixed(2): data.medidas[0].od_esferico.toFixed(2));
+      this.f(this.od_esferico).setValue(data.medidas[0].od_esferico >= 0? '+'+data.medidas[0].od_esferico.toFixed(2): data.medidas[0].od_esferico.toFixed(2));
 
-      this.f(this.oi_cilindrico).setValue(data.medidas[0].oi_cilindrico > 0 ? '+'+data.medidas[0].oi_cilindrico.toFixed(2): data.medidas[0].oi_cilindrico.toFixed(2));
-      this.f(this.oi_esferico).setValue(data.medidas[0].oi_esferico > 0? '+'+data.medidas[0].oi_esferico.toFixed(2) : data.medidas[0].oi_esferico.toFixed(2) );
+      this.f(this.oi_cilindrico).setValue(data.medidas[0].oi_cilindrico >= 0 ? '+'+data.medidas[0].oi_cilindrico.toFixed(2): data.medidas[0].oi_cilindrico.toFixed(2));
+      this.f(this.oi_esferico).setValue(data.medidas[0].oi_esferico >= 0? '+'+data.medidas[0].oi_esferico.toFixed(2) : data.medidas[0].oi_esferico.toFixed(2) );
       this.f(this.oi_eje).setValue(data.medidas[0].oi_eje);
 
       this.f(this.dip).setValue(data.medidas[0].dip);
-      this.f(this.add).setValue(data.medidas[0].add > 0 ? '+'+data.medidas[0].add.toFixed(2): data.medidas[0].add.toFixed(2));
+      this.f(this.add).setValue(data.medidas[0].add >= 0 ? '+'+data.medidas[0].add.toFixed(2): data.medidas[0].add.toFixed(2));
       this.f(this.encargado).setValue(data.medidas[0].encargado);
       this.f(this.antecedentes).setValue(data.antecedentes);
       this.customer.id_cliente = data.id_cliente;
@@ -183,7 +183,6 @@ export class ListCustomersComponent implements OnInit {
    * guarda cliente en la base de datos
    */
   guardarCliente() {
-    
     if(this.formCustomer.valid){
       this.customer.apellidos = this.f(this.apellidos).value;
       this.customer.dni = this.f(this.dni).value;
@@ -214,7 +213,7 @@ export class ListCustomersComponent implements OnInit {
         this.formCustomer.reset();
         Sweetalert("close",null);
         Sweetalert("success","Datos del cliente actualizados");
-      }) ; 
+      }) ;  
     } else {
       return
     }
