@@ -52,6 +52,7 @@ export class AccesoriosComponent implements OnInit {
   cantidad_accesorio: string = "campoCantidadAccesorio";
   precio_compra_accesorio: string = "campoCompraAccesorio";
   precio_venta_accesorio: string = "campoVentaAccesorio";
+  nombre_sedesAccesorio: string = "campoSedeAccesorio";
 
   //formulario Imprimir Etiquetas por cada Elemento
   formPrintEtiquetaAccesorio: FormGroup;
@@ -124,7 +125,8 @@ export class AccesoriosComponent implements OnInit {
       [this.precio_venta_accesorio]: [null, [
         Validators.required,
         Validators.pattern(this.decimalPattern)
-      ]]
+      ]],
+      [this.nombre_sedesAccesorio]: [this.idSede, [Validators.required]]
     });
 
     this.formPrintEtiquetaAccesorio = this.fb.group({

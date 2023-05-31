@@ -202,19 +202,22 @@
             </div>
           </div>
         </div>
-        <!-- <div class="col-4">
+      </div>
+      <div class="row">
+        <div class="col-12">
           <div class="mb-3">
-            <label class="control-label">Código int. *</label>
-            <input class="form-control" placeholder="Código" type="text" name="title"
-              formControlName="{{this.codigo_luna}}"
-              [ngClass]="{'is-invalid': formEL.campoCodigoLuna.invalid && (formEL.campoCodigoLuna.dirty || formEL.campoCodigoLuna.touched)}" />
-            <div class="invalid-feedback">
-              <div *ngIf="formEL.campoCodigoLuna.errors?.required">
-                Campo requerido
+            <label class="control-label">Sede *</label>
+            <div class="btn-toolbar" role="toolbar">
+              <div class="col-12 d-grid" *appRole="role">
+                  <div ngbDropdown>
+                    <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
+                      bindLabel="nombre_sede" formControlName="{{this.nombre_sedesLuna}}" >
+                    </ng-select>
+                  </div>
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
       </div>
       <div class="row">
         <div class="col-md-4">

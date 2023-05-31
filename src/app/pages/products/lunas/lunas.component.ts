@@ -50,6 +50,7 @@ export class LunasComponent implements OnInit {
   cantidad_luna: string = "campoCantidadLuna";
   precio_compra_luna: string = "campoCompraLuna";
   precio_venta_luna: string = "campoVentaLuna";
+  nombre_sedesLuna: string = "campoSedeLuna";
 
   //formulario Imprimir Etiquetas por cada Elemento
   formPrintEtiquetaLuna: FormGroup;
@@ -121,6 +122,7 @@ export class LunasComponent implements OnInit {
         Validators.required,
         Validators.pattern(this.decimalPattern)
       ]],
+      [this.nombre_sedesLuna]: [this.idSede, [Validators.required]]
     })
 
     this.formPrintEtiquetaLuna = this.fb.group({

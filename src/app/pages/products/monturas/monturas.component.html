@@ -75,7 +75,7 @@
                 <th scope="col" sortable="material" (sort)="onSort($event)">Material</th>
                 <th scope="col" sortable="marca" (sort)="onSort($event)">Marca</th>
                 <th scope="col" sortable="codigo" (sort)="onSort($event)">Cód. int.</th>
-                <!-- <th scope="col" sortable="codigo_2_interno" (sort)="onSort($event)">Cód. int.</th> -->
+                <th scope="col" sortable="codigo_montura" (sort)="onSort($event)">Cód. Mont.</th>
                 <th scope="col" sortable="talla" (sort)="onSort($event)">Talla</th>
                 <th scope="col" sortable="color" (sort)="onSort($event)">Color</th>
                 <th scope="col" sortable="cantidad" (sort)="onSort($event)">Stock</th>
@@ -108,9 +108,9 @@
                 <td>
                   <ngb-highlight [result]="data.codigo" [term]="service.searchTerm"></ngb-highlight>
                 </td>
-                <!--                   <td>
-                    <ngb-highlight [result]="data.codigo_interno" [term]="service.searchTerm"></ngb-highlight>
-                  </td> -->
+                <td>
+                  <ngb-highlight [result]="data.codigo_montura" [term]="service.searchTerm"></ngb-highlight>
+                </td>
                 <td>
                   <ngb-highlight [result]="data.talla" [term]="service.searchTerm"></ngb-highlight>
                 </td>
@@ -226,6 +226,23 @@
             <div class="invalid-feedback">
               <div *ngIf="formEM.campoMarcaMontura.errors?.required">
                 Campo requerido
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mb-3">
+            <label class="control-label">Sede *</label>
+            <div class="btn-toolbar" role="toolbar">
+              <div class="col-12 d-grid">
+                <div ngbDropdown>
+                  <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
+                    bindLabel="nombre_sede" formControlName="{{this.nombre_sedesMontura}}">
+                  </ng-select>
+                </div>
               </div>
             </div>
           </div>

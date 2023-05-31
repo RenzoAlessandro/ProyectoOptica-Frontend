@@ -49,6 +49,7 @@ export class MonturasComponent implements OnInit {
   cantidad_montura: string = "campoCantidadMontura";
   precio_compra_montura: string = "campoCompraMontura";
   precio_venta_montura: string = "campoVentaMontura";
+  nombre_sedesMontura: string = "campoSedeMontura";
 
   //formulario etiquetas
   formEtiquetaMonturas: FormGroup;
@@ -134,7 +135,8 @@ export class MonturasComponent implements OnInit {
       [this.precio_venta_montura]: [null, [
         Validators.required,
         Validators.pattern(this.decimalPattern)
-      ]]
+      ]],
+      [this.nombre_sedesMontura]: [this.idSede, [Validators.required]]
     })
 
     this.formEtiquetaMonturas = this.fb.group({
