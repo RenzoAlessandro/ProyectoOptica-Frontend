@@ -130,8 +130,8 @@ export class UpdateExcelComponent implements OnInit {
                   "PRECIO COMPRA": monturas.precio_montura_c,
                   "PRECIO VENTA": monturas.precio_montura_v,
                   "TALLA": monturas.talla,
-                  //"CODIGO INTERNO": monturas.codigo_interno,
                   "CODIGO": monturas.codigo,
+                  "CODIGO MONTURA": monturas.codigo_montura,
                   "MARCA": monturas.marca,
                   "CANTIDAD": monturas.cantidad,
                   "COLOR": monturas.color,
@@ -325,6 +325,7 @@ export class UpdateExcelComponent implements OnInit {
             material: element.MATERIAL == '' ? 'SIN ESPECIFICAR' : element.MATERIAL,
             marca: element.MARCA == '' ? 'SIN ESPECIFICAR' : element.MARCA,
             codigo: element.CODIGO == '' ? 'SIN ESPECIFICAR' : element.CODIGO,
+            codigo_montura: element['CODIGO MONTURA'] == '' ? 'SIN ESPECIFICAR' : element['CODIGO MONTURA'],
             talla: element.TALLA == '' ? 'SIN ESPECIFICAR' : element.TALLA,
             color: element.COLOR == '' ? 'SIN ESPECIFICAR' : element.COLOR,
             precio_montura_c: isNaN(Number(element[this.label.cabeceraExcelPCompra])) ? 0 : Number(element[this.label.cabeceraExcelPCompra]),
@@ -435,7 +436,7 @@ export class UpdateExcelComponent implements OnInit {
   validarCabeceraExcelCreate(data: any, tipoProducto: string): boolean {
     switch (tipoProducto.toLowerCase()) {
       case 'montura':
-        return ((Object.keys(data[0]).length == 11) && data[0].hasOwnProperty(this.label.cabeceraExcelMaterial) && data[0].hasOwnProperty(this.label.cabeceraExcelMarca) && data[0].hasOwnProperty(this.label.cabeceraExcelCodigo) &&
+        return ((Object.keys(data[0]).length == 12)&& data[0].hasOwnProperty(this.label.cabeceraExcelCodMontura) && data[0].hasOwnProperty(this.label.cabeceraExcelMaterial) && data[0].hasOwnProperty(this.label.cabeceraExcelMarca) && data[0].hasOwnProperty(this.label.cabeceraExcelCodigo) &&
           data[0].hasOwnProperty('TALLA') && data[0].hasOwnProperty('COLOR') && data[0].hasOwnProperty(this.label.cabeceraExcelCantidad) && data[0].hasOwnProperty(this.label.cabeceraExcelPCompra) &&
           data[0].hasOwnProperty(this.label.cabeceraExcelPVenta) && data[0].hasOwnProperty(this.label.cabeceraExcelFIngreso) && data[0].hasOwnProperty(this.label.cabeceraExcelTipo) && data[0].hasOwnProperty(this.label.cabeceraExcelSede))
       case 'luna':
@@ -452,7 +453,7 @@ export class UpdateExcelComponent implements OnInit {
   validarCabeceraExcelUpdate(data: any, tipoProducto: string): boolean {
     switch (tipoProducto.toLowerCase()) {
       case 'montura':
-        return ((Object.keys(data[0]).length == 12) && data[0].hasOwnProperty(this.label.cabeceraExcelIdMont) && data[0].hasOwnProperty(this.label.cabeceraExcelMaterial)
+        return ((Object.keys(data[0]).length == 13) && data[0].hasOwnProperty(this.label.cabeceraExcelCodMontura) && data[0].hasOwnProperty(this.label.cabeceraExcelIdMont) && data[0].hasOwnProperty(this.label.cabeceraExcelMaterial)
           && data[0].hasOwnProperty(this.label.cabeceraExcelMarca) && data[0].hasOwnProperty(this.label.cabeceraExcelCodigo) &&
           data[0].hasOwnProperty(this.label.cabeceraExcelTalla) && data[0].hasOwnProperty(this.label.cabeceraExcelColor) && data[0].hasOwnProperty(this.label.cabeceraExcelCantidad)
           && data[0].hasOwnProperty(this.label.cabeceraExcelPCompra) && data[0].hasOwnProperty(this.label.cabeceraExcelPVenta) && data[0].hasOwnProperty(this.label.cabeceraExcelFIngreso)
@@ -519,6 +520,7 @@ export class UpdateExcelComponent implements OnInit {
             "PRECIO VENTA": 0,
             "TALLA": 0,
             "CODIGO": 0,
+            "CODIGO MONTURA": '--',
             "MARCA": 'MARCA',
             "CANTIDAD": 0,
             "COLOR": 'COLOR',

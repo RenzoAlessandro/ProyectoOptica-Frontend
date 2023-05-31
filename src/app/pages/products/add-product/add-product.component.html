@@ -196,6 +196,23 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="row">
+                  <div class="col-12 col-sm-4">
+                    <div class="mb-3">
+                      <label class="control-label">Código Montura *</label>
+                      <input class="form-control" placeholder="Código Montura" type="text" name="title"
+                        formControlName="{{this.codigo_montura_caja}}" [ngClass]="{'is-invalid': formM.campoCodigoMonturaCaja.invalid && (formM.campoCodigoMonturaCaja.dirty || formM.campoCodigoMonturaCaja.touched)}"/>
+                      <div class="invalid-feedback">
+                        <div *ngIf="formM.campoCodigoMonturaCaja.errors?.required">
+                          Campo requerido
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
                 <div class="text-end mt-2">
                   <button type="submit" class="btn btn-success ms-1" id="btn-save-event" (click)="guardarMonturas()"
                     [disabled]="!formMonturas.valid">

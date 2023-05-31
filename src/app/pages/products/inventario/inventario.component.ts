@@ -160,7 +160,7 @@ export class InventarioComponent implements OnInit {
         "ID MONTURA": monturas.id_producto,
         //"ORDEN": monturas.num_orden,
         "TALLA": monturas.talla,
-        //"CODIGO INTERNO": monturas.codigo_interno,
+        "CODIGO MONTURA": monturas.codigo_montura,
         "CODIGO": monturas.codigo,
         "MARCA": monturas.marca,
         "CANTIDAD": monturas.cantidad,

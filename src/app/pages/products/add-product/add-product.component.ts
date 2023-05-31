@@ -29,6 +29,7 @@ export class AddProductComponent implements OnInit {
   talla_montura: string = "campoTallaMontura";
   color_montura: string = "campoColorMontura";
   codigo_montura: string = "campoCodigoMontura";
+  codigo_montura_caja: string = "campoCodigoMonturaCaja";
   cantidad_montura: string = "campoCantidadMontura";
   precio_compra_montura: string = "campoCompraMontura";
   precio_venta_montura: string = "campoVentaMontura";
@@ -108,6 +109,9 @@ export class AddProductComponent implements OnInit {
         Validators.pattern(this.lettersPattern)
       ]],
       [this.codigo_montura]: [null, [
+        Validators.required,
+      ]],
+      [this.codigo_montura_caja]: [null, [
         Validators.required,
       ]],
       [this.cantidad_montura]: [null, [
@@ -258,6 +262,7 @@ export class AddProductComponent implements OnInit {
       this.monturas.talla = this.fM(this.talla_montura).value;
       this.monturas.color = this.fM(this.color_montura).value;
       this.monturas.codigo = this.fM(this.codigo_montura).value;
+      this.monturas.codigo_montura = this.fM(this.codigo_montura_caja).value;
       this.monturas.precio_montura_c = Number(this.fM(this.precio_compra_montura).value);
       this.monturas.precio_montura_v = Number(this.fM(this.precio_venta_montura).value);
       this.monturas.fecha_creacion_monturas = new Date(Date.now());
@@ -266,16 +271,16 @@ export class AddProductComponent implements OnInit {
       this.monturas.id_sede = this.fM(this.nombre_sedesMontura).value;
       this.monturas.habilitado = true;
       this.monturas.tipo = "montura";
-
+      console.log(this.monturas)
       Sweetalert("loading", "Cargando...");
       this.productosService.createMonturas(this.monturas).subscribe(res => {
         Sweetalert("close", null);
         Sweetalert("success", "Montura guardada");
         this.formMonturas.reset();
         this.fM(this.fecha_registro_montura).setValue(this.fecha_actual.toLocaleDateString());
-      })
+      }) 
     } else {
-
+      return;
     }
   }
 

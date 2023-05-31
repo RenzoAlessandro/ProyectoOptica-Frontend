@@ -8,30 +8,28 @@
       <div class="col-12 mb-2">
         <div>
           <div class="btn-toolbar" role="toolbar">
-  
-            <div class="col-12 col-md-3 d-grid mb-2">
-              <form [formGroup]="formInventario">
-                <div ngbDropdown>
+            <form [formGroup]="formInventario">
+           
+              
+                <div ngbDropdown class="col-12 ">
                   <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
                     bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
                   </ng-select>
                 </div>
-              </form>
-            </div>
-
-            <div class="col-12 col-md-3 d-grid mb-2">
-                <form [formGroup]="formInventario">
-                  <div ngbDropdown>
-                    <ng-select [items]="listProductos" formControlName="producto" placeholder="Seleccione el producto" bindValue="id"
-                    bindLabel="nombre">
+             
+            
+                
+                  <div ngbDropdown class="col-12 ">
+                    <ng-select [items]="listProductos" formControlName="{{this.producto}}" placeholder="Seleccione el producto" bindValue="id"
+                    bindLabel="nombre" (change)="changeSede()">
                   </ng-select>
                   </div>
-                </form>
-            </div>
-  
-            <div class="col-12 col-md-6 d-grid mb-2 px-2">
+                
+            
+            </form>
+            <div class="col-4 col-md-4 d-grid mb-2 px-2">
               <div class="position-relative">
-                <ng-autocomplete #autocomplete [data]="listMonturas" [searchKeyword]="keyword"
+                <ng-autocomplete #autocomplete [data]="listProducts" [searchKeyword]="keyword"
                   placeholder="Buscar productos" (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)'
                   (inputFocused)='onFocused($event)' historyIdentifier="" [itemTemplate]="itemTemplate"
                   [notFoundTemplate]="notFoundTemplate" (keyup.enter)="selectEvent($event)" focusFirst="true" minQueryLength="8">
@@ -58,10 +56,10 @@
             <div class="btn-toolbar" role="toolbar">
     
               <div class="col-12 col-md-3 d-grid mb-2">
-                <form [formGroup]="formInventario">
+                <form [formGroup]="formSede">
                   <div ngbDropdown>
                     <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
-                      bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+                      bindLabel="nombre_sede" formControlName="{{this.nombre_sedeDestino}}">
                     </ng-select>
                   </div>
                 </form>
@@ -69,7 +67,7 @@
     
               <div class="col-12 col-md-3 d-grid">
                 <div class="btn-group mb-2">
-                  <input type="button" class="btn btn-primary btn-block" value="Trasladar"
+                  <input type="button" class="btn btn-primary btn-block" value="Trasladar" (click)="trasladoSedes()"
                      [disabled]="!(this.products.length > 0)">
                 </div>
               </div>

@@ -99,4 +99,8 @@ export class ProductosService {
     return this.http.post<any>(environment.urlBackend+'createListOfProducts',product);
   }
 
+  updateSedeofListProducts(nombreUsuario:string, idSede: string, product:Array<any>): Observable<any> {
+    return this.http.put<any>(environment.urlBackend+'updateSedeOfProducts/'+nombreUsuario+'/'+idSede,product);
+  }
+
 }

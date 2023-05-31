@@ -1,12 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Sweetalert } from 'src/utils/sweetalert';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { SedesModel } from 'src/models/sedes';
 import { MonturasModel } from 'src/models/monturas';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ProductosService } from 'src/app/services/productos.service';
+import { AccesorioModel } from 'src/models/accesorio';
+import { LunasModel } from 'src/models/lunas';
 
 @Component({
   selector: 'app-traslados',
@@ -19,14 +21,19 @@ export class TrasladosComponent implements OnInit {
   breadCrumbItems: Array<{}>;
 
   formInventario: FormGroup;
+  formSede: FormGroup;
   mostrarSpinner = false;
   listSedes: Array<SedesModel> = [];
   monturas$: Observable<MonturasModel[]>;
   listMonturas: Array<MonturasModel>;
   products: any = [];
+  listProducts: Array<MonturasModel> | Array<AccesorioModel> | Array<LunasModel>;
   nombre_sedes: string = "campoSede";
+  nombre_sedeDestino: string = "campoSedeDestino";
   idSede = '';
+  idSedeDestino = '';
   keyword = "id_producto";
+  producto: string = "campoProducto";
   @ViewChild('autocomplete') autocomplete;
 
   listProductos = [
@@ -44,13 +51,13 @@ export class TrasladosComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
-    private monturasService: ProductosService,
+    private productosService: ProductosService,
   ) { }
 
   ngOnInit(): void {
-    Sweetalert("loading", "Cargando...");
+    //Sweetalert("loading", "Cargando...");
     this.getListSedes();
-    this.getListMonturas();
+
     this.crearFormulario();
     this.breadCrumbItems = [{ label: 'Productos' }, { label: 'Traslado de Productos', active: true }];
   }
@@ -62,49 +69,67 @@ export class TrasladosComponent implements OnInit {
 
   crearFormulario() {
     this.formInventario = this.fb.group({
-      [this.nombre_sedes]: [this.idSede]
+      [this.nombre_sedes]: [this.idSede, [Validators.required]],
+      [this.producto]: [null, [Validators.required]],
+    });
+    this.formSede = this.fb.group({
+      [this.nombre_sedeDestino]: [null, [Validators.required]],
     })
+
   }
 
-  getListMonturas() {
-    this.monturasService.getProductosbySede(this.usuarioService.getSedebyUser(), 'montura').subscribe(res => {
+  /* getListMonturas(idSede: string) {
+    this.productosService.getMonturasforSale(idSede).subscribe(res => {
       Sweetalert("close", null);
       this.listMonturas = res;
-      const propiedad = {
-        isSelected: false
-      }
-      this.listMonturas.forEach(elem => {
-        Object.assign(elem, propiedad)
-      })
-      this.mostrarSpinner = true;
-
     })
-  }
+  } */
 
   fS(campo: string) {
     return this.formInventario.get(campo);
   }
 
+  fD(campo: string) {
+    return this.formSede.get(campo);
+  }
+
   changeSede() {
     this.products = [];
     this.idSede = this.fS(this.nombre_sedes).value;
-    Sweetalert("loading", "Cargando...");
-    this.updateListMonturas(this.idSede);
+    let tipoProducto = this.fS(this.producto).value;
+    if (this.idSede == null || tipoProducto == null) {
+      return
+    } else {
+      Sweetalert("loading", "Cargando...");
+      this.updateListProducts(this.idSede, tipoProducto);
+    }
+
   }
 
-  updateListMonturas(idSede: string) {
-    this.monturasService.getProductosbySede(idSede, 'montura').subscribe(res => {
-      Sweetalert("close", null);
-      this.listMonturas = res;
-      const propiedad = {
-        isSelected: false
-      }
-      this.listMonturas.forEach(elem => {
-        Object.assign(elem, propiedad)
-      })
-      this.mostrarSpinner = true;
-    })
+  updateListProducts(idSede: string, tipoProducto: number) {
+    switch (tipoProducto) {
+      case 1:
+        this.productosService.getMonturasforSale(idSede).subscribe(res => {
+          Sweetalert("close", null);
+          this.listProducts = res;
+          this.mostrarSpinner = true;
+        })
+        break;
+      case 2:
+
+        break;
+      case 3:
+
+        break;
+
+      default:
+        break;
+    }
+
+
+
   }
+
 
 
   selectEvent(item: MonturasModel) {
@@ -112,7 +137,7 @@ export class TrasladosComponent implements OnInit {
     if (!productExistInCart) {
       switch (item.tipo) {
         case 'montura':
-          this.products.push({ ...item, isSelected: true });
+          this.products.push({ ...item });
           this.autocomplete.clear();
           this.autocomplete.close();
           break;
@@ -138,5 +163,25 @@ export class TrasladosComponent implements OnInit {
     this.autocomplete.close();
   }
 
+  trasladoSedes() {
+    if (this.formSede.valid) {
+      let idSedeDestino = this.fD(this.nombre_sedeDestino).value;
+      let nombreUsuario = this.usuarioService.getUser().nombres + ' ' + this.usuarioService.getUser().apellidos;
+      this.products.forEach(element => {
+        if (!element.hasOwnProperty('traslado')) {
+          const propiedad = {
+            traslado: []
+          }
+          Object.assign(element, propiedad);
+        } 
+      });
+      console.log(nombreUsuario, idSedeDestino, this.products)
+      this.productosService.updateSedeofListProducts(nombreUsuario,idSedeDestino,this.products).subscribe(res => {
+        console.log("guardado..")
+      });
+    } else {
+      return
+    }
+  }
 
 }
