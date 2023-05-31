@@ -14,15 +14,15 @@
                   <!-- Default dropup button -->
                   <div class="mt-2 me-1" ngbDropdown>
                     <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
-                      bindLabel="nombre_sede" formControlName="{{this.nombre_sedeDestino}}">
+                      bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
                     </ng-select>
                   </div>
                 </div>
                 <div class="col-12 col-md-6">
                   <!-- Default dropup button -->
                   <div class="mt-2 me-1" ngbDropdown>
-                    <ng-select [items]="listProductos" formControlName="producto" placeholder="Seleccione el producto"
-                      bindValue="id" bindLabel="nombre">
+                    <ng-select [items]="listProductos" formControlName="{{this.producto}}" placeholder="Seleccione el producto"
+                      bindValue="id" bindLabel="nombre" (change)="changeSede()">
                     </ng-select>
                   </div>
                 </div>
@@ -30,7 +30,7 @@
               <div class="row">
                 <div class="col-12 d-grid mt-2 px-2">
                   <div class="position-relative">
-                    <ng-autocomplete #autocomplete [data]="listMonturas" [searchKeyword]="keyword"
+                    <ng-autocomplete #autocomplete [data]="listProducts" [searchKeyword]="keyword"
                       placeholder="Buscar productos" (selected)="selectEvent($event)"
                       (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' historyIdentifier=""
                       [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
@@ -60,11 +60,15 @@
             <div class="row">
               <div class="col-12">
                 <!-- Default dropup button -->
+                <form [formGroup]="formSede">
+
+                
                 <div class="mt-2 me-1" ngbDropdown>
                   <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
-                    bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+                    bindLabel="nombre_sede" formControlName="{{this.nombre_sedeDestino}}">
                   </ng-select>
                 </div>
+              </form>
               </div>
             </div>
             <div class="row">
