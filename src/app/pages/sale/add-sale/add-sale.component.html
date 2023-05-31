@@ -1,133 +1,177 @@
 <div class="container-fluid">
   <app-page-title title="Añadir un Producto" [breadcrumbItems]="breadCrumbItems"></app-page-title>
 
-  <div class="row mb-3">
-
-    <div class="col-md-9 mb-2 search-box chat-search-box">
-      <div class="position-relative">
-        <!-- <ng-autocomplete #autocomplete [data]="listAllProducts" [searchKeyword]="keyword" placeholder="Buscar productos"
-          (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
-          historyIdentifier="" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-          (keyup.enter)="selectEvent($event)">
-        </ng-autocomplete> -->
-
-        <ng-autocomplete #autocomplete [data]="listAllProducts" [searchKeyword]="keyword" placeholder="Buscar productos"
-          (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
-          historyIdentifier="" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-          (keyup.enter)="selectEvent($event)" focusFirst="true" minQueryLength="8">
-        </ng-autocomplete>
-
-        <ng-template #itemTemplate let-item>
-          <a [innerHTML]="item.id_producto"></a>
-        </ng-template>
-
-        <ng-template #notFoundTemplate let-notFound>
-          <div [innerHTML]="notFound"></div>
-        </ng-template>
-      </div>
-    </div>
-
-    <div class="col-md-3 mb-2">
-      <div class="btn-toolbar" role="toolbar">
-        <div class="col-12 d-grid" *appRole="role">
-          <form [formGroup]="formSedes">
-            <div ngbDropdown>
-              <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
-                bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
-              </ng-select>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
   <div class="row mb-4">
-    <h4>Total de la Venta: PEN {{getTotalCost()|currency:'S/ '}}</h4>
-  </div>
-
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="card">
+    <div class="col-xl-4">
+      <div class="card h-100">
         <div class="card-body">
-          <h4 class="card-title mb-4">Lista de Productos</h4>
-          <div class="table-responsive">
-            <form>
-              <table class="table table-centered dt-responsive table-nowrap mb-0 align-middle "
-                style="border-spacing: 0 12px; width: 100%;">
+          <h1 class="card-title mb-3">Buscar Producto</h1>
+
+          <div class="row">
+            <div class="p-2">
+              <div class="search-box chat-search-box">
+                  <div class="position-relative">
+                      <input type="text" class="form-control bg-light border-light rounded" placeholder="Search...">
+                      <i class="uil uil-search search-icon"></i>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="table-responsive">
+              <table class="table table-centered table-nowrap mb-0 align-middle">
                 <thead class="table-light">
-                  <tr class="bg-transparent">
-                    <th>Ord.</th>
-                    <th>Tipo</th>
-                    <th>Detalle</th>
-                    <th>Cantidad</th>
-                    <th>Precio</th>
-                    <th>Total</th>
+                  <tr>
+                    <th>Material</th>
+                    <th>Marca</th>
+                    <th>Color</th>
+                    <th>Cód. id.</th>
                     <th>Acción</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of products; let i = index">
-                    <td>
-                      <ngb-highlight [result]="i+1"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="item.tipo"></ngb-highlight>
-                    </td>
-                    <td *ngIf="item.tipo == 'montura'">
-                      <ngb-highlight [result]="item.material"></ngb-highlight>&nbsp;
-                      <ngb-highlight [result]="item.marca"></ngb-highlight>
-                    </td>
-                    <td *ngIf="item.tipo == 'luna'">
-                      <ngb-highlight [result]="item.material"></ngb-highlight>
-                    </td>
-                    <td *ngIf="item.tipo == 'accesorio'">
-                      <ngb-highlight [result]="item.nombre_accesorio"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="item.cant_vendida"></ngb-highlight>
-                    </td>
-                    <td *ngIf="item.tipo == 'montura'">
-                      <ngb-highlight [result]="item.precio_montura_v |currency:'S/ '"></ngb-highlight>
-                    </td>
-                    <td *ngIf="item.tipo == 'luna'">
-                      <ngb-highlight [result]="item.precio_luna_v |currency:'S/ '"></ngb-highlight>
-                    </td>
-                    <td *ngIf="item.tipo == 'accesorio'">
-                      <ngb-highlight [result]="item.precio_accesorio_v |currency:'S/ '"></ngb-highlight>
-                    </td>
-                    <td>
-                      <ngb-highlight [result]="item.precio |currency:'S/ '"></ngb-highlight>
-                    </td>
-                    <td>
-                      <a class="px-2 text-warning" placement="top" ngbTooltip="Disminuir"><i
-                          class="uil uil-minus-circle font-size-18"
-                          (click)="substractQuantityProduct($event,i)"></i></a>
-                      <a class="px-2 text-success" placement="top" ngbTooltip="Agregar"><i
-                          class="uil uil-plus-circle font-size-18" name="quantity" ngDefaultControl
-                          [(ngModel)]="item.num" min="0" (click)="addQuantityProduct($event,i)"></i></a>
-                      <a (click)="centerModalEditarPrecio(centerDataModalEditar,item)" class="px-2 text-primary"
-                        placement="top" ngbTooltip="Editar precio"><i class="uil uil-pen font-size-18"></i></a>
-                      <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
-                          class="uil uil-trash-alt font-size-18" (click)="removeCartProduct($event,i)"></i></a>
-                    </td>
+                  <tr>
+
                   </tr>
+
                 </tbody>
               </table>
-            </form>
+
+            </div>
+
           </div>
-          <!-- end table -->
         </div>
       </div>
     </div>
-  </div>
-  <div class="text-end mt-2">
-    <button type="submit" class="btn btn-success ms-1" id="btn-save-event"
-      (click)="centerModal(centerDataModalGuardar2,products)" [disabled]="!btnGuardar">
-      <i class="uil uil-shopping-cart-alt mt-2 me-1"></i>
-      Guardar
-    </button>
+
+    <div class="col-xl-8">
+      <div class="card h-100">
+        <div class="card-body">
+          <h1 class="card-title mb-3">Realizar Venta</h1>
+
+          <div class="row">
+            <div class="p-2">
+              <div class="row mb-3">
+                <div class="col-md-8 mb-2 search-box chat-search-box">
+                  <div class="position-relative">
+                    <ng-autocomplete #autocomplete [data]="listAllProducts" [searchKeyword]="keyword" placeholder="Buscar productos"
+                      (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
+                      historyIdentifier="" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                      (keyup.enter)="selectEvent($event)" focusFirst="true" minQueryLength="8">
+                    </ng-autocomplete>
+                    <ng-template #itemTemplate let-item>
+                      <a [innerHTML]="item.id_producto"></a>
+                    </ng-template>
+                    <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                  <div class="btn-toolbar" role="toolbar">
+                    <div class="col-12 d-grid" *appRole="role">
+                      <form [formGroup]="formSedes">
+                        <div ngbDropdown>
+                          <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
+                            bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+                          </ng-select>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <h4>Total de la Venta: PEN {{getTotalCost()|currency:'S/ '}}</h4>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12">
+                  <h4 class="card-title mb-4">Lista de Productos</h4>
+                  <div class="table-responsive mb-2">
+                    <form>
+                      <table class="table table-centered dt-responsive table-nowrap mb-0 align-middle "
+                        style="border-spacing: 0 12px; width: 100%;">
+                        <thead class="table-light">
+                          <tr class="bg-transparent">
+                            <th>Ord.</th>
+                            <th>Tipo</th>
+                            <th>Detalle</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Total</th>
+                            <th>Acción</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of products; let i = index">
+                            <td>
+                              <ngb-highlight [result]="i+1"></ngb-highlight>
+                            </td>
+                            <td>
+                              <ngb-highlight [result]="item.tipo"></ngb-highlight>
+                            </td>
+                            <td *ngIf="item.tipo == 'montura'">
+                              <ngb-highlight [result]="item.material"></ngb-highlight>&nbsp;
+                              <ngb-highlight [result]="item.marca"></ngb-highlight>
+                            </td>
+                            <td *ngIf="item.tipo == 'luna'">
+                              <ngb-highlight [result]="item.material"></ngb-highlight>
+                            </td>
+                            <td *ngIf="item.tipo == 'accesorio'">
+                              <ngb-highlight [result]="item.nombre_accesorio"></ngb-highlight>
+                            </td>
+                            <td>
+                              <ngb-highlight [result]="item.cant_vendida"></ngb-highlight>
+                            </td>
+                            <td *ngIf="item.tipo == 'montura'">
+                              <ngb-highlight [result]="item.precio_montura_v |currency:'S/ '"></ngb-highlight>
+                            </td>
+                            <td *ngIf="item.tipo == 'luna'">
+                              <ngb-highlight [result]="item.precio_luna_v |currency:'S/ '"></ngb-highlight>
+                            </td>
+                            <td *ngIf="item.tipo == 'accesorio'">
+                              <ngb-highlight [result]="item.precio_accesorio_v |currency:'S/ '"></ngb-highlight>
+                            </td>
+                            <td>
+                              <ngb-highlight [result]="item.precio |currency:'S/ '"></ngb-highlight>
+                            </td>
+                            <td>
+                              <a class="px-2 text-warning" placement="top" ngbTooltip="Disminuir"><i
+                                  class="uil uil-minus-circle font-size-18"
+                                  (click)="substractQuantityProduct($event,i)"></i></a>
+                              <a class="px-2 text-success" placement="top" ngbTooltip="Agregar"><i
+                                  class="uil uil-plus-circle font-size-18" name="quantity" ngDefaultControl
+                                  [(ngModel)]="item.num" min="0" (click)="addQuantityProduct($event,i)"></i></a>
+                              <a (click)="centerModalEditarPrecio(centerDataModalEditar,item)" class="px-2 text-primary"
+                                placement="top" ngbTooltip="Editar precio"><i class="uil uil-pen font-size-18"></i></a>
+                              <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
+                                  class="uil uil-trash-alt font-size-18" (click)="removeCartProduct($event,i)"></i></a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </form>
+                  </div>
+                  <!-- end table -->
+
+            </div>
+          </div>
+
+          <div class="text-end mt-2">
+            <button type="submit" class="btn btn-success ms-1" id="btn-save-event"
+              (click)="centerModal(centerDataModalGuardar2,products)" [disabled]="!btnGuardar">
+              <i class="uil uil-shopping-cart-alt mt-2 me-1"></i>
+              Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
