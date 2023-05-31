@@ -22,6 +22,7 @@ import { AutocompleteLibModule } from "angular-ng-autocomplete";
 import { Labels } from "src/utils/labels";
 import { InventarioComponent } from './inventario/inventario.component';
 import { DirectivesModule } from "src/app/directives/role.module";
+import { TrasladosComponent } from './traslados/traslados.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -30,7 +31,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
 @NgModule({
     // tslint:disable-next-line: max-line-length
-    declarations: [AddProductComponent, LunasComponent, MonturasComponent, AccesoriosComponent, NgbdSortableHeader, UpdateExcelComponent, InventarioComponent],
+    declarations: [AddProductComponent, LunasComponent, MonturasComponent, AccesoriosComponent, NgbdSortableHeader, UpdateExcelComponent, InventarioComponent, TrasladosComponent],
     imports: [
       ProductsRoutingModule,
       CommonModule,

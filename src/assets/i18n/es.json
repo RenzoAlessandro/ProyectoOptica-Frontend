@@ -132,7 +132,8 @@
         "MONTURAS": "Lista de Monturas",
         "ADDPRODUCTS": "Añadir Productos",
         "UPDATEEXCEL": "Actualización por Excel",
-        "INVENTARIO": "Inventario de Productos"
+        "INVENTARIO": "Inventario de Productos",
+        "TRASLADOS": "Traslado de Productos"
       }
     },
     "STORES": {

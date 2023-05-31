@@ -7,6 +7,7 @@ import { MonturasComponent } from "./monturas/monturas.component";
 import { UpdateExcelComponent } from "./update-excel/update-excel.component";
 import { InventarioComponent } from "./inventario/inventario.component";
 import { AuthGuard } from "src/app/core/guards/auth.guard";
+import { TrasladosComponent } from "./traslados/traslados.component";
 
 const routes: Routes = [
     {
@@ -46,6 +47,13 @@ const routes: Routes = [
     {
         path: 'inventario',
         component: InventarioComponent,
+        data: {
+            role: ['Admin'],
+          }, canActivate: [AuthGuard]
+    },
+    {
+        path: 'traslados',
+        component: TrasladosComponent,
         data: {
             role: ['Admin'],
           }, canActivate: [AuthGuard]

@@ -109,24 +109,31 @@ export const MENU: MenuItem[] = [
                 parentId: 9,
                 role: ['Admin']
             },
+            {
+                id: 16,
+                label: 'MENUITEMS.PRODUCTS.LIST.TRASLADOS',
+                link: '/products/traslados',
+                parentId: 9,
+                role: ['Admin']
+            },
         ],
         link: '/products',
     },
     {
-        id: 16,
+        id: 17,
         label: 'MENUITEMS.STORES.TEXT',
         icon: 'uil-shop',
         role: ['Admin'],
         subItems: [
             {
-                id: 17,
+                id: 18,
                 label: 'MENUITEMS.STORES.LIST.STORES',
                 link: '/store/liststores',
-                parentId: 16,
+                parentId: 19,
                 role: ['Admin']
             }, 
             {
-                id: 18,
+                id: 19,
                 label: 'MENUITEMS.STORES.LIST.ADDSTORES',
                 link: '/store/addstore',
                 parentId: 16,
@@ -136,26 +143,26 @@ export const MENU: MenuItem[] = [
         link: '/store',
     },
     {
-        id: 19,
+        id: 20,
         label: 'MENUITEMS.SALES.TEXT',
         icon: 'uil-invoice',
         subItems: [
             {
-                id: 20,
+                id: 21,
                 label: 'MENUITEMS.SALES.LIST.SALES',
                 link: '/sale/listsales',
                 parentId: 19,
                 role: ['Admin', 'Vendedor']
             }, 
             {
-                id: 21,
+                id: 22,
                 label: 'MENUITEMS.SALES.LIST.ADDSALES',
                 link: '/sale/addsale',
                 parentId: 19,
                 role: ['Admin', 'Vendedor']
             },
             {
-                id: 22,
+                id: 23,
                 label: 'MENUITEMS.SALES.LIST.DELETESALES',
                 link: '/sale/deletesales',
                 parentId: 19,
@@ -166,19 +173,19 @@ export const MENU: MenuItem[] = [
         role: ['Admin','Vendedor']
     },
     {
-        id: 23,
+        id: 24,
         label: 'MENUITEMS.CASHREGISTER.TEXT',
         icon: 'uil-invoice',
         subItems: [
             {
-                id: 24,
+                id: 25,
                 label: 'MENUITEMS.CASHREGISTER.LIST.CASHREGISTER',
                 link: '/cash/cashregister',
                 parentId: 22,
                 role: ['Admin','Vendedor']
             }, 
             {
-                id: 25,
+                id: 26,
                 label: 'MENUITEMS.CASHREGISTER.LIST.LISTCASH',
                 link: '/cash/listcash',
                 parentId: 22,
