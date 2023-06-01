@@ -40,7 +40,7 @@ export class AddSaleComponent implements OnInit {
   idSede:string = "";
 
   searchtext:any;
-  currentPage=1;
+  page: number = 1;
 
   formContado: FormGroup;
   submitted_Contado = false;

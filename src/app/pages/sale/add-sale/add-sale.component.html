@@ -38,7 +38,7 @@
                     <td>
                       {{item.marca}}
                     </td>
-                    {{item.color}}
+                      {{item.color}}
                     <td>
                       {{item.id_producto}}
                     </td>
@@ -54,19 +54,23 @@
             </div>
 
             <div class="row justify-content-md-between align-items-md-center">
-              <!-- <div class="col-sm-12 col-md-5">
-                <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">Page 2 of 84</div>
-              </div> -->
+
               <!-- Pagination -->
               <div class="col-12">
                 <div class="text-md-end float-md-end pagination-rounded">
-                  <ngb-pagination [collectionSize]="listMonturasforSale.length" [(page)]="currentPage" [pageSize]="10"
-                    [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                  <ngb-pagination 
+                  [collectionSize]=listMonturasforSale?.length 
+                  [(page)]="page" 
+                  [maxSize]="5" 
+                  [rotate]="true" 
+                  [boundaryLinks]="true">
                   </ngb-pagination>
+
                 </div>
               </div>
               <!-- End Pagination -->
             </div>
+            
           </div>
         </div>
       </div>
