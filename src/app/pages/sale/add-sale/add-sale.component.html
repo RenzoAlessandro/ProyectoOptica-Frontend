@@ -38,12 +38,12 @@
                     <td>
                       {{item.marca}}
                     </td>
-                      {{item.color}}
-                    <td>
+                    {{item.color}}
+                    <td #elementToCopy>
                       {{item.id_producto}}
                     </td>
                     <td>
-                      <a (click)="copyText(item.id_producto)" class="px-2 text-success" placement="top"
+                      <a (click)="copyText(elementToCopy)" class="px-2 text-success" placement="top"
                         ngbTooltip="Etiqueta"><i class="uil-copy-alt font-size-18"></i></a>
                     </td>
                   </tr>
@@ -58,12 +58,8 @@
               <!-- Pagination -->
               <div class="col-12">
                 <div class="text-md-end float-md-end pagination-rounded">
-                  <ngb-pagination 
-                  [collectionSize]=listMonturasforSale?.length 
-                  [(page)]="page" 
-                  [maxSize]="5" 
-                  [rotate]="true" 
-                  [boundaryLinks]="true">
+                  <ngb-pagination [collectionSize]="listMonturasforSale?.length" [(page)]="currentPage" [pageSize]="10"
+                    [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
                   </ngb-pagination>
 
                 </div>
