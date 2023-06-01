@@ -25,6 +25,7 @@ import { SedesModel } from 'src/models/sedes';
 import { MonturasModel } from 'src/models/monturas';
 
 
+
 @Component({
   selector: 'app-add-sale',
   templateUrl: './add-sale.component.html',
@@ -113,7 +114,7 @@ export class AddSaleComponent implements OnInit {
     private modalService: NgbModal,
     private productosService: ProductosService,
     private customerService: ClienteService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
   ) {
   }
 
@@ -932,7 +933,15 @@ export class AddSaleComponent implements OnInit {
   }
 
 
-  copyText(textToCopy: string) {
-
-}
+  copyText(el: HTMLDivElement) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(el.innerText).then(() => {
+        Sweetalert("success", "Copiado");
+      }, (error) => {
+        Sweetalert("error", "Error");
+      });
+    } else {
+      Sweetalert("error", "El navegador no soporta el API Clipboard");
+    }
+  }
 }
