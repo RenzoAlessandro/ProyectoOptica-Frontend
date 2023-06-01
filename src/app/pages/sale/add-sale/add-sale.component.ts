@@ -22,6 +22,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import { getBase64ImageFromURL, round } from 'src/utils/functions';
 import { SedesModel } from 'src/models/sedes';
+import { MonturasModel } from 'src/models/monturas';
+
 
 @Component({
   selector: 'app-add-sale',
@@ -36,6 +38,9 @@ export class AddSaleComponent implements OnInit {
   listSedes: Array<SedesModel>;
   nombre_sedes: string = "campoSede";
   idSede:string = "";
+
+  searchtext:any;
+  currentPage=1;
 
   formContado: FormGroup;
   submitted_Contado = false;
@@ -101,6 +106,7 @@ export class AddSaleComponent implements OnInit {
   fechaVenta: Date;
   customer: any;
   tmpProducto: any;
+  listMonturasforSale: Array<MonturasModel>;
 
   constructor(
     private fb: FormBuilder,
@@ -352,6 +358,7 @@ export class AddSaleComponent implements OnInit {
     Sweetalert("loading", "Cargando...");
     this.productosService.getMonturasforSale(idSede).subscribe(res => {
       this.listAllProducts = res;
+      this.listMonturasforSale = res;
       this.getListAccesorios(idSede)
     });
   }
@@ -924,4 +931,8 @@ export class AddSaleComponent implements OnInit {
     pdf.open();
   }
 
+
+  copyText(textToCopy: string) {
+
+}
 }
