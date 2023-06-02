@@ -31,14 +31,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of listMonturasforSale | filter:searchtext">
+                  <tr *ngFor="let item of listMonturasforSale  | filter:searchtext |slice: (currentPage-1) * pageSize : currentPage * pageSize">
                     <td>
                      {{item.material}}
                     </td>
                     <td>
                       {{item.marca}}
                     </td>
-                    {{item.color}}
+                    <td>
+                      {{item.color}}
+                    </td>
+                      
                     <td #elementToCopy>
                       {{item.id_producto}}
                     </td>
@@ -60,8 +63,8 @@
               <!-- Pagination -->
               <div class="col-12">
                 <div class="text-md-end float-md-end pagination-rounded">
-                  <ngb-pagination [collectionSize]="listMonturasforSale?.length" [(page)]="currentPage" [pageSize]="10"
-                    [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                  <ngb-pagination [collectionSize]="listMonturasforSale?.length || 0" [(page)]="currentPage" [pageSize]="pageSize"
+                    [maxSize]="5">
                   </ngb-pagination>
                 </div>
               </div>

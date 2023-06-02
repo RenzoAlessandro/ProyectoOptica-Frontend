@@ -42,6 +42,7 @@ export class AddSaleComponent implements OnInit {
 
   searchtext:any;
   currentPage=1;
+  pageSize = 6;
 
   formContado: FormGroup;
   submitted_Contado = false;
@@ -155,6 +156,7 @@ export class AddSaleComponent implements OnInit {
   updateProductosbySede(idSede:string) {
     this.listAllProducts = [];
     this.products = [];
+    this.listMonturasforSale = [];
     this.getListMonturas(idSede);
   }
 
