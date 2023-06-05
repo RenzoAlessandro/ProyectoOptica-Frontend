@@ -75,7 +75,7 @@
               <div class="col-12 d-grid mt-2 px-2">
                 <div class="btn-group">
                   <input type="button" class="btn btn-primary btn-block" value="Trasladar"
-                    [disabled]="!(this.products.length > 0)">
+                    [disabled]="!(this.products.length > 0) && !this.formSede.valid" (click)="trasladoSedes()">
                 </div>
               </div>
             </div>
@@ -106,42 +106,25 @@
     <div class="col-12">
       <div class="table-responsive mb-4">
         <form>
-          <table class="table  table-centered table-nowrap mb-0 align-middle table-card-list"
-            style="border-spacing: 0 12px; width: 100%;">
+          <table class="table  table-centered table-nowrap mb-0 align-middle table-card-list "
+            style="border-spacing: 0 12px; width: 100%;" *ngIf="tipoProducto==1">
             <thead>
               <tr class="bg-transparent">
-                <th style="width: 20px;">
-                  <!-- <div class="form-check text-center">
-                          <input type="checkbox" class="form-check-input" id="monturascheck" (change)="checkUncheckAll()" [(ngModel)]="isMasterSel" [ngModelOptions]="{standalone: true}">
-                          <label class="form-check-label" for="monturascheck"></label>
-                        </div> -->
-                </th>
                 <th>Ord.</th>
                 <th>Material</th>
                 <th>Marca</th>
                 <th>Cód.</th>
-                <!-- <th scope="col" sortable="codigo_2_interno" (sort)="onSort($event)">Cód. int.</th> -->
                 <th>Talla</th>
                 <th>Color</th>
                 <th>Stock</th>
                 <th>P. Compra</th>
                 <th>P. Venta</th>
-                <!-- <th scope="col" sortable="sede" (sort)="onSort($event)">Sede</th> -->
                 <th>Fecha de ing.</th>
-                <!-- <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th> -->
                 <th style="width: 170px;">Acción</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let data of products; let i = index">
-                <td>
-                  <!-- <div class="form-check text-center">
-                          <input id="ordercheck{{data.index}}" type="checkbox" class="form-check-input" 
-                          [(ngModel)]="data.isSelected" [ngModelOptions]="{standalone: true}"
-                            (change)="isAllSelected()"/>
-                          <label class="form-check-label" for="ordercheck{{data.index}}">&nbsp;</label>
-                        </div> -->
-                </td>
                 <td>
                   <ngb-highlight [result]="i+1" [term]=""></ngb-highlight>
                 </td>
@@ -154,9 +137,6 @@
                 <td>
                   <ngb-highlight [result]="data.codigo" [term]=""></ngb-highlight>
                 </td>
-                <!--  <td>
-                        <ngb-highlight [result]="data.codigo_interno" [term]="service.searchTerm"></ngb-highlight>
-                      </td> -->
                 <td>
                   <ngb-highlight [result]="data.talla" [term]=""></ngb-highlight>
                 </td>
@@ -172,16 +152,92 @@
                 <td>
                   <ngb-highlight [result]="data.precio_montura_v" [term]=""></ngb-highlight>
                 </td>
-                <!-- <td>
-                        <ngb-highlight [result]="" [term]="service.searchTerm"></ngb-highlight>
-                      </td> -->
                 <td>
                   <ngb-highlight [result]="data.fecha_creacion_monturas | date: 'dd/MM/yyyy'" [term]=""></ngb-highlight>
                 </td>
-                <!-- <td>
-                        <span class="badge bg-pill bg-soft-success font-size-12"
-                          [ngClass]=" { 'bg-soft-danger': data.status === 'Deactive' }">{{data.status}}</span>
-                      </td> -->
+                <td>
+                  <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar" (click)="eliminar(data,i)"><i
+                      class="uil uil-trash-alt font-size-18"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="table  table-centered table-nowrap mb-0 align-middle table-card-list "
+            style="border-spacing: 0 12px; width: 100%;" *ngIf="tipoProducto==2">
+            <thead>
+              <tr class="bg-transparent">
+                <th>Ord.</th>
+                <th>Material</th>
+                <th>Stock</th>
+                <th>P. Compra</th>
+                <th>P. Venta</th>
+                <th>Fecha de ing.</th>
+                <th style="width: 170px;">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of products; let i = index">
+                <td>
+                  <ngb-highlight [result]="i+1" [term]=""></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.material" [term]=""></ngb-highlight>
+                </td>
+                
+                <td>
+                  <ngb-highlight [result]="data.cantidad" [term]=""></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.precio_luna_c" [term]=""></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.precio_luna_v" [term]=""></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.fecha_creacion_luna | date: 'dd/MM/yyyy'" [term]=""></ngb-highlight>
+                </td>
+                <td>
+                  <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar" (click)="eliminar(data,i)"><i
+                      class="uil uil-trash-alt font-size-18"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="table  table-centered table-nowrap mb-0 align-middle table-card-list "
+            style="border-spacing: 0 12px; width: 100%;" *ngIf="tipoProducto==3">
+            <thead>
+              <tr class="bg-transparent">
+               
+                <th>Ord.</th>
+                <th>Nombre</th>
+                <th>Stock</th>
+                <th>P. Compra</th>
+                <th>P. Venta</th>
+                <th>Fecha de ing.</th>
+                <th style="width: 170px;">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of products; let i = index">
+                <td>
+                  <ngb-highlight [result]="i+1" [term]=""></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.nombre_accesorio" [term]=""></ngb-highlight>
+                </td>
+                
+                <td>
+                  <ngb-highlight [result]="data.cantidad" [term]=""></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.precio_accesorio_c" [term]=""></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.precio_accesorio_v" [term]=""></ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight [result]="data.fecha_creacion_accesorio | date: 'dd/MM/yyyy'" [term]=""></ngb-highlight>
+                </td>
                 <td>
                   <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar" (click)="eliminar(data,i)"><i
                       class="uil uil-trash-alt font-size-18"></i></a>
@@ -192,14 +248,14 @@
         </form>
       </div>
 
-      <div class="row" *ngIf="!mostrarSpinner">
+      <!-- <div class="row" *ngIf="!mostrarSpinner">
         <div class="col-12">
           <div class="text-center my-3">
             <a href="javascript:void(0);" class="text-primary"><i
                 class="mdi mdi-loading mdi-spin font-size-20 align-middle me-2"></i> Cargando </a>
           </div>
-        </div> <!-- end col-->
-      </div>
+        </div> 
+      </div> -->
 
       <!-- End table -->
       <div class="row justify-content-md-between align-items-md-center">

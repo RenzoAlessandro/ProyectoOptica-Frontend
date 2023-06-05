@@ -261,6 +261,8 @@ export class MonturasComponent implements OnInit {
       this.montura.precio_montura_c = Number(this.f(this.precio_compra_montura).value);
       this.montura.precio_montura_v = Number(this.f(this.precio_venta_montura).value);
       this.montura.fecha_modificacion_monturas = new Date(Date.now());
+      this.montura.idSedeDestino = this.f(this.nombre_sedesMontura).value;
+      this.montura.nombreUsuario = this.usuarioService.getUser().nombres + ' ' + this.usuarioService.getUser().apellidos;
       Sweetalert("loading", "Cargando...");
       this.monturaService.updateMontura(this.montura.id_producto,this.montura).subscribe(res => {
         this.modalService.dismissAll();
