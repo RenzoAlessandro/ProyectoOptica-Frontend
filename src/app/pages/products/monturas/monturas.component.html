@@ -263,16 +263,19 @@
             </div>
           </div>
         </div>
-        <!-- <div class="col-4">
-              <div class="mb-3">
-                <label class="control-label">Código Interno</label>
-                <input class="form-control" placeholder="Código" type="text" name="title"
-                  formControlName="title" [ngClass]="{'is-invalid': submitted && form.title.errors}" />
-                <div *ngIf="submitted && form.title.errors" class="invalid-feedback">
-                  <span *ngIf="form.title.errors.required">This value is required.</span>
-                </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label class="control-label">Código Mont. *</label>
+            <input class="form-control" placeholder="Código montura" type="text" name="title"
+              formControlName="{{this.codigo_montura_caja}}" 
+              [ngClass]="{'is-invalid': formEM.campoCodigoMonturaCaja.invalid && (formEM.campoCodigoMonturaCaja.dirty || formEM.campoCodigoMonturaCaja.touched)}"/>
+            <div class="invalid-feedback">
+              <div *ngIf="formEM.campoCodigoMonturaCaja.errors?.required">
+                Campo requerido
               </div>
-            </div> -->
+            </div>
+          </div>
+        </div>
         <div class="col-md-4">
           <div class="mb-3">
             <label class="control-label">Talla *</label>
@@ -286,6 +289,8 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="row">
         <div class="col-md-4">
           <div class="mb-3">
             <label class="control-label">Color *</label>
@@ -298,24 +303,6 @@
               </div>
               <div *ngIf="formEM.campoColorMontura.errors?.pattern">
                 Ingrese solo letras
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="mb-3">
-            <label class="control-label">Stock *</label>
-            <input class="form-control" placeholder="Cantidad" type="text" name="title"
-              formControlName="{{this.cantidad_montura}}"
-              [ngClass]="{'is-invalid': formEM.campoCantidadMontura.invalid && (formEM.campoCantidadMontura.dirty || formEM.campoCantidadMontura.touched)}" />
-            <div class="invalid-feedback">
-              <div *ngIf="formEM.campoCantidadMontura.errors?.required">
-                Campo requerido
-              </div>
-              <div *ngIf="formEM.campoCantidadMontura.errors?.pattern">
-                Ingrese solo números enteros
               </div>
             </div>
           </div>
@@ -353,6 +340,25 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label class="control-label">Stock *</label>
+            <input class="form-control" placeholder="Cantidad" type="text" name="title"
+              formControlName="{{this.cantidad_montura}}"
+              [ngClass]="{'is-invalid': formEM.campoCantidadMontura.invalid && (formEM.campoCantidadMontura.dirty || formEM.campoCantidadMontura.touched)}" />
+            <div class="invalid-feedback">
+              <div *ngIf="formEM.campoCantidadMontura.errors?.required">
+                Campo requerido
+              </div>
+              <div *ngIf="formEM.campoCantidadMontura.errors?.pattern">
+                Ingrese solo números enteros
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="text-end mt-2">
         <button type="button" class="btn btn-danger" (click)="closeEventModal()">
           Cerrar
