@@ -42,7 +42,7 @@ export class AddSaleComponent implements OnInit {
 
   searchtext:any;
   currentPage=1;
-  pageSize = 6;
+  pageSize = 10;
 
   formContado: FormGroup;
   submitted_Contado = false;

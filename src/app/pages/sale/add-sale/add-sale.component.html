@@ -23,15 +23,19 @@
               <table class="table table-centered table-nowrap mb-0 align-middle">
                 <thead class="table-light">
                   <tr>
+                    <th>Copiar</th>
                     <th>Material</th>
                     <th>Marca</th>
                     <th>Color</th>
                     <th>Cód. id.</th>
-                    <th>Acción</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let item of listMonturasforSale  | filter:searchtext |slice: (currentPage-1) * pageSize : currentPage * pageSize">
+                    <td>
+                      <a (click)="copyText(elementToCopy)" class="px-2 text-success" placement="top"
+                        ngbTooltip="Copiar código"><i class="uil-copy-alt font-size-18"></i></a>
+                    </td>
                     <td>
                      {{item.material}}
                     </td>
@@ -44,10 +48,6 @@
                       
                     <td #elementToCopy>
                       {{item.id_producto}}
-                    </td>
-                    <td>
-                      <a (click)="copyText(elementToCopy)" class="px-2 text-success" placement="top"
-                        ngbTooltip="Etiqueta"><i class="uil-copy-alt font-size-18"></i></a>
                     </td>
                   </tr>
 
