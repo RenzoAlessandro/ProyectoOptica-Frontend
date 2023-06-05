@@ -44,6 +44,7 @@ export class MonturasComponent implements OnInit {
   material_montura: string = "campoMaterialMontura";
   marca_montura: string = "campoMarcaMontura";
   codigo_montura: string = "campoCodigoMontura";
+  codigo_montura_caja: string = "campoCodigoMonturaCaja";
   talla_montura: string = "campoTallaMontura";
   color_montura: string = "campoColorMontura";
   cantidad_montura: string = "campoCantidadMontura";
@@ -123,6 +124,9 @@ export class MonturasComponent implements OnInit {
       ]],
       [this.codigo_montura]: [null, [
         Validators.required
+      ]],
+      [this.codigo_montura_caja]: [null, [
+        Validators.required,
       ]],
       [this.cantidad_montura]: [null, [
         Validators.required,
