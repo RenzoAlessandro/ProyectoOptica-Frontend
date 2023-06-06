@@ -189,6 +189,7 @@ export class MonturasComponent implements OnInit {
     this.f(this.material_montura).setValue(data.material);
     this.f(this.marca_montura).setValue(data.marca);
     this.f(this.codigo_montura).setValue(data.codigo);
+    this.f(this.codigo_montura_caja).setValue(data.codigo_montura);
     this.f(this.talla_montura).setValue(data.talla);
     this.f(this.color_montura).setValue(data.color);
     this.f(this.cantidad_montura).setValue(data.cantidad);
