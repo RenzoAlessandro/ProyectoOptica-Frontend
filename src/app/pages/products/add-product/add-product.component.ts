@@ -271,7 +271,6 @@ export class AddProductComponent implements OnInit {
       this.monturas.id_sede = this.fM(this.nombre_sedesMontura).value;
       this.monturas.habilitado = true;
       this.monturas.tipo = "montura";
-      console.log(this.monturas)
       Sweetalert("loading", "Cargando...");
       this.productosService.createMonturas(this.monturas).subscribe(res => {
         Sweetalert("close", null);

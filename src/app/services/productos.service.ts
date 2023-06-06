@@ -76,9 +76,6 @@ export class ProductosService {
     return this.http.put<any>(environment.urlBackend+'editMonturaById/'+idMontura,montura);
   }
 
-  updateMonturaTraslado(idMontura: string, montura:MonturasModel): Observable<any> {
-    return this.http.put<any>(environment.urlBackend+'editMonturaById/'+idMontura,montura);
-  }
 
   updateLuna(idLuna: string, luna:LunasModel): Observable<any> {
     return this.http.put<any>(environment.urlBackend+'editLunaById/'+idLuna,luna);

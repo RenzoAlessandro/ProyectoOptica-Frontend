@@ -76,6 +76,7 @@ export class LunasComponent implements OnInit {
   nQR = 0;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
+  idSedeOrigen: string;
 
   constructor(
     public service: CustomerService,
@@ -171,7 +172,15 @@ export class LunasComponent implements OnInit {
     this.f(this.cantidad_luna).setValue(data.cantidad);
     this.f(this.precio_compra_luna).setValue(data.precio_luna_c);
     this.f(this.precio_venta_luna).setValue(data.precio_luna_v);
-
+    this.idSedeOrigen = data.id_sede;
+    this.f(this.nombre_sedesLuna).setValue(data.id_sede);
+    if (!data.hasOwnProperty('traslado')) {
+      const propiedad = {
+        traslado: []
+      }
+      Object.assign(data, propiedad);
+    }
+    this.luna.traslado = data.traslado;
     this.luna.id_producto = data.id_producto;
 
     this.modalService.open(centerDataModal, { centered: true, windowClass: 'modal-holder' });
@@ -237,6 +246,9 @@ export class LunasComponent implements OnInit {
       this.luna.precio_luna_c = Number(this.f(this.precio_compra_luna).value);
       this.luna.precio_luna_v = Number(this.f(this.precio_venta_luna).value);
       this.luna.fecha_modificacion_luna = new Date(Date.now());
+      this.luna.idSedeDestino = this.f(this.nombre_sedesLuna).value;
+      this.luna.id_sede = this.idSedeOrigen;
+      this.luna.nombreUsuario = this.usuarioService.getUser().nombres + ' ' + this.usuarioService.getUser().apellidos;
       Sweetalert("loading", "Cargando...");
       this.lunaService.updateLuna(this.luna.id_producto,this.luna).subscribe(res =>{
         this.modalService.dismissAll();

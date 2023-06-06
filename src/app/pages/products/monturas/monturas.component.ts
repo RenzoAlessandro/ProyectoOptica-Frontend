@@ -82,6 +82,7 @@ export class MonturasComponent implements OnInit {
   individualQR = new  MonturasModel;
   nQR = 0;
   idSede: string  = "";
+  idSedeOrigen: string;
 
   constructor(public service: CustomerService,
     private monturaService: ProductosService,
@@ -140,7 +141,7 @@ export class MonturasComponent implements OnInit {
         Validators.required,
         Validators.pattern(this.decimalPattern)
       ]],
-      [this.nombre_sedesMontura]: [this.idSede, [Validators.required]]
+      [this.nombre_sedesMontura]: [null, [Validators.required]]
     })
 
     this.formEtiquetaMonturas = this.fb.group({
@@ -193,7 +194,15 @@ export class MonturasComponent implements OnInit {
     this.f(this.cantidad_montura).setValue(data.cantidad);
     this.f(this.precio_compra_montura).setValue(data.precio_montura_c);
     this.f(this.precio_venta_montura).setValue(data.precio_montura_v);
-
+    this.idSedeOrigen = data.id_sede;
+    this.f(this.nombre_sedesMontura).setValue(data.id_sede);
+    if (!data.hasOwnProperty('traslado')) {
+      const propiedad = {
+        traslado: []
+      }
+      Object.assign(data, propiedad);
+    }
+    this.montura.traslado = data.traslado;
     this.montura.id_producto = data.id_producto;
     this.modalService.open(centerDataModal, { centered: true, windowClass: 'modal-holder' });
   }
@@ -266,6 +275,8 @@ export class MonturasComponent implements OnInit {
       this.montura.precio_montura_v = Number(this.f(this.precio_venta_montura).value);
       this.montura.fecha_modificacion_monturas = new Date(Date.now());
       this.montura.idSedeDestino = this.f(this.nombre_sedesMontura).value;
+      this.montura.codigo_montura = this.f(this.codigo_montura_caja).value ? this.f(this.codigo_montura_caja).value: '';
+      this.montura.id_sede = this.idSedeOrigen;
       this.montura.nombreUsuario = this.usuarioService.getUser().nombres + ' ' + this.usuarioService.getUser().apellidos;
       Sweetalert("loading", "Cargando...");
       this.monturaService.updateMontura(this.montura.id_producto,this.montura).subscribe(res => {

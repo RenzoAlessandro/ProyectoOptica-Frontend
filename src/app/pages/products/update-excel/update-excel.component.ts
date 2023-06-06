@@ -397,6 +397,7 @@ export class UpdateExcelComponent implements OnInit {
             fecha_modificacion_monturas: new Date(Date.now()),
             tipo: element.TIPO,
             id_sede: element.SEDE,
+            codigo_montura: element['CODIGO MONTURA']
           }
         })
         return listMontura

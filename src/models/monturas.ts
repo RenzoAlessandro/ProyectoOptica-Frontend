@@ -18,5 +18,6 @@ export class MonturasModel {
     cant_vendida: number;
     precio?: number;
     idSedeDestino?: string;
-  nombreUsuario: string;
+    nombreUsuario: string;
+    traslado: Array<any>;
 }

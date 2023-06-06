@@ -81,6 +81,7 @@ export class AccesoriosComponent implements OnInit {
   idSede:string = "";
   individualQR = new  AccesorioModel;
   nQR = 0;
+  idSedeOrigen: string;
 
   constructor(
     public service: CustomerService,
@@ -126,7 +127,7 @@ export class AccesoriosComponent implements OnInit {
         Validators.required,
         Validators.pattern(this.decimalPattern)
       ]],
-      [this.nombre_sedesAccesorio]: [this.idSede, [Validators.required]]
+      [this.nombre_sedesAccesorio]: [null, [Validators.required]]
     });
 
     this.formPrintEtiquetaAccesorio = this.fb.group({
@@ -170,7 +171,15 @@ export class AccesoriosComponent implements OnInit {
     this.f(this.cantidad_accesorio).setValue(data.cantidad);
     this.f(this.precio_compra_accesorio).setValue(data.precio_accesorio_c);
     this.f(this.precio_venta_accesorio).setValue(data.precio_accesorio_v);
-
+    this.idSedeOrigen = data.id_sede;
+    this.f(this.nombre_sedesAccesorio).setValue(data.id_sede);
+    if (!data.hasOwnProperty('traslado')) {
+      const propiedad = {
+        traslado: []
+      }
+      Object.assign(data, propiedad);
+    }
+    this.accesorio.traslado = data.traslado;
     this.accesorio.id_producto = data.id_producto;
 
     this.modalService.open(centerDataModal, { centered: true, windowClass: 'modal-holder' });
@@ -283,6 +292,9 @@ export class AccesoriosComponent implements OnInit {
       this.accesorio.precio_accesorio_c = Number(this.f(this.precio_compra_accesorio).value);
       this.accesorio.precio_accesorio_v = Number(this.f(this.precio_venta_accesorio).value);
       this.accesorio.fecha_modificacion_accesorio = new Date(Date.now());
+      this.accesorio.idSedeDestino = this.f(this.nombre_sedesAccesorio).value;
+      this.accesorio.id_sede = this.idSedeOrigen;
+      this.accesorio.nombreUsuario = this.usuarioService.getUser().nombres + ' ' + this.usuarioService.getUser().apellidos;
       Sweetalert("loading", "Cargando...");
       this.accesorioService.updateAccesorio(this.accesorio.id_producto, this.accesorio).subscribe(res => {
         this.modalService.dismissAll();

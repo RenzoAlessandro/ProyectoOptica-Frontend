@@ -11,5 +11,8 @@ export class LunasModel {
     habilitado: true;
     tipo:string;
     cant_vendida: number;
-    precio?: number
+    precio?: number;
+    idSedeDestino?: string;
+    nombreUsuario: string;
+    traslado: Array<any>;
 }

@@ -13,4 +13,7 @@ export class AccesorioModel {
     tipo: string;
     cant_vendida: number;
     precio?: number
+  idSedeDestino: string;
+  nombreUsuario: string
+  traslado: Array<any>;
 }

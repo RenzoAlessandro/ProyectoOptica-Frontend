@@ -21,7 +21,7 @@ interface State {
   sortDirection: SortDirection;
 }
 
-const compare = (v1: string | number | Date | boolean, v2: string | number | Date | boolean) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+const compare = (v1: string | number | Date | boolean | Array<any>, v2: string | number | Date | boolean| Array<any>) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
 function sort(customers: LunasModel[], column: SortColumn, direction: string): LunasModel[] {
   if (direction === '' || column === '') {
