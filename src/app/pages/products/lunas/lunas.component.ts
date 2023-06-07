@@ -253,7 +253,7 @@ export class LunasComponent implements OnInit {
       this.lunaService.updateLuna(this.luna.id_producto,this.luna).subscribe(res =>{
         this.modalService.dismissAll();
         Sweetalert("close",null);
-        Sweetalert("success",null);
+        Sweetalert("success",'Luna actualizada');
         this.updateListLunas(this.idSede);
       })
     } else {

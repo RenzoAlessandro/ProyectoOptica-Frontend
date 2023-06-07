@@ -107,6 +107,16 @@ export class TrasladosComponent implements OnInit {
 
   }
 
+  eliminar(product, i) {
+    this.removeProduct(product.id_producto);
+  }
+
+  removeProduct(id_producto:string) {
+    this.products = this.products.filter(
+      (name) => name.id_producto !== id_producto
+    );
+  }
+
   updateListProducts(idSede: string, tipoProducto: number) {
     switch (tipoProducto) {
       case 1:
