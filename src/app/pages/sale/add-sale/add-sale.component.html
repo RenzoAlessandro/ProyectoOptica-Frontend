@@ -24,6 +24,7 @@
                 <thead class="table-light">
                   <tr>
                     <th>Copiar</th>
+                    <th>Cod. Int.</th>
                     <th>Material</th>
                     <th>Marca</th>
                     <th>Color</th>
@@ -36,6 +37,9 @@
                       <a (click)="copyText(elementToCopy)" class="px-2 text-success" placement="top"
                         ngbTooltip="Copiar código"><i class="uil-copy-alt font-size-18"></i></a>
                     </td>
+                    <td>
+                      {{item.codigo}}
+                     </td>
                     <td>
                      {{item.material}}
                     </td>
