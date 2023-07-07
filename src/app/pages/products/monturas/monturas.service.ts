@@ -34,11 +34,12 @@ function sort(customers: MonturasModel[], column: SortColumn, direction: string)
 }
 
 function matches(customer: MonturasModel, term: string, pipe: PipeTransform) {
-  return customer.material.toLowerCase().includes(term.toLowerCase())
-  || customer.marca.toLowerCase().includes(term.toLowerCase())
-  || customer.codigo.toLowerCase().includes(term.toLowerCase())
-  || customer.talla.toLowerCase().includes(term.toLowerCase())
-  || customer.color.toLowerCase().includes(term.toLowerCase())
+  return customer.material?.toLowerCase().includes(term.toLowerCase())
+  || customer.marca?.toLowerCase().includes(term.toLowerCase())
+  || customer.codigo?.toLowerCase().includes(term.toLowerCase())
+  || customer.codigo_montura?.toLowerCase().includes(term.toLowerCase())
+  || customer.talla?.toLowerCase().includes(term.toLowerCase())
+  || customer.color?.toLowerCase().includes(term.toLowerCase())
   || String(customer.cantidad).toLowerCase().includes(term.toLowerCase())
   || String(customer.precio_montura_c).toLowerCase().includes(term.toLowerCase())
   || String(customer.precio_montura_v).toLowerCase().includes(term.toLowerCase())

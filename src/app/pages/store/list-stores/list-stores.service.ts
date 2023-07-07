@@ -1,15 +1,14 @@
 import { Injectable, PipeTransform } from '@angular/core';
-
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
-import { ClienteService } from 'src/app/services/cliente.service';
-import { CustomersModel } from 'src/models/customer';
-import { MedidasModel } from 'src/models/medidas';
+import { SedesModel } from 'src/models/sedes';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { SedeService } from 'src/app/services/sede.service';
 
 interface SearchResult {
-  customers: CustomersModel[];
+  customers: SedesModel[];
   total: number;
 }
 
@@ -21,9 +20,9 @@ interface State {
   sortDirection: SortDirection;
 }
 
-const compare = (v1: string | number | Date | MedidasModel[] | boolean, v2: string | number | Date | MedidasModel[] | boolean) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+const compare = (v1: string | number | boolean | Date, v2: string | number | boolean | Date) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-function sort(customers: CustomersModel[], column: SortColumn, direction: string): CustomersModel[] {
+function sort(customers: SedesModel[], column: SortColumn, direction: string): SedesModel[] {
   if (direction === '' || column === '') {
     return customers;
   } else {
@@ -34,22 +33,19 @@ function sort(customers: CustomersModel[], column: SortColumn, direction: string
   }
 }
 
-function matches(customer: CustomersModel, term: string, pipe: PipeTransform) {
-  return customer.nombres?.toLowerCase().includes(term.toLowerCase())
-  || customer.apellidos?.toLowerCase().includes(term.toLowerCase())
-  || customer.dni?.toLowerCase().includes(term.toLowerCase())
-  || customer.telefono?.toLowerCase().includes(term.toLowerCase())
-  || String(customer.fecha_nacimiento).toLowerCase().includes(term.toLowerCase())
+function matches(customer: SedesModel, term: string, pipe: PipeTransform) {
+  return customer.nombre_sede?.toLowerCase().includes(term.toLowerCase())
+  || customer.direccion?.toLowerCase().includes(term.toLowerCase());
 }
 
 @Injectable({ providedIn: 'root' })
-export class CustomerService {
+export class StoresService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _customers$ = new BehaviorSubject<CustomersModel[]>([]);
+  private _customers$ = new BehaviorSubject<SedesModel[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
   private _mostrar$ = new BehaviorSubject<boolean>(false);
-  customerList: CustomersModel[] = [];
+  storesList: SedesModel[] = [];
   private _state: State = {
     page: 1,
     pageSize: 10,
@@ -60,14 +56,13 @@ export class CustomerService {
 
   constructor(
     private pipe: DecimalPipe,
-    private customerService: ClienteService
+    private storeService: SedeService
     ) {
-    this.getListClients();
-    
+    this.getListStores();
   }
 
   updateTable (data) {
-    this.customerList = data;
+    this.storesList = data;
       this._mostrar$.next(true);
       this._search$.pipe(
         tap(() => this._loading$.next(true)),
@@ -82,7 +77,7 @@ export class CustomerService {
   
       this._search$.next();
   }
-  
+
   get customers$() { return this._customers$.asObservable(); }
   get total$() { return this._total$.asObservable(); }
   get loading$() { return this._loading$.asObservable(); }
@@ -106,7 +101,7 @@ export class CustomerService {
     const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
     // 1. sort
-    let customers = sort(this.customerList, sortColumn, sortDirection);
+    let customers = sort(this.storesList, sortColumn, sortDirection);
 
     // 2. filter
     customers = customers.filter(customer => matches(customer, searchTerm, this.pipe));
@@ -116,12 +111,10 @@ export class CustomerService {
     customers = customers.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
     return of({ customers, total });
   }
-  /**
-   * Funcion para obtener la lista de clientes desde el backend
-   */
-  getListClients() {
-    this.customerService.getAllClients().subscribe( res=>{
-      this.customerList = res;
+
+  getListStores() {
+    this.storeService.getSedes().subscribe(res =>{
+      this.storesList = res;
       this._mostrar$.next(true);
       this._search$.pipe(
         tap(() => this._loading$.next(true)),
@@ -135,6 +128,6 @@ export class CustomerService {
       });
   
       this._search$.next();
-    })  
+    })
   }
 }

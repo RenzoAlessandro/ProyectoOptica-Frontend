@@ -7,7 +7,8 @@
       <div class="form-inline mb-3">
         <div class="search-box ml-2">
           <div class="position-relative">
-            <input type="text" class="form-control rounded border-0" placeholder="Buscar tienda">
+            <input type="text" class="form-control rounded border-0" placeholder="Buscar tienda" name="searchTerm"
+            aria-controls="tickets-table" [(ngModel)]="service.searchTerm">
             <i class="mdi mdi-magnify search-icon"></i>
           </div>
         </div>
