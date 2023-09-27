@@ -5,4 +5,8 @@ export class SedesModel {
     nombre_sede: string;
     habilitado: boolean;
     fecha_modificacion_sede: Date;
+    color: string;
+    telefono: string;
+    ruc: string; 
+    logoURL: string
 }

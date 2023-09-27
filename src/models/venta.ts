@@ -1,5 +1,6 @@
 import { AccesorioModel } from "./accesorio";
 import { LunasModel } from "./lunas";
+import { MedidasModel } from "./medidas";
 import { MonturasModel } from "./monturas";
 import { TipoVentaModel } from "./tipo_venta";
 
@@ -18,4 +19,5 @@ export class VentasModel {
     habilitado: boolean;
     nombre_jalador:string;
     encargado_medicion:string;
+    medidas: Array<MedidasModel>
 }

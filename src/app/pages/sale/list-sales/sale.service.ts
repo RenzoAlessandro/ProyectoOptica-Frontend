@@ -12,6 +12,7 @@ import { LunasModel } from 'src/models/lunas';
 import { AccesorioModel } from 'src/models/accesorio';
 import { TipoVentaModel } from 'src/models/tipo_venta';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { MedidasModel } from 'src/models/medidas';
 
 interface SearchResult {
   transactions: VentasModel[];
@@ -25,7 +26,7 @@ interface State {
   sortDirection: SortDirection;
 }
 
-const compare = (v1: string | number | boolean | MonturasModel[] | LunasModel[] | AccesorioModel[] | Date | TipoVentaModel[], v2: string | number | boolean | MonturasModel[] | LunasModel[] | AccesorioModel[] | Date | TipoVentaModel[]) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+const compare = (v1: string | number | boolean | MonturasModel[] | LunasModel[] | AccesorioModel[] | Date | TipoVentaModel[] | MedidasModel[], v2: string | number | boolean | MonturasModel[] | LunasModel[] | AccesorioModel[] | Date | TipoVentaModel[] | MedidasModel[]) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
 function sort(transactions: VentasModel[], column: SortColumn, direction: string): VentasModel[] {
   if (direction === '' || column === '') {

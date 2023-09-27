@@ -17,6 +17,9 @@ export class ListStoresComponent implements OnInit {
   formEditarTiendas: FormGroup;
   nombre_tienda: string = "campoNombreTienda";
   direccion_tienda: string = "campoDireccionTienda";
+  telefono_tienda: string = "campoTelefonoTienda";
+  ruc_tienda: string = "campoRucTienda";
+  color_tienda: string = "campoColorTienda";
 
   mostrar = false;
   // bread crumb items
@@ -54,7 +57,9 @@ export class ListStoresComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(60)
       ]],
-      /* [this.estado_tienda]:[], */
+      [this.telefono_tienda]:[],
+      [this.ruc_tienda]:[],
+      [this.color_tienda]:[]
     })
   }
 

@@ -1,9 +1,8 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
-
+import { map } from "rxjs/operators";
 import { TransactionService } from './sale.service';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 import { VentasModel } from 'src/models/venta';
@@ -171,7 +170,7 @@ export class ListSalesComponent implements OnInit {
 
   crearFormulario() {
     this.formDateRange = this.fb.group({
-      [this.fechaDesde]: [null,[Validators.required]],
+      [this.fechaDesde]: [null, [Validators.required]],
       [this.fechaHasta]: []
     });
 
@@ -527,9 +526,9 @@ export class ListSalesComponent implements OnInit {
               [{ text: nombresCliente, style: 'subtitulo' }, {text: numeroBoleta, style: 'contenido', alignment: 'right'}], */
               [{ text: 'Facturado a:', style: 'tableHeader' }, { text: 'Fecha de la Boleta:', style: 'tableHeader', alignment: 'right' }],
               [{ text: nombresCliente, style: 'subtitulo' }, { text: fecha_hoy, style: 'contenido', alignment: 'right' }],
-              [{ text: 'Fecha de Nacimiento: ' + fnacimientoCliente, style: 'contenido' }, { }],
-              [{ text: 'Dirección: ' + direccionCliente, style: 'contenido' }, { }],
-              [{ text: 'Correo: ' + correoCliente, style: 'contenido' }, {  }],
+              [{ text: 'Fecha de Nacimiento: ' + fnacimientoCliente, style: 'contenido' }, {}],
+              [{ text: 'Dirección: ' + direccionCliente, style: 'contenido' }, {}],
+              [{ text: 'Correo: ' + correoCliente, style: 'contenido' }, {}],
               [{ text: 'Telefono: ' + telefonoCliente, style: 'contenido' }, {}],
             ]
           },
@@ -646,6 +645,7 @@ export class ListSalesComponent implements OnInit {
       }
       this.ventaService.getVentasByDate(fechaIni, fechaFin, this.idSede).subscribe(res => {
         this.excelVentas = res;
+        console.log(this.excelVentas)
         data = this.excelVentas.map((ventas: VentasModel) => {
           let accesorios = ventas.list_accesorios.map(acc => {
             return {
@@ -658,6 +658,7 @@ export class ListSalesComponent implements OnInit {
           })
           let monturas = ventas.list_monturas.map(mont => {
             return {
+              "CODIGO": mont.codigo,
               "PRECIO VENTA": mont.precio_montura_v,
               "PRECIO COMPRA": mont.precio_montura_c,
               "CANTIDAD VENDIDA": mont.cant_vendida,
@@ -676,19 +677,49 @@ export class ListSalesComponent implements OnInit {
               "SUMA TOTAL": lun.precio
             }
           })
-          return {
-            "FECHA": new Date(ventas.fecha_creacion_venta).toLocaleDateString('en-GB'),
-            "NOMBRE CLIENTE": ventas.nombre_cliente,
-            "ACCESORIOS": JSON.stringify(accesorios),
-            "LUNAS": JSON.stringify(lunas),
-            "MONTURAS": JSON.stringify(monturas),
-            "TOTAL": ventas.tipo_venta[0].precio_total,
-            "USUARIO": ventas.nombre_vendedor.toUpperCase(),
-            "VENDEDOR": ventas.nombre_jalador? ventas.nombre_jalador.toUpperCase() : null,
-            "ENCARGADO MEDICION": ventas.encargado_medicion? ventas.encargado_medicion.toUpperCase():null,
-            "FORMA DE PAGO": ventas.tipo_venta[0].forma_pago,
-            "ESTADO": ventas.tipo_venta[0].deuda > 0 ? "DEUDA" : "PAGADO"
+
+          if (ventas.hasOwnProperty("medidas")) {
+            return {
+              "FECHA": new Date(ventas.fecha_creacion_venta).toLocaleDateString('en-GB'),
+              "NOMBRE CLIENTE": ventas.nombre_cliente,
+              "ACCESORIOS": JSON.stringify(accesorios),
+              "LUNAS": JSON.stringify(lunas),
+              "MONTURAS": JSON.stringify(monturas),
+              "TOTAL": ventas.tipo_venta[0].precio_total == 0 ? "+0.00": ventas.tipo_venta[0].precio_total ,
+              "ESF D": ventas.medidas[0].od_esferico == 0? "+0.00": ventas.medidas[0].od_esferico == 0,
+              "CYL D": ventas.medidas[0].od_cilindrico == 0 ? "+0.00" : ventas.medidas[0].od_cilindrico,
+              "EJE D": ventas.medidas[0].od_eje == 0 ? "+0.00" : ventas.medidas[0].od_eje == 0,
+              "ESF I": ventas.medidas[0].oi_esferico == 0 ? "+0.00" : ventas.medidas[0].oi_esferico,
+              "CYL I": ventas.medidas[0].oi_esferico == 0 ? "+0.00" : ventas.medidas[0].oi_esferico == 0,
+              "EJE I": ventas.medidas[0].oi_esferico == 0 ? "+0.00" : ventas.medidas[0].oi_esferico == 0,
+              "DIP": ventas.medidas[0].dip == 0 ? "+0.00" : ventas.medidas[0].dip == 0,
+              "ADD": ventas.medidas[0].add == 0 ? "+0.00" : ventas.medidas[0].add == 0,
+              "USUARIO": ventas.nombre_vendedor.toUpperCase(),
+              "VENDEDOR": ventas.nombre_jalador ? ventas.nombre_jalador.toUpperCase() : null,
+              "ENCARGADO MEDICION": ventas.encargado_medicion ? ventas.encargado_medicion.toUpperCase() : null,
+              "FORMA DE PAGO": ventas.tipo_venta[0].forma_pago,
+              "ESTADO": ventas.tipo_venta[0].deuda > 0 ? "DEUDA" : "PAGADO"
+              
+            }
+          } else {
+            return {
+              "FECHA": new Date(ventas.fecha_creacion_venta).toLocaleDateString('en-GB'),
+              "NOMBRE CLIENTE": ventas.nombre_cliente,
+              "ACCESORIOS": JSON.stringify(accesorios),
+              "LUNAS": JSON.stringify(lunas),
+              "MONTURAS": JSON.stringify(monturas),
+              "TOTAL": ventas.tipo_venta[0].precio_total == 0 ? "+0.00": ventas.tipo_venta[0].precio_total ,
+              "USUARIO": ventas.nombre_vendedor.toUpperCase(),
+              "VENDEDOR": ventas.nombre_jalador ? ventas.nombre_jalador.toUpperCase() : null,
+              "ENCARGADO MEDICION": ventas.encargado_medicion ? ventas.encargado_medicion.toUpperCase() : null,
+              "FORMA DE PAGO": ventas.tipo_venta[0].forma_pago,
+              "ESTADO": ventas.tipo_venta[0].deuda > 0 ? "DEUDA" : "PAGADO"
+              
+            }
           }
+
+          
+
         });
         const worksheet = XLSX.utils.json_to_sheet(data);
         const workbook = {
@@ -708,4 +739,6 @@ export class ListSalesComponent implements OnInit {
       return;
     }
   }
+
+  
 }

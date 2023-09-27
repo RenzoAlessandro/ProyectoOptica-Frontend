@@ -590,7 +590,8 @@ export class AddSaleComponent implements OnInit {
           let idClienteContado = this.listClients.find(cliente=>(cliente.id_cliente == (this.f(this.nombreContado).value).id_cliente));
           if (idClienteContado != undefined) {
             this.venta.id_cliente = (this.f(this.nombreContado).value).id_cliente;
-            this.venta.encargado_medicion = (this.f(this.nombreContado).value).medidas[0].encargado
+            this.venta.encargado_medicion = (this.f(this.nombreContado).value).medidas[0].encargado;
+            this.venta.medidas = idClienteContado.medidas;
           } else {
             this.f(this.nombreContado).setValue(null);
             return;
@@ -608,9 +609,11 @@ export class AddSaleComponent implements OnInit {
           this.tipoPago.metodo_pago = this.g(this.metodoPagoCredito).value;
           this.tipoPago.cuotas = String(this.tickValue);
           let idClienteCredito = this.listClients.find(cliente=>(cliente.id_cliente == (this.g(this.nombreCredito).value).id_cliente));
+          
           if (idClienteCredito != undefined) {
             this.venta.id_cliente = (this.g(this.nombreCredito).value).id_cliente;
-            this.venta.encargado_medicion = (this.g(this.nombreCredito).value).medidas[0].encargado
+            this.venta.encargado_medicion = (this.g(this.nombreCredito).value).medidas[0].encargado;
+            this.venta.medidas = idClienteCredito.medidas;
           } else {
             this.g(this.nombreCredito).setValue(null);
             return;
@@ -627,7 +630,6 @@ export class AddSaleComponent implements OnInit {
       this.venta.id_sede = this.idSede;
       this.venta.habilitado = true;
       this.cancel();
-
     } else {
 
     }

@@ -63,6 +63,69 @@
                   </div>
                 </div>
               </div>
+
+              <div class="row">
+                <div class="col-12 col-sm-12">
+                  <div class="mb-3">
+                    <label for="validationCustom01">RUC *</label>
+                      <input class="form-control" placeholder="RUC de la tienda" type="text" name="title"
+                          formControlName="{{this.ruc_tienda}}" [ngClass]="{'is-invalid': formT.campoRucTienda.invalid && (formT.campoRucTienda.dirty || formT.campoRucTienda.touched)}"/>
+                      <div class="invalid-feedback">
+                        <div *ngIf="formT.campoRucTienda.errors?.required">
+                          Campo requerido
+                        </div>
+                        <div *ngIf="formT.campoRucTienda.errors?.minlength">
+                          El campo debe ser mayor a 3 caracteres
+                        </div>
+                        <div  *ngIf="formT.campoRucTienda.errors?.maxlength">
+                          El campo debe ser menor a 60 caracteres
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12 col-sm-12">
+                  <div class="mb-3">
+                    <label for="validationCustom01">Teléfono *</label>
+                      <input class="form-control" placeholder="Teléfono de la tienda" type="text" name="title"
+                          formControlName="{{this.telefono_tienda}}" [ngClass]="{'is-invalid': formT.campoTelefonoTienda.invalid && (formT.campoTelefonoTienda.dirty || formT.campoTelefonoTienda.touched)}"/>
+                      <div class="invalid-feedback">
+                        <div *ngIf="formT.campoTelefonoTienda.errors?.required">
+                          Campo requerido
+                        </div>
+                        <div *ngIf="formT.campoTelefonoTienda.errors?.minlength">
+                          El campo debe ser mayor a 3 caracteres
+                        </div>
+                        <div  *ngIf="formT.campoTelefonoTienda.errors?.maxlength">
+                          El campo debe ser menor a 60 caracteres
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12 col-sm-12">
+                  <div class="mb-3">
+                    <label for="validationCustom01">Color *</label>
+                      <input class="form-control" placeholder="Color de la tienda" type="text" name="title"
+                          formControlName="{{this.color_tienda}}" [ngClass]="{'is-invalid': formT.campoColorTienda.invalid && (formT.campoColorTienda.dirty || formT.campoColorTienda.touched)}"/>
+                      <div class="invalid-feedback">
+                        <div *ngIf="formT.campoColorTienda.errors?.required">
+                          Campo requerido
+                        </div>
+                        <div *ngIf="formT.campoColorTienda.errors?.minlength">
+                          El campo debe ser mayor a 3 caracteres
+                        </div>
+                        <div  *ngIf="formT.campoColorTienda.errors?.maxlength">
+                          El campo debe ser menor a 60 caracteres
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
             </form>
             <div class="row my-2">
               <div class="col">

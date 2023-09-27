@@ -20,7 +20,9 @@ export class AddStoreComponent implements OnInit {
   formTiendas: FormGroup;
   nombre_tienda: string = "campoNombreTienda";
   direccion_tienda: string = "campoDireccionTienda";
-  /* estado_tienda: string = "campoEstadoTienda"; */
+  telefono_tienda: string = "campoTelefonoTienda";
+  ruc_tienda: string = "campoRucTienda";
+  color_tienda: string = "campoColorTienda"
 
   sede= new SedesModel;
   // bread crumb items
@@ -50,7 +52,9 @@ export class AddStoreComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(60)
       ]],
-      /* [this.estado_tienda]:[], */
+      [this.telefono_tienda]:[],
+      [this.ruc_tienda]:[],
+      [this.color_tienda]:[]
     })
   }
 
@@ -83,6 +87,9 @@ export class AddStoreComponent implements OnInit {
       this.sede.nombre_sede = this.f(this.nombre_tienda).value;
       this.sede.habilitado = true;
       this.sede.fecha_modificacion_sede = new Date(Date.now());
+      this.sede.ruc = this.f(this.ruc_tienda).value;
+      this.sede.telefono = this.f(this.telefono_tienda).value;
+      this.sede.color = this.f(this.color_tienda).value;
       Sweetalert("loading", "Cargando...");
       this.sedeService.createSedes(this.sede).subscribe( res=>{
         Sweetalert("close",null);
