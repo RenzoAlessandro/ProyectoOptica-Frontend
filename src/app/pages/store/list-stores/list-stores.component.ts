@@ -4,12 +4,17 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { SedesModel } from 'src/models/sedes';
 import { Sweetalert } from 'src/utils/sweetalert';
+import { StoresService } from './list-stores.service';
+import { DecimalPipe } from '@angular/common';
 import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-list-stores',
   templateUrl: './list-stores.component.html',
-  styleUrls: ['./list-stores.component.scss']
+  styleUrls: ['./list-stores.component.scss'],
+  providers:[StoresService, DecimalPipe]
 })
+
 export class ListStoresComponent implements OnInit {
 
   //formulario monturas
@@ -28,6 +33,7 @@ export class ListStoresComponent implements OnInit {
   listSedes = [];
   sede = new SedesModel
   constructor(
+    public service: StoresService,
     private modalService: NgbModal,
     private sedeService: SedeService,
     private fb: FormBuilder,
@@ -123,6 +129,9 @@ export class ListStoresComponent implements OnInit {
     }
   }
 
-
-  
+  updateListStores() {
+    this.sedeService.getSedes().subscribe(res => {
+      this.service.updateTable(res);
+    })
+  }
 }

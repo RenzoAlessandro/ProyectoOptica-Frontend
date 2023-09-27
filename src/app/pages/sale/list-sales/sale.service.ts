@@ -40,12 +40,11 @@ function sort(transactions: VentasModel[], column: SortColumn, direction: string
 }
 
 function matches(transaction: VentasModel, term: string, pipe: PipeTransform) {
-  return transaction.nombre_vendedor.toLowerCase().includes(term)
-    || String(transaction.tipo_venta[0].precio_total).toLowerCase().includes(term.toLowerCase())
-    || (transaction.fecha_creacion_venta).toLocaleString().includes(term)
-    //|| transaction.id_sede.toLowerCase().includes(term)
-    //|| transaction.id_cliente.toLowerCase().includes(term)
-    //|| pipe.transform(transaction.index).includes(term);
+  return String(transaction.fecha_creacion_venta)?.toLowerCase().includes(term.toLowerCase())
+  || transaction.nombre_cliente?.toLowerCase().includes(term.toLowerCase())
+  || String(transaction.tipo_venta[0].precio_total)?.toLowerCase().includes(term.toLowerCase())
+  || transaction.nombre_vendedor?.toLowerCase().includes(term.toLowerCase());
+
 }
 
 @Injectable({ providedIn: 'root' })

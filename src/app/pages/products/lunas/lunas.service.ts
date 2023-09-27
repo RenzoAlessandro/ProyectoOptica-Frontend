@@ -35,7 +35,7 @@ function sort(customers: LunasModel[], column: SortColumn, direction: string): L
 }
 
 function matches(customer: LunasModel, term: string, pipe: PipeTransform) {
-  return customer.material.toLowerCase().includes(term.toLowerCase())
+  return customer.material?.toLowerCase().includes(term.toLowerCase())
   || String(customer.precio_luna_c).toLowerCase().includes(term.toLowerCase())
   || String(customer.precio_luna_v).toLowerCase().includes(term.toLowerCase())
   || String(customer.cantidad).toLowerCase().includes(term)
