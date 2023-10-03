@@ -11,6 +11,7 @@ import { UIModule } from "src/app/shared/ui/ui.module";
 import { AddStoreComponent } from "./add-store/add-store.component";
 import { StoreRoutingModule } from "./store-routing.module";
 import { ListStoresComponent } from "./list-stores/list-stores.component";
+import { NgxDropzoneModule } from "ngx-dropzone";
 
 @NgModule({
     // tslint:disable-next-line: max-line-length
@@ -30,7 +31,8 @@ import { ListStoresComponent } from "./list-stores/list-stores.component";
       NgbTooltipModule,
       NgbAccordionModule,
       NgbTypeaheadModule,
-      NgbCollapseModule
+      NgbCollapseModule,
+      NgxDropzoneModule,
     ],
     providers: [
       {

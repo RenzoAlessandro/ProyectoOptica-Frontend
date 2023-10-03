@@ -3,6 +3,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { SedesModel } from 'src/models/sedes';
 import { Sweetalert } from '../../../../utils/sweetalert';
+import { SedeService } from 'src/app/services/sede.service';
+
 
 @Component({
   selector: 'app-add-store',
@@ -27,10 +29,10 @@ export class AddStoreComponent implements OnInit {
   sede= new SedesModel;
   // bread crumb items
   breadCrumbItems: Array<{}>;
-
+  files: File[]=[];
   constructor(
     private fb: FormBuilder,
-    private sedeService: UsuarioService) { }
+    private sedeService: SedeService) { }
 
   ngOnInit(): void {
     this.breadCrumbItems = [{ label: 'Tiendas' }, { label: 'Añadir Tienda', active: true }];
@@ -90,11 +92,20 @@ export class AddStoreComponent implements OnInit {
       this.sede.ruc = this.f(this.ruc_tienda).value;
       this.sede.telefono = this.f(this.telefono_tienda).value;
       this.sede.color = this.f(this.color_tienda).value;
+      if ((this.files.length < 1) ) {
+        this.sede.logoURL = "";
+      } else {
+        this.sede.logoURL = this.files[0].name;
+        
+      } 
       Sweetalert("loading", "Cargando...");
-      this.sedeService.createSedes(this.sede).subscribe( res=>{
-        Sweetalert("close",null);
+      this.sedeService.createSede(this.sede).subscribe( res=>{
+        this.sedeService.saveImageBackend(this.files[0]).subscribe (res => {
+          Sweetalert("close",null);
         Sweetalert("success", "Tienda guardada");
         this.formTiendas.reset();
+        })
+        
       }); 
     } else {
       
@@ -108,4 +119,16 @@ export class AddStoreComponent implements OnInit {
     return this.formTiendas.controls;
   }
         
+  /** funciones del dropzone img */
+  onSelect(event){
+    this.files.push(...event.addedFiles);
+    if (this.files.length > 1) {
+      //this.errorImagen = "Solo una Imagen";
+      this.files = [];
+      //console.log(this.files[0].type);
+    }
+    else{
+      //this.errorImagen = "";
+    }
+  }
 }

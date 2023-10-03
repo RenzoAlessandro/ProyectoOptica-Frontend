@@ -126,6 +126,28 @@
                   </div>
                 </div>
               </div>
+
+              <div 
+                class="custom-dropzone" 
+                ngx-dropzone 
+                [accept]="'image/*'"
+                (change)="onSelect($event)"
+              >
+                <ngx-dropzone-label>
+                  <div>
+                    <i class="display-4 text-muted uil uil-cloud-upload"></i>
+                    <h3>Suelte los archivos aquí o haga clic para cargar.</h3>
+                  </div>
+                </ngx-dropzone-label>
+                <!-- <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                   <ngx-dropzone-label>{{ f.name }} </ngx-dropzone-label>
+                </ngx-dropzone-preview> -->
+                <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                  <!-- <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label> -->
+                </ngx-dropzone-image-preview>
+                
+              </div>
+
             </form>
             <div class="row my-2">
               <div class="col">

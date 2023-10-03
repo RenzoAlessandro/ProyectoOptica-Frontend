@@ -1,4 +1,4 @@
-export const environment = {
+export const environmentP = {
   production: true,
   defaultauth: 'fackbackend',
   firebaseConfig: {
