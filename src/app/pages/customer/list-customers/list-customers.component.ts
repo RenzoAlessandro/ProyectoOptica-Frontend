@@ -377,18 +377,20 @@ export class ListCustomersComponent implements OnInit {
     };
     var fecha_hoy = new Date (Date.now()).toLocaleDateString('en-GB');
 
-    var numeroReceta = '#MN0131';
-
-    var direccionEmpresa = 'Calle Santa Marta 218, Arequipa';
-    var correoEmpresa = 'raulcg1234@hotmail.com ';
-    var felefonoEmpresa = '955 739 464';
+    var numeroReceta = 'Nº 000901';
+    var propietarioEmpresa = 'Raúl J. Condori Ramos'
+    var direccionEmpresa = 'Jr: Arequipa 347 - Puno';
+    var felefonoEmpresa = '954170390 - 930314556';
+    var primeraRecomnedacion = 'Al empezar a usar los nuevos lentes, es de esperar ciertas incomodidades; ejemplo enturbamiento en la visión a distancia, elevación o inclinacion del nivel del piso, ligera sensación de mareo, que luego desaparece.';
+    var segundaRecomendacion = 'Acuda personalmente donde el óptico, para un correcto montaje de sus lentes. Vuelva al optómetra para verificar la correcta preparación de sus lentes.';
 
     var nombresCliente = this.userPrint.nombres;
     var apellidosCliente = this.userPrint.apellidos;
+    var dniCliente = this.userPrint.dni;
     var fnacimientoCliente = new Date (this.userPrint.fecha_nacimiento).toLocaleDateString('en-GB');
-    var direccionCliente = this.userPrint.direccion ? this.userPrint.direccion : "Sin especificar.";
-    var correoCliente = this.userPrint.email ? this.userPrint.email : "Sin especificar.";
     var telefonoCliente = this.userPrint.telefono ? this.userPrint.telefono : "Sin especificar.";
+    // var direccionCliente = this.userPrint.direccion ? this.userPrint.direccion : "Sin especificar.";
+    // var correoCliente = this.userPrint.email ? this.userPrint.email : "Sin especificar.";
 
     var od_esf_Cliente = this.userPrint.medidas[0].od_esferico > 0? '+'+this.userPrint.medidas[0].od_esferico.toFixed(2): this.userPrint.medidas[0].od_esferico.toFixed(2) ;
     var od_cil_Cliente = this.userPrint.medidas[0].od_cilindrico > 0 ? '+'+this.userPrint.medidas[0].od_cilindrico.toFixed(2) : this.userPrint.medidas[0].od_cilindrico.toFixed(2);
@@ -405,123 +407,454 @@ export class ListCustomersComponent implements OnInit {
     var antecedentesCliente = this.userPrint.antecedentes ? this.userPrint.antecedentes : "Sin atecedentes.";
     
     const pdfDefinition: any = {
-      pageSize: 'A5',
+      pageSize: 'A4',
       //pageOrientation: 'landscape',
-      pageMargins: [ 40, 60, 40, 60 ],
+      pageMargins: [ 40, 10, 40, 10 ], // left, top, right, botton
       content: [
+
+        // LOGO y DATOS DE LA EMPRESA
         {
-          style: 'tableExample',
+          style: 'tableBasic',
           table: {
-            widths: ['*', '*'],
+            widths: ['auto', '*'],
             body: [
-/*               [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150, rowSpan: 4 }, { text: 'Nº de Receta:', style: 'tableHeader', alignment: 'right' }],
-              [{ }, { text: numeroReceta, alignment: 'right' }], */
-              [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150, rowSpan: 2 }, { text: 'Fecha de hoy:', style: 'tableHeader', alignment: 'right' }],
+              [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 230, rowSpan: 4 }, { text: 'Receta:', style: 'subtitle', alignment: 'right' }],
+              [{ }, { text: numeroReceta, alignment: 'right' }],
+              [{ }, { text: 'Fecha:', style: 'subtitle', alignment: 'right' }],
               [{ }, { text: fecha_hoy, alignment: 'right' }],
+              [{ text: 'De ' + propietarioEmpresa, alignment: 'center' }, { }],
+              [{ text: direccionEmpresa, style: 'header', fillColor: '#2D4497', fillOpacity: 0.80}, { text: 'Cel: ' + felefonoEmpresa,  style: 'header', fillColor: '#2D4497', fillOpacity: 0.80 }],
             ]
           },
-          layout: 'noBorders'
-        },
-
-        {
-          table: {
-            widths: ['*'],
-            body: [
-              [{ text: 'Paciente:', style: 'subtitulo2' }],
-              [{ text: nombresCliente + ' ' + apellidosCliente, style: 'subtitulo' }],
-              [{ text: 'Fecha de Nacimiento: '+fnacimientoCliente, style: 'contenido2'  }],
-              [{ text: 'Dirección: '+direccionCliente, style: 'contenido2' }],
-              [{ text: 'Correo: '+correoCliente, style: 'contenido2' }],
-              [{ text: 'Telefono: '+telefonoCliente, style: 'contenido2'  }],
-            ]
-          },
-          layout: 'noBorders'
-        },
-
-        {
-          style: 'tableMargin',
-          color: '#444',
-          table: {
-            widths: ['*', '*', '*', '*', '*', 100],
-            heights: [20, 20 , 20, 20],
-            headerRows: 2,
-            // keepWithHeaderRows: 1,
-            body: [
-              [{ text: 'Visión de Lejos', style: 'tableHeader', colSpan: 5, alignment: 'center' }, {} , {} , {} , {}, { text: 'Visión de Cerca', style: 'tableHeader', alignment: 'center' }],
-              [{ text: 'REF.', style: 'tableHeader', alignment: 'center' }, { text: 'ESF.', style: 'tableHeader', alignment: 'center' }, { text: 'CIL.', style: 'tableHeader', alignment: 'center' }, { text: 'EJE.', style: 'tableHeader', alignment: 'center' }, { text: 'DIP.', style: 'tableHeader', alignment: 'center' }, { text: 'ADD.', style: 'tableHeader', alignment: 'center' }],
-              [{ text: 'O.D.', style: 'tableHeader', alignment: 'center' }, { text: od_esf_Cliente, style: 'contenido2', alignment: 'center' }, { text: od_cil_Cliente, style: 'contenido2', alignment: 'center' }, { text: od_eje_Cliente, style: 'contenido2', alignment: 'center' }, { text: dip_Cliente, style: 'contenido2', alignment: 'center' }, { text: add_Cliente, rowSpan: 2, style: 'contenido2', alignment: 'center' }],
-              [{ text: 'O.I.', style: 'tableHeader', alignment: 'center' }, { text: oi_esf_Cliente, style: 'contenido2', alignment: 'center' }, { text: oi_cil_Cliente, style: 'contenido2', alignment: 'center' }, { text: oi_eje_Cliente, style: 'contenido2', alignment: 'center' }, { text: dip_Cliente, style: 'contenido2', alignment: 'center' }, {}],
-            ]
+          layout: {
+            defaultBorder: false,
           }
         },
-        { text: 'Encargado Medición:', style: 'subtitulo2' },
-        { text: encargadoCliente, style: 'contenido2'},
-        { text: 'Antecedentes:', style: 'subtitulo2' },
-        { text: antecedentesCliente, style: 'contenido2', alignment: 'justify'},
-        { text: 'Recomendaciones:', style: 'subtitulo3' },
-        { text: 'Al empezar a usar los nuevos lentes, es de esperar ciertas incomodidades; ejemplo enturbamiento en la visión a distancia, elevación o inclinacion del nivel del piso, ligera sensación de mareo, que luego desaparece.', style: 'contenido3', alignment: 'justify'},
-        { text: 'Acuda personalmente donde el óptico, para un correcto montaje de sus lentes. Vuelva al optómetra para verificar la correcta preparación de sus lentes.', style: 'contenido3', alignment: 'justify'},
-      ],
-      styles: {
-        subtitulo: {
-          bold: true,
-          fontSize: 12,
-          color: 'black',
-          margin: [0, 2, 0, 3]
-        },
-        subtitulo2: {
-          bold: true,
-          fontSize: 11,
-          color: 'black',
-          margin: [0, 5, 0, 5]
-        },
-        subtitulo3: {
-          bold: true,
-          fontSize: 10,
-          color: 'black',
-          margin: [0, 10, 0, 5]
-        },
-        contenido: {
-          fontSize: 12,
-        },
-        contenido2: {
-          fontSize: 10,
-        },
-        contenido3: {
-          fontSize: 8,
-        },
-        textBold: {
-          fontSize: 12,
-          bold: true,
+
+        // DATOS DEL CLIENTE
+        {
+          style: 'tableBasic',
+          table: {
+            widths: ['*', '*', '*'],
+            body: [
+              [{ text: 'Paciente: ' + nombresCliente + apellidosCliente, style: 'title', alignment: 'left', colSpan: 2 }, { }, { text: 'DNI: ' + dniCliente, style: 'text', alignment: 'left'}],
+              [{ text: 'F. Nac.: ' + fnacimientoCliente, style: 'text', alignment: 'left'}, { text: 'Ocupación: ', style: 'text', alignment: 'left'}, { text: 'Cel: ' + telefonoCliente, style: 'text', alignment: 'left'}],
+            ]
+          },
+          layout: {
+            vLineWidth: function (i, node) {
+              return (i === 0 || i === node.table.widths.length) ? 1 : 0;
+            },
+          }
         },
 
-        header: {
-          fontSize: 17,
-          bold: true,
-          margin: [0, 0, 0, 10]
+        // VISION DE LEJOS 
+
+        {
+          style: 'tableBasic',
+          table: {
+            widths: [150],
+            heights: [15],
+            body: [
+              [{ text: 'VISIÓN DE LEJOS: ', style: 'title2', alignment: 'left' , fillColor: '#2D4497', fillOpacity: 0.80 } ],
+            ]
+          },
+          layout: {
+            defaultBorder: false,
+            paddingLeft: function(i, node) { return 10; },
+          }
         },
-        subheader: {
+
+        
+        {
+          style: 'tableBasic',
+          table: {
+            widths: ['*', '*', '*', '*', '*', '*'],
+            heights: [15, 15, 15],
+            headerRows: 2,
+            body: [
+              [{ text: 'REF.', style: 'title', alignment: 'center' }, { text: 'ESF.', style: 'title', alignment: 'center'        }, { text: 'CIL.', style: 'title', alignment: 'center'        }, { text: 'EJE.', style: 'title', alignment: 'center'        }, { text: 'AV.', style: 'title', alignment: 'center' }, { text: 'DIP.', style: 'title', alignment: 'center'     }],
+              [{ text: 'O.D.', style: 'title', alignment: 'center' }, { text: od_esf_Cliente, style: 'text', alignment: 'center' }, { text: od_cil_Cliente, style: 'text', alignment: 'center' }, { text: od_eje_Cliente, style: 'text', alignment: 'center' }, { text: '', style: 'text', alignment: 'center'     }, { text: dip_Cliente, style: 'text', alignment: 'center' }],
+              [{ text: 'O.I.', style: 'title', alignment: 'center' }, { text: oi_esf_Cliente, style: 'text', alignment: 'center' }, { text: oi_cil_Cliente, style: 'text', alignment: 'center' }, { text: oi_eje_Cliente, style: 'text', alignment: 'center' }, { text: '', style: 'text', alignment: 'center'     }, { text: dip_Cliente, style: 'text', alignment: 'center' }],
+            ]
+          },
+          layout: {
+            fillColor: function (rowIndex) {
+              return (rowIndex === 0) ? '#92A6D2' : null;
+            }
+          }
+        },
+
+        // VISION DE CERCA 
+        {
+          style: 'tableBasic',
+          table: {
+            widths: [150, '*', 150],
+            heights: [15],
+            body: [
+              [
+                { text: 'VISIÓN DE CERCA: ', alignment: 'left', style: 'title2', fillColor: '#2D4497', fillOpacity: 0.80},
+                [
+                  {
+                    table: {
+                      widths: ['auto', '*'],
+                      body: [
+                        ['ADD', ' '],
+                      ]
+                    },
+                  },
+                ],
+                { }
+              ]
+            ]
+          },
+          layout: {
+            defaultBorder: false,
+            paddingLeft: function(i, node) { return 10; },
+          }
+        },
+
+
+
+        // DIAGNÓSTICO 
+        {
+          style: 'tableBasic',
+          table: {
+            widths: ['*', '*', '*', '*'],
+            heights: [15],
+            body: [
+              [ 
+                { text: 'DIAGNÓSTICO: ', alignment: 'left', style: 'title2', fillColor: '#2D4497', fillOpacity: 0.80 },
+                [
+                  {
+                    table: {
+                      widths: [10, '*'],
+                      body: [
+                        [' ', { text: 'Miopia', style: 'text', alignment: 'left', border: [true, false, false, false] }],
+                      ]
+                    },
+                  },
+                ],
+                [
+                  {
+                    table: {
+                      widths: [10, '*'],
+                      body: [
+                        [' ', { text: 'Hipermetropía', style: 'text', alignment: 'left', border: [true, false, false, false] }],
+                      ]
+                    },
+                  },
+                ],
+                [
+                  {
+                    table: {
+                      widths: [10, '*'],
+                      body: [
+                        [' ', { text: 'Astigmatismo', style: 'text', alignment: 'left', border: [true, false, false, false] }],
+                      ]
+                    },
+                  },
+                ],
+              ],
+
+              [
+                '',
+                [
+                  {
+                    table: {
+                      widths: [10, '*'],
+                      body: [
+                        [' ', { text: 'Presbicia', style: 'text', alignment: 'left', border: [true, false, false, false] }],
+                      ]
+                    },
+                  },
+                ],
+                [
+                  {
+                    table: {
+                      widths: [10, '*'],
+                      body: [
+                        [' ', { text: 'Ojo Vago', style: 'text', alignment: 'left', border: [true, false, false, false] }],
+                      ]
+                    },
+                  },
+                ],
+                [
+                  {
+                    table: {
+                      widths: [10, '*'],
+                      body: [
+                        [' ', { text: 'Ambliopia', style: 'text', alignment: 'left', border: [true, false, false, false] }],
+                      ]
+                    },
+                  },
+                ],
+              ]
+            ]
+          },
+          layout: {
+            defaultBorder: false,
+            paddingLeft: function(i, node) { return 10; },
+          }
+        },
+
+        // TIPO DE LENTES
+        {
+          style: 'tableBasic',
+          table: {
+            widths: ['*', '*', '*'],
+            heights: [15],
+            body: [
+              [
+                { text: 'TIPO DE LENTES: ', alignment: 'left', style: 'title2', fillColor: '#2D4497', fillOpacity: 0.80 },
+                '',
+                { text: 'SE RECOMIENDA', alignment: 'center', style: 'title2', fillColor: '#2D4497', fillOpacity: 0.80 },
+              ],
+              [
+                [
+                  {
+                    table: {
+                      widths: [10, '*'],
+                      body: [
+                        [' ', { text: 'MONOFOCALES', style: 'text', alignment: 'left', border: [true, false, false, false] }],
+                      ]
+                    },
+                  },
+                ],
+                [
+                  {
+                    table: {
+                      widths: [10, '*'],
+                      body: [
+                        [' ', { text: 'ORGÁNICOS', style: 'text', alignment: 'left', border: [true, false, false, false] }],
+                      ]
+                    },
+                  },
+                ],
+                [
+                  {
+                    table: {
+                      widths: [10, '*'],
+                      body: [
+                        [' ', { text: 'ANTIREFLEX', style: 'text', alignment: 'left', border: [true, false, false, false] }],
+                      ]
+                    },
+                  },
+                ],
+              ],
+
+              [
+                [
+                  {
+                    table: {
+                      widths: [10, '*'],
+                      body: [
+                        [' ', { text: 'BIFOCALES', style: 'text', alignment: 'left', border: [true, false, false, false] }],
+                      ]
+                    },
+                  },
+                ],
+                [
+                  {
+                    table: {
+                      widths: [10, '*'],
+                      body: [
+                        [' ', { text: 'CRISTALES', style: 'text', alignment: 'left', border: [true, false, false, false] }],
+                      ]
+                    },
+                  },
+                ],
+                [
+                  {
+                    table: {
+                      widths: [10, '*'],
+                      body: [
+                        [' ', { text: 'FOTOCROMÁTICOS', style: 'text', alignment: 'left', border: [true, false, false, false] }],
+                      ]
+                    },
+                  },
+                ],
+              ],
+
+              [
+                [
+                  {
+                    table: {
+                      widths: [10, '*'],
+                      body: [
+                        [' ', { text: 'MULTIFOCALES', style: 'text', alignment: 'left', border: [true, false, false, false] }],
+                      ]
+                    },
+                  },
+                ],
+                [
+                  {
+                    table: {
+                      widths: [10, '*'],
+                      body: [
+                        [' ', { text: 'POLICARBONATO', style: 'text', alignment: 'left', border: [true, false, false, false] }],
+                      ]
+                    },
+                  },
+                ],
+                [
+                  {
+                    table: {
+                      widths: [10, '*'],
+                      body: [
+                        [' ', { text: 'LC', style: 'text', alignment: 'left', border: [true, false, false, false] }],
+                      ]
+                    },
+                  },
+                ],
+              ]
+
+            ]
+          },
+          layout: {
+            paddingLeft: function(i, node) { return 10; },
+            hLineWidth: function (i, node) {
+              return (i === 0 || i === node.table.body.length) ? 1 : 0;
+            },
+            vLineWidth: function (i, node) {
+              return (i === 0 || i === node.table.widths.length) ? 1 : 0;
+            },
+          }
+        },
+
+
+        // OBSERVACIONES
+        {
+          style: 'tableBasic2',
+          table: {
+            widths: [350, '*'],
+            heights: [30],
+            body: [
+              [{ text: 'OBSERVACIONES: ', style: 'title', alignment: 'left' }, { } ],
+              [{ }, { text: 'Especialista', style: 'text', alignment: 'center',  border: [false, true, false, false] }],
+            ]
+          },
+          layout: {
+            defaultBorder: false,
+          }
+
+        },
+        
+
+
+        // TICKET
+        {
+          style: 'tableBasic',
+          table: {
+            widths: ['auto', '*'],
+            body: [
+              [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150, rowSpan: 3, border: [false, true, false, false] }, { text: ' ', border: [false, true, false, false] }],
+              [{ }, { text: direccionEmpresa, style: 'title', alignment: 'center' }],
+              [{ }, { text: 'Cel: ' + felefonoEmpresa,  style: 'title', alignment: 'center' }],
+              [{ text: 'De ' + propietarioEmpresa, alignment: 'left' }, { }],
+            ],
+          },
+          layout: {
+
+            defaultBorder: false,
+
+            hLineStyle: function (i, node) {
+              if (i === 0) {
+                return { dash: { length: 10, space: 4 } };
+              }
+              return null;
+            },
+          }
+        },
+
+        // DATOS DEL CLIENTE
+        {
+          style: 'tableBasic',
+          table: {
+            widths: ['*', 100],
+            body: [
+              [{ text: 'Paciente: ' + nombresCliente + apellidosCliente, style: 'title', alignment: 'left' }, { text: 'DNI: ' + dniCliente, style: 'text', alignment: 'left'}],
+              [{ text: 'FECHA DE CONTROL: ', color: '#2D4497', style: 'title', alignment: 'left' }, { text: 'Cel: ' + telefonoCliente, style: 'text', alignment: 'left'}],
+            ]
+          },
+          layout: {
+            vLineWidth: function (i, node) {
+              return (i === 0 || i === node.table.widths.length) ? 1 : 0;
+            },
+          }
+        },
+
+        // RECOMENDACIONES
+        {
+          style: 'tableBasic',
+          table: {
+            widths: [350, '*'],
+            body: [
+              [{ text: 'RECOMENDACIONES: ', color: '#2D4497', style: 'subtitle', alignment: 'left'   }, { } ],
+              [{ text: primeraRecomnedacion, color: '#2D4497', style: 'small', alignment: 'left' }, { }],
+              [{ text: segundaRecomendacion, color: '#2D4497', style: 'small', alignment: 'left' }, { text: 'Especialista', color: '#2D4497', style: 'text', alignment: 'center', border: [false, true, false, false],}],
+            ]
+          },
+          layout: {
+            defaultBorder: false,
+          }
+        },
+
+
+
+
+      ],
+      styles: {
+    
+        header: {
+          fontSize: 15,
+          bold: true,
+          color: 'white',
+          alignment: 'center',
+          margin: [0, 0, 0, 0],
+        },
+
+        title: {
           fontSize: 13,
           bold: true,
-          margin: [0, 10, 0, 5]
+          color: '#2D4497',
+          margin: [0, 0, 0, 0],
         },
+
+        title2: {
+          fontSize: 13,
+          bold: true,
+          color: 'white',
+          margin: [0, 0, 0, 0],
+        },
+
         subtitle: {
           fontSize: 12,
           bold: true,
-          margin: [0, 10, 0, 5]
+          color: '#2D4497',
+          margin: [0, 0, 0, 0],
         },
-        tableMargin: {
-          margin: [0, 15, 0, 15]
-        },
-        tableOpacityExample: {
-          margin: [0, 5, 0, 15],
-          fillColor: 'blue',
-          fillOpacity: 0.3
-        },
-        tableHeader: {
-          bold: true,
+
+        text: {
           fontSize: 11,
-          color: 'black'
+          color: '#2D4497',
+          margin: [0, 0, 0, 0],
+        },
+
+        small: {
+          fontSize: 9,
+          color: '#2D4497',
+          margin: [0, 0, 0, 0],
+        },
+
+        tableBasic: {
+          color: '#2D4497',
+          margin: [0, 3, 0, 3],
+        },
+
+        tableBasic2: {
+          color: '#2D4497',
+          margin: [0, 3, 0, 7],
         },
 
       },
