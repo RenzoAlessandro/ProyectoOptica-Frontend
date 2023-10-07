@@ -110,6 +110,20 @@ export class AddSaleComponent implements OnInit {
   tmpProducto: any;
   listMonturasforSale: Array<MonturasModel>;
 
+  productoC: string = "campoProductoC";
+  listProductos = [
+    {
+      id: 1, nombre: "Monturas",
+    },
+    {
+      id: 2, nombre: "Lunas",
+    },
+    {
+      id: 3, nombre: "Accesorios",
+    },
+  ];
+
+
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,

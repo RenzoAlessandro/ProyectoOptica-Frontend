@@ -7,8 +7,30 @@
         <div class="card-body">
           <h1 class="card-title mb-3">Buscar Producto</h1>
 
-          <div class="row">
-            <div class="p-2">
+          <div class="mb-2">
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <form [formGroup]="formSedes">
+                  <div ngbDropdown>
+                    <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
+                      bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+                    </ng-select>
+                  </div>
+                </form>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="search-box chat-search-box">
+                  <div class="position-relative">
+                      <input type="text" class="form-control bg-light border-light rounded" placeholder="Buscar Montura..." [(ngModel)]="searchtext">
+                      <i class="uil uil-search search-icon"></i>
+                  </div>
+              </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="row">
+            <div class="">
               <div class="search-box chat-search-box">
                   <div class="position-relative">
                       <input type="text" class="form-control bg-light border-light rounded" placeholder="Buscar Montura..." [(ngModel)]="searchtext">
@@ -16,7 +38,7 @@
                   </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="row">
             <div class="table-responsive">
