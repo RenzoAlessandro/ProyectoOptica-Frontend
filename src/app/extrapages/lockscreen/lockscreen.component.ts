@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LockscreenComponent implements OnInit {
 
+  showNavigationArrows: any;
+  showNavigationIndicators: any;
+
   // set the currenr year
   year: number = new Date().getFullYear();
 

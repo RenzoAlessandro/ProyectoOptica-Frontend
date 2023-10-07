@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ExtrapagesRoutingModule } from './extrapages-routing.module';
 
@@ -14,7 +15,8 @@ import { LockscreenComponent } from './lockscreen/lockscreen.component';
   declarations: [MaintenanceComponent, Page404Component, Page500Component, ComingsoonComponent, LockscreenComponent],
   imports: [
     CommonModule,
-    ExtrapagesRoutingModule
+    ExtrapagesRoutingModule,
+    NgbCarouselModule
   ]
 })
 export class ExtrapagesModule { }

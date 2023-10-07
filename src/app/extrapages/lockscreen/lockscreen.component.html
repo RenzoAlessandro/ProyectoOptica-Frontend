@@ -1,4 +1,4 @@
-<div class="home-btn d-none d-sm-block">
+<!-- <div class="home-btn d-none d-sm-block">
     <a routerLink="/" class="text-dark"><i class="mdi mdi-home-circle-outline h2"></i></a>
 </div>
 <div class="account-pages pt-sm-5 background-img">
@@ -51,7 +51,71 @@
                 </div>
             </div>
         </div>
-        <!-- end row -->
     </div>
-    <!-- end container -->
+</div> -->
+
+
+<div class="block-1">
+    <ngb-carousel [showNavigationIndicators]="!showNavigationIndicators">
+        <ng-template ngbSlide>
+          <img src="assets/images/backgrounds/background-3.jpg" alt="first slide" class="d-block img-fluid full-img">
+        </ng-template>
+        <ng-template ngbSlide>
+          <img src="assets/images/backgrounds/background-2.jpg" alt="second slide" class="d-block img-fluid full-img">
+        </ng-template>
+        <ng-template ngbSlide>
+          <img src="assets/images/backgrounds/background-1.jpg" alt="third slide" class="d-block img-fluid full-img">
+        </ng-template>
+    </ngb-carousel>
+
+
+    <div class="pt-sm-5 row justify-content-center Absolute-Center">
+        <div class="col-md-7 col-lg-5 col-xl-3">
+            <div>
+                <a routerLink="/" class="mb-5 d-block auth-logo">
+                    <img src="assets/images/logo-dark.png" alt="" height="100" class="logo logo-dark">
+                    <img src="assets/images/logo-light.png" alt="" height="100" class="logo logo-light">
+                </a>
+                <div class="card">
+                    <div class="card-body p-4">
+                        <div class="home-btn d-none d-sm-block">
+                            <a routerLink="/" class="text-dark"><i class="mdi mdi-home-circle-outline h2"></i></a>
+                        </div>
+                        <div class="text-center mt-2">
+                            <h5 class="text-primary">Pantalla de bloqueo</h5>
+                            <p class="text-muted">Ingrese su contraseña para desbloquear la pantalla!</p>
+                        </div>
+                        <div class="p-2 mt-4">
+                            <div class="user-thumb text-center mb-4">
+                                <img src="assets/images/users/avatar-4.jpg"
+                                    class="rounded-circle img-thumbnail avatar-lg" alt="thumbnail">
+                                <h5 class="font-size-15 mt-3">Marcus</h5>
+                            </div>
+                            <form action="/">
+                                <div class="mb-3">
+                                    <label for="userpassword">Contraseña</label>
+                                    <input type="password" class="form-control" id="userpassword"
+                                        placeholder="Introducir la contraseña">
+                                </div>
+                                <div class="mt-3 text-end">
+                                    <button class="btn btn-primary w-sm waves-effect waves-light"
+                                        type="submit">Desbloquear</button>
+                                </div>
+                                <div class="mt-4 text-center">
+                                    <p class="mb-0">No tú? volver <a routerLink="pages/login-1"
+                                            class="fw-medium text-primary"> Iniciar sesión </a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 text-center">
+                    <p>© {{year}} Orange Óptica. Desarrollado por <i class="mdi mdi-laptop-mac text-danger"></i> - <a href="" target="_blank" class="text-reset">REW</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+

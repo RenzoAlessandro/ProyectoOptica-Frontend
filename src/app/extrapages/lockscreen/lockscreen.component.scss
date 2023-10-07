@@ -6,10 +6,26 @@
 
 .background-img {
     height: 100dvh;
-    background-image: url("https://images.wsj.net/im-147926");
-
+    background-image: url("../../../assets/images/backgrounds/background-1.jpg");
+    background-blend-mode:lighten;
     /* Center and scale the image nicely */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.block-1 {
+    position: relative;
+}
+
+.Absolute-Center {
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+  }
+
+.full-img {
+    width: 100dvw;
+    height: 100dvh;
+    object-fit: cover;
 }
