@@ -403,7 +403,7 @@ export class ListCustomersComponent implements OnInit {
     var dip_Cliente = this.userPrint.medidas[0].dip;
     var add_Cliente = this.userPrint.medidas[0].add > 0 ? '+'+this.userPrint.medidas[0].add.toFixed(2): this.userPrint.medidas[0].add.toFixed(2)
 
-    var encargadoCliente = this.userPrint.medidas[0].encargado;
+    var encargadoCliente = this.userPrint.medidas[0].encargado ? this.userPrint.medidas[0].encargado : " " ;
     var antecedentesCliente = this.userPrint.antecedentes ? this.userPrint.antecedentes : "Sin atecedentes.";
     
     const pdfDefinition: any = {
@@ -473,14 +473,14 @@ export class ListCustomersComponent implements OnInit {
             heights: [15, 15, 15],
             headerRows: 2,
             body: [
-              [{ text: 'REF.', style: 'title', alignment: 'center' }, { text: 'ESF.', style: 'title', alignment: 'center'        }, { text: 'CIL.', style: 'title', alignment: 'center'        }, { text: 'EJE.', style: 'title', alignment: 'center'        }, { text: 'AV.', style: 'title', alignment: 'center' }, { text: 'DIP.', style: 'title', alignment: 'center'     }],
-              [{ text: 'O.D.', style: 'title', alignment: 'center' }, { text: od_esf_Cliente, style: 'text', alignment: 'center' }, { text: od_cil_Cliente, style: 'text', alignment: 'center' }, { text: od_eje_Cliente, style: 'text', alignment: 'center' }, { text: '', style: 'text', alignment: 'center'     }, { text: dip_Cliente, style: 'text', alignment: 'center' }],
-              [{ text: 'O.I.', style: 'title', alignment: 'center' }, { text: oi_esf_Cliente, style: 'text', alignment: 'center' }, { text: oi_cil_Cliente, style: 'text', alignment: 'center' }, { text: oi_eje_Cliente, style: 'text', alignment: 'center' }, { text: '', style: 'text', alignment: 'center'     }, { text: dip_Cliente, style: 'text', alignment: 'center' }],
+              [{ text: 'REF.', style: 'title', alignment: 'center', margin: [0, 2, 0, 2] }, { text: 'ESF.'        , style: 'title', alignment: 'center', margin: [0, 2, 0, 2]}, { text: 'CIL.'        , style: 'title', alignment: 'center', margin: [0, 2, 0, 2] }, { text: 'EJE.'        , style: 'title', alignment: 'center', margin: [0, 2, 0, 2] }, { text: 'AV.', style: 'title', alignment: 'center', margin: [0, 2, 0, 2] }, { text: 'DIP.'     , style: 'title', alignment: 'center', margin: [0, 2, 0, 2] }],
+              [{ text: 'O.D.', style: 'title', alignment: 'center', margin: [0, 1, 0, 1] }, { text: od_esf_Cliente, style: 'text' , alignment: 'center', margin: [0, 1, 0, 1]}, { text: od_cil_Cliente, style: 'text' , alignment: 'center', margin: [0, 1, 0, 1] }, { text: od_eje_Cliente, style: 'text' , alignment: 'center', margin: [0, 1, 0, 1] }, { text: ''   , style: 'text' , alignment: 'center', margin: [0, 1, 0, 1] }, { text: dip_Cliente, style: 'text' , alignment: 'center', margin: [0, 1, 0, 1] }],
+              [{ text: 'O.I.', style: 'title', alignment: 'center', margin: [0, 1, 0, 1] }, { text: oi_esf_Cliente, style: 'text' , alignment: 'center', margin: [0, 1, 0, 1]}, { text: oi_cil_Cliente, style: 'text' , alignment: 'center', margin: [0, 1, 0, 1] }, { text: oi_eje_Cliente, style: 'text' , alignment: 'center', margin: [0, 1, 0, 1] }, { text: ''   , style: 'text' , alignment: 'center', margin: [0, 1, 0, 1] }, { text: dip_Cliente, style: 'text' , alignment: 'center', margin: [0, 1, 0, 1] }],
             ]
           },
           layout: {
             fillColor: function (rowIndex) {
-              return (rowIndex === 0) ? '#92A6D2' : null;
+              return (rowIndex === 0) ? '#d8e3fc' : null;
             }
           }
         },
@@ -499,7 +499,10 @@ export class ListCustomersComponent implements OnInit {
                     table: {
                       widths: ['auto', '*'],
                       body: [
-                        ['ADD', ' '],
+                        [ 
+                          { text: 'ADD.', style: 'title', alignment: 'center', fillColor: '#d8e3fc' },
+                          { text: add_Cliente, style: 'text', alignment: 'center' }
+                        ],
                       ]
                     },
                   },
@@ -730,7 +733,7 @@ export class ListCustomersComponent implements OnInit {
             widths: [350, '*'],
             heights: [30],
             body: [
-              [{ text: 'OBSERVACIONES: ', style: 'title', alignment: 'left' }, { } ],
+              [{ text: 'OBSERVACIONES: ', style: 'title', alignment: 'left' }, { text: encargadoCliente, style: 'text', alignment: 'center' } ],
               [{ }, { text: 'Especialista', style: 'text', alignment: 'center',  border: [false, true, false, false] }],
             ]
           },
@@ -791,7 +794,7 @@ export class ListCustomersComponent implements OnInit {
             widths: [350, '*'],
             body: [
               [{ text: 'RECOMENDACIONES: ', color: '#2D4497', style: 'subtitle', alignment: 'left'   }, { } ],
-              [{ text: primeraRecomnedacion, color: '#2D4497', style: 'small', alignment: 'left' }, { }],
+              [{ text: primeraRecomnedacion, color: '#2D4497', style: 'small', alignment: 'left' }, { text: encargadoCliente, style: 'text', alignment: 'center' }],
               [{ text: segundaRecomendacion, color: '#2D4497', style: 'small', alignment: 'left' }, { text: 'Especialista', color: '#2D4497', style: 'text', alignment: 'center', border: [false, true, false, false],}],
             ]
           },

@@ -394,21 +394,39 @@ export class ListSalesComponent implements OnInit {
       minute: "2-digit", // numeric
       second: "2-digit" // numeric
     });
-    var simboloNuevoSol = 'S/ ';
-    var numeroBoleta = '#MN0131';
 
-    var direccionEmpresa = 'Calle Santa Marta 218, Arequipa';
-    var correoEmpresa = 'raulcg1234@hotmail.com ';
-    var felefonoEmpresa = '955 739 464';
 
-    var nombresCliente = cliente.nombres + ' ' + cliente.apellidos;
-    var fnacimientoCliente = cliente.fecha_nacimiento ? new Date(cliente.fecha_nacimiento).toLocaleDateString('en-GB') : "Sin especificar.";
+    var simboloNuevoSol = 'S/. ';
+    var numeroBoleta = '0000418';
+    var propietarioEmpresa = 'Raúl J. Condori Ramos'
+    // var sedeEmpresa = venta.id_sede;
+    var direccionEmpresa = 'Jr: Arequipa 347 - Puno';
+    var felefonoEmpresa = '954170390 - 930314556';
+    var rucEmpresa = '99999999999';
+    var primeraNota = 'Todo trabajo se efectuara con un adelanto del 50%.';
+    var segundaNota = 'La empresa no se responsabiliza de los pedidos no recogidos después de un mes.';
+
+
+    var nombresCliente = cliente.nombres;
+    var apellidosCliente = cliente.apellidos;
+    var dniCliente = cliente.dni ? cliente.dni : "Sin especificar.";;
+    // var fnacimientoCliente = cliente.fecha_nacimiento ? new Date(cliente.fecha_nacimiento).toLocaleDateString('en-GB') : "Sin especificar.";
     var direccionCliente = cliente.direccion ? cliente.direccion : "Sin especificar.";
-    var correoCliente = cliente.email ? cliente.email : "Sin especificar.";
-    var telefonoCliente = cliente.telefono ? cliente.telefono : "Sin especificar.";
+    // var telefonoCliente = cliente.telefono ? cliente.telefono : "Sin especificar.";
+
+    var od_esf_Cliente = cliente.medidas[0].od_esferico > 0? '+'+cliente.medidas[0].od_esferico.toFixed(2): cliente.medidas[0].od_esferico.toFixed(2) ;
+    var od_cil_Cliente = cliente.medidas[0].od_cilindrico > 0 ? '+'+cliente.medidas[0].od_cilindrico.toFixed(2) : cliente.medidas[0].od_cilindrico.toFixed(2);
+    var od_eje_Cliente = cliente.medidas[0].od_eje;
+
+    var oi_esf_Cliente = cliente.medidas[0].oi_esferico > 0? '+'+cliente.medidas[0].oi_esferico.toFixed(2): cliente.medidas[0].oi_esferico.toFixed(2) ;
+    var oi_cil_Cliente = cliente.medidas[0].oi_cilindrico > 0 ? '+'+cliente.medidas[0].oi_cilindrico.toFixed(2) : cliente.medidas[0].oi_cilindrico.toFixed(2);
+    var oi_eje_Cliente = cliente.medidas[0].oi_eje;
+
+    var dip_Cliente = cliente.medidas[0].dip;
+    var add_Cliente = cliente.medidas[0].add > 0 ? '+'+cliente.medidas[0].add.toFixed(2): cliente.medidas[0].add.toFixed(2)
 
     var externalDataRetrievedFromServer = [];
-    var peruIGV = 0.18;
+    // var peruIGV = 0.18;
 
     function buildData() {
       var numOrdenItems = 0;
@@ -421,7 +439,7 @@ export class ListSalesComponent implements OnInit {
           numOrdenItems += 1;
           totalMonturas = venta.list_monturas[i].precio_montura_v * venta.list_monturas[i].cant_vendida;
           subTotal += totalMonturas;
-          externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_monturas[i].marca, precio: venta.list_monturas[i].precio_montura_v, cantidad: venta.list_monturas[i].cant_vendida, total: totalMonturas },) // Añade
+          externalDataRetrievedFromServer.push({ num_orden: numOrdenItems, detalle: venta.list_monturas[i].marca +' Cód. int.: '+ venta.list_monturas[i].codigo + ' Color: ' + venta.list_monturas[i].color, precio: venta.list_monturas[i].precio_montura_v, cantidad: venta.list_monturas[i].cant_vendida, total: totalMonturas },) // Añade
         }
       }
 
@@ -450,14 +468,19 @@ export class ListSalesComponent implements OnInit {
     function buildTableBody(data, columns, subtotal) {
       var body = [];
 
-      body.push([{ text: 'No.', style: 'tableHeader', alignment: 'center' }, { text: 'Detalle', style: 'tableHeader', alignment: 'center' }, { text: 'Precio', style: 'tableHeader', alignment: 'center' }, { text: 'Cantidad', style: 'tableHeader', alignment: 'center' }, { text: 'Total', style: 'tableHeader', alignment: 'center' }]);
+      body.push([{ text: 'No.', style: 'title', alignment: 'center', fillColor: '#d8e3fc', margin: [0, 3, 0, 3]}, { text: 'Detalle',  style: 'title', alignment: 'center', fillColor: '#d8e3fc', margin: [0, 3, 0, 3]}, { text: 'P. Unit.',  style: 'title', alignment: 'center', fillColor: '#d8e3fc', margin: [0, 3, 0, 3]}, { text: 'Cant.',  style: 'title', alignment: 'center', fillColor: '#d8e3fc', margin: [0, 3, 0, 3] }, { text: 'Importe',  style: 'title', alignment: 'center', fillColor: '#d8e3fc', margin: [0, 3, 0, 3] }]);
 
       data.forEach(function (row) {
         var dataRow = [];
 
         columns.forEach(function (column) {
-          //dataRow.push({ text: row[column].toString(), style: 'cell', alignment: 'center' },);
-          dataRow.push(row[column].toString());
+          if (column === 'num_orden') {
+            dataRow.push({ text: row[column].toString(), style: 'text', alignment: 'center', margin: [0, 2, 0, 2] },);
+          } else if (column === 'detalle'){
+            dataRow.push({ text: row[column].toString(), style: 'text', alignment: 'left', margin: [0, 2, 0, 2] },);
+          } else {
+            dataRow.push({ text: row[column].toString(), style: 'text', alignment: 'right', margin: [0, 2, 0, 2] },);
+          }
         })
 
         body.push(dataRow);
@@ -471,7 +494,7 @@ export class ListSalesComponent implements OnInit {
       /* body.push([{ text: ' ', rowSpan: 3, colSpan: 2}, { }, {text: 'Sub. Total:', style: 'tableHeader', alignment: 'right', colSpan: 2 }, { }, { text: simboloNuevoSol + subtotal, style: 'contenido', alignment: 'right' }]);
       body.push([{ }, { }, { text: 'IGV (18%) :', style: 'tableHeader', alignment: 'right', colSpan: 2}, { }, { text: simboloNuevoSol + totalIGV, style: 'contenido', alignment: 'right' }]); */
       /* body.push([{ text: '', borderColor: ['#FFFFFF', , , '#FFFFFF'], colSpan: 3 }, {  }, {  }, { text: 'Total:', style: 'tableHeader', alignment: 'right' }, { text: simboloNuevoSol + total, style: 'contenido', alignment: 'right' }]); */
-      body.push([{ text: '', border: [false, false, false, false], colSpan: 2 }, {}, { text: 'Total:', style: 'tableHeader', alignment: 'right', colSpan: 2 }, {}, { text: simboloNuevoSol + total, style: 'contenido', alignment: 'right' }]);
+      body.push([{ text: '', border: [false, false, false, false], colSpan: 2 }, {}, { text: 'Total:', style: 'title', alignment: 'right', colSpan: 2, margin: [0, 2, 0, 2] }, {}, { text: simboloNuevoSol + total, style: 'title', alignment: 'right', margin: [0, 2, 0, 2] }]);
 
       return body;
     }
@@ -479,11 +502,10 @@ export class ListSalesComponent implements OnInit {
     function table(data, columns) {
       var subtotal = buildData();
       return {
-        style: 'tableMargin',
+        style: 'tableBasic',
         color: '#444',
         table: {
-          widths: [25, '*', 63, 60, 63],
-          heights: [20, 20, 20, 20],
+          widths: [25, '*', 45, 35, 55],
           headerRows: 1,
           body: buildTableBody(data, columns, subtotal)
         }
@@ -500,110 +522,247 @@ export class ListSalesComponent implements OnInit {
     const pdfDefinition: any = {
       pageSize: 'A4',
       //pageOrientation: 'landscape',
-      pageMargins: [40, 60, 40, 60],
+      pageMargins: [ 40, 10, 40, 10 ], // left, top, right, botton
       content: [
+
+        // LOGO y DATOS DE LA EMPRESA
         {
-          style: 'tableMargin',
+          style: 'tableBasic',
           table: {
-            widths: ['*', '*'],
+            widths: [340, '*'],
             body: [
-              /* [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150 }, { text: 'Nº de Boleta: ' + numeroBoleta, style: 'tableHeader', rowSpan: 4, alignment: 'right' }], */
-              [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 150 }, { text: '', style: 'tableHeader', rowSpan: 3, alignment: 'right' }],
-              [{ text: direccionEmpresa }, {}],
-              [{ text: correoEmpresa }, {}],
-              [{ text: felefonoEmpresa }, {}],
+              [
+                [
+                  {
+                    table: {
+                      widths: ['*'],
+                      body: [
+                        [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 230}],
+                        [{ text: 'De ' + propietarioEmpresa, alignment: 'center' }],
+                      ]
+                    },
+                    layout: {
+                      defaultBorder: false,
+                    }
+                  },
+                ],             
+                [
+                  {
+                    table: {
+                      widths: ['*'],
+                      body: [
+                        [{ text: 'R.U.C. ' + rucEmpresa, style: 'title',alignment: 'center', margin: [0, 6, 0, 6] }],
+                        [{ text: 'BOLETA DE VENTA' , style: 'title2', alignment: 'center' , fillColor: '#2D4497', fillOpacity: 0.80, margin: [0, 6, 0, 6] }],
+                        [{ text: '001- Nº ' + numeroBoleta, style: 'title', color: 'red', alignment: 'center', margin: [0, 6, 0, 6] }],
+                      ]
+                    },
+                  },
+                ],
+              ]
             ]
           },
-          layout: 'noBorders'
+          layout: {
+            defaultBorder: false,
+          }
         },
 
         {
-          style: 'tableMargin',
+          style: 'tableBasic',
           table: {
             widths: ['*', '*'],
             body: [
-              /* [{ text: 'Facturado a:', style: 'tableHeader' }, { text: 'Nº de Boleta:', style: 'tableHeader', alignment: 'right' }],
-              [{ text: nombresCliente, style: 'subtitulo' }, {text: numeroBoleta, style: 'contenido', alignment: 'right'}], */
-              [{ text: 'Facturado a:', style: 'tableHeader' }, { text: 'Fecha de la Boleta:', style: 'tableHeader', alignment: 'right' }],
-              [{ text: nombresCliente, style: 'subtitulo' }, { text: fecha_hoy, style: 'contenido', alignment: 'right' }],
-              [{ text: 'Fecha de Nacimiento: ' + fnacimientoCliente, style: 'contenido' }, {}],
-              [{ text: 'Dirección: ' + direccionCliente, style: 'contenido' }, {}],
-              [{ text: 'Correo: ' + correoCliente, style: 'contenido' }, {}],
-              [{ text: 'Telefono: ' + telefonoCliente, style: 'contenido' }, {}],
+              [{ text: direccionEmpresa, style: 'header', fillColor: '#2D4497', fillOpacity: 0.80}, { text: 'Cel: ' + felefonoEmpresa,  style: 'header', fillColor: '#2D4497', fillOpacity: 0.80 }],
             ]
           },
-          layout: 'noBorders'
+          layout: {
+            defaultBorder: false,
+          }
         },
 
-        { text: 'Resumen del pedido:', style: 'subtitulo' },
+
+        // DATOS DEL CLIENTE
+        {
+          style: 'tableBasic',
+          table: {
+            widths: ['*', '*'],
+            body: [
+              [{ text: 'Señor(a): ' + nombresCliente + apellidosCliente, style: 'title', alignment: 'left', Span: 1 }, { }],
+              [{ text: 'Dirección: ' + direccionCliente, style: 'text', alignment: 'left'}, { text: 'DNI: ' + dniCliente, style: 'text', alignment: 'left'}],
+            ]
+          },
+          layout: {
+            vLineWidth: function (i, node) {
+              return (i === 0 || i === node.table.widths.length) ? 1 : 0;
+            },
+          }
+        },
+
+        // RESUMEN DEL PEDIDO
+        {
+          style: 'tableBasic',
+          table: {
+            widths: [150],
+            heights: [15],
+            body: [
+              [{ text: 'RESUMEN DEL PEDIDO: ', style: 'title2', alignment: 'left' , fillColor: '#2D4497', fillOpacity: 0.80 } ],
+            ]
+          },
+          layout: {
+            defaultBorder: false,
+            paddingLeft: function(i, node) { return 10; },
+          }
+        },
+
 
         table(externalDataRetrievedFromServer, ['num_orden', 'detalle', 'precio', 'cantidad', 'total']),
 
+        // DETALLE DE LA MEDIDA
         {
-          text: [,
-            { text: 'Fecha de Entrega: ', style: 'textBold' },
-            fecha_entrega,
-            '   ',
-            { text: 'Hora: ', style: 'textBold' },
-            hora_entrega,
-          ]
+          style: 'tableBasic',
+          table: {
+            widths: [150],
+            heights: [15],
+            body: [
+              [{ text: 'DETALLE DE LA MEDIDA: ', style: 'title2', alignment: 'left' , fillColor: '#2D4497', fillOpacity: 0.80 } ],
+            ]
+          },
+          layout: {
+            defaultBorder: false,
+            paddingLeft: function(i, node) { return 10; },
+          }
         },
 
-        { text: 'Nota:', style: 'subtitulo2' },
-        { text: 'Todo trabajo se efectuara con un adelanto del 50%.', style: 'contenido2', alignment: 'justify' },
-        { text: 'La empresa no se responsabiliza de los pedidos no recogidos después de un mes.', style: 'contenido2', alignment: 'justify' },
+        {
+          style: 'tableBasic',
+          table: {
+            widths: ['*', '*', '*', '*', '*', '*'],
+            heights: [15, 15, 15],
+            headerRows: 2,
+            body: [
+              [{ text: 'REF.', style: 'title', alignment: 'center', margin: [0, 2, 0, 2] }, { text: 'ESF.'        , style: 'title', alignment: 'center', margin: [0, 2, 0, 2]}, { text: 'CIL.'        , style: 'title', alignment: 'center', margin: [0, 2, 0, 2] }, { text: 'EJE.'        , style: 'title', alignment: 'center', margin: [0, 2, 0, 2] }, { text: 'AV.', style: 'title', alignment: 'center', margin: [0, 2, 0, 2] }, { text: 'DIP.'     , style: 'title', alignment: 'center', margin: [0, 2, 0, 2] }],
+              [{ text: 'O.D.', style: 'title', alignment: 'center', margin: [0, 1, 0, 1] }, { text: od_esf_Cliente, style: 'text' , alignment: 'center', margin: [0, 1, 0, 1]}, { text: od_cil_Cliente, style: 'text' , alignment: 'center', margin: [0, 1, 0, 1] }, { text: od_eje_Cliente, style: 'text' , alignment: 'center', margin: [0, 1, 0, 1] }, { text: ''   , style: 'text' , alignment: 'center', margin: [0, 1, 0, 1] }, { text: dip_Cliente, style: 'text' , alignment: 'center', margin: [0, 1, 0, 1] }],
+              [{ text: 'O.I.', style: 'title', alignment: 'center', margin: [0, 1, 0, 1] }, { text: oi_esf_Cliente, style: 'text' , alignment: 'center', margin: [0, 1, 0, 1]}, { text: oi_cil_Cliente, style: 'text' , alignment: 'center', margin: [0, 1, 0, 1] }, { text: oi_eje_Cliente, style: 'text' , alignment: 'center', margin: [0, 1, 0, 1] }, { text: ''   , style: 'text' , alignment: 'center', margin: [0, 1, 0, 1] }, { text: dip_Cliente, style: 'text' , alignment: 'center', margin: [0, 1, 0, 1] }],
+            ]
+          },
+          layout: {
+            fillColor: function (rowIndex) {
+              return (rowIndex === 0) ? '#d8e3fc' : null;
+            }
+          }
+        },
+
+        // VISION DE CERCA 
+        {
+          style: 'tableBasic',
+          table: {
+            widths: [150, '*', 150],
+            heights: [15],
+            body: [
+              [
+                { text: 'VISIÓN DE CERCA: ', alignment: 'left', style: 'title2', fillColor: '#2D4497', fillOpacity: 0.80},
+                [
+                  {
+                    table: {
+                      widths: ['auto', '*'],
+                      body: [
+                        [ 
+                          { text: 'ADD.', style: 'title', alignment: 'center', fillColor: '#d8e3fc'},
+                          { text: add_Cliente, style: 'text', alignment: 'center' }
+                        ],
+                      ]
+                    },
+                  },
+                ],
+                { }
+              ]
+            ]
+          },
+          layout: {
+            defaultBorder: false,
+            paddingLeft: function(i, node) { return 10; },
+          }
+        },
+
+
+
+        // FECHA DE ENTREGA
+        {
+          style: 'tableBasic',
+          table: {
+            widths: [140, '*', 50, 'auto'],
+            body: [
+              [{ text: 'FECHA DE ENTREGA: ', style: 'title2', alignment: 'left', fillColor: '#2D4497', fillOpacity: 0.80 }, {text: fecha_entrega, style: 'text', alignment: 'left', margin: [0, 1, 0, 1] }, { text: 'HORA: ', style: 'title2', alignment: 'left', fillColor: '#2D4497', fillOpacity: 0.80 }, {text: hora_entrega, style: 'text', alignment: 'left', margin: [0, 1, 0, 1] } ],
+            ]
+          },
+          layout: {
+            defaultBorder: false,
+            paddingLeft: function(i, node) { return 10; },
+          }
+        },
+
+        // NOTAS
+        {
+          style: 'tableBasic',
+          table: {
+            widths: [350, '*'],
+            body: [
+              [{ text: 'NOTA: ', color: '#2D4497', style: 'subtitle', alignment: 'left' }, { } ],
+              [{ text: primeraNota, color: '#2D4497', style: 'small', alignment: 'left' }, { }],
+              [{ text: segundaNota, color: '#2D4497', style: 'small', alignment: 'left' }, { }],
+            ]
+          },
+          layout: {
+            defaultBorder: false,
+          }
+        },
+
       ],
       styles: {
-        subtitulo: {
-          bold: true,
-          fontSize: 13,
-          color: 'black',
-          margin: [0, 10, 0, 5]
-        },
-        subtitulo2: {
-          bold: true,
-          fontSize: 10,
-          color: 'black',
-          margin: [0, 10, 0, 5]
-        },
-        contenido: {
-          fontSize: 12,
-        },
-        contenido2: {
-          fontSize: 8,
-        },
-        textBold: {
-          fontSize: 12,
-          bold: true,
-        },
 
         header: {
-          fontSize: 17,
+          fontSize: 15,
           bold: true,
-          margin: [0, 0, 0, 10]
+          color: 'white',
+          alignment: 'center',
+          margin: [0, 0, 0, 0],
         },
-        subheader: {
+
+        title: {
           fontSize: 13,
           bold: true,
-          margin: [0, 10, 0, 5]
+          color: '#2D4497',
+          margin: [0, 0, 0, 0],
         },
+
+        title2: {
+          fontSize: 13,
+          bold: true,
+          color: 'white',
+          margin: [0, 0, 0, 0],
+        },
+
         subtitle: {
           fontSize: 12,
           bold: true,
-          margin: [0, 10, 0, 5]
+          color: '#2D4497',
+          margin: [0, 0, 0, 0],
         },
-        tableMargin: {
-          margin: [0, 15, 0, 15]
+
+        text: {
+          fontSize: 11,
+          color: '#2D4497',
+          margin: [0, 0, 0, 0],
         },
-        tableOpacityExample: {
-          margin: [0, 5, 0, 15],
-          fillColor: 'blue',
-          fillOpacity: 0.3
+
+        small: {
+          fontSize: 9,
+          color: '#2D4497',
+          margin: [0, 0, 0, 0],
         },
-        tableHeader: {
-          bold: true,
-          fontSize: 13,
-          color: 'black'
+
+        tableBasic: {
+          color: '#2D4497',
+          margin: [0, 5, 0, 5],
         },
 
       },
