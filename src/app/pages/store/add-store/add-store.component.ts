@@ -92,21 +92,23 @@ export class AddStoreComponent implements OnInit {
       this.sede.ruc = this.f(this.ruc_tienda).value;
       this.sede.telefono = this.f(this.telefono_tienda).value;
       this.sede.color = this.f(this.color_tienda).value;
+      console.log(typeof this.files[0]);
+      console.log(this.files[0]);
       if ((this.files.length < 1) ) {
         this.sede.logoURL = "";
       } else {
         this.sede.logoURL = this.files[0].name;
         
       } 
-      Sweetalert("loading", "Cargando...");
-      this.sedeService.createSede(this.sede).subscribe( res=>{
+      //Sweetalert("loading", "Cargando...");
+      /* this.sedeService.createSede(this.sede).subscribe( res=>{
         this.sedeService.saveImageBackend(this.files[0]).subscribe (res => {
           Sweetalert("close",null);
         Sweetalert("success", "Tienda guardada");
         this.formTiendas.reset();
         })
         
-      }); 
+      });  */
     } else {
       
     }

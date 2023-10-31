@@ -2,7 +2,6 @@ import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
 import { Observable } from 'rxjs';
-import { map } from "rxjs/operators";
 import { TransactionService } from './sale.service';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 import { VentasModel } from 'src/models/venta';
@@ -802,9 +801,28 @@ export class ListSalesComponent implements OnInit {
         fechaFin = new Date(Date.now());
         fechaFin.setHours(23, 59, 0)
       }
+      let monturas = {};
       this.ventaService.getVentasByDate(fechaIni, fechaFin, this.idSede).subscribe(res => {
         this.excelVentas = res;
+
         console.log(this.excelVentas)
+        for (let ind = 0; ind < this.excelVentas.length; ind++) {
+
+          for (let index = 0; index < this.excelVentas[ind].list_monturas.length; index++) {
+            monturas["Mont Codigo"+index] = this.excelVentas[ind].list_monturas[index].codigo
+            monturas["Mont p venta"+index] = this.excelVentas[ind].list_monturas[index].precio_montura_v
+            monturas["Mont p compra"+index] = this.excelVentas[ind].list_monturas[index].precio_montura_c
+            monturas["Mont cant vendida"+index] = this.excelVentas[ind].list_monturas[index].cant_vendida
+            monturas["Mont marca"+index] = this.excelVentas[ind].list_monturas[index].marca
+            monturas["Mont material"+index] = this.excelVentas[ind].list_monturas[index].material
+            monturas["Mont color"+index] = this.excelVentas[ind].list_monturas[index].color
+            monturas["Mont suma total"+index] = this.excelVentas[ind].list_monturas[index].precio
+            
+          }
+
+          
+        }
+        console.log(monturas)
         data = this.excelVentas.map((ventas: VentasModel) => {
           let accesorios = ventas.list_accesorios.map(acc => {
             return {
@@ -815,7 +833,7 @@ export class ListSalesComponent implements OnInit {
               "SUMA TOTAL": acc.precio
             }
           })
-          let monturas = ventas.list_monturas.map(mont => {
+          /* monturas = ventas.list_monturas.map(mont => {
             return {
               "CODIGO": mont.codigo,
               "PRECIO VENTA": mont.precio_montura_v,
@@ -826,7 +844,8 @@ export class ListSalesComponent implements OnInit {
               "COLOR": mont.color,
               "SUMA TOTAL": mont.precio
             }
-          })
+          })  */
+          
           let lunas = ventas.list_lunas.map(lun => {
             return {
               "PRECIO VENTA": lun.precio_luna_v,
@@ -861,25 +880,23 @@ export class ListSalesComponent implements OnInit {
               
             }
           } else {
-            return {
+            return Object.assign({},{
               "FECHA": new Date(ventas.fecha_creacion_venta).toLocaleDateString('en-GB'),
               "NOMBRE CLIENTE": ventas.nombre_cliente,
               "ACCESORIOS": JSON.stringify(accesorios),
               "LUNAS": JSON.stringify(lunas),
-              "MONTURAS": JSON.stringify(monturas),
+              //"MONTURAS": JSON.stringify(monturas),
               "TOTAL": ventas.tipo_venta[0].precio_total == 0 ? "+0.00": ventas.tipo_venta[0].precio_total ,
               "USUARIO": ventas.nombre_vendedor.toUpperCase(),
               "VENDEDOR": ventas.nombre_jalador ? ventas.nombre_jalador.toUpperCase() : null,
               "ENCARGADO MEDICION": ventas.encargado_medicion ? ventas.encargado_medicion.toUpperCase() : null,
               "FORMA DE PAGO": ventas.tipo_venta[0].forma_pago,
-              "ESTADO": ventas.tipo_venta[0].deuda > 0 ? "DEUDA" : "PAGADO"
-              
-            }
+              "ESTADO": ventas.tipo_venta[0].deuda > 0 ? "DEUDA" : "PAGADO",
+            },monturas )
           }
 
-          
-
         });
+        console.log(data)
         const worksheet = XLSX.utils.json_to_sheet(data);
         const workbook = {
           Sheets: {
