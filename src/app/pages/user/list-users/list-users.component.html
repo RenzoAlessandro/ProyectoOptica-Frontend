@@ -65,7 +65,7 @@
                       </div>
                     </td> -->
                   <td>
-                    <ngb-highlight [result]="i+1" [term]="service.searchTerm"></ngb-highlight>
+                    <ngb-highlight [result]="(i+1) + (service.page-1)*service.pageSize" [term]="service.searchTerm"></ngb-highlight>
                   </td>
                   <td>
                     <div class="avatar-xs d-inline-block me-2">
