@@ -30,6 +30,6 @@ export class SedeService {
     return JSON.parse(localStorage.getItem('sedes'));
   }
   saveImageBackend(file): Observable<any> {
-    return this.http.post('src/assets/images',file);
+    return this.http.post<any>(environment.urlBackend+'uploadFile',file);
   }
 }

@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
   selector: 'app-list-stores',
   templateUrl: './list-stores.component.html',
   styleUrls: ['./list-stores.component.scss'],
-  providers:[StoresService, DecimalPipe]
+  providers: [StoresService, DecimalPipe]
 })
 
 export class ListStoresComponent implements OnInit {
@@ -29,7 +29,7 @@ export class ListStoresComponent implements OnInit {
   mostrar = false;
   // bread crumb items
   breadCrumbItems: Array<{}>;
-
+  files: File[] = [];
   listSedes = [];
   sede = new SedesModel;
 
@@ -66,19 +66,19 @@ export class ListStoresComponent implements OnInit {
 
   crearFormulario() {
     this.formEditarTiendas = this.fb.group({
-      [this.nombre_tienda]:[null, [
+      [this.nombre_tienda]: [null, [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(40)
       ]],
-      [this.direccion_tienda]:[null, [
+      [this.direccion_tienda]: [null, [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(60)
       ]],
-      [this.telefono_tienda]:[],
-      [this.ruc_tienda]:[],
-      [this.color_tienda]:[]
+      [this.telefono_tienda]: [],
+      [this.ruc_tienda]: [],
+      [this.color_tienda]: []
     })
   }
 
@@ -90,19 +90,19 @@ export class ListStoresComponent implements OnInit {
    * Open center modal
    * @param DataModalEditStore center modal data
    */
-  OpenModalEditStore(DataModalEditStore: any,data:SedesModel) {
+  OpenModalEditStore(DataModalEditStore: any, data: SedesModel) {
     this.crearFormulario();
     this.f(this.nombre_tienda).setValue(data.nombre_sede);
     this.f(this.direccion_tienda).setValue(data.direccion);
     this.sede.id_sede = data.id_sede;
-    this.modalService.open(DataModalEditStore, { centered: true,windowClass:'modal-holder' });
+    this.modalService.open(DataModalEditStore, { centered: true, windowClass: 'modal-holder' });
   }
 
   /**
    * Close event modal
    */
   closeEventModal() {
-    
+
     this.modalService.dismissAll();
   }
   /**
@@ -120,23 +120,33 @@ export class ListStoresComponent implements OnInit {
    * @param campo 
    * @returns 
    */
-  f(campo:any){
+  f(campo: any) {
     return this.formEditarTiendas.get(campo);
   }
 
   guardarTienda() {
     if (this.formEditarTiendas.valid) {
-      
+
       this.sede.direccion = this.f(this.direccion_tienda).value;
       this.sede.nombre_sede = this.f(this.nombre_tienda).value;
       this.sede.fecha_modificacion_sede = new Date(Date.now());
+      this.sede.ruc = this.f(this.ruc_tienda).value;
+      this.sede.telefono = this.f(this.telefono_tienda).value;
+      this.sede.color = this.f(this.color_tienda).value;
       Sweetalert("loading", "Cargando...");
-      this.sedeService.editSede(this.sede).subscribe( res=>{
-        this.modalService.dismissAll();
-        Sweetalert("close",null);
-        Sweetalert("success","Datos de la tienda actualizados");
-        this.getListSedes();
-      }); 
+      let formData = new FormData();
+      formData.append('photo', this.files[0], this.files[0].name);
+
+      this.sedeService.saveImageBackend(formData).subscribe(res => {
+        this.sede.logoURL = res;
+        console.log(this.sede);
+        this.sedeService.editSede(this.sede).subscribe(res => {
+          this.modalService.dismissAll();
+          Sweetalert("close", null);
+          Sweetalert("success", "Datos de la tienda actualizados");
+          this.getListSedes();
+        });
+      })
     } else {
       return;
     }
@@ -146,5 +156,18 @@ export class ListStoresComponent implements OnInit {
     this.sedeService.getSedes().subscribe(res => {
       this.service.updateTable(res);
     })
+  }
+
+  /** funciones del dropzone img */
+  onSelect(event) {
+    this.files.push(...event.addedFiles);
+    if (this.files.length > 1) {
+      //this.errorImagen = "Solo una Imagen";
+      this.files = [];
+      //console.log(this.files[0].type);
+    }
+    else {
+      //this.errorImagen = "";
+    }
   }
 }

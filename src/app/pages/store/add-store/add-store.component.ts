@@ -26,10 +26,10 @@ export class AddStoreComponent implements OnInit {
   ruc_tienda: string = "campoRucTienda";
   color_tienda: string = "campoColorTienda"
 
-  sede= new SedesModel;
+  sede = new SedesModel;
   // bread crumb items
   breadCrumbItems: Array<{}>;
-  files: File[]=[];
+  files: File[] = [];
   constructor(
     private fb: FormBuilder,
     private sedeService: SedeService) { }
@@ -44,19 +44,19 @@ export class AddStoreComponent implements OnInit {
 
   crearFormulario() {
     this.formTiendas = this.fb.group({
-      [this.nombre_tienda]:[null, [
+      [this.nombre_tienda]: [null, [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(40)
       ]],
-      [this.direccion_tienda]:[null, [
+      [this.direccion_tienda]: [null, [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(60)
       ]],
-      [this.telefono_tienda]:[],
-      [this.ruc_tienda]:[],
-      [this.color_tienda]:[]
+      [this.telefono_tienda]: [],
+      [this.ruc_tienda]: [],
+      [this.color_tienda]: []
     })
   }
 
@@ -75,7 +75,7 @@ export class AddStoreComponent implements OnInit {
    * @param campo 
    * @returns 
    */
-  f(campo:any){
+  f(campo: any) {
     return this.formTiendas.get(campo);
   }
 
@@ -92,25 +92,40 @@ export class AddStoreComponent implements OnInit {
       this.sede.ruc = this.f(this.ruc_tienda).value;
       this.sede.telefono = this.f(this.telefono_tienda).value;
       this.sede.color = this.f(this.color_tienda).value;
-      console.log(typeof this.files[0]);
-      console.log(this.files[0]);
-      if ((this.files.length < 1) ) {
+      /* if ((this.files.length < 1)) {
         this.sede.logoURL = "";
       } else {
         this.sede.logoURL = this.files[0].name;
-        
-      } 
-      //Sweetalert("loading", "Cargando...");
-      /* this.sedeService.createSede(this.sede).subscribe( res=>{
-        this.sedeService.saveImageBackend(this.files[0]).subscribe (res => {
-          Sweetalert("close",null);
-        Sweetalert("success", "Tienda guardada");
-        this.formTiendas.reset();
+
+      } */
+      Sweetalert("loading", "Cargando...");
+      let formData = new FormData();
+      if (this.files.length != 0) {
+        formData.append('photo', this.files[0], this.files[0].name);
+        this.sedeService.saveImageBackend(formData).subscribe(res => {
+          this.sede.logoURL = res;
+          console.log(res)
+          console.log(this.sede);
+          this.sedeService.createSede(this.sede).subscribe(res => {
+            Sweetalert("close", null);
+            Sweetalert("success", "Tienda guardada");
+            this.formTiendas.reset();
+          });
         })
-        
-      });  */
-    } else {
+      } else {
+        this.sedeService.createSede(this.sede).subscribe(res => {
+          this.sede.logoURL = null;
+          Sweetalert("close", null);
+          Sweetalert("success", "Tienda guardada");
+          this.formTiendas.reset();
+        });
+      }
       
+      
+
+
+    } else {
+
     }
   }
 
@@ -120,16 +135,16 @@ export class AddStoreComponent implements OnInit {
   get formT() {
     return this.formTiendas.controls;
   }
-        
+
   /** funciones del dropzone img */
-  onSelect(event){
+  onSelect(event) {
     this.files.push(...event.addedFiles);
     if (this.files.length > 1) {
       //this.errorImagen = "Solo una Imagen";
       this.files = [];
       //console.log(this.files[0].type);
     }
-    else{
+    else {
       //this.errorImagen = "";
     }
   }
