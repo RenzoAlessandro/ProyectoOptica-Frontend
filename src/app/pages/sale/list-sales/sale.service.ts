@@ -72,6 +72,23 @@ export class TransactionService {
     this.getAllVentas();
   }
 
+  updateTable (data) {
+    this.ventaList = data;
+      this._mostrar$.next(true);
+      this._search$.pipe(
+        tap(() => this._loading$.next(true)),
+        debounceTime(200),
+        switchMap(() => this._search()),
+        delay(200),
+        tap(() => this._loading$.next(false))
+      ).subscribe(result => {
+        this._ventas$.next(result.transactions);
+        this._total$.next(result.total);
+      });
+  
+      this._search$.next();
+  }
+
   get transactions$() { return this._ventas$.asObservable(); }
   get total$() { return this._total$.asObservable(); }
   get loading$() { return this._loading$.asObservable(); }
@@ -91,22 +108,7 @@ export class TransactionService {
     this._search$.next();
   }
 
-  updateTable (data) {
-    this.ventaList = data;
-      this._mostrar$.next(true);
-      this._search$.pipe(
-        tap(() => this._loading$.next(true)),
-        debounceTime(200),
-        switchMap(() => this._search()),
-        delay(200),
-        tap(() => this._loading$.next(false))
-      ).subscribe(result => {
-        this._ventas$.next(result.transactions);
-        this._total$.next(result.total);
-      });
-  
-      this._search$.next();
-  }
+
   private _search(): Observable<SearchResult> {
     const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 

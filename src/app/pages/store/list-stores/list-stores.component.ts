@@ -31,7 +31,11 @@ export class ListStoresComponent implements OnInit {
   breadCrumbItems: Array<{}>;
 
   listSedes = [];
-  sede = new SedesModel
+  sede = new SedesModel;
+
+  public searchSedes = [];
+
+
   constructor(
     public service: StoresService,
     private modalService: NgbModal,
@@ -44,10 +48,19 @@ export class ListStoresComponent implements OnInit {
     this.getListSedes();
   }
 
+  searchFilter(e) {
+    const searchStr = e.target.value;
+    this.searchSedes = this.listSedes.filter((sede) => {
+      return sede.nombre_sede.toLowerCase().search(searchStr.toLowerCase()) !== -1;
+    });
+    this.listSedes = this.searchSedes;
+  }
+
   getListSedes() {
     this.sedeService.getSedes().subscribe(res => {
       this.listSedes = res;
       this.mostrar = true;
+      console.log(this.listSedes)
     })
   }
 
