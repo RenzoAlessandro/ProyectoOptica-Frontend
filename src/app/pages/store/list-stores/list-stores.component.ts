@@ -33,7 +33,7 @@ export class ListStoresComponent implements OnInit {
   listSedes = [];
   sede = new SedesModel;
 
-  public searchSedes = [];
+  searchSedes = [];
 
 
   constructor(
@@ -53,14 +53,14 @@ export class ListStoresComponent implements OnInit {
     this.searchSedes = this.listSedes.filter((sede) => {
       return sede.nombre_sede.toLowerCase().search(searchStr.toLowerCase()) !== -1;
     });
-    this.listSedes = this.searchSedes;
+
   }
 
   getListSedes() {
     this.sedeService.getSedes().subscribe(res => {
       this.listSedes = res;
+      this.searchSedes = Object.assign([], this.listSedes);
       this.mostrar = true;
-      console.log(this.listSedes)
     })
   }
 
