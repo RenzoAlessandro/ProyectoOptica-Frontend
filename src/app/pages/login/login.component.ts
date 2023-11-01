@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { SedeService } from 'src/app/services/sede.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Sweetalert } from 'src/utils/sweetalert';
@@ -24,6 +23,7 @@ export class LoginComponent implements OnInit {
   user: string = "campoUser";
   password: string = "campoPassword";
   sede: string = "campoSede";
+  logoURL: any;
   
   constructor(
     private fb: FormBuilder,
@@ -73,11 +73,14 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  getListSedes() {
+   getListSedes() {
     this.sedeService.getSedes().subscribe(res=> {
+      let idSede = this.usuarioService.getSedebyUser();
+    this.sede = res.find(sede => sede.id_sede === idSede);
+      //LOGO_URL = this.sede.logoURL;
       localStorage.setItem("sedes",JSON.stringify(res));
     })
-  }
+  } 
 
 }
 

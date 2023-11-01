@@ -92,21 +92,14 @@ export class AddStoreComponent implements OnInit {
       this.sede.ruc = this.f(this.ruc_tienda).value;
       this.sede.telefono = this.f(this.telefono_tienda).value;
       this.sede.color = this.f(this.color_tienda).value;
-      /* if ((this.files.length < 1)) {
-        this.sede.logoURL = "";
-      } else {
-        this.sede.logoURL = this.files[0].name;
-
-      } */
       Sweetalert("loading", "Cargando...");
       let formData = new FormData();
       if (this.files.length != 0) {
         formData.append('photo', this.files[0], this.files[0].name);
         this.sedeService.saveImageBackend(formData).subscribe(res => {
           this.sede.logoURL = res;
-          console.log(res)
-          console.log(this.sede);
           this.sedeService.createSede(this.sede).subscribe(res => {
+            this.files = [];
             Sweetalert("close", null);
             Sweetalert("success", "Tienda guardada");
             this.formTiendas.reset();
@@ -115,6 +108,7 @@ export class AddStoreComponent implements OnInit {
       } else {
         this.sedeService.createSede(this.sede).subscribe(res => {
           this.sede.logoURL = null;
+          this.files = [];
           Sweetalert("close", null);
           Sweetalert("success", "Tienda guardada");
           this.formTiendas.reset();
@@ -147,5 +141,10 @@ export class AddStoreComponent implements OnInit {
     else {
       //this.errorImagen = "";
     }
+  }
+
+  onRemove(event) {
+    //this.filebutton = false;
+    this.files.splice(this.files.indexOf(event), 1);
   }
 }

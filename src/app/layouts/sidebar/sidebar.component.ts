@@ -8,6 +8,7 @@ import { MenuItem } from './menu.model';
 import { TranslateService } from '@ngx-translate/core';
 import { EventService } from '../../core/services/event.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { SedeService } from 'src/app/services/sede.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -28,10 +29,17 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   menuItems :MenuItem[] = [];
   @ViewChild('sideMenu') sideMenu: ElementRef;
   @ViewChild('componentRef') scrollRef;
+  sedeUsuario: string;
+  listSedes: any;
+  logoURL: string;
+  sede: any;
 
   constructor(
     private eventService: EventService, private router: Router, public translate: TranslateService,
-    private usuarioService: UsuarioService) {
+    private usuarioService: UsuarioService,
+    private sedeService: SedeService
+    ) {
+      this.getListSedes();
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
         this._activateMenuDropdown();
@@ -47,6 +55,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
     this._scrollElement();
     document.body.setAttribute('data-sidebar', 'light');
     
+    
   }
   /**
    * Change the layout onclick
@@ -59,6 +68,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   ngAfterViewInit() {
     this.menu = new MetisMenu(this.sideMenu.nativeElement);
     this._activateMenuDropdown();
+    
   }
 
   ngOnChanges() {
@@ -69,6 +79,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
     } else if (this.menu) {
       this.menu.dispose();
     }
+    
   }
 
   /**
@@ -252,4 +263,17 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   hasItems(item: MenuItem) {
     return item.subItems !== undefined ? item.subItems.length > 0 : false;
   }
+
+  getListSedes() {
+    this.sedeService.getSedes().subscribe(res=> {
+      this.listSedes = res;
+      let idSede = this.usuarioService.getSedebyUser();
+      this.sede = res.find(sede => sede.id_sede === idSede);
+        this.logoURL = this.sede.logoURL;
+        localStorage.setItem("sedes",JSON.stringify(res));
+    })
+    
+    }
+  
+   
 }
