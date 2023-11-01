@@ -26,6 +26,8 @@ export class ListStoresComponent implements OnInit {
   ruc_tienda: string = "campoRucTienda";
   color_tienda: string = "campoColorTienda";
 
+  numberPattern = '^[0-9]+$|^\S*$';
+  
   mostrar = false;
   // bread crumb items
   breadCrumbItems: Array<{}>;
@@ -76,8 +78,18 @@ export class ListStoresComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(60)
       ]],
-      [this.telefono_tienda]: [],
-      [this.ruc_tienda]: [],
+      [this.telefono_tienda]: [null, [
+        Validators.required,
+        Validators.pattern(this.numberPattern),
+        Validators.minLength(6),
+        Validators.maxLength(9)
+      ]],
+      [this.ruc_tienda]: [null, [
+        Validators.required,
+        Validators.pattern(this.numberPattern),
+        Validators.minLength(8),
+        Validators.maxLength(11)
+      ]],
       [this.color_tienda]: []
     })
   }

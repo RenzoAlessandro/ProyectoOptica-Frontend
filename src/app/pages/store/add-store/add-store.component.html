@@ -1,170 +1,148 @@
 <div class="container-fluid">
 
-    <!-- start page title -->
-    <app-page-title title="Registrar Nueva Tienda" [breadcrumbItems]="breadCrumbItems"></app-page-title>
-    <!-- end page title -->
-  
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="card">
-          <div class="card-body">
-<!--             <h4 class="card-title">Bootstrap Validation - Normal</h4>
-            <p class="card-title-desc">Provide valuable, actionable feedback to your users with HTML5 form
-              validation–available in all our supported browsers.</p> -->
+  <!-- start page title -->
+  <app-page-title title="Registrar Nueva Tienda" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <!-- end page title -->
 
-              <form [formGroup]="formTiendas">
-              <p class="card-title-desc text-danger">* Campo requerido</p> 
-              <div class="row">
-                <div class="col-12">
-                  <div class="mb-3">
-                    <label for="validationCustom01">Nombre *</label>
-                      <input class="form-control" placeholder="Nombre de la tienda" type="text" name="title"
-                          formControlName="{{this.nombre_tienda}}" [ngClass]="{'is-invalid': formT.campoNombreTienda.invalid && (formT.campoNombreTienda.dirty || formT.campoNombreTienda.touched)}"/>
-                      <div class="invalid-feedback">
-                        <div *ngIf="formT.campoNombreTienda.errors?.required">
-                          Campo requerido
-                        </div>
-                        <div *ngIf="formT.campoNombreTienda.errors?.minlength">
-                          El campo debe ser mayor a 3 caracteres
-                        </div>
-                        <div  *ngIf="formT.campoNombreTienda.errors?.maxlength">
-                          El campo debe ser menor a 40 caracteres
-                        </div>
-                      </div>
-                  </div>
-                </div>
-
-<!--                 <div class="col-12 col-sm-4">
-                    <div class="mb-3">
-                        <label class="form-label">Estado *</label>
-                        <ng-select name="selectCountry" [items]="selectValue" >
-                        </ng-select>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="formTiendas">
+            <p class="card-title-desc text-danger">* Campo requerido</p>
+            <div class="row">
+              <div class="col-12">
+                <div class="mb-3">
+                  <label for="validationCustom01">Nombre *</label>
+                  <input class="form-control" placeholder="Nombre de la tienda" type="text" name="title"
+                    formControlName="{{this.nombre_tienda}}"
+                    [ngClass]="{'is-invalid': formT.campoNombreTienda.invalid && (formT.campoNombreTienda.dirty || formT.campoNombreTienda.touched)}" />
+                  <div class="invalid-feedback">
+                    <div *ngIf="formT.campoNombreTienda.errors?.required">
+                      Campo requerido
                     </div>
-                </div> -->
+                    <div *ngIf="formT.campoNombreTienda.errors?.minlength">
+                      El campo debe ser mayor a 3 caracteres
+                    </div>
+                    <div *ngIf="formT.campoNombreTienda.errors?.maxlength">
+                      El campo debe ser menor a 40 caracteres
+                    </div>
+                  </div>
+                </div>
               </div>
+            </div>
 
-              <div class="row">
-                <div class="col-12 col-sm-12">
-                  <div class="mb-3">
-                    <label for="validationCustom01">Dirección *</label>
-                      <input class="form-control" placeholder="Dirección de la tienda" type="text" name="title"
-                          formControlName="{{this.direccion_tienda}}" [ngClass]="{'is-invalid': formT.campoDireccionTienda.invalid && (formT.campoDireccionTienda.dirty || formT.campoDireccionTienda.touched)}"/>
-                      <div class="invalid-feedback">
-                        <div *ngIf="formT.campoDireccionTienda.errors?.required">
-                          Campo requerido
-                        </div>
-                        <div *ngIf="formT.campoDireccionTienda.errors?.minlength">
-                          El campo debe ser mayor a 3 caracteres
-                        </div>
-                        <div  *ngIf="formT.campoDireccionTienda.errors?.maxlength">
-                          El campo debe ser menor a 60 caracteres
-                        </div>
+            <div class="row">
+              <div class="col-12 col-sm-12">
+                <div class="mb-3">
+                  <label for="validationCustom01">Dirección *</label>
+                  <input class="form-control" placeholder="Dirección de la tienda" type="text" name="title"
+                    formControlName="{{this.direccion_tienda}}"
+                    [ngClass]="{'is-invalid': formT.campoDireccionTienda.invalid && (formT.campoDireccionTienda.dirty || formT.campoDireccionTienda.touched)}" />
+                  <div class="invalid-feedback">
+                    <div *ngIf="formT.campoDireccionTienda.errors?.required">
+                      Campo requerido
+                    </div>
+                    <div *ngIf="formT.campoDireccionTienda.errors?.minlength">
+                      El campo debe ser mayor a 3 caracteres
+                    </div>
+                    <div *ngIf="formT.campoDireccionTienda.errors?.maxlength">
+                      El campo debe ser menor a 60 caracteres
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12 col-sm-12">
+                <div class="mb-3">
+                  <label for="validationCustom01">RUC *</label>
+                  <input class="form-control" placeholder="RUC de la tienda" type="text" name="title"
+                    formControlName="{{this.ruc_tienda}}"
+                    [ngClass]="{'is-invalid': formT.campoRucTienda.invalid && (formT.campoRucTienda.dirty || formT.campoRucTienda.touched)}" />
+                  <div class="invalid-feedback">
+                    <div *ngIf="formT.campoRucTienda.errors?.required">
+                      Campo requerido
+                    </div>
+                    <div *ngIf="formT.campoRucTienda.errors?.pattern">
+                      Ingrese solo números
+                    </div>
+                    <div *ngIf="formT.campoRucTienda.errors?.minlength">
+                      El campo debe ser mayor a 8 caracteres
+                    </div>
+                    <div *ngIf="formT.campoRucTienda.errors?.maxlength">
+                      El campo debe ser menor e igual a 11 caracteres
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12 col-sm-12">
+                <div class="mb-3">
+                  <label for="validationCustom01">Teléfono *</label>
+                  <input class="form-control" placeholder="Teléfono de la tienda" type="text" name="title"
+                    formControlName="{{this.telefono_tienda}}"
+                    [ngClass]="{'is-invalid': formT.campoTelefonoTienda.invalid && (formT.campoTelefonoTienda.dirty || formT.campoTelefonoTienda.touched)}" />
+                  <div class="invalid-feedback">
+                    <div *ngIf="formT.campoTelefonoTienda.errors?.required">
+                      Campo requerido
+                    </div>
+                    <div *ngIf="formT.campoTelefonoTienda.errors?.pattern">
+                      Ingrese solo números
+                    </div>
+                    <div *ngIf="formT.campoTelefonoTienda.errors?.minlength">
+                      El campo debe ser mayor a 6 caracteres
+                    </div>
+                    <div *ngIf="formT.campoTelefonoTienda.errors?.maxlength">
+                      El campo debe ser menor e igual a 9 caracteres
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12 col-sm-12">
+                <div class="mb-3">
+                  <label for="validationCustom01">Logo de la Tienda</label>
+                  <div class="custom-dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
+                    <ngx-dropzone-label>
+                      <div>
+                        <i class="display-4 text-muted uil uil-cloud-upload"></i>
+                        <h3>Suelte los archivos aquí o haga clic para cargar.</h3>
                       </div>
+                    </ngx-dropzone-label>
+                    <!-- <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                        <ngx-dropzone-label>{{ f.name }} </ngx-dropzone-label>
+                      </ngx-dropzone-preview> -->
+                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
+                      [removable]="true" (removed)="onRemove(f)">
+                      <!-- <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label> -->
+                    </ngx-dropzone-image-preview>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div class="row">
-                <div class="col-12 col-sm-12">
-                  <div class="mb-3">
-                    <label for="validationCustom01">RUC *</label>
-                      <input class="form-control" placeholder="RUC de la tienda" type="text" name="title"
-                          formControlName="{{this.ruc_tienda}}" [ngClass]="{'is-invalid': formT.campoRucTienda.invalid && (formT.campoRucTienda.dirty || formT.campoRucTienda.touched)}"/>
-                      <div class="invalid-feedback">
-                        <div *ngIf="formT.campoRucTienda.errors?.required">
-                          Campo requerido
-                        </div>
-                        <div *ngIf="formT.campoRucTienda.errors?.minlength">
-                          El campo debe ser mayor a 3 caracteres
-                        </div>
-                        <div  *ngIf="formT.campoRucTienda.errors?.maxlength">
-                          El campo debe ser menor a 60 caracteres
-                        </div>
-                      </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-12 col-sm-12">
-                  <div class="mb-3">
-                    <label for="validationCustom01">Teléfono *</label>
-                      <input class="form-control" placeholder="Teléfono de la tienda" type="text" name="title"
-                          formControlName="{{this.telefono_tienda}}" [ngClass]="{'is-invalid': formT.campoTelefonoTienda.invalid && (formT.campoTelefonoTienda.dirty || formT.campoTelefonoTienda.touched)}"/>
-                      <div class="invalid-feedback">
-                        <div *ngIf="formT.campoTelefonoTienda.errors?.required">
-                          Campo requerido
-                        </div>
-                        <div *ngIf="formT.campoTelefonoTienda.errors?.minlength">
-                          El campo debe ser mayor a 3 caracteres
-                        </div>
-                        <div  *ngIf="formT.campoTelefonoTienda.errors?.maxlength">
-                          El campo debe ser menor a 60 caracteres
-                        </div>
-                      </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-12 col-sm-12">
-                  <div class="mb-3">
-                    <label for="validationCustom01">Color *</label>
-                      <input class="form-control" placeholder="Color de la tienda" type="text" name="title"
-                          formControlName="{{this.color_tienda}}" [ngClass]="{'is-invalid': formT.campoColorTienda.invalid && (formT.campoColorTienda.dirty || formT.campoColorTienda.touched)}"/>
-                      <div class="invalid-feedback">
-                        <div *ngIf="formT.campoColorTienda.errors?.required">
-                          Campo requerido
-                        </div>
-                        <div *ngIf="formT.campoColorTienda.errors?.minlength">
-                          El campo debe ser mayor a 3 caracteres
-                        </div>
-                        <div  *ngIf="formT.campoColorTienda.errors?.maxlength">
-                          El campo debe ser menor a 60 caracteres
-                        </div>
-                      </div>
-                  </div>
-                </div>
-              </div>
-
-              <div 
-                class="custom-dropzone" 
-                ngx-dropzone 
-                [accept]="'image/*'"
-                (change)="onSelect($event)"
-              >
-                <ngx-dropzone-label>
-                  <div>
-                    <i class="display-4 text-muted uil uil-cloud-upload"></i>
-                    <h3>Suelte los archivos aquí o haga clic para cargar.</h3>
-                  </div>
-                </ngx-dropzone-label>
-                <!-- <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
-                   <ngx-dropzone-label>{{ f.name }} </ngx-dropzone-label>
-                </ngx-dropzone-preview> -->
-                <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
-                  <!-- <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label> -->
-                </ngx-dropzone-image-preview>
-                
-              </div>
-
-            </form>
-            <div class="row my-2">
-              <div class="col">
-                <div class="text-sm-end mt-2 mt-sm-0">
-                  <button class="btn btn-success" (click)="guardarSede()" [disabled]="!formTiendas.valid">
-                    <i class="uil uil-store-alt me-1"></i> Registar Tienda
-                  </button>
-                </div>
+          </form>
+          <div class="row my-2">
+            <div class="col">
+              <div class="text-sm-end mt-2 mt-sm-0">
+                <button class="btn btn-success" (click)="guardarSede()" [disabled]="!formTiendas.valid">
+                  <i class="uil uil-store-alt me-1"></i> Registar Tienda
+                </button>
               </div>
             </div>
           </div>
         </div>
-        <!-- end card -->
-      </div> <!-- end col -->
-    </div>
-    <!-- end row -->
-  
-
+      </div>
+      <!-- end card -->
+    </div> <!-- end col -->
   </div>
-  
+  <!-- end row -->
+
+
+</div>
