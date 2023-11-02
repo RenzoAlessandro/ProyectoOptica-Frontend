@@ -8,6 +8,7 @@ import { StoresService } from './list-stores.service';
 import { DecimalPipe } from '@angular/common';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-list-stores',
   templateUrl: './list-stores.component.html',
@@ -106,6 +107,8 @@ export class ListStoresComponent implements OnInit {
     this.crearFormulario();
     this.f(this.nombre_tienda).setValue(data.nombre_sede);
     this.f(this.direccion_tienda).setValue(data.direccion);
+    this.f(this.ruc_tienda).setValue(data.ruc);
+    this.f(this.telefono_tienda).setValue(data.telefono);
     this.sede.id_sede = data.id_sede;
     this.modalService.open(DataModalEditStore, { centered: true, windowClass: 'modal-holder' });
   }
@@ -144,21 +147,31 @@ export class ListStoresComponent implements OnInit {
       this.sede.fecha_modificacion_sede = new Date(Date.now());
       this.sede.ruc = this.f(this.ruc_tienda).value;
       this.sede.telefono = this.f(this.telefono_tienda).value;
-      this.sede.color = this.f(this.color_tienda).value;
+      this.sede.color = '';
       Sweetalert("loading", "Cargando...");
       let formData = new FormData();
-      formData.append('photo', this.files[0], this.files[0].name);
 
-      this.sedeService.saveImageBackend(formData).subscribe(res => {
-        this.sede.logoURL = res;
-        console.log(this.sede);
+      if (this.files.length != 0) {
+        formData.append('photo', this.files[0], this.files[0].name);
+        this.sedeService.saveImageBackend(formData).subscribe(res => {
+          this.sede.logoURL = res;
+          this.sedeService.editSede(this.sede).subscribe(res => {
+            this.files = [];
+            this.modalService.dismissAll();
+            Sweetalert("close", null);
+            Sweetalert("success", "Tienda actualizada");
+            this.formEditarTiendas.reset();
+          });
+        })
+      } else {
         this.sedeService.editSede(this.sede).subscribe(res => {
+          this.files = [];
           this.modalService.dismissAll();
           Sweetalert("close", null);
-          Sweetalert("success", "Datos de la tienda actualizados");
-          this.getListSedes();
+          Sweetalert("success", "Tienda actualizada");
+          this.formEditarTiendas.reset();
         });
-      })
+      }
     } else {
       return;
     }
@@ -181,5 +194,63 @@ export class ListStoresComponent implements OnInit {
     else {
       //this.errorImagen = "";
     }
+  }
+  onRemove(event) {
+    //this.filebutton = false;
+    this.files.splice(this.files.indexOf(event), 1);
+  }
+
+  elimninarVenta(data) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        cancelButton: 'btn btn-danger ms-2',
+        confirmButton: 'btn btn-success',
+      },
+      buttonsStyling: false
+    });
+
+    swalWithBootstrapButtons
+      .fire({
+        title: '¿Está seguro de eliminar la sede?',
+        html: '¡No se podrá revertir esto! <br> Se eliminará los productos (accesorios, monturas, lunas), ventas, usuarios, caja' ,
+        icon: 'warning',
+        cancelButtonText: 'No, cancelar!',
+        confirmButtonText: 'Si, Eliminar!',
+        showCancelButton: true,
+      })
+      .then(result => {
+        if (result.value) {
+          console.log(data)
+          //Sweetalert("loading", "Cargando...");
+          /* this.productosService.createVenta(this.venta).subscribe(res => {
+            this.createPDF(this.venta, this.customer);
+            Sweetalert("close", null);
+            Sweetalert("success", "Venta realizada");
+            this.modalService.dismissAll();
+            this.products = [];
+            this.getListMonturas(this.idSede);
+            this.estadoBotonGuardar();
+          } ,
+            (error) => {
+              Sweetalert("close", null);
+              if (error.status !== 404) {
+
+                Sweetalert("error", "Error en la conexión");
+              }
+            });*/
+        } else if (
+
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          //this.venta.tipo_venta = [];
+          swalWithBootstrapButtons.fire(
+            'Cancelado',
+            'La eliminación no se ha realizado',
+            'error'
+          );
+
+        }
+      });
   }
 }
