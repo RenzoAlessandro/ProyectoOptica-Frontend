@@ -23,8 +23,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import { getBase64ImageFromURL, round } from 'src/utils/functions';
 import { SedesModel } from 'src/models/sedes';
 import { MonturasModel } from 'src/models/monturas';
-
-
+import { LunasModel } from 'src/models/lunas';
+import { AccesorioModel } from 'src/models/accesorio';
 
 @Component({
   selector: 'app-add-sale',
@@ -109,6 +109,8 @@ export class AddSaleComponent implements OnInit {
   customer: any;
   tmpProducto: any;
   listMonturasforSale: Array<MonturasModel>;
+  listLunasforSale: Array<LunasModel>;
+  listAccesoriosforSale: Array<AccesorioModel>;
 
   productoC: string = "campoProductoC";
   listProductos = [
@@ -171,6 +173,8 @@ export class AddSaleComponent implements OnInit {
     this.listAllProducts = [];
     this.products = [];
     this.listMonturasforSale = [];
+    this.listLunasforSale = [];
+    this.listAccesoriosforSale = [];
     this.getListMonturas(idSede);
   }
 
@@ -383,6 +387,7 @@ export class AddSaleComponent implements OnInit {
   getListAccesorios(idSede:string) {
     this.productosService.getAccesoriosforSale(idSede).subscribe(res => {
       this.listAllProducts = [...res, ...this.listAllProducts];
+      this.listAccesoriosforSale = res;
       this.getListLunas(idSede)
     });
   }
@@ -390,6 +395,7 @@ export class AddSaleComponent implements OnInit {
   getListLunas(idSede:string) {
     this.productosService.getLunasforSale(idSede).subscribe(res => {
       this.listAllProducts = [...res, ...this.listAllProducts];
+      this.listLunasforSale = res;
       Sweetalert("close", null);
     });
   }

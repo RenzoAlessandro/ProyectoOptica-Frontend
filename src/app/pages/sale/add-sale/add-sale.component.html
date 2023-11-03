@@ -3,13 +3,46 @@
 
   <div class="row mb-4">
     <div class="col-xl-4">
-      <div class="card h-100">
-        <div class="card-body">
-          <h1 class="card-title mb-3">Buscar Producto</h1>
+      <div class="card mb-0">
+        <!-- Nav tabs -->
+        <ul ngbNav #justifiednav="ngbNav" [activeId]="1" class="nav nav-tabs nav-justified nav-tabs-custom">
+          <li [ngbNavItem]="1" class="nav-item">
+            <a ngbNavLink class="nav-link">
+              <i class="uil uil-nerd font-size-20"></i>
+              <span class="d-none d-sm-block">Montura</span>
+            </a>
+            <ng-template ngbNavContent>
+              <ng-template [ngTemplateOutlet]="TabContentMonturas"></ng-template>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2" class="nav-item">
+            <a ngbNavLink class="nav-link">
+              <i class="uil uil-panorama-h-alt font-size-20"></i>
+              <span class="d-none d-sm-block">Luna</span>
+            </a>
+            <ng-template ngbNavContent>
+              <ng-template [ngTemplateOutlet]="TabContentLunas"></ng-template>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="3" class="nav-item">
+            <a ngbNavLink class="nav-link">
+              <i class="uil uil-box font-size-20"></i>
+              <span class="d-none d-sm-block">Accesorio</span>
+            </a>
+            <ng-template ngbNavContent>
+              <ng-template [ngTemplateOutlet]="TabContentAccesorios"></ng-template>
+            </ng-template>
+          </li>
+        </ul>
+        <div [ngbNavOutlet]="justifiednav"></div>
+      </div>
 
-          <div class="mb-2">
-            <div class="row">
-              <div class="col-12 col-md-6">
+      <!-- Tab content -->
+      <ng-template #TabContentMonturas>
+        <div class="tab-content p-4">
+          <div class="tab-pane active">
+            <div class="row mb-2">
+              <div class="col-12">
                 <form [formGroup]="formSedes">
                   <div ngbDropdown>
                     <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
@@ -18,87 +51,209 @@
                   </div>
                 </form>
               </div>
-              <div class="col-12 col-md-6">
+            </div>
+            <div class="row mb-2">
+              <div class="col-12">
                 <div class="search-box chat-search-box">
                   <div class="position-relative">
-                      <input type="text" class="form-control bg-light border-light rounded" placeholder="Buscar Montura..." [(ngModel)]="searchtext">
-                      <i class="uil uil-search search-icon"></i>
+                    <input type="text" class="form-control bg-light border-light rounded"
+                      placeholder="Buscar Montura..." [(ngModel)]="searchtext">
+                    <i class="uil uil-search search-icon"></i>
                   </div>
-              </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- <div class="row">
-            <div class="">
-              <div class="search-box chat-search-box">
-                  <div class="position-relative">
-                      <input type="text" class="form-control bg-light border-light rounded" placeholder="Buscar Montura..." [(ngModel)]="searchtext">
-                      <i class="uil uil-search search-icon"></i>
-                  </div>
-              </div>
-            </div>
-          </div> -->
-
-          <div class="row">
-            <div class="table-responsive">
-              <table class="table table-centered table-nowrap mb-0 align-middle">
-                <thead class="table-light">
-                  <tr>
-                    <th>Copiar</th>
-                    <th>Cod. Int.</th>
-                    <th>Material</th>
-                    <th>Marca</th>
-                    <th>Color</th>
-                    <th>Cód. id.</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of listMonturasforSale  | filter:searchtext |slice: (currentPage-1) * pageSize : currentPage * pageSize">
-                    <td>
-                      <a (click)="copyText(elementToCopy)" class="px-2 text-success" placement="top"
-                        ngbTooltip="Copiar código"><i class="uil-copy-alt font-size-18"></i></a>
-                    </td>
-                    <td>
-                      {{item.codigo}}
-                     </td>
-                    <td>
-                     {{item.material}}
-                    </td>
-                    <td>
-                      {{item.marca}}
-                    </td>
-                    <td>
-                      {{item.color}}
-                    </td>
-                      
-                    <td #elementToCopy>
-                      {{item.id_producto}}
-                    </td>
-                  </tr>
-
-                </tbody>
-              </table>
-
-            </div>
-
-            <div class="row justify-content-md-between align-items-md-center">
-
-              <!-- Pagination -->
-              <div class="col-12">
-                <div class="text-md-end float-md-end pagination-rounded">
-                  <ngb-pagination [collectionSize]="listMonturasforSale?.length || 0" [(page)]="currentPage" [pageSize]="pageSize"
-                    [maxSize]="5">
-                  </ngb-pagination>
-
                 </div>
               </div>
-              <!-- End Pagination -->
             </div>
-            
+
+            <div class="row">
+              <div class="table-responsive">
+                <table class="table table-centered table-nowrap mb-0 align-middle">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Copiar</th>
+                      <th>Cod. Int.</th>
+                      <th>Material</th>
+                      <th>Marca</th>
+                      <th>Color</th>
+                      <th>Cód. id.</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let item of listMonturasforSale  | filter:searchtext |slice: (currentPage-1) * pageSize : currentPage * pageSize">
+                      <td>
+                        <a (click)="copyText(elementToCopy)" class="px-2 text-success" placement="top"
+                          ngbTooltip="Copiar código"><i class="uil-copy-alt font-size-18"></i></a>
+                      </td>
+                      <td>
+                        {{item.codigo}}
+                      </td>
+                      <td>
+                        {{item.material}}
+                      </td>
+                      <td>
+                        {{item.marca}}
+                      </td>
+                      <td>
+                        {{item.color}}
+                      </td>
+
+                      <td #elementToCopy>
+                        {{item.id_producto}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row justify-content-md-between align-items-md-center">
+                <div class="col-12">
+                  <div class="text-md-end float-md-end pagination-rounded">
+                    <ngb-pagination [collectionSize]="listMonturasforSale?.length || 0" [(page)]="currentPage"
+                      [pageSize]="pageSize" [maxSize]="3">
+                    </ngb-pagination>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </ng-template>
+
+      <ng-template #TabContentLunas>
+        <div class="tab-content p-4">
+          <div class="tab-pane active">
+            <div class="row mb-2">
+              <div class="col-12">
+                <form [formGroup]="formSedes">
+                  <div ngbDropdown>
+                    <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
+                      bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+                    </ng-select>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-12">
+                <div class="search-box chat-search-box">
+                  <div class="position-relative">
+                    <input type="text" class="form-control bg-light border-light rounded"
+                      placeholder="Buscar Luna..." [(ngModel)]="searchtext">
+                    <i class="uil uil-search search-icon"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="table-responsive">
+                <table class="table table-centered table-nowrap mb-0 align-middle">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Copiar</th>
+                      <th>Material</th>
+                      <th>Cód. id.</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let itemLuna of listLunasforSale  | filter:searchtext |slice: (currentPage-1) * pageSize : currentPage * pageSize">
+                      <td>
+                        <a (click)="copyText(elementToCopy)" class="px-2 text-success" placement="top"
+                          ngbTooltip="Copiar código"><i class="uil-copy-alt font-size-18"></i></a>
+                      </td>
+                      <td>
+                        {{itemLuna.material}}
+                      </td>
+                      <td #elementToCopy>
+                        {{itemLuna.id_producto}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row justify-content-md-between align-items-md-center">
+                <div class="col-12">
+                  <div class="text-md-end float-md-end pagination-rounded">
+                    <ngb-pagination [collectionSize]="listLunasforSale?.length || 0" [(page)]="currentPage"
+                      [pageSize]="pageSize" [maxSize]="3">
+                    </ngb-pagination>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #TabContentAccesorios>
+        <div class="tab-content p-4">
+          <div class="tab-pane active">
+            <div class="row mb-2">
+              <div class="col-12">
+                <form [formGroup]="formSedes">
+                  <div ngbDropdown>
+                    <ng-select [items]="listSedes" placeholder="Seleccione la sede" bindValue="id_sede"
+                      bindLabel="nombre_sede" formControlName="{{this.nombre_sedes}}" (change)="changeSede()">
+                    </ng-select>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-12">
+                <div class="search-box chat-search-box">
+                  <div class="position-relative">
+                    <input type="text" class="form-control bg-light border-light rounded"
+                      placeholder="Buscar Luna..." [(ngModel)]="searchtext">
+                    <i class="uil uil-search search-icon"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="table-responsive">
+                <table class="table table-centered table-nowrap mb-0 align-middle">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Copiar</th>
+                      <th>Nombre</th>
+                      <th>Cód. id.</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let itemAccesorio of listAccesoriosforSale  | filter:searchtext |slice: (currentPage-1) * pageSize : currentPage * pageSize">
+                      <td>
+                        <a (click)="copyText(elementToCopy)" class="px-2 text-success" placement="top"
+                          ngbTooltip="Copiar código"><i class="uil-copy-alt font-size-18"></i></a>
+                      </td>
+                      <td>
+                        {{itemAccesorio.nombre_accesorio}}
+                      </td>
+                      <td #elementToCopy>
+                        {{itemAccesorio.id_producto}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row justify-content-md-between align-items-md-center">
+                <div class="col-12">
+                  <div class="text-md-end float-md-end pagination-rounded">
+                    <ngb-pagination [collectionSize]="listAccesoriosforSale?.length || 0" [(page)]="currentPage"
+                      [pageSize]="pageSize" [maxSize]="3">
+                    </ngb-pagination>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </ng-template>
     </div>
 
     <div class="col-xl-8">
@@ -111,9 +266,10 @@
               <div class="row mb-3">
                 <div class="col-md-8 mb-2 search-box chat-search-box">
                   <div class="position-relative">
-                    <ng-autocomplete #autocomplete [data]="listAllProducts" [searchKeyword]="keyword" placeholder="Buscar productos"
-                      (selected)="selectEvent($event)" (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
-                      historyIdentifier="" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                    <ng-autocomplete #autocomplete [data]="listAllProducts" [searchKeyword]="keyword"
+                      placeholder="Buscar productos" (selected)="selectEvent($event)"
+                      (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' historyIdentifier=""
+                      [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
                       (keyup.enter)="selectEvent($event)" focusFirst="true" minQueryLength="8">
                     </ng-autocomplete>
                     <ng-template #itemTemplate let-item>
@@ -147,73 +303,73 @@
 
           <div class="row">
             <div class="col-lg-12">
-                  <h4 class="card-title mb-4">Lista de Productos</h4>
-                  <div class="table-responsive mb-2">
-                    <form>
-                      <table class="table table-centered dt-responsive table-nowrap mb-0 align-middle "
-                        style="border-spacing: 0 12px; width: 100%;">
-                        <thead class="table-light">
-                          <tr class="bg-transparent">
-                            <th>Ord.</th>
-                            <th>Tipo</th>
-                            <th>Detalle</th>
-                            <th>Cantidad</th>
-                            <th>Precio</th>
-                            <th>Total</th>
-                            <th>Acción</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of products; let i = index">
-                            <td>
-                              <ngb-highlight [result]="i+1"></ngb-highlight>
-                            </td>
-                            <td>
-                              <ngb-highlight [result]="item.tipo"></ngb-highlight>
-                            </td>
-                            <td *ngIf="item.tipo == 'montura'">
-                              <ngb-highlight [result]="item.material"></ngb-highlight>&nbsp;
-                              <ngb-highlight [result]="item.marca"></ngb-highlight>
-                            </td>
-                            <td *ngIf="item.tipo == 'luna'">
-                              <ngb-highlight [result]="item.material"></ngb-highlight>
-                            </td>
-                            <td *ngIf="item.tipo == 'accesorio'">
-                              <ngb-highlight [result]="item.nombre_accesorio"></ngb-highlight>
-                            </td>
-                            <td>
-                              <ngb-highlight [result]="item.cant_vendida"></ngb-highlight>
-                            </td>
-                            <td *ngIf="item.tipo == 'montura'">
-                              <ngb-highlight [result]="item.precio_montura_v |currency:'S/ '"></ngb-highlight>
-                            </td>
-                            <td *ngIf="item.tipo == 'luna'">
-                              <ngb-highlight [result]="item.precio_luna_v |currency:'S/ '"></ngb-highlight>
-                            </td>
-                            <td *ngIf="item.tipo == 'accesorio'">
-                              <ngb-highlight [result]="item.precio_accesorio_v |currency:'S/ '"></ngb-highlight>
-                            </td>
-                            <td>
-                              <ngb-highlight [result]="item.precio |currency:'S/ '"></ngb-highlight>
-                            </td>
-                            <td>
-                              <a class="px-2 text-warning" placement="top" ngbTooltip="Disminuir"><i
-                                  class="uil uil-minus-circle font-size-18"
-                                  (click)="substractQuantityProduct($event,i)"></i></a>
-                              <a class="px-2 text-success" placement="top" ngbTooltip="Agregar"><i
-                                  class="uil uil-plus-circle font-size-18" name="quantity" ngDefaultControl
-                                  [(ngModel)]="item.num" min="0" (click)="addQuantityProduct($event,i)"></i></a>
-                              <a (click)="centerModalEditarPrecio(centerDataModalEditar,item)" class="px-2 text-primary"
-                                placement="top" ngbTooltip="Editar precio"><i class="uil uil-pen font-size-18"></i></a>
-                              <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
-                                  class="uil uil-trash-alt font-size-18" (click)="removeCartProduct($event,i)"></i></a>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </form>
-                  </div>
-                  <!-- end table -->
+              <h4 class="card-title mb-4">Lista de Productos</h4>
+              <div class="table-responsive mb-2">
+                <form>
+                  <table class="table table-centered dt-responsive table-nowrap mb-0 align-middle "
+                    style="border-spacing: 0 12px; width: 100%;">
+                    <thead class="table-light">
+                      <tr class="bg-transparent">
+                        <th>Ord.</th>
+                        <th>Tipo</th>
+                        <th>Detalle</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Total</th>
+                        <th>Acción</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of products; let i = index">
+                        <td>
+                          <ngb-highlight [result]="i+1"></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="item.tipo"></ngb-highlight>
+                        </td>
+                        <td *ngIf="item.tipo == 'montura'">
+                          <ngb-highlight [result]="item.material"></ngb-highlight>&nbsp;
+                          <ngb-highlight [result]="item.marca"></ngb-highlight>
+                        </td>
+                        <td *ngIf="item.tipo == 'luna'">
+                          <ngb-highlight [result]="item.material"></ngb-highlight>
+                        </td>
+                        <td *ngIf="item.tipo == 'accesorio'">
+                          <ngb-highlight [result]="item.nombre_accesorio"></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="item.cant_vendida"></ngb-highlight>
+                        </td>
+                        <td *ngIf="item.tipo == 'montura'">
+                          <ngb-highlight [result]="item.precio_montura_v |currency:'S/ '"></ngb-highlight>
+                        </td>
+                        <td *ngIf="item.tipo == 'luna'">
+                          <ngb-highlight [result]="item.precio_luna_v |currency:'S/ '"></ngb-highlight>
+                        </td>
+                        <td *ngIf="item.tipo == 'accesorio'">
+                          <ngb-highlight [result]="item.precio_accesorio_v |currency:'S/ '"></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="item.precio |currency:'S/ '"></ngb-highlight>
+                        </td>
+                        <td>
+                          <a class="px-2 text-warning" placement="top" ngbTooltip="Disminuir"><i
+                              class="uil uil-minus-circle font-size-18"
+                              (click)="substractQuantityProduct($event,i)"></i></a>
+                          <a class="px-2 text-success" placement="top" ngbTooltip="Agregar"><i
+                              class="uil uil-plus-circle font-size-18" name="quantity" ngDefaultControl
+                              [(ngModel)]="item.num" min="0" (click)="addQuantityProduct($event,i)"></i></a>
+                          <a (click)="centerModalEditarPrecio(centerDataModalEditar,item)" class="px-2 text-primary"
+                            placement="top" ngbTooltip="Editar precio"><i class="uil uil-pen font-size-18"></i></a>
+                          <a class="px-2 text-danger" placement="top" ngbTooltip="Eliminar"><i
+                              class="uil uil-trash-alt font-size-18" (click)="removeCartProduct($event,i)"></i></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </form>
+              </div>
+              <!-- end table -->
 
             </div>
           </div>
@@ -418,16 +574,16 @@
                   <div class="mb-4">
                     <label class="form-label" for="billing-vendedor">Responsable de la Venta</label>
                     <input class="form-control" placeholder="Nombre Completo" type="text" name="nameVendenorContado"
-                      formControlName="{{this.vendedor_Contado}}" 
+                      formControlName="{{this.vendedor_Contado}}"
                       [ngClass]="{'is-invalid': formVContado.campoVendedorContado.invalid && (formVContado.campoVendedorContado.dirty || formVContado.campoVendedorContado.touched)}" />
-                      <div class="invalid-feedback">
-                        <div *ngIf="formVContado.campoVendedorContado.errors?.required">
-                          Campo requerido
-                        </div>
-                        <div *ngIf="formVContado.campoVendedorContado.errors?.pattern">
-                          Ingrese solo letras
-                        </div>
+                    <div class="invalid-feedback">
+                      <div *ngIf="formVContado.campoVendedorContado.errors?.required">
+                        Campo requerido
                       </div>
+                      <div *ngIf="formVContado.campoVendedorContado.errors?.pattern">
+                        Ingrese solo letras
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -587,14 +743,14 @@
                     <input class="form-control" placeholder="Nombre Completo" type="text" name="nameVendenorCredito"
                       formControlName="{{this.vendedor_Credito}}"
                       [ngClass]="{'is-invalid': formVCredito.campoVendedorCredito.invalid && (formVCredito.campoVendedorCredito.dirty || formVCredito.campoVendedorCredito.touched)}" />
-                      <div class="invalid-feedback">
-                        <div *ngIf="formVCredito.campoVendedorCredito.errors?.required">
-                          Campo requerido
-                        </div>
-                        <div *ngIf="formVCredito.campoVendedorCredito.errors?.pattern">
-                          Ingrese solo letras
-                        </div>
+                    <div class="invalid-feedback">
+                      <div *ngIf="formVCredito.campoVendedorCredito.errors?.required">
+                        Campo requerido
                       </div>
+                      <div *ngIf="formVCredito.campoVendedorCredito.errors?.pattern">
+                        Ingrese solo letras
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
