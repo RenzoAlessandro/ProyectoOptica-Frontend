@@ -815,25 +815,38 @@ export class ListSalesComponent implements OnInit {
         fechaFin = new Date(Date.now());
         fechaFin.setHours(23, 59, 0)
       }
-      let monturas,lunas, accesorios = {};
+      let monturas ={};
+      let lunas ={};
+      let accesorios ={};
 
       this.ventaService.getVentasByDate(fechaIni, fechaFin, this.idSede).subscribe(res => {
         this.excelVentas = res;
 
-        console.log(this.excelVentas)
         for (let ind = 0; ind < this.excelVentas.length; ind++) {
-          for (let index = 0; index < this.excelVentas[ind].list_monturas.length; index++) {
-            monturas["MONT CODIGO"+index] = this.excelVentas[ind].list_monturas[index].codigo
-            monturas["MONT P VENTA"+index] = this.excelVentas[ind].list_monturas[index].precio_montura_v
-            monturas["MONT P COMPRA"+index] = this.excelVentas[ind].list_monturas[index].precio_montura_c
-            monturas["MONT CANT VENDIDA"+index] = this.excelVentas[ind].list_monturas[index].cant_vendida
-            monturas["MONT MARCA"+index] = this.excelVentas[ind].list_monturas[index].marca
-            monturas["MONT MATERIAL"+index] = this.excelVentas[ind].list_monturas[index].material
-            monturas["MONT COLOR"+index] = this.excelVentas[ind].list_monturas[index].color
-            monturas["MONT SUMA TOTAL"+index] = this.excelVentas[ind].list_monturas[index].precio  
+
+          if (this.excelVentas[ind].list_monturas.length != 0) {
+            for (let index = 0; index < this.excelVentas[ind].list_monturas.length; index++) {
+              monturas["MONT CODIGO"+index] = this.excelVentas[ind].list_monturas[index].codigo
+              monturas["MONT P VENTA"+index] = this.excelVentas[ind].list_monturas[index].precio_montura_v
+              monturas["MONT P COMPRA"+index] = this.excelVentas[ind].list_monturas[index].precio_montura_c
+              monturas["MONT CANT VENDIDA"+index] = this.excelVentas[ind].list_monturas[index].cant_vendida
+              monturas["MONT MARCA"+index] = this.excelVentas[ind].list_monturas[index].marca
+              monturas["MONT MATERIAL"+index] = this.excelVentas[ind].list_monturas[index].material
+              monturas["MONT COLOR"+index] = this.excelVentas[ind].list_monturas[index].color
+              monturas["MONT SUMA TOTAL"+index] = this.excelVentas[ind].list_monturas[index].precio  
+            }
+          } else {
+              monturas["MONT CODIGO"+ind] = ''
+              monturas["MONT P VENTA"+ind] = ''
+              monturas["MONT P COMPRA"+ind] = ''
+              monturas["MONT CANT VENDIDA"+ind] = ''
+              monturas["MONT MARCA"+ind] =''
+              monturas["MONT MATERIAL"+ind] = ''
+              monturas["MONT COLOR"+ind] = ''
+              monturas["MONT SUMA TOTAL"+ind] = ''
           }
-        };
-        console.log(monturas)
+        }
+          
         for (let ind = 0; ind < this.excelVentas.length; ind++) {
           for (let index = 0; index < this.excelVentas[ind].list_accesorios.length; index++) {
             accesorios["ACC NOMBRE"+index] = this.excelVentas[ind].list_accesorios[index].nombre_accesorio
@@ -846,11 +859,11 @@ export class ListSalesComponent implements OnInit {
         };
         for (let ind = 0; ind < this.excelVentas.length; ind++) {
           for (let index = 0; index < this.excelVentas[ind].list_lunas.length; index++) {
-            lunas["ACC MATERIAL"+index] = this.excelVentas[ind].list_lunas[index].material;
-            lunas["ACC P VENTA"+index] = this.excelVentas[ind].list_lunas[index].precio_luna_v;
-            lunas["ACC P COMPRA"+index] = this.excelVentas[ind].list_lunas[index].precio_luna_c;
-            lunas["ACC CANT VENDIDA"+index] = this.excelVentas[ind].list_lunas[index].cant_vendida;
-            lunas["ACC SUMA TOTAL"+index] = this.excelVentas[ind].list_lunas[index].precio;
+            lunas["LUN MATERIAL"+index] = this.excelVentas[ind].list_lunas[index].material;
+            lunas["LUN P VENTA"+index] = this.excelVentas[ind].list_lunas[index].precio_luna_v;
+            lunas["LUN P COMPRA"+index] = this.excelVentas[ind].list_lunas[index].precio_luna_c;
+            lunas["LUN CANT VENDIDA"+index] = this.excelVentas[ind].list_lunas[index].cant_vendida;
+            lunas["LUN SUMA TOTAL"+index] = this.excelVentas[ind].list_lunas[index].precio;
             
           }
         };
@@ -927,7 +940,7 @@ export class ListSalesComponent implements OnInit {
           }
 
         });
-        console.log(data)
+
         const worksheet = XLSX.utils.json_to_sheet(data);
         const workbook = {
           Sheets: {
