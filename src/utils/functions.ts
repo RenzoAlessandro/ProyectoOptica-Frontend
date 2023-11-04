@@ -24,6 +24,37 @@ export function getBase64ImageFromURL(url) {
     });
   }
 
+export  async function getBase64ImageFromUrl2(imageUrl) {
+    var res = await fetch(imageUrl,{method: 'GET',mode: "no-cors",headers: {     "Content-Type": "image/png"   }});
+    var blob = await res.blob();
+  
+    return new Promise((resolve, reject) => {
+      var reader  = new FileReader();
+      reader.addEventListener("load", function () {
+          resolve(reader.result);
+      }, false);
+  
+      reader.onerror = () => {
+        return reject(this);
+      };
+      reader.readAsDataURL(blob);
+    })
+  }
+
+  export function getBase64ImageFromUrl3(imageUrl) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+    var reader = new FileReader();
+    reader.addEventListener("load", function () {
+      reader.result;
+  }, false);
+    reader.readAsDataURL(xhr.response);
+  };
+  xhr.open('GET', imageUrl);
+  xhr.responseType = 'blob';
+  xhr.send();
+  }
+
 export function stringToDate(fecha: string):Date {
   const [day, month, year] = fecha.split('/');
   const date = new Date(+year, +month - 1, +day);

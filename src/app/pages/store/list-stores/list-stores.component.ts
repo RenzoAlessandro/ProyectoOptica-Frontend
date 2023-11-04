@@ -37,7 +37,7 @@ export class ListStoresComponent implements OnInit {
   sede = new SedesModel;
 
   searchSedes = [];
-
+  editLogoSede = '';
 
   constructor(
     public service: StoresService,
@@ -110,6 +110,7 @@ export class ListStoresComponent implements OnInit {
     this.f(this.ruc_tienda).setValue(data.ruc);
     this.f(this.telefono_tienda).setValue(data.telefono);
     this.sede.id_sede = data.id_sede;
+    this.editLogoSede = data.logoURL;
     this.modalService.open(DataModalEditStore, { centered: true, windowClass: 'modal-holder' });
   }
 
@@ -164,6 +165,7 @@ export class ListStoresComponent implements OnInit {
           });
         })
       } else {
+        this.sede.logoURL = this.editLogoSede;
         this.sedeService.editSede(this.sede).subscribe(res => {
           this.files = [];
           this.modalService.dismissAll();
