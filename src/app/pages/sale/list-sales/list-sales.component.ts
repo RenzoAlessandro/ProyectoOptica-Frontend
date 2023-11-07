@@ -16,7 +16,7 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import saveFile from 'save-as-file';
-import { getBase64ImageFromURL, round } from 'src/utils/functions';
+import { getBase64ImageFromURL, getBase64ImageFromUrl2, getBase64ImageFromUrl3, round } from 'src/utils/functions';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { CustomersModel } from 'src/models/customer';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -85,6 +85,8 @@ export class ListSalesComponent implements OnInit {
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
   decimalPattern = /^\d+(\.\d{1,2})?$/;
   excelVentas: Array<VentasModel> = [];
+
+  sedeActual = new SedesModel;
   constructor(
     public service: TransactionService,
     private fb: FormBuilder,
@@ -110,6 +112,12 @@ export class ListSalesComponent implements OnInit {
   getListSedes() {
     this.listSedes = JSON.parse(localStorage.getItem('sedes'));
     this.idSede = this.usuarioService.getSedebyUser();
+    this.sedeActual = this.getSedeActual(this.idSede,this.listSedes);
+  }
+
+  getSedeActual (idSede:string, sedes:any): SedesModel {
+    let sedeActual = sedes.find(sede => sede.id_sede === idSede);
+    return sedeActual;
   }
 
   onSort({ column, direction }: SortEvent) {
@@ -396,12 +404,12 @@ export class ListSalesComponent implements OnInit {
 
 
     var simboloNuevoSol = 'S/. ';
-    var numeroBoleta = '0000418';
+    //var numeroBoleta = '0000418';
     var propietarioEmpresa = 'Raúl J. Condori Ramos'
     // var sedeEmpresa = venta.id_sede;
-    var direccionEmpresa = 'Jr: Arequipa 347 - Puno';
-    var felefonoEmpresa = '954170390 - 930314556';
-    var rucEmpresa = '99999999999';
+    var direccionEmpresa = this.sedeActual.direccion;
+    var felefonoEmpresa = this.sedeActual.telefono;
+    var rucEmpresa = this.sedeActual.ruc;
     var primeraNota = 'Todo trabajo se efectuara con un adelanto del 50%.';
     var segundaNota = 'La empresa no se responsabiliza de los pedidos no recogidos después de un mes.';
 
@@ -519,6 +527,11 @@ export class ListSalesComponent implements OnInit {
 
 
     const pdfDefinition: any = {
+       /* images: {
+        MyImage: {
+          url: this.sedeActual.logoURL,
+        }
+      }, */
       pageSize: 'A4',
       //pageOrientation: 'landscape',
       pageMargins: [ 40, 10, 40, 10 ], // left, top, right, botton
@@ -536,7 +549,8 @@ export class ListSalesComponent implements OnInit {
                     table: {
                       widths: ['*'],
                       body: [
-                        [{ image: await getBase64ImageFromURL('/assets/images/logo-dark.png'), width: 230}],
+                         [{ image: await getBase64ImageFromURL("https://media.geeksforgeeks.org/wp-content/uploads/20220726175411/GFG.png"), width: 230}],
+                        //[{ image: 'MyImage', width: 230}],
                         [{ text: 'De ' + propietarioEmpresa, alignment: 'center' }],
                       ]
                     },
@@ -552,7 +566,7 @@ export class ListSalesComponent implements OnInit {
                       body: [
                         [{ text: 'R.U.C. ' + rucEmpresa, style: 'title',alignment: 'center', margin: [0, 6, 0, 6] }],
                         [{ text: 'BOLETA DE VENTA' , style: 'title2', alignment: 'center' , fillColor: '#2D4497', fillOpacity: 0.80, margin: [0, 6, 0, 6] }],
-                        [{ text: '001- Nº ' + numeroBoleta, style: 'title', color: 'red', alignment: 'center', margin: [0, 6, 0, 6] }],
+                        //[{ text: '001- Nº ' + numeroBoleta, style: 'title', color: 'red', alignment: 'center', margin: [0, 6, 0, 6] }],
                       ]
                     },
                   },
@@ -801,30 +815,60 @@ export class ListSalesComponent implements OnInit {
         fechaFin = new Date(Date.now());
         fechaFin.setHours(23, 59, 0)
       }
-      let monturas = {};
+      let monturas ={};
+      let lunas ={};
+      let accesorios ={};
+
       this.ventaService.getVentasByDate(fechaIni, fechaFin, this.idSede).subscribe(res => {
         this.excelVentas = res;
 
-        console.log(this.excelVentas)
         for (let ind = 0; ind < this.excelVentas.length; ind++) {
 
-          for (let index = 0; index < this.excelVentas[ind].list_monturas.length; index++) {
-            monturas["Mont Codigo"+index] = this.excelVentas[ind].list_monturas[index].codigo
-            monturas["Mont p venta"+index] = this.excelVentas[ind].list_monturas[index].precio_montura_v
-            monturas["Mont p compra"+index] = this.excelVentas[ind].list_monturas[index].precio_montura_c
-            monturas["Mont cant vendida"+index] = this.excelVentas[ind].list_monturas[index].cant_vendida
-            monturas["Mont marca"+index] = this.excelVentas[ind].list_monturas[index].marca
-            monturas["Mont material"+index] = this.excelVentas[ind].list_monturas[index].material
-            monturas["Mont color"+index] = this.excelVentas[ind].list_monturas[index].color
-            monturas["Mont suma total"+index] = this.excelVentas[ind].list_monturas[index].precio
+          if (this.excelVentas[ind].list_monturas.length != 0) {
+            for (let index = 0; index < this.excelVentas[ind].list_monturas.length; index++) {
+              monturas["MONT CODIGO"+index] = this.excelVentas[ind].list_monturas[index].codigo
+              monturas["MONT P VENTA"+index] = this.excelVentas[ind].list_monturas[index].precio_montura_v
+              monturas["MONT P COMPRA"+index] = this.excelVentas[ind].list_monturas[index].precio_montura_c
+              monturas["MONT CANT VENDIDA"+index] = this.excelVentas[ind].list_monturas[index].cant_vendida
+              monturas["MONT MARCA"+index] = this.excelVentas[ind].list_monturas[index].marca
+              monturas["MONT MATERIAL"+index] = this.excelVentas[ind].list_monturas[index].material
+              monturas["MONT COLOR"+index] = this.excelVentas[ind].list_monturas[index].color
+              monturas["MONT SUMA TOTAL"+index] = this.excelVentas[ind].list_monturas[index].precio  
+            }
+          } else {
+              monturas["MONT CODIGO"+ind] = ''
+              monturas["MONT P VENTA"+ind] = ''
+              monturas["MONT P COMPRA"+ind] = ''
+              monturas["MONT CANT VENDIDA"+ind] = ''
+              monturas["MONT MARCA"+ind] =''
+              monturas["MONT MATERIAL"+ind] = ''
+              monturas["MONT COLOR"+ind] = ''
+              monturas["MONT SUMA TOTAL"+ind] = ''
+          }
+        }
+          
+        for (let ind = 0; ind < this.excelVentas.length; ind++) {
+          for (let index = 0; index < this.excelVentas[ind].list_accesorios.length; index++) {
+            accesorios["ACC NOMBRE"+index] = this.excelVentas[ind].list_accesorios[index].nombre_accesorio
+            accesorios["ACC P VENTA"+index] = this.excelVentas[ind].list_accesorios[index].precio_accesorio_v
+            accesorios["ACC P COMPRA"+index] = this.excelVentas[ind].list_accesorios[index].precio_accesorio_c
+            accesorios["ACC CANT VENDIDA"+index] = this.excelVentas[ind].list_accesorios[index].cant_vendida
+            accesorios["ACC SUMA TOTAL"+index] = this.excelVentas[ind].list_accesorios[index].precio
             
           }
-
-          
-        }
-        console.log(monturas)
-        data = this.excelVentas.map((ventas: VentasModel) => {
-          let accesorios = ventas.list_accesorios.map(acc => {
+        };
+        for (let ind = 0; ind < this.excelVentas.length; ind++) {
+          for (let index = 0; index < this.excelVentas[ind].list_lunas.length; index++) {
+            lunas["LUN MATERIAL"+index] = this.excelVentas[ind].list_lunas[index].material;
+            lunas["LUN P VENTA"+index] = this.excelVentas[ind].list_lunas[index].precio_luna_v;
+            lunas["LUN P COMPRA"+index] = this.excelVentas[ind].list_lunas[index].precio_luna_c;
+            lunas["LUN CANT VENDIDA"+index] = this.excelVentas[ind].list_lunas[index].cant_vendida;
+            lunas["LUN SUMA TOTAL"+index] = this.excelVentas[ind].list_lunas[index].precio;
+            
+          }
+        };
+         data = this.excelVentas.map((ventas: VentasModel) => {
+          /*let accesorios = ventas.list_accesorios.map(acc => {
             return {
               "PRECIO VENTA": acc.precio_accesorio_v,
               "PRECIO COMPRA": acc.precio_accesorio_c,
@@ -832,7 +876,7 @@ export class ListSalesComponent implements OnInit {
               "NOMBRE": acc.nombre_accesorio,
               "SUMA TOTAL": acc.precio
             }
-          })
+          }) */
           /* monturas = ventas.list_monturas.map(mont => {
             return {
               "CODIGO": mont.codigo,
@@ -846,7 +890,7 @@ export class ListSalesComponent implements OnInit {
             }
           })  */
           
-          let lunas = ventas.list_lunas.map(lun => {
+          /* let lunas = ventas.list_lunas.map(lun => {
             return {
               "PRECIO VENTA": lun.precio_luna_v,
               "PRECIO COMPRA": lun.precio_luna_c,
@@ -854,15 +898,15 @@ export class ListSalesComponent implements OnInit {
               "MATERIAL": lun.material,
               "SUMA TOTAL": lun.precio
             }
-          })
+          }) */
 
           if (ventas.hasOwnProperty("medidas")) {
-            return {
+            return Object.assign({},{
               "FECHA": new Date(ventas.fecha_creacion_venta).toLocaleDateString('en-GB'),
               "NOMBRE CLIENTE": ventas.nombre_cliente,
-              "ACCESORIOS": JSON.stringify(accesorios),
-              "LUNAS": JSON.stringify(lunas),
-              "MONTURAS": JSON.stringify(monturas),
+              //"ACCESORIOS": JSON.stringify(accesorios),
+              //"LUNAS": JSON.stringify(lunas),
+              //"MONTURAS": JSON.stringify(monturas),
               "TOTAL": ventas.tipo_venta[0].precio_total == 0 ? "+0.00": ventas.tipo_venta[0].precio_total ,
               "ESF D": ventas.medidas[0].od_esferico == 0? "+0.00": ventas.medidas[0].od_esferico == 0,
               "CYL D": ventas.medidas[0].od_cilindrico == 0 ? "+0.00" : ventas.medidas[0].od_cilindrico,
@@ -878,13 +922,13 @@ export class ListSalesComponent implements OnInit {
               "FORMA DE PAGO": ventas.tipo_venta[0].forma_pago,
               "ESTADO": ventas.tipo_venta[0].deuda > 0 ? "DEUDA" : "PAGADO"
               
-            }
+            },monturas,lunas,accesorios)
           } else {
             return Object.assign({},{
               "FECHA": new Date(ventas.fecha_creacion_venta).toLocaleDateString('en-GB'),
               "NOMBRE CLIENTE": ventas.nombre_cliente,
-              "ACCESORIOS": JSON.stringify(accesorios),
-              "LUNAS": JSON.stringify(lunas),
+              //"ACCESORIOS": JSON.stringify(accesorios),
+              //"LUNAS": JSON.stringify(lunas),
               //"MONTURAS": JSON.stringify(monturas),
               "TOTAL": ventas.tipo_venta[0].precio_total == 0 ? "+0.00": ventas.tipo_venta[0].precio_total ,
               "USUARIO": ventas.nombre_vendedor.toUpperCase(),
@@ -892,11 +936,11 @@ export class ListSalesComponent implements OnInit {
               "ENCARGADO MEDICION": ventas.encargado_medicion ? ventas.encargado_medicion.toUpperCase() : null,
               "FORMA DE PAGO": ventas.tipo_venta[0].forma_pago,
               "ESTADO": ventas.tipo_venta[0].deuda > 0 ? "DEUDA" : "PAGADO",
-            },monturas )
+            },monturas,lunas,accesorios )
           }
 
         });
-        console.log(data)
+
         const worksheet = XLSX.utils.json_to_sheet(data);
         const workbook = {
           Sheets: {
