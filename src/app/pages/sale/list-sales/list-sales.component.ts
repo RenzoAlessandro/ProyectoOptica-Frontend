@@ -819,86 +819,33 @@ export class ListSalesComponent implements OnInit {
       let lunas ={};
       let accesorios ={};
 
+      
+
       this.ventaService.getVentasByDate(fechaIni, fechaFin, this.idSede).subscribe(res => {
         this.excelVentas = res;
 
-        for (let ind = 0; ind < this.excelVentas.length; ind++) {
+        console.log(this.excelVentas);
+        
+        data = this.excelVentas.map((ventas: VentasModel) => {
 
-          if (this.excelVentas[ind].list_monturas.length != 0) {
-            for (let index = 0; index < this.excelVentas[ind].list_monturas.length; index++) {
-              monturas["MONT CODIGO"+index] = this.excelVentas[ind].list_monturas[index].codigo
-              monturas["MONT P VENTA"+index] = this.excelVentas[ind].list_monturas[index].precio_montura_v
-              monturas["MONT P COMPRA"+index] = this.excelVentas[ind].list_monturas[index].precio_montura_c
-              monturas["MONT CANT VENDIDA"+index] = this.excelVentas[ind].list_monturas[index].cant_vendida
-              monturas["MONT MARCA"+index] = this.excelVentas[ind].list_monturas[index].marca
-              monturas["MONT MATERIAL"+index] = this.excelVentas[ind].list_monturas[index].material
-              monturas["MONT COLOR"+index] = this.excelVentas[ind].list_monturas[index].color
-              monturas["MONT SUMA TOTAL"+index] = this.excelVentas[ind].list_monturas[index].precio  
-            }
-          } else {
-              monturas["MONT CODIGO"+ind] = ''
-              monturas["MONT P VENTA"+ind] = ''
-              monturas["MONT P COMPRA"+ind] = ''
-              monturas["MONT CANT VENDIDA"+ind] = ''
-              monturas["MONT MARCA"+ind] =''
-              monturas["MONT MATERIAL"+ind] = ''
-              monturas["MONT COLOR"+ind] = ''
-              monturas["MONT SUMA TOTAL"+ind] = ''
+          let monturasTemp = {};
+
+          for(var ind = 0; ind < ventas.list_monturas.length; ind++){
+
+            monturasTemp[`MONT ${(ind+1)} CODIGO`] = ventas.list_monturas[ind].codigo
+            monturasTemp[`MONT ${(ind+1)} P VENTA`] = ventas.list_monturas[ind].precio_montura_v
+            monturasTemp[`MONT ${(ind+1)} P COMPRA`] = ventas.list_monturas[ind].precio_montura_c
+            monturasTemp[`MONT ${(ind+1)} CANT VENDIDA`] = ventas.list_monturas[ind].cant_vendida
+            monturasTemp[`MONT ${(ind+1)} MARCA`] = ventas.list_monturas[ind].marca
+            monturasTemp[`MONT ${(ind+1)} MATERIAL`] = ventas.list_monturas[ind].material
+            monturasTemp[`MONT ${(ind+1)} COLOR`] = ventas.list_monturas[ind].color
+
+            // console.log(ventas.list_monturas[i].material);
+
           }
-        }
-          
-        for (let ind = 0; ind < this.excelVentas.length; ind++) {
-          for (let index = 0; index < this.excelVentas[ind].list_accesorios.length; index++) {
-            accesorios["ACC NOMBRE"+index] = this.excelVentas[ind].list_accesorios[index].nombre_accesorio
-            accesorios["ACC P VENTA"+index] = this.excelVentas[ind].list_accesorios[index].precio_accesorio_v
-            accesorios["ACC P COMPRA"+index] = this.excelVentas[ind].list_accesorios[index].precio_accesorio_c
-            accesorios["ACC CANT VENDIDA"+index] = this.excelVentas[ind].list_accesorios[index].cant_vendida
-            accesorios["ACC SUMA TOTAL"+index] = this.excelVentas[ind].list_accesorios[index].precio
-            
-          }
-        };
-        for (let ind = 0; ind < this.excelVentas.length; ind++) {
-          for (let index = 0; index < this.excelVentas[ind].list_lunas.length; index++) {
-            lunas["LUN MATERIAL"+index] = this.excelVentas[ind].list_lunas[index].material;
-            lunas["LUN P VENTA"+index] = this.excelVentas[ind].list_lunas[index].precio_luna_v;
-            lunas["LUN P COMPRA"+index] = this.excelVentas[ind].list_lunas[index].precio_luna_c;
-            lunas["LUN CANT VENDIDA"+index] = this.excelVentas[ind].list_lunas[index].cant_vendida;
-            lunas["LUN SUMA TOTAL"+index] = this.excelVentas[ind].list_lunas[index].precio;
-            
-          }
-        };
-         data = this.excelVentas.map((ventas: VentasModel) => {
-          /*let accesorios = ventas.list_accesorios.map(acc => {
-            return {
-              "PRECIO VENTA": acc.precio_accesorio_v,
-              "PRECIO COMPRA": acc.precio_accesorio_c,
-              "CANTIDAD VENDIDA": acc.cant_vendida,
-              "NOMBRE": acc.nombre_accesorio,
-              "SUMA TOTAL": acc.precio
-            }
-          }) */
-          /* monturas = ventas.list_monturas.map(mont => {
-            return {
-              "CODIGO": mont.codigo,
-              "PRECIO VENTA": mont.precio_montura_v,
-              "PRECIO COMPRA": mont.precio_montura_c,
-              "CANTIDAD VENDIDA": mont.cant_vendida,
-              "MARCA": mont.marca,
-              "MATERIAL": mont.material,
-              "COLOR": mont.color,
-              "SUMA TOTAL": mont.precio
-            }
-          })  */
-          
-          /* let lunas = ventas.list_lunas.map(lun => {
-            return {
-              "PRECIO VENTA": lun.precio_luna_v,
-              "PRECIO COMPRA": lun.precio_luna_c,
-              "CANTIDAD VENDIDA": lun.cant_vendida,
-              "MATERIAL": lun.material,
-              "SUMA TOTAL": lun.precio
-            }
-          }) */
+          monturas = {...monturasTemp};
+          //console.log(monturas);
+
 
           if (ventas.hasOwnProperty("medidas")) {
             return Object.assign({},{
@@ -908,20 +855,19 @@ export class ListSalesComponent implements OnInit {
               //"LUNAS": JSON.stringify(lunas),
               //"MONTURAS": JSON.stringify(monturas),
               "TOTAL": ventas.tipo_venta[0].precio_total == 0 ? "+0.00": ventas.tipo_venta[0].precio_total ,
-              "ESF D": ventas.medidas[0].od_esferico == 0? "+0.00": ventas.medidas[0].od_esferico == 0,
+              "ESF D": ventas.medidas[0].od_esferico == 0? "+0.00": ventas.medidas[0].od_esferico,
               "CYL D": ventas.medidas[0].od_cilindrico == 0 ? "+0.00" : ventas.medidas[0].od_cilindrico,
-              "EJE D": ventas.medidas[0].od_eje == 0 ? "+0.00" : ventas.medidas[0].od_eje == 0,
+              "EJE D": ventas.medidas[0].od_eje == 0 ? "+0.00" : ventas.medidas[0].od_eje,
               "ESF I": ventas.medidas[0].oi_esferico == 0 ? "+0.00" : ventas.medidas[0].oi_esferico,
-              "CYL I": ventas.medidas[0].oi_esferico == 0 ? "+0.00" : ventas.medidas[0].oi_esferico == 0,
-              "EJE I": ventas.medidas[0].oi_esferico == 0 ? "+0.00" : ventas.medidas[0].oi_esferico == 0,
-              "DIP": ventas.medidas[0].dip == 0 ? "+0.00" : ventas.medidas[0].dip == 0,
-              "ADD": ventas.medidas[0].add == 0 ? "+0.00" : ventas.medidas[0].add == 0,
+              "CYL I": ventas.medidas[0].oi_cilindrico == 0 ? "+0.00" : ventas.medidas[0].oi_cilindrico,
+              "EJE I": ventas.medidas[0].oi_eje == 0 ? "+0.00" : ventas.medidas[0].oi_eje,
+              "DIP": ventas.medidas[0].dip == 0 ? "+0.00" : ventas.medidas[0].dip,
+              "ADD": ventas.medidas[0].add == 0 ? "+0.00" : ventas.medidas[0].add,
               "USUARIO": ventas.nombre_vendedor.toUpperCase(),
               "VENDEDOR": ventas.nombre_jalador ? ventas.nombre_jalador.toUpperCase() : null,
               "ENCARGADO MEDICION": ventas.encargado_medicion ? ventas.encargado_medicion.toUpperCase() : null,
-              "FORMA DE PAGO": ventas.tipo_venta[0].forma_pago,
+              "FORMA DE PAGO": ventas.tipo_venta[0].forma_pago.toUpperCase(),
               "ESTADO": ventas.tipo_venta[0].deuda > 0 ? "DEUDA" : "PAGADO"
-              
             },monturas,lunas,accesorios)
           } else {
             return Object.assign({},{
