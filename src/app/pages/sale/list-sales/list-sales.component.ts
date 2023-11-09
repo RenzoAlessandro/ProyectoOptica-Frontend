@@ -829,9 +829,10 @@ export class ListSalesComponent implements OnInit {
         data = this.excelVentas.map((ventas: VentasModel) => {
 
           let monturasTemp = {};
+          let lunasTemp = {};
+          let accesoriosTemp = {};
 
           for(var ind = 0; ind < ventas.list_monturas.length; ind++){
-
             monturasTemp[`MONT ${(ind+1)} CODIGO`] = ventas.list_monturas[ind].codigo
             monturasTemp[`MONT ${(ind+1)} P VENTA`] = ventas.list_monturas[ind].precio_montura_v
             monturasTemp[`MONT ${(ind+1)} P COMPRA`] = ventas.list_monturas[ind].precio_montura_c
@@ -839,13 +840,22 @@ export class ListSalesComponent implements OnInit {
             monturasTemp[`MONT ${(ind+1)} MARCA`] = ventas.list_monturas[ind].marca
             monturasTemp[`MONT ${(ind+1)} MATERIAL`] = ventas.list_monturas[ind].material
             monturasTemp[`MONT ${(ind+1)} COLOR`] = ventas.list_monturas[ind].color
-
-            // console.log(ventas.list_monturas[i].material);
-
           }
           monturas = {...monturasTemp};
-          //console.log(monturas);
-
+          for(var ind = 0; ind < ventas.list_lunas.length; ind++){
+            lunasTemp[`LUN ${(ind+1)} P VENTA`] = ventas.list_lunas[ind].precio_luna_v
+            lunasTemp[`LUN ${(ind+1)} P COMPRA`] = ventas.list_lunas[ind].precio_luna_c
+            lunasTemp[`LUN ${(ind+1)} CANT VENDIDA`] = ventas.list_lunas[ind].cant_vendida
+            lunasTemp[`LUN ${(ind+1)} MATERIAL`] = ventas.list_lunas[ind].material
+          }
+          lunas = {...lunasTemp};
+          for(var ind = 0; ind < ventas.list_accesorios.length; ind++){
+            accesoriosTemp[`LUN ${(ind+1)} P VENTA`] = ventas.list_accesorios[ind].precio_accesorio_v
+            accesoriosTemp[`LUN ${(ind+1)} P COMPRA`] = ventas.list_accesorios[ind].precio_accesorio_c
+            accesoriosTemp[`LUN ${(ind+1)} CANT VENDIDA`] = ventas.list_accesorios[ind].cant_vendida
+            accesoriosTemp[`LUN ${(ind+1)} NOMBRE`] = ventas.list_accesorios[ind].nombre_accesorio
+          }
+          accesorios = {...accesoriosTemp};
 
           if (ventas.hasOwnProperty("medidas")) {
             return Object.assign({},{
