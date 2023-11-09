@@ -38,6 +38,7 @@ export class ListStoresComponent implements OnInit {
 
   searchSedes = [];
   editLogoSede = '';
+  editlogoDOWNLOAD: string;
 
   constructor(
     public service: StoresService,
@@ -111,6 +112,7 @@ export class ListStoresComponent implements OnInit {
     this.f(this.telefono_tienda).setValue(data.telefono);
     this.sede.id_sede = data.id_sede;
     this.editLogoSede = data.logoURL;
+    this.editlogoDOWNLOAD = data.logoDOWNLOAD;
     this.modalService.open(DataModalEditStore, { centered: true, windowClass: 'modal-holder' });
   }
 
@@ -156,6 +158,7 @@ export class ListStoresComponent implements OnInit {
         formData.append('photo', this.files[0], this.files[0].name);
         this.sedeService.saveImageBackend(formData).subscribe(res => {
           this.sede.logoURL = res;
+          this.sede.logoDOWNLOAD = res.logoDOWNLOAD;
           this.sedeService.editSede(this.sede).subscribe(res => {
             this.files = [];
             this.modalService.dismissAll();
@@ -166,6 +169,7 @@ export class ListStoresComponent implements OnInit {
         })
       } else {
         this.sede.logoURL = this.editLogoSede;
+        this.sede.logoDOWNLOAD = this.editlogoDOWNLOAD;
         this.sedeService.editSede(this.sede).subscribe(res => {
           this.files = [];
           this.modalService.dismissAll();

@@ -264,16 +264,17 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
     return item.subItems !== undefined ? item.subItems.length > 0 : false;
   }
 
-  getListSedes() {
-    this.sedeService.getSedes().subscribe(res=> {
+   getListSedes() {
+    /* this.sedeService.getSedes().subscribe(res=> {
+      console.log(res)
       this.listSedes = res;
       let idSede = this.usuarioService.getSedebyUser();
       this.sede = res.find(sede => sede.id_sede === idSede);
         this.logoURL = this.sede.logoURL;
         localStorage.setItem("sedes",JSON.stringify(res));
-    })
-    
-    }
+    }) */
+    this.logoURL = JSON.parse(localStorage.getItem('logoURL'));
+    } 
   
    
 }

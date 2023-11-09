@@ -7,6 +7,7 @@ import { SedesModel } from 'src/models/sedes';
 import { UsersModel } from 'src/models/user';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { delay } from 'rxjs/operators';
+import { SedeService } from './sede.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +20,11 @@ export class UsuarioService {
   tokenSubscription = new Subscription();
   roleAs: string;
   usuario: UsersModel;
+  sede: any;
   constructor(
     private http: HttpClient,
     private router: Router,
-    
+    private sedeService: SedeService
   ) { }
 
   getUsers(): Observable<any> {
@@ -78,9 +80,20 @@ export class UsuarioService {
     //this.user = user;
     //this.emit({ username: this.user.username });
     this.expirationCounter(expires);
+    this.getListSedes();
     this.router.navigate(['home']);
     this.getRole();
   }
+
+  getListSedes() {
+    this.sedeService.getSedes().subscribe(res=> {
+      let idSede = this.getSedebyUser();
+    this.sede = res.find(sede => sede.id_sede === idSede);
+      console.log(this.sede)
+      localStorage.setItem("sedes",JSON.stringify(res));
+      localStorage.setItem("logoURL",JSON.stringify(this.sede.logoURL));
+    })
+  } 
 
   expirationCounter(timeout) {
     this.tokenSubscription.unsubscribe();

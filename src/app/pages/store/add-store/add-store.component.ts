@@ -109,7 +109,9 @@ export class AddStoreComponent implements OnInit {
       if (this.files.length != 0) {
         formData.append('photo', this.files[0], this.files[0].name);
         this.sedeService.saveImageBackend(formData).subscribe(res => {
-          this.sede.logoURL = res;
+          console.log(res)
+          this.sede.logoURL = res.logoURL;
+          this.sede.logoDOWNLOAD = res.logoDOWNLOAD;
           this.sedeService.createSede(this.sede).subscribe(res => {
             this.files = [];
             Sweetalert("close", null);
@@ -120,6 +122,7 @@ export class AddStoreComponent implements OnInit {
       } else {
         this.sedeService.createSede(this.sede).subscribe(res => {
           this.sede.logoURL = null;
+          this.sede.logoDOWNLOAD = null;
           this.files = [];
           Sweetalert("close", null);
           Sweetalert("success", "Tienda guardada");

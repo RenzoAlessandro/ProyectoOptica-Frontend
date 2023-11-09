@@ -64,7 +64,6 @@ export class LoginComponent implements OnInit {
       
       this.usuarioService.signIn(vendedor).subscribe(res=> {
         this.usuarioService.storeUserData(res.token, res.onlyDataUser);
-        this.getListSedes();
         Sweetalert("close", null);
       }) 
 
@@ -73,14 +72,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-   getListSedes() {
-    this.sedeService.getSedes().subscribe(res=> {
-      let idSede = this.usuarioService.getSedebyUser();
-    this.sede = res.find(sede => sede.id_sede === idSede);
-      //LOGO_URL = this.sede.logoURL;
-      localStorage.setItem("sedes",JSON.stringify(res));
-    })
-  } 
+   
 
 }
 

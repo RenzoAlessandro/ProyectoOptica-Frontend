@@ -8,5 +8,7 @@ export class SedesModel {
     color: string;
     telefono: string;
     ruc: string; 
-    logoURL: string
+    logoURL?: string
+    logoDOWNLOAD?: string;
+    logoBase64?:string
 }

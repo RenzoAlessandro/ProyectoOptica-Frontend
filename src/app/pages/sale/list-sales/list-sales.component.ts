@@ -527,11 +527,6 @@ export class ListSalesComponent implements OnInit {
 
 
     const pdfDefinition: any = {
-       /* images: {
-        MyImage: {
-          url: this.sedeActual.logoURL,
-        }
-      }, */
       pageSize: 'A4',
       //pageOrientation: 'landscape',
       pageMargins: [ 40, 10, 40, 10 ], // left, top, right, botton
@@ -549,7 +544,7 @@ export class ListSalesComponent implements OnInit {
                     table: {
                       widths: ['*'],
                       body: [
-                         [{ image: await getBase64ImageFromURL("https://media.geeksforgeeks.org/wp-content/uploads/20220726175411/GFG.png"), width: 230}],
+                         [{ image: "data:image/png;base64,"+this.sedeActual.logoBase64, width: 230}],
                         //[{ image: 'MyImage', width: 230}],
                         [{ text: 'De ' + propietarioEmpresa, alignment: 'center' }],
                       ]
