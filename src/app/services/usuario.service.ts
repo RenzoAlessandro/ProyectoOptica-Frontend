@@ -87,9 +87,9 @@ export class UsuarioService {
 
   getListSedes() {
     this.sedeService.getSedes().subscribe(res=> {
+      console.log(res)
       let idSede = this.getSedebyUser();
     this.sede = res.find(sede => sede.id_sede === idSede);
-      console.log(this.sede)
       localStorage.setItem("sedes",JSON.stringify(res));
       localStorage.setItem("logoURL",JSON.stringify(this.sede.logoURL));
     })

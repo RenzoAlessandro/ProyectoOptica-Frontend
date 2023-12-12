@@ -544,7 +544,7 @@ export class ListSalesComponent implements OnInit {
                     table: {
                       widths: ['*'],
                       body: [
-                         [{ image: "data:image/png;base64,"+this.sedeActual.logoBase64, width: 230}],
+                         [{ image: "data:image/png;base64,", width: 230}],
                         //[{ image: 'MyImage', width: 230}],
                         [{ text: 'De ' + propietarioEmpresa, alignment: 'center' }],
                       ]

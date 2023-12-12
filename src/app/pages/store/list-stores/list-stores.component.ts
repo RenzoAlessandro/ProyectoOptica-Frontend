@@ -176,6 +176,7 @@ export class ListStoresComponent implements OnInit {
           Sweetalert("close", null);
           Sweetalert("success", "Tienda actualizada");
           this.formEditarTiendas.reset();
+          this.getListSedes();
         });
       }
     } else {

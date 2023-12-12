@@ -10,5 +10,4 @@ export class SedesModel {
     ruc: string; 
     logoURL?: string
     logoDOWNLOAD?: string;
-    logoBase64?:string
 }
