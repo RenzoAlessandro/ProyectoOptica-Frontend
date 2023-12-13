@@ -369,7 +369,11 @@ export class ListSalesComponent implements OnInit {
 
   createPDF(venta: VentasModel) {
     this.customerService.getAllClientbyId(venta.id_cliente).subscribe((res: CustomersModel) => {
-      this.generatePDF(venta, res[0]);
+      
+      //this.generatePDF(venta, res[0]);
+      this.ventaService.getPDF(venta).subscribe(res =>{
+        
+      })
     })
   }
 

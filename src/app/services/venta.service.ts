@@ -34,4 +34,8 @@ export class VentaService {
   getVentasEliminadasbySede(idSede: string): Observable<any> {
     return this.http.get<any>(environment.urlBackend+'getAllVentasEliminadasBySede/'+idSede);
   }
+
+  getPDF(objPDF:any): Observable<any> {
+    return this.http.post<any>(environment.urlBackend+'getPDF', objPDF);
+  }
 }

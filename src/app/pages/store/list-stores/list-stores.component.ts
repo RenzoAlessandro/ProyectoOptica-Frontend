@@ -157,8 +157,9 @@ export class ListStoresComponent implements OnInit {
       if (this.files.length != 0) {
         formData.append('photo', this.files[0], this.files[0].name);
         this.sedeService.saveImageBackend(formData).subscribe(res => {
-          this.sede.logoURL = res;
+          this.sede.logoURL = res.logoURL;
           this.sede.logoDOWNLOAD = res.logoDOWNLOAD;
+          console.log(this.sede)
           this.sedeService.editSede(this.sede).subscribe(res => {
             this.files = [];
             this.modalService.dismissAll();
@@ -170,6 +171,7 @@ export class ListStoresComponent implements OnInit {
       } else {
         this.sede.logoURL = this.editLogoSede;
         this.sede.logoDOWNLOAD = this.editlogoDOWNLOAD;
+        console.log(this.sede)
         this.sedeService.editSede(this.sede).subscribe(res => {
           this.files = [];
           this.modalService.dismissAll();
