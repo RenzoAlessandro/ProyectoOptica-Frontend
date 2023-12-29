@@ -20,4 +20,5 @@ export class VentasModel {
     nombre_jalador:string;
     encargado_medicion:string;
     medidas: Array<MedidasModel>
+    urlImgSede?: string;
 }

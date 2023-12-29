@@ -369,10 +369,26 @@ export class ListSalesComponent implements OnInit {
 
   createPDF(venta: VentasModel) {
     this.customerService.getAllClientbyId(venta.id_cliente).subscribe((res: CustomersModel) => {
-      
-      //this.generatePDF(venta, res[0]);
+      console.log(venta)
+      venta.urlImgSede = this.sedeActual.logoURL;
       this.ventaService.getPDF(venta).subscribe(res =>{
+        
+        const byteArray = new Uint8Array(
+          atob(res)
+            .split("")
+            .map(char => char.charCodeAt(0))
+        );
 
+
+        const blob = new Blob([byteArray], {type:'application/pdf'});
+        //console.log(res.type)
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.href = url;
+        a.download = "hol";
+        a.click();
       })
     })
   }
