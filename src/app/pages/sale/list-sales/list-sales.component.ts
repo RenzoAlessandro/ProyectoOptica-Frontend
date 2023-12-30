@@ -369,7 +369,7 @@ export class ListSalesComponent implements OnInit {
 
   createPDF(venta: VentasModel) {
     this.customerService.getAllClientbyId(venta.id_cliente).subscribe((res: CustomersModel) => {
-      console.log(venta)
+      // console.log(venta)
       venta.urlImgSede = this.sedeActual.logoURL;
       this.ventaService.getPDF(venta).subscribe(res =>{
         
