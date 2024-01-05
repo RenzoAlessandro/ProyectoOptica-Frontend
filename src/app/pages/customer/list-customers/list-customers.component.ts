@@ -17,6 +17,8 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import { getBase64ImageFromURL } from 'src/utils/functions';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { SedesModel } from 'src/models/sedes';
 
 @Component({
   selector: 'app-list-customers',
@@ -52,6 +54,8 @@ export class ListCustomersComponent implements OnInit {
   customer = new CustomersModel;
   medidas = new MedidasModel;
   submitted = false;
+  idSede: string = "";
+  sedeActual = new SedesModel;
 
   lettersPattern = '[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'; // Incluimos Ññ y tildes en cada vocal
   numberPattern = '^[0-9]+$|^\S*$';
@@ -84,7 +88,8 @@ export class ListCustomersComponent implements OnInit {
     public service: CustomerService, 
     private modalService: NgbModal, 
     private fb: FormBuilder,
-    private customerService: ClienteService) {
+    private customerService: ClienteService,
+    private usuarioService: UsuarioService,) {
     this.customers$ = service.customers$;
     this.total$ = service.total$;
     service.mostrar.subscribe(res=>{
@@ -95,6 +100,7 @@ export class ListCustomersComponent implements OnInit {
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Clientes' }, { label: 'Lista de Clientes', active: true }];
     this.crearFormulario();
+    this.getListSedes();
   }
 
   f(campo:any){
@@ -365,7 +371,43 @@ export class ListCustomersComponent implements OnInit {
     return this.formCustomer.controls;
   }
 
-  async createPDF(){
+  getListSedes() {
+    this.listSedes = JSON.parse(localStorage.getItem('sedes'));
+    this.idSede = this.usuarioService.getSedebyUser();
+    this.sedeActual = this.getSedeActual(this.idSede,this.listSedes);
+  }
+
+  getSedeActual (idSede:string, sedes:any): SedesModel {
+    let sedeActual = sedes.find(sede => sede.id_sede === idSede);
+    return sedeActual;
+  }
+
+  createPDF() {
+    let objReceta = {
+      cliente: this.userPrint,
+      sede: this.sedeActual
+    }
+    this.customerService.getRecetaPDF(objReceta).subscribe(res => {
+      const byteArray = new Uint8Array(
+        atob(res)
+          .split("")
+          .map(char => char.charCodeAt(0))
+      );
+
+
+      const blob = new Blob([byteArray], {type:'application/pdf'});
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.href = url;
+      a.download = "receta";
+      a.click();
+    })
+  }
+
+  async createPDFfront(){
     var fonts = {
       Roboto: {
         normal: 'fonts/Roboto-Regular.ttf',
@@ -389,8 +431,7 @@ export class ListCustomersComponent implements OnInit {
     var dniCliente = this.userPrint.dni;
     var fnacimientoCliente = new Date (this.userPrint.fecha_nacimiento).toLocaleDateString('en-GB');
     var telefonoCliente = this.userPrint.telefono ? this.userPrint.telefono : "Sin especificar.";
-    // var direccionCliente = this.userPrint.direccion ? this.userPrint.direccion : "Sin especificar.";
-    // var correoCliente = this.userPrint.email ? this.userPrint.email : "Sin especificar.";
+
 
     var od_esf_Cliente = this.userPrint.medidas[0].od_esferico > 0? '+'+this.userPrint.medidas[0].od_esferico.toFixed(2): this.userPrint.medidas[0].od_esferico.toFixed(2) ;
     var od_cil_Cliente = this.userPrint.medidas[0].od_cilindrico > 0 ? '+'+this.userPrint.medidas[0].od_cilindrico.toFixed(2) : this.userPrint.medidas[0].od_cilindrico.toFixed(2);

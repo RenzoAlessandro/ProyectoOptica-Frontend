@@ -369,9 +369,11 @@ export class ListSalesComponent implements OnInit {
 
   createPDF(venta: VentasModel) {
     this.customerService.getAllClientbyId(venta.id_cliente).subscribe((res: CustomersModel) => {
-      // console.log(venta)
-      venta.urlImgSede = this.sedeActual.logoURL;
-      this.ventaService.getPDF(venta).subscribe(res =>{
+      let tmp = Object.assign({},res[0],venta);
+      const {direccion: direccionCliente,telefono:telefonoCliente, ...rest} = tmp; 
+      const updatedObject = { direccionCliente,telefonoCliente, ...rest };
+      const objPDF = Object.assign({},updatedObject,this.sedeActual)
+      this.ventaService.getPDF(objPDF).subscribe(res =>{
         
         const byteArray = new Uint8Array(
           atob(res)
@@ -381,13 +383,12 @@ export class ListSalesComponent implements OnInit {
 
 
         const blob = new Blob([byteArray], {type:'application/pdf'});
-        //console.log(res.type)
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.style.display = 'none';
         document.body.appendChild(a);
         a.href = url;
-        a.download = "hol";
+        a.download = "venta";
         a.click();
       })
     })
@@ -808,6 +809,7 @@ export class ListSalesComponent implements OnInit {
   changeSedes() {
     this.idSede = this.fS(this.nombre_sedes).value;
     this.getListVentas(this.idSede);
+    this.sedeActual = this.getSedeActual(this.idSede,this.listSedes);
   }
 
   getListVentas(sede: string) {
@@ -838,8 +840,6 @@ export class ListSalesComponent implements OnInit {
 
       this.ventaService.getVentasByDate(fechaIni, fechaFin, this.idSede).subscribe(res => {
         this.excelVentas = res;
-
-        console.log(this.excelVentas);
         
         data = this.excelVentas.map((ventas: VentasModel) => {
 

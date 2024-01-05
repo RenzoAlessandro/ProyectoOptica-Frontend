@@ -39,4 +39,8 @@ export class ClienteService {
   darBajaClient(idClient:string): Observable<any> {
     return this.http.put<any>(environment.urlBackend+'darBajaClienteById/'+idClient,idClient);
   }
+
+  getRecetaPDF(objReceta): Observable<any> {
+    return this.http.post<any>(environment.urlBackend+'getRecetaPDF', objReceta);
+  }
 }

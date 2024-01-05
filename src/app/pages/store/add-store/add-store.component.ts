@@ -109,7 +109,6 @@ export class AddStoreComponent implements OnInit {
       if (this.files.length != 0) {
         formData.append('photo', this.files[0], this.files[0].name);
         this.sedeService.saveImageBackend(formData).subscribe(res => {
-          console.log(res)
           this.sede.logoURL = res.logoURL;
           this.sede.logoDOWNLOAD = res.logoDOWNLOAD;
           this.sedeService.createSede(this.sede).subscribe(res => {

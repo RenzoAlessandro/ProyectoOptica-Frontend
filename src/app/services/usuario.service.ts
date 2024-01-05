@@ -87,7 +87,6 @@ export class UsuarioService {
 
   getListSedes() {
     this.sedeService.getSedes().subscribe(res=> {
-      console.log(res)
       let idSede = this.getSedebyUser();
     this.sede = res.find(sede => sede.id_sede === idSede);
       localStorage.setItem("sedes",JSON.stringify(res));
