@@ -214,7 +214,7 @@
               <!-- <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
                 <ngx-dropzone-label>{{ f.name }} </ngx-dropzone-label>
               </ngx-dropzone-preview> -->
-              <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+              <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" accept="'image/jpeg,image/jpg,image/png'" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
                 <!-- <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label> -->
               </ngx-dropzone-image-preview>
             </div>

@@ -161,6 +161,7 @@ export class ListStoresComponent implements OnInit {
           this.sede.logoDOWNLOAD = res.logoDOWNLOAD;
           this.sedeService.editSede(this.sede).subscribe(res => {
             this.files = [];
+            this.getListSedesJSON();
             this.modalService.dismissAll();
             Sweetalert("close", null);
             Sweetalert("success", "Tienda actualizada");
@@ -172,6 +173,7 @@ export class ListStoresComponent implements OnInit {
         this.sede.logoDOWNLOAD = this.editlogoDOWNLOAD;
         this.sedeService.editSede(this.sede).subscribe(res => {
           this.files = [];
+          this.getListSedesJSON();
           this.modalService.dismissAll();
           Sweetalert("close", null);
           Sweetalert("success", "Tienda actualizada");
@@ -183,6 +185,12 @@ export class ListStoresComponent implements OnInit {
       return;
     }
   }
+
+  getListSedesJSON() {
+    this.sedeService.getSedes().subscribe(res=> {
+      localStorage.setItem("sedes",JSON.stringify(res));
+    })
+  } 
 
   updateListStores() {
     this.sedeService.getSedes().subscribe(res => {

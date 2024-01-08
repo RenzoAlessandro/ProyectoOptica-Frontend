@@ -113,6 +113,7 @@ export class AddStoreComponent implements OnInit {
           this.sede.logoDOWNLOAD = res.logoDOWNLOAD;
           this.sedeService.createSede(this.sede).subscribe(res => {
             this.files = [];
+            this.getListSedes();
             Sweetalert("close", null);
             Sweetalert("success", "Tienda guardada");
             this.formTiendas.reset();
@@ -123,6 +124,7 @@ export class AddStoreComponent implements OnInit {
           this.sede.logoURL = null;
           this.sede.logoDOWNLOAD = null;
           this.files = [];
+          this.getListSedes();
           Sweetalert("close", null);
           Sweetalert("success", "Tienda guardada");
           this.formTiendas.reset();
@@ -136,6 +138,13 @@ export class AddStoreComponent implements OnInit {
 
     }
   }
+
+  getListSedes() {
+    this.sedeService.getSedes().subscribe(res=> {
+      localStorage.setItem("sedes",JSON.stringify(res));
+    })
+  } 
+
 
   /**
    * Returns form Tienda
