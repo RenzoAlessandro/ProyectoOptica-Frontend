@@ -25,6 +25,7 @@ import { SedesModel } from 'src/models/sedes';
 import { MonturasModel } from 'src/models/monturas';
 import { LunasModel } from 'src/models/lunas';
 import { AccesorioModel } from 'src/models/accesorio';
+import { VentaService } from 'src/app/services/venta.service';
 
 @Component({
   selector: 'app-add-sale',
@@ -124,7 +125,7 @@ export class AddSaleComponent implements OnInit {
       id: 3, nombre: "Accesorios",
     },
   ];
-
+  sedeActual = new SedesModel;
 
   constructor(
     private fb: FormBuilder,
@@ -132,6 +133,7 @@ export class AddSaleComponent implements OnInit {
     private productosService: ProductosService,
     private customerService: ClienteService,
     private usuarioService: UsuarioService,
+    private ventaService: VentaService,
   ) {
   }
 
@@ -145,6 +147,12 @@ export class AddSaleComponent implements OnInit {
   getListSedes() {
     this.listSedes = JSON.parse(localStorage.getItem('sedes'));
     this.idSede = this.usuarioService.getSedebyUser();
+    this.sedeActual = this.getSedeActual(this.idSede,this.listSedes);
+  }
+
+  getSedeActual (idSede:string, sedes:any): SedesModel {
+    let sedeActual = sedes.find(sede => sede.id_sede === idSede);
+    return sedeActual;
   }
   
   crearFormularioEditarPrecio() {
@@ -167,6 +175,7 @@ export class AddSaleComponent implements OnInit {
   changeSede() {
     this.idSede = this.fS(this.nombre_sedes).value;
     this.updateProductosbySede(this.idSede);
+    this.sedeActual = this.getSedeActual(this.idSede,this.listSedes);
   }
 
   updateProductosbySede(idSede:string) {
@@ -677,21 +686,42 @@ export class AddSaleComponent implements OnInit {
         if (result.value) {
           Sweetalert("loading", "Cargando...");
           this.productosService.createVenta(this.venta).subscribe(res => {
-            this.createPDF(this.venta, this.customer);
-            Sweetalert("close", null);
-            Sweetalert("success", "Venta realizada");
-            this.modalService.dismissAll();
-            this.products = [];
-            this.getListMonturas(this.idSede);
-            this.estadoBotonGuardar();
+            let tmp = Object.assign({},this.customer,this.venta);
+            const {direccion: direccionCliente,telefono:telefonoCliente, ...rest} = tmp; 
+            const updatedObject = { direccionCliente,telefonoCliente, ...rest };
+            const objPDF = Object.assign({},updatedObject,this.sedeActual)
+            this.ventaService.getPDF(objPDF).subscribe(res => {
+              Sweetalert("close", null);
+              Sweetalert("success", "Venta realizada");
+              this.modalService.dismissAll();
+              this.products = [];
+              this.getListMonturas(this.idSede);
+              this.estadoBotonGuardar();
+              const byteArray = new Uint8Array(
+                atob(res)
+                  .split("")
+                  .map(char => char.charCodeAt(0))
+              );
+      
+      
+              const blob = new Blob([byteArray], {type:'application/pdf'});
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.style.display = 'none';
+              document.body.appendChild(a);
+              a.href = url;
+              a.download = "venta";
+              a.click();
+            }) 
+           
           },
-            (error) => {
+             (error) => {
               Sweetalert("close", null);
               if (error.status !== 404) {
 
                 Sweetalert("error", "Error en la conexión");
               }
-            });
+            }); 
         } else if (
 
           /* Read more about handling dismissals below */
