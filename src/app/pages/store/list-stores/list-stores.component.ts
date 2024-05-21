@@ -235,7 +235,6 @@ export class ListStoresComponent implements OnInit {
       })
       .then(result => {
         if (result.value) {
-          console.log(data)
           //Sweetalert("loading", "Cargando...");
           /* this.productosService.createVenta(this.venta).subscribe(res => {
             this.createPDF(this.venta, this.customer);

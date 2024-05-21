@@ -374,7 +374,6 @@ export class ListSalesComponent implements OnInit {
       const updatedObject = { direccionCliente,telefonoCliente, ...rest };
       const objPDF = Object.assign({},updatedObject,this.sedeActual)
       this.ventaService.getPDF(objPDF).subscribe(res =>{
-        
         const byteArray = new Uint8Array(
           atob(res)
             .split("")

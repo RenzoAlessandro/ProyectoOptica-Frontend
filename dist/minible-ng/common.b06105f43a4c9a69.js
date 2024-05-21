@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkminible_ng=self.webpackChunkminible_ng||[]).push([[592],{16550:(n,e,s)=>{s.d(e,{t:()=>l});class l{}}}]);
