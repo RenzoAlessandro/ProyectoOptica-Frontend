@@ -14,7 +14,7 @@
               <div class="col-12">
                 <div class="mb-3">
                   <label for="validationCustom01">Nombre *</label>
-                  <input class="form-control" placeholder="Nombre de la tienda" type="text" name="title"
+                  <input class="form-control" id="" placeholder="Nombre de la tienda" type="text" name="title"
                     formControlName="{{this.nombre_tienda}}"
                     [ngClass]="{'is-invalid': formT.campoNombreTienda.invalid && (formT.campoNombreTienda.dirty || formT.campoNombreTienda.touched)}" />
                   <div class="invalid-feedback">
@@ -35,8 +35,8 @@
             <div class="row">
               <div class="col-12 col-sm-12">
                 <div class="mb-3">
-                  <label for="validationCustom01">Dirección *</label>
-                  <input class="form-control" placeholder="Dirección de la tienda" type="text" name="title"
+                  <label for="add-store-direccion">Dirección *</label>
+                  <input class="form-control" id="add-store-direccion" placeholder="Dirección de la tienda" type="text" name="title"
                     formControlName="{{this.direccion_tienda}}"
                     [ngClass]="{'is-invalid': formT.campoDireccionTienda.invalid && (formT.campoDireccionTienda.dirty || formT.campoDireccionTienda.touched)}" />
                   <div class="invalid-feedback">
@@ -57,8 +57,8 @@
             <div class="row">
               <div class="col-12 col-sm-12">
                 <div class="mb-3">
-                  <label for="validationCustom01">RUC *</label>
-                  <input class="form-control" placeholder="RUC de la tienda" type="text" name="title"
+                  <label for="add-store-ruc">RUC *</label>
+                  <input class="form-control" id="add-store-ruc" placeholder="RUC de la tienda" type="text" name="title"
                     formControlName="{{this.ruc_tienda}}"
                     [ngClass]="{'is-invalid': formT.campoRucTienda.invalid && (formT.campoRucTienda.dirty || formT.campoRucTienda.touched)}" />
                   <div class="invalid-feedback">
@@ -82,8 +82,8 @@
             <div class="row">
               <div class="col-12 col-sm-12">
                 <div class="mb-3">
-                  <label for="validationCustom01">Teléfono *</label>
-                  <input class="form-control" placeholder="Teléfono de la tienda" type="text" name="title"
+                  <label for="add-store-telefono">Teléfono *</label>
+                  <input class="form-control" id="add-store-telefono" placeholder="Teléfono de la tienda" type="text" name="title"
                     formControlName="{{this.telefono_tienda}}"
                     [ngClass]="{'is-invalid': formT.campoTelefonoTienda.invalid && (formT.campoTelefonoTienda.dirty || formT.campoTelefonoTienda.touched)}" />
                   <div class="invalid-feedback">
@@ -107,7 +107,7 @@
             <div class="row">
               <div class="col-12 col-sm-12">
                 <div class="mb-3">
-                  <label for="validationCustom01">Logo de la Tienda</label>
+                  <label for="add-store-logo">Logo de la Tienda</label>
                   <div class="custom-dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
                     <ngx-dropzone-label>
                       <div>
