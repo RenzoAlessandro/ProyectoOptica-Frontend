@@ -294,8 +294,8 @@ export class UpdateExcelComponent implements OnInit {
     let producto: Array<any>;
     if (this.validarCabeceraExcelCreate(data, tipoProducto)) {
       producto = this.objExceltoDBCreate(data, tipoProducto);
-      const idSede = producto[0].id_sede
-      /* if (this.validarIdSede(data, idSede) && this.validarTipo(data, tipoProducto)) {
+      const idSede = producto[0].id_sede;
+      if (this.validarIdSede(data, idSede) && this.validarTipo(data, tipoProducto)) {
         Sweetalert("loading", "Cargando...");
         this.productoService.createProductsbyExcel(producto).subscribe(res => {
           Sweetalert("close", null);
@@ -306,7 +306,7 @@ export class UpdateExcelComponent implements OnInit {
       } else {
         Sweetalert("error", "Columna ID SEDE o TIPO incorrectos o faltantes");
         return;
-      } */
+      } 
     } else {
       Sweetalert("error", "Excel con cabecera incorrecta");
       return;
