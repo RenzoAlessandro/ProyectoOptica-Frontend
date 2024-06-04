@@ -302,7 +302,7 @@ export class UpdateExcelComponent implements OnInit {
           Sweetalert("success", "Lista de " + tipoProducto + " creada");
           this.files = [];
           this.filebutton = false;
-        }) 
+        })  
       } else {
         Sweetalert("error", "Columna ID SEDE o TIPO incorrectos o faltantes");
         return;
