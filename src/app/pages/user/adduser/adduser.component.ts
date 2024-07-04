@@ -5,6 +5,7 @@ import { SedesModel } from 'src/models/sedes';
 import { UsersModel } from 'src/models/user';
 import { Sweetalert } from '../../../../utils/sweetalert';
 import Swal from 'sweetalert2';
+import { SedeService } from 'src/app/services/sede.service';
 
 @Component({
   selector: 'app-adduser',
@@ -52,12 +53,15 @@ export class AdduserComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
-  ) { }
+    private sedeService:SedeService
+  ) { 
+  }
 
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Usuarios' }, { label: 'Añadir Usuarios', active: true }];
+    this.listSedes = this.sedeService.getListSedes();
     this.crearFormulario();
-    this.getListSedes();
+    
   }
 
   crearFormulario(){
@@ -96,7 +100,9 @@ export class AdduserComponent implements OnInit {
         //Validators.required
       ]],
       [this.fechaCreacion]:[{value:this.fecha_actual.toLocaleDateString(), disabled: true}],
-      sede:[],
+      sede:[
+        this.listSedes[0].id_sede
+      ],
       [this.password]:[null,[
         Validators.required,
         Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{6,}$/),
@@ -135,13 +141,13 @@ export class AdduserComponent implements OnInit {
       this.user.email = this.f(this.email).value;
       this.user.contrasenia = this.f(this.password).value;
       Sweetalert("loading", "Cargando...");
-      this.usuarioService.createUsers(this.user).subscribe( res=>{
+        this.usuarioService.createUsers(this.user).subscribe( res=>{
         Sweetalert("close",null);
         Sweetalert("success", "Usuario guardado");
         this.mostrarUsuario(res.user)
         this.formRegister.reset();
         this.f(this.fechaCreacion).setValue(new Date(Date.now()).toLocaleDateString())
-      }) 
+      })  
     }
   }
 
@@ -175,6 +181,7 @@ export class AdduserComponent implements OnInit {
   getListSedes() {
     this.usuarioService.getSedes().subscribe(res=>{
       this.listSedes = res;
+      
     })
   }
 

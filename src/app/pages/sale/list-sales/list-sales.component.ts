@@ -389,7 +389,7 @@ export class ListSalesComponent implements OnInit {
         a.href = url;
         a.download = "venta";
         a.click();
-      })
+      }) 
     })
   }
 
