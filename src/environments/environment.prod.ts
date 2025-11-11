@@ -11,5 +11,5 @@ export const environment = {
     appId: '',
     measurementId: ''
   },
-  urlBackend:'http://98.84.137.168:5000/'
+  urlBackend:'https://98.84.137.168:5000/'
 };
