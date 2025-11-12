@@ -11,6 +11,6 @@ export const environment = {
     appId: '',
     measurementId: ''
   },
-  urlBackend: 'https://multivisionproductos.com/'
+  urlBackend: 'https://multivisionproductos.com/api/'
   // urlBackend:'https://54.90.131.54:5000/'
 };
